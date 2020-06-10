@@ -2,9 +2,10 @@ name="Doge EU4 Modpack"
 tags={
 	"Historical"
 	"Missions And Decisions"
-	"events"
+	"Events"
 	"Gameplay"
 	"New Nations"
+	"Fixes"
 }
-supported_version="1.29.*.*"
+supported_version="1.30.*.*"
 path="mod/DogeEU4"
