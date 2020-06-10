@@ -1,4 +1,5 @@
 name="Doge EU4 Modpack"
+replace_path="gfx/loadingscreens"
 tags={
 	"Historical"
 	"Missions And Decisions"
