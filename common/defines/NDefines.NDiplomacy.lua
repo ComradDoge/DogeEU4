@@ -3,8 +3,8 @@
 --NDefines.NDiplomacy.SPY_NETWORK_SIEGE_EFFECT = 0.5 -- Default 0.2
 
 --Sharing Map
-NDefines.NDiplomacy.SHAREMAP_PRESTIGE_TRANSFER_LOSE = -10,	-- Default -15. Prestige transferred for the Request to Share Maps diplomatic action.
-NDefines.NDiplomacy.SHAREMAP_PRESTIGE_TRANSFER_GAIN = 5,	-- Default 10. Prestige transferred for the Request to Share Maps diplomatic action.
+NDefines.NDiplomacy.SHAREMAP_PRESTIGE_TRANSFER_LOSE = -10	-- Default -15. Prestige transferred for the Request to Share Maps diplomatic action.
+NDefines.NDiplomacy.SHAREMAP_PRESTIGE_TRANSFER_GAIN = 5	-- Default 10. Prestige transferred for the Request to Share Maps diplomatic action.
 
 --Rebels
 NDefines.NDiplomacy.SUPPORT_REBELS_COST = 40 -- Default 60
