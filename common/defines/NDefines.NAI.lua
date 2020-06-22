@@ -1,4 +1,9 @@
--- Only Changes to NDefines.NAI should be here.
+----- DOGE NDefines.NDiplomacy -----
+
+
+--- ALL BEL IMPORTS ---
+-- I'll just hope this doesn't break anything and keep it as is for the time being.
+
 -- #arumba - changes to condottieri to block non-participation contracts
 NDefines.NAI.DIPLOMATIC_ACTION_OFFER_CONDOTTIERI_PARTICIPATION_BREAK = -1.1 -- (was -1.8) --At this level of (lack of) participation from the player, the AI will break the condottieri agreement and tell all their friends.  
 NDefines.NAI.DIPLOMATIC_ACTION_OFFER_CONDOTTIERI_PARTICIPATION_WARN = -0.5 -- At this level of (lack of) participation from the player, a warning alert will be displayed about impendent AI discontent.  -- (was -1.2)

@@ -1,3 +1,4 @@
--- Only Changes to NDefines.NGame should be here.
-NDefines.NGame.MAX_CUSTOM_COUNTRIES = 50
-NDefines.NGame.ABANDON_UNION_PRESTIGE = 0 --PGG Defines -25
+----- DOGE NDefines.NGame -----
+
+--Subjects
+NDefines.NGame.ABANDON_UNION_PRESTIGE = -5 --Default -25, QoL change. The change in prestige for the overlord when abandoning a personal union
