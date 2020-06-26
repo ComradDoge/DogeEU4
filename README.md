@@ -4,7 +4,7 @@ mod considering it has been dead for a long time. The mod itself will have bits 
 Also some AI logic and difficulty increase from excelmakesbelhappy although will see how those will work, considering it was made for a vanilla map.
 
 Nonetheless, the goal is a shattered EU4 mod that takes up the reins of the original version by Neprut but also bit from Maxos if any.
-I'll try to credit people as much as I can especially for additions. Although I will try to adapt them to shattered and most likely be different
+I'll try to credit people as much as I can especially for major stuff. Although I will try to adapt them to shattered and most likely be different
 from the original mod I took. After all I need to understand how they work, else the mod will be hard to update in the future for me.
 
 
