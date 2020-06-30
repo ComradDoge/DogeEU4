@@ -16,7 +16,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 - Maxos New Shattered by Maxos
 - New World Dynamic Colony Names by Cwrwi
 - Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
-
+- Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13
 
 
 # THINGS ALREADY DONE
@@ -26,7 +26,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 - A bunch of defines changes, mostly quality of life.
 - Loadings screens are 94% more weeby for the time being, this will most likely be gone at later stage.
 - Loading tips are 84% edgier, these might stay but probably remove the names.
-
+- World Shattered
 
 -The Shattering - A list of countries and info about them as I am modding them. Might be useful for some.
 https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0
@@ -36,7 +36,6 @@ https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEi
 
 - New Idea Groups
 - New Formables
-- Shattered Europe
 - Update the formable nations mod (and make a separate mod?)
 - Remove truces from countries
 - Remove Aragon/Castile/Naples PU stuff
