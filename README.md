@@ -16,7 +16,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 - Maxos New Shattered by Maxos
 - New World Dynamic Colony Names by Cwrwi
 - Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
-
+- Idea Groups Expanded 1.30.3 by Big Boss#8763. Thanks a bunch for letting me use it!
 
 
 # THINGS ALREADY DONE
