@@ -26,7 +26,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 - A bunch of defines changes, mostly quality of life.
 - Loadings screens are 94% more weeby for the time being, this will most likely be gone at later stage.
 - Loading tips are 84% edgier, these might stay but probably remove the names.
-
+- HRE Dismantled Bookmark added, HRE related events or missions still need to be fixed
 
 -The Shattering - A list of countries and info about them as I am modding them. Might be useful for some.
 https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0
