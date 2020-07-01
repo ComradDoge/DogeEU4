@@ -10,4 +10,5 @@ tags={
 	"Missions"
 }
 supported_version="1.30.*.*"
+picture="thumbnail.png"
 path="mod/DogeEU4"
