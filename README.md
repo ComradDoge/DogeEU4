@@ -16,7 +16,6 @@ Not all parts of the mods will be added or without changed, some might not have 
 - Maxos New Shattered by Maxos
 - New World Dynamic Colony Names by Cwrwi
 - Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
-- Idea Groups Expanded 1.30.3 by Big Boss#8763. Thanks a bunch for letting me use it!
 - Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13
 
 
@@ -26,10 +25,8 @@ Not all parts of the mods will be added or without changed, some might not have 
 - New World Province Localisation for specific cultures to add some flavour
 - Colonies no longer can colonize outside their region nor move their capital until independent. Normal countries are not restricted.
 - A bunch of defines changes, mostly quality of life.
-- Loadings screens are 94% more weeby for the time being, this will most likely be gone at later stage.
-- Loading tips are 84% edgier, these might stay but probably remove the names.
-- World Shattered
-- HRE Dismantled Bookmark added, HRE related events or missions still need to be fixed
+- World Shattered with additional tags.
+- HRE Dismantled Bookmark added, HRE related events and missions still need to be fixed
 
 
 
