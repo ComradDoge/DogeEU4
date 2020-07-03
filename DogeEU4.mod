@@ -8,5 +8,7 @@ tags={
 	"Alternative History"
 	"Missions"
 }
+picture="thumbnail.png"
 supported_version="1.30.*.*"
-path="mod/DogeEU4"
+path="C:/Users/raimu/Documents/Paradox Interactive/Europa Universalis IV/mod/DogeEU4"
+remote_file_id="2152606065"
