@@ -17,6 +17,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 - New World Dynamic Colony Names by Cwrwi
 - Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
 - Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13
+- Idea Variation by flogi
 
 
 
@@ -27,7 +28,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 - A bunch of defines changes, mostly quality of life.
 - World Shattered with additional tags.
 - HRE Dismantled Bookmark added, HRE related events and missions still need to be fixed
-
+- Idea groups added
 
 
 -The Shattering - A list of countries and info about them as I am modding them. Might be useful for some.
