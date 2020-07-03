@@ -31,8 +31,11 @@ Not all parts of the mods will be added or without changed, some might not have 
 - Idea groups added
 
 
--The Shattering - A list of countries and info about them as I am modding them. Might be useful for some.
+- The Shattering - A list of countries and info about them as I am modding them. Might be useful for some.
 https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0
+
+- The Steam Workshop
+https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 
 # THINGS TO DO?
