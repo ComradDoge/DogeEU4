@@ -16,7 +16,7 @@ NDefines.NDiplomacy.SUPPORT_REBELS_DURATION = 3 -- Default 5. Value in years
 NDefines.NDiplomacy.CHANGE_RIVAL_YEARS = 10 --Defines 25
 
 --Great Powers
-NDefines.NDiplomacy.NUM_OF_GREAT_POWERS = 10 -- Default 8
+NDefines.NDiplomacy.NUM_OF_GREAT_POWERS = 8 -- Default 8
 
 --Wars
 NDefines.NDiplomacy.DISHONORABLE_PEACE_MONTHS = 0 --Default 12. This is the thingie that forces you to wait a year before peacing out.
