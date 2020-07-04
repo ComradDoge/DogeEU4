@@ -1,4 +1,4 @@
-name=".Doge Shattered Europa"
+name="Doge - Shattered Europa"
 replace_path="history/diplomacy"
 replace_path="common/bookmarks"
 tags={
