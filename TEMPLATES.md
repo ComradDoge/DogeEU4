@@ -72,3 +72,7 @@ fleet_names = {}
 - add_local_autonomy = x
 - fort_15th = yes # 1st level fort
 - center_of_trade = 1
+
+
+### Government stuff
+change_government_reform_progress = X
