@@ -49,6 +49,11 @@
 }
 
 
+set_legacy_government = administrative_republic
+leader = {	name = "Ferenc Nadasdy"        	type = general	fire = 1	shock = 4	manuever = 4	siege = 0
+join_league = protestant
+leave_league = catholic
+
 ### common/countries
 graphical_culture = westerngfx
 color = {}
