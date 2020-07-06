@@ -348,6 +348,142 @@ christian = {
 		date = 1534.11.3 # act of supremacy
 	}
 	
+	cathar = {
+		color = { 210 170 240 }
+		icon = 25
+		
+		allowed_conversion = {
+			catholic
+			protestant
+			reformed
+			
+		}
+		allowed_center_conversion = {
+			catholic
+		}
+		province = {
+			local_missionary_strength = -0.01 #.02 ?
+		}
+		uses_church_power = yes				# Uses church power/aspect mechanics
+
+		aspects = {
+			#organised_through_bishops_aspect
+			translated_bibles_aspect
+			#cathar_castles_aspect
+			#sacrement_consolament_aspect
+			#regle_justice_verite_aspect
+			#vegetarian_aspect
+			#propagation_textes_cathares_aspect
+			#connaissance_salvatrice_aspect
+		}
+		country = {
+			tolerance_own = 1
+			defensiveness = 0.1
+		}
+		country_as_secondary = {
+			global_tax_modifier = 0.1
+			defensiveness = 0.1
+		}
+
+		will_get_center = {
+			any_owned_province = {
+				OR = {
+					religion = protestant
+					religion = catholic
+					religion = reformed
+					religion = cathar
+					religion = hussite
+				}
+				not = { province_id = 118 }
+				is_in_capital_area = yes
+				is_reformation_center = no
+				development = 10
+				NOT = { has_climate = arctic }
+				NOT = { has_climate = arid }
+				NOT = { has_terrain = coastline }
+				NOT = { has_terrain = coastal_desert }
+				NOT = { has_terrain = steppe }
+				NOT = { has_terrain = desert }
+				NOT = { has_terrain = glacier }
+				NOT = { has_climate = tropical }
+			}
+			any_neighbor_country = { NOT = { has_friendly_reformation_center = yes } }
+		}
+		
+		on_convert = {
+			change_religion = cathar
+			add_prestige = -100
+			add_stability = -1
+			remove_country_modifier = counter_reformation
+			remove_country_modifier = the_statue_in_restraint_of_appeals
+			remove_country_modifier = bavarian_jesuits
+			remove_country_modifier = the_societas_jesu
+			remove_country_modifier = the_declaration_of_indulgence
+			remove_country_modifier = de_heretico_comburendo
+			remove_country_modifier = the_conventicle_act
+			
+			if = {
+				limit = {
+					NOT = { has_country_flag = reformation_money }
+				}
+				add_years_of_income = 1.0
+			}
+			
+			if = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							religion = protestant
+							religion = catholic
+							religion = reformed
+							
+						}
+						not = { province_id = 118 }
+						is_in_capital_area = yes
+							is_reformation_center = no
+							development = 10
+							NOT = {
+								any_neighbor_province = {
+									is_reformation_center = yes
+								}
+							}
+							NOT = { has_climate = arctic }
+							NOT = { has_climate = arid }
+							NOT = { has_terrain = coastline }
+							NOT = { has_terrain = coastal_desert }
+							NOT = { has_terrain = steppe }
+							NOT = { has_terrain = desert }
+							NOT = { has_terrain = glacier }
+							NOT = { has_climate = tropical }
+					}
+					change_religion = cathar
+					#add_reform_center = cathar
+				}
+			}
+			add_country_modifier = {
+				name = "conversion_zeal"
+				duration = 3650
+			}			
+			set_country_flag = "reformation_money"
+			every_known_country = {
+				limit = {
+					reverse_has_opinion_modifier = {
+						who = ROOT
+						modifier = opinion_demote_pope
+					}
+				}
+				reverse_remove_opinion = {
+					who = ROOT
+					modifier = opinion_demote_pope
+				}
+			}
+		}
+		
+		heretic = { BOGOMILIST WALDENSIAN FRATICELLI LOLLARD SOCINIAN }
+
+		date = 1536.5.1
+	}
+
 	hussite = {
 		color = { 244 55 9 }
 		icon = 22
