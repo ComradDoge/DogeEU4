@@ -23,15 +23,15 @@ NDefines.NDiplomacy.DISHONORABLE_PEACE_MONTHS = 0 --Default 12. This is the thin
 
 
 
---- HRE Emperor Bandaid, if interested again check the new values first due to hotfixes. ---
---NDefines.NDiplomacy.IMPERIAL_AUTHORITY_FROM_PRINCES = 0.05 --Defines 0.1  (vanilla:  0.1=0.21/total 0.26 , modded: 0.050 = 0.10, total 0.16) scales to threshold
---NDefines.NDiplomacy.IMPERIAL_REFORM_COST = 60  --Defines 50
---NDefines.NDiplomacy.EMPEROR_REVOKE_AUTHORITY_COST = 60	--Defines 50	
---NDefines.NDiplomacy.HRE_FOREIGN_CONTROL_PENALTY = -0.005	
---NDefines.NDiplomacy.HRE_AUTHORITY_JOIN_EMPIRE = 5 --Defines 10
---NDefines.NDiplomacy.HRE_AUTHORITY_LEAVE_EMPIRE = -5 --Defines -10
---NDefines.NDiplomacy.HRE_AUTHORITY_PROVINCE_JOIN = 0.5
---NDefines.NDiplomacy.FORCE_JOIN_HRE_AUTHORITY_PER_DEVELOPMENT = 0.05 --Defines 0.1
---NDefines.NDiplomacy.FORCE_JOIN_HRE_YEARS_BOUND_BY_TREATY = 50 
+
+NDefines.NDiplomacy.IMPERIAL_AUTHORITY_FROM_PRINCES = 0.030 --Defines 0.075 scales to threshold
+NDefines.NDiplomacy.IMPERIAL_REFORM_COST = 50  
+NDefines.NDiplomacy.EMPEROR_REVOKE_AUTHORITY_COST = 50		
+NDefines.NDiplomacy.HRE_FOREIGN_CONTROL_PENALTY = -0.005	
+NDefines.NDiplomacy.HRE_AUTHORITY_JOIN_EMPIRE = 5 --Defines 10
+NDefines.NDiplomacy.HRE_AUTHORITY_LEAVE_EMPIRE = -5 --Defines -10
+NDefines.NDiplomacy.HRE_AUTHORITY_PROVINCE_JOIN = 0.1
+NDefines.NDiplomacy.FORCE_JOIN_HRE_AUTHORITY_PER_DEVELOPMENT = 0.05 
+NDefines.NDiplomacy.FORCE_JOIN_HRE_YEARS_BOUND_BY_TREATY = 50 
 
 
