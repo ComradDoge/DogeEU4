@@ -22,7 +22,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 - Idea Groups Expanded by Big Boss
 - Government Expanded by Jay
 - Advisors Expanded by Big Boss
-
+- National Ideas Expanded by Silver Knight of Anor Londo (Verityvoid)
 
 # THINGS ALREADY DONE
 
