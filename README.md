@@ -15,6 +15,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 - Shattered Europa by Neprut
 - Maxos New Shattered by Maxos
 - New World Dynamic Colony Names by Cwrwi
+- Improved Dynamic Province Naming by Panther
 - Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
 - Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13
 - Idea Variation by flogi
@@ -42,7 +43,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 # THINGS TO DO?
 
-- New Idea Groups
 - New Formables
 - Update the formable nations mod (and make a separate mod?)
 - Remove truces from countries
