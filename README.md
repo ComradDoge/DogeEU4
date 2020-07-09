@@ -18,7 +18,9 @@ Not all parts of the mods will be added or without changed, some might not have 
 - Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
 - Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13
 - Idea Variation by flogi
+- Idea Groups Expanded by Big Boss
 - Government Expanded by Jay
+- Advisors Expanded by Big Boss
 
 
 # THINGS ALREADY DONE
@@ -66,3 +68,19 @@ Additionally, this area will have changes to various small values, mostly in def
 # LORE
 
 Macaronesia MCR - A combination of portuguese and morrocans settlers (due to major cities on the coast). Benefit for the country is to have accepted cultures of both port and mor, but being its own culture too.
+
+
+# STEAM WORKSHOP DESCRIPTION
+
+Shattered Mod, in VERY HEAVY development.
+
+As of right now:
+- The world is fully shattered
+- Idea variation ideas used as basis (modified)
+- Cathar, Suomenusko, Romuva religions added
+- No Sack of X on your own provinces or subjects (this is clearly the most important part)
+- Various tweaks to various numbers
+
+Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs and stuff. I am always here, except when I am not.
+If you don't like discord just post in the discussion or in the comments.
+Here is a [url=https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0] spreadsheet [/url] of various stuff that is all over the place. I don't know how it will help you.
