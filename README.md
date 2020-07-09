@@ -81,6 +81,8 @@ As of right now:
 - Cathar, Suomenusko, Romuva religions added
 - No Sack of X on your own provinces or subjects (this is clearly the most important part)
 - Various tweaks to various numbers
+- National Ideas expanded added + formables
+- Various fixes
 
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs and stuff. I am always here, except when I am not.
 If you don't like discord just post in the discussion or in the comments.
