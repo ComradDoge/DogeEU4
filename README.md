@@ -51,6 +51,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 - Remove Moldavia/Poland/Hungary events
 - Burgundy bullshit redone?
 - Danzig event disabled
+- Rebels for - Cathar, Suom, Romuva
 
 
 # DOCUMENTATION
