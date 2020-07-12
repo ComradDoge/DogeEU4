@@ -14,6 +14,7 @@ Not all parts of the mods will be added or without changed, some might not have 
 ---------------------------------------------------------
 - Shattered Europa by Neprut
 - Maxos New Shattered by Maxos
+- Shattered Europa by Pirate AI
 - New World Dynamic Colony Names by Cwrwi
 - Improved Dynamic Province Naming by Panther
 - Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
