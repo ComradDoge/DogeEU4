@@ -54,6 +54,35 @@ leader = {	name = "Ferenc Nadasdy"        	type = general	fire = 1	shock = 4	man
 join_league = protestant
 leave_league = catholic
 
+1510.1.1 = {
+	owner = POR
+	controller = POR
+	add_core = POR
+	add_to_trade_company = POR
+	add_trade_company_investment = {
+		investment = brokers_office
+		investor = POR
+	}
+	add_trade_company_investment = {
+		investment = local_quarter
+		investor = POR
+	}
+	add_trade_company_investment = {
+		investment = company_warehouse
+		investor = POR
+	}
+}
+
+change_estate_land_share = {  
+	estate = estate_nobles
+	estate = estate_burghers
+	estate = estate_church
+	share = x
+}
+
+
+
+
 ### common/countries
 graphical_culture = westerngfx
 color = {}
@@ -76,3 +105,5 @@ fleet_names = {}
 
 ### Government stuff
 change_government_reform_progress = X
+
+
