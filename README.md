@@ -74,17 +74,52 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 
 # STEAM WORKSHOP DESCRIPTION
 
-Shattered Mod, in VERY HEAVY development.
+[h1] Beyond Typus Version [/h1]
+I am collabortaing with Pirate AE (one of the previous shattered modders) to bring a Beyond Typus version of Shattered Europa. We hope this will bring a more authentic Shattered experience and also an option to people who want to play in a more detailed world
 
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2168113410] LINK TO THE BEYOND TYPUS SHATTERED REBORN [/url]
+
+This Shattered mod which is based on vanilla map will continue to be worked on to have a choice for people to play on with less provinces. However, you can consider the BT version as the main Shattered mod.
+
+=================================
+Shattered Mod, very early development.
+
+[h1] Main Additions [/h1]
 As of right now:
 - The world is fully shattered
-- Idea variation ideas used as basis (modified)
+- Ideas from Idea variation Ideas by flogi 
 - Cathar, Suomenusko, Romuva religions added
 - No Sack of X on your own provinces or subjects (this is clearly the most important part)
-- Various tweaks to various numbers
-- National Ideas expanded added + formables
-- Various fixes
+- National Ideas Expanded mod by Silver Knight of Anor Londo (Verityvoid)
+- Various fixes and tweaks
 
+
+[h1] Other [/h1]
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs and stuff. I am always here, except when I am not.
 If you don't like discord just post in the discussion or in the comments.
 Here is a [url=https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0] spreadsheet [/url] of various stuff that is all over the place. I don't know how it will help you.
+
+
+[h1] Credits [/h1]
+Thanks to the previous Authors who contributed to Shattered Europa over the years.
+- Neprut
+- Pirate AI
+- Maxos
+
+
+[h2] Mods [/h2]
+Not all parts of the mods will be added or without changes, some might not have any files taken but merely inspiration taken of some sort. Nonetheless, I'll try to credit people cause their work saves my time and it would be rude not too.
+
+
+    Shattered Europa by Neprut
+    Maxos New Shattered by Maxos
+    Shattered Europa by Pirate AI
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791]New World Dynamic Colony Names by Cwrwi [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming by Panther [/url]
+    Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13 [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation by flogi [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded by Big Boss [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1596815683] Government Expanded by Jay [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded by Big Boss [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded by Silver Knight of Anor Londo (Verityvoid) [/url]
