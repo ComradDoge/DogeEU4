@@ -82,9 +82,11 @@ I am collabortaing with Pirate AE (one of the previous shattered modders) to bri
 This Shattered mod which is based on vanilla map will continue to be worked on to have a choice for people to play on with less provinces. However, you can consider the BT version as the main Shattered mod.
 
 =================================
-Shattered Mod, very early development.
+Vanilla map Shattered Mod, very early development.
 
-[h1] Main Additions [/h1]
+
+
+[h1] Doge Shattered Main Additions [/h1]
 As of right now:
 - The world is fully shattered
 - Ideas from Idea variation Ideas by flogi 
