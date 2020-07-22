@@ -94,6 +94,7 @@ As of right now:
 - No Sack of X on your own provinces or subjects (this is clearly the most important part)
 - National Ideas Expanded mod by Silver Knight of Anor Londo (Verityvoid)
 - Various fixes and tweaks
+- CK2 religions, not fully completed but they are there
 
 
 [h1] Other [/h1]
