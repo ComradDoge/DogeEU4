@@ -95,6 +95,7 @@ As of right now:
 - National Ideas Expanded mod by Silver Knight of Anor Londo (Verityvoid)
 - Various fixes and tweaks
 - CK2 religions, not fully completed but they are there
+- Trade Goods Expanded
 
 
 [h1] Other [/h1]
@@ -117,12 +118,13 @@ Not all parts of the mods will be added or without changes, some might not have 
     Shattered Europa by Neprut
     Maxos New Shattered by Maxos
     Shattered Europa by Pirate AI
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791]New World Dynamic Colony Names by Cwrwi [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names by Cwrwi [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming by Panther [/url]
-    Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
+    Excelmakesbelhappy (Arumba discord mod) by various contributors on [url=https://discord.gg/arumba] Arumba discord. [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13 [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation by flogi [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded by Big Boss [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1596815683] Government Expanded by Jay [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded by Big Boss [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded by Silver Knight of Anor Londo (Verityvoid) [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded by MrMarcinQ‎ [/url]
