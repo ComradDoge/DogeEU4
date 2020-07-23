@@ -128,3 +128,4 @@ Not all parts of the mods will be added or without changes, some might not have 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded by Big Boss [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded by Silver Knight of Anor Londo (Verityvoid) [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded by MrMarcinQ‎ [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded by Lord Varangian [/url]
