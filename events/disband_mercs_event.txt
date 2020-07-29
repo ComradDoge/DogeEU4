@@ -1,0 +1,209 @@
+namespace = disband_mercs
+
+country_event = { # Disbands Mercs during peacetime
+	id = disband_mercs.1
+	title = disband_mercs.1.t
+	desc = disband_mercs.1.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+	hidden = yes
+	
+	trigger = {
+		ai = yes
+		is_at_war = no
+		any_hired_mercenary_company = {
+			hired_for_months = 18
+		}
+	}
+	
+	immediate = {
+		while = {
+			limit = {
+				any_hired_mercenary_company = {
+					hired_for_months = 18
+				}
+			}
+			hidden_effect = {
+				random_hired_mercenary_company = {
+					limit = {
+						hired_for_months = 18
+					}
+					disband_mercenary_company = THIS
+				}
+				log = "[This.GetName] disband_mercs.1"
+			}
+		}
+	}
+	
+	option = {
+		#hidden
+	}
+}
+
+country_event = { # Disbands Merc companies one at time, if AI went over the force limit.
+	id = disband_mercs.2
+	title = disband_mercs.2.t
+	desc = disband_mercs.2.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+	hidden = yes
+	
+	trigger = {
+		ai = yes
+		is_at_war = yes
+		army_size_percentage = 1.25
+		any_hired_mercenary_company = {
+			hired_for_months = 1
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_hired_mercenary_company = {
+				limit = {
+					hired_for_months = 1
+				}
+				disband_mercenary_company = THIS
+			}
+			add_yearly_manpower = 0.25
+			log = "[This.GetName] disband_mercs.2"
+		}
+	}
+	
+	option = {
+		#hidden
+	}
+}
+
+province_event = { # To prevent Endless wars. Nasty bug caused by rebels.
+	id = disband_mercs.3
+	title = "EVTNAME5089"
+	desc = "EVTDESC5089"
+	picture = COURT_eventPicture
+	goto = ROOT
+	
+	trigger = {
+		sieged_by = REB
+		#fort_level = 1
+		#NOT = { fort_level = 10 }
+		OR = {
+			owner = { NOT = { num_of_cities = 5 } }
+			NOT = { num_of_units_in_province = { amount = 6 } }
+		}
+		NOT = { 
+			num_of_units_in_province = {
+				amount = 28
+			}
+		}
+		
+		OR = {
+			AND = {
+				#fort_level = 1
+				NOT = { fort_level = 2 }
+				NOT = { 
+					num_of_units_in_province = {
+						amount = 6
+					}
+				}
+			}
+			AND = {
+				fort_level = 2
+				NOT = { fort_level = 3 }
+				NOT = { 
+					num_of_units_in_province = {
+						amount = 7
+					}
+				}
+			}
+			AND = {
+				fort_level = 3
+				NOT = { fort_level = 4 }
+				NOT = { 
+					num_of_units_in_province = {
+						amount = 10
+					}
+				}
+			}
+			AND = {
+				fort_level = 4
+				NOT = { fort_level = 5 }
+				NOT = { 
+					num_of_units_in_province = {
+						amount = 13
+					}
+				}
+			}
+			AND = {
+				fort_level = 5
+				NOT = { fort_level = 6 }
+				NOT = { 
+					num_of_units_in_province = {
+						amount = 16
+					}
+				}
+			}
+			AND = {
+				fort_level = 6
+				NOT = { fort_level = 7 }
+				NOT = { 
+					num_of_units_in_province = {
+						amount = 19
+					}
+				}
+			}
+			AND = {
+				fort_level = 7
+				NOT = { fort_level = 8 }
+				NOT = { 
+					num_of_units_in_province = {
+						amount = 22
+					}
+				}
+			}
+			AND = {
+				fort_level = 8
+				NOT = { fort_level = 9 }
+				NOT = { 
+					num_of_units_in_province = {
+						amount = 25
+					}
+				}
+			}
+			#AND = {
+			#	fort_level = 9
+				#NOT = { fort_level = 10 }
+				#NOT = { 
+				#	num_of_units_in_province = {
+				#		amount = 28
+				#	}
+				#}
+			#}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA5089"	# Accept petition
+		
+		kill_units = {
+			who = REB
+		}
+		
+		owner = {
+			
+			add_prestige = -5
+			log = "[This.GetName] rebels [Prev.GetName]"
+		}
+		add_local_autonomy = 15
+
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = { #ignore them
+		name = "EVTOPTB5089"	# Deny petition
+		
+		ai_chance = {
+			factor = 0
+		}
+	}
+}

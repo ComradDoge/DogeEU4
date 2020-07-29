@@ -13,3 +13,4 @@
 
 --Government Reforms
 NDefines.NGovernment.GOVERNMENT_REFORM_COST_INCREASE = 25 -- Default 20
+NDefines.NGovernment.RUSSIAN_ABILITY_STRELTSY_SPAWN_SIZE = 0.1 -- Default 0.2

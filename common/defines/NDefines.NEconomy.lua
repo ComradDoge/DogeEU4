@@ -13,5 +13,14 @@ NDefines.NEconomy.COT_DOWNGRADE_PRESTIGE_COST = -5 -- Default -10, QoL change. C
 
 --Edicts
 NDefines.NEconomy.EDICTS_COST_INCREASE = 1		-- Default 2, % increase on state maintenance.  *reduced from 200% to 100% to allow more tactical usage of edicts.
-NDefines.NEconomy.EDICTS_DURATION_MONTHS = 3	-- Default 12, months lasting at least. removed because its annoying to remember managing and being blocked from doing it when you remember.
- 
+NDefines.NEconomy.EDICTS_DURATION_MONTHS = 6	-- Default 12, months lasting at least. removed because its annoying to remember managing and being blocked from doing it when you remember.
+
+
+--Army
+NDefines.NAIEconomy.ARMY_FRACTION_MILITARIZE = 1.30
+NDefines.NAIEconomy.ARMY_FRACTION_PEACEFUL = 0.75
+NDefines.NAIEconomy.ARMY_FRACTION_MILITARIST = 1.15
+NDefines.NAIEconomy.FORT_FRACTION_MILITARIZE = 1.5
+NDefines.NAIEconomy.FORT_FRACTION_MILITARIST = 1.25
+NDefines.NAIEconomy.FORT_FRACTION_CAPITALIST = 0.25
+NDefines.NAIEconomy.LOAN_REPAYMENT_SAVINGS_PRIORITY = 2
