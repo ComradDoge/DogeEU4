@@ -1,0 +1,114 @@
+namespace = mf_positive_personality
+
+#Military Advisor Recruited
+country_event = {
+
+	id = mf_positive_personality.1
+	title = mf_positive_personality.EVTNAME1
+	desc = mf_positive_personality.EVTDESC1
+	picture = ADVISOR_eventPicture
+
+	trigger = {
+		has_dlc = "Rights of Man"
+		ruler_has_personality = keen_recruiter_personality
+		NOT = { has_ruler_flag = mf_positive_personality.1.military_advisor }
+	}
+
+	immediate = {
+		set_ruler_flag = mf_positive_personality.1.military_advisor
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.8
+			ruler_has_personality = well_advised_personality
+		}
+	}
+
+	option = {
+		name = "mf_positive_personality.EVTOPTA1" #Let him reform our armies
+		define_advisor = {
+			type = army_reformer
+			skill = 3
+		}
+	}
+
+	option = {
+		name = "mf_positive_personality.EVTOPTB1" #Let him organize our ranks
+		define_advisor = {
+			type = army_organiser
+			skill = 3
+		}
+	}
+	
+	option = {
+		name = "mf_positive_personality.EVTOPTC1" #Let him drill the soldiers
+		define_advisor = {
+			type = commandant
+			skill = 3
+		}
+	}
+}
+
+#Extravagant Party for a Neighbor
+country_event = {
+
+	id = mf_positive_personality.2
+	title = mf_positive_personality.EVTNAME2
+	desc = mf_positive_personality.EVTDESC2
+	picture = FEAST_eventPicture
+
+	trigger = {
+		has_dlc = "Rights of Man"
+		ruler_has_personality = extravagant_personality
+		years_of_income = 1.0
+		any_neighbor_country = {
+			NOT = { war_with = ROOT }
+			NOT = { alliance_with = ROOT }
+			NOT = { is_rival = ROOT }
+			NOT = { junior_union_with = ROOT }
+			NOT = { senior_union_with = ROOT }
+			has_opinion = {
+				who = ROOT
+				value = 10
+			}
+			has_regency = no
+		}
+	}
+
+	immediate = {
+		hidden_effect = { 
+			random_neighbor_country = {
+				limit = {
+					NOT = { war_with = ROOT }
+					NOT = { alliance_with = ROOT }
+					NOT = { is_rival = ROOT }
+					has_opinion = {
+						who = ROOT
+						value = 10
+					}
+					has_regency = no
+				}
+				save_event_target_as = extrav_friendly_neighbor_country
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "mf_positive_personality.EVTOPTA2"	#At least it didn't go to waste...
+		add_years_of_income = -0.2
+		event_target:extrav_friendly_neighbor_country = {
+			add_opinion = {
+				who = ROOT
+				modifier = opinion_extravagant_party_reception
+			}
+		}
+	}
+}
