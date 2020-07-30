@@ -89,13 +89,12 @@ Vanilla map Shattered Mod, very early development.
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
 - The world is fully shattered
-- Ideas from Idea variation Ideas by flogi 
-- Cathar, Suomenusko, Romuva religions added
+- Tons more new Idea groups, with each religion having their own version of religious ideas
+- CK2 religions added, atlhough not fully implemented
 - No Sack of X on your own provinces or subjects (this is clearly the most important part)
-- National Ideas Expanded mod by Silver Knight of Anor Londo (Verityvoid)
-- Various fixes and tweaks
-- CK2 religions, not fully completed but they are there
+- More National Ideas added
 - Trade Goods Expanded
+- AI tweaks and changes making it less-braindead
 
 
 [h1] Other [/h1]
