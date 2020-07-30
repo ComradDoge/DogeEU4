@@ -84,7 +84,7 @@ This Shattered mod which is based on vanilla map will continue to be worked on t
 =================================
 Vanilla map Shattered Mod, very early development.
 
-
+All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
@@ -129,3 +129,4 @@ Not all parts of the mods will be added or without changes, some might not have 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded by MrMarcinQ‎ [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded by Lord Varangian [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version by Spirit Baker and LoStack for Dev-Click part
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults by Ruben_Escobar14
