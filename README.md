@@ -112,8 +112,9 @@ Thanks to the previous Authors who contributed to Shattered Europa over the year
 
 
 [h2] Mods [/h2]
-Not all parts of the mods will be added or without changes, some might not have any files taken but merely inspiration taken of some sort. Nonetheless, I'll try to credit people cause their work saves my time and it would be rude not too.
+Not all parts of the mods will be added or without changes, some might not have any files taken but merely inspiration taken of some sort. Nonetheless, I'll try to credit people cause their work saves my time and it would be rude not too. 
 
+Also, I am not affiliated with the Expanded Mods group at all but here is their [url=https://discord.gg/UEyGV6U] discord [/url]
 
     Shattered Europa by Neprut
     Maxos New Shattered by Maxos
