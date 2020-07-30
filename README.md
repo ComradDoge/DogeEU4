@@ -64,7 +64,7 @@ Additionally, this area will have changes to various small values, mostly in def
 ---------------------------------------------------------
 - "#Colonial Region Lock" for changes that blocks colonies from colonizing outside regions until independent
 - Localisation and province_names has New World Province Localisation mod import.
-
+- Due to being a goof, DST and DSE are Doge Shattered Europe related prefix
 
 
 # LORE
@@ -95,6 +95,7 @@ As of right now:
 - More National Ideas added
 - Trade Goods Expanded
 - AI tweaks and changes making it less-braindead
+- More ruler personalities
 
 
 [h1] Other [/h1]
@@ -130,3 +131,4 @@ Not all parts of the mods will be added or without changes, some might not have 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded by Lord Varangian [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version by Spirit Baker and LoStack for Dev-Click part
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults by Ruben_Escobar14
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities by Worlds Smuggest Detective
