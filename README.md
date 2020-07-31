@@ -86,6 +86,16 @@ Vanilla map Shattered Mod, very early development.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
+
+[h1] Recent Additions [/h1]
+- Trade Goods Expanded updated
+- More Insults added
+- More Ruler personalities added
+- Removed "Standard Ruler" from countries, instead they get randomized. Feel free to recommend balanced, good RP rulers for those countries or make a fork.
+- AI should be less braindead and should develop
+- Tax buildings are slightly more worth it (decresed cost of cathedral 300>250, increased tax modifier by 20% for each (40%;60% > 60%;80%))
+- Maval Battery attrition nerfed from 5% to 3%
+
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
 - The world is fully shattered
