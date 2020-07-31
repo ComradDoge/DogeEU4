@@ -89,7 +89,7 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 
 [h1] Recent Additions [/h1]
 - Trade Goods Expanded updated
-- More Insults added
+- More Scornful Insults added
 - More Ruler personalities added
 - Removed "Standard Ruler" from countries, instead they get randomized. Feel free to recommend balanced, good RP rulers for those countries or make a fork.
 - AI should be less braindead and should develop
