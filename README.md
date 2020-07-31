@@ -70,6 +70,7 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Russia nerfed (land force limit +50% > +20%, added +25% manpower recovery)
 - AI Estate logic tweaked
 - More Province Modifiers in the world for flavour
+- Going over forcelimit will not be fun for your coffers
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
