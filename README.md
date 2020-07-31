@@ -8,33 +8,6 @@ I'll try to credit people as much as I can especially for major stuff. Although 
 from the original mod I took. After all I need to understand how they work, else the mod will be hard to update in the future for me.
 
 
-# MODS
-Not all parts of the mods will be added or without changed, some might not have any files taken but merely inspiration taken of some sort. Nonetheless, I'll try to credit people cause their work saves my time and it would be rude not too.
-
----------------------------------------------------------
-- Shattered Europa by Neprut
-- Maxos New Shattered by Maxos
-- Shattered Europa by Pirate AI
-- New World Dynamic Colony Names by Cwrwi
-- Improved Dynamic Province Naming by Panther
-- Excelmakesbelhappy (Arumba discord mod) by various contributors on Arumba discord.
-- Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13
-- Idea Variation by flogi
-- Idea Groups Expanded by Big Boss
-- Government Expanded by Jay
-- Advisors Expanded by Big Boss
-- National Ideas Expanded by Silver Knight of Anor Londo (Verityvoid)
-
-# THINGS ALREADY DONE
-
-- New World Province Localisation for specific cultures to add some flavour
-- Colonies no longer can colonize outside their region nor move their capital until independent. Normal countries are not restricted.
-- A bunch of defines changes, mostly quality of life.
-- World Shattered with additional tags.
-- HRE Dismantled Bookmark added, HRE related events and missions still need to be fixed
-- Idea groups added
-
-
 - The Shattering - A list of countries and info about them as I am modding them. Might be useful for some.
 https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0
 
@@ -103,7 +76,6 @@ As of right now:
 - AI tweaks and changes making it less-braindead
 - More Ruler personalities
 - More Scornful Insults
-- 
 
 
 [h1] Other [/h1]
