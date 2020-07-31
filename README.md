@@ -52,8 +52,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 - Remove Moldavia/Poland/Hungary events
 - Burgundy bullshit redone?
 - Danzig event disabled
-- Rebels for - Cathar, Suom, Romuva
-
 
 # DOCUMENTATION
 
@@ -87,25 +85,25 @@ Vanilla map Shattered Mod, very early development.
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 
-[h1] Recent Additions [/h1]
-- Trade Goods Expanded updated
-- More Scornful Insults added
-- More Ruler personalities added
-- Removed "Standard Ruler" from countries, instead they get randomized. Feel free to recommend balanced, good RP rulers for those countries or make a fork.
-- AI should be less braindead and should develop
-- Tax buildings are slightly more worth it (decresed cost of cathedral 300>250, increased tax modifier by 20% for each (40%;60% > 60%;80%))
-- Maval Battery attrition nerfed from 5% to 3%
+[h1] Recent Changes [/h1]
+- Espionage Buffed
+- Russia nerfed (land force limit +50% > +20%, added +25% manpower recovery)
+- AI Estate logic tweaked
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
 - The world is fully shattered
-- Tons more new Idea groups, with each religion having their own version of religious ideas
+- New Idea Groups
+- Religion specific idea groups
 - CK2 religions added, atlhough not fully implemented
 - No Sack of X on your own provinces or subjects (this is clearly the most important part)
 - More National Ideas added
 - Trade Goods Expanded
+- Colonies are locked into their respective regions
 - AI tweaks and changes making it less-braindead
-- More ruler personalities
+- More Ruler personalities
+- More Scornful Insults
+- 
 
 
 [h1] Other [/h1]
