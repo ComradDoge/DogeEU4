@@ -10,6 +10,7 @@ NDefines.NEconomy.DEBASE_MAX_CORRUPTION = 30 -- Default 90, Above this level of 
 
 --Trade
 NDefines.NEconomy.COT_DOWNGRADE_PRESTIGE_COST = -5 -- Default -10, QoL change. Cost in prestige to downgrade a Center of Trade.
+NDefines.NEconomy.PIRATES_MONOPOLY_BONUS = 0.5 -- #1
 
 --Edicts
 NDefines.NEconomy.EDICTS_COST_INCREASE = 1		-- Default 2, % increase on state maintenance.  *reduced from 200% to 100% to allow more tactical usage of edicts.
