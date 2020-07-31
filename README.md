@@ -50,10 +50,10 @@ I am collabortaing with Pirate AE (one of the previous shattered modders) to bri
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2168113410] LINK TO THE BEYOND TYPUS SHATTERED REBORN [/url]
 
-This Shattered mod which is based on vanilla map will continue to be worked on to have a choice for people to play on with less provinces. However, you can consider the BT version as the main Shattered mod.
+This Shattered mod which is based on vanilla map will continue to be fully worked on to have a choice for people to play on with less provinces.
 
 =================================
-Vanilla map Shattered Mod, very early development.
+Vanilla map Shattered Mod, early in development but should provide a nice shattered experience nonetheless.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
