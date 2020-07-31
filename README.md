@@ -62,6 +62,7 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Espionage Buffed
 - Russia nerfed (land force limit +50% > +20%, added +25% manpower recovery)
 - AI Estate logic tweaked
+- More Province Modifiers in the world for flavour
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
@@ -113,3 +114,4 @@ Also, I am not affiliated with the Expanded Mods group at all but here is their 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version by Spirit Baker and LoStack for Dev-Click part
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults by Ruben_Escobar14
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities by Worlds Smuggest Detective
+    {url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259} More Province Modifiers by Lk
