@@ -84,7 +84,7 @@ NDefines.NAI.UPGRADE_CENTER_OF_TRADE_BASE_AI_DESIRE = 100.0				-- AI scoring for
 NDefines.NAI.UPGRADE_CENTER_OF_TRADE_AI_POWER_DESIRE = 2.0				-- AI scoring for upgrade centers of trade, division on the amount of trade power AI has in node
 
 NDefines.NAI.TRADE_COMPANY_INVESTMENT_COST_THRESHOLD = 1.1 -- How many times the cost of the investment must be in the treasury to consider buying it
-NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 25	-- AI scoring for repaying loans, multiplied by (MAX(budget - other loans, 0) * number_of_loans)/cost
+NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 30	-- AI scoring for repaying loans, multiplied by (MAX(budget - other loans, 0) * number_of_loans)/cost
 
 --- ALL BEL IMPORTS ---
 -- I'll just hope this doesn't break anything and keep it as is for the time being.
