@@ -58,7 +58,14 @@ Vanilla map Shattered Mod, early in development but should provide a nice shatte
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 
-[h1] Recent Changes [/h1]
+[h1] Recent Changes 31/07/2020 [/h1]
+- Trade Goods Expanded updated
+- More Scornful Insults added
+- 67 More Ruler personalities added, having positive/neutral/negative types
+- Removed "Standard Ruler" from countries, instead they get randomized. Feel free to recommend balanced, good RP rulers for those countries or make a fork.
+- AI should be less braindead and should develop
+- Tax buildings are slightly more worth it (decresed cost of cathedral 300>250, increased tax modifier by 20% for each (40%;60% > 60%;80%))
+- Naval Battery attrition nerfed from 5% to 3%
 - Espionage Buffed
 - Russia nerfed (land force limit +50% > +20%, added +25% manpower recovery)
 - AI Estate logic tweaked
