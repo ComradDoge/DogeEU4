@@ -58,7 +58,11 @@ Vanilla map Shattered Mod, early in development but should provide a nice shatte
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 
-[h1] Recent Changes 31/07/2020 [/h1]
+
+[h1] Changes ? [/h1]
+- Added new national ideas to: Gotaland, Jutland, Skane, Knights Templar
+
+[h1] Changes 31/07/2020 [/h1]
 - Trade Goods Expanded updated
 - More Scornful Insults added
 - 67 More Ruler personalities added, having positive/neutral/negative types
