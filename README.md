@@ -45,19 +45,11 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 
 # STEAM WORKSHOP DESCRIPTION
 
-[h1] Beyond Typus Version [/h1]
-I am collabortaing with Pirate AE (one of the previous shattered modders) to bring a Beyond Typus version of Shattered Europa. We hope this will bring a more authentic Shattered experience and also an option to people who want to play in a more detailed world
-
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2168113410] LINK TO THE BEYOND TYPUS SHATTERED REBORN [/url]
-
-This Shattered mod which is based on vanilla map will continue to be fully worked on to have a choice for people to play on with less provinces.
-
-=================================
 Vanilla map Shattered Mod, early in development but should provide a nice shattered experience nonetheless.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-
+[h1] Changes ? [/h1]
 
 [h1] Changes 03/08/2020 [/h1]
 - Added new national ideas to: Gotaland, Jutland, Skane, Knights Templar
@@ -92,6 +84,13 @@ As of right now:
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs and stuff. I am always here, except when I am not.
 If you don't like discord just post in the discussion or in the comments.
 Here is a [url=https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0] spreadsheet [/url] of various stuff that is all over the place. I don't know how it will help you.
+
+[h1] Beyond Typus Version [/h1]
+I am collabortaing with Pirate AE (one of the previous shattered modders) to bring a Beyond Typus version of Shattered Europa. We hope this will bring a more authentic Shattered experience and also an option to people who want to play in a more detailed world
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2168113410] LINK TO THE BEYOND TYPUS SHATTERED REBORN [/url]
+
+This Shattered mod which is based on vanilla map will continue to be fully worked on to have a choice for people to play on with less provinces.
 
 
 [h1] Credits [/h1]
