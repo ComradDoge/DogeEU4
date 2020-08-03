@@ -1,0 +1,1362 @@
+ita_first = {
+	slot = 1
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = ITA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	
+	ita_littoral = {
+		icon = mission_early_game_buildings
+		required_missions = { ita_unite }
+		position = 2
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1769
+				province_id = 130
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns_or_non_sovereign_subject_of = 130
+			owns_or_non_sovereign_subject_of = 1769
+		}
+		
+		effect = {
+		1769 = {
+		    if = {
+				limit = {
+					NOT = { culture = venetian }
+				}
+				change_culture = venetian
+			}
+		}
+		130 = {
+		    if = {
+				limit = {
+					NOT = { culture = venetian }
+				}
+				change_culture = venetian
+			}
+		}
+			136 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+			137 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	ita_dalmatia = {
+		icon = mission_guilds_of_barcelona
+		required_missions = { ita_littoral }
+		position = 3
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 136
+				province_id = 137
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			owns_or_non_sovereign_subject_of = 136
+			owns_or_non_sovereign_subject_of = 137
+		}
+		
+		effect = {
+			add_mercantilism = 3
+			137 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			albania_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	ita_balkan = {
+		icon = mission_protect_albania
+		required_missions = { ita_dalmatia }
+		position = 4
+
+		trigger = {
+		    albania_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = albania_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_mil_power = 75
+			add_army_tradition = 15
+		}
+	}
+	
+	ita_adriatic_fleet = {
+	    icon = mission_rb_grow_the_channel
+		required_missions = {  }
+		position = 5
+		
+		trigger = {
+			num_of_galley = 30
+			num_of_admirals = 1
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ita_adri_fleet"
+				duration = 7300
+			}
+			morea_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			northern_greece_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			macedonia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			321 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	ita_greece = {
+		icon = mission_pf_soldier
+		required_missions = { ita_adriatic_fleet }
+		position = 6
+
+		trigger = {
+		    morea_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    northern_greece_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    macedonia_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = morea_area
+				area = northern_greece_area
+				area = macedonia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			thrace_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	ita_thrace = {
+		icon = mission_city_of_the_world's_desire
+		required_missions = { ita_greece }
+		position = 7
+
+		trigger = {
+		    thrace_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = thrace_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			151 = {
+				change_culture = ROOT
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 3
+			}	
+		}
+	}
+}
+
+ita_uni = {
+	slot = 1
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = ITA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	ita_universities = {
+		icon = mission_rb_college_of_justice
+		required_missions = { ita_develop_rome }
+		position = 9
+		
+		trigger = {
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						has_building = university
+					}
+				}
+				amount = 5
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ita_university"
+				duration = 9125
+			}
+		}
+	}
+	
+	ita_humanism = {
+		icon = mission_alliances
+		required_missions = { ita_universities }
+		position = 10
+		
+		trigger = {
+			OR = {
+				innovativeness_ideas = 7
+				humanist_ideas = 7
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ita_humanism"
+				duration = -1
+			}
+		}
+	}
+}
+
+
+ita_second = {
+	slot = 2
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = ITA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	
+	ita_savoy = {
+		icon = mission_conquer_50_development
+		required_missions = { ita_unite }
+		position = 2
+		
+		provinces_to_highlight = {
+			province_id = 205
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			owns = 205
+		}
+		
+		effect = {
+			205 = { 
+				add_province_modifier = {
+					name = "ita_savoy"
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ita_cyprus = {
+		icon = mission_invade_island
+		required_missions = { ita_adriatic_fleet }
+		position = 6
+		
+		provinces_to_highlight = {
+			province_id = 321
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			owns = 321
+		}
+		
+		effect = {
+			321 = { 
+				add_province_modifier = {
+					name = "ita_cyprus_base"
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ita_develop_rome = {
+		icon = mission_early_modern_university
+		required_missions = { }
+		position = 8
+		
+		trigger = {
+			118 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+				development = 35
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+		}
+		
+		effect = {
+			set_capital = 118
+			118 = {
+				add_province_modifier = {
+					name = "ita_rome"
+					duration = -1
+				}
+			}
+			118 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+		}
+	}
+	
+	ita_padania_agri = {
+		icon = mission_rb_import_potatoes
+		required_missions = { ita_develop_rome }
+		position = 9
+		
+		trigger = {
+			106 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+				development = 20
+			}
+			109 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+				development = 20
+			}
+			105 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+				development = 20
+			}
+			108 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+				development = 20
+			}
+		}
+		
+		effect = {
+			108 = {
+				add_province_modifier = {
+					name = "ita_padania"
+					duration = -1
+				}
+			}
+			105 = {
+				add_province_modifier = {
+					name = "ita_padania"
+					duration = -1
+				}
+			}
+			109 = {
+				add_province_modifier = {
+					name = "ita_padania"
+					duration = -1
+				}
+			}
+			106 = {
+				add_province_modifier = {
+					name = "ita_padania"
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ita_industrialize = {
+		icon = mission_rb_build_furnaces
+		required_missions = { ita_padania_agri }
+		
+		trigger = {
+			has_institution = enlightenment
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						has_building = mills
+						has_building = farm_estate
+						has_building = tradecompany
+						has_building = plantations
+						has_building = textile
+						has_building = weapons
+						has_building = wharf
+						has_building = furnace
+					}
+				}
+				amount = 10
+			}
+		}
+		
+		effect = {
+			104 = {
+				add_province_modifier = {
+					name = "ita_industrialized"
+					duration = -1
+				}
+			}
+			101 = {
+				add_province_modifier = {
+					name = "ita_industrialized"
+					duration = -1
+				}
+			}
+			108 = {
+				add_province_modifier = {
+					name = "ita_industrialized"
+					duration = -1
+				}
+			}
+			2980 = {
+				add_province_modifier = {
+					name = "ita_industrialized"
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+ita_third = {
+	slot = 3
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = ITA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	ita_unite = {
+		icon = mission_italian_conquest
+		required_missions = { }
+		position = 1
+		
+		trigger = {
+		    emilia_romagna_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    venetia_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    tuscany_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    lombardy_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    piedmont_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    liguria_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = emilia_romagna_area
+				area = tuscany_area
+				area = lombardy_area
+				area = liguria_area
+				area = piedmont_area
+				area = venetia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = ita_marchonrome
+				duration = 7300
+			}
+		}
+	}
+	
+	ita_rome = {
+		icon = mission_early_modern_university
+		required_missions = { ita_unite }
+		position = 2
+	
+		trigger = {
+			owns = 118
+			owns = 119
+			owns = 2977
+			owns = 2976
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 118
+				province_id = 119
+				province_id = 2977
+				province_id = 2976
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_prestige = 25
+			add_legitimacy = 25
+		}
+	}
+	
+	ita_naples = {
+		icon = mission_rule_italy
+		required_missions = { ita_rome }
+		position = 3
+		
+		trigger = {
+		    apulia_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    calabria_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    naples_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = calabria_area
+				area = apulia_area
+				area = naples_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_adm_power = 100
+			add_country_modifier = {
+				name = ita_united_mainland
+				duration = 5475
+			}
+		}
+	}
+	
+	ita_sicily = {
+		icon = mission_break_sicily
+		required_missions = { ita_naples  }
+		position = 4
+
+		trigger = {
+		    sicily_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = sicily_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_prestige = 10
+			tunisia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	ita_tunis = {
+		icon = mission_control_the_barbary_coast
+		required_missions = { ita_sicily ita_balkan ita_pillars  }
+		position = 5
+
+		trigger = {
+		    tunisia_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = tunisia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			341 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 7300
+					power = 25
+					key = ita_tunis_trade
+				}
+			}
+			djerba_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			tripolitania_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			352 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+			2450 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+			4567 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+			2448 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+			2449 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+			355 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	ita_tripolitania = {
+		icon = mission_conquer_tunisia
+		required_missions = { ita_tunis  }
+		position = 6
+
+		trigger = {
+		    tripolitania_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			owns_or_non_sovereign_subject_of = 355
+			owns_or_non_sovereign_subject_of = 2449
+			owns_or_non_sovereign_subject_of = 2448
+			owns_or_non_sovereign_subject_of = 4567
+			owns_or_non_sovereign_subject_of = 2450
+			owns_or_non_sovereign_subject_of = 352
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = tripolitania_area
+				province_id = 355
+				province_id = 2449
+				province_id = 2448
+				province_id = 4567
+				province_id = 2450
+				province_id = 352
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			354 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			2954 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			341 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+		}
+	}
+	
+	ita_domestic_trade = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { ita_develop_rome }
+		position = 9
+		
+		trigger = {
+				1308 = {
+					trade_share = {
+						country = ROOT
+						share = 75
+					}
+				}
+				1297 = {
+					trade_share = {
+						country = ROOT
+						share = 75
+					}
+				}
+		}
+		
+		effect = {
+			add_treasury = 300
+			add_country_modifier = {
+				name = "ita_domestic_trade_control"
+				duration = -1
+			}
+		}
+	}
+}
+
+ita_fourth = {
+	slot = 4
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = ITA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	
+	ita_trent = {
+		icon = mission_unite_home_region
+		required_missions = { ita_unite }
+		position = 2
+		
+		provinces_to_highlight = {
+			province_id = 110
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			owns = 110
+		}
+		
+		effect = {
+			110 = { 
+				add_province_modifier = {
+					name = "ita_trent_mines"
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ita_settle = {
+		icon = mission_west_african_ports
+		required_missions = { ita_oceanic_fleet }
+		position = 6
+	
+		provinces_to_highlight = {
+			region = guinea_region
+			has_discovered = ROOT
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				region = guinea_region
+			}
+		}
+	
+		effect = {
+			create_explorer = 60
+			add_dip_power = 60
+		}
+	}
+	
+	ita_south_africa_colony = {
+		icon = mission_retake_ceuta
+		required_missions = { ita_settle }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 833
+				province_id = 1177
+				province_id = 1179
+			}
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+
+	}
+	
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ned_south_africa_colony.tooltip
+				OR = {
+					833 = {
+						owned_by = ROOT
+						is_city = yes
+					}
+					1177 = {
+						owned_by = ROOT
+						is_city = yes
+					}
+					1179 = {
+						owned_by = ROOT
+						is_city = yes
+					}
+				}
+			}
+		}
+		
+		effect = {
+			add_treasury = 300
+			madagascar_highlands_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			betsimasaraka_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			sakalava_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			southern_madagascar = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	ita_madagascar = {
+		icon = mission_sail_to_the_east_indies
+		required_missions = { ita_south_africa_colony }
+		position = 8
+
+		provinces_to_highlight = {
+			OR = {
+				area = southern_madagascar
+				area = sakalava_area
+				area = betsimasaraka_area
+				area = madagascar_highlands_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			southern_madagascar = {
+				type = all
+				owned_by = ROOT
+			}
+			sakalava_area = {
+				type = all
+				owned_by = ROOT
+			}
+			betsimasaraka_area = {
+				type = all
+				owned_by = ROOT
+			}
+			madagascar_highlands_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			southern_madagascar = { 
+				add_province_modifier = {
+					name = "ita_mada"
+					duration = 5475
+				}
+			}
+			sakalava_area = { 
+				add_province_modifier = {
+					name = "ita_mada"
+					duration = 5475
+				}
+			}
+			betsimasaraka_area = { 
+				add_province_modifier = {
+					name = "ita_mada"
+					duration = 5475
+				}
+			}
+			madagascar_highlands_area = { 
+				add_province_modifier = {
+					name = "ita_mada"
+					duration = 5475
+				}
+			}
+			ajuuran_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			mogadishu_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			majarteen_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			somaliland_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	ita_somaliland = {
+		icon = mission_portuguese_malacca
+		required_missions = { ita_madagascar }
+		position = 9
+
+		provinces_to_highlight = {
+			OR = {
+				area = somaliland_area
+				area = majarteen_area
+				area = mogadishu_area
+				area = ajuuran_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			ajuuran_area = {
+				type = all
+				owned_by = ROOT
+			}
+			mogadishu_area = {
+				type = all
+				owned_by = ROOT
+			}
+			majarteen_area = {
+				type = all
+				owned_by = ROOT
+			}
+			somaliland_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			4346 = {
+				add_trade_modifier = {
+					who = root
+					duration = -1
+					power = 25
+					key = ita_strategic
+				}
+			}
+		}
+	}
+}
+
+ita_fifth = {
+	slot = 5
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = ITA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	ita_sardinia = {
+		icon = mission_seize_the_isles
+		required_missions = { ita_unite }
+		position = 2
+
+		trigger = {
+		    corsica_sardinia_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = corsica_sardinia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_navy_tradition = 15
+			add_sailors = 5000
+			baleares_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	ita_baleares = {
+		icon = mission_invade_island
+		required_missions = { ita_sardinia }
+		position = 3
+
+		trigger = {
+		    baleares_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = baleares_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			upper_andalucia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			northern_morocco_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	ita_pillars = {
+		icon = mission_plus_ultra
+		required_missions = { ita_baleares }
+		position = 4
+
+		trigger = {
+		    upper_andalucia_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    northern_morocco_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = northern_morocco_area
+				area = upper_andalucia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = ita_pillars
+				duration = 10300
+			}
+		}
+	}
+	
+	ita_oceanic_fleet = {
+	    icon = mission_establish_high_seas_navy
+		required_missions = {  }
+		position = 5
+		
+		trigger = {
+			num_of_heavy_ship = 15
+			num_of_explorers = 1
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "eng_oceanic"
+				duration = 7300
+			}
+		}
+	}
+	
+	ita_carribean = {
+		icon = mission_iberian_conquistador
+		required_missions = { ita_oceanic_fleet }
+		position = 6
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_the_carribean
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = miss_colonize_caribbean
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 5
+					colonial_region = colonial_the_carribean
+					is_city = yes
+				}
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ita_settlers"
+				duration = 5475
+			}
+		}
+	}
+	
+	ita_brazil = {
+		icon = mission_caribbean_cn
+		required_missions = { ita_carribean }
+		position = 7
+	
+		provinces_to_highlight = {
+			colonial_region = colonial_brazil
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+	
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = miss_discover_brazil
+				colonial_brazil = {
+					has_discovered = ROOT
+				}
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = miss_colonize_brazil
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 1
+					colonial_region = colonial_brazil
+					is_city = yes
+				}
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ita_coex"
+				duration = 7300
+			}
+		}
+	}
+}
