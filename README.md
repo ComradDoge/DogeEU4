@@ -61,6 +61,9 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 
 [h1] Changes ? [/h1]
 - Added new national ideas to: Gotaland, Jutland, Skane, Knights Templar
+- Hellenism expanded a lot
+- Byzantine group culture AIs have a 50% chance to choose hellenic and convert. Player also gets to choose through decision.
+- Religion Colour changes
 
 [h1] Changes 31/07/2020 [/h1]
 - Trade Goods Expanded updated
@@ -127,3 +130,5 @@ Also, I am not affiliated with the Expanded Mods group at all but here is their 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults by Ruben_Escobar14 [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities by Worlds Smuggest Detective [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers by Lk [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism by Jan [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours by reddbane [/url]
