@@ -131,4 +131,5 @@ Also, I am not affiliated with the Expanded Mods group at all but here is their 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities by Worlds Smuggest Detective [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers by Lk [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism by Jan [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours by reddbane [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours by reddbane [/url] Outdated
+    [url=COLOURRELIGIONDOGEMOD] Historical Religious Colours updated for 1.30 Emperor [/url]
