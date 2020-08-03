@@ -1,0 +1,1272 @@
+ned_colonial_group = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = NED
+		is_random_new_world = no
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	ned_fleet = {
+	    icon = mission_galleys_in_port
+		required_missions = { }
+		position = 1
+		
+		trigger = {
+			navy_size_percentage = 1
+		}
+		
+	effect = {
+		add_navy_tradition = 15
+	}
+}
+	
+	
+	ned_caribbean_discovery = {
+		icon = mission_establish_high_seas_navy
+		required_missions = { ned_fleet }
+		position = 2
+		completed_by = 1550.1.1
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = miss_discover_caribbean
+				colonial_the_carribean = {
+					has_discovered = ROOT
+				}
+			}
+		}
+		
+		effect = {
+			add_prestige = 15
+			add_country_modifier = {
+				name = "the_unknown_frontier"
+				duration = 5475
+			}
+		}
+	}
+	
+	ned_american_discovery = {
+		icon = mission_settlers_north_america
+		required_missions = { ned_caribbean_discovery }
+		position = 3
+		completed_by = 1640.1.1
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = miss_discover_eastern_america
+				colonial_eastern_america = {
+					has_discovered = ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = miss_colonize_eastern_america
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 1
+					colonial_region = colonial_eastern_america
+					is_city = yes
+				}
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "por_brazil_colonial"
+				duration = 5475
+			}
+		}
+	}
+	
+	ned_newamsterdam = {
+	    icon = mission_colonial
+		required_missions = { ned_american_discovery }
+		position = 4
+		
+		trigger = {
+			965 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+				development = 15
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 965
+			}
+		}
+		
+		effect = {
+			965 = {
+				add_province_modifier = {
+					name = "ned_new_amsterdam"
+					duration = 9125
+				}
+			}
+		}
+	}
+	
+	ned_suriname = {
+	    icon = mission_rb_scottish_the_darien_scheme
+		required_missions = { ned_newamsterdam }
+		position = 5
+		
+		trigger = {
+			745 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+			}
+			2937 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 745
+				province_id = 2937
+			}
+		}
+		
+		effect = {
+			2937 = {
+				add_province_modifier = {
+					name = "ned_suriname"
+					duration = 9125
+				}
+			}
+			745 = {
+				add_province_modifier = {
+					name = "ned_suriname"
+					duration = 9125
+				}
+			}
+		}
+	}
+	
+	ned_brazil_colony = {
+		icon = mission_iberian_conquistador
+		required_missions = { ned_suriname }
+		position = 6
+		completed_by = 1650.1.1
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_brazil
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			custom_trigger_tooltip = {
+			tooltip = miss_discover_brazil
+				colonial_brazil = {
+					has_discovered = ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = miss_colonize_brazil
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 1
+					colonial_region = colonial_brazil
+					is_city = yes
+				}
+			}
+		}
+		
+		effect = {
+			colonial_brazil = {
+				limit = { 
+					OR = {
+						country_or_non_sovereign_subject_holds = CAS
+						country_or_non_sovereign_subject_holds = POR
+						country_or_non_sovereign_subject_holds = SPA
+					}
+				}
+				add_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "ned_brazil_mod"
+				duration = 5475
+			}
+		}
+	}
+	
+	ned_taiwan = {
+		icon = mission_rice_field
+		required_missions = { ned_india_ceylon }
+		position = 8
+		
+		provinces_to_highlight = {
+			area = taiwan_area
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ned_taiwan.tooltip
+				taiwan_area = {
+					type = all
+					owned_by = ROOT
+					is_city = yes
+				}
+			}
+		}
+		
+		effect = {
+			taiwan_area = {
+				add_province_modifier = {
+					name = "ned_zeelandia_mod"
+					duration = "-1"
+				}
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+		}
+	}
+	
+	ned_japan = {
+		icon = mission_trade_with_japan
+		required_missions = { ned_taiwan }
+		position = 9
+		
+		provinces_to_highlight = {
+			region = japan_region
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			japan_region = {
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			1376 = {
+				add_trade_modifier = {
+					who = root
+					duration = 5475
+					power = 20
+					key = ned_japan
+				}
+			}
+		}
+	}
+	
+}
+
+ned_colonial_group_two = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = NED
+		is_random_new_world = no
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	ned_westafrica = {
+	    icon = mission_look_west
+		required_missions = { ned_fleet }
+		position = 2
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = miss_discover_west_africa
+				west_africa_coast_area = {
+					has_discovered = ROOT
+				}
+			}
+			num_of_colonists = 1
+		}
+		
+		effect = {
+			west_africa_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			guinea_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}		
+		}
+	}
+	
+	ned_settle = {
+		icon = mission_west_african_ports
+		required_missions = { ned_westafrica }
+		position = 3
+	
+		provinces_to_highlight = {
+			region = guinea_region
+			OR = {
+				is_city = no
+				NOT = { owned_by = ROOT }
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = miss_colonize_west_africa
+				guinea_region = {
+					owned_by = ROOT
+					is_city = yes
+				}
+			}
+		}
+	
+		effect = {
+			add_mercantilism = 2
+			angola_namibia_area  = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			coastal_kongo = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}		
+		}
+	}
+	
+	ned_kongo = {
+		icon = mission_african_soldier
+		required_missions = { ned_settle }
+		position = 4
+	
+		provinces_to_highlight = {
+			region = kongo_region
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = miss_discover_kongo
+				kongo_region = {
+					has_discovered = ROOT
+				}
+			}
+			custom_trigger_tooltip = {	
+				tooltip = miss_colonize_kongo
+				kongo_region = {
+					owned_by = ROOT
+					is_city = yes
+				}
+			}
+		}
+	
+		effect = {
+			4097 = {
+				add_trade_modifier = {
+					who = root
+					duration = 5475
+					power = 20
+					key = ned_ivory_coast_ambition
+				}
+			}
+		}
+	}
+	
+	ned_south_africa_colony = {
+		icon = mission_caribbean_cn
+		required_missions = { ned_kongo }
+		position = 5
+		completed_by = 1660.1.1
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 833
+				province_id = 1177
+				province_id = 1179
+			}
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+				
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ned_south_africa_colony.tooltip
+				OR = {
+					833 = {
+						owned_by = ROOT
+						is_city = yes
+					}
+					1177 = {
+						owned_by = ROOT
+						is_city = yes
+					}
+					1179 = {
+						owned_by = ROOT
+						is_city = yes
+					}
+				}
+			}
+		}
+		
+		effect = {
+			add_treasury = 300
+		}
+	}
+	
+	ned_kaapstad = {
+	    icon = mission_invade_island
+		required_missions = { ned_south_africa_colony }
+		position = 6
+		
+		trigger = {
+			1177 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+				development = 15
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1177
+			}
+		}
+		
+		effect = {
+			1177 = {
+				rename_capital = "Kaapstad"
+				change_culture = dutch
+				change_religion =  ROOT
+			}
+			lanka_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			south_lanka_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	
+	ned_india_ceylon = {
+		icon = mission_market_place_with_asian_traders
+		required_missions = { ned_kaapstad }
+		position = 7
+		completed_by = 1660.1.1
+		
+		provinces_to_highlight = {
+			area = lanka_area
+			area = south_lanka_area
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			lanka_area = {
+				type = all
+				owned_by = ROOT
+			}
+			south_lanka_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ned_ceylon_mod"
+				duration = "5475"
+			}
+			tanjore_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			madura_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			malabar_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			malaya_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			malacca_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			taiwan_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			668 = {
+			        limit = {
+					        NOT = { is_core = ROOT}
+							NOT = {owned_by = ROOT}
+						}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	ned_malacca = {
+		icon = mission_portuguese_malacca
+		required_missions = { ned_india_ceylon }
+		position = 8
+		
+		provinces_to_highlight = {
+			OR = {
+				area = malaya_area
+				area = malacca_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			malaya_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			malacca_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			596 = {
+				add_trade_modifier = {
+					who = root
+					duration = 5475
+					power = 35
+					key = malacca_conquest
+				}
+			}
+			brunei_area  = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			kutai_area  = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			kalimantan_area  = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			south_sumatra_area  = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			central_sumatra_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			north_sumatra_area   = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			batak_area   = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	
+	ned_indonesia_cot = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { ned_malacca }
+		position = 9
+		
+		provinces_to_highlight = {
+			province_id = 1361
+			has_discovered = ROOT
+		}
+		
+		trigger = { 
+			1361 = {		# Straits of Johor
+				is_strongest_trade_power = NED
+			}
+		}
+	
+		effect = {
+			add_country_modifier = {
+				name = "por_johor_dominance"
+				duration = 7300
+			}
+		}
+	}
+}
+	
+ned_colonial_group_three = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = NED
+		is_random_new_world = no
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	ned_port = {
+	    icon = mission_sea_battles
+		required_missions = { ned_fleet }
+		position = 2
+		
+		trigger = {
+			97 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = {
+					has_building = shipyard
+					has_building = dock
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+			province_id = 97
+		}
+		
+	effect = {
+		add_country_modifier = {
+			name = "ned_fleet"
+			duration = 5475
+			}
+		}
+	}
+	
+	ned_flagship = {
+		icon = mission_launch_a_flagship
+		required_missions = { ned_port }
+		position = 3
+		
+		trigger = {
+			has_flagship = yes
+		}
+		effect = {
+			add_navy_tradition = 20
+
+		}
+	}
+	
+	ned_swamp = {
+		icon = mission_swamp
+		required_missions = { }
+		position = 4
+		
+		trigger = {
+            custom_trigger_tooltip = {
+                tooltip = loc_ned_swamp
+                97 = {
+					has_province_modifier = holland_polders
+				}
+            }
+		}
+		
+		effect = {
+		    add_prestige = 10
+		}
+	}
+	
+	ned_canals = {
+		icon = mission_canal
+		required_missions = { ned_swamp }
+		position = 5
+		
+		trigger = {
+            custom_trigger_tooltip = {
+                tooltip = loc_ned_canal
+                97 = {
+					has_province_modifier = netherlands_canal
+				}
+            }
+		}
+		
+		effect = {
+		    add_prestige = 10
+		}
+	}
+	
+	ned_amsterdam = {
+		icon = mission_early_game_buildings
+		required_missions = { ned_canals }
+		position = 6
+		
+		trigger = {
+			97 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT 
+				development = 25
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 97
+			}
+		}
+		
+		effect = {
+			97 = {
+				add_province_modifier = {
+					name = "ned_amsterdam"
+					duration = 9125
+				}
+			}
+		}
+	}
+	
+	ned_university = {
+	    icon = mission_rb_college_of_justice
+		required_missions = { ned_amsterdam }
+		possition = 7
+		
+		trigger = {
+			97 = {
+				owned_by = ROOT
+				has_building = university
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ned_ath"
+				duration = 7300
+			}
+		}
+	}
+	
+	ned_macau = {
+	    icon = mission_open_up_china
+		required_missions = { ned_india_ceylon }
+		possition = 8
+		
+		trigger = {
+			owns = 668
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 668
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_prestige = 10
+		}
+	}
+	
+	ned_borneo = {
+	    icon = mission_wine_monopolies
+		required_missions = { ned_malacca }
+		possition = 9
+		
+		trigger = {
+		    kalimantan_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    brunei_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    kutai_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = kalimantan_area
+				area = kutai_area
+				area = brunei_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_adm_power = 50
+		}
+	}
+	
+	ned_indies = {
+	    icon = mission_unite_home_region
+		required_missions = { ned_borneo ned_indonesia_cot ned_sumatra }
+		possition = 10
+		trigger = {
+		    indonesia_region = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				region = indonesia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_adm_power = 100
+			add_dip_power = 100
+			add_prestige = 25
+		}
+	}
+}
+
+ned_colonial_group_four = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = NED
+		is_random_new_world = no
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	ned_flanders = {
+		icon = mission_assemble_an_army
+		required_missions = { ned_lowlands }
+		position = 3
+		
+		trigger = {
+		    flanders_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = flanders_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+		    if = {
+				limit = { NOT = { accepted_culture = flemish } }
+				add_accepted_culture = flemish
+			    }
+			}
+		}
+		
+	ned_calais = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { ned_flanders }
+		position = 4
+		
+		provinces_to_highlight = {
+			OR = {		
+				province_id = 87
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			87 = { owned_by = ROOT }
+		}
+		
+		effect = {
+			1269 = {
+				add_trade_modifier = {
+					who = root
+					duration = 7300
+					power = 25
+					key = port_calais
+				}
+			}
+		}
+	}
+	
+	ned_reformation = {
+		icon = mission_luther_theses
+		required_missions = { }
+		position = 5
+		
+		trigger = {
+			NOT = { current_age = age_of_discovery }
+			OR = {
+				NOT = {
+					religion = catholic
+				}
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "eng_rb_state_religion_mod"
+				duration = 7300
+			}
+		}
+	}
+	
+	ned_unity = {
+		icon = mission_hands_praying
+		required_missions = { ned_reformation }
+		position = 6
+		
+		trigger = {
+			NOT = { current_age = age_of_discovery }
+			OR = {
+				NOT = {
+					religion = catholic
+				}
+				religious_unity = 0.85
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ned_faith"
+				duration = 7300
+			}
+		}
+	}
+	
+	ned_spice_australia = {
+		icon = mission_settlers_north_america
+		required_missions = { ned_india_ceylon }
+		position = 8
+		completed_by = 1660.1.1
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ned_spice_australia.tooltip
+				colonial_australia = {
+					has_discovered = ROOT
+				}
+				trade_company_indonesia = {
+					has_discovered = ROOT
+				}
+				trade_company_moluccas = {
+					has_discovered = ROOT
+				}
+			}
+		}
+		
+		effect = {
+			create_admiral = {
+				tradition = 80
+			}
+		}
+	}
+	
+	ned_sumatra = {
+	    icon = mission_unite_coromandel
+		required_missions = { ned_malacca }
+		possition = 9
+		trigger = {
+		    south_sumatra_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    batak_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    central_sumatra_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    north_sumatra_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = north_sumatra_area
+				area = central_sumatra_area
+				area = batak_area
+				area = south_sumatra_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_adm_power = 50
+		}
+	}
+}
+
+ned_reconquest_group = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = NED
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	ned_unite = {
+	    icon = mission_spanish_netherlands
+		required_missions = { }
+		position = 1
+	
+		trigger = {
+			owns = 97
+			owns = 4383
+			owns = 96
+			owns = 98
+			owns = 95
+			owns = 99
+			owns = 4381
+			owns = 100
+			owns = 4382
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 97
+				province_id = 4383
+				province_id = 96
+				province_id = 98
+				province_id = 95
+				province_id = 99
+				province_id = 4381
+				province_id = 100
+				province_id = 4382
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ned_lowlands_victory"
+				duration = 5475
+			}
+		}
+	}
+	
+	
+	ned_lowlands = {
+		icon = mission_hanseatic_city
+		required_missions = { ned_unite }
+		position = 2
+		completed_by = 1560.1.1
+		
+		trigger = {
+			owns = 2974
+			owns = 1742
+
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2974
+				province_id = 1742
+			}
+		}
+		
+		effect = {
+			add_adm_power = 50
+		}
+	}
+	
+	ned_wallonia = {
+		icon = mission_cannons_firing
+		required_missions = { ned_lowlands }
+		position = 3
+		
+		provinces_to_highlight = {
+			OR = {
+				area = wallonia_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			wallonia_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			add_treasury = 250
+		}
+	}
+	
+	ned_lux = {
+		icon = mission_conquer_50_development
+		required_missions = { ned_wallonia }
+		position = 4
+		
+		provinces_to_highlight = {
+			OR = {		
+				province_id = 94
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			94 = { owned_by = ROOT }
+		}
+		
+		effect = {
+			add_prestige = 10
+		}
+	}
+	
+	ned_nether = {
+		icon = mission_unite_home_region
+		required_missions = { ned_lux ned_calais }
+		position = 5
+		
+		provinces_to_highlight = {
+			OR = {		
+				province_id = 88
+				province_id = 1743
+				province_id = 181
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			88 = { owned_by = ROOT }
+			1743 = { owned_by = ROOT }
+			181 = { owned_by = ROOT }
+		}
+		
+		effect = {
+			add_prestige = 20
+			add_legitimacy = 20
+		}
+	}
+	
+	ned_comorin = {
+		icon = mission_expand_inland
+		required_missions = { ned_india_ceylon }
+		position = 8
+		completed_by = 1660.1.1
+		
+		provinces_to_highlight = {
+			area = madura_area
+			area = malabar_area
+			area = tanjore_area
+			NOT = { owned_by = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			madura_area = {
+				type = all
+				owned_by = ROOT
+			}
+			tanjore_area = {
+				type = all
+				owned_by = ROOT
+			}
+			malabar_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ned_indias"
+				duration = "5475"
+			}
+		}
+	}
+	
+	ned_coromandel = {
+		icon = mission_conquer_arakan
+		required_missions = { ned_comorin }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1340
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			1340 = {
+				is_strongest_trade_power = ROOT
+			}
+		}
+	
+		effect = {
+			add_mercantilism = 3
+		}
+	}
+}
+
+
+
