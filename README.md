@@ -61,9 +61,12 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 
 [h1] Changes ? [/h1]
 - Added new national ideas to: Gotaland, Jutland, Skane, Knights Templar
-- Hellenism expanded a lot
+- Hellenism expanded, rebel type added, deities for byzantine group and a slightly weaker version of deities for everyone else, more events. 
 - Byzantine group culture AIs have a 50% chance to choose hellenic and convert. Player also gets to choose through decision.
 - Religion Colour changes
+- Neat Loading Screens added
+- Better Terrain Pictures added
+
 
 [h1] Changes 31/07/2020 [/h1]
 - Trade Goods Expanded updated
@@ -88,10 +91,11 @@ As of right now:
 - No Sack of X on your own provinces or subjects (this is clearly the most important part)
 - More National Ideas added
 - Trade Goods Expanded
-- Colonies are locked into their respective regions
+- Colonies are locked into their respective regions until independence
 - AI tweaks and changes making it less-braindead
 - More Ruler personalities
 - More Scornful Insults
+- Graphical changes 
 
 
 [h1] Other [/h1]
