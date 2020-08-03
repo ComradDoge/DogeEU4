@@ -66,6 +66,7 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Religion Colour changes
 - Neat Loading Screens added
 - Better Terrain Pictures added
+- Mission Graphical changes
 
 
 [h1] Changes 31/07/2020 [/h1]
@@ -139,3 +140,4 @@ Also, I am not affiliated with the Expanded Mods group at all but here is their 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185952315] Historical Religious Colours updated for 1.30 Emperor [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures by Borsch [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens by SleepyLion [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree by Varlin [/url]
