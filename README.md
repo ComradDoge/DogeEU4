@@ -59,7 +59,7 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 
 
 
-[h1] Changes ? [/h1]
+[h1] Changes 03/08/2020 [/h1]
 - Added new national ideas to: Gotaland, Jutland, Skane, Knights Templar
 - Hellenism expanded, rebel type added, deities for byzantine group and a slightly weaker version of deities for everyone else, more events. 
 - Byzantine group culture AIs have a 50% chance to choose hellenic and convert. Player also gets to choose through decision.
@@ -67,21 +67,10 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Neat Loading Screens added
 - Better Terrain Pictures added
 - Mission Graphical changes
+- Missions added for Byzantium, Netherlands, Bulgaria, Russia, Italy
+- ME missions for Beyliks, Ottomans and Germany added with some slight changes due to shattered. Does not fully make sense in all places but it works.
+    There might be some errors or questionable numbers within the missions so please report them.
 
-
-[h1] Changes 31/07/2020 [/h1]
-- Trade Goods Expanded updated
-- More Scornful Insults added
-- 67 More Ruler personalities added, having positive/neutral/negative types
-- Removed "Standard Ruler" from countries, instead they get randomized. Feel free to recommend balanced, good RP rulers for those countries or make a fork.
-- AI should be less braindead and should develop
-- Tax buildings are slightly more worth it (decresed cost of cathedral 300>250, increased tax modifier by 20% for each (40%;60% > 60%;80%))
-- Naval Battery attrition nerfed from 5% to 3%
-- Espionage Buffed
-- Russia nerfed (land force limit +50% > +20%, added +25% manpower recovery)
-- AI Estate logic tweaked
-- More Province Modifiers in the world for flavour
-- Going over forcelimit will not be fun for your coffers
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
@@ -130,11 +119,13 @@ Also, I am not affiliated with the Expanded Mods group at all but here is their 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded by Big Boss [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded by Silver Knight of Anor Londo (Verityvoid) [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded by MrMarcinQ‎ [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded by Stiopia/Expanded Team [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded by Lord Varangian [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version by Spirit Baker and LoStack for Dev-Click part [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults by Ruben_Escobar14 [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities by Worlds Smuggest Detective [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers by Lk [/url]
+    [https://steamcommunity.com/profiles/76561198055745620/myworkshopfiles] Various Missions by Parmellion [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism by Jan [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours by reddbane [/url] Outdated
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185952315] Historical Religious Colours updated for 1.30 Emperor [/url]
