@@ -54,6 +54,8 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Blessings added for Zoroastrianism, cheers VikingNephilim
 - Church Aspects for Cathar added, cheers VikingNephilim
 - Changed some provinces starting religion
+- Change some values regarding development in various areas.
+- AI should upgrade its forts.
 
 [h1] Changes 03/08/2020 [/h1]
 - Added new national ideas to: Gotaland, Jutland, Skane, Knights Templar
