@@ -50,6 +50,10 @@ Vanilla map Shattered Mod, early in development but should provide a nice shatte
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes ? [/h1]
+- Religious rebels added for previosly added religions
+- Blessings added for Zoroastrianism, cheers VikingNephilim
+- Church Aspects for Cathar added, cheers VikingNephilim
+- Changed some provinces starting religion
 
 [h1] Changes 03/08/2020 [/h1]
 - Added new national ideas to: Gotaland, Jutland, Skane, Knights Templar
