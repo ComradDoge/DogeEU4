@@ -56,19 +56,15 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Changed some provinces starting religion
 - Change some values regarding development in various areas.
 - AI should upgrade its forts.
-
-[h1] Changes 03/08/2020 [/h1]
-- Added new national ideas to: Gotaland, Jutland, Skane, Knights Templar
-- Hellenism expanded, rebel type added, deities for byzantine group and a slightly weaker version of deities for everyone else, more events. 
-- Byzantine group culture AIs have a 50% chance to choose hellenic and convert. Player also gets to choose through decision.
-- Religion Colour changes
-- Neat Loading Screens added
-- Better Terrain Pictures added
-- Mission Graphical changes
-- Missions added for Byzantium, Netherlands, Bulgaria, Russia, Italy
-- ME missions for Beyliks, Ottomans and Germany added with some slight changes due to shattered. Does not fully make sense in all places but it works.
-    There might be some errors or questionable numbers within the missions so please report them.
-
+- Workshop updated with newer religion images
+- Culture rework: 
+    Wales, Cornish and Breton part of Celtic group.
+    Northumberland culture revived, part of British group.
+    Scania has its own culture, part of Scandinavian group.
+- HRE: Manpower and Forcelimit numbers from members lowered for Emperor
+- Start slightly changed for Sweden to stop it from always becoming the main power.
+- Thalassocracy made more obtainable early. Req: Maritime changed to Trade, removed Novgorod and Gulf of Aden from requirement groups.
+- Celtic Empire formable with own national ideas added for gaelic culture and Scotland as a decision
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
@@ -84,6 +80,7 @@ As of right now:
 - More Ruler personalities
 - More Scornful Insults
 - Graphical changes 
+- More formables
 
 
 [h1] Other [/h1]
@@ -137,3 +134,4 @@ Also, I am not affiliated with the Expanded Mods group at all but here is their 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures by Borsch [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens by SleepyLion [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree by Varlin [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod by MaitreKorda [/url]
