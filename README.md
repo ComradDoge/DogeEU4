@@ -49,22 +49,8 @@ Vanilla map Shattered Mod, early in development but should provide a nice shatte
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes ? [/h1]
-- Religious rebels added for previosly added religions
-- Blessings added for Zoroastrianism, cheers VikingNephilim
-- Church Aspects for Cathar added, cheers VikingNephilim
-- Changed some provinces starting religion
-- Change some values regarding development in various areas.
-- AI should upgrade its forts.
-- Workshop updated with newer religion images
-- Culture rework: 
-    Wales, Cornish and Breton part of Celtic group.
-    Northumberland culture revived, part of British group.
-    Scania has its own culture, part of Scandinavian group.
-- HRE: Manpower and Forcelimit numbers from members lowered for Emperor
-- Start slightly changed for Sweden to stop it from always becoming the main power.
-- Thalassocracy made more obtainable early. Req: Maritime changed to Trade, removed Novgorod and Gulf of Aden from requirement groups.
-- Celtic Empire formable with own national ideas added for gaelic culture and Scotland as a decision
+[h1] Changes  [/h1]
+
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
@@ -127,7 +113,7 @@ Also, I am not affiliated with the Expanded Mods group at all but here is their 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults by Ruben_Escobar14 [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities by Worlds Smuggest Detective [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers by Lk [/url]
-    [https://steamcommunity.com/profiles/76561198055745620/myworkshopfiles] Various Missions by Parmellion [/url]
+    [url=https://steamcommunity.com/profiles/76561198055745620/myworkshopfiles] Various Missions by Parmellion [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism by Jan [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours by reddbane [/url] Outdated
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185952315] Historical Religious Colours updated for 1.30 Emperor [/url]
