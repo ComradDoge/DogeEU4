@@ -51,6 +51,7 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 
 [h1] Changes  [/h1]
 - Mission tree added - Albania
+- Nation colour changes
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
