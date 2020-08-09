@@ -50,7 +50,7 @@ Vanilla map Shattered Mod, early in development but should provide a nice shatte
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes  [/h1]
-
+- Mission tree added - Albania
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
