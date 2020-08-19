@@ -44,36 +44,47 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 
 
 # STEAM WORKSHOP DESCRIPTION
-
-Vanilla map Shattered Mod, early in development but should provide a nice shattered experience nonetheless.
+[img] https://i.imgur.com/p7Fv1Z6.gif [/img]
+Vanilla map Shattered Mod, in development but should provide a nice shattered experience nonetheless.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes  [/h1]
-- Mission tree added - Albania
-- Nation colour changes
+[h1] Changes 19/08/2020 [/h1]
+- Mine base cost increased to 2k and diplo cost lowered to 25
+- Added a shared mission for Branderburg and Prussia, its massive
+- [b]New Government reforms[\b] (if you have an existing save SP/MP, use reformprogress to change them as the game slightly bugs out if you are deep into the game)
+- Rebels added for religions
+- TGE: tomatoes added, livestock/tropical wood icon changed, spawning changed
+- Druidism Icon fixed
+- Deity Icons broken so I always have something to do for next update
+- Yazidi, Jewish, Lollard, Egyptian, Slavic, Waldensian updated
+- Province religions at start changed
+- Assyria is now Yazidi, Trent is now Waldensian, Beloozero;Vologdad and Pskov are Slavic. 
+- Cathar Church aspects are now different instead of Protestant copy
+- Rugen is a free state!
+- Muslim school timer lowered from 20 years to 10 years, piety limitation removed from the schools and powerpoint cost reduced from 50 to 30
+
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
-- The world is fully shattered
-- New Idea Groups
-- Religion specific idea groups
-- CK2 religions added, atlhough not fully implemented
+- A Shattered World with a normal bookmark and one without an HRE
+- New Idea Groups with various religions getting specific idea groups
+- Many new religions added from CK2
+- More countries have their own national ideas
+- New formables all over the world
+- Some formable countries get different national ideas depending on who formed them
+- Many more trade goods with ways to change trade good in a province
 - No Sack of X on your own provinces or subjects (this is clearly the most important part)
-- More National Ideas added
-- Trade Goods Expanded
 - Colonies are locked into their respective regions until independence
 - AI tweaks and changes making it less-braindead
-- More Ruler personalities
-- More Scornful Insults
-- Graphical changes 
-- More formables
+- Mini additions: More insults, more ruler personality traits, more advisors
 
 
 [h1] Other [/h1]
-Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs and stuff. I am always here, except when I am not.
+Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
-Here is a [url=https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0] spreadsheet [/url] of various stuff that is all over the place. I don't know how it will help you.
+
+Here is a [url=https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0] spreadsheet [/url] of various stuff that is all over the place. I don't know how it will help you. It is not fully up to date.
 
 [h1] Beyond Typus Version [/h1]
 I am collabortaing with Pirate AE (one of the previous shattered modders) to bring a Beyond Typus version of Shattered Europa. We hope this will bring a more authentic Shattered experience and also an option to people who want to play in a more detailed world
@@ -83,24 +94,19 @@ I am collabortaing with Pirate AE (one of the previous shattered modders) to bri
 This Shattered mod which is based on vanilla map will continue to be fully worked on to have a choice for people to play on with less provinces.
 
 
-[h1] Credits [/h1]
-Thanks to the previous Authors who contributed to Shattered Europa over the years.
-- Neprut
-- Pirate AI
-- Maxos
 
-
-[h2] Mods [/h2]
+[h2] Credits [/h2]
 Not all parts of the mods will be added or without changes, some might not have any files taken but merely inspiration taken of some sort. Nonetheless, I'll try to credit people cause their work saves my time and it would be rude not too. 
 
-Also, I am not affiliated with the Expanded Mods group at all but here is their [url=https://discord.gg/UEyGV6U] discord [/url]
+While not integrated into this mod I would recommend using [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2169468112] Better Estates UI by Latte [/url] which is Ironman Compatible. Seriously, bless 
+
+[url=https://discord.gg/UEyGV6U] I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their discord [/url]
 
     Shattered Europa by Neprut
     Maxos New Shattered by Maxos
     Shattered Europa by Pirate AI
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names by Cwrwi [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming by Panther [/url]
-    Excelmakesbelhappy (Arumba discord mod) by various contributors on [url=https://discord.gg/arumba] Arumba discord. [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13 [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation by flogi [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded by Big Boss [/url]
@@ -122,3 +128,4 @@ Also, I am not affiliated with the Expanded Mods group at all but here is their 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens by SleepyLion [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree by Varlin [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod by MaitreKorda [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors by (EXITPOL) DARZ (NEXTPOL) [/url]
