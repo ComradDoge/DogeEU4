@@ -50,20 +50,11 @@ Vanilla map Shattered Mod, in development but should provide a nice shattered ex
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes 19/08/2020 [/h1]
-- Mine base cost increased to 2k and diplo cost lowered to 25
-- Added a shared mission for Branderburg and Prussia, its massive
-- [b]New Government reforms[\b] (if you have an existing save SP/MP, use reformprogress to change them as the game slightly bugs out if you are deep into the game)
-- Rebels added for religions
-- TGE: tomatoes added, livestock/tropical wood icon changed, spawning changed
-- Druidism Icon fixed
-- Deity Icons broken so I always have something to do for next update
-- Yazidi, Jewish, Lollard, Egyptian, Slavic, Waldensian updated
-- Province religions at start changed
-- Assyria is now Yazidi, Trent is now Waldensian, Beloozero;Vologdad and Pskov are Slavic. 
-- Cathar Church aspects are now different instead of Protestant copy
-- Rugen is a free state!
-- Muslim school timer lowered from 20 years to 10 years, piety limitation removed from the schools and powerpoint cost reduced from 50 to 30
-
+- Navy ship ideas received marine troop bonus
+- 10+ Advisors added
+- Minor Government value adjustments
+- Existing Tier 1 LOCK removed from some countries to allow for choices at the start
+- Advisors graphical fix
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:
