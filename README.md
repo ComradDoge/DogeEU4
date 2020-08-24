@@ -54,7 +54,9 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - 10+ Advisors added
 - Minor Government value adjustments
 - Existing Tier 1 LOCK removed from some countries to allow for choices at the start
-- Advisors graphical fix
+- Advisor graphical fix
+- Enlightenment age added
+- Age abilities changed from being only country specific, allowing them to be picked by others when specific conditions are met
 
 [h1] Doge Shattered Main Additions [/h1]
 As of right now:

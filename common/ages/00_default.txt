@@ -8,7 +8,6 @@ age_of_discovery = {
 	religious_conflicts = yes
 	papacy = 1.0
 	
-
 	objectives = {
 		obj_discover_america = {
 			allow = {
@@ -127,8 +126,7 @@ age_of_discovery = {
 		}
 		
 
-		ab_transfer_vassal_wargoal = 
-		{
+		ab_transfer_vassal_wargoal = {
 			rule = {
 				can_transfer_vassal_wargoal = yes
 				can_chain_claim = yes
@@ -180,10 +178,33 @@ age_of_discovery = {
 		
 		ab_ottoman_siege_ability = {
 			allow = {
-				tag = OSM
-			}
+				custom_trigger_tooltip = {
+					tooltip = ab_ottoman_siege_ability_idea_choice_desc
+
+					OR = {
+						has_idea = local_traditions #humanist_ideas
+						has_idea = scientific_revolution #innovativeness_ideas
+						tag = OSM
+					}
+				}
+					OR = {
+						religion_group = christian
+						religion_group = muslim
+					}
+					OR = {
+						technology_group = eastern
+						technology_group = ottoman
+					}
+					OR = {
+						total_development = 200
+						capital_scope = {
+							development = 20
+						}
+					}
+					mil_tech = 7
+				}	
 			modifier = {
-				siege_ability = 0.15
+				siege_ability = 0.2
 			}
 			ai_will_do = {
 				factor = 100
@@ -193,7 +214,10 @@ age_of_discovery = {
 		ab_portugal_colonial_growth = {
 		
 			allow = {
-				tag = POR
+				has_idea_group = exploration_ideas
+				has_idea_group = expansion_ideas
+				num_of_colonies = 1
+				num_of_colonists = 1
 			}
 			modifier = {
 				global_colonial_growth = 50
@@ -205,7 +229,10 @@ age_of_discovery = {
 		ab_denmark_reduced_lib_desire = {
 		
 			allow = {
-				tag = ZEA
+				OR = {
+					full_idea_group = galle0
+					tag = ZEA
+				}
 			}
 			modifier = {
 				galley_cost = -0.3
@@ -217,7 +244,13 @@ age_of_discovery = {
 		ab_venice_ship_trade = {
 		
 			allow = {
-				tag = VEN
+				trade_income_percentage = 0.4
+				OR = {
+					full_idea_group = handel0
+					full_idea_group = trade_ideas
+					tag = VEN
+				}
+				
 			}
 			modifier = {
 				global_ship_trade_power = 0.5
@@ -380,7 +413,15 @@ age_of_reformation = {
 	
 		ab_spain_tercio = {
 			allow = {
-				tag = SPA
+				religion = catholic
+				OR = {
+					full_idea_group = monarchie0
+					full_idea_group = exploration_ideas
+					tag = SPA
+				}
+				total_development = 200
+				mil_tech = 12
+				#num_of_colonies = 1
 			}
 			modifier = {
 				shock_damage_received = -0.3
@@ -389,9 +430,36 @@ age_of_reformation = {
 				factor = 100
 			}
 		}
+
 		ab_mughal_artillery = {
 			allow = {
-				tag = MUG
+				religion = sunni
+				OR = {
+					full_idea_group = staatsverwaltung0
+					full_idea_group = humanist_ideas
+					tag = MUG
+					tag = PER
+				}
+				OR = {
+					AND = {
+						capital_scope = {
+							superregion = india_superregion
+						}
+						any_owned_province = {
+							superregion = persia_superregion
+						}
+					}
+					AND = {
+						capital_scope = {
+							superregion = persia_superregion
+						}
+						any_owned_province = {
+							superregion = india_superregion
+						}
+					}
+				}
+				mil_tech = 7
+				government_rank = 2
 			}
 			modifier = {
 				artillery_cost = -0.5
@@ -403,13 +471,29 @@ age_of_reformation = {
 		
 		ab_polish_legitimacy = {
 			allow = {
-				OR = {
-					tag = PLC
-					tag = POL
+
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 55
 				}
+
+				OR = {
+					full_idea_group = humanist_ideas
+					tag = POL
+					tag = PLC
+				}
+				OR = {
+					OR = {
+						government_reform = elective_monarchy
+						tag = POL
+						tag = PLC
+					}
+					has_parliament = yes
+				}
+				government_rank = 2
 			}
 			modifier = {
-				global_trade_goods_size_modifier = 0.33
+				global_trade_goods_size_modifier = 0.20
 			}
 			ai_will_do = {
 				factor = 100
@@ -418,7 +502,18 @@ age_of_reformation = {
 		
 		ab_persia_reinforce = {
 			allow = {
-				tag = PER
+				OR = {
+					full_idea_group = monarchie0
+					full_idea_group = defensive_ideas
+					tag = PER
+				}
+				religion = shiite
+				capital_scope = {
+					superregion = persia_superregion
+				}
+				mil_tech = 9
+				culture_group = iranian
+				total_development = 200
 			}
 			modifier = {
 				reinforce_cost_modifier = -0.3
@@ -573,7 +668,16 @@ age_of_absolutism = {
 	
 		ab_france_fire_damage = {
 			allow = {
-				tag = FRA
+				religion = catholic
+				OR = {
+					full_idea_group = quality_ideas
+					full_idea_group = offensive_ideas
+					full_idea_group = waffenqualitat0
+					tag = FRA
+				}
+				total_development = 500
+				mil_tech = 17
+				#land_morale = 5.5
 			}
 			modifier = {
 				fire_damage = 0.2
@@ -584,7 +688,39 @@ age_of_absolutism = {
 		}
 		ab_dutch_anti_corruption = {
 			allow = {
-				tag = NED
+				num_of_colonists = 1
+				full_idea_group = exploration_ideas
+				OR = {
+					has_idea_group = expansion_ideas
+					has_idea_group = trade_ideas
+					tag = NED
+				}
+				OR = {
+					AND = {
+						any_owned_province = {
+							superregion = africa_superregion
+						}
+						any_owned_province = {
+							superregion = east_indies_superregion
+						}
+					}
+					AND = {
+						any_owned_province = {
+							superregion = india_superregion
+						}
+						any_owned_province = {
+							superregion = east_indies_superregion
+						}
+					}
+					AND = {
+						any_owned_province = {
+							superregion = africa_superregion
+						}
+						any_owned_province = {
+							superregion = india_superregion
+						}
+					}
+				}
 			}
 			modifier = {
 				yearly_corruption = -0.2
@@ -595,11 +731,26 @@ age_of_absolutism = {
 		}	
 		ab_sweden_manpower = {
 			allow = {
-				tag = SWE
-				tag = SCA
+				full_idea_group = quality_ideas
+				OR = {
+					has_idea_group = offensive_ideas
+					has_idea_group = quantity_ideas
+					tag = SWE
+					tag = SCA
+					tag = GTA
+				}
+				AND = {
+					adm = 4
+					dip = 4
+					mil = 4
+				}
+				mil_tech = 15
+				is_monarch_leader = yes
+				total_development = 300
+				NOT = { total_development = 600 }
 			}
 			modifier = {
-				manpower_recovery_speed = 0.35
+				manpower_recovery_speed = 0.2
 			}
 			ai_will_do = {
 				factor = 100
@@ -608,16 +759,334 @@ age_of_absolutism = {
 
 		ab_manchu_banner = {
 			allow = {
+				government_rank = 2
+				any_owned_province = {
+					culture_group = east_asian
+				}
 				OR = {
-					tag = MCH
-					tag = QNG
+					culture_group = evenks
+					culture_group = east_asian
+					culture_group = altaic
 				}
 			}
+
 			modifier = {
-				amount_of_banners = 0.5
+				special_unit_forcelimit = 0.2
+				amount_of_banners = 0.2
+			}
+
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					factor = 100
+					OR = {
+						tag = MCH
+						tag = QNG
+					}
+				}
+			}
+		}
+	}
+}
+
+age_of_enlightenment = {
+	start = 1710
+	
+	can_start = {
+		is_institution_enabled = enlightenment
+	}
+	
+	absolutism = {
+		harsh_treatment = 1
+		stability = 1
+		decrease_autonomy_command = 1
+		strengthen_government = 2
+		
+		increase_autonomy_command = -2
+		debase_currency = -1
+		execute_rebel_acceptance_command = -10
+		seat_in_parliament = -3
+		war_exhaustion = -1
+	}
+	
+	
+	objectives = {
+	
+		obj_enlightened_ruler = {
+				OR = {
+				
+					AND = {
+					adm = 4
+					mil = 4
+					dip = 4
+					}
+					
+					OR={
+						ruler_has_personality = scholar_personality
+						ruler_has_personality = free_thinker_personality
+					}
+					
+				}
+		}
+		
+		obj_scientific_revolution = {
+			innovativeness = 25
+		}
+		
+			obj_merchant_fleet = {
+			num_of_light_ship = 150
+		}
+		
+			obj_land_reforms = {
+			all_owned_province = {
+				development = 10
+			}
+		}
+		
+		obj_great_minds = {
+			OR={
+			artist = 5
+			master_of_mint = 5
+			natural_scientist= 5
+			philosopher= 5
+			theologian= 5
+			treasurer= 5
+			administrator = 5
+			state_overseer = 5
+			civil_engineer = 5
+			researcher = 5
+			reformist = 5
+			religious_representative = 5
+			cardinal = 5
+			renownedIman = 5
+			prominentSufi = 5
+			banker = 5
+			subject_taxman = 5
+			paper_forger = 5
+			}
+			
+			OR={
+			colonial_governor = 5
+			diplomat = 5
+			naval_reformer= 5
+			navigator= 5
+			spymaster= 5
+			statesman= 5
+			trader= 5
+			negotiator = 5
+			pioneer = 5
+			marauder_captain = 5
+			marketeer = 5
+			mercantile_influencer = 5
+			navarch = 5
+			subject_mediator = 5
+			merchant_representative = 5
+			religious_mediator = 5
+			brewer = 5
+			ship_instructor = 5
+			marine_captain = 5
+			}
+			
+			OR={
+			army_organizer = 5
+			army_reformer = 5
+			commandant= 5
+			grand_captain= 5
+			master_recruiter= 5
+			fortification_expert= 5
+			quartermaster= 5
+			commander = 5
+			drill_instructor = 5
+			combat_engineer = 5
+			tactician = 5
+			mercenary_captain = 5
+			defensive_planner = 5
+			supplier = 5
+			fieldSurgeon = 5
+			noble_representative = 5
+			}
+		}
+		
+		obj_early_imperialism = {
+			OR = {
+				num_of_continents = 5
+				}
+		}
+	
+		obj_early_industrialization = {
+			production_income_percentage = 0.4
+		}
+	}
+
+	abilities = {
+
+		ab_population_census = {
+			effect = {
+				custom_tooltip = ab_population_census_desc
+				set_country_flag = allow_tax_edict
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+		
+		ab_prestigious_court = {
+			modifier= {
+				advisor_pool = 2
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+		
+		ab_meritocratic_promotion = {
+			modifier = {
+				drill_gain_modifier = 0.3
+				mercenary_cost = 0.3
+			}
+			
+			ai_will_do = {
+				factor = 0
+			}
+		}
+		
+		ab_classicism_art = {
+			modifier = {
+				prestige_decay = -0.01
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+		
+		ab_letters_of_marque = {
+			modifier = {
+				privateer_efficiency = 0.20
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+		
+		ab_resettlement_policies = {
+			modifier = {
+				state_maintenance_modifier = -0.15
+				global_colonial_growth = 10
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+		
+		ab_trade_liberalization = {
+			modifier = {
+				global_own_trade_power = -0.2
+				trade_efficiency = 0.15
+				liberty_desire = -5
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}	
+		
+		 ab_spa_coastal_forts = {
+		 
+			allow = {
+				OR = {
+					OR = {
+						tag = SPA
+						tag = POR	
+					}
+					OR = {
+						full_idea_group = maritime_ideas
+						full_idea_group = flottenbasis0
+						full_idea_group = kolonialimperium0
+					}
+				}
+			}
+			
+				
+			modifier={
+				blockade_force_required = 0.5
+				hostile_fleet_attrition = 1
+			}
+			
+			
+			ai_will_do = {
+				factor = 100
+			}
+		}
+		
+		ab_gb_redcoats = {
+			allow = {
+				OR = {
+					culture_group = british
+					tag = GBR
+					tag = ENG
+					}
+			}
+			modifier = {
+				fire_damage = 0.2
 			}
 			ai_will_do = {
 				factor = 100
+			}
+		}
+		
+			ab_pru_military = {
+			allow = {
+				total_development = 300
+				NOT = { total_development = 600 }
+				OR = {
+					tag = PRU
+					tag = BRA
+					culture_group = germanic	
+				}
+			}
+			modifier = {
+				discipline = 0.05
+				#fire_damage_received = -0.2
+			}
+			ai_will_do = {
+				factor = 100
+			}
+		}
+		
+		ab_western_open = {
+			allow = {
+				NOT = {
+					technology_group = western
+					technology_group = eastern
+					technology_group = muslim
+					technology_group = ottoman
+				}
+				
+				any_country = {
+					OR = {
+						technology_group = western
+						technology_group = eastern
+						technology_group = ottoman
+					}
+					
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+				
+			}
+			
+			modifier = {
+				global_institution_spread = 0.3
+				embracement_cost = -0.2
+			}
+			
+			effect = {
+				add_mercantilism = -10
+			}
+			
+			ai_will_do = {
+				factor = 40
 			}
 		}
 	}
@@ -627,7 +1096,7 @@ age_of_revolutions = {
 	start = 1710
 	
 	can_start = {
-		is_institution_enabled = enlightenment
+		is_institution_enabled = industrialization
 	}
 	
 	papacy = 2.0
@@ -704,7 +1173,7 @@ age_of_revolutions = {
 
 		ab_napoleonic_warfare = {
 			modifier = {
-				artillery_bonus_vs_fort = 3
+				artillery_bonus_vs_fort = 6
 			}
 			ai_will_do = {
 				factor = 10
@@ -763,12 +1232,14 @@ age_of_revolutions = {
 				}
 			}
 		}
-		ab_pru_military = {
+		ab_colonial_assemblies = {
 			allow = {
-				tag = PRU
+				is_colonial_nation = yes
 			}
 			modifier = {
-				fire_damage_received = -0.2
+				global_regiment_cost = -0.1
+				land_forcelimit_modifier = 0.15
+				global_manpower_modifier = 0.15
 			}
 			ai_will_do = {
 				factor = 100
@@ -776,7 +1247,20 @@ age_of_revolutions = {
 		}
 		ab_gbr_fleet = {
 			allow = {
-				tag = GBR
+				full_idea_group = maritime_ideas
+				full_idea_group = exploration_ideas
+				OR = {
+					full_idea_group = gross0
+					full_idea_group = galle0
+					full_idea_group = handel0
+					OR = {
+						tag = GBR
+						culture_group = british
+					}
+				}
+				navy_size = 200
+				#navy_size_percentage = 0.75
+				#has_parliament = yes
 			}
 			modifier = {
 				naval_maintenance_modifier = -0.33
@@ -787,7 +1271,14 @@ age_of_revolutions = {
 		}
 		ab_russia_boost = {
 			allow = {
-				tag = RUS
+				OR = {
+				full_idea_group = dezentra0
+				#full_idea_group = quantity_ideas
+					tag = RUS
+					tag = RRR
+				}
+				total_development = 1250
+				army_size = 250
 			}
 			modifier = {
 				governing_capacity_modifier = 0.33
@@ -798,7 +1289,16 @@ age_of_revolutions = {
 		}
 		ab_austria_rep = {
 			allow = {
-				tag = HAB
+				OR = {
+				full_idea_group = spy_ideas
+				full_idea_group = dynasty0
+				full_idea_group = influence_ideas
+					tag = HAB
+				}
+
+				total_development = 400
+				num_of_royal_marriages = 4
+				diplomatic_reputation = 4
 			}
 			modifier = {
 				diplomatic_reputation = 5
