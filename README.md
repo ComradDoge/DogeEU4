@@ -49,7 +49,7 @@ Vanilla map Shattered Mod, in development but should provide a nice shattered ex
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes 19/08/2020 [/h1]
+[h1] Changes 24/08/2020 [/h1]
 - Navy ship ideas received marine troop bonus
 - 10+ Advisors added
 - Minor Government value adjustments
@@ -122,3 +122,5 @@ While not integrated into this mod I would recommend using [url=https://steamcom
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree by Varlin [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod by MaitreKorda [/url]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors by (EXITPOL) DARZ (NEXTPOL) [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1305668232] Dynamic Ages by DarkyDu [/url]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1381305516] The Age of Enlightenment by Caraunio [/url]
