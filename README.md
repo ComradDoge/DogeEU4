@@ -82,7 +82,7 @@ If you don't like discord just post in the discussion or in the comments.
 [url=https://ko-fi.com/comraddoge]If you want to buy me an energy drink or whatever drink you want me to drink, feel free. [/url]
 
 [h2] Credits [/h2]
-Credit to all the authors of mods that I have incorporated into Shattered. Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too.
+Credit to all the authors of mods that I have incorporated into Shattered and Viking_Nephilim for his own shattered fork from which I yoinked stuff from. Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
 
 I would recommend [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2169468112] Better Estates UI by Latte [/url] which is Ironman Compatible. Seriously, bless Latte.
 
