@@ -52,13 +52,42 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 
 
 [h1] Changes 24/08/2020 [/h1]
-- Navy ship ideas received marine troop bonus
-- 10+ Advisors added
-- Minor Government value adjustments
-- Existing Tier 1 LOCK removed from some countries to allow for choices at the start
-- Advisor graphical fix
-- Enlightenment age added
-- Age abilities changed from being only country specific, allowing them to be picked by others when specific conditions are met
+- Missions added, not all are equal in size.
+    - Finland, small
+    - Mongolia, medium
+    - Normandy, medium
+    - Circassia, small
+    - Perm, medium
+    - Kilwa, big
+    - Kongo, big
+    - Mamluks, big (need massive accomodation)
+    - Kazan, big (need massive accomodation)  
+    - Jerusalem, medium
+    - Croatia, medium
+    - Mali, medium
+    - Aztecs, small
+    - Yemen, medium
+    - Japan Minors, medium
+    - Oda, small
+    - Uesugi, small
+    - Chagatai, small
+    - Naxos, small
+    - Cyprus, small
+    - Gazikumukh, small
+    - Shirvan, small
+    - Imereti, small
+    - Georgia, medium
+    - Avaria, small
+    - Iceland, small
+    - Epirus, small
+    - Athens, small
+    - Irish Minors
+
+
+FORMABLES?
+    - Dagestan, small
+    - Caucasia, medium
+    - Zapadaslovia, small
 
 [h1] Main Additions [/h1]
 As of right now:
