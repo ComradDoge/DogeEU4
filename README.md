@@ -50,13 +50,42 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes 24/08/2020 [/h1]
-- Navy ship ideas received marine troop bonus
-- 10+ Advisors added
-- Minor Government value adjustments
-- Existing Tier 1 LOCK removed from some countries to allow for choices at the start
-- Advisor graphical fix
-- Enlightenment age added
-- Age abilities changed from being only country specific, allowing them to be picked by others when specific conditions are met
+- Missions added, not all are equal in size.
+    - Finland, small
+    - Mongolia, medium
+    - Normandy, medium
+    - Circassia, small
+    - Perm, medium
+    - Kilwa, big
+    - Kongo, big
+    - Mamluks, big (need massive accomodation)
+    - Kazan, big (need massive accomodation)  
+    - Jerusalem, medium
+    - Croatia, medium
+    - Mali, medium
+    - Aztecs, small
+    - Yemen, medium
+    - Japan Minors, medium
+    - Oda, small
+    - Uesugi, small
+    - Chagatai, small
+    - Naxos, small
+    - Cyprus, small
+    - Gazikumukh, small
+    - Shirvan, small
+    - Imereti, small
+    - Georgia, medium
+    - Avaria, small
+    - Iceland, small
+    - Epirus, small
+    - Athens, small
+    - Irish Minors
+
+
+FORMABLES?
+    - Dagestan, small
+    - Caucasia, medium
+    - Zapadaslovia, small
 
 [h1] Main Additions [/h1]
 As of right now:
@@ -79,19 +108,19 @@ If you don't like discord just post in the discussion or in the comments.
 
 [url=https://ko-fi.com/comraddoge]If you want to buy me an energy drink or whatever drink you want me to drink, feel free. [/url]
 
-[h2] Credits [/h2]
+[h1] Credits [/h1]
 Credit to all the authors of mods that I have incorporated into Shattered and Viking_Nephilim for his own shattered fork from which I yoinked stuff from. Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
 
 I would recommend [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2169468112] Better Estates UI by Latte [/url] which is Ironman Compatible. Seriously, bless Latte.
 
-I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their [url=https://discord.gg/UEyGV6U] discord.[/url] Don't send bug reports or something game related to this mod to them. 
-
+[h3] Shattered Mods [/h3]
     Shattered Europa by Neprut
     Maxos New Shattered by Maxos
     Shattered Europa by Pirate AI
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update][/url] by quill13 
+
+[h3] Expanded Mod Family [/h3]
+I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their [url=https://discord.gg/UEyGV6U] discord.[/url] Don't send bug reports or something game related to this mod to them. 
+
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded[/url] by Big Boss 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1596815683] Government Expanded[/url] by Jay 
@@ -100,6 +129,11 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded[/url] by MrMarcinQ‎ 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded[/url] by Stiopia/Expanded Team 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian 
+    
+[h3] Other [/h3]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version[/url] by Spirit Baker and LoStack for Dev-Click part 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults[/url] by Ruben_Escobar14 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities[/url] by Worlds Smuggest Detective 
@@ -113,6 +147,9 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL) 
+
+
+
 
 
 Here is a [url=https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0] spreadsheet [/url] of various stuff that is all over the place. I don't know how it will help you. It is not fully up to date.
