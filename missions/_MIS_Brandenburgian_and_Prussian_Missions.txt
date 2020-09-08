@@ -498,13 +498,6 @@ prussian_missions_main_slot1 = {
 				add_permanent_claim = ROOT
 			}
 			
-			lower_danube_area = { #beyond typus addition, bessarabia split off into lower danube state
-				limit = {
-					NOT = { owned_by = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
 			mazovia_area = {
 				limit = { owned_by = ROOT }
 				add_province_modifier = {
@@ -558,7 +551,6 @@ prussian_missions_main_slot1 = {
 		}
 		effect = {
 			1756 = {
-				add_trade_power = 2
 				add_base_production = 1
 				add_base_manpower = 1
 				add_country_modifier = {
@@ -567,13 +559,6 @@ prussian_missions_main_slot1 = {
 					}
 			}
 			
-			151 = { #beyond typus addition, bessarabia split off into lower danube state
-				limit = {
-					NOT = { owned_by = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
 
 		}			
 	}
@@ -886,12 +871,11 @@ prussian_missions_main_slot2 = {
 		}
 		effect = {
 			43 = {
-				add_trade_power = 2
 				add_base_production = 2
 				add_country_modifier = {
-				name = "baltic_power"
-				duration = 9125
-					}
+					name = "important_port"
+					duration = -1
+				}
 				}
 			}	
 		}
@@ -1337,17 +1321,47 @@ prussian_missions_main_slot2 = {
 		}
 		
 		trigger = {
-			hre_reform_level = 1
-			is_emperor = yes
-			NOT = { num_of_foreign_hre_provinces = 1 }
+			if = {
+				limit = {
+					hre_size = 1
+					NOT = { has_dlc = "Emperor" }
+				}
+				hre_reform_passed = reichsreform
+				is_emperor = yes
+				NOT = { num_of_foreign_hre_provinces = 1 }
+			}
+			else_if = {
+				limit = {
+					hre_size = 1
+					has_dlc = "Emperor"
+				}
+				hre_reform_passed = emperor_reichsreform
+				is_emperor = yes
+				NOT = { num_of_foreign_hre_provinces = 1 }
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = imperial_ban_fallback_tt
+					NOT = {
+						any_core_province = {
+							NOT = { owned_by = ROOT }
+						}
+					}
+				}
+			}
 		}
 		
 		effect = {
 			add_prestige = 10
-			add_imperial_influence = 10
-			add_country_modifier = {
-				name = "gen_hre_imperial_ban_mod"
-				duration = 9125
+			if = {
+				limit = {
+					hre_size = 1
+				}
+				add_imperial_influence = 10
+				add_country_modifier = {
+					name = "gen_hre_imperial_ban_mod"
+					duration = 5475
+				}
 			}
 		}
 	}
@@ -1390,14 +1404,8 @@ prussian_missions_main_slot3 = {
 		trigger = {
 			OR = {
 				conscription_center  = 15
-				manpower_lvl_2 = 15
+				training_fields = 15
 			}
-			OR = {
-				regimental_camp = 10
-				forcelimit_lvl_2  = 10
-				derp = 5
-			}
-			manufactory = 5
 			#mil_tech = 18
 			army_size = 200
 			num_of_mercenaries = 25
@@ -1405,7 +1413,6 @@ prussian_missions_main_slot3 = {
 		}
 		
 		effect = {
-			global_manpower = 25
 			add_country_modifier = {
 				name = "army_country"
 				duration = -1			
@@ -1471,21 +1478,23 @@ prussian_missions_main_slot3 = {
 		position = 3		
 		provinces_to_highlight = {
 			OR = {
-				area = pomerelia_area
+				province_id = 4749
+				province_id = 2994
+				province_id = 1858
 			}	
 		}	
 		trigger = {
 			treasury = -200
 			4749 = {
-				type = all
+				#type = all
 				country_or_non_sovereign_subject_holds = ROOT	
 			}
 			2994 = {
-				type = all
+				#type = all
 				country_or_non_sovereign_subject_holds = ROOT	
 			}
 			1858 = {
-				type = all
+				#type = all
 				country_or_non_sovereign_subject_holds = ROOT	
 			}
 		}	
@@ -1583,7 +1592,7 @@ reclaim_margraviate  = {
 				duration = 9125
 			}
 			add_years_of_income = 2.0
-			silesia_area = { #beyond typus
+			silesia_area = { 
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { owned_by = ROOT }
@@ -1609,21 +1618,13 @@ reclaim_margraviate  = {
 		required_missions = { reclaim_margraviate }
 		position = 6
 		provinces_to_highlight = {
-			#BEYOND TYPUS: Silesia area was split, with a new 'lower silesia' state
-			area = lower_silesia_area
-			################
 			area = silesia_area
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		trigger = {
-			#BEYOND TYPUS: Silesia area was split, with a new 'lower silesia' state
-			lower_silesia_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			################
+
 			silesia_area = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
@@ -1989,13 +1990,7 @@ reclaim_margraviate  = {
 			1481 = {
 				discover_country = ROOT
 			}
-			#5483 = {
-			#	discover_country = ROOT
-			#}
 			1480 = {
-				discover_country = ROOT
-			}
-			khiva_region = {
 				discover_country = ROOT
 			}
 			hidden_effect = {
@@ -2225,93 +2220,7 @@ reclaim_margraviate  = {
 # Effect: advisor buffs
 ##############################################################################################################################
 	
-	pru_swedish_partition = {
-		icon = mission_cannons_firing
-		required_missions = { pru_jutland_conquest }
-		position = 16
-		provinces_to_highlight = {
-			OR = {
-				#province_id = 27
-				#province_id = 38
-				#province_id = 29
-				province_id = 30
-			}
-			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		trigger = {
-			OR = {
-				30 = {
-					#type = all
-					country_or_non_sovereign_subject_holds = ROOT
-				}
-				30 = {
-					#type = all
-					controlled_by = ROOT
-				}
-			}
-		}
-		effect = {
-			hidden_effect = {
-				ostrobothnia_area = {
-					add_core = FIN
-				}`
-				4123 = {
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN owned_by = SWE } }
-						add_core = FIN
-						cede_province = FIN
-					}
-				}
-				27 = {
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN owned_by = SWE } }
-						add_core = FIN
-						cede_province = FIN
-					}
-				}
-				28 = {
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN owned_by = SWE } }
-						add_core = FIN
-						cede_province = FIN
-					}
-				}
-				29 = {
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN owned_by = SWE } }
-						add_core = FIN
-						cede_province = FIN
-					}
-				}
-				30 = {
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN owned_by = SWE } }
-						add_core = FIN
-						cede_province = FIN
-					}
-				}
-				31 = {
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN owned_by = SWE } }
-						add_core = FIN
-						cede_province = FIN
-					}
-				}
-			}
-			ROOT = {
-				create_subject = {
-					subject_type = vassal
-					subject = FIN
-				}
-			}
-			add_country_modifier = {
-				name = "baltic_domination" 
-				duration = 18250
-			}
-		}
-	}	
+	
 
 	
 }
@@ -2493,7 +2402,7 @@ pru_westminster_convention  = {
 			prestige = 75
 
 				ENG = {
-					OR{
+					OR = {
 						is_in_war = { participants = HAB }
 						is_in_war = { participants = FRA }
 						is_in_war = { participants = CAS }
@@ -2507,7 +2416,7 @@ pru_westminster_convention  = {
 					}
 				}
 
-			OR{
+			OR = {
 				is_rival = HAB
 				is_rival = FRA
 				is_rival = SPA 
@@ -3012,109 +2921,6 @@ BRA_trade_company_region_abroad = {
 # Provide some missions for conquering/interacting with scandinavia
 # Effect: pu norway, add lasting diplomatic relations penalty, add North sea trade modifier till end of game
 ##############################################################################################################################
-
-	pru_northern_crown = {
-		icon = mission_alliances
-		position = 17
-		required_missions = { pru_jutland_conquest }
-		trigger = {
-			OR = {
-				NOR = {
-					is_subject_of = DAN
-					is_lesser_in_union = yes
-				}
-				AND = {
-					ostlander_area = {
-						country_or_non_sovereign_subject_holds = DAN
-					}
-					vestlandet_area = {
-						country_or_non_sovereign_subject_holds = DAN
-					} 					
-					trondelag_area = {
-						country_or_non_sovereign_subject_holds = DAN
-					}
-				}
-			}
-			ROOT = {
-				AND = {
-					war_score_against = {
-						who = DAN
-						value = 100
-					}
-					total_development = DAN
-				}
-			}
-
-		}
-		effect = {
-			#add_dip_power = 100
-			#remove_country_modifier = supported_swedes
-			
-			ostlander_area = {
-				every_province_in_state = { 
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN } }
-						add_core = NOR
-						cede_province = NOR
-					}
-				}
-			}
-			vestlandet_area = {
-				every_province_in_state = { 
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN } }
-						add_core = NOR
-						cede_province = NOR
-					}
-				}
-			}
-			trondelag_area = {
-				every_province_in_state = { 
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN } }
-						add_core = NOR
-						cede_province = NOR
-					}
-				}
-			}
-			iceland_area = {
-				every_province_in_state = { 
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN } }
-						add_core = NOR
-						cede_province = NOR
-					}
-				}
-			}
-			northern_isles_area = {
-				every_province_in_state = { 
-					if = { 
-						limit = { OR = { owned_by = ROOT owned_by = DAN } }
-						add_core = NOR
-						cede_province = NOR
-					}
-				}
-			}
-			create_subject = {
-				subject_type = personal_union 
-				subject = NOR
-			}
-			remove_country_modifier = north_sea_foothold
-			add_country_modifier = {
-				name = "north_sea_trade" 
-				duration = -1
-			}
-			add_country_modifier = {
-				name = "crown_seized_nor" 
-				duration = 9125
-			}
-		}
-	}
-			
-			
-
-	
-
 
 }
 
@@ -3707,21 +3513,14 @@ prussian_missions_main_slot5 = {
 		position = 4
 		provinces_to_highlight = {
 			OR = {
-				area = schleswig-holstein_area
-				area = schleswig_area	#beyond typus
-				area = holstein_area	#beyond typus
+				area = holstein_area
 			}
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		trigger = {
-			schleswig-holstein_area = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			schleswig_area = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+
 			holstein_area = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
@@ -3734,18 +3533,7 @@ prussian_missions_main_slot5 = {
 				name = "treaty_of_ribe"
 				duration = 9125
 			}
-			schleswig_holstein_area = {
-				add_province_modifier = {
-					name = "german_landholders_triumphant"
-					duration = 9125
-				}
-			}
-			schleswig_area = {
-				add_province_modifier = {
-					name = "german_landholders_triumphant"
-					duration = 9125
-				}
-			}
+
 			holstein_area = {
 				add_province_modifier = {
 					name = "german_landholders_triumphant"
@@ -3783,8 +3571,7 @@ prussian_missions_main_slot5 = {
 		position = 4
 		provinces_to_highlight = {
 			OR = {
-				area = jutland_area #beyond typus
-				area = north_jutland_area
+				area = jutland_area
 			}
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
@@ -3792,9 +3579,6 @@ prussian_missions_main_slot5 = {
 		}
 		trigger = {
 			jutland_area = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			north_jutland_area = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
@@ -3833,8 +3617,7 @@ prussian_missions_main_slot5 = {
 		position = 4
 		provinces_to_highlight = {
 			OR = {
-				area = jutland_area #beyond typus
-				area = north_jutland_area
+				area = jutland_area 
 				area = skaneland_area 
 				area = denmark_area
 			}
