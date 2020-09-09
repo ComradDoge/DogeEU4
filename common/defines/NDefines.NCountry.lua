@@ -29,6 +29,11 @@ NDefines.NCountry.BASE_POSSIBLE_POLICIES = 4
 NDefines.NCountry.MINIMUM_POLICY_TIME = 3
 NDefines.NCountry.MAX_IDEA_GROUPS_FROM_SAME_CATEGORY = 0.35
 
+
+--Estates
+--NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 5		-- Max. number of privileges active at the same time
+
+
 --- BEL Imports ---
 --NDefines.NCountry.MERCHANT_REPUBLIC_SIZE_LIMIT = 9999
 --NDefines.NCountry.MAX_ARMY_PROFESSIONALISM = 1.0

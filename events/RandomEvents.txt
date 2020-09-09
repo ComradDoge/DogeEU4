@@ -4131,7 +4131,7 @@ country_event = {
 
 	trigger = {
 		capital_scope = { continent = europe }
-		any_known_country = {
+		any_neighbor_country = {
 			same_continent = root
 			if = {
 				limit = {
@@ -4150,7 +4150,7 @@ country_event = {
 				all_neighbor_country = {
 					OR = {
 						NOT = { same_continent = root }
-						NOT = { army_professionalism = prev }
+						NOT = { army_tradition  = prev }
 					}
 				}
 			}
@@ -10758,11 +10758,25 @@ country_event = {
 	trigger = {
 		is_at_war = no
 		treasury = 100
-		any_country = {
-			OR = {
-				is_rival = root
-				root = { is_rival = prev }
+		any_rival_country = {
+			any_known_country = {
+				OR = {
+					is_in_war = {
+						attacker_leader = this
+						defender_leader = prev
+						casus_belli = cb_colonial_independance_war
+					}
+					AND = {
+						is_former_colonial_nation = yes
+						is_in_war = {
+							defender_leader = this
+							attacker_leader = prev
+						}
+					}
+				}
 			}
+		}
+		any_enemy_country = {
 			any_known_country = {
 				OR = {
 					is_in_war = {
@@ -11673,6 +11687,8 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
+		has_regency = no
+		is_at_war = yes
 		any_country = {
 			employed_advisor = {
 				type = fortification_expert
@@ -11680,7 +11696,6 @@ country_event = {
 			}
 			war_with = ROOT
 		}
-		has_regency = no
 		NOT = {
 			has_ruler_modifier = inside_man
 		}
