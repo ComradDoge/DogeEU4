@@ -49,7 +49,16 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes 24/08/2020 [/h1]
+[h1] Changes 09/08/2020 [/h1]
+- Updated for 1.30.4
+- Lots of backstage fixing
+- UI for ideas fixed
+- Advisors view is different
+- Parliament UI is bigger
+- Mission code fixing
+- AI should be slightly smarter regarding army movement
+
+[h1] Changes prep [/h1]
 - Missions added, not all are equal in size.
     - Finland, small
     - Mongolia, medium
@@ -80,7 +89,6 @@ All DLCs are recommended, else some aspects of the game will not work as intende
     - Epirus, small
     - Athens, small
     - Irish Minors
-
 
 FORMABLES?
     - Dagestan, small
