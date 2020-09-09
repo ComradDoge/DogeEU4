@@ -57,6 +57,8 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Parliament UI is bigger
 - Mission code fixing
 - AI should be slightly smarter regarding army movement
+- Finland got a small mission tree
+- GE events should start popping up
 
 [h1] Changes prep [/h1]
 - Missions added, not all are equal in size.
