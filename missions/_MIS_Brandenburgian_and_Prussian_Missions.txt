@@ -1,0 +1,3856 @@
+##############################################################################################################################
+# 														SLOT 1
+##############################################################################################################################
+prussian_missions_main_slot1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		} 
+	}
+	has_country_shield = yes
+	
+##############################################################################################################################
+# 													Reform Tree
+# Elector's Reforms
+# Meant to capture the slow modernization of the Brandenburg/Prussian army 
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Effect: Improve professionalism and tradition, add some military power
+##############################################################################################################################
+
+	pru_early_reforms = {
+		icon = mission_conquer_5_states
+		required_missions = { }
+		position = 1
+		trigger = {
+			OR = {
+				AND = {
+					NOT = { exists = POM }
+					NOT = { exists = WOL }
+				}
+				army_size = 20
+			}
+			stability = 1
+			OR = {
+				tag = BRA
+				tag = PRU
+			}
+		}
+		effect = {
+			add_army_professionalism = 0.05
+			add_mil_power = 50
+			add_country_modifier = {
+				name = "prussia_early_reforms"
+				duration = -1		
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 													Reform Tree
+# War Colleges
+# Meant to capture the slow modernization of the Brandenburg/Prussian army 
+# Player must build a barracks and a university
+# Effect: Improve professionalism and tradition, add some military power, add military development to capital
+##############################################################################################################################
+	
+	pru_war_colleges = {
+		icon = mission_cossack_cavalry
+		required_missions = { pru_early_reforms }
+		position = 2
+		trigger = {
+			army_tradition = 85
+			mil_tech = 5
+			
+			calc_true_if = {
+				capital_scope = {
+					has_building = university
+				}
+				amount = 1
+			}
+		}
+		effect = {
+			add_army_professionalism = 0.05
+			add_mil_power = 100
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+			add_country_modifier = {
+				name = "prussia_war_college"
+				duration = -1			
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 													Reform Tree
+# General Staff
+# Meant to capture the slow modernization of the Brandenburg/Prussian army 
+# Player must have max manpower over 80k and military tech 10>
+# Effect: Improve professionalism and tradition, add some military power, add 2 more generals without upkeep (indefinite buff)
+##############################################################################################################################
+	
+	pru_general_staff = {
+		icon = mission_conquer_5_states
+		required_missions = { pru_war_colleges }
+		position = 3
+		trigger = {
+			mil_tech = 10
+			manpower = 100
+			stability = 1
+			OR = {
+				tag = BRA
+				tag = PRU
+			}
+		}
+		
+		effect = {
+			add_army_professionalism = 0.05
+			add_mil_power = 100
+			add_country_modifier = {
+				name = "prussia_staff_college"
+				duration = -1			
+			}
+		}
+	}
+
+##############################################################################################################################
+# 													Reform Tree
+# Late Reforms
+# Meant to capture the slow modernization of the Brandenburg/Prussian army 
+# Player must have completed both General Staff and Standing Army mission, military tech 15>
+# Effect: Improve professionalism and tradition, add some military power, add discipline (indefinite), reduced attrition (indefinite)
+##############################################################################################################################
+	
+	pru_late_reforms = {
+		icon = mission_conquer_5_states
+		required_missions = { 
+			pru_general_staff
+			pru_standing_army					
+		}
+		position = 4
+		trigger = {
+			mil_tech = 20
+			mil = 4
+			stability = 2
+			OR = {
+				tag = BRA
+				tag = PRU
+			}
+		}
+		effect = {
+			add_army_professionalism = 0.05
+			add_mil_power = 100
+			add_country_modifier = {
+				name = "prussia_late_reforms"
+				duration = -1			
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												European Expansion Tree
+# Unite Hohenzolleren Lands
+# "Our dynasty controls the ancestral lands of the Margraviate of Ansbach. Let us reunite our scattered territories under one Margrave!"
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete Reclaim Neumark mission, own Neumark, Own province of Ansbach or is controlled by a subject. Ansbach does not exist or are our subject.
+# Effect: Permanent Claims on North Rhine
+##############################################################################################################################
+	
+	pru_reunite_lands = {
+		icon = mission_conquer_5_states
+		required_missions = { 
+			#reclaim_neumark					
+		}
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 50 #owns province 50 #berlin 
+				province_id = 71 #owns province 71 #ansbach
+				}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			50 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			71 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+		}
+		effect = {
+			#claims on north rhine
+			add_prestige = 15
+			add_adm_power = 25
+			add_dip_power = 25
+			add_stability = 1
+			north_rhine_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Ambitions in Northern Rhine
+# "The Duke of Julich-Berg-Mark died, with our wife being a claimant. We can march our armies across Germania to reach our new territories!"
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete Unite the Hohenzollern Lands. Own the North Rhine area
+# Effect: Permanent claims on Westphalia and Lower Rhineland areas
+##############################################################################################################################
+	
+	pru_rhine_ambitions = {
+		icon = mission_conquer_5_states
+		required_missions = { 
+			pru_reunite_lands					
+		}
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = north_rhine_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			north_rhine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			westphalia_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			lower_rhineland_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "hegemonic_ambition"
+				duration = 9125			
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Rhenish Claims
+# "Our foothold in the Rhineland must be protected at all costs. The border princes must be brought in to line before another state can claim superiority in Germany."
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete Ambitions in the Northern Rhine. Westphalia and Lower Rhineland areas or is owned by a subject.
+# Effect: Permanent Claims on Weser, Braunschweig, Hesse and Lower Saxony areas
+##############################################################################################################################
+	
+	pru_rhenish_claims = {
+		icon = mission_conquer_50_development
+		required_missions = { 
+			pru_rhine_ambitions					
+		}
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = westphalia_area
+				area = lower_rhineland_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			westphalia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lower_rhineland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 15
+			add_country_modifier = {
+				name = "north_rhine_league"
+				duration = -1		
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Conquest of Greater Poland
+# "The slavs must be shown the boot"
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete Prussian Expansion, 
+# Effect: Polish partitions Modifier, get claims on 
+##############################################################################################################################
+	
+	pru_greater_poland_conquest = {
+		icon = mission_non-western_cavalry_raid
+		required_missions = { pru_humble_knights }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = kuyavia_area
+				area = wielkopolska_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			kuyavia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			wielkopolska_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			kuyavia_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			malopolska_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			samogitia_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			lithuania_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "polish_partitions"
+				duration = 9125
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# A One-Sided Partition
+# "Historically, the three partitions of the Polish–Lithuanian Commonwealth that took place towards the end of the 18th century and ended the existence of the state were conducted by Habsburg Austria, the Kingdom of Prussia, and the Russian Empire which divided up the Commonwealth lands among themselves progressively in the process of territorial seizures and annexations. However, what need have we to entertain the pretenses of these would-be powers? We will divide the lands of Poland-Lithuania as we see fit."
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete Conquest of Greater Poland, 
+# Effect: Polish partitions Modifier
+##############################################################################################################################
+	
+	pru_polish_partition = {
+		icon =  mission_empire         
+		required_missions = { pru_greater_poland_conquest }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				area = kuyavia_area
+				area = malopolska_area
+				area = samogitia_area
+				area = lithuania_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			kuyavia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			malopolska_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			samogitia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lithuania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 25
+			mazovia_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			red_ruthenia_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			malopolska_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			sandomierz_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "polish_minorities"
+				duration = 9125
+			}
+			
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# The March South
+# "Slavic lands beckon for a firm hand. The Polish Kings are overly focused on threats from the rising Rus and the hated Turk, it is time we fulfill our ambitions in the south at their expense."
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete One-Sided Partition, own the requisite provinces
+# Effect: claims on moldavia, catholic resistance
+##############################################################################################################################
+	
+	pru_march_south = {
+		icon = mission_cossack_cavalry
+		required_missions = { pru_polish_partition }
+		position = 10
+		provinces_to_highlight = {
+			OR = {
+				area = mazovia_area
+				area = red_ruthenia_area
+				area = malopolska_area
+				area = sandomierz_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			mazovia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			red_ruthenia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			OR = {
+				malopolska_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				sandomierz_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		effect = {
+			add_prestige = 25
+			moldavia_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			mazovia_area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "crypto_catholics"
+					duration = 9125 #25 years
+				}
+			}
+			red_ruthenia_area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "crypto_catholics"
+					duration = 9125 #25 years
+				}
+			}
+			malopolska_area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "crypto_catholics"
+					duration = 9125 #25 years
+				}
+			}
+			sandomierz_area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "crypto_catholics"
+					duration = 9125 #25 years
+				}
+			}
+
+		}			
+	}
+	
+##############################################################################################################################
+# 												European Expansion Tree
+# Black Sea Pearl
+# "We have established our foothold in the East, what glittering wonders await?"
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete One-Sided Partition, own the requisite provinces
+# Effect: improve bessarabia infrastructure and trade
+##############################################################################################################################
+	
+	pru_black_sea_pearl = {
+		icon = mission_sea_battles
+		required_missions = { pru_march_south }
+		position = 11
+		provinces_to_highlight = {
+			province_id = 1756
+		}
+		trigger = {
+			is_core = 1756
+		}
+		effect = {
+			1756 = {
+				add_base_production = 1
+				add_base_manpower = 1
+				add_country_modifier = {
+				name = "black_sea_port"
+				duration = -1
+					}
+			}
+			
+
+		}			
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# City of World's Desire
+# "We are the true heirs of Rome."
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete One-Sided Partition, own the requisite provinces
+# Effect: improve bessarabia infrastructure and trade
+##############################################################################################################################
+	
+	pru_take_constantinople = {
+		icon = mission_empire         
+		position = 12
+		required_missions = { pru_black_sea_pearl }
+		trigger = {
+			151 = {
+				religion_group = christian
+				is_core = ROOT
+			}
+		
+		}
+		effect = {
+			add_adm_power = 50
+			add_dip_power = 100
+			add_country_modifier = {
+				name = "city_restored"
+				duration = 9125
+			}
+			add_country_modifier = {
+				name = "byzantine_scholars"
+				duration = -1
+			}				
+		}
+	}
+	
+
+	
+
+	
+##############################################################################################################################
+# 												European Expansion Tree
+# Purchase the Sejm
+# "During the reign of Władysław IV (1632–48), the liberum veto was developed, a policy of parliamentary procedure based on the assumption of the political equality of every "gentleman", with the corollary that unanimous consent was needed for all measures. The liberum veto also provided openings for foreign diplomats to get their ways, through bribing nobles to exercise it. Thus, Poland–Lithuania in its final period was in a state of disorder and not a completely sovereign state, and almost as a vassal state, or in modern terms, a satellite nation, with Russian tsars effectively using their coffers to choose Polish kings. In the extreme this meant that, with enough gold, the entire sovereignty of Poland could be bought."
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete Conquest of Greater Poland, 
+# Effect: Polish partitions Modifier
+##############################################################################################################################
+	
+#	pru_polish_partition = {
+#		icon = mission_non-mission_cossack_cavalry
+#		required_missions = { pru_greater_poland_conquest }
+#		position = 9
+#		provinces_to_highlight = {
+#			
+#		}
+#		trigger = {
+#			treasury = 3000
+#			ROOT = {
+#				can_create_vassals = yes
+#			}
+#			exists = POL
+#			POL = { can_be_overlord = personal_union }
+#		}
+#		effect = {
+#			add_treasury = -3000
+#			add_country_modifier = {
+#				name = "polish_minorities"
+#				duration = 9125
+#			}
+#			
+#		}
+#	}
+	
+}
+	
+
+
+##############################################################################################################################
+# 														SLOT 2
+##############################################################################################################################
+prussian_missions_main_slot2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+	}
+	has_country_shield = yes
+	
+##############################################################################################################################
+# 													Reform Tree
+# Build to Force Limit
+# Meant to capture the slow modernization of the Brandenburg/Prussian army 
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Player must build to force limit (duh)
+# Effect: Thriving Arms Industry Modifier
+##############################################################################################################################
+	
+	BRA_build_army_mission = { #Localized as reclaim_maine_title and reclaim_maine_desc
+		icon = mission_build_up_to_force_limit
+		required_missions = {  } #None
+		position = 1
+		
+		trigger = {
+			army_size_percentage = 1 #What you need to complete the mission, displayed for mission tooltip
+		}
+		effect = { #This is what you get after you finished your mission.
+			add_country_modifier = {
+				name = "thriving_arms_industry"
+				duration = 9125 #25 years
+			}
+		}
+	}
+
+##############################################################################################################################
+# 													Reform Tree
+# Condota Ledgers
+# Meant to capture the slow modernization of the Brandenburg/Prussian army 
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Player must have 5> mercenary regiments, military technology 5>
+# Effect: 100 military power reduce, mercenary cost (20 years), reduce mercenary upkeep (20 years), reduce available mercenaries by 25% (20 years)
+##############################################################################################################################
+	
+	pru_condota_ledgers = { #Localized as reclaim_maine_title and reclaim_maine_desc
+		icon = mission_build_up_to_force_limit
+		required_missions = { build_army_mission }
+		position = 2
+		
+		trigger = {
+				mil_tech = 5
+				num_of_mercenaries = 10
+		}
+		effect = { #This is what you get after you finished your mission.
+				add_army_professionalism = 0.05
+				stability = -1
+			add_country_modifier = {
+				name = "prussia_mercenary_ledger"
+				duration = -1 
+			}
+			capital_scope = {
+			area = {
+					limit = { owned_by = ROOT }
+					add_province_modifier = {
+						name = "foreign_fighters"
+						duration = 9125 #25 years
+					}
+				}
+
+			}
+		}
+	}
+
+##############################################################################################################################
+# 													Reform Tree
+# Standing Army
+# Meant to capture the slow modernization of the Brandenburg/Prussian army 
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Player must complete Condota Ledgers, maintain more than 30 regiments at once
+# Effect: 100 military power reduce, mercenary cost (20 years), reduce mercenary upkeep (20 years), reduce available mercenaries by 25% (20 years)
+##############################################################################################################################
+	
+	pru_standing_army = {
+		icon = mission_assemble_an_army
+		required_missions = { pru_condota_ledgers }
+		position = 3
+		trigger = { army_size = 80 }
+		
+		effect = {
+				add_army_professionalism = 0.05
+			add_country_modifier = {
+				name = "army_enthusiasm"
+				duration = 9125 #25 years
+			}
+			add_country_modifier = {
+				name = "standing_army"
+				duration = -1			
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Reclaim Neumark
+# "Neumark was pawned to the Teutonic Order in 1402, but with the crusading knights weakening, we could try to regain the territory to strengthen our position in the east!"
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Player must own Neumark
+# Effect: Permanent Claims to neumark, vorpommern, and hinter pommern areas
+##############################################################################################################################
+	
+	reclaim_neumark = {
+		icon = mission_have_two_subjects
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 49
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			neumark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			vorpommern_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			hinter_pommern_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Pommeranian Succession
+# "Whilst we are the successor to the Dukes in Hinterpommern, it may be better for us to take all of Pomerania and secure the coast for our Duchy. In doing se we now have access to the Baltic from our Capital."
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Player must own all of vorpommern, and hinter pommern areas
+# Effect: 10 Legitimacy and 25 Prestige, claim on danzig
+##############################################################################################################################
+	
+	pru_conquer_pomerania = {
+		icon = mission_conquer_50_development
+		required_missions = { reclaim_neumark }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = vorpommern_area
+				area = hinter_pommern_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			vorpommern_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			hinter_pommern_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_legitimacy = 10
+			pomerelia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			west_prussia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			east_prussia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Seize Gdansk
+# "Danzig is the gateway to Baltic dominance. It must be ours at all cost!"
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Player must own danzig
+# Effect: gain claims on teuton region, danzig culture changed to prussian, add 4 development to danzig, event adds claims on teuton lands
+##############################################################################################################################
+	
+	
+	
+	seize_gdansk = {
+		icon = mission_unite_home_region
+		required_missions = { pru_conquer_pomerania }
+		position = 6
+			OR = {
+				area = wast_prussia_area
+				area = pomerelia_area
+			}
+ 		
+		trigger = {
+			is_core = 43
+		}
+		effect = {
+			43 = {
+				add_base_production = 2
+				add_country_modifier = {
+					name = "important_port"
+					duration = -1
+				}
+				}
+			}	
+		}
+	
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Bring the Knights to Heel
+# "The Teutons have defied the laws of God and Kings for too long! They must be brought to heel before our rivals in Poland and Denmark seize their lands"
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Player must own East and West Prussia area or is owned by a subject.
+# Effect: 15 prestige, 50 mil power, permanent claims on Curonia, vassalize CB on Livonian order
+##############################################################################################################################
+	
+	pru_humble_knights = {
+		icon = mission_unite_home_region
+		required_missions = { seize_gdansk }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = east_prussia_area
+				area = west_prussia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			east_prussia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			west_prussia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_mil_power = 100
+			add_adm_power = 50
+			add_casus_belli = {
+				target = LIV
+				type = cb_vassalize_mission 
+				duration = 9125
+			}
+			add_country_modifier = {
+				name = "prussian_inheritance"
+				duration = -1 #25 years
+			}
+			pomerelia_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			wielkopolska_area = {
+				limit = {
+					NOT = { owned_by = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Vassalize the Last Baltic Stronghold
+# "With their Teutonic allies finally subjugated, it is time to bring the Livonians in line. Their lands would make a perfect buffer between us and the ever growing threats to the east."
+# Historically, Prussia Professionalized its mercenary forces following the lessons of the 7 and 30 Years war respectively
+# Player must own East Prussia area or is owned by a subject.
+# Effect: 10 army tradition,
+##############################################################################################################################
+	
+	pru_baltic_stronghold = {
+		icon = mission_sea_battles
+		required_missions = { pru_humble_knights }
+		position = 8
+
+		trigger = {
+			OR = {
+				LIV = {
+					OR = {
+						is_subject_of = BRA
+						is_subject_of = PRU 
+					}
+				}
+				AND = {
+					LIV = { exists = no}
+					livonia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					curonia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			add_dip_power = 100
+			add_country_modifier = {
+				name = "knights_brought_to_heel"
+				duration = 9125 #25 years
+			}
+			add_country_modifier = {
+				name = "knights_legacy"
+				duration = -1 #25 years
+			}
+			
+		}
+	}
+	
+##############################################################################################################################
+# 												European Expansion Tree
+# Possession of Cleves
+# "Lands of the lower Rhine are ours by birthright"
+# Own all land in Cleves
+# Effect: get some permanent claims in germany
+##############################################################################################################################
+#	
+#	pru_duchy_of_cleves = {
+#		icon = mission_cannons_firing
+#		required_missions = {  }
+#		position = 10
+#		provinces_to_highlight = {
+#			area = north_rhine_area
+#			NOT = {
+#				country_or_non_sovereign_subject_holds = ROOT
+#			}
+#		}
+#		trigger = {
+#			north_rhine_area = {
+#				type = all
+#				country_or_non_sovereign_subject_holds = ROOT
+#			}
+#		}
+#		effect = {
+#			add_country_modifier = {
+#				name = "prussian_rhine"
+#				duration = 9125
+#			}
+#			westphalia_area = {
+#				limit = {
+#					NOT = { is_core = ROOT }
+#					NOT = { owned_by = ROOT }
+#				}
+#				add_permanent_claim = ROOT
+#			}
+#		}
+#	}
+	
+##############################################################################################################################
+# 												Imperialism Tree
+# Expand the State
+# Mostly focused on rewards for increased development and states controlled
+# Player must have 50 more development than they first started
+# Effect: +1 more state slot
+##############################################################################################################################
+
+	BRA_expand_country_mission = {
+		icon = mission_conquer_50_development
+		required_missions = {  }
+		position = 9
+		trigger = { grown_by_development = 50 }
+		
+		effect = {
+			capital_scope = {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+				area = {
+					limit = { owned_by = ROOT }
+					add_province_modifier = {
+						name = "growth_of_capital"
+						duration = 9125 #25 years
+					}
+				}
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												Imperialism Tree
+# Conquer New States
+# Mostly focused on rewards for increased development and states controlled
+# Player must have 5 or more states
+# Effect: stuff
+##############################################################################################################################
+
+	BRA_conquer_states = {
+		icon = mission_cannons_firing
+		required_missions = { BRA_expand_country_mission }
+		position = 10
+		trigger = { grown_by_states = 5 }
+		
+		effect = {
+			add_country_modifier = {
+				name = "expansionist_country"
+				duration = 9125 #25 years
+			}
+		}
+	}
+	
+
+##############################################################################################################################
+# 												Imperialism Tree
+# Unite Home Region
+# Mostly focused on rewards for increased development and states controlled
+# Player control all German regions
+# Effect: stuff
+##############################################################################################################################
+
+	#5th
+	BRA_unite_home_region = {
+		icon = mission_unite_home_region
+		required_missions = { BRA_conquer_states }
+		position = 11
+		provinces_to_highlight = {
+			region_for_scope_province = {
+				is_capital_of = ROOT
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			capital_scope = {
+				region_for_scope_province = {
+					type = all
+					owned_by = ROOT #Subjects won't count, empty provinces will need to be colonized.
+				}
+			}
+		}
+		effect = {
+			add_dip_power = 50
+			add_adm_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = "hegemonic_ambition"
+				duration = 9125 #25 years
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												Imperialism Tree
+# Imperial Conquest
+# Mostly focused on rewards for increased development and states controlled
+# Player has 1000> development
+# Effect: stuff
+##############################################################################################################################
+
+	BRA_imperial_ambition_mission = {
+		icon = mission_empire
+		required_missions = { BRA_unite_home_region }
+		position = 12
+		trigger = {
+			total_development = 1000
+		}
+		effect = {
+			add_prestige = 30
+			add_country_modifier = {
+				name = "imperial_ambition"
+				duration = 9125
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												Colonial Tree
+# Occupy Anguin 
+# "A chance to wrest the fortunes of Africa from unworthy hands must be taken boldly!"
+# Provide path to colonize 
+# Effect: cede anguin, get some dip/mercantilism, get vision on gold coast
+##############################################################################################################################
+
+	pru_occupy_anguin = {
+		icon = mission_colonial
+		position = 13
+		required_missions = { pru_new_lands }
+		provinces_to_highlight = {		}
+		trigger = {
+			is_year = 1500
+			OR = {
+				AND = {
+					1111 = {
+						is_core = POR
+					}
+					ROOT = {
+						war_with = POR
+						war_score_against = {
+							who = POR
+							value = 75
+							}
+						}
+				}
+				AND = {
+					has_discovered = 1111
+					num_of_conquistadors = 1
+					1111 = {
+						is_colony = no
+						NOT = {
+							is_core = NED
+							is_core = POR
+							is_core = CAS
+							is_core = SPA
+							is_core = FRA
+							is_core = ENG
+						}
+					}
+				}
+				1111 = {
+					controlled_by = ROOT
+				}
+				#num_of_conquistadors = 1
+			}
+		}
+		effect = {
+			
+			add_dip_power = 50
+			add_mercantilism = 2
+			hidden_effect = {
+				1111 = {
+					change_trade_goods = slaves
+					change_religion = ROOT	
+					#add_base_production = 3
+					add_base_manpower = 1
+					change_culture = prussian
+					add_territorial_core = ROOT
+				}	
+			}
+			1111 = { 
+				cede_province = ROOT 
+			}
+			
+			1470 = {
+				discover_country = ROOT
+			}
+			1469 = {
+				discover_country = ROOT
+			}
+			add_country_modifier = {
+				name = "african_foothold" 
+				duration = -1
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												Colonial Tree
+# Gold Coast
+# "A chance to wrest the fortunes of Africa from unworthy hands must be taken boldly!"
+# Provide path to colonize 
+# Effect: get free colony in gold coast
+##############################################################################################################################
+
+	pru_gold_coast = {
+		icon = mission_colonial
+		position = 13
+		required_missions = { pru_occupy_anguin }
+		provinces_to_highlight = {		}
+		trigger = {
+			num_of_merchants = 6
+			1139 = {
+				is_node_in_trade_company_region = yes
+			}
+		}
+		effect = {
+			
+			add_dip_power = 100
+			add_mercantilism = 3
+			
+			1139 = {
+				create_colony = 200
+			}
+			add_country_modifier = {
+				name = "africa_company" 
+				duration = -1
+			}
+		}
+	}
+	
+###############################################################
+# Generic HRE missions
+###############################################################
+
+	BRA_gen_hre_electors = {
+		icon = mission_alliances
+		required_missions = { }
+		position = 14
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = gen_hre_electors.tooltip
+				calc_true_if = {
+					all_elector = {
+						preferred_emperor = ROOT
+					}
+					amount = 2
+				}
+			}
+		}
+		
+		effect = {
+			add_prestige = 10
+			add_country_modifier = {
+				name = "gen_hre_diplomacy_mod"
+				duration = 9125
+			}
+		}
+	}
+	
+	BRA_gen_hre_emperor = {
+		icon = mission_empire
+		required_missions = { BRA_gen_hre_electors }
+		position = 15
+		
+		trigger = {
+			is_emperor = yes
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "gen_hre_emperor_mod"
+				duration = 9125
+			}
+		}
+	}
+
+	BRA_gen_hre_imperial_ban = {
+		icon = mission_cannons_firing
+		required_missions = { BRA_gen_hre_emperor }
+		position = 16
+		
+		provinces_to_highlight = {
+			AND = {
+				is_part_of_hre = yes
+				owner = {
+					is_part_of_hre = no
+				}
+			}
+		}
+		
+		trigger = {
+			if = {
+				limit = {
+					hre_size = 1
+					NOT = { has_dlc = "Emperor" }
+				}
+				hre_reform_passed = reichsreform
+				is_emperor = yes
+				NOT = { num_of_foreign_hre_provinces = 1 }
+			}
+			else_if = {
+				limit = {
+					hre_size = 1
+					has_dlc = "Emperor"
+				}
+				hre_reform_passed = emperor_reichsreform
+				is_emperor = yes
+				NOT = { num_of_foreign_hre_provinces = 1 }
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = imperial_ban_fallback_tt
+					NOT = {
+						any_core_province = {
+							NOT = { owned_by = ROOT }
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			add_prestige = 10
+			if = {
+				limit = {
+					hre_size = 1
+				}
+				add_imperial_influence = 10
+				add_country_modifier = {
+					name = "gen_hre_imperial_ban_mod"
+					duration = 5475
+				}
+			}
+		}
+	}
+	
+
+	
+
+}
+
+
+
+
+##############################################################################################################################
+# 														SLOT 3
+##############################################################################################################################
+prussian_missions_main_slot3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+	}
+	has_country_shield = yes
+
+##############################################################################################################################
+# 													Reform Tree
+# An Army with a Country
+# Starting with the establishment of garrisons in Brandenberg and Prussia, the Prussian army slowly slowly evolved into a state apparatus with deep ties across all of Prussian social strata. In 1776 the Prussian army consisted of 187,000 soldiers, 90,000 of whom were Prussian subjects in central and eastern Prussia. The remainder were foreign (both German and non-German) volunteers or conscripts. By the end of Frederick Williams's reign, the army had become nearly inseparable from Prussian society and numbered 200,000 soldiers, making it the third largest in Europe after the armies of Russia and Austria. The social classes were all expected to serve the state and its army — the nobility led the army, the middle class supplied the army, and the peasants composed the army. This reality led Minister Friedrich von Schrötter to remark that, "Prussia was not a country with an army, but an army with a country".
+# Player must have max manpower over 80k and military tech 10>
+# Effect: Improve professionalism and tradition, add absolutism
+##############################################################################################################################
+	
+	pru_army_country = {
+		icon = mission_assemble_an_army
+		required_missions = {  }
+		position = 1
+		trigger = {
+			OR = {
+				conscription_center  = 15
+				training_fields = 15
+			}
+			#mil_tech = 18
+			army_size = 200
+			num_of_mercenaries = 25
+			is_year = 1700
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "army_country"
+				duration = -1			
+			}
+		}
+	}	
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Fortify the Elbe
+# Player owns mittelmark area
+# Effect: get free fort in priegnitz (altmark for vanilla), add some development to provinces in mittelmark
+##############################################################################################################################
+
+	pru_fortify_elbe = {
+		icon = mission_early_game_buildings
+		required_missions = { BRA_build_army_mission }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = mittelmark_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			treasury = 200
+			mittelmark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 5
+			add_treasury = -200
+			1759 = {
+				add_base_tax = 1 
+				add_base_manpower = 2
+				add_building = fort_15th 
+			}
+			
+			1759 = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "fortified_countryside"
+					duration = 9125 #25 years
+				}
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												European Expansion Tree
+# Secure the Frontier
+# Player own neumark province, have cash, own pomerelia 
+# Effect: get local defensiveness for pomerellia and neumark region. lose cash, add mil points
+##############################################################################################################################
+
+	pru_secure_frontier = {
+		icon = mission_cannons_firing 
+		required_missions = { pru_fortify_elbe }
+		position = 3		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4749
+				province_id = 2994
+				province_id = 1858
+			}	
+		}	
+		trigger = {
+			treasury = -200
+			4749 = {
+				#type = all
+				country_or_non_sovereign_subject_holds = ROOT	
+			}
+			2994 = {
+				#type = all
+				country_or_non_sovereign_subject_holds = ROOT	
+			}
+			1858 = {
+				#type = all
+				country_or_non_sovereign_subject_holds = ROOT	
+			}
+		}	
+		
+		effect = {
+			add_prestige = 5
+			add_treasury = -200
+			2993 = {
+				add_base_tax = 1 
+				add_base_manpower = 1
+				add_building = fort_15th 
+			}
+			2993 = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "fortified_countryside"
+					duration = -1 #9125 #25 years
+				}
+			}
+			
+		}
+	}
+
+##############################################################################################################################
+# 											Diplomatic Tree
+# Auld Alliance Revived
+# Player has 1 vassal nations
+# Effect: obedient subjects modifier
+##############################################################################################################################
+
+	pru_franco_prussian_dip = {
+		icon = mission_have_two_subjects
+		required_missions = { 	BRA_building_alliances	}
+		position = 1
+		trigger = { 
+			alliance_with = FRA
+			OR = {
+				alliance_with = SPA
+				alliance_with = CAS 
+			}
+			is_rival = HAB
+			NOT = {
+				OR = {
+					alliance_with = ENG
+					alliance_with = GBR
+					}
+			}
+		}
+		effect = {
+			add_prestige = 25
+			add_dip_power = 75
+			add_country_modifier = {
+				name = "improved_dip_reputation"
+				duration = -1 #9125 #25 years
+			}
+		}
+	}
+		
+
+##############################################################################################################################
+# 												European Expansion Tree
+# Reclaim Margraviate Titles
+# "The disputes with Bohemia over control of the lands south of Berlin along the river Spree have long roiled the region. They can be settled by the stroke of the pen or the point of the sword."
+# Player own all lands in the Neumark region
+# Effect: add 10 legitimacy, 25 mil, 25 dip, 50 adm, margravariate modifier for 25 years, Permanent Claims on Silesia and Bohemia area
+##############################################################################################################################
+
+reclaim_margraviate  = {
+		icon = mission_empire
+		required_missions = { reclaim_neumark }
+		position = 5
+		provinces_to_highlight = {
+			area = neumark_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			neumark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lusatia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_legitimacy = 10
+			add_mil_power = 25
+			add_dip_power = 25
+			add_adm_power = 25
+			add_country_modifier = {
+				name = "margavariate_lands_reclaimed"
+				duration = 9125
+			}
+			add_years_of_income = 2.0
+			silesia_area = { 
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+		}
+	}
+
+
+	
+##############################################################################################################################
+# 												European Expansion Tree
+# Conquer Silesia
+# "The lands of SIlesia have long been the birthright of our people."
+# Player must complete own East Prussia area or is owned by a subject.
+# Effect: Permanent Claims on West Prussia, Pomerelia, Hinterpommern and Vorpommern areas 
+##############################################################################################################################
+	
+	pru_conquer_silesia = {
+		icon = mission_assemble_an_army
+		required_missions = { reclaim_margraviate }
+		position = 6
+		provinces_to_highlight = {
+			area = silesia_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+
+			silesia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "prussian_ambition"
+				duration = 9125
+			}
+			bohemia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+##############################################################################################################################
+# 											Seven Years War Sub-Tree
+# Bohemian War Claims
+# "Our dispute with Bohemia has grown intolerable"
+# Player owns Silesia, is allied to England/Great Britain, Bohemia owns Prague, Saxony exists and is not an ally
+# Effect: Gain CB on Bohemia + Saxony
+##############################################################################################################################
+
+	bra_pru_war_bohemia = {
+		icon = mission_alliances
+		required_missions = { 	pru_conquer_silesia	}
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = bohemia_area
+				area = erzgebirge_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			is_emperor = yes
+			custom_trigger_tooltip = {
+				tooltip = secure_the_imperial_crown.tooltip
+				calc_true_if = {
+					all_elector = {
+						preferred_emperor = ROOT
+						has_opinion = { who = ROOT value = 100 }
+					}
+					amount = 3
+				}
+			}
+		}
+		
+		effect = {
+
+			add_legitimacy = -25
+			if = {
+				limit = {
+					exists = BOH
+					is_subject = no
+					BOH = {
+						is_subject = no
+					}
+				}
+				add_casus_belli = {
+					type = cb_claim_throne 
+					months = 300
+					target = BOH
+				}
+			}
+			else = {
+				bohemia_area = {
+					limit = {
+						NOT = { owned_by = ROOT	}
+						NOT = { is_core = ROOT	}
+					}
+					add_permanent_claim = ROOT
+				}
+				erzgebirge_area = {
+					limit = {
+						NOT = { owned_by = ROOT	}
+						NOT = { is_core = ROOT	}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+##############################################################################################################################
+# 											Seven Years War Sub-Tree
+# Seizure of Prague
+# "Our dispute with Bohemia has grown intolerable"
+# Player owns Silesia, is allied to England/Great Britain, Bohemia owns Prague, Saxony exists and is not an ally
+# Effect: Gain CB on Bohemia + Saxony
+##############################################################################################################################
+#	
+#	
+#	bra_pru_seize_prague = {
+#		icon = mission_assemble_an_army
+#		required_missions = { bra_pru_war_bohemia }
+#		position = 7
+#		
+#		provinces_to_highlight = {
+#			OR = {
+#				AND = {
+#					owned_by = BOH
+#					is_capital = yes
+#				}
+#				AND = {
+#					province_id = 266
+#					NOT = { owned_by = BOH }
+#					owner = {
+#						NOT = { exists = BOH }
+#					}
+#				}
+#			}
+#			NOT = { controlled_by = ROOT }
+#		}
+#		
+#		trigger = {
+#			if = {
+#				limit = {
+#					exists = BOH
+#				}
+#				BOH = {
+#					capital_scope = {
+#						OR = {
+#							controlled_by = ROOT
+#							controller = {
+#								OR = {
+#									is_subject_of = ROOT
+#									alliance_with = ROOT
+#									overlord = {
+#										alliance_with = ROOT
+#									}
+#								}
+#							}
+#						}
+#					}
+#				}
+#				else = {
+#					266 = {
+#						owned_by = ROOT
+#					}
+#				}
+#			}
+#		}
+#		
+#		effect = {
+#			if = {
+#				limit = {
+#					BOH = {
+#						is_subject = NO
+#					}
+#				}
+#				add_casus_belli = {
+#					target = BOH
+#					BOH = cb_hundred_years_union
+#				}
+#			}
+#			moravia_area = {
+#				limit = {
+#					NOT = { is_core = ROOT }
+#					NOT = { owned_by = ROOT }
+#				}
+#				add_permanent_claim = ROOT
+#			}
+#			
+#		}
+#	}
+	
+##############################################################################################################################
+# 											Seven Years War Sub-Tree
+# Treaty of Gratz-Colin
+# "The crown of Bohemia falls to us!"
+# Player owns or has vassalized Bohemia
+# Effect: gain prestige and post-war modifier
+##############################################################################################################################
+
+	vassalize_bohemia = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { bra_pru_war_bohemia }
+		position = 8
+		
+		provinces_to_highlight = {
+			OR = {
+				area = bohemia_area
+				area = erzgebirge_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			stability = 1
+			OR = {
+				BOH={junior_union_with = ROOT}
+				AND = {
+					bohemia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					erzgebirge_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				#BOH={vassal_of = ROOT}
+			}
+		}
+		
+		effect = {
+			add_prestige = 25
+			add_country_modifier = {
+				name = "eng_french_recovery"
+				duration = 9125
+			}
+			add_country_modifier = {
+				name = "crown_seized"
+				duration = 3650
+			}
+			hidden_effect = {
+				remove_casus_belli = {
+					type = cb_restore_personal_union
+					target = BOH
+				}
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												Religious Tree
+# A Secular Empire 
+# "All people of all faiths are welcome in our halls knowledge."
+# Provide some religious themed missions
+# Effect: advisor buffs
+##############################################################################################################################
+
+	pru_secular_empire = {
+		icon = mission_hands_praying
+		position = 9
+		required_missions = { pru_educated_tolerance }
+		trigger = {
+			stability = 3
+			
+		}
+		effect = {			
+			add_country_modifier = {
+				name = "german_secular_empire" 
+				duration = -1
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 											Diplomatic Tree
+# Acquire Subjects
+# Player has 2 vassal nations
+# Effect: obedient subjects modifier
+##############################################################################################################################
+
+	BRA_have_two_subjects = {
+		icon = mission_have_two_subjects
+		required_missions = { 	BRA_expand_country_mission	}
+		position = 10
+		trigger = { num_of_non_tributary_subjects = 2 }
+		effect = {
+			add_country_modifier = {
+				name = "obedient_subjects"
+				duration = 9125 #25 years
+			}
+			add_country_modifier = {
+				name = "growing_court"
+				duration = -1 #25 years
+			}
+
+		}
+	}
+	
+##############################################################################################################################
+# 												Colonial Tree
+# Open New Ports
+# "As our trade networks grow, so do out knowledge of new lands."
+# Provide some religious themed missions
+# Effect: advisor buffs
+##############################################################################################################################
+
+	pru_new_ports = {
+		icon = mission_establish_high_seas_navy 
+		position = 11
+		required_missions = { pru_baltic_fleet }
+		trigger = {
+			45 = { #Lubeck
+				trade_share = {
+					country = ROOT
+					share = 25
+				}
+			}
+			
+		}
+		effect = {
+			add_years_of_income = 1
+			add_dip_power = 100
+			subarctic_islands_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "entrepot_trade" 
+				duration = -1
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												Colonial Tree
+# New World Pioneers 
+# "Only the bravest of souls dare test a life at the edge of civilization. If we are to become a true world power then we must claim the untapped riches of  new frontiers."
+# Provide path to colonize 
+# Effect: discover greenland area, give free colony/colonist
+##############################################################################################################################
+
+	pru_new_lands = {
+		icon = mission_colonial
+		position = 12
+		required_missions = { pru_new_ports pru_merchant_marine }
+		provinces_to_highlight = {
+			OR = {
+				area = subarctic_islands_area 
+				area = iceland_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			OR = {
+				iceland_area = { 
+					type = any
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				subarctic_islands_area  = { 
+					type = any
+					country_or_non_sovereign_subject_holds = ROOT				}
+			}
+			#OR = {
+			#	1978 = { is_core = ROOT }
+			#	1299 = { is_core = ROOT }
+			#	1979 = { is_core = ROOT }
+			#	3115 = { is_core = ROOT }
+			#	370 = { is_core = ROOT }
+			#	5126 = { is_core = ROOT }
+			#	3114 = { is_core = ROOT }
+			#	371 = { is_core = ROOT }
+			#}
+		}
+		effect = {
+			
+			1477 = {
+				discover_country = ROOT
+			}
+			1481 = {
+				discover_country = ROOT
+			}
+			1480 = {
+				discover_country = ROOT
+			}
+			hidden_effect = {
+				1104 = {
+					change_trade_goods = fish
+					change_religion = ROOT	
+					add_base_production = 1
+					#add_base_manpower = 1
+					change_culture = prussian
+					add_territorial_core = ROOT
+				}	
+			}
+			1104 = { 
+				cede_province = ROOT 
+			}
+			add_country_modifier = {
+				name = "colonial_charters" 
+				duration = -1
+			}
+			add_country_modifier = {
+				name = "private_subsidies" 
+				duration = 9125
+			}
+		}
+	}
+
+#CHECK1	
+
+##############################################################################################################################
+# 												Baltic Tree
+# Support Sture Party
+# "The King of the Danes is a monster"
+# PProvide some missions for conquering scandinavia
+# Effect: advisor buffs
+##############################################################################################################################
+
+	pru_support_sture = {
+		icon = mission_alliances
+		position = 9
+		required_missions = {  }
+		trigger = {
+			treasury = 200
+			SWE = { 
+				is_subject_of = DAN 
+				liberty_desire = 100
+				has_opinion = {
+					who = ROOT
+					value = 100
+				}
+			}
+
+		}
+		effect = {
+			hidden_effect = {
+				SWE = {
+					add_treasury = 200
+				}
+			}
+			add_treasury = -200
+			add_country_modifier = {
+				name = "swedish_rebels" 
+				duration = 9125
+			}
+			
+		}
+	}
+
+##############################################################################################################################
+# 												Baltic Tree
+# Join Vasa's Rebellion
+# "The Befrielsekriget has begun."
+# Provide some missions for conquering/interacting with scandinavia
+# Effect: war/economy buffs
+##############################################################################################################################
+
+	pru_vasa_rebellion = {
+		icon = mission_alliances
+		position = 9
+		required_missions = { pru_support_sture }
+		trigger = {
+			ROOT = {
+				alliance_with = SWE
+				is_in_war = {
+					attacker_leader = SWE
+					defender_leader = DAN
+					casus_belli = cb_independence_war 
+				}
+			}
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = "maritime_subsidies" 
+				duration = 1825
+			}
+			add_country_modifier = {
+				name = "emergency_minting" 
+				duration = 1825
+			}
+			add_country_modifier = {
+				name = "supported_swedes" 
+				duration = -1
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												Baltic Tree
+# Vasa War Outcome
+# "The Befrielsekriget has begun."
+# Provide some missions for conquering/interacting with scandinavia
+# Effect: war/economy buffs
+##############################################################################################################################
+
+	pru_liberated_sweden = {
+		icon = mission_alliances
+		position = 9
+		required_missions = { pru_vasa_rebellion }
+		trigger = {
+			SWE = {
+				AND = {
+					is_at_war = no
+					#had_recent_war = 10
+					is_vassal = no
+				}
+			}
+			ROOT = {
+				OR = {
+					alliance_with = SWE
+					has_country_modifier = supported_swedes
+				}
+			}
+
+		}
+		effect = {
+			add_dip_power = 100
+			ROOT = {
+				remove_country_modifier = supported_swedes
+			}
+			add_country_modifier = {
+				name = "liberated_swedes" 
+				duration = 9125
+			}
+			add_country_modifier = {
+				name = "swedish_advisors" 
+				duration = -1
+			}
+			SWE = {
+				add_historical_friend = ROOT
+			}
+			add_historical_friend = SWE
+			
+		}
+	}
+
+##############################################################################################################################
+# 												Baltic Tree
+# Swedish Union
+# "Years of strategic intermarriage between our two houses has tightly bound the lineage of Swedish royalty to our own. The current Swedish King has no heir and through careful cajoling or outright blackmail he could be convinced to abdicate in our favor. Be warned, however. The nobility of this country is proud and will not take kindly to trading one foreign tyrant for another."
+# Provide some missions for conquering/interacting with scandinavia
+# Effect: PU over sweden, pretender rebel uprisings in sweden
+##############################################################################################################################
+
+	pru_swedish_union = {
+		icon = mission_alliances
+		position = 9
+		required_missions = { pru_liberated_sweden }
+		trigger = {
+			SWE = {
+				#NOT = { adm = 2 }
+				AND = {
+					is_at_war = no
+					alliance_with = ROOT
+					marriage_with = ROOT
+					has_heir = no
+				}
+			}
+			ROOT = {
+				OR = {
+					reverse_has_opinion = {
+						who = SWE
+						value = 175
+					}
+					has_spy_network_in = {
+						who = SWE
+						value = 95
+					}
+				}
+				total_development = SWE
+			}
+			is_year = 1550
+		}
+		effect = {
+			create_union = SWE
+			ROOT = {
+				remove_country_modifier = liberated_swedes
+			}
+			1 = {
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 3
+					leader = rebel_preacher
+				}
+			}
+			3 = {
+				spawn_rebels = {
+					type = noble_rebels
+					size = 2
+					leader = rebel_preacher
+				}
+			}
+			4163 = {
+				spawn_rebels = {
+					type = noble_rebels
+					size = 2
+					leader = rebel_preacher
+				}
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												Baltic Tree
+# Partition Sweden
+# "Finland is ours forever"
+# PProvide some missions for conquering scandinavia
+# Effect: advisor buffs
+##############################################################################################################################
+	
+	
+
+	
+}
+	
+
+
+##############################################################################################################################
+# 														SLOT 4
+##############################################################################################################################
+prussian_missions_main_slot4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+	}
+	has_country_shield = yes
+
+##############################################################################################################################
+# 												European Expansion Tree
+# The Twin Crowns
+# Player owns all regions of historic Bandenberg-Prussia , have cash, adm tech> 10
+# Effect: Stuff
+##############################################################################################################################
+
+	pru_twin_crowns = {
+		icon = mission_early_game_buildings
+		required_missions = {  }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				area = mittelmark_area
+				area = neumark_area
+				area = pomerelia_area
+				area = west_prussia_area
+				area = north_rhine_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		trigger = {
+			mittelmark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			neumark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			north_rhine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			pomerelia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			mecklenburg_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+ 			stability = 2
+		} 
+		effect = {
+			add_prestige = 35
+			mittelmark_area = {
+				add_base_tax = 2 
+				add_base_manpower = 1
+			}
+			neumark_area = {
+				add_base_tax = 1 
+				add_base_manpower = 2
+			}
+			north_rhine_area = {
+				add_base_tax = 1 
+			}
+			pomerelia_area = {
+				add_base_tax = 1 
+				add_base_manpower = 1
+			}
+			west_prussia_area = {
+				add_base_tax = 1 
+			}
+			add_country_modifier = {
+				name = "geheimer_rat"
+				duration = -1
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 											Diplomatic Tree
+# Divestment of Magdeberg
+# "The Archbishop of Magdeberg has died with no appointed successor and has left the bishopric to the Elector of Brandenberg. This is an opportunity too ripe to pass up."
+# Event "The bishop is dead" has fired.
+# Effect: gain vassalize CB on Magdeberg
+##############################################################################################################################
+
+	pru_divestment_of_magdeberg = {
+		icon = mission_have_two_subjects
+		required_missions = { political_dynasty }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 52 #owns province 49 #neumark 
+				}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			52 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_treasury = 150
+			add_adm_power = 75
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+	}
+
+##############################################################################################################################
+# 											Diplomatic Tree
+# Trustworthy Allies
+# Player has 2 allies with 150> opinion
+# Effect: influential diplomacy modifier
+##############################################################################################################################	
+	
+	BRA_building_alliances = {
+		icon = mission_alliances
+		required_missions = {  } #none
+		position = 3
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = building_alliances.tooltip
+				num_of_allies = 2
+				calc_true_if = {
+					all_ally = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					amount = 2
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "influential_diplomacy"
+				duration = 9125 #25 years
+			}
+		}
+	}
+
+##############################################################################################################################
+# 											Seven Years War Sub-Tree
+# The Westminster Convention
+# "The Great Elector has seen great promise in renewing their old friendship in the face of great hardship."
+# Player owns Silesia, England/Great Britain at war with France, Castille, Portugal, Spain, Burgundy, or Austria
+# Effect: Fire alliance event
+##############################################################################################################################
+
+pru_westminster_convention  = {
+		icon = mission_conquer_50_development
+		required_missions = { BRA_building_alliances }
+		position = 4
+		
+		trigger = {
+			prestige = 75
+
+				ENG = {
+					OR = {
+						is_in_war = { participants = HAB }
+						is_in_war = { participants = FRA }
+						is_in_war = { participants = CAS }
+						is_in_war = { participants = SPA }
+						HAB = {
+							alliance_with = FRA
+						}
+					}
+					NOT = {
+						alliance_with = HAB
+					}
+				}
+
+			OR = {
+				is_rival = HAB
+				is_rival = FRA
+				is_rival = SPA 
+				is_rival = CAS 
+			}
+		}
+		effect = {
+			create_alliance = ENG
+			add_country_modifier = {
+				name = "allies_overseas"
+				duration = 9125
+			}
+			
+		}
+	}
+	
+##############################################################################################################################
+# 											Economic Tree
+# High Income
+# Player makes more than 9 ducats a month
+# Effect: stuff
+##############################################################################################################################
+	
+	BRA_high_income_mission = {
+		icon = mission_high_income
+		required_missions = {  } #None
+		position = 5
+		trigger = { share_of_starting_income = 5 }
+		effect = {
+			add_country_modifier = {
+				name = "growing_economy"
+				duration = 9125 #25 years
+			}
+		}
+	}
+
+##############################################################################################################################
+# 											Economic Tree
+# Build Treasury
+# Player has more than 1500 ducats
+# Effect: stuff
+##############################################################################################################################
+
+	BRA_build_treasury = {
+		icon = mission_war_chest
+		required_missions = { BRA_high_income_mission }
+		position = 6
+		trigger = { treasury = 1500 }
+		effect = {
+			add_country_modifier = {
+				name = "strong_treasury"
+				duration = 9125
+			}
+		}
+	}
+	
+
+
+##############################################################################################################################
+# 												Religious Missions
+# Embrace Reformation
+# Reformation Event fired, player has switched religions
+# Effect: Stuff
+##############################################################################################################################
+
+pru_embrace_reformation = {
+		icon = mission_rb_control_state_religion
+		required_missions = { }
+		position = 7
+		
+		trigger = {
+			custom_trigger_tooltip = {
+			tooltip = embrace_reformation.tooltip
+			OR = {
+				religion = protestant
+				religion = reformed
+				religion = anglican
+			}
+			NOT = { religion = catholic }
+			}
+		}
+		
+		effect = {
+			#
+			add_country_modifier = {
+				name = "theology"
+				duration = 9125
+			}
+			if = {
+				limit = { religion = protestant }
+				add_church_power = 50
+			}
+			if = {
+				limit = { religion = reformed }
+				add_fervor = 50
+			}
+			if = {
+				limit = { religion = anglican }
+				add_church_power = 50
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												Religious Tree
+# An Educated People
+# "All people of all faiths are welcome in our halls knowledge."
+# Provide some religious themed missions
+# Effect: advisor buffs
+##############################################################################################################################
+
+	pru_educated_tolerance = {
+		icon = mission_early_game_buildings
+		position = 8
+		required_missions = { pru_embrace_reformation }
+		trigger = {
+			university = 5
+			cathedral = 5
+			is_core = 41
+		}
+		effect = {
+			41 = {
+				add_permanent_province_modifier = {
+					name = "great_center_of_learning"
+					duration = -1
+				}
+			}				
+			capital_scope = {
+				add_building = cathedral
+			}				
+		}
+	}
+	
+##############################################################################################################################
+# 												Religious Tree
+# Konigsberg Library 
+# "All people of all faiths are welcome in our halls."
+# Provide some religious themed missions
+# Effect: advisor buffs
+##############################################################################################################################
+
+	pru_religious_acceptance = {
+		icon = mission_alliances
+		position = 9
+		required_missions = { pru_educated_tolerance }
+		trigger = {
+			NOT = {
+				current_age = age_of_discovery
+				current_age = age_of_reformation
+			}
+			religious_unity = 1
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = "jewish_advisors" 
+				duration = 18250
+			}
+			add_country_modifier = {
+				name = "augsburg_peace" 
+				duration = -1
+			}
+			add_innovativeness_big_effect = yes				
+		}
+	}
+
+
+
+
+
+##############################################################################################################################
+# 												Naval Missions
+# Baltic Fleet
+# Something
+# Effect: Stuff
+##############################################################################################################################
+
+pru_baltic_fleet = {
+		icon = mission_galleys_in_port
+		required_missions = { }
+		position = 10
+		trigger = {
+			navy_size_percentage = 1
+		}
+		
+		effect = {
+			add_mil_power = 25
+			add_dip_power = 25
+			add_navy_tradition = 10
+			add_country_modifier = {
+				name = "naval_enthusiasm_mission"
+				duration = 9125 #25 years
+			}
+			1981 = { # bornholm
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			
+			25 = { # gotland
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			
+
+			
+		}
+	}
+
+
+##############################################################################################################################
+# 												Naval Missions
+# Establish Merchant Marine
+# Completed Ship Building Industry, have 15> trade ships ###navy_size = 15
+# Effect: Gain 2000 sailors, get 50 dip power, get trade power for 20 years
+##############################################################################################################################
+
+	pru_merchant_marine = {
+		icon = mission_war_chest
+		required_missions = { pru_baltic_fleet }
+		position = 11
+		
+		trigger = {
+			num_of_light_ship = 15
+		}
+		
+		effect = {
+			add_dip_power = 100
+			add_country_modifier = {
+				name = "prussia_baltic_trade"
+				duration = 9125
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												Naval Missions
+# Dominate Trade
+# Have most trade power in home node
+# Effect: Stuff
+##############################################################################################################################
+
+	BRA_gen_eur_trade_node = {
+		icon = mission_war_chest
+		required_missions = { 
+			pru_merchant_marine 
+			establish_high_seas_navy
+			}
+		position = 12
+		
+		trigger = {
+			home_trade_node = {
+				highest_value_trade_node = yes
+				is_strongest_trade_power = ROOT
+			}
+			
+		}
+		
+		effect = {
+			add_prestige = 30
+			add_country_modifier = {
+				name = "gen_eur_trade_node_mod"
+				duration = 9125
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												Naval Missions
+# Expand Overseas
+# Something
+# Effect: Get a claim on some colonial territory
+##############################################################################################################################
+BRA_trade_company_region_abroad = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { BRA_gen_eur_trade_node }
+		position = 13
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = BRA_trade_company_region_abroad_tooltip
+				calc_true_if = {
+					all_trade_node = {
+						calc_true_if = {
+							all_trade_node_member_province = {
+								owned_by = ROOT
+								is_node_in_trade_company_region = yes
+								NOT = { continent = CAPITAL }
+							}
+							amount = 5
+						}
+					}
+					amount = 2
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "prussia_east_indies_trade"
+				duration = -1 #25 years
+			}
+		}
+	}
+
+#CHECK2
+
+##############################################################################################################################
+# 												Trade Tree
+# Baltic Sea Domination
+# "None dare challenge our hegemony over the waves of the Baltic."
+# Standalone trade missions 
+# Effect: permanent merchant + trade buffs
+##############################################################################################################################
+	
+	pru_baltic_domination = {
+		icon = mission_establish_high_seas_navy
+		required_missions = {  }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1
+				province_id = 6
+				province_id = 12
+				province_id = 38
+				province_id = 40
+				province_id = 41
+				province_id = 43
+				province_id = 45
+				province_id = 46
+				province_id = 1858
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			1 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			6 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			12 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			38 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			40 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			41 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			43 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			45 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			46 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1858 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 50
+			add_years_of_income = 2
+			remove_country_modifier = baltic_sea_foothold
+			remove_country_modifier = baltic_sea_trade
+			add_country_modifier = {
+				name = "baltic_sea_domination"
+				duration = -1
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												Trade Tree
+# North Sea Domination
+# "The North Sea is ours to command."
+# Standalone trade missions 
+# Effect: permanent merchant + trade buffs
+##############################################################################################################################
+	
+	pru_north_sea_domination = {
+		icon = mission_establish_high_seas_navy
+		required_missions = {  }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				province_id = 248
+				province_id = 4367
+				province_id = 370
+				province_id = 23
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			248 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			4367 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			370 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			38 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			23 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 25
+			add_years_of_income = 2
+			remove_country_modifier = north_sea_foothold
+			remove_country_modifier = north_sea_trade
+			add_country_modifier = {
+				name = "north_sea_domination"
+				duration = -1
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												Trade Tree
+# Strike the Sleeve
+# "The Ärmelkanal has long been the eye of conflict amongst British, French, and Dutch factors. Having secured the continental ports, it is time for a new balance of trade."
+# Standalone trade missions 
+# Effect: permanent merchant + trade buffs
+##############################################################################################################################
+	
+	pru_english_channel_domination = {
+		icon = mission_establish_high_seas_navy
+		required_missions = {  }
+		position = 15
+		provinces_to_highlight = {
+			OR = {
+				province_id = 97
+				province_id = 95
+				province_id = 1744
+				province_id = 90
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			97 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			95 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1744 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			90 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 35
+			add_years_of_income = 3
+			add_country_modifier = {
+				name = "english_channel_trade"
+				duration = -1
+			}
+		}
+	}
+
+	
+##############################################################################################################################
+# 												Baltic Tree
+# Take Norwegian Crown
+# "The King of the Danes has long held his Norwegian titles close to his breast, but with his lands under our yoke there is naught he can do but transfer them to us. This will no doubt cause much consternation across the courts of Europe, but what do we care of murmuring of petty lords?"
+# Provide some missions for conquering/interacting with scandinavia
+# Effect: pu norway, add lasting diplomatic relations penalty, add North sea trade modifier till end of game
+##############################################################################################################################
+
+}
+
+##############################################################################################################################
+# 														SLOT 5
+##############################################################################################################################
+prussian_missions_main_slot5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+	}
+	has_country_shield = yes
+	
+##############################################################################################################################
+# 											Diplomatic Tree
+# A Political Dynasty
+# Player has royal marriages with 5 or more nations
+# diplomatic tech 4 or higher
+# Effect: diplomatic reputation boost, 10 prestige, claim on on magdeburg (mecklenberg gets consort of your ruling dynasty, kills heir)
+##############################################################################################################################
+
+	political_dynasty = {
+		icon = mission_have_two_subjects
+		required_missions = {  }
+		trigger = { 
+			num_of_royal_marriages = 5 
+			dip_tech = 4
+			prestige = 50
+			}
+		effect = {
+			add_legitimacy = 10
+			add_country_modifier = {
+				name = "effective_diplomacy"
+				duration = 9125 #25 years
+			}
+			52 = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_claim = ROOT
+			} 
+			add_casus_belli = {
+				target = MKL
+				type = cb_vassalize_mission 
+				duration = 9125
+			}
+		}
+	}
+	
+
+##############################################################################################################################
+# 											Diplomatic Tree
+# Hohenzolleren in Mecklenberg
+# "With the death of the Duke of Mecklenberg, his widow Anne of Brandenberg ascedes to the"
+# Event 
+# Effect: 
+##############################################################################################################################
+
+	pru_mecklenberg_relative = {
+		icon = mission_have_two_subjects
+		required_missions = { political_dynasty }
+		position = 2
+		trigger = { 
+			MKL = {
+				is_subject_of = ROOT
+			}
+		}
+		effect = {
+			add_treasury = 100
+			add_prestige = 20
+			add_country_modifier = {
+				name = "obedient_subjects"
+				duration = 9125 #25 years
+			}
+			add_casus_belli = {
+				target = KLE
+				type = cb_vassalize_mission 
+				duration = 7300
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 											Diplomatic Tree
+# War of Julich Succession
+# Player has 1 vassal nations
+# Effect: obedient subjects modifier
+##############################################################################################################################
+
+	pru_julich_succession = {
+		icon = mission_have_two_subjects
+		required_missions = { 
+			pru_mecklenberg_relative	
+		}
+		position = 3
+		trigger = {
+			KLE = {
+				OR = {
+				is_subject_of = BRA
+				is_subject_of = PRU 
+				}
+			} }
+		effect = {
+			add_treasury = 200
+			add_prestige = 15
+			add_country_modifier = {
+				name = "treaty_of_xanten"
+				duration = 7300 #25 years
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												European Expansion Tree
+# The Black Eagles Alliance
+# Player is Allied to Austria and Russia
+# Effect: Stuff
+##############################################################################################################################
+
+	pru_black_eagles = {
+		icon = mission_early_game_buildings
+		required_missions = { BRA_building_alliances }
+		position = 4
+		trigger = {
+			alliance_with = HAB 
+			alliance_with = RUS
+			OR = {
+				is_rival = POL
+				is_rival = PLC
+			}
+		} 
+		effect = {
+			add_prestige = 25
+			add_dip_power = 75
+			add_country_modifier = {
+				name = "improved_dip_reputation"
+				duration = 9125
+			}
+		}
+	}
+
+##############################################################################################################################
+# 											Building Tree
+# Build Temples
+# Player builds 5 temples
+# Effect: stuff
+##############################################################################################################################
+
+	BRA_build_temples = {
+		icon = mission_early_game_buildings
+		required_missions = {  }
+		position = 5
+		trigger = {
+			OR = {
+				temple = 10
+				cathedral  = 5
+			}
+			OR = {
+				workshop = 10
+				counting_house = 5
+			}
+		}
+		effect = {
+			add_adm_power = 50
+			add_country_modifier = {
+				name = "building_spree"
+				duration = 9125
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 											Building Tree
+# Improved Canals
+# Something
+# Effect: stuff
+##############################################################################################################################
+
+##############################################################################################################################
+# 											Building Tree
+# Build Manufactories
+# Something
+# Effect: stuff
+##############################################################################################################################
+
+	BRA_build_manufactories = {
+		icon = mission_have_manufactories
+		required_missions = { BRA_build_temples }
+		position = 6
+		trigger = {
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						has_building = mills
+						has_building = farm_estate
+						has_building = tradecompany
+						has_building = plantations
+						has_building = textile
+						has_building = weapons
+						has_building = wharf
+						has_building = furnace
+					}
+				}
+				amount = 15
+			}
+		}
+		effect = {
+			add_adm_power = 200
+			add_country_modifier = {
+				name = "proto_industrialization"
+				duration = 9125
+			}
+			add_years_of_income = 1.5
+		}
+	}
+	
+##############################################################################################################################
+# 												Religious Missions
+# Embrace Counter Reformation
+# Reformation Event fired, player is Catholic
+# Effect: Stuff
+##############################################################################################################################
+
+	pru_embrace_counter_reformation = {
+		icon = mission_rb_weather_the_reformation
+		required_missions = {  }
+		position = 7
+		
+		trigger = { BRA = {
+			has_country_modifier = counter_reformation
+			religion = catholic
+		} }
+		
+		effect = {
+			add_papal_influence = 50
+			add_prestige = 25
+			add_country_modifier = {
+				name = "eng_rb_state_religion_mod"
+				duration = 9125
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												Religious Tree
+# Divine Carpenter
+# "The Elector honors the Risen Lord with hammer and chisel."
+# Provide some religious themed missions
+# Effect: free cathedral in capital
+##############################################################################################################################
+	
+	pru_divine_carpenter = {
+		icon = mission_early_game_buildings
+		position = 8
+		required_missions = { pru_embrace_counter_reformation }
+		trigger = {
+			temple = 10
+			religion = catholic
+		}
+		effect = {
+			capital_scope = {
+				add_building = cathedral
+			}
+			add_papal_influence = 25
+			add_country_modifier = {
+				name = "reformed_orders"
+				duration = 9125
+			}
+			capital_scope = {
+			area = {
+					limit = { owned_by = ROOT }
+					add_province_modifier = {
+						name = "venerative_investment"
+						duration = 9125 #25 years
+					}
+				}
+
+			}
+					
+		}
+	}
+	
+##############################################################################################################################
+# 												Religious Tree
+# Shield of God
+# "We stand in stalwart defense of all Christendom."
+# Provide some religious themed missions
+# Effect: temporary combat buffs
+##############################################################################################################################
+	pru_holy_defender = {
+		icon = mission_conquer_5_states
+		position = 9
+		required_missions = { pru_divine_carpenter }
+		trigger = {
+			is_defender_of_faith = yes
+			religion = catholic
+			religious_unity = 0.85
+		}
+		effect = {
+			add_prestige = 25
+			add_papal_influence = 50
+			stability = 1
+			add_country_modifier = {
+				name = "shield_of_god" 
+				duration = 9125
+			}
+			add_country_modifier = {
+				name = "martial_inquisition" 
+				duration = 9125
+			}	
+		}
+	}
+
+##############################################################################################################################
+# 												Global Expansion Event
+# The Three Seas
+# "Our hegemony spans the breadth of Europe. There is no corner of this continent untouched by our ambition."
+# Meant to provide a path for expanding into Prussia's historical territory early, and ahistorical expansion late
+# Player must complete One-Sided Partition, own the requisite provinces
+# Effect: Add prestige, Add global trade power bonus
+##############################################################################################################################
+	
+	pru_three_seas = {
+		icon = mission_establish_high_seas_navy
+		required_missions = {  }
+		position = 10
+		provinces_to_highlight = {
+			OR = {
+				province_id = 43 
+				province_id = 45
+				province_id = 1874
+				province_id = 1756
+				province_id = 1858 
+				province_id = 1931
+				province_id = 151
+			}
+		}
+		trigger = {
+			OR = {
+				is_core = 1756
+				is_core = 151
+				
+			}
+			OR = {
+				is_core = 1858
+				is_core = 43
+				is_core = 45
+			}
+			OR = {
+				is_core = 1874
+				is_core = 1931
+			}
+			
+		}
+		effect = {
+			add_prestige = 50
+			add_country_modifier = {
+				name = "three_seas"
+				duration = 9125
+			}
+
+		}			
+	}
+	
+##############################################################################################################################
+# 												Naval Missions
+# Create a Grand Fleet
+# Have most trade power in home node
+# Effect: Stuff
+##############################################################################################################################
+
+	BRA_establish_high_seas_navy = {
+		icon = mission_establish_high_seas_navy
+		required_missions = { pru_baltic_fleet }
+		position = 11
+		trigger = { 
+			OR = {
+				num_of_heavy_ship = 10 
+				num_of_galley = 30
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "naval_enthusiasm_mission"
+				duration = 9125 #25 years
+			}
+		}
+	}
+	
+##############################################################################################################################
+# 												Naval Missions
+# Baltic Coast Development
+# Own verponnen and hinterponnen
+# Effect: add 2 dip development to 3 coastal provinces
+##############################################################################################################################
+
+	pru_baltic_coast = {
+		icon = mission_conquer_50_development
+		required_missions = {  }
+		position = 11
+		provinces_to_highlight = {
+			OR = {
+				area = vorpommern_area
+				area = hinter_pommern_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			treasury = 100
+			vorpommern_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			hinter_pommern_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_treasury = -100
+			add_splendor = 20
+			vorpommern_area = {
+				add_base_production = 1
+			}
+			hinter_pommern_area = {
+				add_base_production = 1
+			}
+		}
+	}
+
+##############################################################################################################################
+# 												Naval Missions
+# Ship Building Industry
+# Own danzig, completed Baltic coast development
+# Effect: build shipyard at Stettin and Danzig, ship building time and cost reduction modifier for 15 years
+##############################################################################################################################
+
+	pru_ship_building = {
+		icon = mission_conquer_50_development
+		required_missions = { pru_baltic_coast }
+		position = 12
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 43 #owns danzig 
+				province_id = 1858 #owns stettin
+				province_id = 2994 #owns Greifswald
+				}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			treasury = 300
+			is_core = 43
+			is_core = 1858
+			is_core = 2994
+		}
+		effect = {
+			add_treasury = -300
+			43 = {
+				add_base_production = 3
+				add_building = shipyard  
+			}
+			1858 = {
+				add_base_production = 2
+				add_building = shipyard  
+			}
+			
+			2994 = {
+				add_base_production = 1
+				add_building = shipyard  
+			}
+		}
+	}
+	
+
+
+##############################################################################################################################
+# 												Naval Missions
+# Baltic Dominion
+# Something
+# Effect: Stuff
+##############################################################################################################################
+
+	pru_control_islands = {
+		icon = mission_unite_home_region
+		required_missions = {  }
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				province_id = 25
+				province_id = 1981
+				#area = baltic islands
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				25 = { country_or_non_sovereign_subject_holds = ROOT }
+				ROOT = { controls = 25 }
+			}
+			OR = {
+				1981 = { country_or_non_sovereign_subject_holds = ROOT }
+				ROOT = { controls = 1981 }
+			}
+		}
+		effect = {
+			add_dip_power = 25
+			add_mil_power = 25
+			25 = { cede_province = ROOT }
+			1981 = { cede_province = ROOT }
+
+			holstein_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			1 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_claim = ROOT
+				}
+			}
+			12 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_claim = ROOT
+				}
+			}
+			6 = {
+				if = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+							is_core = ROOT
+						}
+					}
+					add_claim = ROOT
+				}
+			}
+			add_country_modifier = {
+				name = "baltic_sea_trade"
+				duration = -1
+			}
+		}
+		
+	}
+	
+
+	
+##############################################################################################################################
+# 												Naval Missions
+# Schleswig-Holstein Settled
+# Something
+# Effect: Stuff
+##############################################################################################################################
+	
+	pru_german_holstein = {
+		icon = mission_cannons_firing
+		required_missions = { pru_control_islands }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = holstein_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+
+			holstein_area = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+		}
+		effect = {
+			add_dip_power = 50
+			add_prestige = 10
+			add_country_modifier = {
+				name = "treaty_of_ribe"
+				duration = 9125
+			}
+
+			holstein_area = {
+				add_province_modifier = {
+					name = "german_landholders_triumphant"
+					duration = 9125
+				}
+			}
+			jutland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_claim = ROOT
+			}
+		}
+	}
+	
+	
+##############################################################################################################################
+# 												Naval Missions
+# Gate of the North
+# Take Danish land; Jutland
+# Effect: Stuff
+##############################################################################################################################
+	
+	pru_jutland_conquest = {
+		icon = mission_cannons_firing
+		required_missions = { pru_german_holstein }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = jutland_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			jutland_area = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "north_sea_foothold"
+				duration = -1
+			}
+		}
+		jutland_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+			add_claim = ROOT
+		}
+		denmark_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+			add_claim = ROOT
+		}
+
+		skaneland_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+			add_claim = ROOT
+		}
+	}
+
+##############################################################################################################################
+# 												Naval Missions
+# Annihilate Denmark
+# Take Danish land; Jutland
+# Effect: Stuff
+##############################################################################################################################
+	
+	pru_annihilate_denmark = {
+		icon = mission_cannons_firing
+		required_missions = { pru_jutland_conquest }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = jutland_area 
+				area = skaneland_area 
+				area = denmark_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			jutland_area = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			skaneland_area = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			denmark_area = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			DAN = {	exists = NO	}
+		}
+		effect = {
+			remove_country_modifier = baltic_sea_foothold
+			add_country_modifier = {
+				name = "baltic_sea_trade"
+				duration = -1
+			}
+		
+		}
+	}
+	
+}
+
+##############################################################################################################################
+# 														SLOT 1b
+##############################################################################################################################
+prussian_specific_slot5 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = PRU
+		}
+	}
+	has_country_shield = yes
+	
+################################################################################################################################################
+#
+#                                                         PRUSSIAN Missions
+#
+################################################################################################################################################
+
+german_ambitions_pru = {
+	icon = mission_assemble_an_army
+	required_missions = { }
+	provinces_to_highlight = {
+		OR = {
+			area = lower_saxony_area
+			area = northern_saxony_area
+		}
+		NOT = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+	}
+	trigger = {
+		lower_saxony_area = {
+			type = all
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		northern_saxony_area = {
+			type = all
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+	}
+		effect = {
+		mecklenburg_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			braunschweig_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+			
+	north_german_expansion_pru = {
+		icon = mission_conquer_50_development
+		required_missions = { german_ambitions_pru }
+		provinces_to_highlight = {
+			OR = {
+				area = mecklenburg_area
+				area = braunschweig_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			mecklenburg_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			braunschweig_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			south_saxony_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			thuringia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+					
+	conquer_saxony_pru = {
+		icon = mission_unite_home_region
+		required_missions = { north_german_expansion_pru }
+		provinces_to_highlight = {
+			OR = {
+				area = south_saxony_area
+				area = thuringia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			south_saxony_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		thuringia_area = {
+			type = all
+			country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			hesse_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+				add_permanent_claim = ROOT
+				}
+			weser_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+					
+	north_german_confederation_pru = {
+		icon = mission_cannons_firing
+		required_missions ={
+			conquer_saxony_pru
+			pru_duchy_of_cleves
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = hesse_area
+				area = weser_area
+				area = westphalia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		position = 8
+		trigger = {
+			hesse_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			} 
+			weser_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			westphalia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			lower_rhineland_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+			add_permanent_claim = ROOT
+			}
+			south_german_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}	
+			
+		}
+	}
+		
+	unite_germany_pru = {
+		icon = mission_unite_home_region
+		required_missions = { north_german_confederation_pru }
+		provinces_to_highlight = {
+			OR = {
+				region = south_german_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			south_german_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 100
+			add_legitimacy = 100
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+		}
+	}
+}
+
