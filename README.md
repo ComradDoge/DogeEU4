@@ -49,7 +49,7 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes 09/08/2020 [/h1]
+[h1] Changes 10/08/2020 [/h1]
 - Updated for 1.30.4
 - Lots of backstage fixing
 - UI for ideas fixed
