@@ -57,52 +57,19 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Parliament UI is bigger
 - Mission code fixing
 - AI should be slightly smarter regarding army movement
-- Finland got a small mission tree
 - GE events should start popping up
+- Trade goods and historical province modifiers activate on start up instead of monthly tick
+- [b]Countries with new missions[/b]
+    - Finland, Northumbria, Normandy, Nitra, Jerusalem, Iceland, Knights, Kiev, Cyprus, Aquileia
+- Added a Refresh Missions decisions for existing saves and future proofing. Use the button if you are playing a country with an updated mission tree.
 
-[h1] Changes prep [/h1]
-- Missions added, not all are equal in size.
-    - Finland, small
-    - Mongolia, medium
-    - Normandy, medium
-    - Circassia, small
-    - Perm, medium
-    - Kilwa, big
-    - Kongo, big
-    - Mamluks, big (need massive accomodation)
-    - Kazan, big (need massive accomodation)  
-    - Jerusalem, medium
-    - Croatia, medium
-    - Mali, medium
-    - Aztecs, small
-    - Yemen, medium
-    - Japan Minors, medium
-    - Oda, small
-    - Uesugi, small
-    - Chagatai, small
-    - Naxos, small
-    - Cyprus, small
-    - Gazikumukh, small
-    - Shirvan, small
-    - Imereti, small
-    - Georgia, medium
-    - Avaria, small
-    - Iceland, small
-    - Epirus, small
-    - Athens, small
-    - Irish Minors
-
-FORMABLES?
-    - Dagestan, small
-    - Caucasia, medium
-    - Zapadaslovia, small
 
 [h1] Main Additions [/h1]
 As of right now:
 - A Shattered World with a normal bookmark and one without an HRE
 - New Idea Groups with various religions getting specific idea groups
 - Many new religions added from CK2
-- More countries have their own national ideas
+- More countries have their own national ideas and missions
 - New formables all over the world
 - Some formable countries get different national ideas depending on who formed them
 - Many more trade goods with ways to change trade good in a province
@@ -116,7 +83,7 @@ As of right now:
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[url=https://ko-fi.com/comraddoge]If you want to buy me an energy drink or whatever drink you want me to drink, feel free. [/url]
+[url=https://ko-fi.com/comraddoge]If you want to buy me an energy drink or whatever, feel free. [/url]
 
 [h1] Credits [/h1]
 Credit to all the authors of mods that I have incorporated into Shattered and Viking_Nephilim for his own shattered fork from which I yoinked stuff from. Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
