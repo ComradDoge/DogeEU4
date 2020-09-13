@@ -49,20 +49,11 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes 10/08/2020 [/h1]
-- Updated for 1.30.4
-- Lots of backstage fixing
-- UI for ideas fixed
-- Advisors view is different
-- Parliament UI is bigger
-- Mission code fixing
-- AI should be slightly smarter regarding army movement
-- GE events should start popping up
-- Trade goods and historical province modifiers activate on start up instead of monthly tick
-- [b]Countries with new missions[/b]
-    - Finland, Northumbria, Normandy, Nitra, Jerusalem, Iceland, Knights, Kiev, Cyprus, Aquileia
-- Added a Refresh Missions decisions for existing saves and future proofing. Use the button if you are playing a country with an updated mission tree.
-
+[h1] Changes x [/h1]
+- Government reforms somewhat updated
+- Start governments and reforms changed. Vologda is a peasant republic and the caucasian countries start with their own specific reform
+- Advisor cost reduction sources nerfed to hell. There are still some cost values that you cant find elsewhere but they are rare.
+- Direct manpower increased nerfed from ideas (aka 5k manpower now is 2.5k)
 
 [h1] Main Additions [/h1]
 As of right now:
@@ -82,8 +73,6 @@ As of right now:
 [h1] Links [/h1]
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
-
-[url=https://ko-fi.com/comraddoge]If you want to buy me an energy drink or whatever, feel free. [/url]
 
 [h1] Credits [/h1]
 Credit to all the authors of mods that I have incorporated into Shattered and Viking_Nephilim for his own shattered fork from which I yoinked stuff from. Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
