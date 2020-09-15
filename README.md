@@ -49,11 +49,21 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes x [/h1]
+[h1] Changes 16/09/2020 [/h1]
 - Government reforms somewhat updated
 - Start governments and reforms changed. Vologda is a peasant republic and the caucasian countries start with their own specific reform
 - Advisor cost reduction sources nerfed to hell. There are still some cost values that you cant find elsewhere but they are rare.
 - Direct manpower increased nerfed from ideas (aka 5k manpower now is 2.5k)
+- Trieste and its provinces start as Slovene instead.
+- HRE start changes: membership now includes venetian states and trieste. Starting electors have been changed.
+- Missions added: Croatia, Karelia, Sweden, Norway, Armenia, Generic Madagascar, Generic Georgian + Georgia, Rum.
+- Cores at start fixes
+
+[h2] Things that are broken [/h2]
+- The graphical part for deities is borked
+- Tunis government reforms do not wish to cooperate, do not play Tunis.
+- Brazil was sent to Brazil, as the country breaks the game so I removed it temp.
+- HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
 
 [h1] Main Additions [/h1]
 As of right now:
