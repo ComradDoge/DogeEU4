@@ -4,7 +4,7 @@ NDefines.NAI.DIPLOMATIC_ACTION_OFFER_CONDOTTIERI_PARTICIPATION_BREAK = -1.1 -- (
 NDefines.NAI.DIPLOMATIC_ACTION_OFFER_CONDOTTIERI_PARTICIPATION_WARN = -0.5 -- At this level of (lack of) participation from the player, a warning alert will be displayed about impendent AI discontent.  -- (was -1.2)
 -- #arumba - AI should want to use its army, like a player
 NDefines.NAI.DIPLOMATIC_ACTION_OFFER_CONDOTTIERI_ONLY_MILITARY_RULERS = 0.5 --If set to 1, AI will only send Condottieri while having a miliaristic ruler.
-NDefines.NAI.DIPLOMATIC_ACTION_OFFER_CONDOTTIERI_ONLY_NEIGHBORS = 0.5 --If set to 1, AI will only send Condottieri to neighbors, regardless of access.
+NDefines.NAI.DIPLOMATIC_ACTION_OFFER_CONDOTTIERI_ONLY_NEIGHBORS = 0.8 --If set to 1, AI will only send Condottieri to neighbors, regardless of access.
 NDefines.NAI.DIPLOMATIC_ACTION_GUARANTEE_POWERBALANCE_FACTOR = 25 --AI scoring for guarantee action is increased by this if a nation blocks a powerbalance threat.
 	--DIPLOMATIC_ACTION_GUARANTEE_POWERBALANCE_FACTOR = 80
 
@@ -19,7 +19,7 @@ NDefines.NAI.DIPLOMATIC_ACTION_SUBSIDIES_INDEBTED_FACTOR = 25 --AI scoring for g
 NDefines.NAI.DIPLOMATIC_ACTION_SUBSIDIES_MIN_VALUE = 0.2 --Minimum amount of subsidies that AI considers worthwhile.
 NDefines.NAI.MIN_INCOME_FOR_SUBSIDIES =	75	--Minimum monthly income for AI to want to spend some on subsidies.
 	--MIN_INCOME_FOR_SUBSIDIES = 20
-NDefines.NAI.CALL_IN_ALLIES_POWER_RATIO = 2.5 --AI will only call in allies in an offensive war if their military power ratio to the enemy is less than this.
+NDefines.NAI.CALL_IN_ALLIES_POWER_RATIO = 3 --AI will only call in allies in an offensive war if their military power ratio to the enemy is less than this.
 	--CALL_IN_ALLIES_POWER_RATIO = 4.0
 
 -- #arumba -- tweaks to AI peace deals *WIP*
