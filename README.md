@@ -50,14 +50,13 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes 16/09/2020 [/h1]
-- Government reforms somewhat updated
-- Start governments and reforms changed. Vologda is a peasant republic and the caucasian countries start with their own specific reform
-- Advisor cost reduction sources nerfed to hell. There are still some cost values that you cant find elsewhere but they are rare.
-- Direct manpower increased nerfed from ideas (aka 5k manpower now is 2.5k)
-- Trieste and its provinces start as Slovene instead.
-- HRE start changes: membership now includes venetian states and trieste. Starting electors have been changed.
-- Missions added: Croatia, Karelia, Sweden, Norway, Armenia, Generic Madagascar, Generic Georgian + Georgia, Rum.
-- Cores at start fixes
+- Start changes: Lippe, Coburg appear at start.
+- New National Ideas for: Aquileia, Coburg, Lippe, Mecklenburg, Meissen, Modena, Mulhouse, Paderborn, Parma, Passau, Salzburg, Tyrol.
+- Hellenic player decision morale toned down.
+- Osman missions fixed, added the events that were supposed to be there.
+- Various value changes in ideas
+- Iberians have starting rulers
+- New Missions: Generic Japan Minors, Japan, Uesugi, Generic Colonial Nations, Gaeldom, Flanders, Hosokawa, Takeda, Otomo, Shimazu, Ainu, Ryuku, So, Yamana, Tokugawa,
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
@@ -122,7 +121,8 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL) 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
 
 
 
