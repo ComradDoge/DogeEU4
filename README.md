@@ -56,7 +56,7 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Osman missions fixed, added the events that were supposed to be there.
 - Various value changes in ideas
 - Iberians have starting rulers
-- New Missions: Generic Japan Minors, Japan, Uesugi, Generic Colonial Nations, Gaeldom, Flanders, Hosokawa, Takeda, Otomo, Shimazu, Ainu, Ryuku, So, Yamana, Tokugawa,
+- New Missions: Generic Japan Minors, Japan, Uesugi, Generic Colonial Nations, Gaeldom, Flanders, Hosokawa, Takeda, Otomo, Shimazu, Ainu, Ryuku, So, Yamana, Tokugawa, Corsica.
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
