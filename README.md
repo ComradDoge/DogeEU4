@@ -49,10 +49,9 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes 16/09/2020 [/h1]
-- To play as Tunis you need to press the decision to form it as a temporarily fix.
-- Vinland starts as a republic instead of monarchy
-- Policies have been reworked and lowered from around 700, various repeats removed and combined. Credit to Belusterk from Arumbas discord
+[h1] Changes x/09/2020 [/h1]
+- Korea formable added for Korean cultures
+- New Missions: Mann
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
