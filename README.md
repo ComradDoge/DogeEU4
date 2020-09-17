@@ -50,17 +50,12 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes 16/09/2020 [/h1]
-- Start changes: Lippe, Coburg appear at start.
-- New National Ideas for: Aquileia, Coburg, Lippe, Mecklenburg, Meissen, Modena, Mulhouse, Paderborn, Parma, Passau, Salzburg, Tyrol.
-- Hellenic player decision morale toned down.
-- Osman missions fixed, added the events that were supposed to be there.
-- Various value changes in ideas
-- Iberians have starting rulers
-- New Missions: Generic Japan Minors, Japan, Uesugi, Generic Colonial Nations, Gaeldom, Flanders, Hosokawa, Takeda, Otomo, Shimazu, Ainu, Ryuku, So, Yamana, Tokugawa, Corsica.
+- To play as Tunis you need to press the decision to form it as a temporarily fix.
+- Vinland starts as a republic instead of monarchy
+- Policies have been reworked and lowered from around 700, various repeats removed and combined. Credit to Belusterk from Arumbas discord
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
-- Tunis government reforms do not wish to cooperate, do not play Tunis.
 - Brazil was sent to Brazil, as the country breaks the game so I removed it temp.
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
 
