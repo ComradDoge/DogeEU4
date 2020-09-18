@@ -50,18 +50,12 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes 18/09/2020 [/h1]
-- New Missions: Mann, Athens, Azerbaijan, Zapadoslavia, Rhineland, Papal State, Avignon
-- Added names for some policies
-- Iceland starts with a province in greenland and made some fixes to it
-- Genoa starts locked in its own government reform
-- Lowered Aurora value idea cost from 0.5%>0.02%, Black forest regiments cost -10%>-5%, Chernozem production eff 7.5%>5%
-- Its a tiny bit more expensive to be over forcelimit
-- Formables added: 
-    Korea {Korean Culture}, Somalia {Somali Culture}, Huaxyacac {Otamuangan Culture}, Rhineland {Rhenish Culture}, 
-        Zapadaslovia {West Slavic, Nitra}, Azerbaijan {Azerbaijani Culture}
-    Japan Region: Hokucho, Nancho, Kenmu, Fujiwara, Taira, Minamoto
-    Northern Italy Region: Lombard League, Lombary-Venetia
-
+- Syrian cores removed at start
+- Slovak is part of the West Slavic group
+- Max attrition is now 15%
+- Start core fixes
+- Kemetism deities buffed
+- Potatoes has 40% chance to spawn in Livestock or Grain provinces and limited to Europe
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
