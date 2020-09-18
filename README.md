@@ -50,8 +50,10 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes x/09/2020 [/h1]
-- Korea formable added for Korean cultures
 - New Missions: Mann
+- Added names for some policies
+- Formables added: Korea, Hokucho {Japan}, Nancho {Japan}, Kenmu {Japan}, Somalia {Somali Culture}, Lombard League {Northern Italy}, Lombary-Venetia {Northern Italy}, Fujiwara {Japan}, Taira {Japan}, Minamoto {Japan}, Huaxyacac {Otamuangan Culture}
+
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
@@ -90,16 +92,17 @@ I would recommend [url=https://steamcommunity.com/sharedfiles/filedetails/?id=21
 [h3] Expanded Mod Family [/h3]
 I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their [url=https://discord.gg/UEyGV6U] discord.[/url] Don't send bug reports or something game related to this mod to them. 
 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2198012132] Formables Expanded[/url]  by Silver Knight of Anor Londo (Verityvoid)
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded[/url] by Silver Knight of Anor Londo (Verityvoid)     
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded[/url] by Big Boss 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded[/url] by Big Boss     
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1596815683] Government Expanded[/url] by Jay 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded[/url] by Big Boss 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded[/url] by Silver Knight of Anor Londo (Verityvoid) 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded[/url] by MrMarcinQ‎ 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded[/url] by Stiopia/Expanded Team 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian 
     
 [h3] Other [/h3]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
