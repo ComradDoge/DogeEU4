@@ -49,10 +49,18 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes x/09/2020 [/h1]
-- New Missions: Mann
+[h1] Changes 18/09/2020 [/h1]
+- New Missions: Mann, Athens, Azerbaijan, Zapadoslavia, Rhineland, Papal State, Avignon
 - Added names for some policies
-- Formables added: Korea, Hokucho {Japan}, Nancho {Japan}, Kenmu {Japan}, Somalia {Somali Culture}, Lombard League {Northern Italy}, Lombary-Venetia {Northern Italy}, Fujiwara {Japan}, Taira {Japan}, Minamoto {Japan}, Huaxyacac {Otamuangan Culture}
+- Iceland starts with a province in greenland and made some fixes to it
+- Genoa starts locked in its own government reform
+- Lowered Aurora value idea cost from 0.5%>0.02%, Black forest regiments cost -10%>-5%, Chernozem production eff 7.5%>5%
+- Its a tiny bit more expensive to be over forcelimit
+- Formables added: 
+    Korea {Korean Culture}, Somalia {Somali Culture}, Huaxyacac {Otamuangan Culture}, Rhineland {Rhenish Culture}, 
+        Zapadaslovia {West Slavic, Nitra}, Azerbaijan {Azerbaijani Culture}
+    Japan Region: Hokucho, Nancho, Kenmu, Fujiwara, Taira, Minamoto
+    Northern Italy Region: Lombard League, Lombary-Venetia
 
 
 [h2] Things that are broken [/h2]
