@@ -12,7 +12,6 @@ NDefines.NCountry.NAT_FOCUS_YEARS = 15 -- Default 25
 NDefines.NCountry.NAT_FOCUS_YEARS_RANK = 5 -- Default 5
 
 --Wars
-NDefines.NDiplomacy.CALL_ALLY_DECLINE_PRESTIGE_PENALTY = -10 -- Default -25. Cost which you incur if you dont join an allies war.
 
 --Subjects
 NDefines.NCountry.BREAK_VASSAL_PRESTIGE_PENALTY = -10 -- Default -25
@@ -28,6 +27,10 @@ NDefines.NCountry.MAX_ACTIVE_POLICIES = 12
 NDefines.NCountry.BASE_POSSIBLE_POLICIES = 4
 NDefines.NCountry.MINIMUM_POLICY_TIME = 3
 NDefines.NCountry.MAX_IDEA_GROUPS_FROM_SAME_CATEGORY = 0.35
+
+-- Military
+NDefines.NCountry.LAND_FORCELIMIT_EXTRA_COST_FACTOR = 2.5
+NDefines.NCountry.NAVAL_FORCELIMIT_EXTRA_COST_FACTOR = 2.5
 
 
 --Estates

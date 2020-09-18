@@ -20,7 +20,7 @@ NDefines.NDiplomacy.NUM_OF_GREAT_POWERS = 12 -- Default 8
 
 --Wars
 NDefines.NDiplomacy.DISHONORABLE_PEACE_MONTHS = 0 --Default 12. This is the thingie that forces you to wait a year before peacing out.
-
+NDefines.NDiplomacy.CALL_ALLY_DECLINE_PRESTIGE_PENALTY = -10 -- Default -25. Cost which you incur if you dont join an allies war.
 
 
 
