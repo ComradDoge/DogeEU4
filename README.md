@@ -52,10 +52,13 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 [h1] Changes 18/09/2020 [/h1]
 - Syrian cores removed at start
 - Slovak is part of the West Slavic group
-- Max attrition is now 15%
+- Max attrition is now 20%
 - Start core fixes
 - Kemetism deities buffed
-- Potatoes has 40% chance to spawn in Livestock or Grain provinces and limited to Europe
+- Potatoes has 30% chance to spawn in Livestock or Grain provinces and limited to Europe after an event
+- Tomato  (40%) event added to do simillar things in France, Italy, Balkans, Iberia regons
+- Added Athenian Republic and Greek League governments, both get factions
+- Mini mission for Crete, fixed athens mission west
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
