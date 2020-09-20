@@ -49,7 +49,7 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes 18/09/2020 [/h1]
+[h1] Changes x/09/2020 [/h1]
 - Updated localisation
 - Vinland Start Leader nerfed
 - Potatoes and Tomatoes events now have 50 years MTTH
@@ -60,13 +60,15 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Russian Republic reform made to be locked in, given factions, decreased gov capacity to 200 from 250
 - Traders faction global_tax_modifier = -0.05 made -0.1 and naval_maintenance_modifier = -0.1 to -0.2
 - Cathar Religious Idea group, 5th idea now gives a standard religious cb as the triple manpower recovery does not seem to work.
-- Karelian missions slightly changed
-- Suomenusko Religious Idea group added siberian frontiers
+- Karelian missions details slightly changed.
+- Suomenusko Religious Idea group added siberian frontiers as finisher
 - Kingdom (formerly Imperial Ambition) Idea group is a weaker version of Empire (formerly Imperial). The Idea will auto switch to Empire from Kingdom.
+- Kingdom requires Kingdom rank or 300 dev, Empire requires Empire rank or 1000 dev
 - Kingdom and Empire changed quite a bit, with new localisation for Empire.
 - 150 vassal cb moved to Empire, prestige decision kept in both
 - Shock Idea age mechanic fixed, enlightenment age now included. You can take it any time.
 - Fire Idea group, increased fire_damage = 0.05 to 0.1
+- Colonial Empire Idea Group mechanics regarding colonies getting modifiers is fixed.
 
 
 
