@@ -49,8 +49,8 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
-[h1] Changes x/09/2020 [/h1]
-- Updated localisation
+[h1] Changes 21/09/2020 [/h1]
+- Updated localisation in a bunch of places
 - Vinland Start Leader nerfed
 - Potatoes and Tomatoes events now have 50 years MTTH
 - Swedish infantry power moved from the start tradition to the second spot, alongside discipline
@@ -69,6 +69,16 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - Shock Idea age mechanic fixed, enlightenment age now included. You can take it any time.
 - Fire Idea group, increased fire_damage = 0.05 to 0.1
 - Colonial Empire Idea Group mechanics regarding colonies getting modifiers is fixed.
+- Kemetism rebel type added for normal conversion
+- Added a Kemetism decision for Egyptian culture players to convert at start
+- Muslim Ideas are now Sunni Ideas, made for the sunnis only
+- Added Hussite, Ibadi and Shiite religious idea groups
+- Fixed the idea group religion changer and is now an on_action
+- Norse Ideas coast cb moved to the third slot from first slot
+- Forming Celtic Empire decision has been cleaned up and instead of provinces uses areas.
+- Knight starting position changed and some missions were tweaked
+- Dutch mission fixed regarding new amsterdam
+- Anglicanism dissolve_monasteries_aspect increased from 0.25 to 0.30
 
 
 
@@ -78,21 +88,19 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
 
 [h1] Main Additions [/h1]
-As of right now:
-- A Shattered World with a normal bookmark and one without an HRE
-- New Idea Groups with various religions getting specific idea groups
-- Many new religions added from CK2
-- More countries have their own national ideas and missions
-- New formables all over the world
-- Some formable countries get different national ideas depending on who formed them
-- Many more trade goods with ways to change trade good in a province
-- No Sack of X on your own provinces or subjects (this is clearly the most important part)
-- Colonies are locked into their respective regions until independence
-- AI tweaks and changes making it less-braindead
-- Mini additions: More insults, more ruler personality traits, more advisors
 
+- More Insults, Ruler personality traits, Advisors
+- Religion specific Idea groups
+- New Religions with Mechanics
+- Quality of Life Improvements
+- Dynamic Age objectives
+- Englightenment Age
+- Shattered World
+- New Idea groups
+- New Formables
+- AI tweaks
 
-[h1] Links [/h1]
+[h1] Discord [/h1]
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
