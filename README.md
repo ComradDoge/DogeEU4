@@ -50,15 +50,25 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes 18/09/2020 [/h1]
-- Syrian cores removed at start
-- Slovak is part of the West Slavic group
-- Max attrition is now 20%
-- Start core fixes
-- Kemetism deities buffed
-- Potatoes has 30% chance to spawn in Livestock or Grain provinces and limited to Europe after an event
-- Tomato  (40%) event added to do simillar things in France, Italy, Balkans, Iberia regons
-- Added Athenian Republic and Greek League governments, both get factions
-- Mini mission for Crete, fixed athens mission west
+- Updated localisation
+- Vinland Start Leader nerfed
+- Potatoes and Tomatoes events now have 50 years MTTH
+- Swedish infantry power moved from the start tradition to the second spot, alongside discipline
+- Karelian culture can now also form Russian Republic
+- Egypt requirements lowered from tech 20 to 10 allow for more appearances
+- Canal tech requirements lowered from tech 26 to 20 in each category for earlier use
+- Russian Republic reform made to be locked in, given factions, decreased gov capacity to 200 from 250
+- Traders faction global_tax_modifier = -0.05 made -0.1 and naval_maintenance_modifier = -0.1 to -0.2
+- Cathar Religious Idea group, 5th idea now gives a standard religious cb as the triple manpower recovery does not seem to work.
+- Karelian missions slightly changed
+- Suomenusko Religious Idea group added siberian frontiers
+- Kingdom (formerly Imperial Ambition) Idea group is a weaker version of Empire (formerly Imperial). The Idea will auto switch to Empire from Kingdom.
+- Kingdom and Empire changed quite a bit, with new localisation for Empire.
+- 150 vassal cb moved to Empire, prestige decision kept in both
+- Shock Idea age mechanic fixed, enlightenment age now included. You can take it any time.
+- Fire Idea group, increased fire_damage = 0.05 to 0.1
+
+
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
