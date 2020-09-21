@@ -49,6 +49,10 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
+[h1] Discord [/h1]
+Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
+If you don't like discord just post in the discussion or in the comments.
+
 [h1] Changes 21/09/2020 [/h1]
 
 Ideas
@@ -96,10 +100,7 @@ QoL
 - Canal tech requirements lowered from tech 26 to 20 in each category for earlier use
 - Added a Kemetism decision for Egyptian culture players to convert at start
 - Forming Celtic Empire decision has been cleaned up and instead of provinces uses areas. Minor requirement change.
-
-
-
-
+- Added an event for Zapadoslavia to choose to go Western or Eastern tech/unit type after formation
 
 
 
@@ -120,10 +121,6 @@ QoL
 - New Idea groups
 - New Formables
 - AI tweaks
-
-[h1] Discord [/h1]
-Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something. Feel free to send me the save if something breaks.
-If you don't like discord just post in the discussion or in the comments.
 
 [h1] Credits [/h1]
 Credit to all the authors of mods that I have incorporated into Shattered and Viking_Nephilim for his own shattered fork from which I yoinked stuff from. Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
