@@ -50,35 +50,49 @@ Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Changes 21/09/2020 [/h1]
-- Updated localisation in a bunch of places
-- Vinland Start Leader nerfed
+
+Ideas
+- 150 vassal cb moved to Empire, prestige decision kept in both
+- Suomenusko Religious Idea group added siberian frontiers as finisher alongside +10 settler
+- Shock Idea age mechanic fixed, enlightenment age now included. You can take it any time.
+- Kingdom (formerly Imperial Ambition) Idea group is a weaker version of Empire (formerly Imperial). The Idea will auto switch to Empire from Kingdom.
+         Kingdom requires Kingdom rank or 300 dev, Empire requires Empire rank or 1000 dev
+         Kingdom and Empire changed quite a bit, with new localisation for Empire.
+- Added Hussite, Ibadi and Shiite religious idea groups
+- Muslim Ideas are now Sunni Ideas, made for the sunnis only
+
+Balance
+- Anglicanism dissolve_monasteries_aspect increased from 0.25 to 0.30
 - Potatoes and Tomatoes events now have 50 years MTTH
+- Vinland Start Leader nerfed
 - Swedish infantry power moved from the start tradition to the second spot, alongside discipline
-- Karelian culture can now also form Russian Republic
-- Egypt requirements lowered from tech 20 to 10 allow for more appearances
-- Canal tech requirements lowered from tech 26 to 20 in each category for earlier use
 - Russian Republic reform made to be locked in, given factions, decreased gov capacity to 200 from 250
 - Traders faction global_tax_modifier = -0.05 made -0.1 and naval_maintenance_modifier = -0.1 to -0.2
+- Fire Idea group, increased fire_damage = 0.05 to 0.1
+- Norse Ideas coast cb moved to the third slot from first slot
+
+Bugfixes
+- Somalias colour changed to a bright blue to differentiate from Sofalo
+- Dutch mission fixed regarding new amsterdam
+- Japan missions and events extended to the other formables
+- Updated localisation in a bunch of places
+- Kemetism rebel type added for normal conversion
+- Colonial Empire Idea Group mechanics regarding colonies getting modifiers is fixed.
 - Cathar Religious Idea group, 5th idea now gives a standard religious cb as the triple manpower recovery does not seem to work.
 - Karelian missions details slightly changed.
-- Suomenusko Religious Idea group added siberian frontiers as finisher
-- Kingdom (formerly Imperial Ambition) Idea group is a weaker version of Empire (formerly Imperial). The Idea will auto switch to Empire from Kingdom.
-- Kingdom requires Kingdom rank or 300 dev, Empire requires Empire rank or 1000 dev
-- Kingdom and Empire changed quite a bit, with new localisation for Empire.
-- 150 vassal cb moved to Empire, prestige decision kept in both
-- Shock Idea age mechanic fixed, enlightenment age now included. You can take it any time.
-- Fire Idea group, increased fire_damage = 0.05 to 0.1
-- Colonial Empire Idea Group mechanics regarding colonies getting modifiers is fixed.
-- Kemetism rebel type added for normal conversion
-- Added a Kemetism decision for Egyptian culture players to convert at start
-- Muslim Ideas are now Sunni Ideas, made for the sunnis only
-- Added Hussite, Ibadi and Shiite religious idea groups
-- Fixed the idea group religion changer and is now an on_action
-- Norse Ideas coast cb moved to the third slot from first slot
-- Forming Celtic Empire decision has been cleaned up and instead of provinces uses areas.
+- Karelian culture can now also form Russian Republic
 - Knight starting position changed and some missions were tweaked
-- Dutch mission fixed regarding new amsterdam
-- Anglicanism dissolve_monasteries_aspect increased from 0.25 to 0.30
+- Fixed the idea group religion changer and is now an on_action
+
+QoL
+- Egypt requirements lowered from tech 20 to 10 allow for more appearances
+- Canal tech requirements lowered from tech 26 to 20 in each category for earlier use
+- Added a Kemetism decision for Egyptian culture players to convert at start
+- Forming Celtic Empire decision has been cleaned up and instead of provinces uses areas. Minor requirement change.
+
+
+
+
 
 
 
