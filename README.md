@@ -55,9 +55,16 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 21/09/2020 [/h1]
 
+- Lollard religious rebels fixed, can now convert
 - Mamluks got missions
+- Minor mission fixes
 - Event fixes and localisation
-
+- Bunch of log fixes
+- Angevin formable decision fixes
+- Angevin mission fixes
+- Tunis fixed
+- Added an african South American tag akin to Vinland
+- Updated AI building logic
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
