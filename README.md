@@ -53,18 +53,15 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 21/09/2020 [/h1]
+[h1] Changes 23/09/2020 [/h1]
 
-- Lollard religious rebels fixed, can now convert
-- Mamluks got missions
-- Minor mission fixes
-- Event fixes and localisation
-- Bunch of log fixes
-- Angevin formable decision fixes
-- Angevin mission fixes
-- Tunis fixed
-- Added an african South American tag akin to Vinland
-- Updated AI building logic
+- UI changes for:
+    Policies
+    Peace View
+    State Edicts
+    Idea Group normal and picking screen
+- Fixed Zapadaslovia mechanic, deving czech/slovak/polish provinces now increases that factions loyalty
+- Fixed Zapadaslovia event
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
