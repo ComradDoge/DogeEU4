@@ -55,12 +55,8 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 23/09/2020 [/h1]
 
--Added a bunch of UI compatability for 600/720/764/864. A lot of them do not look good but makes it playable. Get a 1080 for real or fuck around with the GUI scale in the settings.
-- Some Parliament Bribes were made more appealing
-- Crownland modifiers were changed
-- Nationalist Ideas now have Nationalist estate tied to them
-- Shit ton of new privileges
-- New Estate UI and interactions, I am sorry little ones
+- Added a ship building edict
+- Log fixes
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
