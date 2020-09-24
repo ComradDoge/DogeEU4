@@ -77,7 +77,7 @@ If you don't like discord just post in the discussion or in the comments.
 - AI tweaks
 
 [h1] Credits [/h1]
-Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod) and Expanded Mods family who have done amazing work on eu4.
+Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod), Expanded Mods family who have done amazing work on eu4 and ArtemisFowl for understanding EU4 UI.
 
 Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
 

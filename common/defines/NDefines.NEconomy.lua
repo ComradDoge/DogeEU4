@@ -7,6 +7,7 @@
 
 --Economy
 NDefines.NEconomy.DEBASE_MAX_CORRUPTION = 30 -- Default 90, Above this level of corruption, you won't be able to Debase Currency.
+NDefines.NEconomy.MAX_BUILDING_SLOTS = 16 --12
 
 --Trade
 NDefines.NEconomy.COT_DOWNGRADE_PRESTIGE_COST = -5 -- Default -10, QoL change. Cost in prestige to downgrade a Center of Trade.
