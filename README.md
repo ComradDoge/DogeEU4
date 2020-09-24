@@ -53,12 +53,16 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 23/09/2020 [/h1]
+[h1] Changes 24/09/2020 [/h1]
 
+- Max buildings increased to 16, UI changed
+- Building gain interval is now 5 instead of 10
+- Macrobuilder UI for building made longer, smaller resolutions should be supported
 - Added a ship building edict
 - Log fixes
 
 [h2] Things that are broken [/h2]
+- The Macrobuilder is still in the process of completion, need to fix stuff and give support for lower resolutions.
 - The graphical part for deities is borked
 - Brazil was sent to Brazil, as the country breaks the game so I removed it temp.
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
