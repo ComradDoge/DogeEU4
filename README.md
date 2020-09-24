@@ -55,7 +55,8 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 23/09/2020 [/h1]
 
-Added a bunch of UI compatability for 600/720/764/864. A lot of them do not look good but makes it playable. Get a 1080 for real or fuck around with the GUI scale in the settings.
+-Added a bunch of UI compatability for 600/720/764/864. A lot of them do not look good but makes it playable. Get a 1080 for real or fuck around with the GUI scale in the settings.
+- Some Parliament Bribes were made more appealing
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
@@ -76,9 +77,9 @@ Added a bunch of UI compatability for 600/720/764/864. A lot of them do not look
 - AI tweaks
 
 [h1] Credits [/h1]
-Credit to all the authors of mods that I have incorporated into Shattered and Viking_Nephilim for his own shattered fork from which I yoinked stuff from. Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
+Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod) and Expanded Mods family who have done amazing work on eu4.
 
-I would recommend [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2169468112] Better Estates UI by Latte [/url] which is Ironman Compatible. Seriously, bless Latte.
+Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
 
 [h3] Shattered Mods [/h3]
     Shattered Europa by Neprut
