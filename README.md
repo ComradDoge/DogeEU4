@@ -55,13 +55,7 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 23/09/2020 [/h1]
 
-- UI changes for:
-    Policies
-    Peace View
-    State Edicts
-    Idea Group normal and picking screen
-- Fixed Zapadaslovia mechanic, deving czech/slovak/polish provinces now increases that factions loyalty
-- Fixed Zapadaslovia event
+Added a bunch of UI compatability for 600/720/764/864. A lot of them do not look good but makes it playable. Get a 1080 for real or fuck around with the GUI scale in the settings.
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
