@@ -34,7 +34,7 @@ NDefines.NCountry.NAVAL_FORCELIMIT_EXTRA_COST_FACTOR = 2.5
 
 
 --Estates
---NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 5		-- Max. number of privileges active at the same time
+NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 8		-- Max. number of privileges active at the same time
 
 
 --- BEL Imports ---
