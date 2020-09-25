@@ -57,7 +57,7 @@ If you don't like discord just post in the discussion or in the comments.
 
 - Minor fixes
 - Additional Advisors due to IDV, in process of nerfing them/cleaning them
-
+- Added a chinese lost colony on the west coast
 
 [h2] Things that are broken [/h2]
 - The Macrobuilder is still in the process of completion, need to fix stuff and give support for lower resolutions.
