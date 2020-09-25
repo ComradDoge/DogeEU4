@@ -55,11 +55,9 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 24/09/2020 [/h1]
 
-- Max buildings increased to 16, UI changed
-- Building gain interval is now 5 instead of 10
-- Macrobuilder UI for building made longer, smaller resolutions should be supported
-- Added a ship building edict
-- Log fixes
+- Minor fixes
+- Additional Advisors due to IDV, in process of nerfing them/cleaning them
+
 
 [h2] Things that are broken [/h2]
 - The Macrobuilder is still in the process of completion, need to fix stuff and give support for lower resolutions.
