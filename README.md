@@ -15,17 +15,6 @@ https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEi
 https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 
-# THINGS TO DO?
-
-- New Formables
-- Update the formable nations mod (and make a separate mod?)
-- Remove truces from countries
-- Remove Aragon/Castile/Naples PU stuff
-- Remove Lithuania/Poland PU stuff
-- Remove Moldavia/Poland/Hungary events
-- Burgundy bullshit redone?
-- Danzig event disabled
-
 # DOCUMENTATION
 
 Various areas of the code (scripted stuff) are signed with "#Code Project Name" so it is easier to find later, here will be a list of them if I am not lazy.
@@ -101,6 +90,7 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian 
     
 [h3] Other [/h3]
+
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
@@ -119,44 +109,3 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
-
-
-
-
-
-Here is a [url=https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0] spreadsheet [/url] of various stuff that is all over the place. I don't know how it will help you. It is not fully up to date.
-
-[h1] Beyond Typus Version [/h1]
-I am collabortaing with Pirate AE (one of the previous shattered modders) to bring a Beyond Typus version of Shattered Europa. We hope this will bring a more authentic Shattered experience and also an option to people who want to play in a more detailed world
-
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2168113410] LINK TO THE BEYOND TYPUS SHATTERED REBORN [/url]
-
-    Shattered Europa by Neprut
-    Maxos New Shattered by Maxos
-    Shattered Europa by Pirate AI
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names by Cwrwi [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming by Panther [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [1.30 - Hussite Rebel Flag Update] by quill13 [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation by flogi [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded by Big Boss [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1596815683] Government Expanded by Jay [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded by Big Boss [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded by Silver Knight of Anor Londo (Verityvoid) [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded by MrMarcinQ‎ [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded by Stiopia/Expanded Team [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded by Lord Varangian [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version by Spirit Baker and LoStack for Dev-Click part [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults by Ruben_Escobar14 [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities by Worlds Smuggest Detective [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers by Lk [/url]
-    [url=https://steamcommunity.com/profiles/76561198055745620/myworkshopfiles] Various Missions by Parmellion [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism by Jan [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours by reddbane [/url] Outdated
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185952315] Historical Religious Colours updated for 1.30 Emperor [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures by Borsch [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens by SleepyLion [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree by Varlin [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod by MaitreKorda [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors by (EXITPOL) DARZ (NEXTPOL) [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1305668232] Dynamic Ages by DarkyDu [/url]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1381305516] The Age of Enlightenment by Caraunio [/url]
