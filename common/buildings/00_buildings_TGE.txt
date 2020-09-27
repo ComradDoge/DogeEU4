@@ -30,36 +30,28 @@ bronze_foundry = {
 	
 	build_trigger = {
 		AND = {
-			ROOT = {
-				trade_goods = copper
-			}
-			FROM = {
-				any_owned_province = { 
-					AND = {
-						OR = {
-							trade_goods = tin
-							trade_goods = zinc
-						}
-						base_production = 5
-					}
-				}
+			trade_goods = copper
 
-				mil_tech = 7
-				innovativeness = 5 #7
+			latent_building_trigger_two_sources = {
+				TECH=mil
+				TECH_LVL=7
+				SOURCE=tin
+				SOURCE_TWO=zinc
+				AMOUNT=5
+				INV_AMOUNT=5
 			}
 		}
 	}
 	
 	potential = {
 		FROM = {
-			any_owned_province = { 
-				AND = {
-					OR = {
-						trade_goods = tin
-						trade_goods = zinc
-					}
-					base_production = 5
+			num_of_owned_provinces_with = {
+				value = 1
+				OR = {
+					trade_goods = zinc
+					trade_goods = tin
 				}
+				base_production = 5
 			}
 		}
 	}
@@ -67,14 +59,13 @@ bronze_foundry = {
 	modifier = { allowed_num_of_buildings = 1 }
 
 	ai_will_do = {
-		factor = 1000
+		factor = 2000
 	}
 }
 
 bronze_foundry_fake = {
 	cost = 500
 	time = 12	
-	one_per_country = yes
 	
 	build_trigger = {
 		always = no
@@ -82,55 +73,17 @@ bronze_foundry_fake = {
 	
 	potential = {
 		FROM = {
-			OR = {
-				OR = {
-					AND = {
-						any_owned_province = { 
-							AND = {
-								trade_goods = zinc
-								NOT = { base_production = 5 }
-							}
-						}
-						NOT = {
-							any_owned_province = { 
-								AND = {
-									trade_goods = zinc
-									base_production = 5
-								}
-							}
-						}
-						zinc = 1
+			NOT = {
+				num_of_owned_provinces_with = {
+					value = 1
+					OR = {
+						trade_goods = zinc
+						trade_goods = tin
 					}
-					
-					AND = {
-						any_owned_province = { 
-							AND = {
-								trade_goods = tin
-								NOT = { base_production = 5 }
-							}
-						}
-						NOT = {
-							any_owned_province = { 
-								AND = {
-									trade_goods = tin
-									base_production = 5
-								}
-							}
-						}
-						tin = 1
-					}
-				
-				}
-				
-				AND = {
-					zinc = 0
-					tin = 0
-					NOT = { zinc = 1 }
-					NOT = { tin = 1 }
+					base_production = 5
 				}
 			}
 		}
-		
 	}
 
 	modifier = { allowed_num_of_buildings = 1 }
@@ -142,32 +95,22 @@ bronze_foundry_fake = {
 
 bronze_foundry_tin = {
 	cost = 100
-	time = 6	
+	time = 6
 	one_per_country = yes
 	
 	build_trigger = {
-		AND = {
-			ROOT = {
-				trade_goods = tin				
-				base_production = 5				
-			}
-			
-			FROM = {
-				mil_tech = 7
-				any_owned_province = { 
-					has_building = bronze_foundry
-				}	
-			}				
-		}
-	}
 	
-	potential = {
-			
+		latent_sources_building_trigger = {
+			BUILDING=bronze_foundry
+			SOURCE=tin
+			AMOUNT=5
+		}
+
 	}
 	
 	on_built = {
 		hidden_effect = { 					
-			FROM = {
+			owner = {
 				every_owned_province = {
 					limit = { has_building = bronze_foundry }
 					change_trade_goods = bronze
@@ -182,7 +125,7 @@ bronze_foundry_tin = {
 	modifier = { allowed_num_of_buildings = 1 }
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 2000
 	}
 }
 
@@ -193,24 +136,16 @@ bronze_foundry_zinc = {
 	one_per_country = yes
 	
 	build_trigger = {
-		AND = {
-			ROOT = {
-				trade_goods = zinc				
-				base_production = 5				
-			}
-			
-			FROM = {
-				mil_tech = 7
-				any_owned_province = { 
-					has_building = bronze_foundry
-				}	
-			}				
-		}
+		latent_sources_building_trigger = {
+			BUILDING=bronze_foundry
+			SOURCE=zinc
+			AMOUNT=5
+		}	
 	}
 	
 	on_built = {
 		hidden_effect = { 					
-			FROM = {
+			owner = {
 				every_owned_province = {
 					limit = { has_building = bronze_foundry }
 					change_trade_goods = brass
@@ -222,49 +157,40 @@ bronze_foundry_zinc = {
 		}
 	}
 	
-	potential = {
-			
-	}
-	
 	modifier = {
 		allowed_num_of_buildings = 1
 	}	
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 2000
 	}
 }
 
 cannon_foundry = {
 	cost = 1000
-	time = 24	
+	time = 24
 	one_per_country = yes
 	
 	build_trigger = {
-			FROM = {
-				any_owned_province = { 
-					AND = {
-						trade_goods = bronze
-						base_production = 5
-					}	
-				}
-				mil_tech = 7
-				innovativeness = 10
+		AND = {
+			development = 10
+	
+			latent_building_trigger = {
+				TECH=mil
+				TECH_LVL=7
+				SOURCE=bronze
+				AMOUNT=5
+				INV_AMOUNT=10
 			}
-			ROOT = {
-				development = 10
-			}
+		}
 	}
 	
 	potential = {
 		FROM = {
-			any_owned_province = { 
-				AND = {
-					OR = {
-						trade_goods = bronze
-					}
-					base_production = 5
-				}
+			num_of_owned_provinces_with = {
+				value = 1
+				trade_goods = bronze
+				base_production = 5
 			}
 		}
 	}
@@ -274,47 +200,37 @@ cannon_foundry = {
 	}	
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 2000
 	}
 }
 
 cannon_foundry_bronze = {
 	cost = 100
-	time = 6	
+	time = 6
 	one_per_country = yes
 	
 	build_trigger = {
-		AND = {
-			ROOT = {
-				trade_goods = bronze
-				base_production = 5
-			}
-			
-			FROM = {
-				mil_tech = 7
-				any_owned_province = { 
-					has_building = cannon_foundry
-				}	
-			}	
-		}
+	
+		latent_sources_building_trigger = {
+			BUILDING=cannon_foundry
+			SOURCE=bronze
+			AMOUNT=5
+		}	
+		
 	}
 	
 	on_built = {
 		hidden_effect = { 
-			FROM = {
+			owner = {
 				every_owned_province = {
 					limit = { has_building = cannon_foundry }
 					change_trade_goods = cannon
+					remove_building = cannon_foundry
 				}
 			}
-		
 			ROOT = { remove_building = cannon_foundry_bronze }
-			
 			ROOT = { add_base_production = -4 }
 		}
-	}
-	
-	potential = {	
 	}
 	
 	modifier = {
@@ -322,13 +238,13 @@ cannon_foundry_bronze = {
 	}	
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 2000
 	}
 }
 
 cannon_foundry_fake = {
 	cost = 1000
-	time = 24	
+	time = 24
 	one_per_country = yes
 	
 	build_trigger = {
@@ -336,35 +252,17 @@ cannon_foundry_fake = {
 	}
 	
 	potential = {
+	
 		FROM = {
-			OR = {
-			
-				AND = {
-					any_owned_province = { 
-						AND = {
-							trade_goods = bronze
-							NOT = { base_production = 5 }
-						}
-					}
-					NOT = {
-						any_owned_province = { 
-							AND = {
-								trade_goods = bronze
-								base_production = 5
-							}
-						}
-					}
-					bronze = 1
-				}
-				
-				
-				
-				AND = {
-					bronze = 0
-					NOT = { bronze = 1 }
+			NOT = {
+				num_of_owned_provinces_with = {
+					value = 1
+					trade_goods = bronze
+					base_production = 5
 				}
 			}
 		}
+		
 	}
 
 	modifier = { allowed_num_of_buildings = 1 }
@@ -382,28 +280,23 @@ metalworking_workshop = {
 	one_per_country = yes
 	
 	build_trigger = {
-			FROM = {
-				any_owned_province = { 
-					AND = {
-						trade_goods = iron
-						base_production = 8
-					}
-					
-				}
-				mil_tech = 18
-				innovativeness = 15
-			}
+
+		latent_building_trigger = {
+				TECH=mil
+				TECH_LVL=18
+				SOURCE=iron
+				AMOUNT=8
+				INV_AMOUNT=15
+		}
+			
 	}
 	
 	potential = {
 		FROM = {
-			any_owned_province = { 
-				AND = {
-					OR = {
-						trade_goods = iron
-					}
-					base_production = 8
-				}
+			num_of_owned_provinces_with = {
+				value = 1
+				trade_goods = iron
+				base_production = 8
 			}
 		}
 	}
@@ -412,13 +305,13 @@ metalworking_workshop = {
 	modifier = { allowed_num_of_buildings = 1 }
 
 	ai_will_do = {
-		factor = 1000
+		factor = 2000
 	}
 }
 
 metalworking_workshop_fake = {
 	cost = 1000
-	time = 24	
+	time = 24
 	one_per_country = yes
 	
 	build_trigger = {
@@ -427,31 +320,11 @@ metalworking_workshop_fake = {
 	
 	potential = {
 		FROM = {
-			OR = {
-			
-				AND = {
-					any_owned_province = { 
-						AND = {
-							trade_goods = iron
-							NOT = { base_production = 8 }
-						}
-					}
-					NOT = {
-						any_owned_province = { 
-							AND = {
-								trade_goods = iron
-								base_production = 8
-							}
-						}
-					}
-					iron = 1
-				}
-				
-				
-				
-				AND = {
-					iron = 0
-					NOT = { iron = 1 }
+			NOT = {
+				num_of_owned_provinces_with = {
+					value = 1
+					trade_goods = iron
+					base_production = 8
 				}
 			}
 		}
@@ -471,35 +344,25 @@ metalworking_workshop_iron = {
 	one_per_country = yes
 	
 	build_trigger = {
-		AND = {
-			ROOT = {
-				trade_goods = iron
-				base_production = 8
-			}
-			
-			FROM = {
-				mil_tech = 18
-				any_owned_province = { 
-					has_building = metalworking_workshop
-				}	
-			}	
-		}
+		latent_sources_building_trigger = {
+			BUILDING=metalworking_workshop
+			SOURCE=iron
+			AMOUNT=8
+		}	
 	}
 	
 	on_built = {
 		hidden_effect = { 
-			FROM = {
+			owner = {
 				every_owned_province = {
 					limit = { has_building = metalworking_workshop }
 					change_trade_goods = metalworking
+					remove_building = metalworking_workshop
 				}
 			}
 			ROOT = { remove_building = metalworking_workshop_iron }
 			ROOT = { add_base_production = -7 }
 		}
-	}
-	
-	potential = {	
 	}
 	
 	modifier = {
@@ -519,36 +382,23 @@ munition_factory = {
 	one_per_country = yes
 	
 	build_trigger = {
-			FROM = {
-				any_owned_province = {
-					AND = {
-						trade_goods = lead
-						base_production = 8
-					}
-				}
-				innovativeness = 15 #17
-				mil_tech = 15
-			}
+		latent_building_trigger = {
+			TECH=mil
+			TECH_LVL=18
+			SOURCE=lead
+			AMOUNT=8
+			INV_AMOUNT=15
+		}
 	}
 	
 	potential = {
 		FROM = {
-			any_owned_province = { 
-				AND = {
-					OR = {
-						trade_goods = lead
-					}
-					base_production = 8
-				}
+			num_of_owned_provinces_with = {
+				value = 1
+				trade_goods = lead
+				base_production = 8
 			}
 		}
-	}
-	
-	on_built = {
-	}
-	
-	on_destroyed = {
-
 	}
 	
 	modifier = {
@@ -556,14 +406,14 @@ munition_factory = {
 	}	
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 3000
 	}
 }
 
 
 munition_factory_fake = {
 	cost = 1000
-	time = 24	
+	time = 24
 	one_per_country = yes
 	
 	build_trigger = {
@@ -572,31 +422,11 @@ munition_factory_fake = {
 	
 	potential = {
 		FROM = {
-			OR = {
-			
-				AND = {
-					any_owned_province = { 
-						AND = {
-							trade_goods = lead
-							NOT = { base_production = 8 }
-						}
-					}
-					NOT = {
-						any_owned_province = { 
-							AND = {
-								trade_goods = lead
-								base_production = 8
-							}
-						}
-					}
-					lead = 1
-				}
-				
-				
-				
-				AND = {
-					lead = 0
-					NOT = { lead = 1 }
+			NOT = {
+				num_of_owned_provinces_with = {
+					value = 1
+					trade_goods = lead
+					base_production = 8
 				}
 			}
 		}
@@ -616,30 +446,20 @@ munition_factory_iron = {
 	one_per_country = yes
 	
 	build_trigger = {
-		AND = {
-			AND = {
-				ROOT = {
-					trade_goods = lead
-					base_production = 8
-				}
-			}
-			
-			FROM = {
-				mil_tech = 15
-				any_owned_province = { 
-					has_building = munition_factory
-				}	
-			}	
-		}
+		latent_sources_building_trigger = {
+			BUILDING=munition_factory
+			SOURCE=lead
+			AMOUNT=8
+		}	
 	}
 	
 	on_built = {
-		hidden_effect = { 
-			
-			FROM = {
+		hidden_effect = { 	
+			owner = {
 				every_owned_province = {
 					limit = { has_building = munition_factory }
 					change_trade_goods = munitions
+					remove_building = munition_factory
 				}
 			}
 
@@ -647,17 +467,13 @@ munition_factory_iron = {
 			ROOT = { add_base_production = -7 }
 		}
 	}
-	
-	potential = {
-	
-	}
-	
+
 	modifier = {
 		allowed_num_of_buildings = 1
 	}	
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 3000
 	}
 }
 
@@ -666,15 +482,14 @@ wood_workshop = {
 	time = 12
 
 	build_trigger = {
-			ROOT = {
-				trade_goods = lumber
-				development = 10
-			}
-
-			FROM = {
-				adm_tech = 10
-				innovativeness = 5
-			}
+		trade_goods = lumber
+		development = 10
+		
+		latent_building_trigger_no_sources = {
+			TECH=adm
+			TECH_LVL=10
+			INV_AMOUNT=5
+		}
 	}
 	
 	potential = {
@@ -707,17 +522,16 @@ wood_workshop = {
 leather_workshop = {
 	cost = 400
 	time = 12
-
+	
 	build_trigger = {
-			ROOT = {
-				trade_goods = livestock
-				development = 10
-			}
-
-			FROM = {
-				adm_tech = 14
-				innovativeness = 5 #7
-			}
+		trade_goods = livestock
+		development = 10
+		
+		latent_building_trigger_no_sources = {
+			TECH=adm
+			TECH_LVL=14
+			INV_AMOUNT=5
+		}
 	}
 	
 	potential = {
@@ -732,19 +546,11 @@ leather_workshop = {
 	
 
 	on_built = {
-
 		hidden_effect = { 
-			
 			ROOT = { change_trade_goods = leather }
-			
 		}
+	}
 
-	}
-	
-	on_destroyed = {
-		
-	}
-	
 	modifier = {
 		allowed_num_of_buildings = 1
 	}	
@@ -763,22 +569,22 @@ jewellery_workshop = {
 	time = 24
 
 	build_trigger = {
-			ROOT = {
-				OR = {
-					trade_goods = amber
-					trade_goods = pearls
-					trade_goods = jade
-					trade_goods = gems 	
-					trade_goods = silver
-					trade_goods = gold										
-				}
-				development = 20
-			}
-
-			FROM = {
-				innovativeness = 20
-				dip_tech = 11
-			}
+		OR = {
+			trade_goods = amber
+			trade_goods = pearls
+			trade_goods = jade
+			trade_goods = gems 	
+			trade_goods = silver
+			trade_goods = gold										
+		}
+		
+		development = 20
+		
+		latent_building_trigger_no_sources = {
+			TECH=dip
+			TECH_LVL=11
+			INV_AMOUNT=20
+		}
 	}
 	
 	potential = {
@@ -793,17 +599,9 @@ jewellery_workshop = {
 	
 
 	on_built = {
-
 		hidden_effect = { 
-			
 			ROOT = { change_trade_goods = jewellery }
-
 		}
-
-	}
-	
-	on_destroyed = {
-		
 	}
 	
 	modifier = {
@@ -811,7 +609,7 @@ jewellery_workshop = {
 	}	
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 2000
 	}
 }
 
@@ -822,12 +620,17 @@ steam_factory = {
 	make_obsolete = counting_house
 	build_trigger = {
 		FROM = {
-			adm_tech = 23
-			innovativeness = 30 #35
 			any_owned_province = {	
 				trade_goods = steam_engine
 			}
+			adm_tech = 23
+
+			OR = {
+				innovativeness = 30
+				NOT = { has_dlc = "Rule Britannia" }
+			}
 		}
+
 	}
 	
 	modifier = {
@@ -839,16 +642,9 @@ steam_factory = {
 	potential = {
 		NOT = { has_global_flag = No_Steam_engine }
 	}
-	
 
-	on_built = {
-	}
-	
-	on_destroyed = {	
-	}
-		
 	ai_will_do = {
-		factor = 1000
+		factor = 5000
 	}
 }
 
@@ -859,56 +655,37 @@ steam_engine_manu = {
 	one_per_country = yes
 	
 	build_trigger = {
-		FROM = {
-			adm_tech = 23
-			innovativeness = 25
-			any_owned_province = { 
-				AND = {
-					OR = {
-						trade_goods = brass
-					}
-					base_production = 8
-				}
-					
-			}
+		latent_building_trigger = {
+			TECH=adm
+			TECH_LVL=23
+			SOURCE=brass
+			AMOUNT=8
+			INV_AMOUNT=20
 		}
 	}
 	
 	modifier = {
 		allowed_num_of_buildings = 1
 	}
-	
-	allow_in_gold_provinces = no
-	
+
 	potential = {
 		FROM = {
-			any_owned_province = { 
-				AND = {
-					OR = {
-						trade_goods = brass
-					}
-					base_production = 8
-				}
+			num_of_owned_provinces_with = {
+				value = 1
+				trade_goods = brass
+				base_production = 8
 			}
 		}
 	}
 
-	on_built = {
-
-	}
-	
-	on_destroyed = {
-
-	}
-		
 	ai_will_do = {
-		factor = 1000
+		factor = 6000
 	}
 }
 
 steam_engine_manu_fake = {
 	cost = 3000
-	time = 24	
+	time = 24
 	one_per_country = yes
 	
 	build_trigger = {
@@ -917,28 +694,11 @@ steam_engine_manu_fake = {
 	
 	potential = {
 		FROM = {
-			OR = {
-				AND = {
-					any_owned_province = { 
-						AND = {
-							trade_goods = brass
-							NOT = { base_production = 8 }
-						}
-					}
-					NOT = {
-						any_owned_province = { 
-							AND = {
-								trade_goods = brass
-								base_production = 8
-							}
-						}
-					}
-					brass = 1
-				}
-
-				AND = {
-					brass = 0
-					NOT = { brass = 1 }
+			NOT = {
+				num_of_owned_provinces_with = {
+					value = 1
+					trade_goods = brass
+					base_production = 8
 				}
 			}
 		}
@@ -958,19 +718,11 @@ steam_engine_brass = {
 	one_per_country = yes
 	
 	build_trigger = {
-		AND = {
-			ROOT = {
-				trade_goods = brass
-				base_production = 8
-			}
-			
-			FROM = {
-				adm_tech = 23
-				any_owned_province = { 
-					has_building = steam_engine_manu
-				}	
-			}	
-		}
+		latent_sources_building_trigger = {
+			BUILDING=steam_engine_manu
+			SOURCE=brass
+			AMOUNT=8
+		}	
 	}
 	
 	on_built = {
@@ -984,28 +736,23 @@ steam_engine_brass = {
 			}
 
 			ROOT = { remove_building = steam_engine_brass }
-			
 			ROOT = { add_base_production = -7 }
 		}
 	}
-	
-	potential = {
-	
-	}
-	
+
 	modifier = {
 		allowed_num_of_buildings = 1
 	}	
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 5000
 	}
 }
 
 
 
 mine = {
-	cost = 2000 #500
+	cost = 2000
 	time = 6
 	
 	
@@ -1043,14 +790,6 @@ mine = {
 		}
 	}
 	
-	on_built = {	
-	
-	}
-					
-	
-	on_destroyed = {	
-	}
-		
 	ai_will_do = {
 		factor = 0
 	}
@@ -1059,34 +798,27 @@ mine = {
 
 spectacle_factory = {
 	cost = 1000
-	time = 24	
+	time = 24
 	one_per_country = yes
 	
 	build_trigger = {
-			FROM = {
-				any_owned_province = { 
-					AND = {
-						trade_goods = glass
-						base_production = 8
-					}	
-				}
-				dip_tech = 9
-				innovativeness = 10 #15
-			}
-			ROOT = {
-				development = 15
-			}
+		development = 15
+	
+		latent_building_trigger = {
+			TECH=dip
+			TECH_LVL=9
+			SOURCE=glass
+			AMOUNT=8
+			INV_AMOUNT=10
+		}
 	}
 	
 	potential = {
 		FROM = {
-			any_owned_province = { 
-				AND = {
-					OR = {
-						trade_goods = glass
-					}
-					base_production = 8
-				}
+			num_of_owned_provinces_with = {
+				value = 1
+				trade_goods = glass
+				base_production = 8
 			}
 		}
 	}
@@ -1106,19 +838,11 @@ spectacle_factory_glass = {
 	one_per_country = yes
 	
 	build_trigger = {
-		AND = {
-			ROOT = {
-				trade_goods = glass
-				base_production = 8
-			}
-			
-			FROM = {
-				dip_tech = 9
-				any_owned_province = { 
-					has_building = spectacle_factory
-				}	
-			}	
-		}
+		latent_sources_building_trigger = {
+			BUILDING=spectacle_factory
+			SOURCE=glass
+			AMOUNT=8
+		}	
 	}
 	
 	on_built = {
@@ -1127,16 +851,13 @@ spectacle_factory_glass = {
 				every_owned_province = {
 					limit = { has_building = spectacle_factory }
 					change_trade_goods = optics
+					remove_building = spectacle_factory
 				}
 			}
 		
 			ROOT = { remove_building = spectacle_factory_glass }
-			
 			ROOT = { add_base_production = -7 }
 		}
-	}
-	
-	potential = {	
 	}
 	
 	modifier = {
@@ -1150,7 +871,7 @@ spectacle_factory_glass = {
 
 spectacle_factory_fake = {
 	cost = 1000
-	time = 24	
+	time = 24
 	one_per_country = yes
 	
 	build_trigger = {
@@ -1159,31 +880,11 @@ spectacle_factory_fake = {
 	
 	potential = {
 		FROM = {
-			OR = {
-			
-				AND = {
-					any_owned_province = { 
-						AND = {
-							trade_goods = glass
-							NOT = { base_production = 8 }
-						}
-					}
-					NOT = {
-						any_owned_province = { 
-							AND = {
-								trade_goods = glass
-								base_production = 8
-							}
-						}
-					}
-					glass = 1
-				}
-				
-				
-				
-				AND = {
-					glass = 0
-					NOT = { glass = 1 }
+			NOT = {
+				num_of_owned_provinces_with = {
+					value = 1
+					trade_goods = glass
+					base_production = 8
 				}
 			}
 		}
@@ -1196,5 +897,332 @@ spectacle_factory_fake = {
 	}
 }
 
+Ai_def_push_dip = {
+	cost = 0
+	time = 1
+
+	one_per_country = yes
+	
+	build_trigger = {
+		FROM = {
+			dip_power = 750
+			is_subject = no
+			ai = yes
+		}
 
 
+		OR = {
+			AND = {
+				FROM = {
+					any_owned_province = { trade_goods = copper	}
+					
+					OR = {
+						innovativeness = 7
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+				}
+				
+				OR = {
+					ROOT = { trade_goods = zinc }
+					ROOT = { trade_goods = tin }
+				}
+				
+				ROOT = { 
+					NOT = { base_production = 5 }
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = bronze 
+					NOT = { base_production = 5 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 10
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+				}
+			}
+
+			AND = {
+				ROOT = { 
+					trade_goods = livestock 
+					NOT = { development = 10 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 7
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					adm_tech = 14
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = lumber 
+					NOT = { development = 10 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 5
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					adm_tech = 10
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = lead
+					NOT = { base_production = 8 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 17
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					mil_tech = 15
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = iron
+					NOT = { base_production = 8 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 15
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					mil_tech = 18
+				}
+			}
+		}
+		
+		variable_arithmetic_trigger = {				
+			export_to_variable = {
+				variable_name = Base_tax 
+				value = base_tax
+				who = ROOT
+			}
+			
+			export_to_variable = {
+				variable_name = Base_pro 
+				value = base_production 
+				who = ROOT
+			}
+			
+			export_to_variable = {
+				variable_name = Base_man
+				value = base_manpower
+				who = ROOT
+			}
+			
+			change_variable = { 
+				which = Base_tax
+				which = Base_man
+			}
+					
+			check_variable = {
+				which = Base_tax
+				which = Base_pro
+			}
+		}
+	}
+	
+	potential = {
+		ai = yes
+		
+	}
+	
+
+	on_built = {
+		ROOT = {
+			add_base_production = 1
+			remove_building = Ai_def_push_dip
+			province_event = { 
+				id = prices_marcin.8
+				days = 1
+			}
+		}
+	}
+	
+	on_destroyed = {
+		
+	}
+	
+	modifier = {
+
+	}	
+	
+	ai_will_do = {
+		factor = 1000
+		
+	}
+}
+
+Ai_def_push_tax = {
+	cost = 0
+	time = 1
+
+	build_trigger = {
+		FROM = {
+			adm_power = 750
+			is_subject = no
+			ai = yes
+		}
+		OR = {
+			AND = {
+				FROM = {
+					any_owned_province = { trade_goods = copper	}
+					
+					OR = {
+						innovativeness = 7
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+				}
+				
+				OR = {
+					ROOT = { trade_goods = zinc }
+					ROOT = { trade_goods = tin }
+				}
+				
+				ROOT = { 
+					NOT = { base_production = 5 }
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = bronze 
+					NOT = { base_production = 5 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 10
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+				}
+			}	
+			
+			AND = {
+				ROOT = { 
+					trade_goods = livestock 
+					NOT = { development = 10 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 7
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					adm_tech = 14
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = lumber 
+					NOT = { development = 10 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 5
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					adm_tech = 10
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = lead
+					NOT = { base_production = 8 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 17
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					mil_tech = 15
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = iron
+					NOT = { base_production = 8 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 15
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					mil_tech = 18
+				}
+			}
+			
+		}
+		
+		variable_arithmetic_trigger = {				
+			export_to_variable = {
+				variable_name = Base_tax 
+				value = base_tax
+				who = ROOT
+			}
+			
+			export_to_variable = {
+				variable_name = Base_pro 
+				value = base_production 
+				who = ROOT
+			}
+			
+			export_to_variable = {
+				variable_name = Base_man
+				value = base_manpower
+				who = ROOT
+			}
+			
+			change_variable = { 
+				which = Base_pro 
+				which = Base_man
+			}
+					
+			check_variable = {
+				which = Base_pro 
+				which = Base_tax
+			}
+		}
+	}
+	
+	potential = {
+		ai = yes
+		
+	}
+	
+
+	on_built = {
+		ROOT = {
+			add_base_tax = 1
+			remove_building = Ai_def_push_tax
+			province_event = { 
+				id = prices_marcin.9
+				days = 1
+			}
+		}
+	}
+	
+	on_destroyed = {
+		
+	}
+	
+	modifier = {
+
+	}	
+	
+	ai_will_do = {
+		factor = 1000
+	}
+}
