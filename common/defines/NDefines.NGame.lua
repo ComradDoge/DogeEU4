@@ -2,4 +2,4 @@
 
 --Subjects
 NDefines.NGame.ABANDON_UNION_PRESTIGE = -5 --Default -25, QoL change. The change in prestige for the overlord when abandoning a personal union
-NDefines.NGame.END_DATE = "1914.07.28"
+--NDefines.NGame.END_DATE = "1918.11.11"
