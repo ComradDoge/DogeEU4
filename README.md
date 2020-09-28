@@ -58,6 +58,7 @@ If you don't like discord just post in the discussion or in the comments.
 - Changes to the province macro builder
 - Latent goods now also show the good modifiers in the macro builder
 - State maintenance (its per province) added to some buildings, mostly manufactories
+- Land force limit buildings behaviour changed
 
 - Added animal mercenaries (very specific provinces)
 - Added animal sprite packs that you can use for custom nations
