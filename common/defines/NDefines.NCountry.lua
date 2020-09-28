@@ -17,7 +17,7 @@ NDefines.NCountry.NAT_FOCUS_YEARS_RANK = 5 -- Default 5
 NDefines.NCountry.BREAK_VASSAL_PRESTIGE_PENALTY = -10 -- Default -25
 
 --Dynasty
-NDefines.NCountry.LEGITIMACY_DYNASTY_CHANGE = 30 -- Default 20
+NDefines.NCountry.LEGITIMACY_DYNASTY_CHANGE = 50 -- Default 20
 
 -- For Ideas Expanded
 NDefines.NCountry.PS_BUY_IDEA = 250
