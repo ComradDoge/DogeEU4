@@ -1,4 +1,4 @@
-name="1.30 Doge Shattered Europa"
+name="1.30 Shattered Europa"
 replace_path="history/diplomacy"
 replace_path="common/bookmarks"
 tags={
