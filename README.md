@@ -45,16 +45,22 @@ If you don't like discord just post in the discussion or in the comments.
 [h1] Changes 24/09/2020 [/h1]
 
 - Minor fixes and nerfs to estates
-- Additional Advisors due to IDV, in process of nerfing them/cleaning them
+- Additional Advisors due to IDV
 - Added a chinese lost colony on the west coast
 - Added some localisation to policies
 - Crown Land modifiers tweaked
 - Buildings have state maintenance cost
-- Added animal mercenaries (very specific provinces)
-- Added animal sprite packs that you can use for custom nations
 - Scandianvia formable requires tech 10 instead of tech 20
 - Nomad non-plains penalty is back to 0.25 from 0.10
 - Some terrain costs increased by 5%
+- Mil Tech now has an ahead of tech bonus
+- Added Road buildings
+- Changes to the province macro builder
+- Latent goods now also show the good modifiers in the macro builder
+- State maintenance (its per province) added to some buildings, mostly manufactories
+
+- Added animal mercenaries (very specific provinces)
+- Added animal sprite packs that you can use for custom nations
 
 
 [h2] Things that are broken [/h2]
@@ -104,7 +110,7 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version[/url] by Spirit Baker and LoStack for Dev-Click part 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults[/url] by Ruben_Escobar14 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities[/url] by Worlds Smuggest Detective 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers[/url] by Lk 
@@ -118,3 +124,4 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
