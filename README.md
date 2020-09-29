@@ -43,7 +43,9 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 24/09/2020 [/h1]
-
+- War of the Roses files removed
+- Castile civil war events removed
+- Italian mission removed due to issues and brought back the vanilla one
 
 
 [h2] Things that are broken [/h2]
