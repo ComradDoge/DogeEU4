@@ -44,24 +44,6 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 24/09/2020 [/h1]
 
-- Minor fixes and nerfs to estates
-- Additional Advisors due to IDV
-- Added a chinese lost colony on the west coast
-- Added some localisation to policies
-- Crown Land modifiers tweaked
-- Buildings have state maintenance cost
-- Scandianvia formable requires tech 10 instead of tech 20
-- Nomad non-plains penalty is back to 0.25 from 0.10
-- Some terrain costs increased by 5%
-- Mil Tech now has an ahead of tech bonus
-- Added Road buildings
-- Changes to the province macro builder
-- Latent goods now also show the good modifiers in the macro builder
-- State maintenance (its per province) added to some buildings, mostly manufactories
-- Land force limit buildings behaviour changed
-
-- Added animal mercenaries (very specific provinces)
-- Added animal sprite packs that you can use for custom nations
 
 
 [h2] Things that are broken [/h2]
