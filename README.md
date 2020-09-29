@@ -87,7 +87,8 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1596815683] Government Expanded[/url] by Jay 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded[/url] by MrMarcinQ‎ 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded[/url] by Stiopia/Expanded Team 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team
     
 [h3] Other [/h3]
 
