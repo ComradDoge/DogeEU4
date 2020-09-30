@@ -43,14 +43,12 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 29/09/2020 [/h1]
-- War of the Roses files removed
-- Castile civil war events removed
-- Italian mission removed due to issues and brought back the vanilla one
-- Background fixes
-- Brazil is back as a formable, should be fine now
-- Added some flavour events from FEE
-- Added some animal mercs
-- Naval force limit buildings now act similar to army force limit buildings
+- Increased over forcelimit cost factor by 0.5
+- War Taxes modifiers increased by 0.05 but also given +1 unrest and 0.05 war exhaustion gain
+- Blockading does not cause devastation but instead - trade_goods_size_modifier = -0.5, province_trade_power_modifier = -0.75
+- Bankruptcy while no longer increasing tech and idea cost and no longer makes institution spread, the absolutism loss is -2>-5, land and navy morale -0.5>-1.0, interest 5 > 10, advisor cost 0.5 > 1.0
+- Being at peace now gives 10% improve relations
+
 
 
 [h2] Things that are broken [/h2]
