@@ -49,6 +49,7 @@ If you don't like discord just post in the discussion or in the comments.
 - More Policy localisation
 - War taxes buffed by 0.1 for maintenance
 - Reckless Ruler trait nerfed (war exhaustion 0.10>0.05)
+- Cleaned up the estates: removed underline privileges and executive support (powerpoints)
 
 
 [h2] Things that are broken [/h2]
