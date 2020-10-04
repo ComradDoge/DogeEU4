@@ -43,12 +43,12 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 29/09/2020 [/h1]
-- Increased over forcelimit cost factor by 0.5
-- War Taxes modifiers increased by 0.05 but also given +1 unrest and 0.05 war exhaustion gain
-- Blockading does not cause devastation but instead - trade_goods_size_modifier = -0.5, province_trade_power_modifier = -0.75
-- Bankruptcy while no longer increasing tech and idea cost and no longer makes institution spread, the absolutism loss is -2>-5, land and navy morale -0.5>-1.0, interest 5 > 10, advisor cost 0.5 > 1.0
-- Being at peace now gives 10% improve relations
-
+- Portugal Spanish variation localisation
+- Fortress Ideas: Fort maintenance 0.5>0.3
+- Various fixes
+- More Policy localisation
+- War taxes buffed by 0.1 for maintenance
+- Reckless Ruler trait nerfed (war exhaustion 0.10>0.05)
 
 
 [h2] Things that are broken [/h2]
