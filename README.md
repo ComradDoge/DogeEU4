@@ -61,7 +61,6 @@ If you don't like discord just post in the discussion or in the comments.
 - Fire and Shock Ideas slightly reworked
 
 [h2] Things that are broken [/h2]
-- The Macrobuilder is still in the process of completion, need to fix stuff and give support for lower resolutions.
 - The graphical part for deities is borked
 - Brazil was sent to Brazil, as the country breaks the game so I removed it temp.
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
@@ -115,7 +114,7 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/profiles/76561198055745620/myworkshopfiles] Various Missions[/url] by Parmellion 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism[/url] by Jan 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours[/url] by reddbane  Outdated
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185952315] Historical Religious Colours updated for 1.30 Emperor 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185952315] Historical Religious Colours[/url] updated for 1.30 Emperor 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin 
