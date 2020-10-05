@@ -43,9 +43,9 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 04/10/2020 [/h1]
-- Formables added
--- Belgium
--- North German Confederation
+- Added Belgium and North German Confederation formable
+- Trade good fix
+- Various fixes
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
