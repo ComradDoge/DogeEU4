@@ -29,7 +29,7 @@ NDefines.NCountry.FREE_IDEA_GROUP_COST  = 7
 NDefines.NCountry.IDEA_TO_TECH = -0.01
 NDefines.NCountry.MAX_ACTIVE_POLICIES = 12
 NDefines.NCountry.BASE_POSSIBLE_POLICIES = 4
-NDefines.NCountry.MINIMUM_POLICY_TIME = 9
+NDefines.NCountry.MINIMUM_POLICY_TIME = 1
 NDefines.NCountry.MAX_IDEA_GROUPS_FROM_SAME_CATEGORY = 0.35 --35
 
 -- Military
