@@ -78,6 +78,10 @@ If you don't like discord just post in the discussion or in the comments.
 - New Formables
 - AI tweaks
 
+[h1] LITE VERSION [/h1]
+
+Click [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338] here [/url] for the LITE version of the mod.
+
 [h1] Credits [/h1]
 Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod), Expanded Mods family who have done amazing work on eu4 and ArtemisFowl for understanding EU4 UI.
 
