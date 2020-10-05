@@ -43,22 +43,9 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 04/10/2020 [/h1]
-- Portugal Spanish variation localisation
-- Fortress Ideas: Fort maintenance 0.5>0.3
-- Various fixes
-- More Policy localisation
-- War taxes buffed by 0.1 for maintenance
-- Reckless Ruler negatie trait war exhaustion 0.10>0.05
-- Cleaned up the estates: removed underline privileges and executive support (powerpoints)
-- Loading Screens slightly changed
-- Some Flags were changed
-- Bookmark localisation changed
-- Lowered professionalism gain from recruiting generals
-- Nerfed professionalism slightly and its professionalism gain across the board
-- Gave Zealand Danish ideas
-- Shared mission added for Denmark; Zealand; Jutland
-- RRR election duration is now 10>5
-- Fire and Shock Ideas slightly reworked
+- Formables added
+-- Belgium
+-- North German Confederation
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked

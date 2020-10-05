@@ -1,0 +1,108 @@
+country_decisions = {
+
+	belgium_nation_form = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			NOT = { has_country_flag = formed_belgium_nation }
+			NOT = { tag = PAP }
+			NOT = { tag = NED }
+			NOT = { tag = NDB }
+			NOT = { tag = RHN }
+			NOT = { exists = BEL }
+			OR = {
+				primary_culture = wallonian
+				primary_culture = flemish
+				tag = BUR
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 92
+				province_id = 1744
+				province_id = 2974
+				province_id = 91
+				province_id = 1866
+				province_id = 93
+				province_id = 90
+				province_id = 1865
+				province_id = 4769
+			}
+		}
+		
+		allow = {
+			adm_tech = 10
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			NOT = { exists = BEL }
+			owns_core_province = 92			# Brabant
+			owns_core_province = 1744		# Antwerpen
+			owns_core_province = 2974		# Limburg
+			owns_core_province = 91			# Hainaut
+			owns_core_province = 1866		# Namur
+			owns_core_province = 93			# L�ttich
+			owns_core_province = 90			# Br�gge
+			owns_core_province = 1865		# Gent
+			owns_core_province = 4769		# Rysel			
+		}
+		effect = {
+			if = {
+				limit = {
+					is_elector = no
+					is_emperor = no
+					OR = {
+						is_part_of_hre = yes
+						any_owned_province = {
+							is_part_of_hre = yes
+						}
+					}
+				}
+				set_in_empire = no
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							is_part_of_hre = yes
+						}
+						set_in_empire = no
+					}
+				}
+			}
+			set_country_flag = formed_belgium_nation
+			change_tag = BEL
+			BEL = { set_capital = 92 # Brabant }
+			low_countries_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { province_id = 1931 }
+				}
+				add_permanent_claim = BEL
+			}
+			if = {
+				limit = {
+					NOT = {
+						government_rank = 2
+					}
+				}
+				set_government_rank = 2
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 3650
+				}
+			add_prestige = 25
+			if = {
+				limit = {
+					has_custom_ideas = no
+					NOT = { has_idea_group = BEL_ideas }
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
