@@ -46,6 +46,9 @@ If you don't like discord just post in the discussion or in the comments.
 - Added Belgium and North German Confederation formable
 - Trade good fix
 - Various fixes
+- Over governing capacity hurts slightly more
+- Nerfed Standing Ideas
+- Added a decision that auto-upgrades trade centers
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
