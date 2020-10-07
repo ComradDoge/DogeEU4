@@ -46,6 +46,7 @@ If you don't like discord just post in the discussion or in the comments.
 - Added Belgium and North German Confederation formable
 - Trade good fix
 - Various fixes
+- Loading Screens slight background change
 - Over governing capacity hurts slightly more
 - Standing Army Ideas: Army Drill gain 25%>10%, Bonus: Land Maintenance 7.5%>10% , Regiment Drill Loss 25%>15%
 - Added a decision that auto-upgrades trade centers
@@ -54,11 +55,14 @@ If you don't like discord just post in the discussion or in the comments.
 - Gravel Road now gives 5% dev cost
 - Added some trade goods to monopoly priviliges
 - Vinlandic now has custom Norwegian naming for the whole new world
-- Custom colonial names
+- Custom colonial names for various cultures
+- Added a vanilla type bookmark that I'll work on
+- Game Date now runs from 1444.11.1 to 1918.11.11
+- Cumania starts as tengri now
+- New National Ideas for: Cumania, Galicia, Volhnya, Styria, Trieste, Anjou, Mzab, Antioch
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
-- Brazil was sent to Brazil, as the country breaks the game so I removed it temp.
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
 
 [h1] Main Additions [/h1]
