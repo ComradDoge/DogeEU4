@@ -42,24 +42,15 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 04/10/2020 [/h1]
-- Added Belgium and North German Confederation formable
-- Trade good fix
-- Various fixes
-- Loading Screens slight background change
-- Over governing capacity hurts slightly more
-- Standing Army Ideas: Army Drill gain 25%>10%, Bonus: Land Maintenance 7.5%>10% , Regiment Drill Loss 25%>15%
-- Added a decision that auto-upgrades trade centers
-- Mercenary Ideas: Merc Discipline 5%>7.5%, Mechanic-finisher removes professionalism malus from recruiting mercs, Mercenary maintenance 50%>30%
-- Conscription Ideas: Manpower 2500>3000
-- Gravel Road now gives 5% dev cost
-- Added some trade goods to monopoly priviliges
-- Vinlandic now has custom Norwegian naming for the whole new world
-- Custom colonial names for various cultures
-- Added a vanilla type bookmark that I'll work on
-- Game Date now runs from 1444.11.1 to 1918.11.11
-- Cumania starts as tengri now
-- New National Ideas for: Cumania, Galicia, Volhnya, Styria, Trieste, Anjou, Mzab, Antioch
+[h1] Changes 07/10/2020 [/h1]
+- Added 10+ new Muslim Schools with a new icon format
+- New religions: Qarmatian, Tantra, Zen, Taoism
+- Religions at start changed a bit
+- There is a Jain stronghold in India
+- Qarmatian is now in Persian gulf
+- China religion start reworked
+- Tibet got Tantra
+- Low Harmony and High Harmony mechanic buffed
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
