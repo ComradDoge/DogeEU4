@@ -47,8 +47,14 @@ If you don't like discord just post in the discussion or in the comments.
 - Trade good fix
 - Various fixes
 - Over governing capacity hurts slightly more
-- Nerfed Standing Ideas
+- Standing Army Ideas: Army Drill gain 25%>10%, Bonus: Land Maintenance 7.5%>10% , Regiment Drill Loss 25%>15%
 - Added a decision that auto-upgrades trade centers
+- Mercenary Ideas: Merc Discipline 5%>7.5%, Mechanic-finisher removes professionalism malus from recruiting mercs, Mercenary maintenance 50%>30%
+- Conscription Ideas: Manpower 2500>3000
+- Gravel Road now gives 5% dev cost
+- Added some trade goods to monopoly priviliges
+- Vinlandic now has custom Norwegian naming for the whole new world
+- Custom colonial names
 
 [h2] Things that are broken [/h2]
 - The graphical part for deities is borked
