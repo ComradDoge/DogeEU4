@@ -34,7 +34,7 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 
 # STEAM WORKSHOP DESCRIPTION
 [img] https://i.imgur.com/p7Fv1Z6.gif [/img]
-Vanilla map Shattered Mod for 1.30 Emperor , in development but should provide a nice shattered experience nonetheless. 
+Shattered mod for 1.30 with various changes and additions to make the game a lot more flavourful and engaging.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
@@ -43,16 +43,15 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 07/10/2020 [/h1]
-- Added 10+ new Muslim Schools with a new icon format
-- New religions: Qarmatian, Tantra, Zen, Taoism
-- Religions at start changed a bit
-- There is a Jain stronghold in India
-- Qarmatian is now in Persian gulf
-- China religion start reworked
-- Tibet got Tantra
-- Low Harmony and High Harmony mechanic buffed
+- Fucked around with deity icons, still failed, Byzantine Hellenics got two more deities though
+- Athens is back to being catholic at start
+- Belgium now has its own national idea
+- Added Latin Empire formable
+- Naval Hegemon requirement increased 250>500 heavies
+- Added event where if the Pentarchy is restored, Christian countries get an event to choose to convert to orthodox
+- Absolutism modifiers changed a lot
 
-[h2] Things that are broken [/h2]
+[h3] Things that are broken [/h3]
 - The graphical part for deities is borked
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
 
@@ -70,20 +69,21 @@ If you don't like discord just post in the discussion or in the comments.
 - AI tweaks
 
 [h1] LITE VERSION [/h1]
-
+This mod is my take on Shattered and if you wish for mainly a shattered world without the major changes I cut out the stuff and uploaded in the mod below.
 Click [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338] here [/url] for the LITE version of the mod.
 
+[h1] --------------------------------- [/h1]
 [h1] Credits [/h1]
 Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod), Expanded Mods family who have done amazing work on eu4 and ArtemisFowl for understanding EU4 UI.
 
 Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
 
-[h3] Shattered Mods [/h3]
+[h4] Shattered Mods [/h4]
     Shattered Europa by Neprut
     Maxos New Shattered by Maxos
     Shattered Europa by Pirate AI
 
-[h3] Expanded Mod Family [/h3]
+[h4] Expanded Mod Family [/h4]
 I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their [url=https://discord.gg/UEyGV6U] discord.[/url] Don't send bug reports or something game related to this mod to them. 
 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2198012132] Formables Expanded[/url]  by Silver Knight of Anor Londo (Verityvoid)
@@ -96,7 +96,7 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team
     
-[h3] Other [/h3]
+[h4] Other [/h4]
 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
