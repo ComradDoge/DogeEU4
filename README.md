@@ -43,9 +43,12 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 09/10/2020 [/h1]
-- Added Francia tag
+- Added Francia tag and missions for it
 - Rhineland Missions tree fixed
-- Franconia got new missions and colour is red
+- Franconia got new missions and colour
+- Noble Knights privilige fix
+- Crownland gain from dev click halved 0.2>0.1
+- Kaiserreich government for germany brought in
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked

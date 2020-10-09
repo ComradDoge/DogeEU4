@@ -39,6 +39,7 @@ NDefines.NCountry.NAVAL_FORCELIMIT_EXTRA_COST_FACTOR = 3.0
 
 --Estates
 NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 8		-- Max. number of privileges active at the same time
+NDefines.NCountry.ESTATE_CROWNLAND_FROM_DEV = 0.1		--0.2	-- How much crownland you gain from developing a province.
 
 
 --- BEL Imports ---
