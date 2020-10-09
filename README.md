@@ -42,14 +42,9 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 07/10/2020 [/h1]
-- Fucked around with deity icons, still failed, Byzantine Hellenics got two more deities though
-- Athens is back to being catholic at start
-- Belgium now has its own national idea
-- Added Latin Empire formable
-- Naval Hegemon requirement increased 250>500 heavies
-- Added event where if the Pentarchy is restored, Christian countries get an event to choose to convert to orthodox
-- Absolutism modifiers changed a lot
+[h1] Changes 09/10/2020 [/h1]
+- Overall clean up of governments and new minor additions in Bohemia, Poland, Inti, Denmark and some others.
+- Added a government title naming scheme for Norse Theocracies.
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
