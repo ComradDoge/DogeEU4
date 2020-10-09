@@ -43,8 +43,9 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 09/10/2020 [/h1]
-- Overall clean up of governments and new minor additions in Bohemia, Poland, Inti, Denmark and some others.
-- Added a government title naming scheme for Norse Theocracies.
+- Added Francia tag
+- Rhineland Missions tree fixed
+- Franconia got new missions and colour is red
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
