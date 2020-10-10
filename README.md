@@ -50,6 +50,8 @@ If you don't like discord just post in the discussion or in the comments.
 - Crownland gain from dev click halved 0.2>0.1
 - Kaiserreich government for germany brought in
 
+- Added missions for: Serbia, Mali
+
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
@@ -112,7 +114,7 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod [/url] by MaitreKorda 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
