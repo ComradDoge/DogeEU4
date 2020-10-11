@@ -42,15 +42,21 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 09/10/2020 [/h1]
-- Added Francia tag and missions for it
-- Rhineland Missions tree fixed
-- Franconia got new missions and colour
-- Noble Knights privilige fix
-- Crownland gain from dev click halved 0.2>0.1
-- Kaiserreich government for germany brought in
-
+[h1] Changes 11/10/2020 [/h1]
+- Nationalist Estate colour added
+- You can convert through Norse rebels (dominant in country) and they wont defect the provinces to others
 - Added missions for: Serbia, Mali
+- Estate Interactions:
+----Legacy Laws is now: -25%>-30% Stab Cost; 15%>20% dev cost increase
+----Postpone Reform is now: -25%>-30% reform progress growth
+----Grant Self Governance is now: 0.1>0.15 Global Autonomy gain
+- Hegemony Changes:
+---- Military Hegemon requires 500 troops instead of 1000
+---- Economic Hegemon requires 500 monthly income instead of 1000
+---- Naval Hegemon requires 300 heavies instead of 500
+---- Values changed for most of them
+- Latent Good arrow fixed
+- Hesse Final Government reform rebuffed
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
