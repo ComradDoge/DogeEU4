@@ -42,21 +42,16 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 11/10/2020 [/h1]
-- Nationalist Estate colour added
-- You can convert through Norse rebels (dominant in country) and they wont defect the provinces to others
-- Added missions for: Serbia, Mali
-- Estate Interactions:
-----Legacy Laws is now: -25%>-30% Stab Cost; 15%>20% dev cost increase
-----Postpone Reform is now: -25%>-30% reform progress growth
-----Grant Self Governance is now: 0.1>0.15 Global Autonomy gain
-- Hegemony Changes:
----- Military Hegemon requires 500 troops instead of 1000
----- Economic Hegemon requires 500 monthly income instead of 1000
----- Naval Hegemon requires 300 heavies instead of 500
----- Values changed for most of them
-- Latent Good arrow fixed
-- Hesse Final Government reform rebuffed
+[h1] Changes 12/10/2020 [/h1]
+- Estate Interactions: Grant Self Governance is now: 0.15>0.10 Global Autonomy gain, minimum global autonomy 15% until expiry, loyalty gain 10>15
+- Universities renamed to Schools
+- Swedish missions got a slight nerf to manpower+recovery modifiers (0.05 instead of 0.1)
+- Royal road now gives 7.5% instead of 5%
+- Policies reworked. Again.
+- General Staff Ideas: Yearly army professionalism is now 0.2 instead of 0.3
+- 1st tier temples (churches, mosques etc) now give a minor 0.5 missionary strenght
+- Gravel, Royal, Macadam roads price increased by 50 ducats and building time increased by 4
+- Manufactory state maintenance increased from 0.75 to 1.0
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
