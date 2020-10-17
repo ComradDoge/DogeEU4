@@ -43,11 +43,9 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 12/10/2020 [/h1]
-- Added Althing government reform for Iceland with factions
-- Religion Icons minor changes
-- Draft ship privilege now gives burghers influence instead of taking away
-- Nationalist slight rework, added underline influence/loyalty, Land ownership modifier for sailor/manpower is buffed to 75% max instead of 50%, adder a single monopoly for potatoes/tomatoes privilige. Lowered the influence cost on most of the priviliges. Nationalists are much more buffed
-- Nobles one of the land ownership manpower fixed to 50% from 100%
+- Cloth Dev Cost Reduction: -10% > -5%
+- Steam Engine Dev Cost Reduction: -10% > -20%
+- Policy per Age Removed
 
 
 [h3] Things that are broken [/h3]
