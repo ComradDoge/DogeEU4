@@ -42,13 +42,10 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 12/10/2020 [/h1]
-- Centralisation Ideas: Over 30 Dev -10% > -50%, Governing Capacity -50 > -300
-- Empowered Heavy Knights Gov Reform: 5% > 10% Cavalry Combat Ability
-- Dynastic Ideas are now limited to Monarchies
-- Althing government reform: removed nobility estate
-- Added China tag
-- Generic Colonial Missions fixed so it doesnt crash you
+[h1] Changes 18/10/2020 [/h1]
+- Centralisation Ideas: -50% development when all provinces are at 25 development, removed -5% dev reduction from it, ta 10% > 20%
+- Work done on Iberian, Britain, Scandinavian region for the Vanilla start
+
 
 
 [h3] Things that are broken [/h3]
