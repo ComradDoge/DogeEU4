@@ -43,9 +43,12 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 12/10/2020 [/h1]
-- Cloth Dev Cost Reduction: -10% > -5%
-- Steam Engine Dev Cost Reduction: -10% > -20%
-- Policy per Age Removed
+- Centralisation Ideas: Over 30 Dev -10% > -50%, Governing Capacity -50 > -300
+- Empowered Heavy Knights Gov Reform: 5% > 10% Cavalry Combat Ability
+- Dynastic Ideas are now limited to Monarchies
+- Althing government reform: removed nobility estate
+- Added China tag
+- Generic Colonial Missions fixed so it doesnt crash you
 
 
 [h3] Things that are broken [/h3]
