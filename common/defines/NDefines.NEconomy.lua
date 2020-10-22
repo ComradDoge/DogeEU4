@@ -19,6 +19,9 @@ NDefines.NEconomy.EDICTS_DURATION_MONTHS = 6	-- Default 12, months lasting at le
 
 
 --Army
+
+NDefines.NEconomy.LAND_TECH_MAINTENANCE_IMPACT = 0.04
+
 NDefines.NAIEconomy.ARMY_FRACTION_MILITARIZE = 1.30
 NDefines.NAIEconomy.ARMY_FRACTION_PEACEFUL = 0.75
 NDefines.NAIEconomy.ARMY_FRACTION_MILITARIST = 1.15

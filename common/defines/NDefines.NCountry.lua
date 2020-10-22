@@ -42,6 +42,15 @@ NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 8		-- Max. number of privil
 NDefines.NCountry.ESTATE_CROWNLAND_FROM_DEV = 0.1		--0.2	-- How much crownland you gain from developing a province.
 
 
+-- Parliament
+NDefines.NCountry.PARLIAMENT_ISSUE_DURATION = 6				-- in years
+NDefines.NCountry.PARLIAMENT_DEBATE_DURATION = 2			-- in years
+NDefines.NCountry.PARLIAMENT_PRESTIGE_HIT = -10			-- penalty if failed debate.
+NDefines.NCountry.PARLIAMENT_CHANCE_OF_DECISION = 10		-- % Chance debate is ended after PARLIAMENT_DEBATE_DURATION
+
+-- Colonialism
+
+NDefines.NCountry.REGULAR_COLONY_GROWTH = 10 --25
 --- BEL Imports ---
 --NDefines.NCountry.MERCHANT_REPUBLIC_SIZE_LIMIT = 9999
 --NDefines.NCountry.MAX_ARMY_PROFESSIONALISM = 1.0
