@@ -990,7 +990,7 @@ age_of_enlightenment = {
 		
 		obj_early_imperialism = {
 			OR = {
-				num_of_continents = 5
+				num_of_continents = 3
 				}
 		}
 	
@@ -1022,8 +1022,8 @@ age_of_enlightenment = {
 		
 		ab_meritocratic_promotion = {
 			modifier = {
-				drill_gain_modifier = 0.3
-				mercenary_cost = 0.3
+				drill_gain_modifier = 0.2
+				mercenary_cost = 0.5
 			}
 			
 			ai_will_do = {
@@ -1173,11 +1173,314 @@ age_of_enlightenment = {
 	}
 }
 
-age_of_revolutions = {
+industrial_age = {
 	start = 1760
 	
 	can_start = {
 		is_institution_enabled = industrialization
+	}
+	
+	absolutism = {
+		harsh_treatment = 1
+		stability = 1
+		decrease_autonomy_command = 1
+		strengthen_government = 2
+		
+		increase_autonomy_command = -2
+		debase_currency = -1
+		execute_rebel_acceptance_command = -10
+		seat_in_parliament = -2
+		war_exhaustion = -1
+	}
+
+	objectives = {
+		obj_industrial_railroads = {
+			railroad = 20
+		}
+		obj_industrial_modern_industry = {
+			calc_true_if = {
+				all_owned_province = {
+					has_building = furnace
+					#has_building = oil_well
+					is_core = ROOT
+				}
+				amount = 5
+			}	
+		}
+		obj_industrial_african_colonies = {
+			capital_scope = {
+				continent = europe
+			}
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						region = central_africa_region
+						region = kongo_region
+						region = sahel_region
+						region = niger_region
+					}
+				}
+				amount = 20
+			}
+		}
+		obj_industrial_four_continents = {
+			num_of_continents = 4
+		}
+		obj_industrial_developed_provinces = {
+			calc_true_if = {
+				all_owned_province = {
+					development = 50
+				}
+				amount = 5
+			}
+		}
+		obj_great_project_producer = { 
+			OR = {
+				AND = {
+					has_construction = great_project
+					monthly_income = 50
+				}
+				OR = {
+					has_great_project = kiel_canal
+					has_great_project = suez_canal
+					has_great_project = panama_canal
+				}				
+			}		
+		}
+		#obj_industrial_social_welfare = {
+		#	calc_true_if = {
+		#		check_variable = {
+    	#			which = social_min_wage
+    	#			value = 1
+		#		}
+		#		check_variable = {
+    	#			which = social_max_workhours
+    	#			value = 1
+		#		}
+		#		check_variable = {
+    	#			which = social_unemployment
+    	#			value = 1
+		#		}
+		#		check_variable = {
+    	#			which = social_safety
+    	#			value = 1
+		#		}
+		#		check_variable = {
+    	#			which = social_pension
+    	#			value = 1
+		#		}
+		#		check_variable = {
+    	#			which = social_health
+    	#			value = 1
+		#		}
+		#		amount = 6
+		#	}
+		#	
+		#}
+		obj_industrial_modern_resources = {
+			If = {
+				limit = { has_dlc = "Rule Britannia" }
+				OR = {
+					trading_bonus = {
+						trade_goods = coal
+						value = yes
+					}
+					#trading_bonus = {
+					#	trade_goods = oil
+					#	value = yes
+					#}
+					#trading_bonus = {
+					#	trade_goods = rubber
+					#	value = yes
+					#}
+				}
+			}
+			Else = {
+				OR = {
+					trading_bonus = {
+						trade_goods = iron
+						value = yes
+					}
+					trading_bonus = {
+						trade_goods = copper
+						value = yes
+					}
+				}
+			}
+		}
+	}		
+	
+	abilities = {
+		ab_industrial_construction = {
+			modifier = {
+				build_cost = -0.2
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+		ab_subject_integration = {
+			modifier = {
+				#aggresive_expansion = 0.2
+				reduced_liberty_desire_on_same_continent = 20
+				#liberty_desire_from_subject_development = -0.2
+				diplomatic_annexation_cost = -0.1
+				diplomatic_reputation = 2
+			}	
+			ai_will_do = {
+				factor = 10
+			}			
+		}
+
+		ab_industrial_colonization = {
+			allow = {
+				NOT = { 
+					OR = { 
+						has_idea_group = exploration_ideas 
+						has_idea_group = expansion_ideas 
+					} 
+				}
+			}
+			modifier = {
+				colonists = 2
+			}
+			ai_will_do = {
+				factor = 5
+			}
+		}
+		ab_industrial_child_labour = {
+			modifier = {
+				production_efficiency = 0.15
+				global_unrest = 3
+			}
+			ai_will_do = {
+				factor = 1
+			}	
+		}
+		#ab_industrial_socialist = {
+		#	effect = {
+		#		set_country_flag = age_ab_socialist
+		#		custom_tooltip = age_ab_socialist
+		#	}
+		#	ai_will_do = {
+		#		factor = 10
+		#	}
+		#}
+		ab_industrial_abolitionism = {
+			modifier = {
+				land_morale = 0.1
+			}
+			effect = {
+				add_country_modifier = {
+					name = innovative_modifier
+					duration = 3650
+				}
+				add_country_modifier = {
+					name = "the_abolish_slavery_act"
+					duration = -1
+				}
+				custom_tooltip = abolished_slavery_act_tooltip
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							trade_goods = slaves
+						}
+						change_trade_goods = unknown
+						remove_building = tradecompany
+						if = {
+							limit = { has_province_modifier = slave_entrepot }
+							remove_province_modifier = slave_entrepot
+						}
+					}
+				}
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+		ab_industrial_grand_artillery = {
+			modifier = {
+				artillery_power = 0.15
+			}
+			ai_will_do = {
+				factor = 10
+			}
+		}
+		ab_embrace_national_pride = {
+			modifier = {
+				state_maintenance_modifier = -0.30
+			}		
+			ai_will_do = {
+				factor = 10
+			}				
+		}
+		ab_industrial_german_tech = {
+			allow = {
+				OR = {
+					primary_culture = prussian
+					primary_culture = pommeranian
+					primary_culture = saxon
+				}
+			}
+			effect = {
+				change_unit_type = german_group
+			}
+			ai_will_do = {
+				factor = 100
+			}
+		}
+		ab_industrial_usa_production = {
+			allow = {
+				capital_scope = {
+					OR = {
+						continent = north_america
+						continent = south_america
+					}
+				}
+			}	
+			modifier = {
+				production_efficiency = 0.2
+				global_manpower_modifier = 0.2
+			}
+			ai_will_do = {
+				factor = 100
+			}
+		}
+		ab_industrial_japan_revolution = {
+			allow = {
+				capital_scope = {
+					region = japan_region
+				}
+				culture_group = japanese_g
+			}
+			effect = {
+				custom_tooltip = japan_ab_industrial
+				change_unit_type = western
+				change_technology_group = western
+			}
+			ai_will_do = {
+				factor = 100
+			}
+		}
+		ab_industrial_italian_unification = {
+			allow = {
+				tag = ITA
+			}
+			modifier = {
+				discipline = 0.05
+			}
+			ai_will_do = {
+				factor = 100
+			}
+		}
+	}
+}
+
+age_of_revolutions = {
+	start = 1800
+	
+	can_start = {
+		is_institution_enabled = nationalism_institution
 	}
 	
 	papacy = 2.0
