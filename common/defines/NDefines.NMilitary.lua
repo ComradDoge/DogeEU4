@@ -11,3 +11,6 @@ NDefines.NMilitary.NOMAD_NON_PLAINS_SHOCK_PENALTY =	-0.25
 NDefines.NMilitary.LEADER_GAIN_PERSONALITY_BASE_CHANCE = 22.0 --Base chance in percent for leader to gain a trait after combat (modified by tradition gained).
 
 NDefines.NMilitary.CAVALRY_COST = 20 -- from 25, to offset the worthlessness of cavalry in most armies. Hordes are somewhat nerfed in the mod eitherway.
+
+--NDefines.NMilitary.COMBAT_DICE_SIDE = 12
+NDefines.NMilitary.CANNOT_RETREAT_DAYS = 7
