@@ -43,24 +43,8 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 23/10/2020 [/h1]
-- Centralisation Ideas: -50% development when ALL provinces are at least 25 development, removed -5% dev reduction from it, taxes 10% > 20%
-- Work done on Iberian, Britain, Scandinavian region for the Vanilla start
-- Waldensian Deities buffed
-- Monsoons are much important to take in account due to attrition increase and speed decrease
-- Winter is a much more important aspect of the game with higher attrition and significant speed slowness
-- Max tech now is 40 instead of 32
-- Game runs until 1930
-- New troops (army+navy), very late game thing
-- Combat width decreases back to 30 to simulate the decreasing advantage of numerical advantage with the increase of fire power,with techs (34/-2;at 37/-3;38/-2;40/-3). The game does not show (game limit) it in tech but you can see in the military tab that your width is lower after taking tech. This part might be changed/removed.
-- Parliament Debate timer is 5>2, issue length is 10>8, Failed debate prestige hit -20>-10
-- Colonial Growth lowered from tech and base decreased 25>10
-- Supply limit from techs decreased 0.5>0.35
-- All Units got +3 offensive pips to increase the speed of battles and lower the amount of huge battles, will see how this will go
-- The days before you can reteat decreased 12>7 due to the previous change
-- Added Nationalism and Imperialism institutions
-- Added Industrialisation Age
-- Railroads building added
-- German, Italian specific revolutions and events added
+- Added event at mil tech 33 that mentions the reduction of combat width in future techs
+
 
 
 [h3] Things that are broken [/h3]
