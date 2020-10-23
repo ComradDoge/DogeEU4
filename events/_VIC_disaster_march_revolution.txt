@@ -1,0 +1,563 @@
+
+########################################
+# German Revolution Events             #
+########################################
+
+namespace = march_revolution
+
+# March Revolution
+country_event = {
+	id = march_revolution.1
+	title = "march_revolution.1.t"
+	desc = "march_revolution.1.d"
+	picture = LIBERUM_VETO_eventPicture
+
+	is_triggered_only = yes	
+	major = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		hidden_effect = {
+			every_province = {
+				limit = {
+					OR = {
+						culture = bavarian
+						culture = franconian
+						culture = pommeranian
+						culture = prussian
+						culture = hessian
+						culture = saxon
+						culture = swabian
+						culture = hannoverian
+					}
+					OR = {
+						region = north_german_region
+						region = south_german_region
+					}
+				}	
+				add_core = GRP
+			}	
+			
+		}	
+		add_stability = -3
+		set_country_flag = had_revolution
+		set_country_flag = german_revolution
+		set_global_flag = march_revolution
+		clr_global_flag = end_march_revolution
+	}
+
+	option = {		# Dire times are ahead of us
+		name = "march_revolution.1.a"
+		random_owned_province = { 
+			limit = {
+				OR = {
+					culture = bavarian
+					culture = franconian
+					culture = pommeranian
+					culture = prussian
+					culture = hessian
+					culture = saxon
+					culture = swabian
+					culture = hannoverian
+				}
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+				development = 20
+				is_capital = no	
+			}
+			spawn_rebels = {
+				type = revolutionary_rebels
+				size = 3	
+				unrest = 10
+			}
+		}
+		add_prestige = -10
+	}
+}
+
+#Spectre of 1793
+#country_event = {
+#	id = march_revolution.2
+#	title = "march_revolution.2.t"
+#	desc = "march_revolution.2.d"
+#	picture = 
+#
+#	trigger = {
+#		tag = GRP
+#		NOT = { has_global_flag = end_march_revolution }
+#		NOT = { has_country_flag = spectre_of_1793 }
+#	}
+#
+#	mean_time_to_happen = {
+#		months = 4
+#	}
+#
+#	immediate = {
+#		set_country_flag = spectre_of_1793
+#	}
+#
+#	option = {
+#		name = "march_revolution.2.a"
+#
+#	}
+#	option = {
+#		name = "march_revolution.2.b"
+#
+#	}
+#	option = {
+#		name = "march_revolution.2.c"
+#		
+#	}
+#}
+
+# Imperial Vicar
+country_event = {
+	id = march_revolution.3
+	title = "march_revolution.3.t"
+	desc = "march_revolution.3.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	major = yes
+
+	trigger = {
+		exists = GRP
+		OR = {
+			AND = {
+				OR = {
+					tag = HAB
+					tag = AUE
+				}
+				is_emperor = yes
+			}
+			AND = {
+				OR = {
+					tag = HAB
+					tag = AUE
+				}
+				num_of_cities = 15
+			}	
+		}	
+		is_free_or_tributary_trigger = yes	
+		#GRP = {
+		#	NOT = {
+		#		owns = 50 #Berlin
+		#		owns = 134 #Wien
+		#	}
+		#}
+		NOT = { has_global_flag = imperial_vicar }
+		NOT = { has_global_flag = end_march_revolution }
+	}
+
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	immediate = {
+		set_global_flag = imperial_vicar
+	}
+
+	option = {
+		name = "march_revolution.3.a"
+		every_owned_province = {
+			limit = { NOT = { culture_group = germanic } }
+			remove_core = HAB
+			remove_core = AUE
+			add_province_modifier = {
+				name = "accepted_german_crown"
+				duration = 7300
+			}
+		}
+		every_province = {
+			limit = { owned_by = GRP }
+			cede_province = ROOT
+		}
+		change_tag = GRP
+		change_government = monarchy
+		add_government_reform = quash_noble_power_reform
+		add_government_reform = decentralize_reform
+		add_government_reform = meritocratic_focus_reform
+		add_government_reform = parliamentary_reform
+		add_government_reform = regional_representation_reform
+		add_government_reform = legislative_houses_reform
+
+		set_legacy_government = parliamentary_monarchy
+
+		every_owned_province = {
+			limit = { culture = austrian }
+			add_core = GRP
+		}
+		set_global_flag = end_march_revolution
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0.5
+				num_of_owned_provinces_with = {
+					value = 5
+					NOT = { culture_group = germanic }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				num_of_owned_provinces_with = {
+					value = 10
+					NOT = { culture_group = germanic }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				num_of_owned_provinces_with = {
+					value = 15
+					NOT = { culture_group = germanic }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				num_of_owned_provinces_with = {
+					value = 25
+					NOT = { culture_group = germanic }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				num_of_owned_provinces_with = {
+					value = 40
+					NOT = { culture_group = germanic }
+				}
+			}
+		}
+	}
+	option = {
+		name = "march_revolution.3.b"
+		spawn_rebels = {
+			type = nationalist_rebels
+			size = 1
+			friend = GRP
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+country_event = {
+	id = march_revolution.4
+	title = "march_revolution.4.t"
+	desc = "march_revolution.4.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	major = yes
+
+	trigger = {
+		exists = GRP
+		OR = {
+			any_country = { has_country_flag = imperial_vicar }
+			AND = {
+				AND = {
+					OR = {
+						HAB = { is_emperor = no }
+						AUE = { is_emperor = no }
+					}
+				}
+				AND = {
+					OR = {
+						HAB = { NOT = { num_of_cities = 15 } }
+						AUE = { NOT = { num_of_cities = 15 } }
+					}
+				}	
+			}
+			HAB = { is_free_or_tributary_trigger = no }
+			AUE = { is_free_or_tributary_trigger = no }
+		}
+		NOT = { has_global_flag = end_march_revolution }
+		is_free_or_tributary_trigger = yes
+		government = monarchy
+		IF = {
+			limit = {
+				exists = PRU
+				PRU = { num_of_cities = 10 }
+			}
+			tag = PRU
+		}
+		ELSE = {
+			culture_group = germanic
+			NOT = {
+				primary_culture = dutch
+				primary_culture = flemish
+			}
+			OR = {
+				num_of_cities = 15
+				AND = {
+					num_of_cities = 10
+					government_rank = 2
+				}
+			}	
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 6
+		modifier = {
+			factor = 4
+			AND = {
+				OR = {
+					HAB = { is_emperor = no }
+					AUE = { is_emperor = no }
+				}
+				OR = {
+					HAB = { NOT = { num_of_cities = 15 } }
+					AUE = { NOT = { num_of_cities = 15 } }
+				}	
+			}
+		}
+	}
+
+	option = {
+		name = "march_revolution.4.a"
+		every_owned_province = {
+			limit = { NOT = { culture_group = germanic } }			
+			remove_core = ROOT
+		}
+		every_province = {
+			limit = { owned_by = GRP }
+			cede_province = ROOT
+		}
+		change_tag = GRP
+		IF = {
+			limit = { NOT = { government_rank = 3 } }
+			set_government_rank = 3
+		}
+		every_owned_province = {
+			limit = { NOT = { culture_group = germanic } }
+			add_province_modifier = {
+				name = "accepted_german_crown"
+				duration = 7300
+			}	
+		}
+		change_government = monarchy
+		add_government_reform = quash_noble_power_reform
+		add_government_reform = decentralize_reform
+		add_government_reform = meritocratic_focus_reform
+		add_government_reform = parliamentary_reform
+		add_government_reform = regional_representation_reform
+		add_government_reform = legislative_houses_reform
+
+		set_legacy_government = parliamentary_monarchy
+
+		set_global_flag = end_march_revolution
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				GRP = { ai = no }
+			}
+			#modifier = {
+			#	factor = 0
+			#	GRP = {
+			#		owns = 50 #Berlin
+			#	}
+			#}
+		}
+	}
+
+	option = {
+		name = "march_revolution.4.b"
+		declare_war_with_cb = {
+			who = GRP
+			casus_belli = cb_crush_the_revolution
+		}
+		set_global_flag = end_march_revolution
+		ai_chance = {
+			factor = 8
+			modifier = {
+				factor = 1.5
+				tag = PRU
+			}
+		}
+	}
+}
+
+# Stability returns
+country_event = {
+	id = march_revolution.9
+	title = "EVTNAME3019"
+	desc = "EVTDESC3019"
+	picture = REVOLUTION_eventPicture
+	
+	major = yes	
+	
+	trigger = {
+		has_country_flag = revolution
+		had_country_flag = { flag = revolution days = 1000 }
+	
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTA3019"			# Restore order
+		country_event = { id = march_revolution.20 }
+		add_stability = 1
+	}
+}
+
+province_event = {
+	id = march_revolution.10
+	title = "march_revolution.10.t"
+	desc = "march_revolution.10.d"
+	picture = REVOLUTION_eventPicture
+	
+	major = yes
+	fire_only_once = yes
+	
+	trigger = { 
+		owner = { has_country_flag = german_revolution }
+		development = 20
+		is_capital = no
+		OR = {
+			culture = bavarian
+			culture = franconian
+			culture = pommeranian
+			culture = prussian
+			culture = hessian
+			culture = saxon
+			culture = swabian
+			culture = hannoverian
+		} 
+		controlled_by = REB
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		hidden_effect = {
+			every_province = {
+				limit = {
+					has_discovered = ROOT
+				}
+				discover_country = GRP
+			}
+			every_province = {
+				sea_zone = {
+					limit = {
+						has_discovered = ROOT
+					}
+					discover_country = GRP
+				}	
+			}
+			GRP = {
+				change_primary_culture = ROOT
+				change_religion = ROOT
+				change_government = republic
+				add_government_reform = revolutionary_republic_reform
+				add_government_reform = republicanism_reform
+				add_government_reform = frequent_elections_reform
+				add_government_reform = provincial_governments_reform
+				add_government_reform = parliamentary_reform
+
+
+				set_legacy_government = revolutionary_republic
+			}
+		}
+		
+	}
+
+	option = {
+		name = "march_revolution.10.a"
+		owner = { disband_rebels = revolutionary_rebels }
+		cede_province = GRP
+	}
+
+	option = {
+		name = "march_revolution.10.b"
+		trigger = { owner = { ai = no } }
+		owner = { disband_rebels = revolutionary_rebels }
+		cede_province = GRP
+		switch_tag = GRP
+		
+	}
+}
+
+country_event = {
+	id = march_revolution.20
+	title = "march_revolution.20.t"
+	desc = "march_revolution.20.d"
+	picture = REVOLUTION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "march_revolution.20.a"
+		end_disaster = march_revolution
+		IF = {
+			limit = {
+				OR = {
+					AND = {
+						OR = {
+							HAB = { is_emperor = no }
+						#	AUE = { is_emperor = no }
+						}
+						OR = {
+							HAB = { NOT = { num_of_cities = 15 } }
+						#	AUE = { NOT = { num_of_cities = 15 } }
+						}	
+					}
+					any_country = { has_country_flag = imperial_vicar }
+					HAB = { is_free_or_tributary_trigger = no }
+				#	AUE = { is_free_or_tributary_trigger = no }
+				}
+				PRU = { NOT = { num_of_cities = 10 } }
+				NOT = {
+					any_country = {
+						culture_group = germanic
+						NOT = {
+							primary_culture = dutch
+							primary_culture = flemish
+						}
+						government = monarchy
+						OR = {
+							num_of_cities = 15
+							AND = {
+								num_of_cities = 10
+								government_rank = 2
+							}
+						}		
+					}
+				}		
+			}
+			set_global_flag = end_march_revolution	
+		}
+		clr_global_flag = march_revolution
+		
+		clr_country_flag = religious_revolution
+		clr_country_flag = serfdom
+		clr_country_flag = social_reform
+		clr_country_flag = royal_bureaucracy
+		clr_country_flag = deplorable_reign
+		clr_country_flag = road_to_bankruptcy
+		clr_country_flag = financial_crisis		
+		remove_country_modifier = religious_intolerance
+		remove_country_modifier = religious_tolerance
+		remove_country_modifier = restrict_serfdom
+		remove_country_modifier = enforce_serfdom
+		remove_country_modifier = suppress_free_thinkers
+		remove_country_modifier = bureaucratic_reduction
+		remove_country_modifier = bureaucratic_expansion
+		remove_country_modifier = support_monarch
+		remove_country_modifier = oppose_monarch
+		remove_country_modifier = mint_money
+		remove_country_modifier = fight_inflation
+		remove_country_modifier = disarmament
+		remove_country_modifier = financial_disaster
+	}
+}

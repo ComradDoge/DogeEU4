@@ -1,0 +1,494 @@
+namespace = vic_flavor_ita
+normal_or_historical_nations = yes
+
+# Young Italy movement
+country_event = {
+	id = vic_flavor_ita.1
+	title = "vic_flavor_ita.1.t"
+	desc = "vic_flavor_ita.1.d"
+	picture = ANGRY_MOB_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = italian_revolt_happened }
+		any_owned_province = {
+			region = italy_region
+			culture_group = latin
+		}
+		has_institution = nationalism_institution
+		OR = {
+			tag = PAP
+			is_subject = yes
+			NOT = { culture_group = latin }
+		}	
+	}
+
+	mean_time_to_happen = {
+		months = 950
+		modifier = {
+			factor = 0.9
+			any_owned_province = { culture = lombard }
+			NOT = { accepted_culture = lombard }
+		}
+		modifier = {
+			factor = 0.9
+			any_owned_province = { culture = sicilian }
+			NOT = { accepted_culture = sicilian }
+		}
+		modifier = {
+			factor = 0.9
+			any_owned_province = { culture = piedmontese }
+			NOT = { accepted_culture = piedmontese }
+		}
+		modifier = {
+			factor = 0.9
+			any_owned_province = { culture = tuscan }
+			NOT = { accepted_culture = tuscan }
+		}
+		modifier = {
+			factor = 0.9
+			any_owned_province = { culture = romagnan }
+			NOT = { accepted_culture = romagnan }
+		}
+		modifier = {
+			factor = 0.9
+			any_owned_province = { culture = venetian }
+			NOT = { accepted_culture = venetian }
+		}
+		modifier = {
+			factor = 0.9
+			any_owned_province = { culture = ligurian }
+			NOT = { accepted_culture = ligurian }
+		}
+		modifier = {
+			factor = 0.9
+			any_owned_province = { culture = neapolitan }
+			NOT = { accepted_culture = neapolitan }
+		}
+		modifier = {
+			factor = 0.8
+			num_of_owned_provinces_with = {
+				value = 4
+				region = italy_region
+			}
+		}
+		modifier = {
+			factor = 0.8
+			num_of_owned_provinces_with = {
+				value = 8
+				region = italy_region
+			}	
+		}
+		modifier = {
+			factor = 0.8
+			num_of_owned_provinces_with = {
+				value = 12
+				region = italy_region
+			}
+		}
+		modifier = {
+			factor = 0.8
+			num_of_owned_provinces_with = {
+				value = 16
+				region = italy_region
+			}
+		}
+	}
+
+	immediate = {
+		set_global_flag = italian_revolt_happened
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { tag = ROOT }
+					NOT = { tag = ITA }
+					any_owned_province = {
+						region = italy_region
+					}
+				}
+				country_event = { id = vic_flavor_ita.2 }
+			}
+		}
+	}
+	
+	option = {
+		name = "vic_flavor_ita.1.a"
+		every_owned_province = {
+			limit = {
+				region = italy_region
+			}
+			add_core = ITA
+		}	
+		every_owned_province = {
+			limit = {
+				region = italy_region
+				has_owner_accepted_culture = no
+			}	
+			add_province_modifier = {
+				name = young_italy
+				duration = 1825
+			}	
+		}
+		set_global_flag = young_italy_happened
+	}
+}
+
+# Young Italy!
+country_event = {
+	id = vic_flavor_ita.2
+	title = "vic_flavor_ita.2.t"
+	desc = "vic_flavor_ita.2.d"
+	picture = ANGRY_MOB_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = "vic_flavor_ita.2.a"
+		every_owned_province = {
+			limit = {
+				region = italy_region
+			}
+			add_core = ITA
+		}
+		every_owned_province = {
+			limit = {
+				region = italy_region
+				has_owner_accepted_culture = no
+			}	
+			add_province_modifier = {
+				name = young_italy
+				duration = 1825
+			}	
+		}	
+	}
+}
+
+# Italian state joins Italy
+country_event = {
+	id = vic_flavor_ita.3
+	title = "vic_flavor_ita.3.t"
+	desc = "vic_flavor_ita.3.d"
+	picture = DIPLOMACY_eventPicture
+	
+	major = yes
+	
+	trigger = {
+		ai = yes
+		was_player = no
+		NOT = { tag = ITA }
+		ITA = {
+			exists = yes
+			ai = yes
+			was_player = no
+		}
+		has_global_flag = young_italy_happened
+		is_free_or_tributary_trigger = yes
+		NOT = { num_of_cities = 6 }
+		every_owned_province = {
+			region = italy_region
+		}
+		culture_group = latin
+		any_neighbor_country = ITA
+		NOT = {
+			has_country_flag = state_joined_italy
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	option = {
+		name = "vic_flavor_ita.3.a"
+		ITA = {
+			country_event = { id = flavor_ita.4 days = 1 }
+		}
+		set_country_flag = state_joined_italy
+	}
+}
+
+# Incorporated into Italy
+country_event = {
+	id = vic_flavor_ita.4
+	title = "vic_flavor_ita.4.t"
+	desc = "vic_flavor_ita.4.d"
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "vic_flavor_ita.4.a"
+		FROM = {
+			every_owned_province = {
+				add_core = ITA
+			}
+		}
+		inherit = FROM
+	}
+}
+
+# PROVINCENAME Revolts!
+province_event = {
+	id = vic_flavor_ita.5
+	title = "vic_flavor_ita.5.t"
+	desc = "vic_flavor_ita.5.d"
+	picture = ANGRY_MOB_eventPicture
+	
+	trigger = {
+		has_global_flag = young_italy_happened
+		owner = { NOT = { tag = ITA } }
+		region = italy_region
+		culture_group = latin
+		OR = {
+			NOT = { has_province_flag = italian_revolt }
+			had_province_flag = { flag = italian_revolt days = 7300 }
+		}
+		owner = {
+			OR = {
+				capital_scope = {
+					NOT = { region = italy_region }
+				}
+				NOT = { culture_group = latin }
+				tag = PAP
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 360
+		modifier = {
+			factor = 0.75
+			any_neighbor_province = {
+				owned_by = ITA
+			}
+		}
+		modifier = {
+			factor = 0.75
+			any_neighbor_province = {
+				has_province_flag = italian_revolt
+			}
+		}
+		modifier = {
+			factor = 0.75
+			has_owner_religion = no
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				NOT = { culture_group = ROOT }
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				NOT = { primary_culture = ROOT }
+				NOT = { accepted_culture = ROOT }
+			}
+		}
+		modifier = {
+			factor = 0.5
+			owner = { war_with = ITA }
+		}
+		modifier = {
+			factor = 0.75
+			unrest = 3
+		}
+		modifier = {
+			factor = 0.75
+			unrest = 5
+		}
+		modifier = {
+			factor = 0.75
+			unrest = 7
+		}
+		modifier = {
+			factor = 0.75
+			unrest = 9
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			IF = {
+				limit = { NOT = { has_global_flag = Garibaldi_Redshirts } }
+				set_global_flag = Garibaldi_Redshirts
+			}
+		}
+	}	
+
+	option = {
+		name = "vic_flavor_ita.5.a"
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				owner = {
+					NOT = { num_of_cities = 5 }
+				}
+			}
+		}
+		set_province_flag = italian_revolt
+		if = {
+			limit = {
+				owner = { ai = no }
+			}
+			spawn_rebels = {
+				type = nationalist_rebels
+				size = 3
+				friend = ITA
+			}
+		}
+		else = {
+			spawn_rebels = {
+				type = nationalist_rebels
+				size = 2
+				friend = ITA
+			}
+		}	
+	}
+	option = {
+		name = "vic_flavor_ita.5.b"
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				owner = {
+					num_of_cities = 5
+				}
+			}
+		}
+		if = {
+			ITA = {
+				exists = yes
+			}
+			cede_province = ITA
+		}
+		else = {
+			add_local_autonomy = 100
+		}
+	}
+}
+
+# Italian Crown
+country_event = {
+	id = vic_flavor_ita.6
+	title = "vic_flavor_ita.6.t"
+	desc = "vic_flavor_ita.6.d"
+	picture = ANGRY_MOB_eventPicture
+
+	major = yes
+	fire_only_once = yes
+	
+	trigger = {
+		has_global_flag = Garibaldi_Redshirts
+		ai = yes
+		was_player = no
+		NOT = { exists = ITA }
+		NOT = { tag = PAP }
+
+		is_free_or_tributary_trigger = yes
+		num_of_cities = 6
+		any_owned_province = {
+			region = italy_region
+			culture_group = latin
+		}
+		capital_scope = {
+			region = italy_region
+		}
+		culture_group = latin
+		calc_true_if = {
+			all_owned_province = {
+				region = italy_region
+			}
+			amount = 6
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 360
+		modifier = {
+			factor = 0.55
+			total_development = 150
+		}
+		modifier = {
+			factor = 0.55
+			total_development = 200
+		}
+		modifier = {
+			factor = 0.55
+			total_development = 250
+		}
+		modifier = {
+			factor = 0.55
+			total_development = 300
+		}
+		modifier = {
+			factor = 0.55
+			total_development = 350
+		}
+		modifier = {
+			factor = 0.55
+			total_development = 400
+		}
+		modifier = {
+			factor = 0.55
+			total_development = 450
+		}
+		modifier = {
+			factor = 0.55
+			total_development = 500
+		}
+	}
+	
+	option = {
+		name = "vic_flavor_ita.6.a"
+			change_tag = ITA
+			if = {
+				limit = {
+					capital_scope = { is_part_of_hre = yes }
+					is_elector = no
+					is_emperor = no
+				}
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+				emperor = {
+					country_event = { id = hre_event.5 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				set_government_rank = 2
+			}
+			if = {
+				limit = {
+					NOT = { government = monarchy }
+				}
+				change_government = monarchy
+			}
+			set_legacy_government = parliamentary_monarchy
+			add_prestige = 25
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			set_country_flag = formed_italy_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				government = republic
+			}
+		}
+	}
+	option = {
+		name = "vic_flavor_ita.6.b"
+		prestige = -20
+	}
+}
