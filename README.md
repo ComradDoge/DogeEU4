@@ -44,6 +44,7 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 23/10/2020 [/h1]
 - Added event at mil tech 33 that mentions the reduction of combat width in future techs
+- Colonial Growth from country ideas nerfed by all in almost all, minimum 10 growth.
 
 
 
