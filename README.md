@@ -45,7 +45,15 @@ If you don't like discord just post in the discussion or in the comments.
 [h1] Changes 23/10/2020 [/h1]
 - Added event at mil tech 33 that mentions the reduction of combat width in future techs
 - Colonial Growth from country ideas nerfed by all in almost all, minimum 10 growth.
-
+- Fixed Roads events
+- Lowered the costs of development decision
+- Counting House now starts at Tech 16
+- Hegemony Values reworked
+- Enlightenment and Industry Ages values slightly reworked
+    - German Discpline is province count (for ≤30) based instead of dev, bonus increased to 10%
+- Grand Shipyard 0.6>1
+- Ship Cost policies lowered 25%>15%
+- Moved the Steam Factory near the production line so it makes sense
 
 
 [h3] Things that are broken [/h3]
@@ -115,3 +123,4 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1887798411] Sundered Lands [/url] by Javingr
