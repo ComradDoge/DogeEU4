@@ -45,15 +45,16 @@ If you don't like discord just post in the discussion or in the comments.
 [h1] Changes 23/10/2020 [/h1]
 - Added event at mil tech 33 that mentions the reduction of combat width in future techs
 - Colonial Growth from country ideas nerfed by all in almost all, minimum 10 growth.
-- Fixed Roads events
+- Somewhat fixed Roads events
 - Lowered the costs of development decision
 - Counting House now starts at Tech 16
 - Hegemony Values reworked
 - Enlightenment and Industry Ages values slightly reworked
-    - German Discpline is province count (for ≤30) based instead of dev, bonus increased to 10%
+- German Discpline province/dev requirement changed
 - Grand Shipyard 0.6>1
-- Ship Cost policies lowered 25%>15%
+- Global Ship Cost policies lowered 25%>15%
 - Moved the Steam Factory near the production line so it makes sense
+- Added level 10 fort and trenches building (late game)
 
 
 [h3] Things that are broken [/h3]
