@@ -44,8 +44,11 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 23/10/2020 [/h1]
 - Trenches fixed and change as of right now
-- All "possible policies" modifiers removed from ideas
-
+- All "possible policies +1" modifiers removed from ideas
+- Osman starts with Ottoman government
+- General staff rearranged
+- Conscription army drill gain modifier removed from the end
+- Reforming Francia changes your primary culture to Frankish
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
