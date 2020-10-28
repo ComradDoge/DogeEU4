@@ -59,11 +59,14 @@ If you don't like discord just post in the discussion or in the comments.
 [h1] Main Additions [/h1]
 
 - More Insults, Ruler personality traits, Advisors
-- Religion specific Idea groups
+- Englightenment and Industrialization Age
 - New Religions with Mechanics
+- Lost Colonies of the Old World
 - Quality of Life Improvements
+- Religion specific Idea groups
+- Game runs until 20th century
 - Dynamic Age objectives
-- Englightenment Age
+- New Buildings (Roads!)
 - Shattered World
 - New Idea groups
 - New Formables
@@ -75,16 +78,16 @@ Click [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338] he
 
 [h1] --------------------------------- [/h1]
 [h1] Credits [/h1]
-Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod), Expanded Mods family who have done amazing work on eu4 and ArtemisFowl for understanding EU4 UI.
+Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod), Expanded Mods family who have done amazing work on eu4, ArtemisFowl for understanding EU4 UI and Viking_Nephilim for religious work
 
 Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
 
-[h4] Shattered Mods [/h4]
+[h3] Shattered Mods [/h3]
     Shattered Europa by Neprut
     Maxos New Shattered by Maxos
     Shattered Europa by Pirate AI
 
-[h4] Expanded Mod Family [/h4]
+[h3] Expanded Mod Family [/h3]
 I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their [url=https://discord.gg/UEyGV6U] discord.[/url] Don't send bug reports or something game related to this mod to them. 
 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2198012132] Formables Expanded[/url]  by Silver Knight of Anor Londo (Verityvoid)
@@ -97,9 +100,8 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team
     
-[h4] Other [/h4]
+[h3] Other [/h3]
 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1323083978] Albert (AIM) [/url] by Skaar1 and Sharkbait
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
@@ -115,8 +117,12 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod [/url] by MaitreKorda 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1887798411] Sundered Lands [/url] by Javingr
+
+[h1] Tips [/h1]
+If you want to tip me for spending an obscene amount of time on it and just overall feed me:
+https://ko-fi.com/comraddoge
