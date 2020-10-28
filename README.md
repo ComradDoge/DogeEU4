@@ -50,6 +50,34 @@ If you don't like discord just post in the discussion or in the comments.
 - Conscription army drill gain modifier removed from the end
 - Reforming Francia changes your primary culture to Frankish
 
+
+
+#
+# After Campaign Changes
+#
+
+- War Production 4th Idea: Instead of static FL > its Reinforce speed and reinforce cost modifier
+- Development 6th Idea: Build Cost -15%>-10%, -25% in subject lands
+- Orthodox Religion: Patriarch Manpower 33%>20%
+- Reformed 1st Idea: Global Missionary strength 2% instead of 3% MS against Heretics
+- Colonial Empire 6th Idea: Build Cost basically removed, replaced by -30% for building in colonial nations
+- Government Reforms: Serbian Military Government reform (250 manpower; 10% tax in fort provinces) no longer activated if Serbian is accepted, must be primary
+- Professionalism: Slacken Recruitment Standards costs 10% instead of 5%
+- Marines: Naval Shock damage taken 25%>10%
+- Policies: Manpower Increase limited to only 2, values 0.125 increased to 0.15, 0.25 decreased to 0.20
+- Policies: Manpower Recovery limited to only 2, values 0.25>.20, other slightly reworked
+- Policies: Discipline limited to only 2
+- Conscription Bonus Idea: Manpower Recovery 0.5>0.3
+- Conscription 3rd Idea: Flat Manpower Bonus 3k>5k
+- Mercenery 4th Idea: Merc Maintenance -0.3>-0.5
+- Mercenery 5th Idea: Merc Discipline 7.5%>10%
+- Mercenery Bonus Idea: Merc Maintenance removed and replaced with -10% reinforce cost
+- Standing 1/2/3 Idea: Combat abilities lowered from 10% to 7.5%
+- Economy: Being over forcelimit cost factor set to 6
+- Policies: All Global Unit cost reduction set to -10%, most specific unit type cost reduction set to -15%
+
+
+
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
