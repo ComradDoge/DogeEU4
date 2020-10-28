@@ -49,6 +49,7 @@ If you don't like discord just post in the discussion or in the comments.
 - General staff rearranged
 - Conscription army drill gain modifier removed from the end
 - Reforming Francia changes your primary culture to Frankish
+- Should have fixed the funny symbols in names
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
