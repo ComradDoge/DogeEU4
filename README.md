@@ -43,14 +43,10 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 28/10/2020 [/h1]
-- Trenches fixed and change as of right now
-- All "possible policies +1" modifiers removed from ideas
-- Osman starts with Ottoman government
-- General staff rearranged
-- Conscription army drill gain modifier removed from the end
-- Reforming Francia changes your primary culture to Frankish
-- The funny symbols in names should be fixed now
-- Vassals will now get their ideas filled out when released
+- Added Taiping Heavenly Kingdom (South China) with ideas
+- Added Peoples Republic of China (North China) with ideas 
+- Added Rozvi Kingdom (Zimbabwe/Zanzibar) with ideas
+- Added United African Republic (West Africa) with ideas
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
