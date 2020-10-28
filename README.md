@@ -42,14 +42,15 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 23/10/2020 [/h1]
+[h1] Changes 28/10/2020 [/h1]
 - Trenches fixed and change as of right now
 - All "possible policies +1" modifiers removed from ideas
 - Osman starts with Ottoman government
 - General staff rearranged
 - Conscription army drill gain modifier removed from the end
 - Reforming Francia changes your primary culture to Frankish
-- Should have fixed the funny symbols in names
+- The funny symbols in names should be fixed now
+- Vassals will now get their ideas filled out when released
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
