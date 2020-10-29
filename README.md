@@ -43,10 +43,7 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 28/10/2020 [/h1]
-- Added Taiping Heavenly Kingdom (South China) with ideas
-- Added Peoples Republic of China (North China) with ideas 
-- Added Rozvi Kingdom (Zimbabwe/Zanzibar) with ideas
-- Added United African Republic (West Africa) with ideas
+
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
