@@ -43,6 +43,14 @@ Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or info
 If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes 28/10/2020 [/h1]
+- T1/2 government reforms for Luxembourg
+- T3/4/5 government reforms for wallonian culture
+- Basic iqta reform removed from Muslim Iberians
+- Iberian Iqta icon changed
+- Iberian Muslims got T1 government reform that has harem mechanic (heir selection)
+- Empire of China flag changed
+- HRE voting values tweaked
+- Harmonization takes 20 years instead of 30
 
 
 [h3] Things that are broken [/h3]
