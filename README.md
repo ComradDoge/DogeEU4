@@ -42,15 +42,10 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 28/10/2020 [/h1]
-- T1/2 government reforms for Luxembourg
-- T3/4/5 government reforms for wallonian culture
-- Basic iqta reform removed from Muslim Iberians
-- Iberian Iqta icon changed
-- Iberian Muslims got T1 government reform that has harem mechanic (heir selection)
-- Empire of China flag changed
-- HRE voting values tweaked
-- Harmonization takes 20 years instead of 30
+[h1] Changes 03/11/2020 [/h1]
+- Assimilation 1st Idea: Culture conversion cost -50%>-30%
+- Dutch Missions fixed and now appear at start (press refresh mission decision if not a new campaign)
+- Monopoly priviliges will no longer have a monopoly on game crashes
 
 
 [h3] Things that are broken [/h3]
