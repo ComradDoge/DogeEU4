@@ -46,7 +46,9 @@ If you don't like discord just post in the discussion or in the comments.
 - Assimilation 1st Idea: Culture conversion cost -50%>-30%
 - Dutch Missions fixed and now appear at start (press refresh mission decision if not a new campaign)
 - Monopoly priviliges will no longer have a monopoly on game crashes
+- Added USA missions
 
+add canada missions
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
