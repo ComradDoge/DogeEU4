@@ -47,6 +47,7 @@ If you don't like discord just post in the discussion or in the comments.
 - Dutch Missions fixed and now appear at start (press refresh mission decision if not a new campaign)
 - Monopoly priviliges will no longer have a monopoly on game crashes
 - Added USA missions
+- Petersburg Capital and Patriach decision is extended to the Russian Republic tag
 
 add canada missions
 
