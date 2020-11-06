@@ -75,6 +75,10 @@ If you don't like discord just post in the discussion or in the comments.
 - Standing 1/2/3 Idea: Combat abilities lowered from 10% to 7.5%
 - Economy: Being over forcelimit cost factor set to 6
 - Policies: All Global Unit cost reduction set to -10%, most specific unit type cost reduction set to -15%
+- Russian Republic Ideas: Global Manpower 25%>20%, Manpower Recovery Speed 20%>25%, Trade Efficiency 10%>20%, Liberty Desire Reduction 10>20
+- Russian Ideas: Global Manpower 33%>25%, Recovery Speed 25%>20%
+- Italian Ideas: Global Manpower 33%>25%
+- Tver Ideas: Global Manpower 33%>25%
 
 
 
