@@ -48,6 +48,17 @@ If you don't like discord just post in the discussion or in the comments.
 - Monopoly priviliges will no longer have a monopoly on game crashes
 - Added USA missions
 - Petersburg Capital and Patriach decision is extended to the Russian Republic tag
+- Industrialization Age objectives slightly modified
+- Absolutism: Foreign core duration -50%>-25%
+- Policies: Foreign core duration -50>-25%
+- Nobles: For Republican traditon nobles at Happy: 2>1, Neutral: 1>0
+- Legitimacy and Republican Tradition at 100% gets 50% reform progress growth (scaling)
+- Added a Shwarz Silver mine modifier
+- Fixed Kingdom of God infinatum
+- T7 Strengthen Industrial Sector: Fires of Industry fixed and now has upgraded version for Steam factories. Goods produced numbers are changed 0.2/0.4>0.1/0.3/0.5
+- T3 Tajik Administration: Accepted culture as condition removed
+- Theocratic Ideas: Removed the unrest, added devotion +1
+- Muslim Schools are limited to one instead of infinite, suck it foxy.
 
 add canada missions
 
