@@ -81,7 +81,7 @@ If you don't like discord just post in the discussion or in the comments.
 - Polish Ideas: Cavalry Combat ability 33%>25%
 - Italian Ideas: Global Manpower 33%>25%
 - Tver Ideas: Global Manpower 33%>25%
-
+- Centralization 3rd Idea: Metropolis -50%>-30% dev cost, for 25>30 provinces
 
 
 [h3] Things that are broken [/h3]
