@@ -42,11 +42,11 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
 If you don't like discord just post in the discussion or in the comments.
 
-[h1] Changes 03/11/2020 [/h1]
+[h1] Changes 09/11/2020 [/h1]
 - Assimilation 1st Idea: Culture conversion cost -50%>-30%
 - Dutch Missions fixed and now appear at start (press refresh mission decision if not a new campaign)
 - Monopoly priviliges will no longer have a monopoly on game crashes
-- Added USA missions
+- Added USA missions and fixed modifiers
 - Petersburg Capital and Patriach decision is extended to the Russian Republic tag
 - Industrialization Age objectives slightly modified
 - Absolutism: Foreign core duration -50%>-25%
@@ -54,13 +54,12 @@ If you don't like discord just post in the discussion or in the comments.
 - Nobles: For Republican traditon nobles at Happy: 2>1, Neutral: 1>0
 - Legitimacy and Republican Tradition at 100% gets 50% reform progress growth (scaling)
 - Added a Shwarz Silver mine modifier
-- Fixed Kingdom of God infinatum
+- Fixed Kingdom of God infinatum clicking
 - T7 Strengthen Industrial Sector: Fires of Industry fixed and now has upgraded version for Steam factories. Goods produced numbers are changed 0.2/0.4>0.1/0.3/0.5
 - T3 Tajik Administration: Accepted culture as condition removed
-- Theocratic Ideas: Removed the unrest, added devotion +1
-- Muslim Schools are limited to one instead of infinite, suck it foxy.
+- Theocratic Ideas: Removed the unrest, added devotion +1 alongside other stuff it has
+- BUG: Muslim Schools are limited to one instead of infinite, suck it foxy.
 
-add canada missions
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
