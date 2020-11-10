@@ -111,7 +111,13 @@ If you don't like discord just post in the discussion or in the comments.
 - Althingi Government: Development Reduction -10%>-5%, Parliament removed
 - Zoroastrianism Blessings: Redone to make them more equal amongst each other
 - Ideas: Cost of an idea 250>300
-
+- Building logic reworked for AI
+- Shipyard: FL 0.6>0.5, Price 150>200
+- Grand Shipyard: Price 300>400, Time 12>24
+- AI is much MORE aggressive in declaring wars
+- TEST: Player will be (directly) less targeted just because its a player
+- Republican elections work a bit different now, integrated from SpiritBaker and Lostack. Supposed to make long election republics viable, 1 point gain only (instead 1+ in all three) but overall you start with above average rulers. Overall, tho 666 should harder to achieve but on average you will have better leaders.
+- Brought back a small number of republican tradition for nobles at neutral level 0 > 0.5
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked

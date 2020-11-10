@@ -14,7 +14,7 @@ NDefines.NEconomy.COT_DOWNGRADE_PRESTIGE_COST = -5 -- Default -10, QoL change. C
 NDefines.NEconomy.PIRATES_MONOPOLY_BONUS = 0.5 -- #1
 
 --Edicts
-NDefines.NEconomy.EDICTS_COST_INCREASE = 1		-- Default 2, % increase on state maintenance.  *reduced from 200% to 100% to allow more tactical usage of edicts.
+NDefines.NEconomy.EDICTS_COST_INCREASE = 0.5		-- Default 2, % increase on state maintenance.  *reduced from 200% to 100% to allow more tactical usage of edicts.
 NDefines.NEconomy.EDICTS_DURATION_MONTHS = 6	-- Default 12, months lasting at least. removed because its annoying to remember managing and being blocked from doing it when you remember.
 
 
