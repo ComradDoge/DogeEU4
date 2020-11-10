@@ -134,6 +134,7 @@ Other
 - Some mission values tweaked
 - Vinland, Yingzhou, and Boure are set to Old World Tech (previously High American), the pips are slightly lowered by 1 to make them less op
 - The Old World Colonial states now all start at tech 3, do not see or have a connection to the old world unless rediscovered
+- AI Vinland is not allowed to form Canada
 
 Buildings
 - Production Buildings: Production efficiency: 50%/100%/150% > 25%/75%/125%, Cost 100/400/800 > 100/500/1500, Build Time: Counting House 12>18
