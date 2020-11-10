@@ -155,7 +155,10 @@ Buildings
 - Shipyard: FL 0.6>0.5, Price 150>200
 - Grand Shipyard: Price 300>400, Time 12>24
 
-
+UI
+- State Edict screen cleaned up and has a single background colour
+- State Edict window lowered to align with the province window
+- Idea group selection screen scroll bars cleaned up
 
 
 [h3] Things that are broken [/h3]
