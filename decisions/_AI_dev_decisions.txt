@@ -1,6 +1,6 @@
 country_decisions = {
 	dev_click_on = {
-		#major = yes
+		major = yes
 		
 		potential = {
 			ai = no
@@ -13,7 +13,7 @@ country_decisions = {
 	}
 	
 	dev_click_off = {
-		#major = yes
+		major = yes
 		
 		potential = {
 			ai = no
@@ -28,6 +28,7 @@ country_decisions = {
 	adm_click = {
 		major = yes
 		potential = {
+			always = no
 			ai = yes
 			power_tech = {
 				power = adm
@@ -53,12 +54,12 @@ country_decisions = {
 						}
 						stab_cost = yes
 						add_stability = 1
-						log = "[This.GetName] raises stability"
+						log = "[This.GetName] raises stability**"
 					}
 					else = {
 						adm_power_cost = 75
 						add_inflation = -2
-						log = "[This.GetName] reduces inflation"
+						log = "[This.GetName] reduces inflation**"
 					}
 				}
 				else = {
@@ -81,6 +82,7 @@ country_decisions = {
 	dip_click = {
 		major = yes
 		potential = {
+			always = no
 			ai = yes
 			power_tech = {
 				power = dip
@@ -102,7 +104,7 @@ country_decisions = {
 					}
 					dip_power_cost = 100
 					add_mercantilism = 1
-					log = "[This.GetName] promotes mercantilism"
+					log = "[This.GetName] promotes mercantilism**"
 				}
 				else = {
 					event_target:base_target = {
@@ -124,6 +126,7 @@ country_decisions = {
 	mil_click = {
 		major = yes
 		potential = {
+			always = no
 			ai = yes
 			power_tech = {
 				power = mil
@@ -145,7 +148,7 @@ country_decisions = {
 					}
 					if = {
 						limit = {
-							NOT = { legitimacy_equivalent = 100 }
+							NOT = { legitimacy_equivalent = 95 }
 						}
 						mil_power_cost = 100
 						
@@ -157,7 +160,7 @@ country_decisions = {
 						
 						add_absolutism = 2
 						
-						log = "[This.GetName] strengthens government"
+						log = "[This.GetName] strengthens government**"
 					}
 					else = {
 						mil_power_cost = 50
@@ -170,7 +173,7 @@ country_decisions = {
 						
 						add_army_professionalism = 0.01
 						
-						log = "[This.GetName] recruits army leader"
+						log = "[This.GetName] recruits army leader**"
 					}
 				}
 				else = {
@@ -189,143 +192,174 @@ country_decisions = {
 			factor = 1000
 		}
 	}
+	
+	spawn_click = {
+		major = yes
+		potential = {
+			always = no
+			ai = yes
+			is_lacking_institutions = yes
+			is_at_war = no
+			primitives = no
+			is_subject = no
+			
+			num_of_owned_provinces_with = {
+				value = 3
+				is_state_core = ROOT
+			}
+			
+			all_owned_province = {
+				OR = {
+					NOT = { is_state_core = ROOT }
+					NOT = { current_institution_growth = 0.5 }
+				}
+			}
+			
+			any_owned_province = {
+				is_state_core = ROOT
+				development = 5
+				NOT = { development = 28 }
+				NOT = { has_terrain = glacier }
+				NOT = { has_terrain = desert }
+				NOT = { has_climate = arctic }
+			}
+		}
+		allow = {
+			variable_arithmetic_trigger = {
+				export_to_variable = { variable_name = admPower 	value = trigger_value:adm_power }
+				export_to_variable = { variable_name = dipPower 	value = trigger_value:dip_power }
+				export_to_variable = { variable_name = milPower 	value = trigger_value:mil_power }
+				
+				change_variable = {
+					which = admPower
+					which = dipPower
+				}
+				change_variable = {
+					which = admPower
+					which = milPower
+				}
+				check_variable = {
+					which = admPower
+					value = 2300
+				}
+			}
+		}
+		effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { has_institution = feudalism }
+					}
+					spawn_institution = {
+						institution = feudalism
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned feudalism in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = renaissance }
+					}
+					spawn_institution = {
+						institution = renaissance
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned renaissance in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = new_world_i }
+					}
+					spawn_institution = {
+						institution = new_world_i
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned new_world_i in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = printing_press }
+					}
+					spawn_institution = {
+						institution = printing_press
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned printing_press in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = global_trade }
+					}
+					spawn_institution = {
+						institution = global_trade
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned global_trade in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = manufactories }
+					}
+					spawn_institution = {
+						institution = manufactories
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned manufactories in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = enlightenment }
+					}
+					spawn_institution = {
+						institution = enlightenment
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned enlightenment in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = industrialization }
+					}
+					spawn_institution = {
+						institution = industrialization
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned industrialization in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = nationalism_institution }
+					}
+					spawn_institution = {
+						institution = nationalism_institution
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned nationalism in [This.GetName]"
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_institution = imperialism }
+					}
+					spawn_institution = {
+						institution = imperialism
+					}
+					event_target:base_target = {
+						log = "[Root.GetName] spawned imperialism in [This.GetName]"
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+	}
 }
-#	spawn_click = {
-#		major = yes
-#		potential = {
-#			always = no #DISABLED
-#			ai = yes
-#			is_lacking_institutions = yes
-#			is_at_war = no
-#			primitives = no
-#			is_subject = no
-#			
-#			num_of_owned_provinces_with = {
-#				value = 3
-#				is_state_core = ROOT
-#			}
-#			
-#			all_owned_province = {
-#				OR = {
-#					NOT = {
-#						is_state_core = ROOT
-#					}
-#					NOT = { current_institution_growth = 0.5 }
-#				}
-#			}
-#			
-#			any_owned_province = {
-#				is_state_core = ROOT
-#				development = 5
-#				NOT = { development = 28 }
-#				NOT = { has_terrain = glacier }
-#				NOT = { has_terrain = desert }
-#				NOT = { has_climate = arctic }
-#			}
-#		}
-#		allow = {
-#			variable_arithmetic_trigger = {
-#				export_to_variable = { variable_name = admPower 	value = trigger_value:adm_power }
-#				export_to_variable = { variable_name = dipPower 	value = trigger_value:dip_power }
-#				export_to_variable = { variable_name = milPower 	value = trigger_value:mil_power }
-#				
-#				change_variable = {
-#					which = admPower
-#					which = dipPower
-#				}
-#				change_variable = {
-#					which = admPower
-#					which = milPower
-#				}
-#				check_variable = {
-#					which = admPower
-#					value = 2300
-#				}
-#			}
-#		}
-#		effect = {
-#			hidden_effect = {
-#				if = {
-#					limit = {
-#						NOT = { has_institution = feudalism }
-#					}
-#					spawn_institution = {
-#						institution = feudalism
-#					}
-#					event_target:base_target = {
-#						log = "[Root.GetName] spawned feudalism in [This.GetName]"
-#					}
-#				}
-#				else_if = {
-#					limit = {
-#						NOT = { has_institution = renaissance }
-#					}
-#					spawn_institution = {
-#						institution = renaissance
-#					}
-#					event_target:base_target = {
-#						log = "[Root.GetName] spawned renaissance in [This.GetName]"
-#					}
-#				}
-#				else_if = {
-#					limit = {
-#						NOT = { has_institution = new_world_i }
-#					}
-#					spawn_institution = {
-#						institution = new_world_i
-#					}
-#					event_target:base_target = {
-#						log = "[Root.GetName] spawned new_world_i in [This.GetName]"
-#					}
-#				}
-#				else_if = {
-#					limit = {
-#						NOT = { has_institution = printing_press }
-#					}
-#					spawn_institution = {
-#						institution = printing_press
-#					}
-#					event_target:base_target = {
-#						log = "[Root.GetName] spawned printing_press in [This.GetName]"
-#					}
-#				}
-#				else_if = {
-#					limit = {
-#						NOT = { has_institution = global_trade }
-#					}
-#					spawn_institution = {
-#						institution = global_trade
-#					}
-#					event_target:base_target = {
-#						log = "[Root.GetName] spawned global_trade in [This.GetName]"
-#					}
-#				}
-#				else_if = {
-#					limit = {
-#						NOT = { has_institution = manufactories }
-#					}
-#					spawn_institution = {
-#						institution = manufactories
-#					}
-#					event_target:base_target = {
-#						log = "[Root.GetName] spawned manufactories in [This.GetName]"
-#					}
-#				}
-#				else_if = {
-#					limit = {
-#						NOT = { has_institution = enlightenment }
-#					}
-#					spawn_institution = {
-#						institution = enlightenment
-#					}
-#					event_target:base_target = {
-#						log = "[Root.GetName] spawned enlightenment in [This.GetName]"
-#					}
-#				}
-#			}
-#		}
-#		ai_will_do = {
-#			factor = 1000
-#		}
-#	}
-#}

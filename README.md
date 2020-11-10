@@ -61,9 +61,79 @@ If you don't like discord just post in the discussion or in the comments.
 - BUG: Muslim Schools are limited to one instead of infinite, suck it foxy.
 
 
+
+
+#
+# After Campaign Changes
+#
+
+- War Production 4th Idea: Instead of static FL > its Reinforce speed and reinforce cost modifier
+- Development 6th Idea: Build Cost -15%>-10%, -25% in subject lands
+- Orthodox Religion: Patriarch Manpower 33%>20%
+- Reformed 1st Idea: Global Missionary strength 2% instead of 3% MS against Heretics
+- Colonial Empire 6th Idea: Build Cost basically removed, replaced by -30% for building in colonial nations
+- Government Reforms: Serbian Military Government reform (250>300 manpower; 10% tax in fort provinces) no longer activated if Serbian is accepted, must be primary
+- Professionalism: Slacken Recruitment Standards costs 10% instead of 5%
+- Marines: Naval Shock damage taken 25%>10%
+- Policies: Manpower Increase limited to only 2, values 0.125 increased to 0.15, 0.25 decreased to 0.20
+- Policies: Manpower Recovery limited to only 2, values 0.25>.20, other slightly reworked
+- Policies: Discipline limited to only 2
+- Conscription 3rd Idea: Flat Manpower Bonus 3k>5k
+- Mercenery 4th Idea: Merc Maintenance -0.3>-0.5
+- Mercenery 5th Idea: Merc Discipline 7.5%>5%
+- Mercenery 7th Idea: Merc Manpower 100%>50%
+- Mercenery Bonus Idea: Merc Maintenance removed and replaced with -10% reinforce cost
+- Quantity Ideas: Manpower 30%>25%, Recovery 30%>25%, Forcelimit 50%>30%, Fort Defence 50%>30%
+- Offensive Ideas: Forcelimit 20%>15%
+- Standing Army Finisher Idea: Army maintenance 10%>20%
+- Assimilation: Manpower 15%>10%
+- Conscription Ideas: Manpower 25%>30%, Static 5k FL> INF/CAV/ART cost -5%, Recovery 30%>20%
+- Standing 1/2/3 Idea: Combat abilities lowered from 10% to 7.5%
+- Economy: Being over forcelimit (navy and army) cost factor set to 6
+- Policies: All Global Unit cost reduction set to -10%, most specific unit type cost reduction set to -15%
+- Russian Republic Ideas: Global Manpower 25%>20%, Manpower Recovery Speed 20%>25%, Trade Efficiency 10%>20%, Liberty Desire Reduction 10>20
+- Russian Ideas: Global Manpower 33%>25%, Recovery Speed 25%>20%
+- Polish Ideas: Cavalry Combat ability 33%>25%
+- Italian Ideas: Global Manpower 33%>25%
+- Tver Ideas: Global Manpower 33%>25%
+- Centralization 3rd Idea: Metropolis -50%>-30% dev cost, for 25>30 provinces
+- Bankruptcy: Duration is 5>10 years, timeframe that buildings will be destroyed 5>10 years
+- Casus Belli: Excomunication AE 50%>75%
+- Production Buildings: Production efficiency: 50%/100%/150% > 25%/75%/125%, Cost 100/400/800 > 100/500/1500, Build Time: Counting House 12>18
+- Road Buildings: Early Road: State maintenance (SM) 10%>20%, Gravel Road: SM 20%>40% TIME 14>16, Royal Road: SM 40%>60% TIME 16>24, Macadam Road: SM 60%>80% TIME 20>32, Railroad: Cost 800>1000 Time 30>40
+- Soldier Households Manufactory: Normal manpower increase 75%>50%, bonus trade good modifier 75%>75%
+- Furnance: State maintenance 200%>100%
+- Manufactories: Cost 500>1000
+- Trenches: Cost 100>500
+- Parliament: Issue length 6>10 years
+- Forts: Cost 200/400/600/800/2000 > 400/800/1200/1600/2000
+- Trade Buildings: Cost 100/300/400 > 200/400/600, Time 12/12/12 > 12/18/24, Stock Exchanged-Local trade power 125%>150%
+- Manpower Buildings: Cost 150/350 > 200/400, Manpower 50%/100% > 25%/75%, 2nd Tier Time 12>24
+- Sailor Buildings: Cost 100/300 > 200/400, Manpower 50%/100% > 25%/75%, 2nd Tier Time 12>24
+- Mines: Cost 2k>5k, diplo cost removed, failure/success 70/30>60/40
+- Temples: Tax Modifier 60%/80% > 50%/100%, 2nd Tier Time 12>24 and cost 250>300
+- University: Cost 300>500, Dev Cost -20%>-10%, Time 12>24
+- Coast Defences: Cost 100/200 > 200>300, 2nd Tier Time 12>24
+- Event: On losing hegemony you lose 100 prestige
+- Various Latent buildings costs and times have changed
+- Policies: Tax Modifiers 30%>20%, Production 30%>20%, combined versions 15%/15%>10%/10%
+- Espionage Ideas: Manpower 15%>10%, Liberty Desire -10>-20, Dscipline removed, Rebel Support Efficiency 50%>75%, Advisor Cost -10%>-15%
+- Althingi Faction slightly reworked, removed ability to raid and added 10% manpower and recovery.
+- Althingi Government: Development Reduction -10%>-5%, Parliament removed
+- Zoroastrianism Blessings: Redone to make them more equal amongst each other
+- Ideas: Cost of an idea 250>300
+- Building logic reworked for AI
+- Shipyard: FL 0.6>0.5, Price 150>200
+- Grand Shipyard: Price 300>400, Time 12>24
+- AI is much MORE aggressive in declaring wars
+- TEST: Player will be (directly) less targeted just because its a player
+- Republican elections work a bit different now, integrated from SpiritBaker and Lostack. Supposed to make long election republics viable, 1 point gain only (instead 1+ in all three) but overall you start with above average rulers. Overall, tho 666 should harder to achieve but on average you will have better leaders.
+- Brought back a small number of republican tradition for nobles at neutral level 0 > 0.5
+
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
 - HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
+
 
 [h1] Main Additions [/h1]
 

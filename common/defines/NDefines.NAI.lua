@@ -17,6 +17,7 @@ NDefines.NAI.DIPLOMATIC_ACTION_SUBSIDIES_RELATIONS_FACTOR = 0.2	--AI scoring for
 NDefines.NAI.DIPLOMATIC_ACTION_SUBSIDIES_MAX_RELATIVE_INCOME = 0.2	--Max relative monthly income that a country can have for the AI to consider it in need of subsidies.
 NDefines.NAI.DIPLOMATIC_ACTION_SUBSIDIES_INDEBTED_FACTOR = 25 --AI scoring for giving subsidies to an ally in heavy debt.
 NDefines.NAI.DIPLOMATIC_ACTION_SUBSIDIES_MIN_VALUE = 0.2 --Minimum amount of subsidies that AI considers worthwhile.
+NDefines.NAI.SUBSIDY_YEARS = 20
 NDefines.NAI.MIN_INCOME_FOR_SUBSIDIES =	75	--Minimum monthly income for AI to want to spend some on subsidies.
 	--MIN_INCOME_FOR_SUBSIDIES = 20
 NDefines.NAI.CALL_IN_ALLIES_POWER_RATIO = 3 --AI will only call in allies in an offensive war if their military power ratio to the enemy is less than this.
@@ -160,7 +161,7 @@ NDefines.NAI.PEACE_TERMS_FLEET_BASING_BASE_MULT = 0 -- AI desire for fleet basin
 NDefines.NAI.PEACE_TERMS_WAR_REPARATIONS_BASE_MULT = 0.5 -- AI desire for war reparations through peace
 NDefines.NAI.PEACE_TERMS_WAR_REPARATIONS_MIN_INCOME_RATIO = 0.5 -- AI only wants war reparations if other country has at least this % of their income
 
-NDefines.NAI.EDICT_VALUE_THRESHOLD = 100 --The higher this value, the less the AI will use Edicts
+NDefines.NAI.EDICT_VALUE_THRESHOLD = 20 --The higher this value, the less the AI will use Edicts
 	--EDICT_VALUE_THRESHOLD = 120
 NDefines.NAI.ADVISOR_BUDGET_FRACTION = 0.3 -- nerfed to try to increase net income ratio / reverting it by Spirit
 	-- ADVISOR_BUDGET_FRACTION = 0.3, -- AI will spend a maximum of this fraction of monthly income on advisor maintenance
@@ -172,8 +173,8 @@ NDefines.NAI.FORT_BUDGET_FRACTION = 0.45 -- AI will spend a maximum of this frac
 	-- FORT_BUDGET_FRACTION = 0.4, -- AI will spend a maximum of this fraction of monthly income on forts
 NDefines.NAI.MISSIONARY_MAINTENANCE_SHARE = 0.3	--The most an AI will spend of its income on a missionary
 	--MISSIONARY_MAINTENANCE_SHARE = 0.2
---NDefines.NAI.REGIMENTS_PER_GENERAL = 15	--AI will want one general for every this number of regiments (will not exceed free leader pool).
-NDefines.NAI.MIN_SHIPS_FOR_ADMIRAL = 20	--The minimum navy size for the AI to bother with an admiral.
+NDefines.NAI.REGIMENTS_PER_GENERAL = 20	--AI will want one general for every this number of regiments (will not exceed free leader pool).
+NDefines.NAI.MIN_SHIPS_FOR_ADMIRAL = 25	--The minimum navy size for the AI to bother with an admiral.
 	--MIN_SHIPS_FOR_ADMIRAL = 10
 	--Disables debase currency for AI
 NDefines.NAI.DEBASE_THRESHOLD = -5000 -- AI will not debase if it has more gold than this.
@@ -190,8 +191,8 @@ NDefines.NAI.HOME_FLEET_MAX_RATIO = 0.6 --Maximum proportion of warships in home
 	--HOME_FLEET_MAX_RATIO = 0.85
 
  -- AI will not develop provinces that have more development than this or DEVELOPMENT_CAP_MULT*original development (whichever is bigger)
-NDefines.NAI.DEVELOPMENT_CAP_BASE = 30 --set to 3 manually if using dev-click setting
-NDefines.NAI.DEVELOPMENT_CAP_MULT = 2  --set to 1 manually if using dev-click setting
+NDefines.NAI.DEVELOPMENT_CAP_BASE = 100 --set to 3 manually if using dev-click setting
+NDefines.NAI.DEVELOPMENT_CAP_MULT = 20  --set to 1 manually if using dev-click setting
 
 NDefines.NAI.ARTILLERY_FRACTION = 0.25 --Ratio of artillery to infantry AI will build.
 	--ARTILLERY_FRACTION = 0.35
@@ -199,7 +200,7 @@ NDefines.NAI.FORCE_COMPOSITION_CHANGE_TECH_LEVEL = 16 --Tech level at which AI w
 	--FORCE_COMPOSITION_CHANGE_TECH_LEVEL = 11
 NDefines.NAI.MIN_CAV_PERCENTAGE = 0
 	-- MIN_CAV_PERCENTAGE = 5, --AI will always try to have at least this many % of their army as cav, regardless of time in the game.
-NDefines.NAI.MAX_CAV_PERCENTAGE = 100
+NDefines.NAI.MAX_CAV_PERCENTAGE = 50
 	-- MAX_CAV_PERCENTAGE = 50, -- For modding, actual ratio is dynamically computed but will be no higher than this.
 
 --NAI Army Movements, AI will operate from his borders or allied borders during the war.
@@ -224,3 +225,13 @@ NDefines.NAI.ACCEPTABLE_BALANCE_FRIEND_IN_COMBAT = 0.85
 --NDefines.NAI.PURSUE_DISTANCE = 100
 
 NDefines.NAI.ESTATE_MAX_PRIVILEDGES = 4
+
+
+NDefines.NAI.TRADE_COMPANY_INVESTMENT_COST_THRESHOLD = 2 -- How many times the cost of the investment must be in the treasury to consider buying it
+NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 10	-- AI scoring for repaying loans, multiplied by (MAX(budget - other loans, 0) * number_of_loans)/cost
+
+
+NDefines.NAI.AGGRESSIVENESS = 400
+NDefines.NAI.AGGRESSIVENESS_BONUS_EASY_WAR = 400
+
+NDefines.NAI.POWERBALANCE_DISABLE_VERSUS_PLAYER = 1 --0 is vanilla
