@@ -180,6 +180,7 @@ NDefines.NAI.MIN_SHIPS_FOR_ADMIRAL = 25	--The minimum navy size for the AI to bo
 NDefines.NAI.DEBASE_THRESHOLD = -5000 -- AI will not debase if it has more gold than this.
 
 NDefines.NAI.CANCEL_CONSTRUCTION_SIEGE_PROGRESS = 101 -- buildings don't get destroyed when sieged, not sure why AI cancels constructions at all
+NDefines.NAI.EXTRA_SURPLUS_WHEN_NEEDING_BUILDINGS = 0.10
 	-- CANCEL_CONSTRUCTION_SIEGE_PROGRESS = 0, -- If chance of fort falling is at least this, AI will cancel constructions in the province
 NDefines.NAI.DESIRED_SURPLUS = 0.10 -- AI will aim for having at least this fraction of their income as surplus when they don't have large savings
 	-- DESIRED_SURPLUS = 0.1, -- AI will aim for having at least this fraction of their income as surplus when they don't have large savings

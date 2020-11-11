@@ -110,15 +110,20 @@ Government
 - Althingi Faction slightly reworked, removed ability to raid and added 10% manpower and recovery.
 - Althingi Government: Development Reduction removed
 - Republican elections work a bit different now, integrated from SpiritBaker and Lostack. Supposed to make long election republics viable, 1 point gain only (instead 1+ in all three) but overall you start with above average rulers. Overall, tho 666 should harder to achieve but on average you will have better leaders.
+- Divinity also gets 50% reform progress growth at 100 legitimacy
 - Peoples Republic of China has its own naming scheme (Chairman, Chairwoman, Peoples Republic)
 
 Economy
 - Being over forcelimit (navy and army) cost factor set to 3>6
 - Bankruptcy: Duration is 5>10 years, timeframe that buildings will be destroyed 5>10 years
+- Advisors are no longer cheap as hell from events
 
 Military
 - Professionalism: Slacken Recruitment Standards costs 10% instead of 5% professionalism
 - Marines: Naval Shock damage taken 25%>10%
+- AI is much MORE aggressive in declaring wars. Define value 200>400
+- TEST: Player will be (directly) less targeted just because its a player
+- Tuned down in previous patches already, but mentioning here that the galore of AI condotierri is less now than previously
 
 Other
 - Casus Belli: Excomunication AE 50%>75%
@@ -126,14 +131,19 @@ Other
 - Ideas: Cost of an idea 250>300
 - Parliament: Issue length 6>10 years
 - Building logic reworked for AI
-- AI is much MORE aggressive in declaring wars. Define value 200>400
-- TEST: Player will be (directly) less targeted just because its a player
 - Brought back a small number of republican tradition for nobles at neutral level 0 > 0.5
 - One of Iceland missions requirements extended to the whole of British Isles
 - Pontifex Maximus event values changed slightly
 - Some mission values tweaked
 - Vinland, Yingzhou, and Boure are set to Old World Tech (previously High American), the pips are slightly lowered by 1 to make them less op
 - The Old World Colonial states now all start at tech 3, do not see or have a connection to the old world unless rediscovered
+- French region forts slightyl rearranged
+- Bourboun accepts Occitan culture from the start
+
+Decisions
+- Francia formable no longer appears for the German region people, prestige requirement 75>50, Regensburg removed from requirements
+- France formable requirements extended to few provinces in the south
+- Hellenic and Kemetic conversion decision is now only available until 1450, Hellenic missionary strenght from decision 15%>10%
 - AI Vinland is not allowed to form Canada
 
 Buildings
