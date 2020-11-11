@@ -117,6 +117,7 @@ Economy
 - Being over forcelimit (navy and army) cost factor set to 3>6
 - Bankruptcy: Duration is 5>10 years, timeframe that buildings will be destroyed 5>10 years
 - Advisors are no longer cheap as hell from events
+- Taking a loan increase inflation 0.1>0.2
 
 Military
 - Professionalism: Slacken Recruitment Standards costs 10% instead of 5% professionalism
@@ -139,6 +140,7 @@ Other
 - The Old World Colonial states now all start at tech 3, do not see or have a connection to the old world unless rediscovered
 - French region forts slightyl rearranged
 - Bourboun accepts Occitan culture from the start
+- Crusade on Cursed Letters #2
 
 Decisions
 - Francia formable no longer appears for the German region people, prestige requirement 75>50, Regensburg removed from requirements
