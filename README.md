@@ -104,6 +104,8 @@ Policies
 - Discipline limited to only 2
 - All Global Unit cost reduction set to -10%, most specific unit type cost reduction set to -15%
 - Tax Modifiers 30%>20%, Production 30%>20%, combined versions 15%/15%>10%/10%
+- State Affairs Eminent Domain: Development Cost -10%>-15%, now under the limit of 2 same policies umbrella
+- Added 7 more new possible policies to State Affairs Idea group
 
 Government
 - Government Reforms: Serbian Military Government reform (250>300 manpower; 10% tax in fort provinces) no longer activated if Serbian is accepted, must be primary
@@ -125,6 +127,7 @@ Military
 - AI is much MORE aggressive in declaring wars. Define value 200>400
 - TEST: Player will be (directly) less targeted just because its a player
 - Tuned down in previous patches already, but mentioning here that the galore of AI condotierri is less now than previously
+- Supply Depot costs 10>25 and lasts for 5>10 years
 
 Other
 - Casus Belli: Excomunication AE 50%>75%
@@ -147,6 +150,7 @@ Decisions
 - France formable requirements extended to few provinces in the south
 - Hellenic and Kemetic conversion decision is now only available until 1450, Hellenic missionary strenght from decision 15%>10%
 - AI Vinland is not allowed to form Canada
+- Transylvania and Cumania can also form Romania
 
 Buildings
 - Production Buildings: Production efficiency: 50%/100%/150% > 25%/75%/125%, Cost 100/400/800 > 100/500/1500, Build Time: Counting House 12>18
