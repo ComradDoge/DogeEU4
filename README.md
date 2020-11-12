@@ -139,13 +139,16 @@ Other
 - One of Iceland missions requirements extended to the whole of British Isles
 - Pontifex Maximus event values changed slightly
 - Some mission values tweaked
-- Vinland, Yingzhou, and Boure are set to Old World Tech (previously High American), the pips are slightly lowered by 1 to make them less op
-- The Old World Colonial states now all start at tech 3, do not see or have a connection to the old world unless rediscovered
-- French region forts slightyl rearranged
-- Bourboun accepts Occitan culture from the start
 - Crusade on Cursed Letters #2
 - The Mining event and system is slightly changed, manpower is part of the cost now with an option in the event to abandon the event if its to expensive. Additionally, if the 1st event fails there is 2nd event to try again but more expensive manpower wise. Can only have one mine event chain at a time. The % have also been changed
 - The No HRE bookmark is set as default
+
+Map Start
+- Formosa (Taiwan) is now a pickable nation from the beginning
+- French region forts slightyl rearranged
+- Vinland, Yingzhou, and Boure are set to Old World Tech (previously High American), the pips are slightly lowered by 1 to make them less op
+- The Old World Colonial states now all start at tech 3, do not see or have a connection to the old world unless rediscovered
+- Bourboun accepts Occitan culture from the start
 
 Decisions
 - Francia formable no longer appears for the German region people, prestige requirement 75>50, Regensburg removed from requirements
