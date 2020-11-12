@@ -154,6 +154,20 @@ Decisions
 - AI Vinland is not allowed to form Canada
 - Transylvania and Cumania can also form Romania
 
+Government Buildings
+- Added two more government buildings
+- Government buildings are a bit better now just by themselves
+- Government buildings (except the basic courthouse) now affect state edicts when the whole state is built up with a government building. You wont lose access to lvl2 state edict if you have a combination of lvl2 and lvl3 government buildings. You will lose it when the state has only lvl3 government building after which lvl2 edict turns into lvl3 which you need to reactivate.
+- Universities or S C H O O L S, are under new Education banner now instead of Government due to space constraints
+- Due to the government building rework, state edicts values changed too. X Default/X with Town Hall/X with Palace of Justice/X with Governors Residence
+--- Defensiveness: 15%/25%/35%/50%
+--- Manpower: 15%/25%/35%/50%
+--- Trade: 25%/50%/75%/100%
+--- Development: 10%/15%/20%/25%
+--- Missionary: 1%/1.5%/2%/2.5%
+--- Institution: 25%/50%/75%/100%
+--- Ship Building(Time&Cost): -7.5% & 10%/-15% & 15% / -25% & 20% / -30% & 25%
+
 Buildings
 - Production Buildings: Production efficiency: 50%/100%/150% > 25%/75%/125%, Cost 100/400/800 > 100/500/1500, Build Time: Counting House 12>18
 - Road Buildings: Early Road: State maintenance (SM) 10%>20%, Gravel Road: SM 20%>40% TIME 14>16, Royal Road: SM 40%>60% TIME 16>24, Macadam Road: SM 60%>80% TIME 20>32, Railroad: Cost 800>1000 Time 30>40
@@ -173,25 +187,12 @@ Buildings
 - Shipyard: FL 0.6>0.5, Price 150>200
 - Grand Shipyard: Price 300>400, Time 12>24
 
-Government Buildings
-- Added two more government buildings
-- Government buildings are a bit better now just by themselves
-- Government buildings (except the basic courthouse) now affect state edicts when the whole state is built up with a government building. You wont lose access to lvl2 state edict if you have a combination of lvl2 and lvl3 government buildings. You will lose it when the state has only lvl3 government building after which lvl2 edict turns into lvl3 which you need to reactivate.
-- Universities or S C H O O L S, are under new Education banner now instead of Government due to space constraints
-- Due to the government building rework, state edicts values changed too. X Default/X with Town Hall/X with Palace of Justice/X with Governors Residence
---- Defensiveness: 15%/25%/35%/50%
---- Manpower: 15%/25%/35%/50%
---- Trade: 25%/50%/75%/100%
---- Development: 10%/15%/20%/25%
---- Missionary: 1%/1.5%/2%/2.5%
---- Institution: 25%/50%/75%/100%
---- Ship Building(Time&Cost): -7.5% & 10%/-15% & 15% / -25% & 20% / -30% & 25%
-
 UI
 - State Edict screen cleaned up and has a single background colour
 - State Edict window lowered to align with the province window
 - Idea group selection screen scroll bars cleaned up
 
+-ADD sami missions
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
