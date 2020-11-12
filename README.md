@@ -144,6 +144,8 @@ Other
 - French region forts slightyl rearranged
 - Bourboun accepts Occitan culture from the start
 - Crusade on Cursed Letters #2
+- The Mining event and system is slightly changed, manpower is part of the cost now with an option in the event to abandon the event if its to expensive. Additionally, if the 1st event fails there is 2nd event to try again but more expensive manpower wise. Can only have one mine event chain at a time. The % have also been changed
+- The No HRE bookmark is set as default
 
 Decisions
 - Francia formable no longer appears for the German region people, prestige requirement 75>50, Regensburg removed from requirements
