@@ -142,6 +142,7 @@ Other
 - Crusade on Cursed Letters #2
 - The Mining event and system is slightly changed, manpower is part of the cost now with an option in the event to abandon the event if its to expensive. Additionally, if the 1st event fails there is 2nd event to try again but more expensive manpower wise. Can only have one mine event chain at a time. The % have also been changed
 - Bookmarks rearranged and no HRE start is set as default
+- Institution bonuses have been reworked
 
 Map Start
 - Formosa (Taiwan) is now a pickable nation from the beginning
