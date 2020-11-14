@@ -44,13 +44,7 @@ If you don't like discord just post in the discussion or in the comments.
 
 [h1] Changes xx/11/2020 [/h1]
 
-- Mercenary Ideas Finisher: Reinforce Cost +10% > Mercenery Cost -25%
-- Land Maintenance policies lowered and some removed
-- State Mainteance policies lowered
-- Influence Ideas: Force Limit 15%>10%
-- Imperialism: Force limit 15%>10%
-- Policies: Unit combat ability policies are 7.5%>5%; 2.5%>5%
-- Scandinavia will keep your initial mission from your original country (Denmark;Norway;Finland;Sweden) if you accidentally click "Refresh Missions"
+- Decision: Tibet in addition to vajrayna can be formed by Bon and Tantra religions
 
 
 [h3] Things that are broken [/h3]
