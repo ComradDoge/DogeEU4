@@ -67,6 +67,21 @@ If you don't like discord just post in the discussion or in the comments.
 # After Campaign Changes
 #
 
+
+Religion
+- Orthodox Religion: Patriarch Manpower 33%>20%
+- Zoroastrianism Blessings: Redone to make them more equal amongst each other
+
+
+Policies
+- Manpower Increase limited to only 2, values 0.125 increased to 0.15, 0.25 decreased to 0.20
+- Manpower Recovery limited to only 2, values 0.25>.20, other slightly reworked
+- Discipline limited to only 2
+- All Global Unit cost reduction set to -10%, most specific unit type cost reduction set to -15%
+- Tax Modifiers 30%>20%, Production 30%>20%, combined versions 15%/15%>10%/10%
+- State Affairs Eminent Domain: Development Cost -10%>-15%, now under the limit of 2 same policies umbrella
+- Added 7 unique possible policies to State Affairs Idea group
+
 National Ideas
 - Russian Republic Ideas: Global Manpower 25%>20%, Manpower Recovery Speed 20%>25%, Trade Efficiency 10%>20%, Liberty Desire Reduction 10>20
 - Russian Ideas: Global Manpower 33%>25%, Recovery Speed 25%>20%
@@ -93,26 +108,12 @@ Idea Groups
 - Centralization 3rd Idea: Metropolis -50%>-30% dev cost
 - Espionage Ideas: Manpower 15%>10%, Liberty Desire -10>-20, Discipline removed, Rebel Support Efficiency 50%>75%, Advisor Cost -10%>-15%
 
-Religion
-- Orthodox Religion: Patriarch Manpower 33%>20%
-- Zoroastrianism Blessings: Redone to make them more equal amongst each other
-- Player convert to hellenism missionary strength 15%>10%
-
-Policies
-- Manpower Increase limited to only 2, values 0.125 increased to 0.15, 0.25 decreased to 0.20
-- Manpower Recovery limited to only 2, values 0.25>.20, other slightly reworked
-- Discipline limited to only 2
-- All Global Unit cost reduction set to -10%, most specific unit type cost reduction set to -15%
-- Tax Modifiers 30%>20%, Production 30%>20%, combined versions 15%/15%>10%/10%
-- State Affairs Eminent Domain: Development Cost -10%>-15%, now under the limit of 2 same policies umbrella
-- Added 7 more new possible policies to State Affairs Idea group
-
 Government
 - Government Reforms: Serbian Military Government reform (250>300 manpower; 10% tax in fort provinces) no longer activated if Serbian is accepted, must be primary
 - Althingi Faction slightly reworked, removed ability to raid and added 10% manpower and recovery.
 - Althingi Government: Development Reduction removed
 - Republican elections work a bit different now, integrated from SpiritBaker and Lostack. Supposed to make long election republics viable, 1 point gain only (instead 1+ in all three) but overall you start with above average rulers. Overall, tho 666 should harder to achieve but on average you will have better leaders.
-- Divinity also gets 50% reform progress growth at 100 legitimacy
+- Devotion also gets 50% reform progress growth at 100 devotion
 - Peoples Republic of China has its own naming scheme (Chairman, Chairwoman, Peoples Republic)
 
 Economy
@@ -136,17 +137,20 @@ Other
 - Parliament: Issue length 6>10 years
 - Building logic reworked for AI
 - Brought back a small number of republican tradition for nobles at neutral level 0 > 0.5
-- One of Iceland missions requirements extended to the whole of British Isles
+- One of Iceland missions requirements extended to the whole of British Isles and morale 20%>15%
 - Pontifex Maximus event values changed slightly
-- Some mission values tweaked
-- Crusade on Cursed Letters #2
-- The Mining event and system is slightly changed, manpower is part of the cost now with an option in the event to abandon the event if its to expensive. Additionally, if the 1st event fails there is 2nd event to try again but more expensive manpower wise. Can only have one mine event chain at a time. The % have also been changed
+- Some mission values tweaked (which ones? be more detailed! No.)
+- Crusade on Cursed Letters #2 (report whenever you find them and which country/culture it is)
+- The Mining event and system is slightly changed, manpower can be used to roll again if failed, option to abandon the event if its to expensive. Additionally, if the 1st event fails there is 2nd event to try again but more expensive manpower wise. Can only have one mine event chain at a time. The % have also been changed.
 - Bookmarks rearranged and no HRE start is set as default
 - Institution bonuses have been reworked
+- Estates will not get happy when you claim to give away tax revenue but then don't
+- Industrialization last two objectives changed: Most valuable trade node and 20% control of cooper or iron, Scramble for Africa also lowered 20>10 provinces and expanded the regions, increased amount of railroads needed 15>30
+
 
 Map Start
 - Formosa (Taiwan) is now a pickable nation from the beginning
-- French region forts slightyl rearranged
+- French region forts slightly rearranged
 - Vinland, Yingzhou, and Boure are set to Old World Tech (previously High American), the pips are slightly lowered by 1 to make them less op
 - The Old World Colonial states now all start at tech 3, do not see or have a connection to the old world unless rediscovered
 - Bourboun accepts Occitan culture from the start
@@ -155,19 +159,23 @@ Decisions
 - Francia formable no longer appears for the German region people, prestige requirement 75>50, Regensburg removed from requirements
 - France formable requirements extended to few provinces in the south
 - Hellenic and Kemetic conversion decision is now only available until 1450, Hellenic missionary strenght from decision 15%>10%
-- AI Vinland is not allowed to form Canada
-- Transylvania and Cumania can also form Romania
+- AI Vinland is not allowed to form Canada, eh.
+- Transylvania and Cumania can also form Romania, # ADD A NEW FORMABLE FOR CUMANIA? #
+- Added Illyria formable with ideas (be south slav culture)
+- Added Baltic Union formable with ideas (be baltic culture and romuva/suomenusko)
+- Added Wendish formable with ideas (be Lusatia or Sorbian culture)
+- Roman Empire ideas boosted so the end of the campaign comes faster for you
+
 
 Government Buildings
 - Added two more government buildings
 - Government buildings are a bit better now just by themselves
 - Government buildings (except the basic courthouse) now affect state edicts when the whole state is built up with a government building. You wont lose access to lvl2 state edict if you have a combination of lvl2 and lvl3 government buildings. You will lose it when the state has only lvl3 government building after which lvl2 edict turns into lvl3 which you need to reactivate.
-- Universities or S C H O O L S, are under new Education banner now instead of Government due to space constraints
 - Due to the government building rework, state edicts values changed too. X Default/X with Town Hall/X with Palace of Justice/X with Governors Residence
 --- Defensiveness: 15%/25%/35%/50%
 --- Manpower: 15%/25%/35%/50%
 --- Trade: 25%/50%/75%/100%
---- Development: 10%/15%/20%/25%
+--- Development: 10%/15%/20%/25% (enjoy housemite)
 --- Missionary: 1%/1.5%/2%/2.5%
 --- Institution: 25%/50%/75%/100%
 --- Ship Building(Time&Cost): -7.5% & 10%/-15% & 15% / -25% & 20% / -30% & 25%
@@ -190,11 +198,15 @@ Buildings
 - Various Latent buildings costs and times have changed
 - Shipyard: FL 0.6>0.5, Price 150>200
 - Grand Shipyard: Price 300>400, Time 12>24
+- Latent good manufacturing buildings give production bonus as to discourage a certain behaviour
+- Farm Estate building has finally found a way to cultivate...tomatoes? but they were able to grow potatoes so wh. Dont question it.
 
 UI
 - State Edict screen cleaned up and has a single background colour
 - State Edict window lowered to align with the province window
 - Idea group selection screen scroll bars cleaned up
+- Macrobuilder and province builder slightly changed
+--- Universities or S C H O O L S, are under new Education banner now instead of Government due to space constraints
 
 -ADD sami missions
 
