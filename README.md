@@ -88,7 +88,8 @@ National Ideas
 - Polish Ideas: Cavalry Combat ability 33%>25%
 - Italian Ideas: Global Manpower 33%>25%
 - Tver Ideas: Global Manpower 33%>25%
-
+- Assyrian Ideas: added them
+- Roman Empire ideas boosted so the end of the campaign comes faster for you
 
 Idea Groups
 - War Production 4th Idea: Instead of static FL > its Reinforce speed and reinforce cost modifier
@@ -160,12 +161,13 @@ Decisions
 - France formable requirements extended to few provinces in the south
 - Hellenic and Kemetic conversion decision is now only available until 1450, Hellenic missionary strenght from decision 15%>10%
 - AI Vinland is not allowed to form Canada, eh.
-- Transylvania and Cumania can also form Romania, # ADD A NEW FORMABLE FOR CUMANIA? #
+- Transylvania and Cumania can also form Romania (Cumania tagged along)
 - Added Illyria formable with ideas (be south slav culture)
 - Added Baltic Union formable with ideas (be baltic culture and romuva/suomenusko)
 - Added Wendish formable with ideas (be Lusatia or Sorbian culture)
-- Roman Empire ideas boosted so the end of the campaign comes faster for you
-
+- Added Ancient Egypt formable with ideas (Egyptian or Nubian culture)
+- Added Madagascar formable with ideas (Madagascar cultures)
+- Cant form Arabia if you are either version of Egypt
 
 Government Buildings
 - Added two more government buildings
@@ -175,7 +177,7 @@ Government Buildings
 --- Defensiveness: 15%/25%/35%/50%
 --- Manpower: 15%/25%/35%/50%
 --- Trade: 25%/50%/75%/100%
---- Development: 10%/15%/20%/25% (enjoy housemite)
+--- Development: 10%/15%/20%/25%
 --- Missionary: 1%/1.5%/2%/2.5%
 --- Institution: 25%/50%/75%/100%
 --- Ship Building(Time&Cost): -7.5% & 10%/-15% & 15% / -25% & 20% / -30% & 25%
