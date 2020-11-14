@@ -139,9 +139,7 @@ Other
 - Parliament: Issue length 6>10 years
 - Building logic reworked for AI
 - Brought back a small number of republican tradition for nobles at neutral level 0 > 0.5
-- One of Iceland missions requirements extended to the whole of British Isles and morale 20%>15%
 - Pontifex Maximus event values changed slightly
-- Some mission values tweaked (which ones? be more detailed! No.)
 - Crusade on Cursed Letters #2 (report whenever you find them and which country/culture it is)
 - The Mining event and system is slightly changed, manpower can be used to roll again if failed, option to abandon the event if its to expensive. Additionally, if the 1st event fails there is 2nd event to try again but more expensive manpower wise. Can only have one mine event chain at a time. The % have also been changed.
 - Bookmarks rearranged and no HRE start is set as default
@@ -149,6 +147,12 @@ Other
 - Estates will not get happy when you claim to give away tax revenue but then don't
 - Industrialization last two objectives changed: Most valuable trade node and 20% control of cooper or iron, Scramble for Africa also lowered 20>10 provinces and expanded the regions, increased amount of railroads needed 15>30
 
+Missions
+- Added missions for Sami
+- Iceland [Conquer the Isles] mission requirements extended to the whole of British Isles and morale 20%>15%
+- Some mission values tweaked (which ones? be more detailed! No.)
+- Added missions for Ardabil
+- Added missions for Greece
 
 Map Start
 - Formosa (Taiwan) is now a pickable nation from the beginning
@@ -169,6 +173,7 @@ Decisions
 - Added Ancient Egypt formable with ideas (Egyptian or Nubian culture)
 - Added Madagascar formable with ideas (Madagascar cultures)
 - Cant form Arabia if you are either version of Egypt
+- Greece decision can now be seen even if Byzantium exists
 
 Government Buildings
 - Added two more government buildings
@@ -211,7 +216,6 @@ UI
 - Macrobuilder and province builder slightly changed
 --- Universities or S C H O O L S, are under new Education banner now instead of Government due to space constraints
 
--ADD sami missions
 
 [h3] Things that are broken [/h3]
 - The graphical part for deities is borked
