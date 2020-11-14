@@ -88,8 +88,9 @@ National Ideas
 - Polish Ideas: Cavalry Combat ability 33%>25%
 - Italian Ideas: Global Manpower 33%>25%
 - Tver Ideas: Global Manpower 33%>25%
-- Assyrian Ideas: added them
+- Added Assyrian Ideas
 - Roman Empire ideas boosted so the end of the campaign comes faster for you
+- Added Macedonian Ideas
 
 Idea Groups
 - War Production 4th Idea: Instead of static FL > its Reinforce speed and reinforce cost modifier
