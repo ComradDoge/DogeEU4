@@ -1,0 +1,80 @@
+REB = {
+	set_variable = {
+		which = total_countries
+		value = 0
+	}
+}
+
+every_country = {
+	limit = {
+		total_development = 3
+	}
+	REB = {
+		change_variable = {
+			which = total_countries
+			value = 1
+		}
+	}
+}
+
+REB = {
+	set_variable = { #offset
+		which = start_snap
+		value = 0
+	}
+	set_variable = {
+		which = end_snap
+		which = total_countries
+	}
+	divide_variable = { #divisor
+		which = end_snap
+		value = 2
+	}
+}
+
+every_country = {
+	limit = {
+		total_development = 3
+	}
+	if = {
+		limit = {
+			REB = {
+				check_variable = {
+					which = start_snap
+					value = 0
+				}
+				check_variable = {
+					which = end_snap
+					value = 0
+				}
+			}
+		}
+		REB = {
+			subtract_variable = {
+				which = end_snap
+				value = 1
+			}
+		}
+		set_country_flag = snap_flag
+	}
+	else = {
+		REB = {
+			change_variable = {
+				which = start_snap
+				value = 1
+			}
+		}
+	}
+}
+
+every_country = {
+	limit = {
+		total_development = 3
+		has_country_flag = snap_flag
+		#always = no
+	}
+	log = "[This.GetName]	deleted"
+	every_owned_province = {
+		cede_province = XXX
+	}
+}
