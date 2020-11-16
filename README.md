@@ -45,10 +45,11 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 14/11/2020 [/h1]
+[h1] Changes XX/11/2020 [/h1]
 [quote]
-- Major update, check the changelog in Steam Discussions or on Discord
-https://steamcommunity.com/workshop/filedetails/discussion/2152606065/2796124750789691369/?ctp=3
+- Refresh Missions localisation slightly changed. Seriously, do not click refresh missions unless a new mission is added for your nation (new campaigns don't matter).
+- Madagascar 4th idea supports other government forms (devotion; republican tradition), global_manpower: 25%>20%, 15% global manpower changed to 15% manpower recovery
+- Yingzhou national ideas modified to be more agressive in colonizing (mainly for AI): Removed movement speed, increased colony growth 10>20, added colonist to 1st idea
 [/quote]
 [/quote]
 [quote]
