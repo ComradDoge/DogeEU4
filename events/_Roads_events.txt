@@ -8,36 +8,39 @@ province_event = {
 	title = roads_events.1.title
 	desc = roads_events.1.desc
 	picture = CITY_VIEW_eventPicture
-	goto = ROOT
+	goto = root
 
 	trigger = {
 		has_owner_culture = no
-		is_core = ROOT
-		controlled_by = ROOT
+		is_core = owner
+		controlled_by = owner
 		has_siege = no
-		NOT = { local_autonomy = 0.40 }
-		NOT = { owner = { has_country_modifier = assimilated_through_road } }
-		OR = {
-			has_building = early_road
-			has_building = gravel_road
-			has_building = royal_road
-			has_building = macadam_road
-			has_building = railroad
+		not = { local_autonomy = 0.40 }
+		not = { owner = { has_country_modifier = assimilated_through_road } }
+		or = {
+				has_building = early_road
+				has_building = gravel_road
+				has_building = royal_road
+				has_building = macadam_road
 		}
-		OR = {
+		or = {
 				any_neighbor_province = {
 					owned_by = ROOT
 					has_owner_culture = yes
-					is_core = ROOT
+					is_core = owner
 				}
 				is_capital = yes
 		}
 	}
 	mean_time_to_happen = {
-		years = 60
+		months = 240
 		modifier = {
 			factor = 0.50
 			is_capital = yes
+		}
+		modifier = {
+			factor = 0.70
+			owner = { has_idea_group = religious_ideas }
 		}
 		modifier = {
 			factor = 0.80
@@ -63,24 +66,26 @@ province_event = {
 	option = {
 		name = roads_events.1.a
 		ai_chance = {
-			factor = 100
+			factor = 70 
 		}
-		
-		#add_prestige = 10
-		#add_legitimacy = 5
-		#add_republican_tradition = 5
-		#add_horde_unity = 5
-
 		add_province_modifier = {
 			name = "recently_assimilated"
 			duration = 3650
 		}
-		ROOT = {
+		owner = {
 			add_country_modifier = { 
 				name = assimilated_through_road
 				duration = 7300
-			}
+				}
 		}
+		change_culture = owner
+
+	}
+	option = {
+		name = roads_events.1.b
+		ai_chance = { factor = 30 }
+		add_years_of_income = 2.25
+		
 	}
 }
 
@@ -91,40 +96,40 @@ province_event = {
 	picture = CITY_DEVELOPMENT_eventPicture
 
 	trigger = {
-		OR = { 
-			NOT = {
+		or = { 
+			not = {
 				has_building = early_road
 			}
-			AND = {
+			and = {
 				has_building = early_road
 				adm_tech = 10
 			}
-			AND = {
+			and = {
 				has_building = gravel_road
 				adm_tech = 18
 			}
-			AND = { 
+			and = { 
 				has_building = royal_road
 				adm_tech = 23
 			}
-			AND = {
+			and = {
 				has_building = railroad
 				adm_tech = 27
 			}
 		}
-		NOT = { has_building = railroad }
-		NOT = { owner = { has_country_modifier = improved_road } }
-		is_core = ROOT
-		controlled_by = ROOT
+		not = { has_building = railroad }
+		not = { owner = { has_country_modifier = improved_road } }
+		is_core = owner
+		controlled_by = owner
 		has_siege = no
-		NOT = { local_autonomy = 0.40 }
-		OR = { 
+		not = { local_autonomy = 0.40 }
+		or = { 
 			base_tax = 7
 			development = 15
 		}
 	}
 	mean_time_to_happen = {
-		years = 60
+		months = 240
 		# modifier = {
 			# factor = 0
 			# OR = {
@@ -202,7 +207,7 @@ province_event = {
 		}
 		if = {
 			limit = {
-				AND = {
+				and = {
 					has_building = macadam_road
 					adm_tech = 27
 				}
@@ -213,7 +218,7 @@ province_event = {
 		}
 		if = {
 			limit = {
-				AND = {
+				and = {
 					has_building = royal_road
 					adm_tech = 23
 				}
@@ -224,7 +229,7 @@ province_event = {
 		}		
 		if = {
 			limit = {
-				AND = {
+				and = {
 					has_building = gravel_road
 					adm_tech = 18
 				}
@@ -236,7 +241,7 @@ province_event = {
 		}
 		if = {
 			limit = {
-				AND = { 
+				and = { 
 					has_building = early_road 
 					adm_tech = 10
 				}
@@ -247,19 +252,17 @@ province_event = {
 		}
 		if = {
 			limit = {
-				NOT = {
+				not = {
 					has_building = early_road
 					has_building = gravel_road
 					has_building = royal_road
 					has_building = macadam_road
+					has_building = railroad
 				}
 			}
 			add_building = early_road
 		}
-		add_prestige = 10
-		add_legitimacy = 5
-		add_republican_tradition = 5
-		add_horde_unity = 5
+
 		
 		owner = {
 			add_country_modifier = {
