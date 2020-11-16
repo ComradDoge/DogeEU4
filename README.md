@@ -46,8 +46,9 @@ Feel free to send me the save if something breaks. [/quote]
 [quote]
 [h1] Changes 14/11/2020 [/h1]
 [quote]
-- Major update, check the changelog in Steam Discussions or on Discord
-https://steamcommunity.com/workshop/filedetails/discussion/2152606065/2796124750789691369/?ctp=3
+- Road event should change culture now when possible
+- Innovative and Society institution growth fixed
+- Oda missions added
 [/quote]
 [/quote]
 [quote]
