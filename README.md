@@ -41,14 +41,14 @@ All DLCs are recommended, else some aspects of the game will not work as intende
 
 [h1] Discord [/h1]
 [quote] Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. 
-Feel free to send me the save if something breaks. [/quote]
+Feel free to send me the save if something breaks.
+[/quote]
 [/quote]
 [quote]
 [h1] Changes 14/11/2020 [/h1]
 [quote]
-- Road event should change culture now when possible
-- Innovative and Society institution growth fixed
-- Oda missions added
+- Major update, check the changelog in Steam Discussions or on Discord
+https://steamcommunity.com/workshop/filedetails/discussion/2152606065/2796124750789691369/?ctp=3
 [/quote]
 [/quote]
 [quote]
@@ -69,7 +69,10 @@ Feel free to send me the save if something breaks. [/quote]
 - New Idea groups
 - New Buildings
 - New Formables [/quote]
-
+[quote]
+[h1] Formables [/h1]
+The possible new formables are on this [url=https://doge.azurewebsites.net/Formables] site [/url].
+[/quote]
 [h1] Lite Version [/h1]
 [quote] This mod is my take on Shattered and I can understand if you are not interested in most of the game changing aspects. The Lite version is much more toned down and closer to vanilla but still has enough meat to it for a new feel.
 
