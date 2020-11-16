@@ -33,69 +33,63 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 
 
 # STEAM WORKSHOP DESCRIPTION
-[img] https://i.imgur.com/p7Fv1Z6.gif [/img]
+[code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
+[quote]
 Shattered mod for 1.30 with various changes and additions to make the game a lot more flavourful and engaging.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
 [h1] Discord [/h1]
-Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. Feel free to send me the save if something breaks.
-If you don't like discord just post in the discussion or in the comments.
-
-[h1] Changes xx/11/2020 [/h1]
-
-- Decision: Tibet in addition to vajrayna can be formed by Bon and Tantra religions
-- Denmark is now formable, does that count as a "new formable" though?
-- Removed some internal AI deving files which I believe are causing desyncs in MP
-- Decision: brazil is yet again removed from the game cause it curses the mod otherwise
-- Decision: Fixed North Sea Empire not appearing, requirements changed to only four tags (Norway, The Isles, Iceland, Jutland)
-- Most Republican tradition gain lowered 0.5>0.3
-- North Sea Empire ideas fixed to also give republican tradition 
-
-maybe government expanded events are bugging out? (but what has changed?)
-maybe missions expanded additions? (but scripted effect added)
-do "run test.txt" again but edit settings so it leaves different countries to find specific country considering the game.log seems fine (although that untitled ruler doe)
-
-
-[h3] Things that are broken [/h3]
-- The graphical part for deities is borked
-- HRE events (ie burgundy inheritance) have not been adapted to shattered so keep that in mind.
-
-
+[quote] Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. 
+Feel free to send me the save if something breaks. [/quote]
+[/quote]
+[quote]
+[h1] Changes 14/11/2020 [/h1]
+[quote]
+- Major update, check the changelog in Steam Discussions or on Discord
+https://steamcommunity.com/workshop/filedetails/discussion/2152606065/2796124750789691369/?ctp=3
+[/quote]
+[/quote]
+[quote]
 [h1] Main Additions [/h1]
-
+[quote]
 - More Insults, Ruler personality traits, Advisors
 - Englightenment and Industrialization Age
 - New Religions with Mechanics
 - Lost Colonies of the Old World
+- New State Edicts (that upgrade)
 - Quality of Life Improvements
 - Religion specific Idea groups
 - Game runs until 20th century
 - Dynamic Age objectives
-- New Buildings (Roads!)
+- Changeable trade goods
 - Shattered World
+- New Trade Goods
 - New Idea groups
-- New Formables
-- AI tweaks
+- New Buildings
+- New Formables [/quote]
 
-[h1] LITE VERSION [/h1]
-This mod is my take on Shattered and if you wish for mainly a shattered world without the major changes I cut out the stuff and uploaded in the mod below.
-Click [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338] here [/url] for the LITE version of the mod.
+[h1] Lite Version [/h1]
+[quote] This mod is my take on Shattered and I can understand if you are not interested in most of the game changing aspects. The Lite version is much more toned down and closer to vanilla but still has enough meat to it for a new feel.
 
-[h1] --------------------------------- [/h1]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338] Lite Doge Shattered Europa[/url]
+[/quote]
+[/quote]
+[quote]
 [h1] Credits [/h1]
-Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod), Expanded Mods family who have done amazing work on eu4, ArtemisFowl for understanding EU4 UI and Viking_Nephilim for religious work
+[quote]Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod), Expanded Mods family who have done amazing work on eu4, ArtemisFowl for understanding EU4 UI and Viking_Nephilim for religious work
 
-Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too. 
+Reminder that not all parts of the mods will be added or without changes which is why you see differences from their mod and mine. I'll try to credit people and link to their workshop cause their work saves my time and it would be rude not too.[/quote]
 
 [h3] Shattered Mods [/h3]
+[quote]
     Shattered Europa by Neprut
     Maxos New Shattered by Maxos
-    Shattered Europa by Pirate AI
+    Shattered Europa by Pirate AI [/quote]
 
 [h3] Expanded Mod Family [/h3]
-I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their [url=https://discord.gg/UEyGV6U] discord.[/url] Don't send bug reports or something game related to this mod to them. 
 
+[quote]    
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2198012132] Formables Expanded[/url]  by Silver Knight of Anor Londo (Verityvoid)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded[/url] by Silver Knight of Anor Londo (Verityvoid)     
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded[/url] by Big Boss 
@@ -104,10 +98,11 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded[/url] by MrMarcinQ‎ 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded[/url] by Stiopia/Expanded Team 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team [/quote]
     
 [h3] Other [/h3]
 
+[quote]    
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
@@ -127,8 +122,8 @@ I am not affiliated with the [b]Expanded Mods[/b] group at all but here is their
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1887798411] Sundered Lands [/url] by Javingr
-
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1887798411] Sundered Lands [/url] by Javingr    [/quote]
+[/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:
 https://ko-fi.com/comraddoge
