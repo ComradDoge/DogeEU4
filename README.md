@@ -45,6 +45,13 @@ If you don't like discord just post in the discussion or in the comments.
 [h1] Changes xx/11/2020 [/h1]
 
 - Decision: Tibet in addition to vajrayna can be formed by Bon and Tantra religions
+- Denmark is now formable, does that count as a "new formable" though?
+- Removed some internal AI deving files which I believe are causing desyncs in MP
+- Decision: brazil is yet again removed from the game cause it curses the mod otherwise
+
+maybe government expanded events are bugging out? (but what has changed?)
+maybe missions expanded additions? (but scripted effect added)
+do "run test.txt" again but edit settings so it leaves different countries to find specific country considering the game.log seems fine (although that untitled ruler doe)
 
 
 [h3] Things that are broken [/h3]
