@@ -48,6 +48,9 @@ If you don't like discord just post in the discussion or in the comments.
 - Denmark is now formable, does that count as a "new formable" though?
 - Removed some internal AI deving files which I believe are causing desyncs in MP
 - Decision: brazil is yet again removed from the game cause it curses the mod otherwise
+- Decision: Fixed North Sea Empire not appearing, requirements changed to only four tags (Norway, The Isles, Iceland, Jutland)
+- Most Republican tradition gain lowered 0.5>0.3
+- North Sea Empire ideas fixed to also give republican tradition 
 
 maybe government expanded events are bugging out? (but what has changed?)
 maybe missions expanded additions? (but scripted effect added)
