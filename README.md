@@ -48,7 +48,7 @@ Feel free to send me the save if something breaks.
 [h1] Changes XX/11/2020 [/h1]
 [quote]
 - Refresh Missions localisation slightly changed. Seriously, do not click refresh missions unless a new mission is added for your nation (new campaigns don't matter).
-- Madagascar 4th idea supports other government forms (devotion; republican tradition), global_manpower: 25%>20%, 15% global manpower changed to 15% manpower recovery
+- Madagascar formable Ideas tweaked
 - Yingzhou national ideas modified to be more agressive in colonizing (mainly for AI): Removed movement speed, increased colony growth 10>20, added colonist to 1st idea
 - Reforms Postponed Estate interaction: Reform growth -30%>-50%
 - Horde Ideas: Claim Duration 25%>50%, Liberty Desire 5%>10%, Horde Unity 1>0.5
@@ -57,6 +57,7 @@ Feel free to send me the save if something breaks.
 - Assimilation mechanic works for the Achaemenid government reform
 - Bless Viking_Nephilim for fixing the deity icons, god amongst men
 - Lower Crownland made less appealing to be in by adding some state maintenance cost and some other value changes
+- Madagascar nation mission tree is in the process of being heavily changed
 [/quote]
 [/quote]
 [quote]
