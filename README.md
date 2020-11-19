@@ -47,17 +47,7 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes XX/11/2020 [/h1]
 [quote]
-- Refresh Missions localisation slightly changed. Seriously, do not click refresh missions unless a new mission is added for your nation (new campaigns don't matter).
-- Madagascar formable Ideas tweaked
-- Yingzhou national ideas modified to be more agressive in colonizing (mainly for AI): Removed movement speed, increased colony growth 10>20, added colonist to 1st idea
-- Reforms Postponed Estate interaction: Reform growth -30%>-50%
-- Horde Ideas: Claim Duration 25%>50%, Liberty Desire 5%>10%, Horde Unity 1>0.5
-- Muslim Ismaili School: Horde Unity 1>0.5
-- Tribal T5 Centralize Power: Core Creation Cost -5%>-10%; Stability Cost -5%>-10%
-- Assimilation mechanic works for the Achaemenid government reform
-- Bless Viking_Nephilim for fixing the deity icons, god amongst men
-- Lower Crownland made less appealing to be in by adding some state maintenance cost and some other value changes
-- Madagascar nation mission tree is in the process of being heavily changed
+- Recruiting from estates additional conditionals added, so you dont get a 40 tradition leader at start
 [/quote]
 [/quote]
 [quote]
