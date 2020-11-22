@@ -47,8 +47,9 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes XX/11/2020 [/h1]
 [quote]
-- Recruiting from estates additional conditionals added, so you dont get a 40 tradition leader at start
-- Conscriptions ideas fixed
+- Some UI support for resolutions with height x and x
+- Crusade on Cursed Letters #3, Final Question Mark
+
 [/quote]
 [/quote]
 [quote]
