@@ -1,0 +1,365 @@
+
+got_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = GOT
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	got_1 = {
+		icon = the_latin_empire
+		required_missions = {
+
+		}
+		provinces_to_highlight = {
+			province_id = 25
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		position = 1
+		trigger = {
+			owns_core_province = 25
+			is_at_war = no
+			is_subject = no
+		}
+		effect = {
+			25 = {
+				add_unit_construction = {
+					type = light_ship
+					amount = 3
+					speed = 0.1
+					cost = 0.5
+				}
+				add_unit_construction = {
+					type = galley
+					amount = 3
+					speed = 0.1
+					cost = 0.5
+				}
+			}
+		}
+	}
+	got_2 = {
+		icon = mission_corsairs_of_the_north_sea
+		required_missions = {
+			got_1
+		}
+		provinces_to_highlight = {
+
+		}
+		position = 2
+		trigger = {
+			treasury = 100
+			navy_size_percentage = 1.15
+			galley_fraction = 0.50
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Golden Century"
+				}
+				add_country_modifier = {
+					name = "piratical_ambitions"
+					duration = -1
+				}
+			}
+			else = {
+				add_treasury = 750
+			}
+		}
+	}
+	got_4 = {
+		icon = mission_steppe_warriors
+		required_missions = {
+			got_3
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = vastra_gotaland_area
+				area = gotaland_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		position = 3
+		trigger = {
+			vastra_gotaland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			gotaland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			skaneland_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_adm_power = 50
+			add_mil_power = 50
+		}
+	}
+	got_6 = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = {
+			got_4
+		}
+		provinces_to_highlight = {
+			area = skaneland_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		position = 4
+		trigger = {
+			skaneland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = DAN
+					valid_for_personal_unions_trigger = yes
+					DAN = {
+						valid_for_personal_unions_trigger = yes
+					}
+				}
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					months = 240
+					target = DAN
+				}
+			}
+			else = {
+				jutland_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				denmark_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	got_8 = {
+		icon = encroach_on_the_germans
+		required_missions = {
+			got_6
+		}
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = denmark_area
+				area = jutland_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			denmark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			jutland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "deposed_the_danes"
+				duration = -1
+			}
+		}
+	}
+}
+
+got_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = GOT
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	got_3 = {
+		icon = adriatic_access
+		required_missions = {
+			got_1
+		}
+		provinces_to_highlight = {
+			province_id = 25
+			NOT = {
+				development = 25
+				has_trade_building_trigger = yes
+				has_production_building_trigger = yes
+				has_manpower_building_trigger = yes
+			}
+		}
+		position = 2
+		trigger = {
+			owns_core_province = 25
+			25 = {
+				development = 25
+				has_trade_building_trigger = yes
+				has_production_building_trigger = yes
+				has_manpower_building_trigger = yes
+			}
+		}
+		effect = {
+			25 = {
+				add_province_modifier = {
+					name = "seat_of_the_baltic"
+					desc = "seat_of_the_baltic_desc"
+					duration = -1
+				}
+				add_center_of_trade_level = 2
+			}
+		}
+	}
+	got_5 = {
+		icon = mission_european_church
+		required_missions = {
+			got_3
+		}
+		provinces_to_highlight = {
+			province_id = 25
+			NOT = {
+				development = 30
+				has_building = cathedral
+			}
+		}
+		position = 3
+		trigger = {
+			owns_core_province = 25
+			25 = {
+				development = 30
+				has_building = cathedral
+			}
+		}
+		effect = {
+			country_event = {
+				id = SO.32
+			}
+		}
+	}
+	got_7 = {
+		icon = mission_rb_hanseatic_east
+		required_missions = {
+			got_4
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = gotaland_area
+				area = vastra_gotaland_area
+			}
+			NOT = {
+				if = {
+					limit = {
+						has_dlc = "Mandate of Heaven"
+					}
+					is_prosperous = yes
+				}
+				else = {
+					development = 10
+				}
+			}
+		}
+		position = 4
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_trigger_tooltip = {
+					tooltip = "ct_4"
+					AND = {
+						gotaland_area = { 
+							type = all
+							is_prosperous = yes
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+						vastra_gotaland_area = { 
+							type = all
+							is_prosperous = yes
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+				}
+			}
+			else = {
+				gotaland_area = { 
+					type = all
+					development = 10
+				}
+				vastra_gotaland_area = { 
+					type = all
+					development = 10
+				}
+			}
+		}
+		effect = {
+			gotaland_area = {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			vastra_gotaland_area = {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+		}
+	}
+	got_9 = {
+		icon = spread_the_von_wettins
+		required_missions = {
+			got_7
+		}
+		position = 5
+		trigger = {
+			stability = 3
+			legitimacy_equivalent = 99
+			prestige = 99
+		}
+		effect = {
+			baltic_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			scandinavia_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+

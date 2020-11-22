@@ -1,0 +1,410 @@
+shl_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = SHL
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	shl_1 = {
+		icon = the_great_school
+		required_missions = { }
+		trigger = {
+			army_size_percentage = 1
+		}
+		effect = {
+			4141 = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	shl_3 = {
+		icon = Burn_Wooden_Wall
+		required_missions = {
+			shl_1
+		}
+		provinces_to_highlight = {
+			province_id = 4141
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			owns_core_province = 4141
+		}
+		effect = {
+			4141 = {
+				center_of_trade = 1
+				add_manpower = 2
+			}
+			weser_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			holstein_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			lower_saxony_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	shl_5 = {
+		icon = claim_the_borderlands
+		required_missions = {
+			shl_3
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = weser_area
+				area = holstein_area
+				area = lower_saxony_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			weser_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			holstein_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lower_saxony_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			country_event = {
+				id = SO.30
+			}
+		}
+	}
+
+	shl_7 = {
+		icon = army_reforms
+		required_missions = {
+			shl_5
+		}
+		trigger = {
+			army_tradition = 90
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.70
+			}
+			else = {
+				army_size_percentage = 0.90
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "the_great_army_reform"
+				duration = -1
+			}
+		}
+	}
+
+	shl_9 = {
+		icon = ger_kaiserreich
+		required_missions = {
+			shl_7
+			shl_8
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						region = north_german_region
+						region = south_german_region
+					}
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								is_core = ROOT
+								OR = {
+									region = north_german_region
+									region = south_german_region
+								}
+								value = 50
+							}
+						}
+					}
+				}
+				province_id = 50
+				province_id = 57
+				province_id = 65
+				AND = {
+					ROOT = {
+						NOT = { owns_core_province = 75 }
+						NOT = { owns_core_province = 41 }
+					}
+					OR = {
+						province_id = 75
+						province_id = 41
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_core_province = 1868 }
+						NOT = { owns_core_province = 70 }
+					}
+					OR = {
+						province_id = 1868
+						province_id = 70
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_core_province = 1876 }
+						NOT = { owns_core_province = 67 }
+					}
+					OR = {
+						province_id = 1876
+						province_id = 67
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_core_province = 1762 }
+						NOT = { owns_core_province = 85 }
+					}
+					OR = {
+						province_id = 1762
+						province_id = 85
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_core_province = 41 }
+						NOT = { owns_core_province = 75 }
+					}
+					OR = {
+						province_id = 41
+						province_id = 75
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_core_province = 44 }
+						NOT = { owns_core_province = 45 }
+					}
+					OR = {
+						province_id = 44
+						province_id = 45
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_core_province = 61 }
+						NOT = { owns_core_province = 63 }
+					}
+					OR = {
+						province_id = 61
+						province_id = 63
+					}
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			#adm_tech = 17
+			#dip_tech = 17
+			#mil_tech = 18
+			is_free_or_tributary_trigger = yes
+			owns_core_province = 50	# Berlin
+			owns_core_province = 57	# Brunswick
+			owns_core_province = 65	# München
+			OR = {
+				owns_core_province = 1868 # Augsburg
+				owns_core_province = 70 # Wurttemberg
+			}
+			OR = {
+				owns_core_province = 67	# Nürnberg
+				owns_core_province = 1876 # Frankfurt
+			}
+			OR = {
+				owns_core_province = 1762 # Niederhessen
+				owns_core_province = 85	# Köln
+			}
+			OR = {
+				owns_core_province = 41	# Königsberg
+				owns_core_province = 75	# Strassburg
+			}
+			OR = {
+				owns_core_province = 44	# Hamburg
+				owns_core_province = 45	# Lubeck
+			}
+			OR = {
+				owns_core_province = 61	# Dresden
+				owns_core_province = 63	# Thüringen
+			}
+			num_of_owned_provinces_with = {
+				is_core = ROOT
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+				value = 50
+			}
+		}
+		effect = {
+			change_tag = GER
+			restore_country_name_effect = yes
+			set_in_empire = no
+			emperor = {
+				country_event = { id = hre_event.5 }
+			}
+			set_government_rank = 3
+			north_german_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = GER
+			}
+			south_german_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = GER
+			}			
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			set_country_flag = formed_germany_flag
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			swap_non_generic_missions = yes
+		}
+	}
+}
+
+shl_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = SHL
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	shl_2 = {
+		icon = mission_african_gold
+		required_missions = { }
+		trigger = {
+			treasury = 100
+			monthly_income = 20
+		}
+		effect = {
+			add_country_modifier = {
+				name = "lubeck_economics_shl"
+				duration = -1
+			}
+		}
+	}
+
+	shl_4 = {
+		icon = mission_corsairs_of_the_north_sea
+		required_missions = {
+			shl_1
+			shl_2
+		}
+		trigger = {
+			45 = {
+				is_strongest_trade_power = ROOT
+			}
+		}
+		effect = {
+			add_treasury = 500
+		}
+	}
+
+
+
+	shl_8 = {
+		icon = a.e.i.o.u.
+		position = 4
+		required_missions = {
+			shl_5
+			
+		}
+		provinces_to_highlight = {
+			region = north_german_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				region = north_german_region
+			}
+			core_percentage = 0.95
+		}
+		effect = {
+			north_german_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			south_german_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	shl_10 = {
+		icon = mission_rb_grow_the_channel
+		position = 5
+		required_missions = {
+			shl_8
+		}
+		trigger = {
+			navy_tradition = 90
+			navy_size_percentage = 1
+			heavy_ship_fraction = 0.30
+		}
+		effect = {
+			add_country_modifier = {
+				name = "the_imperial_navy_shl"
+				duration = -1
+			}
+		}
+	}
+}

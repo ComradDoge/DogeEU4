@@ -49,6 +49,13 @@ Feel free to send me the save if something breaks.
 [quote]
 - Some UI support for resolutions with height x and x
 - Crusade on Cursed Letters #3, Final Question Mark
+- Forming Britain now requires all of the British isles instead of just a few provinces
+- Suomenusko deity modifiers slightly changed
+
+Missions
+- New Sapmi, Holstein, Gotland missions
+- Scania given Danish missions so it has something to do
+- Danelaw formable with ideas and missions added. (Jutland, Zealand, Skane. Don't be Denmark)
 
 [/quote]
 [/quote]
@@ -127,7 +134,8 @@ Reminder that not all parts of the mods will be added or without changes which i
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1887798411] Sundered Lands [/url] by Javingr    [/quote]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1887798411] Sundered Lands [/url] by Javingr
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05 [/quote]
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:

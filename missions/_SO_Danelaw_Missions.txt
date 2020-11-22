@@ -1,0 +1,1505 @@
+dl_main_missions = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = DAE
+	}
+	has_country_shield = yes
+	
+	dl_stabilize_realm = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { } 
+		position = 1 
+		
+		trigger = {
+			legitimacy_equivalent = 80
+			stability = 1
+			overextension_percentage = 0.00
+		}
+		
+		effect = {
+			home_counties_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = root }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	dl_conquest_of_london = {
+		icon = mission_rb_scottish_conquer_london
+		required_missions = { dl_stabilize_realm }
+		position = 2
+		
+		provinces_to_highlight = {
+			area = home_counties_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				area = home_counties_area
+			}
+			236 = { owned_by = ROOT }
+		}
+		
+		effect = {
+			wessex_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+				
+			home_counties_area = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT 
+				}
+				add_province_modifier = {
+					name = back_in_the_danelaw # gives provinces 0.25 goods produced and 10% trade power
+					duration = 3650
+				}
+			}
+		}
+	}
+	
+	dl_conquest_of_wessex = {
+		icon = dalmatian_conquest
+		required_missions = { dl_conquest_of_london }
+		position = 3
+		
+		provinces_to_highlight = {
+			area = wessex_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				OR = {
+					area = wessex_area
+				}
+			}
+		}
+		
+		effect = {
+			west_midlands_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			wessex_area = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				add_province_modifier = {
+					name = back_in_the_danelaw
+					duration = 3650
+				}
+			}
+		}
+	}
+	
+	dl_conquest_of_midlands = {
+		icon = take_the_littoral
+		required_missions = { dl_conquest_of_wessex }
+		position = 4
+		
+		provinces_to_highlight = {
+			area = west_midlands_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 2
+				area = west_midlands_area
+			}
+		}
+		
+		effect = {
+			wales_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			west_midlands_area = {
+				add_province_modifier = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					name = back_in_the_danelaw
+					duration = 3650
+				}
+			}
+		}
+	}
+	
+	dl_conquest_of_wales = {
+		icon = mission_rb_conquer_wales
+		required_missions = { dl_conquest_of_midlands 
+			dl_seize_highlands 
+		}
+		position = 5
+		
+		provinces_to_highlight = {
+			area = wales_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				area = wales_area
+			}
+		}
+		
+		effect = {
+			leinster_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				set_government_rank = 2
+			}
+			else = {
+				add_prestige = 25
+			}
+		}
+	}
+	
+	dl_leinster_2 = {
+		icon = mission_rb_conquer_leinster
+		required_missions = { dl_conquest_of_wales }
+		position = 6
+		
+		provinces_to_highlight = {
+			area = leinster_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		trigger = { 
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				area = leinster_area
+			}
+			
+			373 = { # Dublin
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			ulster_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			connacht_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			munster_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	dl_ulster = {
+		icon = mission_rb_conquer_ulster
+		required_missions = { dl_leinster_2 }
+		position = 7
+		
+		provinces_to_highlight = {
+			area = ulster_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		trigger = { 
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 2
+				area = ulster_area
+			}
+		}
+		
+		effect = {
+			add_province_modifier = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				name = dl_ireland
+				duration = 10950
+			}
+		}
+	}
+	
+	dl_jewel = {
+		icon = mission_rb_into_ireland
+		required_missions = { dl_ulster 
+		dl_munster }
+		position = 8
+		
+		provinces_to_highlight = {
+			OR = {
+				area = munster_area
+				area = ulster_area
+				area = connacht_area
+				area = leinster_area
+			}
+			NOT = {
+				development_in_provinces = {
+					value = 35
+					area = leinster_area
+				}
+				development_in_provinces = {
+					value = 25
+					area = ulster_area
+				}
+				development_in_provinces = {
+					value = 25
+					area = connacht_area
+				}
+				development_in_provinces = {
+					value = 25
+					area = munster_area
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				NOT = { is_prosperous = yes }
+			}
+			else = {
+				NOT = {
+					munster_area = {
+						type = all
+						owned_by = ROOT
+						NOT = { devastation = 1 }
+					}
+					ulster_area = {
+						type = all
+						owned_by = ROOT
+						NOT = { devastation = 1 }
+					}
+					connacht_area = {
+						type = all
+						owned_by = ROOT
+						NOT = { devastation = 1 }
+					}
+					leinster_area = {
+						type = all
+						owned_by = ROOT
+						NOT = { devastation = 1 }
+					}
+				}
+			}
+		}
+		trigger = { 
+			development_in_provinces = {
+				value = 35
+				area = leinster_area
+			}
+			development_in_provinces = {
+				value = 25
+				area = ulster_area
+			}
+			development_in_provinces = {
+				value = 25
+				area = connacht_area
+			}
+			development_in_provinces = {
+				value = 25
+				area = munster_area
+			}
+			if = {
+				limit = { 
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_trigger_tooltip = {
+					tooltip = "ct_4"
+					munster_area = {
+						owned_by = ROOT
+						is_prosperous = yes
+					}
+					ulster_area = {
+						owned_by = ROOT
+						is_prosperous = yes
+					}
+					connacht_area = {
+						owned_by = ROOT
+						is_prosperous = yes
+					}
+					leinster_area = {
+						owned_by = ROOT
+						is_prosperous = yes
+					}
+				}
+			}
+			else = {
+				munster_area = {
+					type = all
+					owned_by = ROOT
+					NOT = { devastation = 1 }
+				}
+				ulster_area = {
+					type = all
+					owned_by = ROOT
+					NOT = { devastation = 1 }
+				}
+				connacht_area = {
+					type = all
+					owned_by = ROOT
+					NOT = { devastation = 1 }
+				}
+				leinster_area = {
+					type = all
+					owned_by = ROOT
+					NOT = { devastation = 1 }
+				}
+			}
+		}
+		
+		effect = {
+			munster_area = {
+				add_permanent_province_modifier = {
+					name = dl_jewel_m
+					duration = -1
+				}
+			}
+			ulster_area = {
+				add_permanent_province_modifier = {
+					name = dl_jewel_m
+					duration = -1
+				}
+			}
+			connacht_area = {
+				add_permanent_province_modifier = {
+					name = dl_jewel_m
+					duration = -1
+				}
+			}
+			leinster_area = {
+				add_permanent_province_modifier = {
+					name = dl_jewel_m
+					duration = -1
+				}
+			}
+			normandy_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			177 = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	dl_hastings = {
+		icon = mission_rb_conquer_brittany
+		required_missions = { dl_jewel }
+		position = 9
+		
+		provinces_to_highlight = {
+			OR = {
+				area = normandy_area
+				province_id = 177
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = { 
+			normandy_area = {
+				type = all
+				owned_by = ROOT
+			}
+			177 = { owned_by = ROOT }
+			NOT = { exists = ENG }
+			NOT = { exists = GBR }
+		}
+		
+		effect = {
+			loire_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			orleans_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			add_country_modifier = {
+				name = england_shatter
+				duration = -1
+			}
+		}
+	}
+	
+	dl_rollo = {
+		icon = mission_rb_angevin_kingdom
+		required_missions = { dl_hastings }
+		position = 10
+		
+		provinces_to_highlight = {
+			OR = {
+				area = loire_area
+				area = orleans_area
+				area = brittany_area
+				area = ile_de_france_area
+				area = picardy_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = { 
+			loire_area = {
+				type = all
+				owned_by = ROOT
+			}
+			orleans_area = {
+				type = all
+				owned_by = ROOT
+			}
+			brittany_area = {
+				type = all
+				owned_by = ROOT
+			}
+			ile_de_france_area = {
+				type = all
+				owned_by = ROOT
+			}
+			picardy_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			country_event = { id = dae.rollo_legacy }
+		}
+	}
+}
+
+dl_scotland_missions = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = DAE
+	}
+	has_country_shield = yes
+	
+	dl_retake_cores = {
+		icon = mission_rb_unite_the_clans
+		required_missions = { dl_stabilize_realm }
+		position = 2
+		
+		provinces_to_highlight = {
+			area = scottish_marches_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			scottish_marches_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+		
+		effect = {
+			lowlands_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	dl_seize_lowlands = {
+		icon = mission_rb_rein_in_the_highland_clans
+		required_missions = { dl_retake_cores }
+		position = 3
+		
+		provinces_to_highlight = {
+			area = lowlands_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				area = lowlands_area
+			}
+			248 = { # Lothian
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			highlands_area = {
+				limit = {
+					NOT = { is_core = ROOT}
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			kingdom_of_the_isles_area = {
+				limit = {
+					NOT = { is_core = ROOT}
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	dl_seize_highlands = {
+		icon = mission_rb_conquer_the_highlands
+		required_missions = { dl_seize_lowlands }
+		position = 4
+		
+		provinces_to_highlight = {
+			OR = {
+				area = highlands_area
+				area = kingdom_of_the_isles_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			local_autonomy = 35
+		}
+		
+		trigger = { 
+			highlands_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+				NOT = { local_autonomy = 35 }
+			}
+			kingdom_of_the_isles_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+				NOT = { local_autonomy = 35 }
+			}
+		}
+		
+		effect = {
+			highlands_area = {
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = highland_recruitment
+					duration = 7300
+				}
+			}
+			
+			kingdom_of_the_isles_area = {
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = highland_recruitment
+					duration = 7300
+				}
+			}
+		}
+	}
+	
+	dl_tech1 = {
+		icon = mission_early_modern_university
+		required_missions = {  }
+		position = 5
+		
+		trigger = { 
+			if = {
+				limit = { is_year = 1750 }
+				has_institution = industrialization
+			}
+			else_if = {
+				limit = { is_year = 1700 }
+				has_institution = enlightenment
+			}
+			else_if = {
+				limit = { is_year = 1650 }
+				has_institution = manufactories
+			}
+			else_if = {
+				limit = { is_year = 1600 }
+				has_institution = global_trade
+			}
+			else_if = {
+				limit = { is_year = 1550 }
+				has_institution = printing_press
+			}
+			else_if = {
+				limit = { is_year = 1500 }
+				has_institution = new_world_i
+			}
+			else_if = {
+				limit = { is_year = 1450 }
+				has_institution = renaissance
+			}
+			
+			else_if = {
+				limit = {
+					NOT = { is_year = 1450 }
+				}
+				has_institution = renaissance
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				add_country_modifier = {
+					name = dl_institution
+					duration = 7300
+				}
+			}
+			else = {
+				add_country_modifier = {
+					dl_institution_norb
+					duration = 7300
+				}
+			}
+		}
+	}
+	
+	dl_tech2 = {
+		icon = bibliotheca_corviana
+		required_missions = { dl_tech1 }
+		position = 6
+		
+		trigger = {
+			if = {
+				limit = { has_dlc = "Rule Britannia" }
+				innovativeness = 25
+			}
+			else = {
+				yearly_income = 150
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = dl_institution2
+				duration = 7300
+			}
+			
+			add_piety = 0.5
+			add_papal_influence = 20
+			add_church_power = 10
+			if = {
+				limit = {
+					religion = norse
+				}
+				add_country_modifier = {
+					name = dl_norse_tech
+					duration = 7300
+				}
+			}
+			if = {
+				limit = {
+					religion = suomenusko
+				}
+				add_country_modifier = {
+					name = dl_suo_tech
+					duration = 7300
+				}
+			}		
+		}
+	}
+	
+	dl_munster = {
+		icon = mission_rb_conquer_munster
+		required_missions = { dl_leinster_2 }
+		position = 7
+		
+		provinces_to_highlight = {
+			area = munster_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = { 
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 2
+				area = munster_area
+			}
+		}
+		
+		effect = {
+			munster_area = {
+				add_permanent_province_modifier = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					name = ireland_dev
+					duration = 10950
+				}
+			}
+		}
+	}
+	
+	dl_njor = {
+		icon = mission_rb_the_thirteen_colonies
+		required_missions = {
+			dl_america
+		}
+		position = 8
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_eastern_america
+				province_id = 965
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = {
+				965 = { province_development = 20 }
+			}
+		}
+		
+		trigger = { 
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				colonial_region = colonial_eastern_america
+			}
+			965 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			965 = { 
+				add_permanent_province_modifier = {
+					name = new_jorvik
+					duration = -1
+				}
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 3
+				center_of_trade = 1
+			}
+		}
+	}
+}
+
+dl_econ_missions = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = DAE
+	}
+	has_country_shield = yes
+	
+	dl_dev_york = {
+		icon = Compulsory_Education
+		required_missions = { dl_stabilize_realm }
+		position = 2
+		
+		provinces_to_highlight = {
+			province_id = 245
+			NOT = { development = 35 }
+		}
+		trigger = {
+			prestige = 1
+			
+			245 = { #York
+				development = 35
+			}
+		}
+		
+		effect = {
+			add_treasury = 50
+		}
+	}
+	
+	dl_prosperity = {
+		icon = austria_prospers
+		required_missions = { dl_dev_york }
+		position = 3
+		
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				OR = {
+					area = yorkshire_area
+					area = scottish_marches_area
+					area = east_midlands_area
+					area = east_anglia_area
+				}
+				NOT = { is_prosperous = yes }
+			}
+			else = {
+				province_id = 245
+			}
+		}
+		
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_trigger_tooltip = {
+					tooltip = "ct_4"
+					yorkshire_area = {
+						type = all
+						is_prosperous = yes
+					}
+					scottish_marches_area = {
+						type = all
+						is_prosperous = yes
+					}
+					east_midlands_area = {
+						type = all
+						is_prosperous = yes
+					}
+					east_anglia_area = {
+						type = all
+						is_prosperous = yes
+					}
+				}
+			}
+			else = {
+				treasury = 200
+				NOT = { war_exhaustion = 1 }
+				is_at_war = no
+			}
+		}
+		effect = {
+			add_treasury = 200
+			add_country_modifier = {
+				name = dl_prosperity_2
+				duration = 7300
+			}
+		}
+	}
+	
+	dl_f_trade = {
+		icon = overshadow_venice
+		required_missions = { dl_prosperity }
+		position = 4
+		
+		trigger = {
+			245 = {
+				trade_share = {
+					country = DAE
+					share = 35
+				}
+			}
+			trade_income_percentage = 0.25
+		}
+		
+		effect = {
+			add_treasury = 250
+			add_country_modifier = {
+				name = dl_trade
+				duration = 7300
+			}
+		}
+	}
+	
+	dl_o_trade = {
+		icon = mission_rb_import_potatoes
+		required_missions = { dl_f_trade 
+		 dl_leinster_2 }
+		position = 7
+
+		provinces_to_highlight = {
+			province_id = 373
+			NOT = {
+				development = 15
+				owned_by = ROOT
+			}
+		}
+		
+		trigger = {
+			373 = {
+				development = 15
+				owned_by = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = "ct_17"
+				has_global_flag = triangle_happened
+			}
+		}
+		
+		effect = {
+			373 = { # Dublin
+				center_of_trade = 2
+				change_trade_goods = slaves
+				add_permanent_province_modifier = {
+					name = dublin_slaves
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = "ct_19"
+			hidden_effect = {			
+				guinea_region = {
+					limit = {
+						has_port = yes
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT	
+				}
+			}
+		}
+	}
+	
+	dl_guinea = {
+		icon = mission_rb_colonise_spice_islands
+		required_missions = { dl_o_trade }
+		position = 8
+		
+		provinces_to_highlight = {
+			region = guinea_region
+			has_port = yes
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = guinea_region
+				value = 10
+				has_port = yes
+			}
+		}
+		
+		effect = {
+			2258 = { # ivory coast
+				add_trade_modifier = {
+					who = ROOT
+					duration = 5475
+					power = 50
+					key = STRONG_MERCHANTS
+				}
+			}
+			if = {
+				limit = {
+					1177 = { NOT = { is_city = yes } }
+				}
+				add_country_modifier = {
+					name = dl_cape_m
+					duration = 10950
+				}
+			}
+			else = {
+				1177 = { add_permanent_claim = ROOT }
+			}
+		}
+	}
+	
+	dl_cape = {
+		icon = mission_launch_a_flagship
+		required_missions = { dl_guinea }
+		position = 9
+		
+		provinces_to_highlight = {
+			province_id = 1177 # Cape
+			NOT = { owned_by = ROOT }
+			NOT = { is_city = yes }
+		}
+		
+		trigger = {
+			1177 = {
+				owned_by = ROOT 
+				is_city = yes
+			}
+		}
+		
+		effect = {
+			malabar_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			1201 = { #Zanzibar
+				add_trade_modifier = {
+					who = ROOT
+					duration = 7300
+					power = 50
+					key = STRONG_MERCHANTS
+				}
+			}
+		}
+    }
+	
+	dl_calicut = {
+		icon = mission_trade_with_cathay
+		required_missions = { dl_cape }
+		position = 10
+		
+		provinces_to_highlight = {
+			area = malabar_area 
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				area = malabar_area
+				value = 4
+			}
+		}
+		
+		effect = {
+			coromandel_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+    }
+	
+	dl_tha = {
+		icon = mission_empire
+		required_missions = { dl_calicut
+		dl_novgorod }
+		position = 11
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 236 
+				province_id = 97 
+				province_id = 373 
+				province_id = 23 
+				province_id = 12
+				province_id = 6 
+				province_id = 1 
+				province_id = 25 
+				province_id = 43 
+				province_id = 33 
+				province_id = 310 
+				province_id = 1114
+				province_id = 1177
+				province_id = 1201 
+				province_id = 534 
+				province_id = 530
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = "ct_18"
+				
+				236 = { owned_by = ROOT }
+				97 = { owned_by = ROOT }
+				373 = { owned_by = ROOT }
+				23 = { owned_by = ROOT }
+				12 = { owned_by = ROOT }
+				6 = { owned_by = ROOT }
+				1 = { owned_by = ROOT }
+				25 = { owned_by = ROOT }
+				43 = { owned_by = ROOT }
+				33 = { owned_by = ROOT }
+				310 = { owned_by = ROOT }
+				1114 = { owned_by = ROOT }
+				1177 = { owned_by = ROOT }
+				1201 = { owned_by = ROOT }
+				534 = { owned_by = ROOT }
+				530 = { owned_by = ROOT }
+			}
+			naval_forcelimit = 175
+			navy_size_percentage = 0.8
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = dl_tha_m
+				duration = -1
+			}
+		}
+	}
+}
+
+dl_baltic_missions = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = DAE
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	dl_networks = {
+		icon = mission_heart_of_the_hansa
+		required_missions = { dl_stabilize_realm }
+		position = 2
+		
+		trigger = {
+			23 = {
+				trade_share = {
+					country = DAE
+					share = 20
+				}
+			}
+			45 = {
+				trade_share = {
+					country = DAE
+					share = 5
+				}
+			}
+		}
+		
+		effect = {
+			23 = { #Bergen
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	dl_bergen = {
+		icon = mission_rb_hanseatic_east
+		required_missions = { dl_networks }
+		position = 3
+		
+		provinces_to_highlight = {
+			province_id = 23
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			23 = {
+				trade_share = {
+					country = DAE
+					share = 30
+				}
+			}
+			23 = { owned_by = ROOT 
+			is_core = ROOT }
+		}
+		
+		effect = {
+			6 = { #Lund
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			12 = { #Copenhagen
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			45 = { #Lubeck
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	dl_lubeck = {
+		icon = mission_hanseatic_city
+		required_missions = { dl_bergen }
+		position = 4
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 6
+				province_id = 12
+				province_id = 45
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			12 = {
+				trade_share = {
+					country = DAE
+					share = 10
+				}
+			}
+			OR = {
+				6 = { owned_by = ROOT }
+				12 = { owned_by = ROOT }
+				45 = { owned_by = ROOT }
+			}
+		}
+		effect = {
+			25 = { #Visby
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_trade_modifier = {
+					who = DAE
+					duration = 5475
+					power = 75
+					key = STRONG_MERCHANTS
+			}
+		}
+	}
+	
+	dl_gotland = {
+		icon = mission_invade_island
+		required_missions = { dl_lubeck }
+		position = 5
+		
+		provinces_to_highlight = {
+			province_id = 25
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			25 = {
+				trade_share = {
+					country = DAE
+					share = 15
+				}
+			}
+			25 = { owned_by = DAE }
+		}
+		effect = {
+			33 = { #Neva
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			310 = { #Novgorod
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	dl_novgorod = {
+		icon = mission_novgorod_the_great
+		required_missions = { dl_gotland }
+		position = 10
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 33
+				province_id = 310
+			}
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			310 = {
+				trade_share = {
+					country = DAE
+					share = 20
+				}
+			}
+			33 = { owned_by = DAE }
+			310 = { owned_by = DAE }
+		}
+		effect = {
+			add_country_modifier = {
+				name = dl_novgorod_m
+				duration = 10950
+			}
+			russia_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+
+dl_nw_missions = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = DAE
+	}
+	has_country_shield = yes
+	
+	dl_islands = {
+		icon = mission_scandinavian_port_authority
+		required_missions = { dl_seize_highlands }
+		position = 5
+		
+		provinces_to_highlight = {
+			area = subarctic_islands_area
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				area = subarctic_islands_area
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dl_enthusiasm
+				duration = 10950
+			}
+			1104 = {
+				discover_country = ROOT
+			}
+			1105 = {
+				discover_country = ROOT
+			}
+			1804 = {
+				discover_country = ROOT
+			}
+			1482 = {
+				discover_country = ROOT
+			}
+			1924 = {
+				discover_country = ROOT
+			}
+			1481 = {
+				discover_country = ROOT
+			}
+			1610 = {
+				discover_country = ROOT
+			}
+			1104 = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT}
+				}
+				add_permanent_claim = ROOT
+			}
+			1105 = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	dl_greenland = {
+		icon = mission_rb_settle_the_north
+		required_missions = { dl_islands }
+		position = 6
+		
+		provinces_to_highlight = {
+			area = greenland_area
+			NOT = { owned_by = ROOT }
+		}
+		
+		trigger = {
+			greenland_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = dl_cape_m
+				duration = 10950
+			}
+		}
+	}
+	dl_america = {
+		icon = mission_rb_colonise_canada
+		required_missions = { dl_greenland }
+		position = 7
+		
+		trigger = {
+			colonial_eastern_america = {
+				value = 15
+				has_discovered = ROOT
+			}
+		}
+		effect = {
+			colonial_eastern_america = {
+				limit = {
+					has_port = yes
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+	
+	
+
+
+		
+			
+		
+					
+				
+				
+			
+	
