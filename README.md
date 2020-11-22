@@ -47,19 +47,8 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes XX/11/2020 [/h1]
 [quote]
-- UI Idea group selection support for 600/768/800 height resolutions
-- Crusade on Cursed Letters #3
-- Forming Britain now requires all of the British isles instead of just a few provinces
-- Suomenusko deity modifiers slightly changed
-- Kemetism deity modifiers buffed
-
-Missions
-- New mission trees for:
-    Sapmi, Holstein, Gotland, Kurland, Teutonic Order, Livonia, Hisn Kayfa
-- Scania given Danish missions so it has something to do
-- Danelaw formable with ideas and missions added. (Jutland, Zealand, Skane. Don't be Denmark)
-
-
+- Empire Ideas changed, primarily removed 5% discipline from it.
+- Kingdom of God decision fixed, adds the correct ingame flag and changes country name
 [/quote]
 [/quote]
 [quote]
