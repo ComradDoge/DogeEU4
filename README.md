@@ -48,7 +48,17 @@ Feel free to send me the save if something breaks.
 [h1] Changes XX/11/2020 [/h1]
 [quote]
 - Empire Ideas changed, primarily removed 5% discipline from it.
+- Fire Ideas: Shock damage reduction -5%>-10%, per age mechanic removed
+- Shock Ideas: Cavalry cost -33%>-25%, Shock Damage 5%>10%, Fire Damage reduction -5%>-10%, per age mechanic removed
+- Tactical Ideas: Shock/Fire Damage 10%>5%, Movement Speed 25%>15%
 - Kingdom of God decision fixed, adds the correct ingame flag and changes country name
+- Humanist, Kingdom, Empire Idea groups insides rearranged
+- Livonian Riga mission changed slightly
+- Monastic Breweries fixed and should apply
+- Elective monarchy mechanics in Monarchy Ideas bug fix
+- Cleaned up idea group descriptions that have custom mechanics
+- Estate Interactions tweaked again to make them less appealing
+- All countries start as duchies
 [/quote]
 [/quote]
 [quote]
