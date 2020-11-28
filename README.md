@@ -47,11 +47,16 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes XX/11/2020 [/h1]
 [quote]
-- Fixed Caliphate government, added relevant cbs to it
-- Overall a religion rework, both in game and code wise, on the website Religion category added with info
-- Added Aksum and Ghana formable with ideas
-- Added ideas for:
----Alexandria
+- A religion update, pagan group is now split into european, african, american and asian pagan groups
+- Added more religions to Africa and bits of Asia
+- Bogomilists, lollards and waldensian are more prominent in europe
+- Lollard religion mechanic changed from deities to aspects
+- Added a tab on the [website] to show religions in addition to some basic info about them
+- Lots of back-end stuff to clean up the organization
+- Added Aksum and Ghana Empire formable with ideas
+- Added Ideas for: Alexandria,
+
+
 [/quote]
 [/quote]
 [quote]
