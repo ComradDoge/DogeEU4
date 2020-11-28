@@ -48,7 +48,10 @@ Feel free to send me the save if something breaks.
 [h1] Changes XX/11/2020 [/h1]
 [quote]
 - Fixed Caliphate government, added relevant cbs to it
-- Estates +1 powerpoint costs 10>15 crownland
+- Overall a religion rework, both in game and code wise, on the website Religion category added with info
+- Added Aksum and Ghana formable with ideas
+- Added ideas for:
+---Alexandria
 [/quote]
 [/quote]
 [quote]
