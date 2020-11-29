@@ -51,10 +51,12 @@ Feel free to send me the save if something breaks.
 - Added more religions to Africa and bits of Asia
 - Bogomilists, lollards and waldensian are more prominent in europe
 - Lollard religion mechanic changed from deities to aspects
-- Added a tab on the [website] to show religions in addition to some basic info about them
-- Lots of back-end stuff to clean up the organization
+- Some religion values were buffed or changed
+- Added a tab on the doge.azurewebsite.net/Religions to show religions in addition to some basic info about them
 - Added Aksum and Ghana Empire formable with ideas
-- Added Ideas for: Alexandria,
+- Added Ideas for Alexandria
+- Hisn Kayfa Caliphate government reform now provides all available assimilation cultures
+- Religion colours slightly tweaked
 
 
 [/quote]
@@ -78,8 +80,8 @@ Feel free to send me the save if something breaks.
 - New Buildings
 - New Formables [/quote]
 [quote]
-[h1] Formables [/h1]
-The possible new formables are on this [url=https://doge.azurewebsites.net/Formables] site [/url].
+[h1] Formables and Religions[/h1]
+The possible new formables and religions are this [url=https://doge.azurewebsites.net] site [/url].
 [/quote]
 [h1] Lite Version [/h1]
 [quote] This mod is my take on Shattered and I can understand if you are not interested in most of the game changing aspects. The Lite version is much more toned down and closer to vanilla but still has enough meat to it for a new feel.
