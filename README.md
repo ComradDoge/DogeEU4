@@ -49,7 +49,9 @@ Feel free to send me the save if something breaks.
 [quote]
 - Added Aksum and Ghana Empire formable with ideas
 - Added Ideas for Alexandria
+- A bunch of back-end clean up
 - Hisn Kayfa Caliphate government reform now provides all available assimilation cultures
+- Road building values tweaked
 
 Religion
 All religions that are being used can be check on doge.azurewebsites.net/Religions
