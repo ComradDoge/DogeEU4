@@ -47,16 +47,20 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes XX/11/2020 [/h1]
 [quote]
-- A religion update, pagan group is now split into european, african, american and asian pagan groups
-- Added more religions to Africa and bits of Asia
-- Bogomilists, lollards and waldensian are more prominent in europe
-- Lollard religion mechanic changed from deities to aspects
-- Some religion values were buffed or changed
-- Added a tab on the doge.azurewebsite.net/Religions to show religions in addition to some basic info about them
 - Added Aksum and Ghana Empire formable with ideas
 - Added Ideas for Alexandria
 - Hisn Kayfa Caliphate government reform now provides all available assimilation cultures
-- Religion colours slightly tweaked
+
+Religion
+All religions that are being used can be check on doge.azurewebsites.net/Religions
+
+- Africa got a rework with new religions: Bidaic, Siguic, Akom, Orisan, Roogan, Bori, Kalenjinic, Sani
+- Asia got few changes with Dayawism becoming the new Animism in the region
+- Asia got Malankar (India) and Manaism (Pacific)
+- Pagan groups is not gone and split into: American Pagan, European Pagan, African Pagan and Asian pagan. For details check website.
+- Lollards, Bogomilists, Waldensians and Slavics are more prominent in europe
+- Lollard now uses aspects instead of deities mechanic
+
 
 
 [/quote]
