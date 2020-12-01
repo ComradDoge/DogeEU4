@@ -47,25 +47,8 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 30/11/2020 [/h1]
 [quote]
-- Added Aksum and Ghana Empire formable with ideas
-- Added Ideas for Alexandria, Fadl, Aegan, Crete, Majorca and Rugen
-- A bunch of back-end clean up
-- Wendish empire can now be formed also formed by Rugen and anyone of slavic religion
-- Hisn Kayfa Caliphate government reform now provides all available assimilation cultures
-- Road building values tweaked
-
-Religion
-All religions that are being used can be check on doge.azurewebsites.net/Religions
-
-- Africa got a rework with new religions: Bidaic, Siguic, Akom, Orisan, Roogan, Bori, Kalenjinic, Sani
-- Asia got few changes with Dayawism becoming the new Animism in the region
-- Asia got Malankar (India) and Manaism (Pacific)
-- Pagan group is now gone and split into: American Pagan, European Pagan, African Pagan and Asian pagan. For details check website.
-- Lollards, Bogomilists, Waldensians, Jews and Slavs are more prominent in europe
-- Lollard now uses aspects instead of deities mechanic
-- Bogomilists are now in balkans
-- Religion colours tweaked 
-- Suomenusko, Romuva and Slavic deity icons look better
+- Ghana Empire Ideas tweaked
+- Semien Legitimacy idea now also gives republican and devotion
 
 
 
