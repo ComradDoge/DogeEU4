@@ -49,8 +49,10 @@ Feel free to send me the save if something breaks.
 [quote]
 - Ghana Empire Ideas tweaked
 - Semien Legitimacy idea now also gives republican and devotion
-
-
+Formables Expanded Update
+- Belgian ideas replaced with wallonian/flemish variations
+- Lots of new tags in China, removed the normal Republic and Nationalist China formables due to them lacking ideas and having other replacements.
+- Check the formables website at the bottom for more info (Starting from Jomon)
 
 [/quote]
 [/quote]
