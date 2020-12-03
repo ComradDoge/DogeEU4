@@ -45,7 +45,7 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 30/11/2020 [/h1]
+[h1] Changes x/12/2020 [/h1]
 [quote]
 - Ghana Empire Ideas tweaked
 - Semien Legitimacy idea now also gives republican and devotion
@@ -76,7 +76,7 @@ Formables Expanded Update
 - New Formables [/quote]
 [quote]
 [h1] Formables and Religions[/h1]
-The possible new formables and religions are this [url=https://doge.azurewebsites.net] site [/url].
+The possible new formables and religions are on this [url=https://doge.azurewebsites.net] site [/url].
 [/quote]
 [h1] Lite Version [/h1]
 [quote] This mod is my take on Shattered and I can understand if you are not interested in most of the game changing aspects. The Lite version is much more toned down and closer to vanilla but still has enough meat to it for a new feel.
