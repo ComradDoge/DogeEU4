@@ -45,16 +45,9 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 6/12/2020 [/h1]
+[h1] Changes X/12/2020 [/h1]
 [quote]
-
-- Loading Screen has a christmas hat
-- Goverment Reforms descriptions cleaned up a bit
-- Cleaned up starting government reforms in Iberia. Aragon; Catalonia and Valencia start with Kingdom of Aragon reform.
-- Portugal and Castile start with their respective reforms
-- Castile reform mechanic extended to other iberian cultures
-National Ideas
-- Algeciras, Macaronesia, Sevilla, Alentejo and Valencia got their own ideas. >Thank Viking Nephilim
+- IDEAS: Mercia, Wessex, The Isles, London got new ideas >Thank Viking Nephilim
 
 [/quote]
 [/quote]
