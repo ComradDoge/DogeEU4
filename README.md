@@ -45,14 +45,16 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes x/12/2020 [/h1]
+[h1] Changes 6/12/2020 [/h1]
 [quote]
-- Ghana Empire Ideas tweaked
-- Semien Legitimacy idea now also gives republican and devotion
-Formables Expanded Update
-- Belgian ideas replaced with wallonian/flemish variations
-- Lots of new tags in China, removed the normal Republic and Nationalist China formables due to them lacking ideas and having other replacements.
-- Check the formables website at the bottom for more info (Starting from Jomon)
+
+- Loading Screen has a christmas hat
+- Goverment Reforms descriptions cleaned up a bit
+- Cleaned up starting government reforms in Iberia. Aragon; Catalonia and Valencia start with Kingdom of Aragon reform.
+- Portugal and Castile start with their respective reforms
+- Castile reform mechanic extended to other iberian cultures
+National Ideas
+- Algeciras, Macaronesia, Sevilla, Alentejo and Valencia got their own ideas. >Thank Viking Nephilim
 
 [/quote]
 [/quote]
@@ -97,7 +99,6 @@ Reminder that not all parts of the mods will be added or without changes which i
     Shattered Europa by Pirate AI [/quote]
 
 [h3] Expanded Mod Family [/h3]
-
 [quote]    
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2198012132] Formables Expanded[/url]  by Silver Knight of Anor Londo (Verityvoid)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded[/url] by Silver Knight of Anor Londo (Verityvoid)     
@@ -110,7 +111,6 @@ Reminder that not all parts of the mods will be added or without changes which i
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team [/quote]
     
 [h3] Other [/h3]
-
 [quote]    
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
