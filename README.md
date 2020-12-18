@@ -45,9 +45,16 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes X/12/2020 [/h1]
+[h1] Changes 18/12/2020 [/h1]
 [quote]
-- IDEAS: Mercia, Wessex, The Isles, London got new ideas >Thank Viking Nephilim
+- Added Ideas for: Mercia, Wessex, The Isles, London, Annam, Alodia, Egyptian culture
+- Added missions for: Cilli, Provence, Genoa
+- Malkopolska; Wielkopolska and Kujawy start with polish ideas
+- Egyptian culture no longer can form Arabia
+- Cairo exists at start and Mamluks is now a mini-formable
+- Ancient and standard Egypt province requirements increased 15>20
+
+ >Thank Viking Nephilim for new ideas
 
 [/quote]
 [/quote]
