@@ -48,6 +48,7 @@ Feel free to send me the save if something breaks.
 [h1] Changes 18/12/2020 [/h1]
 [quote]
 - Formables added: Occitania
+- Minor religion corrections in germany and transylvania
 [/quote]
 [/quote]
 [quote]
