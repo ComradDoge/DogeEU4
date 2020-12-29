@@ -47,8 +47,15 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 18/12/2020 [/h1]
 [quote]
-- Formables added: Occitania
-- Minor religion corrections in germany and transylvania
+- Empire of China UI is new - mechanic is accessible by completing the "Reform the Middle Kingdom" decision after forming one of the chinese formables (not Taiping; CCP; Wokou)
+- Lowered severity of low mandate by 20% (50% > 30% when at 0 mandate, scales)
+- Celestial reforms numbers tweaked
+- HRE bonuses to the emperor are basically non existant
+- Iceland missions minor fixes regarding British Isles
+- Nassau is no longer atheist
+- Dalmatia starts as a republic, replace for Ragusa
+- Habsburg monarchy requires to be catholic
+- Further work on the 1444 bookmark
 [/quote]
 [/quote]
 [quote]
