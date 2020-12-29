@@ -45,7 +45,7 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 18/12/2020 [/h1]
+[h1] Changes 29/12/2020 [/h1]
 [quote]
 - Empire of China UI is new - mechanic is accessible by completing the "Reform the Middle Kingdom" decision after forming one of the chinese formables (not Taiping; CCP; Wokou)
 - Lowered severity of low mandate by 20% (50% > 30% when at 0 mandate, scales)
@@ -53,7 +53,7 @@ Feel free to send me the save if something breaks.
 - HRE bonuses to the emperor are basically non existant
 - Iceland missions minor fixes regarding British Isles
 - Nassau is no longer atheist
-- Dalmatia starts as a republic, replace for Ragusa
+- Dalmatia starts as a republic, replacement for Ragusa
 - Habsburg monarchy requires to be catholic
 - Further work on the 1444 bookmark
 [/quote]
