@@ -355,119 +355,10 @@ Ottoman_Missions_1 = {
 	}
 	has_country_shield = yes
 
-	TUR_balkan_domination = {
-		icon = me_mission_ottomans_balkan_domination
-		required_missions = { }
-		position = 1
-		provinces_to_highlight = {
-			area = thrace_area
-			NOT = { is_core = ROOT }
-			NOT = { exists = HUN }
-		}
-		trigger = {
-			OR = {
-				if = {
-					limit = {
-						NOT = { exists = BYZ }
-					}
-					thrace_area = {
-						type = all
-						is_core = ROOT
-					}
-				}
-				else_if = {
-					limit = {
-						BYZ = { is_subject = no }
-					}
-					OR = {
-						is_rival = BYZ
-						is_enemy = BYZ
-					}
-					if = {
-						limit = {
-							ai = no
-						}
-						OR = {
-							reverse_has_opinion_modifier = {
-								who = BYZ
-								modifier = insulted
-							}
-							reverse_has_opinion_modifier = {
-								who = BYZ
-								modifier = scornfully_insulted
-							}
-							owns = 151
-						}
-						
-					}
-				}
-				else = {
-					BYZ = {
-						overlord = {
-							OR = {
-								is_rival = ROOT
-								is_enemy = ROOT
-							}
-							if = {
-								limit = {
-									ROOT = { ai = no }
-								}
-								OR = {
-									has_opinion_modifier = {
-										who = ROOT
-										modifier = insulted
-									}
-									has_opinion_modifier = {
-										who = ROOT
-										modifier = scornfully_insulted
-									}
-								}
-							}
-						}
-					}
-				}
-				mission_completed = TUR_constantinople
-			}
-		}
-		effect = {
-			morea_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			macedonia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-
-			bulgaria_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-
-			northern_greece_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-
 	TUR_serbia	= {
 		icon = me_mission_ottomans_serbia_frontier
 		required_missions = {
 			TUR_balkan_domination
-			TUR_build_to_fl
 		}
 		provinces_to_highlight = {
 			OR = {
@@ -478,7 +369,7 @@ Ottoman_Missions_1 = {
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 			NOT = { province_id = 4239 }
 		}
-		position = 2
+		position = 3
 		trigger = { #serbian provinces
 			rascia_area = {
 				type = all
@@ -486,10 +377,7 @@ Ottoman_Missions_1 = {
 			}
 			serbia_area = {
 				type = all
-				OR = {
-					country_or_non_sovereign_subject_holds = ROOT
-					province_id = 4239
-				}
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		effect = {
@@ -500,40 +388,55 @@ Ottoman_Missions_1 = {
 				}
 				add_permanent_claim = ROOT
 			}
-			wallachia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			albania_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+		}
+	}
 
+	TUR_albania	= {
+		icon = me_mission_ottomans_capitulate_the_mamluks
+		required_missions = {
+			TUR_serbia
+		}
+		provinces_to_highlight = {
+			owned_by = ALB
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		position = 4
+		trigger = {
+			NOT = { exists = ALB }
+		}
+		effect = {
 			if = {
 				limit = {
-					exists = WAL
-					WAL = {
-						is_subject = no
+					any_owned_province = {
+						culture = albanian
 					}
 				}
-				add_casus_belli = {
-					target = WAL
-					type = cb_vassalize_mission
+				every_owned_province = {
+					limit = {
+						culture = albanian
+					}
+					add_province_modifier = {
+						name = tur_conversion_of_albania
+						duration = 18250
+					}
 				}
 			}
+			define_advisor = {
+				type = statesman
+				name = "Ishak Pasha"
+				skill = 3
+				culture = albanian
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			country_event = { id = ME_Ottoman_Events.5 }
 		}
 	}
 
 	TUR_bosnia	= {
 		icon = me_mission_ottomans_conquest_of_bosnia
 		required_missions = {
-			TUR_serbia
+			TUR_albania
 		}
 		provinces_to_highlight = {
 			area = bosnia_area
@@ -812,51 +715,11 @@ Ottoman_Missions_2 = {
 	}
 	has_country_shield = yes
 
-	TUR_albania	= {
-		icon = me_mission_ottomans_end_of_albanian_revolt
-		required_missions = {
-			TUR_build_to_fl
-		}
-		provinces_to_highlight = {
-			owned_by = ALB
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		position = 2
-		trigger = {
-			NOT = { exists = ALB }
-		}
-		effect = {
-			if = {
-				limit = {
-					any_owned_province = {
-						culture = albanian
-					}
-				}
-				every_owned_province = {
-					limit = {
-						culture = albanian
-					}
-					add_province_modifier = {
-						name = tur_conversion_of_albania
-						duration = 18250
-					}
-				}
-			}
-			define_advisor = {
-				type = statesman
-				name = "Ishak Pasha"
-				skill = 3
-				culture = albanian
-				religion = ROOT
-				cost_multiplier = 0.5
-			}
-			country_event = { id = ME_Ottoman_Events.5 }
-		}
-	}
+
 	TUR_wallachia = {
 		icon = me_mission_ottomans_subjugate_wallachia
 		required_missions = {
-			TUR_serbia
+			TUR_balkan_domination
 		}
 		provinces_to_highlight = {
 			area = wallachia_area
@@ -1360,18 +1223,20 @@ Ottoman_Missions_3 = {
 		required_missions = { }
 		position = 1
 		trigger = {
-			stability = 2
+			army_size_percentage = 0.75
+			manpower = 5
+			stability = 1
 		}
 		effect = {
 			if = {
 				limit = {
-					NOT = { is_year = 1450 }
+					NOT = { is_year = 1455 }
 				}
 				country_event = { id = ME_Ottoman_Events.1 }
 			}
 			else = {
 				create_general = {
-					tradition = 75
+					tradition = 90
 				}
 			}
 			thrace_area = {
@@ -1383,61 +1248,95 @@ Ottoman_Missions_3 = {
 					add_permanent_claim = ROOT
 				}
 			}
-		}
-	}
-
-	TUR_constantinople = {
-		icon = me_mission_ottomans_sultan_of_rum
-		required_missions = {
-			TUR_build_to_fl
-		}
-		provinces_to_highlight = {
-			province_id = 151
-			OR = {
-				AND = {
-					exists = BYZ
-					NOT = { controlled_by = ROOT }
-				}
-				AND = {
-					NOT = { exists = BYZ }
-					NOT = { is_capital_of = ROOT }
-				}
-			}
-		}
-		position = 3
-		trigger = {
-			if = {
-				limit = {
-					exists = BYZ
-				}
-				is_in_war = {
-					defender_leader = BYZ
-					attacker_leader = ROOT
-				}
-				controls = 151
-			}
-			else = {
-				151 = {
-					owned_by = ROOT
-				}
-			}
-		}
-		effect = {
-			330 = { #trebizond
+			2296 = {
 				if = {
 					limit = {
 						NOT = { owned_by = ROOT }
 						NOT = { is_core = ROOT }
 					}
 					add_permanent_claim = ROOT
-				}
+				}				
 			}
 		}
 	}
+
+	TUR_balkan_domination = {
+		icon = me_mission_greece_ottoman_war
+		required_missions = { TUR_build_to_fl }
+		position = 2
+		provinces_to_highlight = {
+			area = thrace_area
+			NOT = { is_core = ROOT }
+			
+		}
+		trigger = {
+			NOT = { exists = BYZ }
+		}
+		effect = {
+			morea_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			macedonia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+
+			bulgaria_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+
+			northern_greece_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			silistria_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			serbia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			rascia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_casus_belli = {
+				target = WAL
+				type = cb_vassalize_mission
+			}
+		}
+	}
+
+
+
 	TUR_trebizond = {
 		icon = me_mission_ottomans_end_trebizond
 		required_missions = {
-			TUR_constantinople
+			TUR_balkan_domination
 			TUR_candar
 		}
 		provinces_to_highlight = {
