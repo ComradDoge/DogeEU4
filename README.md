@@ -47,14 +47,9 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 06/01/2021 [/h1]
 [quote]
-- Muslim Schools Tweaked
---- Some Muslim schools country modifier pick is a stronger version of the 20 year picked modifier, in most cases it will be half of it. Still figuring out how I want it to be and the balance of it but at least now its a feature and not a bug.
-- Added a new page on the website to show all possible muslim schools and their modifiers https://comraddoge.wordpress.com/religion-muslim-schools/
-- Osman beginning missions tweaked
-- Red Eagle UI integrations
---- Lobby Country selection
---- Multiplayer server selection 
---- Center of Trade icons have numbers
+- Osman mission tree beginning slightly reworked
+- Attrition Icon is much more prominent in the province view
+- Manchu forming decision cores/claim gain slightly changed
 [/quote]
 [/quote]
 [quote]
