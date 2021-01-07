@@ -47,9 +47,12 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 06/01/2021 [/h1]
 [quote]
-- Osman mission tree beginning slightly reworked
-- Attrition Icon is much more prominent in the province view
-- Manchu forming decision cores/claim gain slightly changed
+- Removed Empire requirement from Qing forming decision
+- Crownland negative modifiers for national tax and state maintenance increased
+- Increased AI aggressivenes (400>500)
+- Province Warscore Advisor: -5%>-10%
+- Minor hre bonuses to emperor reinstated but still nerfed
+- Attrition icon change reverted
 [/quote]
 [/quote]
 [quote]
