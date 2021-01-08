@@ -47,12 +47,12 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 06/01/2021 [/h1]
 [quote]
-- Removed Empire requirement from Qing forming decision
-- Crownland negative modifiers for national tax and state maintenance increased
-- Increased AI aggressivenes (400>500)
-- Province Warscore Advisor: -5%>-10%
-- Minor hre bonuses to emperor reinstated but still nerfed
-- Attrition icon change reverted
+- Removed Core-creation and province-warscore-cost advisors
+- Admiral privileges are part of burghers>noble estates
+- Colonist privileges are part of nobles>burghers estates
+- Maritime CB removed
+- Ideas: Trade, Ships focus idea groups tweaked
+- Great Britain Ideas: Naval morale 0.2>0.1, heavy ship power .15>.10,production 0.2>0.1, marines .10>.15
 [/quote]
 [/quote]
 [quote]
