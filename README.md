@@ -47,9 +47,11 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 06/01/2021 [/h1]
 [quote]
-- Ideas: Trade, Ships focus idea groups tweaked. Mostly modifiers lowered although some changed, light ship focus is now more trade focused
-- Switzerland core mission now provides permanent claims
-- Lubeck is back in the empire in hre starts
+- Occitania can form Francia
+- TAG restrictions for Azerbaijan removed, only need to be azerbaijani culture
+- War exhaustion heavily toned down or removed for ruler personality traits
+- Japanese mission event (to choose conquest or naval/colonial) mean time to happen lowered from 25>10
+- Added a hidden event at start that occurs up to 1446 (MTTH 5 months) while not at war, that if a ruler or heir has a negative personality trait it gets removed and re-roled until its a one of the goods ones
 [/quote]
 [/quote]
 [quote]
