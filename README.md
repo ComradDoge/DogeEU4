@@ -45,13 +45,13 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 06/01/2021 [/h1]
+[h1] Changes 11/01/2021 [/h1]
 [quote]
-- Occitania can form Francia
-- TAG restrictions for Azerbaijan removed, only need to be azerbaijani culture
-- War exhaustion heavily toned down or removed for ruler personality traits
-- Japanese mission event (to choose conquest or naval/colonial) mean time to happen lowered from 25>10
-- Added a hidden event at start that occurs up to 1446 (MTTH 5 months) while not at war, that if a ruler or heir has a negative personality trait it gets removed and re-roled until its a one of the goods ones
+- Forming Roman Empire is different: Instead of needing all of the former Roman Empire, as long as you have half of it you can claim to be legitimate successor of the Roman Empire. A country in the west can form it by having France/Iberia/Italy + London and Tunis while the Eastern country can form it by having Balkans/Anatolia/Italy/Mashriqi + Cairo and Tunis.
+- Roman Empire ideas have beend slightly nerfed as previously I had them buffed
+- Added missions for: Rome, Qara Qouynlu, Trebizond, Italy
+- Sapmi mission triggers fixed
+- Formable decisions look cleaner with a neat flag attached, vanilla formables included to make it cleaner and clearer
 [/quote]
 [/quote]
 [quote]
