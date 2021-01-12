@@ -47,11 +47,7 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 11/01/2021 [/h1]
 [quote]
-- Forming Roman Empire is different: Instead of needing all of the former Roman Empire, as long as you have half of it you can claim to be legitimate successor of the Roman Empire. A country in the west can form it by having France/Iberia/Italy + London and Tunis while the Eastern country can form it by having Balkans/Anatolia/Italy/Mashriqi + Cairo and Tunis.
-- Roman Empire ideas have beend slightly nerfed as previously I had them buffed
-- Added missions for: Rome, Qara Qouynlu, Trebizond, Italy
-- Sapmi mission triggers fixed
-- Formable decisions look cleaner with a neat flag attached, vanilla formables included to make it cleaner and clearer
+- Lusong now needs 15 provinces instead of 30, in an area where there are only 23 provinces.
 [/quote]
 [/quote]
 [quote]
