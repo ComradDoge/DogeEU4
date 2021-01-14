@@ -48,6 +48,21 @@ Feel free to send me the save if something breaks.
 [h1] Changes 11/01/2021 [/h1]
 [quote]
 - Lusong now needs 15 provinces instead of 30, in an area where there are only 23 provinces.
+- 1444 Vanilla start now has the vassal;unions;truces etc set up. Inform me if there is stuff in the shattered versions
+- Added an Osman influx event simillar to Moor/Byzantine influx
+- Protestant +2.5% Discipline buffed to 5%, in line with orthodox
+- Reformed: 
+    Stability - New: war_exhaustion = -0.05, state_maintenance_modifier = -0.15
+    War - Modified: land_morale = 0.10>0.15, naval_morale = 0.10>0.15
+    Trade - Modified: global_trade_power = 0.10>0.15, trade_efficiency = 0.10>0.15
+- Taiping Heavenly Kingdom ideas and flavour text changed
+- Pirate republic decision reinstated
+- Various religious changes slightly changed regarding holy war cb
+- Ideas appear in a more familliar order now
+- Standing Army: 7.5% qualities buffed to 10%
+- Conscription: 30%>25% manpower, 20%>25% manpower recovery
+- Quantity: 25%>20% manpower, 25%>20% manpower recovery
+- All army tradition in ideas 1>0.5
 [/quote]
 [/quote]
 [quote]
