@@ -47,22 +47,18 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 11/01/2021 [/h1]
 [quote]
-- Lusong now needs 15 provinces instead of 30, in an area where there are only 23 provinces.
-- 1444 Vanilla start now has the vassal;unions;truces etc set up. Inform me if there is stuff in the shattered versions
-- Added an Osman influx event simillar to Moor/Byzantine influx
-- Protestant +2.5% Discipline buffed to 5%, in line with orthodox
-- Reformed: 
-    Stability - New: war_exhaustion = -0.05, state_maintenance_modifier = -0.15
-    War - Modified: land_morale = 0.10>0.15, naval_morale = 0.10>0.15
-    Trade - Modified: global_trade_power = 0.10>0.15, trade_efficiency = 0.10>0.15
-- Taiping Heavenly Kingdom ideas and flavour text changed
-- Pirate republic decision reinstated
-- Various religious changes slightly changed regarding holy war cb
-- Ideas appear in a more familliar order now
-- Standing Army: 7.5% qualities buffed to 10%
-- Conscription: 30%>25% manpower, 20%>25% manpower recovery
-- Quantity: 25%>20% manpower, 25%>20% manpower recovery
-- All army tradition in ideas 1>0.5
+- North German Confederation gets its own ideas now
+- The Mine event system is up to date with Lostacks version (aka its better)
+- File clean up and bug fixing (cheers Lostack)
+- Prussian mission modifiers somewhat nerfed/shuffled
+- Nepal government icons fixed
+- Iberian Harem: Your ruler will pick 10 year olds as heirs instead of toddlers
+- Roman Autocracy: This one is a bit weird and has been changed to be more simillar to Iberian harem
+- Development Gulag: Ibadi, Shinto, Hellenism got their development cost removed, Economic 15%>10%, Kingdom/Empire dev cost removed
+- Development Ideas: -5% dev cost removed, production 5%>15% /tax 5%>10% (why the fuck was it 5%), trade_efficiency = 0.05 > statewide_governing_cost = -0.1 + state_maintenance_modifier = -0.1, yearly_inflation_reduction = -0.05 > -0.1, slightly reshuffled
+- State Affairs: monthly autonomy -0.025 > -0.1
+- Governing capacity privilige is now combined into one to save space and make few tweaks
+- General file and error clean up
 [/quote]
 [/quote]
 [quote]
