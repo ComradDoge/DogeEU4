@@ -1,6 +1,6 @@
 name="1.30 Doge Shattered Europa"
-replace_path="history/diplomacy"
 replace_path="common/bookmarks"
+replace_path="common/estates"
 tags={
 	"Expansion"
 	"Balance"
