@@ -47,18 +47,8 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 11/01/2021 [/h1]
 [quote]
-- North German Confederation gets its own ideas now
-- The Mine event system is up to date with Lostacks version (aka its better)
-- File clean up and bug fixing (cheers Lostack)
-- Prussian mission modifiers somewhat nerfed/shuffled
-- Nepal government icons fixed
-- Iberian Harem: Your ruler will pick 10 year olds as heirs instead of toddlers
-- Roman Autocracy: This one is a bit weird and has been changed to be more simillar to Iberian harem
-- Development Gulag: Ibadi, Shinto, Hellenism got their development cost removed, Economic 15%>10%, Kingdom/Empire dev cost removed
-- Development Ideas: -5% dev cost removed, production 5%>15% /tax 5%>10% (why the fuck was it 5%), trade_efficiency = 0.05 > statewide_governing_cost = -0.1 + state_maintenance_modifier = -0.1, yearly_inflation_reduction = -0.05 > -0.1, slightly reshuffled
-- State Affairs: monthly autonomy -0.025 > -0.1
-- Governing capacity privilige is now combined into one to save space and make few tweaks
-- General file and error clean up
+- Terrain Type: Lowered or remove the negative cost for most of the terrain types, added colonial cost growth to slow down colonialism and to prioritise more attractive provinces.
+- Roman culture is now part of the byzantine culture group
 [/quote]
 [/quote]
 [quote]
@@ -71,6 +61,7 @@ Feel free to send me the save if something breaks.
 - New State Edicts (that upgrade)
 - Quality of Life Improvements
 - Religion specific Idea groups
+- Vastly expanded estate system
 - Game runs until 20th century
 - Dynamic Age objectives
 - Changeable trade goods
