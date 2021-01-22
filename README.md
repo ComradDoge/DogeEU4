@@ -49,6 +49,9 @@ Feel free to send me the save if something breaks.
 [quote]
 - Terrain Type: Lowered or remove the negative cost for most of the terrain types, added colonial cost growth to slow down colonialism and to prioritise more attractive provinces.
 - Roman culture is now part of the byzantine culture group
+- 1444 Vanilla: Work on african and arabian countries
+- Government update: clean up of files, 3 shared reforms for nations in Maghreb, 3 reforms for morocco, 4 reforms for tunisia, 1 reform for ireland, 3 reforms for mantua, 3 reforms for Hormuz, Republican reform clean up. Some mechanics are now privileges such as Blood Tax
+- Roman government round 3: should be better now
 [/quote]
 [/quote]
 [quote]
