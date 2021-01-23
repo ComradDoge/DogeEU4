@@ -47,14 +47,11 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 23/01/2021 [/h1]
 [quote]
-- Yet again, a lot of file clean up and restructuring
-- Terrain Type: Lowered or remove the negative cost for most of the terrain types, added colonial cost growth to slow down colonialism and to prioritise more attractive provinces.
-- Roman culture is now part of the byzantine culture group
-- 1444 Vanilla: Work on african and arabian countries
-- Government update: clean up of files, 3 shared reforms for nations in Maghreb, 3 reforms for morocco, 4 reforms for tunisia, 1 reform for ireland, 3 reforms for mantua, 3 reforms for Hormuz, Republican reform clean up. Some mechanics are now privileges such as Blood Tax, Kreditwerk economy reform for Prussian culture
-- Estate Privilege: increased state_maintenance of 200+ governing privilege
-- Roman government round 3: should be fine now
-- New Zealand country is removed; prep for 1.31 and other issues
+- Further minor fixes
+- New Event Window Graphics
+- The Call to Arms text has more space for easier reading.
+- Forming New World Colonial is now possible again for old world countries. You will lose your older holdings tho.
+- Colonial nation formable decision text follows the same format as other decisions. (coloured and with a flag)
 [/quote]
 [/quote]
 [quote]
@@ -134,6 +131,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1887798411] Sundered Lands [/url] by Javingr
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3 [/quote]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2370630333] HRE Event Window [/url] by lemonporn
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:
