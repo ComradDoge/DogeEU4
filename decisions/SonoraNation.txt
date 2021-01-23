@@ -1,19 +1,14 @@
 country_decisions = {
 
-	upca_nation = {
+	sonora_nation = {
 		major = yes
 		potential = {
-			normal_or_historical_nations = yes
+			NOT = { has_country_flag = changed_from_colonial_nation }
 			was_never_end_game_tag_trigger = yes
 			is_nomad = no
 			is_random_new_world = no
 			NOT = { tag = HLR }
 			NOT = { tag = PAP }
-			OR = {
-				ai = no
-				is_playing_custom_nation = no
-			}
-			NOT = { has_country_flag = changed_from_colonial_nation }
 			OR = {
 				is_former_colonial_nation = yes
 				is_colonial_nation = yes
@@ -24,16 +19,15 @@ country_decisions = {
 							technology_group = mesoamerican
 							technology_group = andean
 							technology_group = high_american
-							technology_group = south_american
 						}
 					}
 					capital_scope = {
-						region = central_america_region
+						colonial_region = colonial_california
 						is_core = ROOT
 					}
 				}
 			}
-			central_america_region = {
+			colonial_california = {
 				owned_by = ROOT
 			}
 			OR = {
@@ -45,9 +39,13 @@ country_decisions = {
 			}
 		}
 		provinces_to_highlight = {
-			region = central_america_region
+			OR = {
+				area = sonora_area
+				area = baja_california_area
+			}
 			OR = {
 				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 				is_city = no
 			}
 		}
@@ -55,10 +53,14 @@ country_decisions = {
 			adm_tech = 10
 			is_free_or_tributary_trigger = yes
 			is_at_war = no
-			NOT = { exists = CAM }
+			NOT = { exists = SNA }
 			num_of_owned_provinces_with = {
-				value = 5
-				region = central_america_region
+				value = 3
+				OR = {
+					area = sonora_area
+					area = baja_california_area
+				}
+				is_core = root
 				is_city = yes
 			}
 		}
@@ -71,7 +73,7 @@ country_decisions = {
 					ROOT = { save_event_target_as = old_tag_target }
 				}
 			}
-			change_tag = CAM
+			change_tag = SNA
 			if = {
 				limit = {
 					NOT = { is_former_colonial_nation = yes }
@@ -85,10 +87,12 @@ country_decisions = {
 				}
 				set_government_rank = 2
 			}
-			remove_non_electors_emperors_from_empire_effect = yes
 			if = {
-				limit = { NOT = { government_rank = 2 } }
-				set_government_rank = 2
+				limit = {
+					culture_group = british
+					NOT = { primary_culture = american }
+				}
+				change_primary_culture = american
 			}
 			if = {
 				limit = {
@@ -97,11 +101,50 @@ country_decisions = {
 				}
 				change_primary_culture = mexican
 			}
-			colonial_mexico = {
+			sonora_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
 				}
-				add_permanent_claim = CAM
+				add_permanent_claim = SNA
+			}
+			baja_california_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = SNA
+			}
+			chihuahua_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = SNA
+			}
+			arizona_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = SNA
+			}
+			apacheria_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = SNA
+			}
+			durango_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = SNA
+			}
+			nayarit_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = SNA
+			}
+			2476 = {
+				add_permanent_claim = SNA
 			}
 			add_country_modifier = {
 				name = "centralization_modifier"
@@ -109,6 +152,10 @@ country_decisions = {
 			}
 			add_prestige = 25
 			set_country_flag = changed_from_colonial_nation
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
 		}
 		ai_will_do = {
 			factor = 1
