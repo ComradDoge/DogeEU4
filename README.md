@@ -47,12 +47,7 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 24/01/2021 [/h1]
 [quote]
-- Further minor fixes
-- New Event Window Graphics
-- The Call to Arms text has more space for easier reading.
-- Forming New World Colonial is now possible again for old world countries. You will lose your older holdings tho.
-- Colonial nation formable decision text follows the same format as other decisions. (coloured and with a flag)
-- Malankara religion colour is no longer glitchy and vajrayna colour slightly change to not be too similar to Malankara
+- The Age Windows is cleaned up and remade
 [/quote]
 [/quote]
 [quote]
