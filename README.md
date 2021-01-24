@@ -47,7 +47,8 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 24/01/2021 [/h1]
 [quote]
-- The Age Windows is cleaned up and remade
+- Changed some colour of some UI elements
+- Event window made more compact by removing the side empty space
 [/quote]
 [/quote]
 [quote]
