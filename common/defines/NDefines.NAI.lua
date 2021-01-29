@@ -229,7 +229,7 @@ NDefines.NAI.ESTATE_MAX_PRIVILEDGES = 4
 
 
 NDefines.NAI.TRADE_COMPANY_INVESTMENT_COST_THRESHOLD = 2 -- How many times the cost of the investment must be in the treasury to consider buying it
-NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 10	-- AI scoring for repaying loans, multiplied by (MAX(budget - other loans, 0) * number_of_loans)/cost
+NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 100 -- AI scoring for repaying loans, multiplied by (MAX(budget - other loans, 0) * number_of_loans)/cost
 
 
 NDefines.NAI.AGGRESSIVENESS = 500
