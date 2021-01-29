@@ -107,3 +107,47 @@ fleet_names = {}
 change_government_reform_progress = X
 
 
+
+################ Province
+#capital = "Stockholm"
+is_city = yes
+
+#owner = XXX
+#controller = XXX
+#add_core = XXX
+
+#culture = XXX
+#religion = XXX
+
+################ Development
+#base_tax = 5 
+#base_production = 5
+#base_manpower = 3
+
+################ Trade
+#trade_goods = XXX
+#center_of_trade = x
+
+################ Holy Roman Empire
+hre = no
+
+################ Discovery
+discovered_by = western
+discovered_by = eastern
+discovered_by = muslim
+discovered_by = ottoman
+
+################ Natives
+#native_size = xxx
+#native_ferocity = xxx
+#native_hostileness = xxx
+
+################ Modifiers
+
+
+################ Other
+#extra_cost = XX
+#fort_15th = yes 
+
+################ History
+
