@@ -41,7 +41,7 @@ NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_FROM_DEFENDING = 	5 	-- 5, How much
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_5_LOANS =	-0.5 	-- -0.36, Yearly change of Mandate for every 5 loans.
 
 
-NDefines.NDiplomacy.IMPERIAL_AUTHORITY_FROM_PRINCES = 0.040 --Defines 0.075 scales to threshold
+NDefines.NDiplomacy.IMPERIAL_AUTHORITY_FROM_PRINCES = 0.06 --Defines 0.075 scales to threshold
 NDefines.NDiplomacy.IMPERIAL_REFORM_COST = 50  
 NDefines.NDiplomacy.EMPEROR_REVOKE_AUTHORITY_COST = 50		
 NDefines.NDiplomacy.HRE_FOREIGN_CONTROL_PENALTY = -0.010	
