@@ -51,6 +51,12 @@ NDefines.NCountry.PARLIAMENT_CHANCE_OF_DECISION = 10		-- % Chance debate is ende
 -- Colonialism
 
 NDefines.NCountry.REGULAR_COLONY_GROWTH = 10 --25
+
+
+-- Barrage
+NDefines.NCountry.PS_ARTILLERY_BARRAGE = 100
+NDefines.NCountry.PS_NAVAL_BARRAGE = 50
+
 --- BEL Imports ---
 --NDefines.NCountry.MERCHANT_REPUBLIC_SIZE_LIMIT = 9999
 --NDefines.NCountry.MAX_ARMY_PROFESSIONALISM = 1.0
