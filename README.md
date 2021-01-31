@@ -45,10 +45,21 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 24/01/2021 [/h1]
+[h1] Changes 31/01/2021 [/h1]
 [quote]
-- Changed some colour of some UI elements
-- Event window made more compact by removing the side empty space
+- Ancient Egypt mentions renamed to Aegyptus
+- Crusade on cursed letters, keep reporting them
+- Yuan decision no longer requires uncolonized provinces with altaic culture
+- Provinces no longer have existing autonomy that vanilla has
+- Norman culture can also form Angevin Empire; no longer can form France or Francia if you are Angevin Empire
+- Increased Imperial Authority gain from princes so that HRE is more frequent to go through reforms
+- Minor buff to economic aspects of Roman Ideas
+- Church Poorhouses reform give the appropriate bonus instead of Town right bonus
+- Old colonial formables (La Plata, Cuba, Chile etc) have their own specific national ideas
+- Reverted some of the UI changes for events and estate window colour for now
+- Soldiers Household and Impressment Office now counts for the manufactory agenda
+- Made AI never pick some policies as to not waste a slot and make it more prone to pick some if it has specific ideas or reforms
+- Land Barrages cost increased 50>100, naval barrage unchanged
 [/quote]
 [/quote]
 [quote]
@@ -114,7 +125,6 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults[/url] by Ruben_Escobar14 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities[/url] by Worlds Smuggest Detective 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers[/url] by Lk 
-    [url=https://steamcommunity.com/profiles/76561198055745620/myworkshopfiles] Various Missions[/url] by Parmellion 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism[/url] by Jan 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours[/url] by reddbane  Outdated
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185952315] Historical Religious Colours[/url] updated for 1.30 Emperor 
@@ -129,6 +139,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3 [/quote]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2370630333] HRE Event Window [/url] by lemonporn
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2373820189] AI Debt fix [/url] by Wzedlare and Brutal
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:
