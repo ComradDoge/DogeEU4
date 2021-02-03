@@ -1,0 +1,165 @@
+country_decisions = {
+
+	######################################################
+	# Kingdom of Saudi Arabia - Culture & Arabian Region #
+	######################################################
+
+	saudi_nation = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no
+			religion_group = muslim
+			primary_culture = bedouin_arabic
+			NOT = {
+				has_country_flag = formed_saudi_arabia_flag
+				exists = SRB
+				tag = SRB
+				tag = HLR
+				tag = PAP
+				
+				tag = ARA
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 8
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 385
+				area = pirate_coast_area
+				area = bahrain_area
+				area = yamamah_area
+				area = qasim_area
+				area = nafud_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			adm_tech = 10
+			NOT = { exists = SRB }
+			is_at_war = no
+			owns_core_province = 385
+			pirate_coast_area = {
+				type = all
+				owned_by = ROOT
+			}			
+			bahrain_area = {
+				type = all
+				owned_by = ROOT
+			}
+			yamamah_area = {
+				type = all
+				owned_by = ROOT
+			}
+			qasim_area = {
+				type = all
+				owned_by = ROOT
+			}									
+			nafud_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			change_tag = SRB # Country TAG
+			set_country_flag = formed_saudi_arabia_flag # Country Formation Flag
+			custom_tooltip = form_saudi_arabia_tt_3 # Region/Area Claims	
+			custom_tooltip = dec1_decisions_blank	
+			SRB = { # Capital change and bonuses				
+				set_capital = 385 # Mecca
+				385 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				custom_tooltip = dec1_decisions_blank				
+				custom_tooltip = dec1_government_rank_3 # Government Rank Change
+				# Dharma DLC check to prevent ugly tooltip
+				if = {
+					limit = {
+						has_dlc = "Dharma"
+					}
+					custom_tooltip = dec1_government_change_monarchy # Government Type Change
+				}				
+				add_government_reform = autocracy_reform						
+				custom_tooltip = dec1_decisions_blank
+				if = {
+					limit = {
+						is_part_of_hre = yes
+					}
+					country_event = { id = dec1_events.1 }
+				}
+				define_ruler = {
+					name = "Muhammad"
+					dynasty = "Saud"
+					adm = 5
+					dip = 4
+					mil = 4
+					age = 25
+					claim = 95
+					fixed = yes
+				}
+				if = {
+					limit = { has_heir = yes }
+					kill_heir = yes
+				}	
+				hidden_effect = { # Hidden Effects to fix bad tooltips
+					# Region/Area Claims
+					arabia_region = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = SRB
+					}	
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 2
+								}
+							}
+						set_government_rank = 2
+					}
+					# Government Type Change
+					if = {
+						limit = {
+							NOT = {
+								government = monarchy
+								}
+							}
+						change_government = monarchy
+					}																		
+				}
+				# Custom Ideas check and change		
+				if = {
+					limit = { has_custom_ideas = no }
+					country_event = { id = ideagroups.1 } #Swap Ideas
+				}
+				custom_tooltip = dec1_decisions_blank
+				# Increased Centralization
+				add_country_modifier = {
+					name = "centralization_modifier"
+					duration = 7300
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400			
+	}
+
+	########################################
+	# Kingdom of Saudi Arabia - Historical #
+	########################################
+
+}

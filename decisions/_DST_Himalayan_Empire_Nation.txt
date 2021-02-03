@@ -1,0 +1,143 @@
+country_decisions = {
+
+	himalayan_empire_nation = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no
+			NOT = { 
+				has_country_flag = formed_himalayan_empire_flag
+				exists = HIM				
+				tag = HIM
+				tag = PAP
+				tag = HIN
+				tag = BHA
+				tag = TIB
+				tag = TIE
+			}
+			OR = {
+				primary_culture = nepali
+				primary_culture = tibetan
+				primary_culture = assamese
+				primary_culture = kashmiri
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 3
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+					# Surrounding Himalayan Provinces
+				province_id = 2128
+				province_id = 2074
+				province_id = 509
+				province_id = 4493
+				province_id = 511
+				province_id = 2069
+				province_id = 4492
+				province_id = 554
+				province_id = 2070
+				province_id = 4516
+				province_id = 2128
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}		
+		allow = {
+			adm_tech = 5
+			NOT = { exists = HIM }
+			is_subject = no
+			is_at_war = no
+				# Surrounding Himalayan Provinces
+			owns_core_province = 2128
+			owns_core_province = 2074
+			owns_core_province = 509
+			owns_core_province = 4493
+			owns_core_province = 511
+			owns_core_province = 2069
+			owns_core_province = 4492
+			owns_core_province = 554
+			owns_core_province = 2070
+			owns_core_province = 4516
+			owns_core_province = 2128
+		}
+	 	effect = {
+			change_tag = HIM # Country TAG
+			set_country_flag = formed_himalayan_empire_flag # Country Formation Flag
+			custom_tooltip = form_himalayan_empire_tt_3 # Claims
+			custom_tooltip = dec1_decisions_blank	
+			HIM = { # Capital change and bonuses				
+				set_capital = 2128 # Ngari
+				2128 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				custom_tooltip = dec1_decisions_blank				
+				custom_tooltip = dec1_government_rank_3 # Government Rank Change
+				# Dharma DLC check to prevent ugly tooltip
+				if = {
+					limit = {
+						has_dlc = "Dharma"
+					}
+					custom_tooltip = dec1_government_change_monarchy # Government Type Change
+				}				
+				# Reform Change
+				add_government_reform = autocracy_reform
+				custom_tooltip = dec1_decisions_blank						
+
+				hidden_effect = { # Hidden Effects to fix bad tooltips	
+					# Claims
+					tibet_region = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = HIM
+					}
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 3
+								}
+							}
+						set_government_rank = 3
+					}
+					# Government Type Change
+					if = {
+						limit = {
+							NOT = {
+								government = monarchy
+								}
+							}
+						change_government = monarchy
+					}																		
+				}
+				# Custom Ideas check and change		
+				if = {
+					limit = { has_custom_ideas = no }
+					country_event = { id = ideagroups.1 } #Swap Ideas
+				}
+				# Custom Missions check and change
+				country_event = { id = dec1_events.3 }
+				custom_tooltip = dec1_decisions_blank
+				# Increased Centralization
+				add_country_modifier = {
+					name = "centralization_modifier"
+					duration = 7300
+				}
+			}					
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+}

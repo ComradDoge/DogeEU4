@@ -1,0 +1,196 @@
+ country_decisions = {
+
+	adriatic_empire_nation = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no
+			NOT = {
+				has_country_flag = formed_adriatic_empire_nation_flag
+				has_reform = celestial_empire
+				exists = ADR
+				tag = PAP
+				tag = ADR
+				tag = ALP
+				
+				
+				tag = ROM
+				
+				tag = ITA
+				tag = TTS
+				
+				
+			}
+			OR = {
+				primary_culture = albanian
+				primary_culture = croatian
+				primary_culture = venetian
+				primary_culture = umbrian
+				primary_culture = romagnan
+				primary_culture = neapolitan
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+					# Venitia
+				province_id = 112
+				province_id = 1774
+				province_id = 111
+					# Emilia-Romagna
+				province_id = 113
+				province_id = 114
+					# Central Italy
+				province_id = 2977
+				province_id = 119
+				province_id = 120
+					# Apulia
+				province_id = 2985
+				province_id = 1933
+				province_id = 122
+					# Carniola
+				province_id = 4729
+				province_id = 4733
+				province_id = 4738
+				province_id = 4752
+				province_id = 130
+					# East Adriatic
+				province_id = 1826
+				province_id = 136
+				province_id = 137
+					# Rascia
+				province_id = 4754
+					# Albania
+				province_id = 4174
+				province_id = 4175
+				province_id = 143
+					# Corfu
+				province_id = 142
+				province_id = 144
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			adm_tech = 10
+			NOT = { exists = ADR }
+			is_at_war = no
+			is_subject = no
+			is_emperor = no
+			custom_trigger_tooltip = {
+				tooltip = form_adriatic_empire_tt_1
+					# Venitia
+				owns_core_province = 112
+				owns_core_province = 1774
+				owns_core_province = 111
+					# Emilia-Romagna
+				owns_core_province = 113
+				owns_core_province = 114
+					# Central Italy
+				owns_core_province = 2977
+				owns_core_province = 119
+				owns_core_province = 120
+					# Apulia
+				owns_core_province = 2985
+				owns_core_province = 1933
+				owns_core_province = 122
+					# Carniola
+				owns_core_province = 4729	
+				owns_core_province = 4733
+				owns_core_province = 4738
+				owns_core_province = 4752
+				owns_core_province = 130
+					# East Adriatic
+				owns_core_province = 1826
+				owns_core_province = 136
+				owns_core_province = 137
+					# Rascia
+				owns_core_province = 4754
+					# Albania
+				owns_core_province = 4174
+				owns_core_province = 4175
+				owns_core_province = 143
+					# Corfu
+				owns_core_province = 142
+				owns_core_province = 144
+			}
+		}
+	 	effect = {
+			change_tag = ADR # Country TAG
+			set_country_flag = formed_adriatic_empire_nation_flag # Country Formation Flag
+			custom_tooltip = form_adriatic_empire_tt_3 # Region/Area Claims
+			custom_tooltip = form_adriatic_empire_tt_4 # Region/Area Claims
+			custom_tooltip = dec1_decisions_blank		
+			ADR = { # Capital change and bonuses				
+				set_capital = 112 # Venezia
+				112 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				custom_tooltip = dec1_decisions_blank				
+				custom_tooltip = dec1_government_rank_3 # Government Rank Change
+				# Dharma DLC check to prevent ugly tooltip
+				if = {
+					limit = {
+						has_dlc = "Dharma"
+					}
+					custom_tooltip = dec1_government_change_republic # Government Type Change
+				}				
+				# Reform Change
+				add_government_reform = merchants_reform						
+				custom_tooltip = dec1_decisions_blank
+
+				hidden_effect = { # Hidden Effects to fix bad tooltips					# Region/Area Claims
+					italy_region = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = ADR
+					}
+					balkan_region = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = ADR
+					}	
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 3
+								}
+							}
+						set_government_rank = 3
+					}
+					# Government Type Change
+					if = {
+						limit = {
+							NOT = {
+								government = republic
+								}
+							}
+						change_government = republic
+					}																		
+				}
+				# Custom Ideas check and change		
+				if = {
+					limit = { has_custom_ideas = no }
+					country_event = { id = ideagroups.1 } #Swap Ideas
+				}
+				custom_tooltip = dec1_decisions_blank
+				# Increased Centralization
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			}			
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400			
+	}
+}

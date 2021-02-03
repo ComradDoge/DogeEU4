@@ -1,0 +1,139 @@
+country_decisions = {
+
+	south_german_federation_nation = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no
+			NOT = { 
+				has_country_flag = formed_south_german_federation_nation_flag
+				exists = SGF
+				tag = NDB
+				tag = SGF
+				tag = PAP
+				tag = GER
+				tag = HLR
+				
+				tag = HAB # Must be Austrian Empire or Austro-Hungarian Empire!
+			}			
+			OR = {
+				primary_culture = franconian
+				primary_culture = bavarian
+				primary_culture = swabian
+				primary_culture = austrian
+				primary_culture = swiss
+				# REPLACE WITH AUSTRIA, WURTTEMBERG, BAVARIA (AND THE SMALLER ONES), BADEN
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 8
+				}
+			}				
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = franconia_area
+				area = lower_bavaria_area
+				area = lower_swabia_area
+				area = upper_bavaria_area
+				area = palatinate_area
+				area = upper_rhineland_area
+				area = switzerland_area
+				area = romandie_area
+				area = austria_proper_area
+				area = inner_austria_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}		
+		allow = {
+			adm_tech = 10
+			NOT = { exists = SGF }
+			is_subject = no
+			is_at_war = no
+			custom_trigger_tooltip = {
+				tooltip = form_south_german_federation_tt_1
+				franconia_area = {
+					type = all
+					owned_by = ROOT
+				}
+				lower_bavaria_area = {
+					type = all
+					owned_by = ROOT
+				}
+			}
+		}
+		effect = {
+			change_tag = SGF # Country TAG
+			set_country_flag = formed_south_german_federation_nation_flag # Country Formation Flag
+			custom_tooltip = dec1_decisions_blank	
+			SGF = { # Capital change and bonuses				
+				set_capital = 65 # Munich
+				65 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				custom_tooltip = dec1_decisions_blank				
+				custom_tooltip = dec1_government_rank_2 # Government Rank Change
+				# Dharma DLC check to prevent ugly tooltip
+				if = {
+					limit = {
+						has_dlc = "Dharma"
+					}
+					custom_tooltip = dec1_government_change_republic # Government Type Change
+				}				
+				add_government_reform = presidential_reform
+				custom_tooltip = dec1_decisions_blank						
+
+				hidden_effect = { # Hidden Effects to fix bad tooltips
+					# Region/Area Claims
+					south_german_region = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = SGF
+					}
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 2 # TODO: Should be changed. If Austria forms, rank 3. if others form, rank 2 (with unique government?)
+								}
+							}
+						set_government_rank = 2 # TODO: Should be changed. If Austria forms, rank 3. if others form, rank 2 (with unique government?)
+					}
+					# Government Type Change
+					if = {
+						limit = {
+							NOT = {
+								government = republic
+								}
+							}
+						change_government = republic
+					}																		
+				}
+				# Custom Ideas check and change		
+				if = {
+					limit = { has_custom_ideas = no }
+					country_event = { id = ideagroups.1 } #Swap Ideas
+				}
+				custom_tooltip = dec1_decisions_blank
+				# Increased Centralization
+				add_country_modifier = {
+					name = "centralization_modifier"
+					duration = 7300
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400	
+	}
+}

@@ -1,0 +1,158 @@
+country_decisions = {
+
+	tatarstan_nation = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no
+			culture_group = tartar
+			has_reform = steppe_horde
+			NOT = { 
+				has_country_flag = formed_tatar_flag 
+				exists = TAT
+				tag = TAT
+				tag = GLH
+				tag = MUG
+				tag = HLR
+				tag = ROM
+				tag = PAP
+				tag = TUR
+				tag = BYZ
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 6
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = { # ROOT owns required provinces
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					OR = {
+						province_id = 284 #Crimea
+						province_id = 302 #Tambov
+						province_id = 464 #Astrakhan
+						province_id = 465 #Nogai
+						province_id = 466 #Sarai
+						province_id = 476 #Kypchak
+						province_id = 1075 #Chimgi-Tura
+						province_id = 1082 #Kazan
+						province_id = 1778 #Qasim
+						province_id = 2411 #Mansur
+					}
+				}
+				AND = { # Sovereign subject holds required provinces
+					OR = {
+						NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					}
+					OR = {
+						province_id = 294
+						province_id = 295
+						province_id = 301
+						province_id = 307
+						province_id = 308
+						province_id = 1956
+					}
+				}
+			}
+		}
+		allow = {
+			NOT = { exists = TAT }
+			has_reform = steppe_horde
+			owns_core_province = 284 #Crimea
+			owns_core_province = 302 #Tambov
+			owns_core_province = 464 #Astrakhan
+			owns_core_province = 465 #Nogai
+			owns_core_province = 466 #Sarai
+			owns_core_province = 476 #Kypchak
+			294 = { #Tver
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			295 = { #Moscow
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			301 = { #Ryazan
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			307 = { #Vladimir
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			change_tag = TAT # Country TAG
+			set_country_flag = formed_tatar_nation_flag # Country Formation Flag
+			custom_tooltip = form_tatar_tt_3 # Region/Area Claims
+			custom_tooltip = dec1_decisions_blank	
+			TAT = { # Capital change and bonuses				
+				set_capital = 284 # Crimea
+				284 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				custom_tooltip = dec1_decisions_blank				
+				custom_tooltip = dec1_government_rank_3 # Government Rank Change
+				# Dharma DLC check to prevent ugly tooltip
+				if = {
+					limit = {
+						has_dlc = "Dharma"
+					}
+					custom_tooltip = dec1_government_change_monarchy # Government Type Change
+				}				
+				# Reform Change
+				add_government_reform = autocracy_reform
+				custom_tooltip = dec1_decisions_blank						
+
+				hidden_effect = { # Hidden Effects to fix bad tooltips
+					# Region/Area Claims
+					russia_region = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = TAT
+					}	
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 3
+								}
+							}
+						set_government_rank = 3
+					}
+					# Government Type Change
+					if = {
+						limit = {
+							NOT = {
+								government = monarchy
+								}
+							}
+						change_government = monarchy
+					}																		
+				}
+				# Custom Ideas check and change		
+				if = {
+					limit = { has_custom_ideas = no }
+					country_event = { id = ideagroups.1 } #Swap Ideas
+				}
+				custom_tooltip = dec1_decisions_blank
+				# Increased Centralization
+				add_country_modifier = {
+					name = "centralization_modifier"
+					duration = 7300
+				}
+			}					
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400					
+	}
+}

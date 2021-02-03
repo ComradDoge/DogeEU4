@@ -1,0 +1,154 @@
+country_decisions = {
+
+	alpland_nation = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no		
+			NOT = { 
+				has_country_flag = formed_alpland_nation_flag
+				exists = ALP
+				tag = ALP
+				tag = PAP 
+				tag = HLR
+				tag = HAB
+				
+				tag = ITA
+				
+				
+				
+				tag = ADR
+				tag = AHE
+				tag = SGF
+			}
+			OR = {
+				primary_culture = austrian
+				primary_culture = bavarian
+				primary_culture = swiss
+				primary_culture = piedmontese
+				primary_culture = lombard
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 6
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {	
+				province_id = 73 # Tirol
+				province_id = 110 # Trent
+				province_id = 1768 # Lienz
+				province_id = 128 # Kernten
+				province_id = 1873 # Graubenden
+				province_id = 166 # Waldstette
+				province_id = 1871 # Wallis
+				province_id = 165 # Bern
+				province_id = 107 # Brescia
+				province_id = 1869 # Zurich
+				province_id = 1870 # St Gallen				
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}		
+		allow = {
+			adm_tech = 10
+			NOT = { exists = ALP }
+			is_subject = no
+			is_at_war = no
+			is_nomad = no
+			owns_core_province = 73 # Tirol
+			owns_core_province = 110 # Trent
+			owns_core_province = 1768 # Lienz
+			owns_core_province = 128 # Kernten
+			owns_core_province = 1873 # Graubenden
+			owns_core_province = 166 # Waldstette
+			owns_core_province = 1871 # Wallis
+			owns_core_province = 165 # Bern
+			owns_core_province = 107 # Brescia
+			owns_core_province = 1869 # Zurich
+			owns_core_province = 1870 # St Gallen
+		}
+	 	effect = {
+			change_tag = ALP # Country TAG
+			set_country_flag = formed_alpland_nation_flag # Country Formation Flag
+			custom_tooltip = form_alpland_tt_3 # Region/Area Claims
+			custom_tooltip = form_alpland_tt_4 # Region/Area Claims
+			custom_tooltip = dec1_decisions_blank	
+			ALP = { # Capital change and bonuses				
+				set_capital = 1869 # Zurich
+				1869 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				# Government Rank Change
+				custom_tooltip = dec1_decisions_blank				
+				custom_tooltip = dec1_government_rank_2
+				# Dharma DLC check to prevent ugly tooltip
+				if = {
+					limit = {
+						has_dlc = "Dharma"
+					}
+					custom_tooltip = dec1_government_change_monarchy # Government Type Change
+				}				
+				# Reform Change
+				add_government_reform = autocracy_reform
+				custom_tooltip = dec1_decisions_blank						
+
+				hidden_effect = { # Hidden Effects to fix bad tooltips
+					# Region/Area Claims
+					romandie_area = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = ALP
+					}
+					tirol_area = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = ALP
+					}	
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 2
+								}
+							}
+						set_government_rank = 2
+					}
+					# Government Type Change
+					if = {
+						limit = {
+							NOT = {
+								government = monarchy
+								}
+							}
+						change_government = monarchy
+					}																		
+				}
+				if = {
+					limit = { has_custom_ideas = no }
+					country_event = { id = ideagroups.1 } #Swap Ideas
+				}
+
+				custom_tooltip = dec1_decisions_blank
+				add_country_modifier = {
+					name = dec1_increased_centralization	# Increased Centralization
+					duration = -1
+				}			
+			}					
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400			
+	}
+}

@@ -1,0 +1,173 @@
+country_decisions = {
+
+	lusitanian_empire_nation = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no
+			culture = portuguese
+			NOT = {
+				has_country_flag = formed_lusitanian_empire_nation_flag
+				exists = LSE
+				tag = LSE
+				tag = PAP
+				tag = HLR
+				tag = FRA
+				tag = CAS
+				tag = ADU
+				
+				
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 8 # Should prob be higher,needs testing with AI handling empires
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				# Brazil
+				region = brazil_region
+				area = rio_de_janeiro_area
+				area = bahia_area
+				area = pernambuco_area
+				area = ceara_area
+				# Portuguese areas
+				area = beieras_area
+				area = alentejo_area
+				# Africa
+				area = guinea_coast_area
+				area = gulf_of_guinea_area
+				area = angola_namibia_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			adm_tech = 15
+			NOT = { exists = LSE }
+			is_subject = no
+			is_at_war = no
+
+			# Brazil
+			num_of_owned_provinces_with = {
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = {
+					region = brazil_region
+				}
+				value = 20
+			}
+
+			rio_de_janeiro_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			bahia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+
+			pernambuco_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			ceara_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			# Portugal
+			beieras_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			alentejo_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+
+			# Africa
+			guinea_coast_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			gulf_of_guinea_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+
+			angola_namibia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+	 	effect = {
+			change_tag = LSE # Country TAG
+			set_country_flag = formed_lusitanian_empire_nation_flag # Country Formation Flag
+			custom_tooltip = dec1_decisions_blank	
+			LSE = { # Capital change and bonuses				
+				set_capital = 227 # Lisboa
+				227 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				# Government Rank Change
+				custom_tooltip = dec1_decisions_blank				
+				custom_tooltip = dec1_government_rank_3
+				# Dharma DLC check to prevent ugly tooltip
+				if = {
+					limit = {
+						has_dlc = "Dharma"
+					}
+					custom_tooltip = dec1_government_change_monarchy # Government Type Change
+				}				
+				# Reform Change
+				add_government_reform = autocracy_reform
+				custom_tooltip = dec1_decisions_blank						
+
+				hidden_effect = { # Hidden Effects to fix bad tooltips	
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 3
+								}
+							}
+						set_government_rank = 3
+					}
+					# Government Type Change
+					if = {
+						limit = {
+							NOT = {
+								government = monarchy
+								}
+							}
+						change_government = monarchy
+					}																		
+				}
+				# Custom Ideas check and change		
+				if = {
+					limit = { has_custom_ideas = no }
+					country_event = { id = ideagroups.1 } #Swap Ideas
+				}
+				# Custom Missions check and change
+				country_event = { id = dec1_events.3 }
+				custom_tooltip = dec1_decisions_blank
+				# Increased Centralization
+				add_country_modifier = {
+					name = "centralization_modifier"
+					duration = 7300
+				}
+			}					
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+}

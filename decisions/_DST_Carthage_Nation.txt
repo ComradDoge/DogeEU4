@@ -1,0 +1,209 @@
+country_decisions = {
+
+	carthage_nation = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no
+			NOT = {
+				has_country_flag = formed_carthage_nation_flag
+				exists = CTG
+				tag = CTG
+				tag = PAP
+				tag = SPA
+				tag = LSE
+				tag = HLR
+
+				tag = TTS
+				tag = ALP
+				tag = ADR
+				tag = MGH
+				tag = ALG
+				tag = ADU
+			}			
+			OR = {
+				AND = { # A powerful latin can control this title with growth
+					culture_group = latin
+					AND = {
+						total_development = 200
+						grown_by_development = 110
+					}
+				}
+				OR = { # Any Maghrebi or Iberian can restore Carthage
+					culture_group = maghrebi
+					culture_group = iberian
+				}
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 8
+				}
+			}			
+		}
+		provinces_to_highlight = {
+			OR = {
+				# Carthage Cores
+				area = tunisia_area
+				area = djerba_area
+				area = tripolitania_area
+				area = barbary_coast_area
+				area = northern_morocco_area
+				area = corsica_sardinia_area
+				province_id = 4562
+				province_id = 342
+				province_id = 4564
+				province_id = 2469
+				province_id = 333
+				province_id = 125
+				province_id = 2982
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			adm_tech = 10
+			NOT = { exists = CTG }
+			is_subject = no
+			is_at_war = no
+			OR = {
+				culture_group = maghrebi
+				culture_group = iberian
+			}	
+			custom_trigger_tooltip = {
+				tooltip = form_carthage_tt_1
+				# Carthage Cores
+				tunisia_area = {
+					type = all
+					owned_by = ROOT
+				}
+				djerba_area = {
+					type = all
+					owned_by = ROOT
+				}
+				tripolitania_area = {
+					type = all
+					owned_by = ROOT
+				}
+				barbary_coast_area = {
+					type = all
+					owned_by = ROOT
+				}
+				northern_morocco_area = {
+					type = all
+					owned_by = ROOT
+				}
+				corsica_sardinia_area = {
+					type = all
+					owned_by = ROOT
+				}
+			}		
+			owns_core_province = 341
+			owns_core_province = 4562
+			owns_core_province = 342
+			owns_core_province = 4564
+			owns_core_province = 2469
+			owns_core_province = 333
+			owns_core_province = 125
+			owns_core_province = 2982
+			OR = {
+				owns_core_province = 125
+				owns_core_province = 1247
+				owns_core_province = 226
+				owns_core_province = 333
+			}
+		}
+	 	effect = {
+			change_tag = CTG # Country TAG
+			set_country_flag = formed_carthage_nation_flag # Country Formation Flag
+			custom_tooltip = form_carthage_tt_3 # Region/Area Claims
+			custom_tooltip = form_carthage_tt_4 # Region/Area Claims
+			custom_tooltip = form_carthage_tt_5 # Culture Change
+			hidden_effect = {
+				every_owned_province = { # Culture change
+				limit = {
+					NOT = {
+						culture = phoenician
+					}
+				}
+				change_culture = phoenician
+				}
+			}
+			custom_tooltip = dec1_decisions_blank	
+			CTG = { # Capital change and bonuses			
+				set_capital = 341 # Carthage
+				341 = {
+					rename_capital = "Carthage"
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				custom_tooltip = dec1_decisions_blank				
+				custom_tooltip = dec1_government_rank_3 # Government Rank Change
+				# Dharma DLC check to prevent ugly tooltip
+				if = {
+					limit = {
+						has_dlc = "Dharma"
+					}
+					custom_tooltip = dec1_government_change_monarchy # Government Type Change
+				}				
+				# Reform Change
+				add_government_reform = autocracy_reform
+				custom_tooltip = dec1_decisions_blank						
+
+				hidden_effect = { # Hidden Effects to fix bad tooltips
+					# Region/Area Claims
+					iberia_region = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = CTG
+					}
+					italy_region = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = CTG
+					}	
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 3
+								}
+							}
+						set_government_rank = 3
+					}
+					# Government Type Change
+					if = {
+						limit = {
+							NOT = {
+								government = monarchy
+								}
+							}
+						change_government = monarchy
+					}																		
+				}
+				# Custom Ideas check and change		
+				if = {
+					limit = { has_custom_ideas = no }
+					country_event = { id = ideagroups.1 } #Swap Ideas
+				}
+				custom_tooltip = dec1_decisions_blank
+				# Increased Centralization
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			}					
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400		
+	}
+}
