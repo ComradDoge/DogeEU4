@@ -47,11 +47,13 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 03/02/2021 [/h1]
 [quote]
-- No free spins on the mine event
-- AI wont pick or be less likely to pick some idea groups (they wont pick mercenary ones at all)
-- Flags on decisions cleaned up to be at beginning
-- AI wont pick some policies as to not waste a slot
-- New Formables: South German Confederation, Alpland, Adriatic Empire, Carthage, Kievan Rus, Saudi Arabia, Tatarstan, Himalayan Empire, Lusitania
+- Carthage culture requirements is to be Maghreb culture group or Sardinian; Sicilian; Andalucian or be Majorca
+- Andalucia no longer can be formed by Maghreb cultures, only Andalucian cultures can, cleaned up its decision and made it area scoped which I slightly expanded.
+- Tunis is not an option when you form Carthage
+- Fixed some of the new addes national ideas
+- Carthage decision now changes your primary culture (and provinces) to Phoenician
+- Morocco, Algiers and Tunis decisions will not appear if the respective countries exist
+- Added ideas for Formosa (Taiwan)
 [/quote]
 [/quote]
 [quote]
