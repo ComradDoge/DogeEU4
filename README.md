@@ -45,21 +45,13 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 31/01/2021 [/h1]
+[h1] Changes 03/02/2021 [/h1]
 [quote]
-- Ancient Egypt mentions renamed to Aegyptus
-- Crusade on cursed letters, keep reporting them
-- Yuan decision no longer requires uncolonized provinces with altaic culture
-- Provinces no longer have existing autonomy that vanilla has
-- Norman culture can also form Angevin Empire; no longer can form France or Francia if you are Angevin Empire
-- Increased Imperial Authority gain from princes so that HRE is more frequent to go through reforms
-- Minor buff to economic aspects of Roman Ideas
-- Church Poorhouses reform give the appropriate bonus instead of Town right bonus
-- Old colonial formables (La Plata, Cuba, Chile etc) have their own specific national ideas
-- Reverted some of the UI changes for events and estate window colour for now
-- Soldiers Household and Impressment Office now counts for the manufactory agenda
-- Made AI never pick some policies as to not waste a slot and make it more prone to pick some if it has specific ideas or reforms
-- Land Barrages cost increased 50>100, naval barrage unchanged
+- No free spins on the mine event
+- AI wont pick or be less likely to pick some idea groups (they wont pick mercenary ones at all)
+- Flags on decisions cleaned up to be at beginning
+- AI wont pick some policies as to not waste a slot
+- New Formables: South German Confederation, Alpland, Adriatic Empire, Carthage, Kievan Rus, Saudi Arabia, Tatarstan, Himalayan Empire, Lusitania
 [/quote]
 [/quote]
 [quote]
@@ -140,6 +132,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3 [/quote]
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2370630333] HRE Event Window [/url] by lemonporn
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2373820189] AI Debt fix [/url] by Wzedlare and Brutal
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1810341847] Formable Nations: Reworked [/url] by Noah
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:
