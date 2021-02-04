@@ -47,6 +47,12 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 03/02/2021 [/h1]
 [quote]
+- No free spins on the mine event
+- AI wont pick or be less likely to pick some idea groups (they wont pick mercenary ones at all)
+- Flags on decisions cleaned up to be at beginning
+- AI wont pick some policies as to not waste a slot
+- New Formables: South German Confederation, Alpland, Adriatic Empire, Carthage, Kievan Rus, Saudi Arabia, Tatarstan, Himalayan Empire, Lusitania
+
 - Carthage culture requirements is to be Maghreb culture group or Sardinian; Sicilian; Andalucian or be Majorca
 - Andalucia no longer can be formed by Maghreb cultures, only Andalucian cultures can, cleaned up its decision and made it area scoped which I slightly expanded.
 - Tunis is not an option when you form Carthage
@@ -59,7 +65,7 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Main Additions [/h1]
 [quote]
-- More Insults, Ruler personality traits, Advisors
+- New Trade Goods, More Idea Groups, Buildings, Formables, Advisors, Ruler traits
 - Englightenment and Industrialization Age
 - New Religions with Mechanics
 - Lost Colonies of the Old World
@@ -70,15 +76,13 @@ Feel free to send me the save if something breaks.
 - Game runs until 20th century
 - Dynamic Age objectives
 - Changeable trade goods
-- Shattered World
-- New Trade Goods
-- New Idea groups
-- New Buildings
-- New Formables [/quote]
+[/quote]
 [quote]
 [h1] Formables, religions and more[/h1]
 The possible new formables, religions and more are on this [url=https://comraddoge.wordpress.com/] site [/url].
 [/quote]
+[/quote]
+[quote]
 [h1] Lite Version [/h1]
 [quote] This mod is my take on Shattered and I can understand if you are not interested in most of the game changing aspects. The Lite version is much more toned down and closer to vanilla but still has enough meat to it for a new feel.
 
@@ -116,25 +120,19 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2150173010] More Scornful Insults[/url] by Ruben_Escobar14 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities[/url] by Worlds Smuggest Detective 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers[/url] by Lk 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism[/url] by Jan 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=926336924] Historical Religious Colours[/url] by reddbane  Outdated
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185952315] Historical Religious Colours[/url] updated for 1.30 Emperor 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1887798411] Sundered Lands [/url] by Javingr
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3 [/quote]
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2370630333] HRE Event Window [/url] by lemonporn
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2373820189] AI Debt fix [/url] by Wzedlare and Brutal
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1810341847] Formable Nations: Reworked [/url] by Noah
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1810341847] Formable Nations: Reworked [/url] by Noah 
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:
