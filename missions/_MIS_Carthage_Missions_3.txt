@@ -1,0 +1,160 @@
+CTG_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+
+	potential = {
+		tag = CTG
+		NOT = { map_setup = map_setup_random }
+	}
+	CTG_develop_shipyards={
+		icon=mission_caribbean_cn
+		required_missions = {
+		}
+		trigger={
+			shipyard=4
+		}
+		effect={
+			add_republican_tradition = 10
+			add_legitimacy = 20
+			add_mercantilism = 2
+		}
+	}
+	CTG_develop_navy={
+		icon=mission_spanish_armada
+		required_missions = {
+			CTG_develop_shipyards
+		}
+		trigger={
+			num_of_galley=20
+		}
+		effect={
+			sicily_area={
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}
+			corsica_sardinia_area={
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}
+		}
+	}
+	CTG_foothold_italy={
+		icon=mission_dominate_the_mediterranean
+		required_missions = {
+			CTG_develop_navy
+		}
+		provinces_to_highlight = {
+			province_id = 125
+			NOT = { is_core = ROOT }
+		}
+		trigger={
+			owns_core_province = 125
+		}
+		effect={
+			custom_tooltip = "CTG_upgrade_cot_to_2"
+			125={
+				if={
+					limit={
+						NOT = { province_has_center_of_trade_of_level = 2 }
+					}
+					add_center_of_trade_level = 1
+				}				
+			}
+			calabria_area={
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}
+			apulia_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}			
+		}
+	}
+	CTG_south_italy={
+		icon=mission_rule_italy
+		required_missions = {
+			CTG_foothold_italy
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = calabria_area
+				area = apulia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger={
+			sicily_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			calabria_area= {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			apulia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect={
+			central_italy_area={
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}
+			naples_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}
+		}
+	}
+	CTG_rome={
+		icon = mission_religious
+		position = 6
+		required_missions = {
+			CTG_south_italy
+		}
+		provinces_to_highlight = {
+			province_id = 118
+			NOT = { is_core = ROOT }
+		}
+		trigger={
+			owns_core_province = 118		
+		}
+		effect={
+			add_adm_power = 50
+			add_dip_power = 50
+			add_prestige = 25
+			country_event={
+				id=CTG_triggered_events.2
+			}
+		}
+	}
+
+
+}

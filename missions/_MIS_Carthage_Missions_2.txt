@@ -1,0 +1,203 @@
+CTG_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+
+	potential = {
+		tag = CTG
+		NOT = { map_setup = map_setup_random }
+	}
+	CTG_secure_eastern_coast={
+		position=2
+		icon=mission_control_the_barbary_coast
+		required_missions = {
+			CTG_secure_carthage
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = djerba_area
+				area = tripolitania_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger={
+			djerba_area={
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			tripolitania_area={
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect={
+			add_prestige=10
+			add_country_modifier = {
+				name = "CTG_enslave_pirates_east"
+				duration = 3650 #10 years
+			}
+		}
+	}
+	CTG_alexandria ={
+		required_missions = {
+			CTG_secure_eastern_coast
+		}
+		icon=mission_conquer_alexandria
+		provinces_to_highlight = {
+			province_id = 358
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger={
+			owns_core_province = 358
+		}
+		effect={
+			custom_tooltip = "CTG_upgrade_cot_to_2"
+			358={
+				if={
+					limit={
+						NOT = { province_has_center_of_trade_of_level = 2 }
+					}
+					add_center_of_trade_level = 1
+				}				
+			}
+			add_prestige=10
+			1855 = {
+				add_core = CTG
+			}
+			delta_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			
+		}
+	}
+	CTG_motherland ={
+		required_missions = {
+			CTG_alexandria
+		}
+		icon=mission_central_asian_city
+		provinces_to_highlight = {
+			province_id = 1855
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger={
+			owns_core_province = 1855
+		}
+		effect={
+			add_stability_or_adm_power = yes
+			add_adm_power = 50
+			syria_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			palestine_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	CTG_end_of_pirats = {
+		position = 6
+		required_missions = {
+			CTG_local_hegemony
+		}
+		icon = mission_expel_the_moriscos
+		provinces_to_highlight = {
+			OR = {
+				owned_by = MOR
+				owned_by = TUN
+				owned_by = ALG
+				owned_by = TRP
+			}
+			
+		}
+		trigger = {
+			NOT = {
+				MOR = {
+					num_of_ports = 1
+				}
+				TUN = {
+					num_of_ports = 1
+				}
+				ALG = {
+					num_of_ports = 1
+				} 
+				TRP = {
+					num_of_ports = 1
+				}
+				KNI = {
+					num_of_ports = 1
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = CTG_enslaved_all_pirates
+				duration = 36500 #100 years
+			}
+		}
+	}
+	CTG_carthago_nova={
+		icon = mission_reclaim_andalucia
+		required_missions = {
+			CTG_spain
+			CTG_end_of_pirats
+			CTG_rome
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = toledo_area
+				area = valencia_area
+			}
+			is_state = no
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger = {
+			toledo_area = {
+				is_state = yes
+				type = ALL
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			valencia_area={
+				is_state = yes
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+		effect = {
+			set_country_flag = CTG_enabled_carthago_nova
+			custom_tooltip = "CTG_enable_carthago_nova"
+			change_technology_group = western
+			change_unit_type = western
+			1750 = {
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+			221 = {
+				add_base_production = 2
+				change_trade_goods = iron
+				center_of_trade = 1
+			}
+		}
+	}
+	
+}

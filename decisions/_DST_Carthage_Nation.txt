@@ -3,192 +3,119 @@ country_decisions = {
 	carthage_nation = {
 		major = yes
 		potential = {
-			is_former_colonial_nation = no
-			is_playing_custom_nation = no
-			is_colonial_nation = no
-			NOT = {
-				has_country_flag = formed_carthage_nation_flag
-				exists = CTG
-				tag = CTG
-				tag = PAP
-				tag = SPA
-				tag = LSE
-				tag = HLR
-				tag = TTS
-				tag = ALP
-				tag = ADR
-				tag = MGH
-				tag = ALG
-				tag = ADU
-			}			
-			OR = { # Any Maghrebi or Iberian can restore Carthage
-			tag = MJO
-			culture_group = maghrebi
-			primary_culture = sicilian
-			primary_culture = sardinian
-			primary_culture = andalucian
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = CTG_formed_carthage_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
 			}
+			NOT = { exists = CTG }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			NOT = { tag = ROM }
 			OR = {
 				ai = no
 				AND = {
 					ai = yes
-					num_of_cities = 8
+					NOT = { tag=TUN }
+					capital_scope = {
+						continent = africa
+					}
 				}
-			}			
+			}
+			OR = {
+				culture_group = maghrebi
+				culture_group = latin
+				primary_culture = greek
+			}
+			owns_core_province = 341
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
 		}
 		provinces_to_highlight = {
 			OR = {
-				# Carthage Cores
-				area = tunisia_area
-				area = djerba_area
-				area = tripolitania_area
-				area = barbary_coast_area
-				area = northern_morocco_area
-				area = corsica_sardinia_area
-				area = upper_andalucia_area
-				area = western_sicily_area
-				area = baleares_area
-
-				province_id = 4562
-				province_id = 221
-				province_id = 339
-				province_id = 1882
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { is_core = ROOT }
+				AND = {
+					OR = {
+						province_id = 341 #Tunis
+					}
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+				}
 			}
 		}
 		allow = {
 			adm_tech = 10
-			NOT = { exists = CTG }
-			is_subject = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
 			is_at_war = no
-			OR = {
-				culture_group = maghrebi
-				culture_group = iberian
-			}	
-				# North African Coast
-				tunisia_area = {
-					type = all
-					owned_by = ROOT
-				}
-				djerba_area = {
-					type = all
-					owned_by = ROOT
-				}
-				tripolitania_area = {
-					type = all
-					owned_by = ROOT
-				}
-				barbary_coast_area = {
-					type = all
-					owned_by = ROOT
-				}
-				northern_morocco_area = {
-					type = all
-					owned_by = ROOT
-				}
-				corsica_sardinia_area = {
-					type = all
-					owned_by = ROOT
-				}
-				upper_andalucia_area = {
-					type = all
-					owned_by = ROOT
-				}
-				western_sicily_area = {
-					type = all
-					owned_by = ROOT
-				}
-				baleares_area = {
-					type = all
-					owned_by = ROOT
-				}
-
-				owns_core_province = 4562
-				owns_core_province = 221
-				owns_core_province = 339
-				owns_core_province = 1882
-		}
-	 	effect = {
-			change_tag = CTG # Country TAG
-			set_country_flag = formed_carthage_nation_flag # Country Formation Flag
-			custom_tooltip = form_carthage_tt_3 # Region/Area Claims
-			custom_tooltip = form_carthage_tt_4 # Region/Area Claims
-			hidden_effect = {
-				every_owned_province = {
-					limit = {
-						has_owner_culture = yes
-					}
-					change_culture = phoenician
-				}
+			is_emperor = no
+			owns_core_province = 341 # Tunis
+			total_development = 100
+			341={
+				development = 25
 			}
-			change_primary_culture = phoenician
-			custom_tooltip = dec1_decisions_blank	
-			CTG = { # Capital change and bonuses			
-				set_capital = 341 # Carthage
-				341 = {
-					rename_capital = "Carthage"
-					add_base_tax = 1
-					add_base_production = 1
-					add_base_manpower = 1
-				}
-				custom_tooltip = dec1_decisions_blank				
-				custom_tooltip = dec1_government_rank_3 # Government Rank Change
-				# Dharma DLC check to prevent ugly tooltip
+		}
+		effect = {
+			341 = {
+				move_capital_effect = yes
+				change_province_name = "Carthage"
+				rename_capital = "Carthage"
+			}
 
-				custom_tooltip = dec1_decisions_blank						
-
-				hidden_effect = { # Hidden Effects to fix bad tooltips
-					# Region/Area Claims
-					iberia_region = {
-						limit = {
-							NOT = { owned_by = ROOT }
-						}
-						add_permanent_claim = CTG
-					}
-					italy_region = {
-						limit = {
-							NOT = { owned_by = ROOT }
-						}
-						add_permanent_claim = CTG
-					}	
-					# Government Rank change				
-					if = {
-						limit = {
-							NOT = {
-								government_rank = 3
-								}
-							}
-						set_government_rank = 3
-					}
-					# Government Type Change
-					if = {
-						limit = {
-							NOT = {
-								government = monarchy
-								}
-							}
-						change_government = monarchy
-					}																		
+			change_tag = CTG
+			swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
 				}
-				# Custom Ideas check and change		
-				if = {
-					limit = { has_custom_ideas = no }
-					country_event = { id = ideagroups.1 } #Swap Ideas
+				set_government_rank = 2
+			}
+			
+			
+			tunisia_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
 				}
-				custom_tooltip = dec1_decisions_blank
-				# Increased Centralization
+				add_permanent_claim = CTG
+			}	
+			add_prestige = 25
 			add_country_modifier = {
 				name = "centralization_modifier"
 				duration = 7300
 			}
-			}					
+			set_country_flag = CTG_formed_carthage_flag
+			
+			IF = {
+				LIMIT = {
+					was_tag = TUN
+				}
+				set_country_flag = formed_tunisia_flag
+			}
+			change_government = republic
+			add_government_reform = oligarchy_reform
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			country_event={
+				days = 7
+				id=CTG_triggered_events.1
+			}
 		}
 		ai_will_do = {
 			factor = 1
 		}
-		ai_importance = 400		
 	}
 }

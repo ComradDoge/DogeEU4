@@ -45,21 +45,12 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 03/02/2021 [/h1]
+[h1] Changes 04/02/2021 [/h1]
 [quote]
-- No free spins on the mine event
-- AI wont pick or be less likely to pick some idea groups (they wont pick mercenary ones at all)
-- Flags on decisions cleaned up to be at beginning
-- AI wont pick some policies as to not waste a slot
-- New Formables: South German Confederation, Alpland, Adriatic Empire, Carthage, Kievan Rus, Saudi Arabia, Tatarstan, Himalayan Empire, Lusitania
-
-- Carthage culture requirements is to be Maghreb culture group or Sardinian; Sicilian; Andalucian or be Majorca
-- Andalucia no longer can be formed by Maghreb cultures, only Andalucian cultures can, cleaned up its decision and made it area scoped which I slightly expanded.
-- Tunis is not an option when you form Carthage
-- Fixed some of the new addes national ideas
-- Carthage decision now changes your primary culture (and provinces) to Phoenician
-- Morocco, Algiers and Tunis decisions will not appear if the respective countries exist
-- Added ideas for Formosa (Taiwan)
+- Updated Carthage flag made by u/Alagremm
+- Carthage colour changed to a more gold colour
+- Can form carthage if you are latin or maghreb culture group or greek culture. Need to own and have a core on Tunis province.
+- Due to Reloaders (City-State of Carthage mod) generosity, Carthage has received spanking new ideas, mission tree and related event flavour
 [/quote]
 [/quote]
 [quote]
@@ -133,6 +124,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1810341847] Formable Nations: Reworked [/url] by Noah 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2016156036] City-State of Carthage [/url] by Reloader
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:

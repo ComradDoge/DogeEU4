@@ -1,0 +1,129 @@
+namespace = CTG_triggered_events
+country_event = {
+	id = CTG_triggered_events.1
+	
+	title = "CTG_foundation_title"
+	desc = "CTG_foundation_desc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	is_triggered_only=yes
+
+	#muslim
+	option = {
+		trigger={
+			religion_group = muslim
+		}
+		ai_chance = {factor=1}
+		name = "CTG_foundation_muslim"
+		add_country_modifier = {
+			name = "CTG_muslim_founders"
+			duration = -1
+		}
+		add_country_modifier = {
+			name = "CTG_mediterranean_focus"
+			duration = -1
+		}
+		every_neighbor_country = {
+			limit = {
+				religion_group = muslim
+			}
+			add_opinion = {
+				who = CTG
+				modifier = insulted
+			}
+		}
+	}
+
+	#non-muslim
+	option = {
+		name = "CTG_foundation_christian"
+		trigger={
+			NOT = { religion_group = muslim }
+		}
+		add_country_modifier = {
+			name = "CTG_christian_founders"
+			duration = -1
+		}
+		add_country_modifier = {
+			name = "CTG_mediterranean_focus"
+			duration = -1
+		}
+		every_neighbor_country = {
+			limit = {
+				religion_group = christian
+			}
+			add_opinion = {
+				who = CTG
+				modifier = helped_support_rebels
+			}
+		}
+	}
+
+}
+country_event = {
+	id = CTG_triggered_events.2
+	
+	title = "CTG_roman_question_title"
+	desc = "CTG_roman_question_desc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	is_triggered_only=yes
+
+	option = {
+		trigger = {
+			owns_core_province = 118
+		}
+		name = "CTG_roman_question_1"
+		add_treasury = -250
+		IF = {
+			LIMIT = {
+				NOT = { accepted_culture = umbrian }
+			}
+			add_accepted_culture = umbrian
+		}
+		ELSE = {
+			add_dip_power = 100
+		}
+		118={
+			if={
+				limit={
+					NOT = { province_has_center_of_trade_of_level = 2 }
+				}
+				add_center_of_trade_level = 2
+			}
+			if={
+				limit={
+					province_has_center_of_trade_of_level = 2
+					NOT = { province_has_center_of_trade_of_level = 3 }
+				}
+				add_base_tax = 1
+				add_base_production = 1
+				add_center_of_trade_level = 1
+			}
+			if={
+				limit={
+					province_has_center_of_trade_of_level = 3
+				}
+				add_base_tax = 3
+				add_base_production = 3
+			}
+		}
+	}
+
+	option = {
+		name = "CTG_roman_question_2"
+		add_treasury = 500
+		add_mil_power = 100
+		add_absolutism = 5
+		capital_scope = {
+			add_prosperity = 50
+			add_base_tax = 2
+			add_base_production = 2
+			add_base_manpower = 2
+		}
+		118 = {
+			add_devastation = 25
+			add_base_tax = -4
+			add_base_production = -4
+			add_base_manpower = -4
+		}
+	}
+}

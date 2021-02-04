@@ -1,0 +1,181 @@
+CTG_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+
+	potential = {
+		tag = CTG
+		NOT = { map_setup = map_setup_random }
+	}
+
+	CTG_dominate_tunis = {
+		icon = mission_arabian_sea_trade
+		required_missions = { }
+		trigger = {
+			341 = {
+				is_strongest_trade_power = ROOT
+			}
+		}
+		effect = {
+			add_years_of_income = 1
+			add_navy_tradition = 5
+		}
+	}
+
+	CTG_dominate_genoa = {
+		icon = mission_rb_scottish_north_sea_trade
+		required_missions = {
+			CTG_dominate_tunis
+		}
+		trigger = {
+			1297 = {
+				is_strongest_trade_power = ROOT
+			}
+		}
+		effect = {
+			add_years_of_income = 1
+			add_navy_tradition = 10
+		}
+	}
+
+	CTG_corsica_sardinia={
+		position=3
+		icon=mission_seize_the_isles
+		required_missions = {
+			CTG_develop_navy
+		}
+		provinces_to_highlight = {
+			area = corsica_sardinia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger={
+			corsica_sardinia_area={
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+		effect={
+			custom_tooltip = "CTG_create_new_cot"
+			2986={
+				center_of_trade = 1
+			}
+			baleares_area={
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}
+						
+		}
+	}
+	CTG_baleares={
+		position=4
+		icon=mission_mediterranean_islands
+		required_missions = {
+			CTG_corsica_sardinia
+		}
+		provinces_to_highlight = {
+			area = baleares_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger={
+			baleares_area={
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect={
+			custom_tooltip = CTG_create_new_cot
+			333={
+				center_of_trade = 1
+			}
+			valencia_area={
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}
+			catalonia_area={
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = CTG
+			}
+		}
+	}
+	CTG_valencia={
+		position=5
+		icon=mission_mare_nostrum
+		required_missions = {
+			CTG_baleares
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = valencia_area
+				area = catalonia_area
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger={
+			valencia_area={
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			catalonia_area={
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+		effect={
+			custom_tooltip = "CTG_upgrade_cot_to_2"
+			220={
+				if={
+					limit={
+						NOT = { province_has_center_of_trade_of_level = 2 }
+					}
+					add_center_of_trade_level = 1
+				}				
+			}
+		}
+	}
+	CTG_over_the_alps = {
+		position = 7
+		icon=mission_prepare_an_invasion_force
+		required_missions = {
+		}
+		trigger = {
+			OR = {
+				AND = {
+					is_year = 1600
+					army_tradition = 75
+				}
+				has_country_modifier = CTG_import_african_elephants
+				has_country_modifier = CTG_import_indian_elephants
+			}			
+		}
+		effect = {
+			add_country_modifier = {
+				name = CTG_march_over_the_alps
+				duration = 9125
+			}
+			define_general = {
+				name = "Hamilcar"
+				shock = 6
+				fire = 4
+				manuever = 6
+				siege = 2
+			}
+		}
+	}
+}

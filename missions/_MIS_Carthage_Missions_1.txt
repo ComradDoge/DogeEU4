@@ -1,0 +1,219 @@
+CTG_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+
+	potential = {
+		tag = CTG
+		NOT = { map_setup = map_setup_random }
+	}
+	
+	CTG_secure_carthage = {
+		required_missions = {
+		}
+		icon = mission_tear_down_spanish_strongholds
+		trigger = {
+			341= { #Tunis
+				fort_level = 2
+			}
+			tunisia_area={
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			kabylia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			djerba_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		provinces_to_highlight = {
+			OR = { 
+				area = tunisia_area
+				area = kabylia_area
+				area = djerba_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			
+			algiers_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			barbary_coast_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			tripolitania_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_prestige=10
+			341= {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			add_country_modifier = {
+				name = "CTG_enslave_pirates"
+				duration = 3650 #10 years
+			}
+		}
+	}
+
+	CTG_secure_western_coast = {
+		required_missions = {
+			CTG_secure_carthage
+		}
+		icon = mission_control_the_barbary_coast
+		provinces_to_highlight = {
+			OR = {
+				area = kabylia_area
+				area = barbary_coast_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			kabylia_area={
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			barbary_coast_area={
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige=10
+			add_country_modifier = {
+				name = "CTG_enslave_pirates_west"
+				duration = 3650 #10 years
+			}
+		}
+	}
+
+	CTG_secured = {
+		required_missions = {
+			CTG_secure_western_coast
+			CTG_secure_eastern_coast
+		}
+		icon = mission_expel_the_moriscos
+		
+		trigger = {
+			
+		}
+		effect = {
+			add_mil_power=50
+			add_country_modifier = {
+				name = "CTG_enslave_pirates"
+				duration = 3650 #10 years
+			}
+		}
+	}
+	CTG_local_hegemony = {
+		position = 5
+		required_missions = {
+			CTG_secured
+		}
+		icon = mission_cannons_firing
+		
+		trigger = {
+			OR = {
+				is_great_power=yes
+				army_size = 100
+			}
+		}
+		effect = {
+			maghreb_region = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			lower_andalucia_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			upper_andalucia_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	CTG_spain = {
+		required_missions = {
+			CTG_local_hegemony
+		}
+		icon = mission_reclaim_andalucia
+		provinces_to_highlight = {
+			OR = {
+				area = lower_andalucia_area
+				area = upper_andalucia_area
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger = {
+			lower_andalucia_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			upper_andalucia_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = "CTG_upgrade_cot_to_2"
+			224	={
+				if={
+					limit={
+						NOT = { province_has_center_of_trade_of_level = 2 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			toledo_area = {
+				limit = {
+					AND = {
+						NOT = { owned_by = ROOT }
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+}
