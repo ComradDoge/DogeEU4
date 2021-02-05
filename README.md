@@ -47,10 +47,9 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 04/02/2021 [/h1]
 [quote]
-- Updated Carthage flag made by u/Alagremm
-- Carthage colour changed to a more gold colour
-- Can form carthage if you are latin or maghreb culture group or greek culture. Need to own and have a core on Tunis province.
-- Due to Reloaders (City-State of Carthage mod) generosity, Carthage has received spanking new ideas, mission tree and related event flavour
+- Adriatic Empire ideas fixed
+- Mann mission tree does not require japanese provinces or an african lake
+- Will no longer see reform Croatia if you are the Adriatic Empire
 [/quote]
 [/quote]
 [quote]
