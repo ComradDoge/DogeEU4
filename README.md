@@ -47,7 +47,24 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 07/02/2021 [/h1]
 [quote]
-- Minimum time to have a policy set to 2 years  
+- Minimum time to have a policy set to 2 years
+- North/South Confederation, Germany and Prussian Ideas rebalanced
+- Swedish Ideas rebalanced
+- Mughal Ideas slightly rebalanced
+- Alpland ideas reworked and has localisation
+- Adriatic Ideas reworked and has localisation
+- Swizz ideas very slightly reworked
+- Construction cost reduction numbers nerfed, ideas 10%>5%, policies (3>2) 10%>7.5%
+- Army Tradition numbers nerfed 1>0.5
+- Re-added the event which makes you lose 100 prestige when you lose hegemony
+- Naval batteries attrition 3%>5%
+- Can only have one governing capacity privilege at a time from one estate
+- Bunch of government reforms 250>150
+- Decentralization 33%>25% governing capacity
+- Changing government reforms cost 100 points and 1 corruption
+- Prussian militarization loses the -20% land maintenance, discipline 10%>7.5%
+- Horde discipline 10%>7.5%
+- Holy Roman Empire can be formed through a decision
 [/quote]
 [/quote]
 [quote]
