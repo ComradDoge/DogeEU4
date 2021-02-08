@@ -65,6 +65,7 @@ Feel free to send me the save if something breaks.
 - Prussian militarization loses the -20% land maintenance, discipline 10%>7.5%
 - Horde discipline 10%>7.5%
 - Holy Roman Empire can be formed through a decision
+- Centralization governing capacity changed to a modifer instead -300>-25%, cause of a possible exploit
 [/quote]
 [/quote]
 [quote]
