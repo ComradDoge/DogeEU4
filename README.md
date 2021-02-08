@@ -47,17 +47,7 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 07/02/2021 [/h1]
 [quote]
-- Adriatic Empire ideas fixed
-- Mann mission tree does not require japanese provinces or an african lake
-- Will no longer see reform Croatia if you are the Adriatic Empire
-- Lusitania received its own ideas
-- All loading screens now have [REDACTED]
-- Policy minimum time is back to 1 year
-- Iberian Harem fertility -200% > -500% because you can stack it
-- Industrial Age Japan ability to change to western removed, as it has a mission disaster through which it can go through to become westernized. Mission requirement therefore changed from revolutions age to industrial age
-- Cleaned up and redid idea group icons
-- Fortress shock -5% changed to fire -5%, artillery 15%>5%
-- Assimilation is renamed to Culture ideas, slightly rebalanced and now has elements of both assimilation and "non-friendly assimilation"
+- Minimum time to have a policy set to 2 years  
 [/quote]
 [/quote]
 [quote]
