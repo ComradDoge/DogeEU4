@@ -35,7 +35,7 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [quote]
-Primarily a shattered mod for 1.30 with various game balancing and content to provide engaging gameplay both in SP and MP. In addition to the shattered game start there is a vanilla game start.
+Primarily a shattered mod for 1.30 with various game balancing and content to provide engaging gameplay both in SP and MP. In addition to the shattered bookmark there is a vanilla bookmark.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
@@ -66,6 +66,7 @@ Feel free to send me the save if something breaks.
 - Holy Roman Empire can be formed through a decision
 - Centralization governing capacity changed to a modifer instead -300>-25%, cause of a possible exploit
 - No longer should receive naval related advisors if you do not have any ports
+- 1444 Vanilla bookmark finished and has all the provinces are set, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
 [/quote]
 [/quote]
 [quote]
