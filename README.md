@@ -35,7 +35,7 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [quote]
-Shattered mod for 1.30 with various changes and additions to make the game a lot more flavourful and engaging.
+Primarily a shattered mod for 1.30 with various game balancing and content to provide engaging gameplay both in SP and MP. In addition to the shattered game start there is a vanilla game start.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
 
@@ -62,10 +62,10 @@ Feel free to send me the save if something breaks.
 - Bunch of government reforms 250>150
 - Decentralization 33%>25% governing capacity
 - Changing government reforms cost 100 points and 1 corruption
-- Prussian militarization loses the -20% land maintenance, discipline 10%>7.5%
-- Horde discipline 10%>7.5%
+- Prussian militarization loses the -20% land maintenance
 - Holy Roman Empire can be formed through a decision
 - Centralization governing capacity changed to a modifer instead -300>-25%, cause of a possible exploit
+- No longer should receive naval related advisors if you do not have any ports
 [/quote]
 [/quote]
 [quote]
