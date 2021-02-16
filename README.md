@@ -61,12 +61,16 @@ Feel free to send me the save if something breaks.
 - Can only have one governing capacity privilege at a time from one estate
 - Bunch of government reforms 250>150
 - Decentralization 33%>25% governing capacity
-- Changing government reforms cost 100 points and 1 corruption
+- Changing government reforms cost 100 points and 1 corruption ########################does this even work
 - Prussian militarization loses the -20% land maintenance
 - Holy Roman Empire can be formed through a decision
-- Centralization governing capacity changed to a modifer instead -300>-25%, cause of a possible exploit
+- Centralization governing capacity changed to a modifer instead -300>-25%, due to a major exploit
 - No longer should receive naval related advisors if you do not have any ports
-- 1444 Vanilla bookmark finished and has all the provinces are set, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
+- 1444 Vanilla bookmark provinces finished, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
+- Jerusalem Trigger now works for other Jewish religion forms
+- AI wont go sky high on developing their provinces anymore
+- AI wont form Peoples Republic of China
+- Mines gives +1 building slot so you can build them on fully built provinces
 [/quote]
 [/quote]
 [quote]
