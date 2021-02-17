@@ -76,8 +76,10 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Main Additions [/h1]
 [quote]
-- New Trade Goods, More Idea Groups, Buildings, Formables, Advisors, Ruler traits
+- New Trade Goods, More Idea Groups, Buildings, Formables, Advisors, Ruler traits#
+- A more balanced EU4 experience suitable for Multiplayer
 - Englightenment and Industrialization Age
+- A shattered and a vanilla bookmark
 - New Religions with Mechanics
 - Lost Colonies of the Old World
 - New State Edicts (that upgrade)
@@ -125,26 +127,30 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team [/quote]
     
 [h3] Other [/h3]
-[quote]    
+[quote]
+    Content
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities[/url] by Worlds Smuggest Detective 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers[/url] by Lk 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism[/url] by Jan 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1810341847] Formable Nations: Reworked [/url] by Noah 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2016156036] City-State of Carthage [/url] by Reloader
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers[/url] by Lk 
+
+    Flavour
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin  
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities[/url] by Worlds Smuggest Detective 
+
+    Graphical
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:
