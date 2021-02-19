@@ -62,7 +62,6 @@ Feel free to send me the save if something breaks.
 - Can only have one governing capacity privilege at a time from one estate
 - Bunch of government reforms 250>150
 - Decentralization 33%>25% governing capacity
-- Changing government reforms cost 100 points and 1 corruption ########################does this even work
 - Prussian militarization loses the -20% land maintenance
 - Holy Roman Empire can be formed through a decision
 - Centralization governing capacity changed to a modifer instead -300>-25%, due to a major exploit
@@ -72,6 +71,12 @@ Feel free to send me the save if something breaks.
 - AI wont go sky high on developing their provinces anymore
 - AI wont form Peoples Republic of China
 - Mines gives +1 building slot so you can build them on fully built provinces
+- Governing capacity from tech lowered 250>150
+
+- Government Reforms
+--- T8 Regional Representation min_autonomy in territories -10%>-20%
+--- T8 HRE Revoke Reichsfreiheit - added improve_relations 15%, diplo_annex -10%>-15%, agressive_expansion -10%>-15%
+--- T4 Mercenary Corps 1%>5% mercenary discipline per cultural group ally to a maximum of 5 (25%) allies.
 [/quote]
 [/quote]
 [quote]
