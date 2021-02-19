@@ -54,6 +54,7 @@ Feel free to send me the save if something breaks.
 - Alpland ideas reworked and has localisation
 - Adriatic Ideas reworked and has localisation
 - Swizz ideas very slightly reworked
+- Updated/Added ideas for: Brescia, Capitanata, Aquileia, Coberg, Lippe, Meissen, Modena, Paderborn, Tirol, Parma, Passau, Salzburg, Spoleto, Ruppin, Calenberg, Osnabruck
 - Construction cost reduction numbers nerfed, ideas 10%>5%, policies (3>2) 10%>7.5%
 - Army Tradition numbers nerfed 1>0.5
 - Re-added the event which makes you lose 100 prestige when you lose hegemony
