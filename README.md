@@ -76,7 +76,7 @@ Feel free to send me the save if something breaks.
 - Government Reforms
 --- T8 Regional Representation min_autonomy in territories -10%>-20%
 --- T8 HRE Revoke Reichsfreiheit - added improve_relations 15%, diplo_annex -10%>-15%, agressive_expansion -10%>-15%
---- T4 Mercenary Corps 1%>5% mercenary discipline per cultural group ally to a maximum of 5 (25%) allies.
+--- T4 Mercenary Corps 1%>2% mercenary discipline per cultural group ally to a maximum of 5 (10%) allies.
 [/quote]
 [/quote]
 [quote]
