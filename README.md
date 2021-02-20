@@ -55,13 +55,15 @@ Feel free to send me the save if something breaks.
 Content
 --- Holy Roman Empire can be formed through a decision
 --- 1444 Vanilla bookmark provinces finished, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
+--- Added missions for: Silesia (minor), Texas (medium), Canada(huge), Mexico(huge), Colombia/Venezuela (minor), Australia (medium)
+--- 12 new loading screens
 
 Governing Capacity
 --- Governing capacity from tech lowered 250>150
 --- Centralization governing capacity changed to a modifer instead -300>-25% due to exploit
 --- Decentralization 33%>25% governing capacity
 --- Government reforms with 250>150
---- Can only have one governing capacity privilege at a time from one estate
+--- Can only have one governing capacity privilege at a time from all estates
 
 Balance
 --- Army Tradition numbers nerfed 1>0.5
@@ -85,15 +87,13 @@ Government Reforms
 
 Fixes
 --- Mines gives +1 building slot so you can build them on fully built provinces
---- No longer should receive naval related advisors if you do not have any ports
---- Jerusalem Trigger now works for other Jewish religion forms
+--- Jerusalem Held Trigger now works for other Jewish religion types
 --- Naval batteries attrition 3%>5%
 --- Re-added the event which makes you lose 100 prestige when you lose hegemony
 
 AI
 --- AI wont go sky high on developing their provinces anymore
---- AI wont form Peoples Republic of China
-
+--- No longer should receive naval related advisors if you do not have any ports
 
 [/quote]
 [/quote]
