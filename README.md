@@ -35,9 +35,9 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [quote]
-Primarily a shattered mod for 1.30 with various game balancing and content to provide engaging gameplay both in SP and MP. In addition to the shattered bookmark there is a vanilla bookmark.
+Primarily a shattered mod for 1.30 with lots of game balancing and content to provide engaging gameplay both in SP and MP. However, in addition to the shattered bookmark there is a vanilla bookmark if you are not interested in the shattered setting.
 
-All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
+All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck and feel free to inform.
 
 [h1] Discord [/h1]
 [quote] Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. 
@@ -45,10 +45,10 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 07/02/2021 [/h1]
+[h1] Changes 21/02/2021 [/h1]
 [quote]
 - 1444 Vanilla bookmark provinces finished, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
-
+- Added a few more images to steam workshop
 
 
 
