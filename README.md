@@ -35,9 +35,9 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [quote]
-Shattered mod for 1.30 with various changes and additions to make the game a lot more flavourful and engaging.
+Primarily a shattered mod for 1.30 with lots of game balancing and content to provide engaging gameplay both in SP and MP. However, in addition to the shattered bookmark there is a vanilla bookmark if you are not interested in the shattered setting.
 
-All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck.
+All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck and feel free to inform.
 
 [h1] Discord [/h1]
 [quote] Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. 
@@ -45,16 +45,70 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 07/02/2021 [/h1]
+[h1] Changes 21/02/2021 [/h1]
 [quote]
-- Minimum time to have a policy set to 2 years  
+- 1444 Vanilla bookmark provinces finished, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
+- Added a few more images to steam workshop
+
+
+
+Content
+--- Holy Roman Empire can be formed through a decision
+--- 1444 Vanilla bookmark provinces finished, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
+--- Added missions for: Silesia (minor), Texas (medium), Canada(huge), Mexico(huge), Colombia/Venezuela (minor), Australia (medium)
+--- 12 new loading screens
+--- Industrial Age Italy Unification req changed to control of the region rather than only cultural
+
+Governing Capacity
+--- Governing capacity from tech lowered 250>150
+--- Centralization governing capacity changed to a modifer instead -300>-25% due to exploit
+--- Decentralization 33%>25% governing capacity
+--- Government reforms with 250>150
+--- Can only have one governing capacity privilege at a time from all estates
+
+Balance
+--- Army Tradition numbers nerfed 1>0.5
+--- Minimum time to have a policy set to 2 years
+--- Prussian militarization loses the -20% land maintenance
+--- Construction cost reduction numbers nerfed, ideas 10%>5%, policies (max 3>2) 10%>7.5%
+--- Militarism 2.5k manpower > 10% global manpower
+--- Adm and Dip tech ahead of time bonuses halved
+
+Ideas
+--- North/South Confederation, Germany and Prussian Ideas rebalanced
+--- Swedish Ideas rebalanced
+--- Mughal Ideas slightly rebalanced
+--- Alpland ideas reworked and has localisation
+--- Adriatic Ideas reworked and has localisation
+--- Swizz ideas very slightly reworked
+--- Added ideas for: Brescia, Capitanata, Aquileia, Coberg, Lippe, Meissen, Modena, Paderborn, Tirol, Parma, Passau, Salzburg, Spoleto, Ruppin, Calenberg, Osnabruck
+
+Government Reforms
+--- T8 Regional Representation min_autonomy in territories -10%>-20%
+--- T8 HRE Revoke Reichsfreiheit - added improve_relations 15%, diplo_annex -10%>-15%, agressive_expansion -10%>-15%
+--- T4 Mercenary Corps 1%>2% mercenary discipline per cultural group ally to a maximum of 5 (10%) allies.
+
+Fixes
+--- Mines gives +1 building slot so you can build them on fully built provinces
+--- Jerusalem Held Trigger now works for other Jewish religion types
+--- Naval batteries attrition 3%>5%
+--- Re-added the event which makes you lose 100 prestige when you lose hegemony
+--- Japan Meiji disaster works now
+--- PRC red colour is darker
+
+AI
+--- AI wont go sky high on developing their provinces anymore
+--- No longer should receive naval related advisors if you do not have any ports
+
 [/quote]
 [/quote]
 [quote]
 [h1] Main Additions [/h1]
 [quote]
-- New Trade Goods, More Idea Groups, Buildings, Formables, Advisors, Ruler traits
+- New Trade Goods, More Idea Groups, Buildings, Formables, Advisors, Ruler traits#
+- A more balanced EU4 experience suitable for Multiplayer
 - Englightenment and Industrialization Age
+- A shattered and a vanilla bookmark
 - New Religions with Mechanics
 - Lost Colonies of the Old World
 - New State Edicts (that upgrade)
@@ -102,26 +156,30 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team [/quote]
     
 [h3] Other [/h3]
-[quote]    
+[quote]
+    Content
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities[/url] by Worlds Smuggest Detective 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers[/url] by Lk 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism[/url] by Jan 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2130734339] Experor Mod - Europe Extended[/url] by Gernmeir 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1810341847] Formable Nations: Reworked [/url] by Noah 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2016156036] City-State of Carthage [/url] by Reloader
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers[/url] by Lk 
+
+    Flavour
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1963468503] Improved Dynamic Province Naming[/url] by Panther 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1417122689] Better Terrain Pictures[/url] by Borsch
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=251964175] 50 Loadingscreens[/url] by SleepyLion 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2019048971] Coloured Mission Tree[/url] by Varlin  
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1815961994] More Ruler Personalities[/url] by Worlds Smuggest Detective 
+
+    Graphical
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:

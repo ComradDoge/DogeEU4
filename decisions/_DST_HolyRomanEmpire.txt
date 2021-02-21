@@ -1,0 +1,110 @@
+country_decisions = {
+
+	holy_roman_empire_forming = {
+		major = yes
+		potential = {
+			is_former_colonial_nation = no
+			is_playing_custom_nation = no
+			is_colonial_nation = no
+			NOT = { 
+				has_country_flag = formed_holy_roman_empire_forming
+				tag = PAP
+                tag = PRU
+                tag = GER
+                tag = SGF
+                tag = NDB
+				exists = HLR
+			}			
+			OR = {
+                culture_group = germanic
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 8
+				}
+			}				
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = south_german_region
+                region = north_german_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}		
+		allow = {
+			adm_tech = 15
+			is_subject = no
+			is_at_war = no
+            NOT = { 
+                tag = PRU
+                tag = GER
+                tag = SGF
+                tag = NDB
+            }
+            OR = {
+				custom_trigger_tooltip = {
+					tooltip = empire_dismantled.tooltip
+					NOT = { hre_size = 1 }
+				}
+				is_emperor = yes
+			}
+            north_german_region = {
+                type = all
+                owned_by = ROOT
+            }
+            south_german_region = {
+                type = all
+                owned_by = ROOT
+            }
+		}
+		effect = {
+			change_tag = HLR # Country TAG
+            restore_country_name_effect = yes
+            country_event = { id = ideagroups.1 } #Swap Ideas
+			set_country_flag = formed_holy_roman_empire_forming # Country Formation Flag
+			HLR = { # Capital change and bonuses				
+				set_capital = 1878 # Achen
+				1878 = {
+					add_base_tax = 2
+					add_base_production = 2
+					add_base_manpower = 2
+				
+                if = {
+                    limit = {
+                        is_part_of_hre = yes
+                    }
+                    every_owned_province = {
+                        limit = {
+                            is_part_of_hre = yes
+                        }
+                        set_in_empire = no
+                    }
+                }
+
+				hidden_effect = { # Hidden Effects to fix bad tooltips
+					# Region/Area Claims
+					# Government Rank change				
+					if = {
+						limit = {
+							NOT = {
+								government_rank = 3
+								}
+							}
+						set_government_rank = 3 
+					}
+					# Government Type Change																	
+				}
+				# Custom Ideas check and change
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400	
+	}
+}
