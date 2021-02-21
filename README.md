@@ -57,6 +57,7 @@ Content
 --- 1444 Vanilla bookmark provinces finished, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
 --- Added missions for: Silesia (minor), Texas (medium), Canada(huge), Mexico(huge), Colombia/Venezuela (minor), Australia (medium)
 --- 12 new loading screens
+--- Industrial Age Italy Unification req changed to control of the region rather than only cultural
 
 Governing Capacity
 --- Governing capacity from tech lowered 250>150
@@ -70,6 +71,8 @@ Balance
 --- Minimum time to have a policy set to 2 years
 --- Prussian militarization loses the -20% land maintenance
 --- Construction cost reduction numbers nerfed, ideas 10%>5%, policies (max 3>2) 10%>7.5%
+--- Militarism 2.5k manpower > 10% global manpower
+--- Adm and Dip tech ahead of time bonuses halved
 
 Ideas
 --- North/South Confederation, Germany and Prussian Ideas rebalanced
@@ -90,6 +93,8 @@ Fixes
 --- Jerusalem Held Trigger now works for other Jewish religion types
 --- Naval batteries attrition 3%>5%
 --- Re-added the event which makes you lose 100 prestige when you lose hegemony
+--- Japan Meiji disaster works now
+--- PRC red colour is darker
 
 AI
 --- AI wont go sky high on developing their provinces anymore
