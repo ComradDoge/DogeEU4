@@ -16,6 +16,8 @@ NDefines.NMilitary.CAVALRY_COST = 20 -- from 25, to offset the worthlessness of 
 --NDefines.NMilitary.COMBAT_DICE_SIDE = 12
 NDefines.NMilitary.CANNOT_RETREAT_DAYS = 7
 
+NDefines.NMilitary.MAX_COMBAT_WIDTH = 40
+
 -- Professionalism
 NDefines.NMilitary.SLACKEN_AP_DROP = 0.10
 NDefines.NMilitary.SLACKEN_MANPOWER_INCREASE = 2.0
