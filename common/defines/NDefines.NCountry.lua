@@ -35,6 +35,7 @@ NDefines.NCountry.MAX_IDEA_GROUPS_FROM_SAME_CATEGORY = 0.35 --35
 -- Military
 NDefines.NCountry.LAND_FORCELIMIT_EXTRA_COST_FACTOR = 6.0
 NDefines.NCountry.NAVAL_FORCELIMIT_EXTRA_COST_FACTOR = 6.0
+--NDefines.NCountry.PS_SCORCH_EARTH = 5
 
 
 --Estates
@@ -54,7 +55,7 @@ NDefines.NCountry.REGULAR_COLONY_GROWTH = 10 --25
 
 
 -- Barrage
-NDefines.NCountry.PS_ARTILLERY_BARRAGE = 100
+NDefines.NCountry.PS_ARTILLERY_BARRAGE = 50
 NDefines.NCountry.PS_NAVAL_BARRAGE = 50
 
 --- BEL Imports ---

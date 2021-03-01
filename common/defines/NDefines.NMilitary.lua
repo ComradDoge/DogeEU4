@@ -21,4 +21,4 @@ NDefines.NMilitary.SLACKEN_AP_DROP = 0.10
 NDefines.NMilitary.SLACKEN_MANPOWER_INCREASE = 2.0
 
 -- Naval
-NDefines.NMilitary.MARINE_SHOCK_DAMAGE_TAKEN = -0.1
+NDefines.NMilitary.MARINE_SHOCK_DAMAGE_TAKEN = 0.1
