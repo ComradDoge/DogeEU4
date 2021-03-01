@@ -47,58 +47,24 @@ Feel free to send me the save if something breaks.
 [quote]
 [h1] Changes 21/02/2021 [/h1]
 [quote]
-- 1444 Vanilla bookmark provinces finished, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
-- Added a few more images to steam workshop
-
-
-
-Content
---- Holy Roman Empire can be formed through a decision
---- 1444 Vanilla bookmark provinces finished, there might be some discrepancies so feel free to report (rulers, cores, provinces). The major difference, however is that some religion was kept to provide flavour. Africa kept most of the new religions, but other regions got theirs scaled down considerably.
---- Added missions for: Silesia (minor), Texas (medium), Canada(huge), Mexico(huge), Colombia/Venezuela (minor), Australia (medium)
---- 12 new loading screens
---- Industrial Age Italy Unification req changed to control of the region rather than only cultural
-
-Governing Capacity
---- Governing capacity from tech lowered 250>150
---- Centralization governing capacity changed to a modifer instead -300>-25% due to exploit
---- Decentralization 33%>25% governing capacity
---- Government reforms with 250>150
---- Can only have one governing capacity privilege at a time from all estates
 
 Balance
---- Army Tradition numbers nerfed 1>0.5
---- Minimum time to have a policy set to 2 years
---- Prussian militarization loses the -20% land maintenance
---- Construction cost reduction numbers nerfed, ideas 10%>5%, policies (max 3>2) 10%>7.5%
---- Militarism 2.5k manpower > 10% global manpower
---- Adm and Dip tech ahead of time bonuses halved
+- Recruiting mercenaries professionalism cost reduced from 0.05 > 0.01
+- A balance system against over-building forts by introducing local_development cost to the higher up ones.
 
-Ideas
---- North/South Confederation, Germany and Prussian Ideas rebalanced
---- Swedish Ideas rebalanced
---- Mughal Ideas slightly rebalanced
---- Alpland ideas reworked and has localisation
---- Adriatic Ideas reworked and has localisation
---- Swizz ideas very slightly reworked
---- Added ideas for: Brescia, Capitanata, Aquileia, Coberg, Lippe, Meissen, Modena, Paderborn, Tirol, Parma, Passau, Salzburg, Spoleto, Ruppin, Calenberg, Osnabruck
+Economy
+- Goods_produced policies nerfed by 5%
 
-Government Reforms
---- T8 Regional Representation min_autonomy in territories -10%>-20%
---- T8 HRE Revoke Reichsfreiheit - added improve_relations 15%, diplo_annex -10%>-15%, agressive_expansion -10%>-15%
---- T4 Mercenary Corps 1%>2% mercenary discipline per cultural group ally to a maximum of 5 (10%) allies.
+Technology
+- Railroad moved from tech 27 to tech 30
+
+State Edicts
+- Government Building description cleaned up
+- Ship state edict costs lowered
 
 Fixes
---- Mines gives +1 building slot so you can build them on fully built provinces
---- Jerusalem Held Trigger now works for other Jewish religion types
---- Naval batteries attrition 3%>5%
---- Re-added the event which makes you lose 100 prestige when you lose hegemony
---- Japan Meiji disaster works now
---- PRC red colour is darker
-
-AI
---- AI wont go sky high on developing their provinces anymore
---- No longer should receive naval related advisors if you do not have any ports
+- Canadian missions and events fixed, canadian and quebec cultures will spawn
+- Revolutions will start at 1800
 
 [/quote]
 [/quote]
