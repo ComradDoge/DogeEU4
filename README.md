@@ -66,9 +66,6 @@ Balance
 - Goods Produce related policies or modifiers removed from policies due to the economic effect they have
 - Some military policies were removed/combined and over all tweaked
 
-Economy
-- Goods_produced policies nerfed by 5%
-
 State Edicts
 - Government Building description cleaned up
 - Ship state edict costs lowered
