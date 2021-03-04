@@ -45,18 +45,29 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 21/02/2021 [/h1]
+[h1] Changes 04/03/2021 [/h1]
 [quote]
 
+Content
+- The combat width reduction removed in later tech as the game doesn't really support that.
+- Development idea group decision changed with a natural growth mechanic from excelbel
+- Being over the governing capacity hurts even more
+- Mercenary Idea is no longer exclusive, the professionalism malice still exists but with idea is lowered from 0.05 > 0.01
+
 Balance
-- Recruiting mercenaries professionalism cost reduced from 0.05 > 0.01
-- A balance system against over-building forts by introducing local_development cost to the higher up ones.
+- Artillery Barrage cost the normal amount 100>50
+- Conscription army_tradition change to reinforce_cost
+- Standing army received the army_tradition
+- Discipline policies 3%>5%
+- Conscription gets a negative -5% discipline at the end, to have a drawback akin to standing army
+- Marine disembark speed increased 2>3
+- Policy fire/shock numbers lowered 10%>7.5
+- Cav_to_inf_ratio added to tactical ideas
+- Goods Produce related policies or modifiers removed from policies due to the economic effect they have
+- Some military policies were removed/combined and over all tweaked
 
 Economy
 - Goods_produced policies nerfed by 5%
-
-Technology
-- Railroad moved from tech 27 to tech 30
 
 State Edicts
 - Government Building description cleaned up
@@ -64,7 +75,10 @@ State Edicts
 
 Fixes
 - Canadian missions and events fixed, canadian and quebec cultures will spawn
-- Revolutions will start at 1800
+- Marines don't get a bonus to shock damage
+- Monastic order T7 Dynastic order reform does not require the monarchy idea anymore
+- Error log fixes
+- Idea and policies screen UI support for x900 resolution
 
 [/quote]
 [/quote]
