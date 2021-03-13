@@ -48,34 +48,21 @@ Feel free to send me the save if something breaks.
 [h1] Changes 04/03/2021 [/h1]
 [quote]
 
-Content
-- The combat width reduction removed in later tech as the game doesn't really support that.
-- Development idea group decision changed with a natural growth mechanic from excelbel
-- Being over the governing capacity hurts even more
-- Mercenary Idea is no longer exclusive, the professionalism malice still exists but with idea is lowered from 0.05 > 0.01
+Institutions
+- Nationalism institution tweaked heavily, made it primary focus upon primary culture and culture group provinces. Also will spawn properly.
+- Nationalism and Imperialism spawn date moved back by 10 years, will see if its awkward timing.
 
 Balance
-- Artillery Barrage cost the normal amount 100>50
-- Conscription army_tradition change to reinforce_cost
-- Standing army received the army_tradition
-- Discipline policies 3%>5%
-- Conscription gets a negative -5% discipline at the end, to have a drawback akin to standing army
-- Marine disembark speed increased 2>3
-- Policy fire/shock numbers lowered 10%>7.5
-- Cav_to_inf_ratio added to tactical ideas
-- Goods Produce related policies or modifiers removed from policies due to the economic effect they have
-- Some military policies were removed/combined and over all tweaked
-
-State Edicts
-- Government Building description cleaned up
-- Ship state edict costs lowered
+- General institution growth from Innovative and Society removed due to fucking up my shit, institution wise
+- Decreased amount you get from selling estate land
 
 Fixes
-- Canadian missions and events fixed, canadian and quebec cultures will spawn
-- Marines don't get a bonus to shock damage
-- Monastic order T7 Dynastic order reform does not require the monarchy idea anymore
-- Error log fixes
-- Idea and policies screen UI support for x900 resolution
+- Harmonizing Jewish or Zoroastrian groups won't crash you
+- Institution view scroll placement and length taught to not be awkward
+- You no longer get scammed by estates when you sell them your land during the industrial age
+- In the vanilla bookmark there wont be additional twin electors
+- Austria wont lose its emperorship to Bohemia on day 1 in the vanilla bookmark
+- Added a few rulers to countries (europe) at start instead of random dudes popping up from nowhere and seizing power
 
 [/quote]
 [/quote]
