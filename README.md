@@ -48,21 +48,16 @@ Feel free to send me the save if something breaks.
 [h1] Changes 04/03/2021 [/h1]
 [quote]
 
+Flavour
+- Forming Italy does not require Rome, but instead after forming Italy (with or without) gets a flavour event
+
 Institutions
-- Nationalism institution tweaked heavily, made it primary focus upon primary culture and culture group provinces. Also will spawn properly.
-- Nationalism and Imperialism spawn date moved back by 10 years, will see if its awkward timing.
 
 Balance
-- General institution growth from Innovative and Society removed due to fucking up my shit, institution wise
-- Decreased amount you get from selling estate land
+
 
 Fixes
-- Harmonizing Jewish or Zoroastrian groups won't crash you
-- Institution view scroll placement and length taught to not be awkward
-- You no longer get scammed by estates when you sell them your land during the industrial age
-- In the vanilla bookmark there wont be additional twin electors
-- Austria wont lose its emperorship to Bohemia on day 1 in the vanilla bookmark
-- Added a few rulers to countries (europe) at start instead of random dudes popping up from nowhere and seizing power
+
 
 [/quote]
 [/quote]
@@ -80,7 +75,7 @@ Fixes
 - Religion specific Idea groups
 - Vastly expanded estate system
 - Game runs until 20th century
-- Dynamic Age objectives
+- Dynamic Age bonuses
 - Changeable trade goods
 [/quote]
 [quote]
