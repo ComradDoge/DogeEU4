@@ -51,32 +51,7 @@ industrialization = {
 
 	
 	embracement_speed = {
-		modifier = {
-			factor = 0.05
-			scale = yes
-			potential = {
-				has_idea = gesellschaft3
-			}
-			custom_trigger_tooltip = {
-				tooltip = tooltip_gesellschaft
-				owner = {
-					has_idea = gesellschaft3
-				}
-			}
-		}
-		modifier = {
-			factor = 0.1
-			scale = yes
-			potential = {
-				has_idea = patron_of_art_2
-			}
-			custom_trigger_tooltip = {
-				tooltip = tooltip_innovativ
-				owner = {
-					has_idea = patron_of_art_2
-				}
-			}
-		}
+
 		modifier = {
 			factor = 0.25
 			scale = yes
@@ -436,8 +411,9 @@ nationalism_institution = {
 		is_island = no		
 		is_in_capital_area = yes
 		industrialization = 100
-		development = 20
-		primary_culture = ROOT	
+		is_capital = yes
+		culture = owner
+		development = 30
 	}
 	start_chance = 20		#in 100 for when a province can_start
 	
@@ -451,43 +427,110 @@ nationalism_institution = {
 
 	
 	embracement_speed = {
+
+		
+
+		# In primary culture
 		modifier = {
-			factor = 0.05
+			factor = 1
+			scale = yes
+			culture = owner
+		}
+		# In culture group
+		modifier = {
+			factor = 0.5
 			scale = yes
 			potential = {
-				has_idea = gesellschaft3
+				NOT = { culture = owner }
 			}
 			custom_trigger_tooltip = {
-				tooltip = tooltip_gesellschaft
+				tooltip = tooltip_nationalism_culture_group_NOT_primary_culture
+				culture_group = owner 
+			}
+		}
+		
+		#European capital with 30 development
+		modifier = {
+			factor = 1
+			scale = yes
+			potential = {
 				owner = {
-					has_idea = gesellschaft3
+					capital_scope = {
+						continent = europe
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_nationalism_europe_capital
+
+				is_capital = yes
+				development = 30
+				continent = europe
+			}
+		}
+		
+		#For colonial nation capitals or ports
+		modifier = {
+			factor = 0.5
+			scale = yes
+			potential = {
+				owner = {
+					is_colonial_nation = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_overlord_nationalism
+				OR = {
+					has_port = yes
+					is_capital = yes
+				}
+				owner = {
+					overlord = { has_institution = nationalism_institution }
 				}
 			}
 		}
+		# Embraced [nationalism] and [capital area not complete]
 		modifier = {
-			factor = 0.1
+			factor = 0.5
 			scale = yes
+			force_potential = yes
 			potential = {
-				has_idea = patron_of_art_2
+				owner = { has_institution = nationalism_institution }
+				is_in_capital_area = yes
 			}
+			
 			custom_trigger_tooltip = {
-				tooltip = tooltip_innovativ
-				owner = {
-					has_idea = patron_of_art_2
+				tooltip = tooltip_nationalism_embraced
+				is_owned_by_trade_company = no
+				owner = { has_institution = nationalism_institution }
+				is_in_capital_area = yes
+			}
+		}
+		#Friendly Province has [nationalism] and [primary culture]
+		modifier = {
+			factor = 0.5
+			scale = yes
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_nationalism_main_culture
+				any_friendly_coast_border_province = {
+					nationalism_institution = 100
+					primary_culture = ROOT
 				}
 			}
 		}
+		#Friendly Province has [nationalism] and [culture group]
 		modifier = {
-			factor = 0.8
+			factor = 0.4
 			scale = yes
 			custom_trigger_tooltip = {
 				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_nationalism_same_culture
 				any_friendly_coast_border_province = {
 					nationalism_institution = 100
-					culture_group = ROOT 
+					culture_group = ROOT
 				}
 			}
 		}
+		# Friendly province has [nationalism] but [different culture group]
 		modifier = {
 			factor = 0
 			scale = yes
@@ -507,8 +550,9 @@ nationalism_institution = {
 				}
 			}
 		}
+		# Friendly province has [nationalism] and [same religion]
 		modifier = {
-			factor = 0.4
+			factor = 0.3
 			scale = yes
 			custom_trigger_tooltip = {
 				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_nationalism_same_religion
@@ -518,8 +562,9 @@ nationalism_institution = {
 				}
 			}
 		}
+		# Friendly province has [nationalism] but [different religion]
 		modifier = {
-			factor = 0.1
+			factor = 0
 			scale = yes
 			potential = {
 				NOT = {
@@ -537,8 +582,15 @@ nationalism_institution = {
 				}
 			}
 		}
+
+
+		####
+		#### Neighbour Modifiers
+		####
+
+		# Province has [nationalism] and [culture group]
 		modifier = {
-			factor = 0.4
+			factor = 0.2
 			scale = yes
 			potential = {
 				NOT = {
@@ -556,6 +608,7 @@ nationalism_institution = {
 				}
 			}
 		}
+		# Province has nationalism but not [culture group]
 		modifier = {
 			factor = 0
 			scale = yes
@@ -581,8 +634,9 @@ nationalism_institution = {
 				}
 			}
 		}
+		# Province has [nationalism] and [same religion]
 		modifier = {
-			factor = 0.2
+			factor = 0.1
 			scale = yes
 			potential = {
 				NOT = {
@@ -600,8 +654,9 @@ nationalism_institution = {
 				}
 			}
 		}
+		# Province has [nationalism] and [different religion]
 		modifier = {
-			factor = 0.05
+			factor = 0
 			scale = yes
 			potential = {
 				NOT = {
@@ -625,68 +680,10 @@ nationalism_institution = {
 				}
 			}
 		}
-		modifier = {
-			factor = 2
-			scale = yes
-			owner = {
-				has_institution = imperialism 
-				is_at_war = yes
-				primary_culture = ROOT
-			}
-		}
-		modifier = {
-			factor = 1
-			scale = yes
-			any_province = {
-				nationalism_institution = 100
-				culture = ROOT 
-			}
-		}
-		modifier = {
-			factor = 1
-			scale = yes
-			is_capital = yes
-			continent = europe
-			development = 40
-		}
-		modifier = {
-			factor = 1
-			scale = yes
-			potential = {
-				owner = {
-					is_colonial_nation = yes
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = tooltip_overlord_nationalism
-				OR = {
-					has_port = yes
-					is_capital = yes
-				}
-				owner = {
-					overlord = { has_institution = nationalism_institution }
-				}
-			}
-		}
-		modifier = {
-			factor = 1
-			scale = yes
-			force_potential = yes
-			potential = {
-				owner = { has_institution = nationalism_institution }
-				is_in_capital_area = yes
-			}
-			
-			custom_trigger_tooltip = {
-				tooltip = tooltip_nationalism_embraced
-				is_owned_by_trade_company = no
-				owner = { has_institution = nationalism_institution }
-				is_in_capital_area = yes
-			}
-		}
+
 		#New slower spread bonus for owned provinces not connected to the capital by land
 		modifier = {
-			factor = 0.2
+			factor = 0.1
 			scale = yes
 			force_potential = yes
 			potential = {
@@ -760,11 +757,10 @@ imperialism = {
 	}
 	
 	can_start = {
-		is_year = 1860
+		is_year = 1850
 		
 		is_island = no
 		is_capital = yes
-		owner = { num_of_trade_companies = 3 }
 	}
 	start_chance = 20		#in 100 for when a province can_start
 	
@@ -778,32 +774,7 @@ imperialism = {
 
 	
 	embracement_speed = {
-		modifier = {
-			factor = 0.05
-			scale = yes
-			potential = {
-				has_idea = gesellschaft3
-			}
-			custom_trigger_tooltip = {
-				tooltip = tooltip_gesellschaft
-				owner = {
-					has_idea = gesellschaft3
-				}
-			}
-		}
-		modifier = {
-			factor = 0.1
-			scale = yes
-			potential = {
-				has_idea = patron_of_art_2
-			}
-			custom_trigger_tooltip = {
-				tooltip = tooltip_innovativ
-				owner = {
-					has_idea = patron_of_art_2
-				}
-			}
-		}
+
 		modifier = {
 			factor = 0.3
 			scale = yes
