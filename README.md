@@ -49,14 +49,15 @@ Feel free to send me the save if something breaks.
 [quote]
 
 Flavour
-- Forming Italy does not require Rome, but instead after forming Italy (with or without) gets a flavour event
+- Forming Italy does not require Rome, but instead after forming Italy (with or without) you get a flavour event regarding it
 
 Institutions
 
 Balance
-
+- Liberty desire from it removed due to issues with it affecting players when it shouldnt and moved to triggered modifiers instead, starting at 50 absolutism with 10% liberty desire, up to 50% at 90 absolutism
 
 Fixes
+- Cleaned up the diplo relations slot modifier so it does not take two slots
 
 
 [/quote]
