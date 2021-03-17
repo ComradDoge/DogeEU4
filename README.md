@@ -45,16 +45,15 @@ Feel free to send me the save if something breaks.
 [/quote]
 [/quote]
 [quote]
-[h1] Changes 04/03/2021 [/h1]
+[h1] Changes 17/03/2021 [/h1]
 [quote]
 
 Flavour
 - Forming Italy does not require Rome, but instead after forming Italy (with or without) you get a flavour event regarding it
 
-Institutions
-
 Balance
 - Liberty desire from it removed due to issues with it affecting players when it shouldnt and moved to triggered modifiers instead, starting at 50 absolutism with 10% liberty desire, up to 50% at 90 absolutism
+- Tweaks to the values in over_governing_capacity, removed idea/tech cost, added dev_cost increase
 
 Fixes
 - Cleaned up the diplo relations slot modifier so it does not take two slots
@@ -65,7 +64,7 @@ Fixes
 [quote]
 [h1] Main Additions [/h1]
 [quote]
-- New Trade Goods, More Idea Groups, Buildings, Formables, Advisors, Ruler traits#
+- New Trade Goods, More Idea Groups, Buildings, Formables, Advisors, Ruler traits
 - A more balanced EU4 experience suitable for Multiplayer
 - Englightenment and Industrialization Age
 - A shattered and a vanilla bookmark
