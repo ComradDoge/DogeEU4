@@ -48,16 +48,10 @@ Feel free to send me the save if something breaks.
 [h1] Changes 17/03/2021 [/h1]
 [quote]
 
-Flavour
-- Forming Italy does not require Rome, but instead after forming Italy (with or without) you get a flavour event regarding it
+The "Let us hope they don't revert this one" patch
 
-Balance
-- Liberty desire from it removed due to issues with it affecting players when it shouldnt and moved to triggered modifiers instead, starting at 50 absolutism with 10% liberty desire, up to 50% at 90 absolutism
-- Tweaks to the values in over_governing_capacity, removed idea/tech cost, added dev_cost increase
-
-Fixes
-- Cleaned up the diplo relations slot modifier so it does not take two slots
-
+- In multiplayer screen centred the Scan button
+- Fixed the estate screen to at least appear and work, might redo it altogether at some point
 
 [/quote]
 [/quote]
