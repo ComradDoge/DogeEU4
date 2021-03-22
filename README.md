@@ -50,7 +50,11 @@ Feel free to send me the save if something breaks.
 
 Content
 - Incan mission tree (huge)
+- Flavour Events Expanded - 8 HRE regional events; 21 Low Countries events; 1 Wurzburg event; 7 Tuscan/Florence events; 
 
+
+Fixes
+- Minor fix to the Branderburg/Prussia tree
 
 [/quote]
 [/quote]
