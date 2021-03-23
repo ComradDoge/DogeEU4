@@ -56,6 +56,7 @@ Content
 Fixes
 - Minor fix to the Branderburg/Prussia tree with some minor tweaks
 - Venice no longer pretends to be part of HRE on the vanilla bookmark
+- Updated the add ideas script when a vassal is created
 [/quote]
 [/quote]
 [quote]
