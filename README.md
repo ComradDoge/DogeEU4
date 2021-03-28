@@ -49,14 +49,15 @@ Feel free to send me the save if something breaks.
 [quote]
 
 General
-
+- Added 10 government reforms to Mande culture group in Africa, with 1 special for Songhai
+- Karelian, Sampi, Finnish moved to the Uralic culture group
 
 Graphics
 - Malankara; Lollard and Cathar alerts have their own icon instead of using the protestant one
 
 
 Balance
-
+- Vassal_income from Blood tax reform removed, increase feudalism reform vassal_income 25%>30%
 
 Fixes
 
@@ -127,7 +128,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1917766084] All Roads Lead to Rome [/url] by zsmaar
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers[/url] by Lk 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers [/url] by Lk
 
     Flavour
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
