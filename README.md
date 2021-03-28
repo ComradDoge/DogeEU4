@@ -48,15 +48,19 @@ Feel free to send me the save if something breaks.
 [h1] Changes 00/03/2021 [/h1]
 [quote]
 
-- Incan mission tree (huge)
-- Flavour Events Expanded - 8 HRE regional events; 21 Low Countries events; 1 Wurzburg event; 7 Tuscan/Florence events; 
+General
 
-Balance/Fixes
-- Minor fix to the Branderburg/Prussia tree with some minor tweaks
-- Venice no longer pretends to be part of HRE on the vanilla bookmark
-- Updated the add ideas script when a vassal is created
-- Shia and Ibadi work for the reformation age objective
-- Mercenary corps no longer skyrockets to 80% mercenary discipline
+
+Graphics
+- Malankara; Lollard and Cathar alerts have their own icon instead of using the protestant one
+
+
+Balance
+
+
+Fixes
+
+
 [/quote]
 [/quote]
 [quote]
