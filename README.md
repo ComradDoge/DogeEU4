@@ -54,7 +54,7 @@ General
 
 Graphics
 - Malankara; Lollard and Cathar alerts have their own icon instead of using the protestant one
-
+- Druidism deity icons updates with much better looking ones by shadowz
 
 Balance
 - Vassal_income from Blood tax reform removed, increase feudalism reform vassal_income 25%>30%
