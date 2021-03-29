@@ -50,7 +50,7 @@ Feel free to send me the save if something breaks.
 
 General
 - Added 10 government reforms to Mande culture group in Africa, with 1 special for Songhai
-- Karelian, Sampi, Finnish moved to the Uralic culture group
+- Muscovy can form the Russian Republic
 
 Graphics
 - Malankara; Lollard and Cathar alerts have their own icon instead of using the protestant one
