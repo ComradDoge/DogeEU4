@@ -49,17 +49,16 @@ Feel free to send me the save if something breaks.
 [quote]
 
 General
-- Added 10 government reforms to Mande culture group in Africa, with 1 special for Songhai
-- Muscovy can form the Russian Republic
-
-Graphics
-- Malankara; Lollard and Cathar alerts have their own icon instead of using the protestant one
-- Druidism deity icons updates with much better looking ones by shadowz
 
 Balance
-- Vassal_income from Blood tax reform removed, increase feudalism reform vassal_income 25%>30%
+- Ayyubid university decision slightly tweaked
 
 Fixes
+- Jewish faiths local provinces value fix 1%>10%
+- Internally removed some files or made them separate as to not use vanilla files
+- Error log fixes
+
+Graphical
 
 
 [/quote]
@@ -142,6 +141,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Mesogeios - New graphical cultures [/url] by Alyoshenka
 [/quote]
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:
