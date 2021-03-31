@@ -49,14 +49,18 @@ Feel free to send me the save if something breaks.
 [quote]
 
 General
+- Can now covert the primary culture of your colony through subject interactions
+
 
 Balance
-- Ayyubid university decision slightly tweaked
+- Ayyubid mission university decision slightly tweaked
 
 Fixes
 - Jewish faiths local provinces value fix 1%>10%
 - Internally removed some files or made them separate as to not use vanilla files
 - Error log fixes
+- Centralization static manpower/sailor bonus removed and replaced with 10% global modifier for each
+- Arch-Monarchy trigger removed to be a choice at the start instead of waiting for a vassal
 
 Graphical
 
