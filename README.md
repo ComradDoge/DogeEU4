@@ -60,7 +60,6 @@ Fixes
 - Internally removed some files or made them separate as to not use vanilla files
 - Error log fixes
 - Centralization static manpower/sailor bonus removed and replaced with 10% global modifier for each
-- Arch-Monarchy trigger removed to be a choice at the start instead of waiting for a vassal
 
 Graphical
 
