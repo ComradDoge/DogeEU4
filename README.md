@@ -52,12 +52,17 @@ General
 - Can now covert the primary culture of your colony through subject interactions
 - Enlightenment and Industrialization abilities heavily tweaked
 - Ayyubid mission university decision slightly tweaked
+- Institution bonuses have been tweaked
+- Roads tweaked, removed tax/prod, province_trade_power increased
 
 Fixes
 - Jewish faiths local provinces value fix 1%>10%
 - Internally removed some files or made them separate as to not use vanilla files
 - Error log fixes
 - Centralization static manpower/sailor bonus removed and replaced with 10% global modifier for each
+
+Graphics
+- Fixed imperialism institution icon positioning
 
 [/quote]
 [/quote]
