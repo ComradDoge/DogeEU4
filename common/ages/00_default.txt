@@ -1013,6 +1013,7 @@ age_of_enlightenment = {
 		ab_prestigious_court = {
 			modifier= {
 				advisor_pool = 2
+				same_culture_advisor_cost = -0.1
 			}
 			ai_will_do = {
 				factor = 10
@@ -1021,7 +1022,7 @@ age_of_enlightenment = {
 		
 		ab_meritocratic_promotion = {
 			modifier = {
-				drill_gain_modifier = 0.3
+				drill_gain_modifier = 0.25
 				mercenary_cost = 0.5
 			}
 			
@@ -1033,6 +1034,7 @@ age_of_enlightenment = {
 		ab_classicism_art = {
 			modifier = {
 				prestige_decay = -0.01
+				build_cost = -0.05
 			}
 			ai_will_do = {
 				factor = 10
@@ -1041,7 +1043,8 @@ age_of_enlightenment = {
 		
 		ab_letters_of_marque = {
 			modifier = {
-				privateer_efficiency = 0.3
+				privateer_efficiency = 0.25
+				global_ship_recruit_speed = -0.1
 			}
 			ai_will_do = {
 				factor = 10
@@ -1099,14 +1102,13 @@ age_of_enlightenment = {
 		
 		ab_gb_redcoats = {
 			allow = {
-				OR = {
+				OR = { 
 					culture_group = british
-					tag = GBR
-					tag = ENG
-					}
+					culture_group = celtic
+				}
 			}
 			modifier = {
-				fire_damage = 0.2
+				fire_damage = 0.1
 			}
 			ai_will_do = {
 				factor = 100
@@ -1121,15 +1123,10 @@ age_of_enlightenment = {
 						development = 40
 					}
 				}
-				OR = {
-					tag = PRU
-					tag = BRA
-					culture_group = germanic	
-				}
+				culture_group = germanic
 			}
 			modifier = {
 				discipline = 0.05
-				#fire_damage_received = -0.2
 			}
 			ai_will_do = {
 				factor = 100
@@ -1198,13 +1195,12 @@ industrial_age = {
 
 	objectives = {
 		obj_industrial_railroads = {
-			railroad = 30
+			railroad = 50
 		}
 		obj_industrial_modern_industry = {
 			calc_true_if = {
 				all_owned_province = {
 					has_building = furnace
-					#has_building = oil_well
 					is_core = ROOT
 				}
 				amount = 5
@@ -1242,19 +1238,6 @@ industrial_age = {
 				amount = 5
 			}
 		}
-		#obj_great_project_producer = { 
-		#	OR = {
-		#		AND = {
-		#			has_construction = great_project
-		#			monthly_income = 50
-		#		}
-		#		OR = {
-		#			has_great_project = kiel_canal
-		#			has_great_project = suez_canal
-		#			has_great_project = panama_canal
-		#		}				
-		#	}		
-		#}
 
 		obj_production = {
 			OR = {
@@ -1268,43 +1251,7 @@ industrial_age = {
 				}
 			}
 		}
-	
-		#obj_worldtrade = {
-		#	home_trade_node = {
-		#			highest_value_trade_node = yes
-		#			is_strongest_trade_power = ROOT
-		#	}
-		#}
-		#obj_industrial_social_welfare = {
-		#	calc_true_if = {
-		#		check_variable = {
-    	#			which = social_min_wage
-    	#			value = 1
-		#		}
-		#		check_variable = {
-    	#			which = social_max_workhours
-    	#			value = 1
-		#		}
-		#		check_variable = {
-    	#			which = social_unemployment
-    	#			value = 1
-		#		}
-		#		check_variable = {
-    	#			which = social_safety
-    	#			value = 1
-		#		}
-		#		check_variable = {
-    	#			which = social_pension
-    	#			value = 1
-		#		}
-		#		check_variable = {
-    	#			which = social_health
-    	#			value = 1
-		#		}
-		#		amount = 6
-		#	}
-		#	
-		#}
+
 		obj_industrial_modern_resources = {
 			If = {
 				limit = { has_dlc = "Rule Britannia" }
@@ -1313,14 +1260,6 @@ industrial_age = {
 						trade_goods = coal
 						value = yes
 					}
-					#trading_bonus = {
-					#	trade_goods = oil
-					#	value = yes
-					#}
-					#trading_bonus = {
-					#	trade_goods = rubber
-					#	value = yes
-					#}
 				}
 			}
 			Else = {
@@ -1341,8 +1280,8 @@ industrial_age = {
 	abilities = {
 		ab_industrial_construction = {
 			modifier = {
-				build_cost = -0.15
-				build_time = -0.15
+				build_cost = -0.1
+				build_time = -0.1
 			}
 			ai_will_do = {
 				factor = 10
@@ -1350,9 +1289,7 @@ industrial_age = {
 		}
 		ab_subject_integration = {
 			modifier = {
-				#aggresive_expansion = 0.2
-				reduced_liberty_desire_on_same_continent = 20
-				#liberty_desire_from_subject_development = -0.2
+				reduced_liberty_desire_on_same_continent = 25
 				diplomatic_annexation_cost = -0.2
 				diplomatic_reputation = 2
 			}	
@@ -1360,23 +1297,16 @@ industrial_age = {
 				factor = 10
 			}			
 		}
-
-		ab_industrial_colonization = {
-			allow = {
-				NOT = { 
-					OR = { 
-						has_idea_group = exploration_ideas 
-						has_idea_group = expansion_ideas 
-					} 
-				}
-			}
+		ab_strategic_warfare = {
 			modifier = {
-				colonists = 2
+				global_regiment_recruit_speed = -0.33
+				infantry_cost = 0.1
 			}
 			ai_will_do = {
-				factor = 1
+				factor = 100
 			}
 		}
+
 		ab_industrial_child_labour = {
 			modifier = {
 				production_efficiency = 0.2
@@ -1386,15 +1316,7 @@ industrial_age = {
 				factor = 1
 			}	
 		}
-		#ab_industrial_socialist = {
-		#	effect = {
-		#		set_country_flag = age_ab_socialist
-		#		custom_tooltip = age_ab_socialist
-		#	}
-		#	ai_will_do = {
-		#		factor = 10
-		#	}
-		#}
+
 		ab_industrial_abolitionism = {
 			modifier = {
 				land_morale = 0.15
@@ -1430,6 +1352,7 @@ industrial_age = {
 		ab_industrial_grand_artillery = {
 			modifier = {
 				artillery_power = 0.15
+				artillery_cost = 0.1
 			}
 			ai_will_do = {
 				factor = 10
@@ -1446,11 +1369,18 @@ industrial_age = {
 		ab_industrial_german_tech = {
 			allow = {
 				mil_tech = 30
-				OR = {
-					primary_culture = prussian
-					primary_culture = pommeranian
-					primary_culture = saxon
+				culture_group = germanic
+				NOT = { 
+					OR = {
+						culture = flemish
+						culture = dutch
+					}
 				}
+				#OR = {
+				#	primary_culture = prussian
+				#	primary_culture = pommeranian
+				#	primary_culture = saxon
+				#}
 			}
 			effect = {
 				change_unit_type = german_group
@@ -1472,6 +1402,7 @@ industrial_age = {
 			modifier = {
 				production_efficiency = 0.15
 				global_manpower_modifier = 0.15
+				culture_conversion_cost = 0.5
 			}
 			ai_will_do = {
 				factor = 100
@@ -1489,7 +1420,8 @@ industrial_age = {
 				}
 			}
 			modifier = {
-				global_manpower_modifier = 0.10
+				global_manpower_modifier = 0.15
+				global_unrest = 2
 			}
 			ai_will_do = {
 				factor = 100
@@ -1638,23 +1570,14 @@ age_of_revolutions = {
 				factor = 10
 			}
 		}
-		ab_same_contine_lib_desire = {
-			modifier = {
-				reduced_liberty_desire_on_same_continent = 25
-			}
-			ai_will_do = {
-				factor = 15
-				modifier = {
-					factor = 0
-					NOT = {
-						any_subject_country = {
-							liberty_desire = 30
-							same_continent = ROOT
-						}
-					}
-				}
+
+		ab_nationalist_fervor = {
+			effect = {
+				custom_tooltip = ab_nationalist_fervor_tooltip
+				set_country_flag = nationalist_fervor_chosen
 			}
 		}
+
 		ab_colonial_assemblies = {
 			allow = {
 				is_colonial_nation = yes
@@ -1719,9 +1642,8 @@ age_of_revolutions = {
 					tag = HAB
 				}
 
-				total_development = 400
-				num_of_royal_marriages = 4
-				diplomatic_reputation = 4
+				num_of_royal_marriages = 5
+				diplomatic_reputation = 5
 			}
 			modifier = {
 				diplomatic_reputation = 5
@@ -1732,3 +1654,27 @@ age_of_revolutions = {
 		}
 	}
 }
+
+
+
+
+
+# NOT USED BUT CAN BE
+
+#ab_same_contine_lib_desire = {
+#	modifier = {
+#		reduced_liberty_desire_on_same_continent = 25
+#	}
+#	ai_will_do = {
+#		factor = 15
+#		modifier = {
+#			factor = 0
+#			NOT = {
+#				any_subject_country = {
+#					liberty_desire = 30
+#					same_continent = ROOT
+#				}
+#			}
+#		}
+#	}
+#}

@@ -50,9 +50,7 @@ Feel free to send me the save if something breaks.
 
 General
 - Can now covert the primary culture of your colony through subject interactions
-
-
-Balance
+- Enlightenment and Industrialization abilities heavily tweaked
 - Ayyubid mission university decision slightly tweaked
 
 Fixes
@@ -60,9 +58,6 @@ Fixes
 - Internally removed some files or made them separate as to not use vanilla files
 - Error log fixes
 - Centralization static manpower/sailor bonus removed and replaced with 10% global modifier for each
-
-Graphical
-
 
 [/quote]
 [/quote]
@@ -118,6 +113,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded[/url] by Stiopia/Expanded Team 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team [/quote]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2172666098] Ages and Splendor Expanded [/url] by Melvasul
     
 [h3] Other [/h3]
 [quote]
