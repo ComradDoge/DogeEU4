@@ -90,14 +90,53 @@ generic_madagascar_missions_1 = {
 	}
 
 	madagascar_fortify_land = {
-		icon = mission_cannons_firing
+		icon = mission_fortify_mandu
 		required_missions = { madagascar_coastal_appropriation }
 		position = 7
-		provinces_to_highlight = {
-		}
+
 		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = { 
+					area = madagascar_highlands_area
+					area = betsimasaraka_area
+					area = sakalava_area
+					area = southern_madagascar
+				}
+				OR = { 
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+					has_building = fort_19th
+				}
+			}
 		}
 		effect = {
+			madagascar_highlands_area = {
+				add_province_modifier = {
+					name = local_defensiveness_25
+					duration = -1
+				}
+			}
+			betsimasaraka_area = {
+				add_province_modifier = {
+					name = local_defensiveness_25
+					duration = -1
+				}
+			}
+			sakalava_area = {
+				add_province_modifier = {
+					name = local_defensiveness_25
+					duration = -1
+				}
+			}
+			southern_madagascar = {
+				add_province_modifier = {
+					name = local_defensiveness_25
+					duration = -1
+				}
+			}
 		}
 	}
 
@@ -105,11 +144,18 @@ generic_madagascar_missions_1 = {
 		icon = mission_cannons_firing
 		required_missions = { madagascar_fortify_land }
 		position = 8
-		provinces_to_highlight = {
-		}
+
 		trigger = {
+			army_size = 100
+			army_tradition = 50
+			
 		}
 		effect = {
+			add_country_modifier = {
+				name = drilling_gain_25
+				duration = 18250
+			}
+			
 		}
 	}
 
@@ -160,36 +206,131 @@ generic_madagascar_missions_2 = {
 		required_missions = { madagascar_clear_highlands }
 		position = 6
 		provinces_to_highlight = {
+			OR = { 
+				area = madagascar_highlands_area
+				area = betsimasaraka_area
+				area = sakalava_area
+				area = southern_madagascar
+			}
+			has_port = yes
+			owned_by = ROOT
+			
 		}
 		trigger = {
+			madagascar_highlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = { 
+					has_shipyard_building_trigger = yes
+					has_dock_building_trigger = yes
+				}
+			}
+			betsimasaraka_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = { 
+					has_shipyard_building_trigger = yes
+					has_dock_building_trigger = yes
+				}
+			}
+			sakalava_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = { 
+					has_shipyard_building_trigger = yes
+					has_dock_building_trigger = yes
+				}
+			}
+			southern_madagascar = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = { 
+					has_shipyard_building_trigger = yes
+					has_dock_building_trigger = yes
+				}
+			}
 		}
 		effect = {
+			madagascar_highlands_area = {
+				add_province_modifier = {
+					name = shipbuilding_time_25
+					duration = -1
+				}
+			}
+			betsimasaraka_area = {
+				add_province_modifier = {
+					name = shipbuilding_time_25
+					duration = -1
+				}
+			}
+			sakalava_area = {
+				add_province_modifier = {
+					name = shipbuilding_time_25
+					duration = -1
+				}
+			}
+			southern_madagascar = {
+				add_province_modifier = {
+					name = shipbuilding_time_25
+					duration = -1
+				}
+			}
 		}
 	}
 
 	madagascar_communal_education = {
-		icon = mission_cannons_firing
+		icon = mission_vedic_education
 		required_missions = { madagascar_coastal_appropriation }
 		position = 8
 		provinces_to_highlight = {
+			OR = { 
+				area = madagascar_highlands_area
+				area = betsimasaraka_area
+				area = sakalava_area
+				area = southern_madagascar
+			}
 		}
 		trigger = {
+			madagascar_highlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				has_building = university
+			}
+			betsimasaraka_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				has_building = university
+			}
+			sakalava_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				has_building = university
+			}
+			southern_madagascar = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				has_building = university
+			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = idea_cost_10
+				duration = -1
+			}
 		}
 	}
-	madagascar_restrict_west_ventures = {
-		icon = mission_cannons_firing
-		required_missions = { madagascar_europe }
-		position = 18
-		provinces_to_highlight = {
-		}
-		trigger = {
-			NOT = { mission_completed = madagascar_allow_west_ventures }
-		}
-		effect = {
-		}
-	}
+	#madagascar_restrict_west_ventures = {
+	#	icon = mission_cannons_firing
+	#	required_missions = { madagascar_europe }
+	#	position = 18
+	#	provinces_to_highlight = {
+	#	}
+	#	trigger = {
+	#		NOT = { mission_completed = madagascar_allow_west_ventures }
+	#	}
+	#	effect = {
+	#	}
+	#}
 
 }
 
@@ -322,8 +463,9 @@ generic_madagascar_missions_3 = {
 				province_id = 4030
 				province_id = 4029
 				province_id = 4027
+				province_id = 1792
+				province_id = 4023
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = { 
 			4030 = {
@@ -347,6 +489,20 @@ generic_madagascar_missions_3 = {
 					development = 10
 				}
 			}
+			1792 = {
+				is_core = ROOT
+				OR = { 
+					has_building = early_road
+					development = 10
+				}
+			}
+			4023 = {
+				is_core = ROOT
+				OR = { 
+					has_building = early_road
+					development = 10
+				}
+			}
 		}
 		effect = {
 			4030 = {
@@ -367,80 +523,110 @@ generic_madagascar_missions_3 = {
 					duration = -1
 				}
 			}
+			1792 = {
+				add_province_modifier = {
+					name = province_development_cost_10
+					duration = -1
+				}
+			}
+			4023 = {
+				add_province_modifier = {
+					name = province_development_cost_10
+					duration = -1
+				}
+			}
 		}
 	}
 
 	madagascar_intensify_agriculture = {
-		icon = mission_colonial
+		icon = me_mission_inca_farming
 		required_missions = { madagascar_clear_highlands }
 		position = 6
 		provinces_to_highlight = {
 		}
 		trigger = {
+			4030 = {
+				development = 15	
+			}
+
 		}
 		effect = {
+			4030 = {
+				change_trade_goods = vanilla
+			}
 		}
 	}
 
 	madagascar_madagascan_vanilla = {
-		icon = mission_cannons_firing
+		icon = me_mission_kilwa_east_african_trade
 		required_missions = { madagascar_intensify_agriculture }
 		position = 8
 		provinces_to_highlight = {
 		}
 		trigger = {
+			4030 = {
+				development = 20
+			}
 		}
 		effect = {
+			4030 = {
+				add_province_modifier = {
+					name = province_production_efficiency_20
+					duration = -1
+				}
+			}
 		}
 	}
 
 	madagascar_fatherland_finale = {
-		icon = mission_cannons_firing
+		icon = mission_madagascar_flag
 		required_missions = { madagascar_martial_tradition madagascar_communal_education madagascar_madagascan_vanilla madagascar_earth_blood }
 		position = 9
-		provinces_to_highlight = {
-		}
 		trigger = {
 		}
 		effect = {
+			add_country_modifier = {
+				name = united_madagascar_stands
+				duration = -1
+			}
 		}
 	}
 	
-	madagascar_libertalia = {
-		icon = mission_cannons_firing
-		required_missions = { madagascar_increased_exports }
-		position = 12
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
+	#madagascar_libertalia = {
+	#	icon = mission_cannons_firing
+	#	required_missions = { madagascar_increased_exports }
+	#	position = 12
+	#	provinces_to_highlight = {
+	#	}
+	#	trigger = {
+	#	}
+	#	effect = {
+	#	}
+	#}
 
-	madagascar_gold_and_ivory = {
-		icon = mission_cannons_firing
-		required_missions = { madagascar_libertalia madagascar_malagasy_expansion }
-		position = 14
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
+	#madagascar_gold_and_ivory = {
+	#	icon = mission_zambezi_gold
+	#	required_missions = { madagascar_libertalia madagascar_malagasy_expansion }
+	#	position = 14
+	#	provinces_to_highlight = {
+	#	}
+	#	trigger = {
+	#	}
+	#	effect = {
+	#	}
+	#}
 
-	madagascar_swahili_ambitions = {
-		icon = mission_cannons_firing
-		required_missions = { madagascar_gold_and_ivory }
-		position = 15
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
+	#madagascar_swahili_ambitions = {
+	#	icon = mission_cannons_firing
+	#	required_missions = { madagascar_gold_and_ivory }
+	#	position = 15
+	#	provinces_to_highlight = {
+	#	}
+	#	trigger = {
+	#	}
+	#	effect = {
+	#	}
+	#}
 
 
 	madagascar_europe = {
@@ -544,58 +730,73 @@ generic_madagascar_missions_4 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
+			4027 = {
+				development = 20
+			}
 		}
 		effect = {
+			4027 = {
+				change_trade_goods = coal
+			}
 		}
 	}
 
 	madagascar_earth_blood = {
-		icon = mission_cannons_firing
+		icon = mission_rb_prospect_for_coal
 		required_missions = { madagascar_exploit_hills }
 		position = 8
 		provinces_to_highlight = {
 		}
 		trigger = {
+			4027 = {
+				development = 30
+			}
 		}
 		effect = {
+			4027 = {
+				add_province_modifier = {
+					name = province_production_efficiency_20
+					duration = -1
+				}
+			}
 		}
 	}
 
-	madagascar_increased_exports = {
-		icon = mission_cannons_firing
-		required_missions = { madagascar_vast_ocean }
-		position = 11
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
-	madagascar_control_channel = {
-		icon = mission_cannons_firing
-		required_missions = {madagascar_libertalia madagascar_many_isles }
-		position = 13
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
-	madagascar_allow_west_ventures = {
-		icon = mission_cannons_firing
-		required_missions = { madagascar_europe }
-		position = 18
-		provinces_to_highlight = {
-		}
-		trigger = {
-			NOT = { mission_completed = madagascar_restrict_west_ventures }
-		}
-		effect = {
-		}
-	}
-
+#	madagascar_increased_exports = {
+#		icon = mission_cannons_firing
+#		required_missions = { madagascar_vast_ocean }
+#		position = 11
+#		provinces_to_highlight = {
+#		}
+#		trigger = {
+#		}
+#		effect = {
+#		}
+#	}
+#	madagascar_control_channel = {
+#		icon = mission_cannons_firing
+#		required_missions = {madagascar_libertalia madagascar_many_isles }
+#		position = 13
+#		provinces_to_highlight = {
+#		}
+#		trigger = {
+#		}
+#		effect = {
+#		}
+#	}
+#	madagascar_allow_west_ventures = {
+#		icon = mission_cannons_firing
+#		required_missions = { madagascar_europe }
+#		position = 18
+#		provinces_to_highlight = {
+#		}
+#		trigger = {
+#			NOT = { mission_completed = madagascar_restrict_west_ventures }
+#		}
+#		effect = {
+#		}
+#	}
+#
 }
 
 generic_madagascar_missions_5 = {
@@ -676,39 +877,39 @@ generic_madagascar_missions_5 = {
 			}
 		}
 	}
-	madagascar_vast_ocean = {
-		icon = mission_cannons_firing
-		required_missions = {madagascar_swahili}
-		position = 10
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
-	madagascar_many_isles = {
-		icon = mission_cannons_firing
-		required_missions = {madagascar_vast_ocean}
-		position = 12
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
-	madagascar_malagasy_expansion = {
-		icon = mission_cannons_firing
-		required_missions = {madagascar_many_isles}
-		position = 13
-		provinces_to_highlight = {
-		}
-		trigger = {
-		}
-		effect = {
-		}
-	}
-
+#	madagascar_vast_ocean = {
+#		icon = mission_arabian_sea_trade
+#		required_missions = {madagascar_swahili}
+#		position = 10
+#		provinces_to_highlight = {
+#		}
+#		trigger = {
+#		}
+#		effect = {
+#		}
+#	}
+#	madagascar_many_isles = {
+#		icon = mission_rb_conquer_the_isles
+#		required_missions = {madagascar_vast_ocean}
+#		position = 12
+#		provinces_to_highlight = {
+#		}
+#		trigger = {
+#		}
+#		effect = {
+#		}
+#	}
+#	madagascar_malagasy_expansion = {
+#		icon = mission_cannons_firing
+#		required_missions = {madagascar_many_isles}
+#		position = 13
+#		provinces_to_highlight = {
+#		}
+#		trigger = {
+#		}
+#		effect = {
+#		}
+#	}
+#
 
 }
