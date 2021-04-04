@@ -57,6 +57,7 @@ General
 - Burghers happy/neutral/angry modifiers changed to mostly vanilla types, churches got tax back but removed stab cost and tweaked missionary cost values
 - Tweaked the estate disaster progress, at 100 influence no matter the loyalty the disaster will progress although slower
 - Bookmark recommended country added to other countries from memory
+- Madagascar tree extended
 
 Fixes
 - Jewish faiths local provinces value fix 1%>10%
