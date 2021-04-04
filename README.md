@@ -65,6 +65,12 @@ Fixes
 - Error log fixes
 - Centralization static manpower/sailor bonus removed and replaced with 10% global modifier for each
 
+Balance
+- Hard and Very Hard sligtly tweaked to more reasonable levels to make AI hard but not OP and spam troops for no cost
+- Slightly increased colonist cost in arctic/arid/tropical (-10>-15)
+- Non-adjacent colonies -5>-10
+- Decreased amount of manpower you get from a single province (25%>15%)
+
 Graphics
 - Fixed imperialism institution icon positioning
 
