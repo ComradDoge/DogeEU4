@@ -48,31 +48,7 @@ Feel free to send me the save if something breaks.
 [h1] Changes 05/04/2021 [/h1]
 [quote]
 
-General
-- Can now covert the primary culture of your colony through subject interactions
-- Enlightenment and Industrialization abilities heavily tweaked
-- Ayyubid mission university decision slightly tweaked
-- Institution bonuses have been tweaked
-- Roads tweaked, removed tax/prod, province_trade_power increased
-- Burghers happy/neutral/angry modifiers changed to mostly vanilla types, churches got tax back but removed stab cost and tweaked missionary cost values
-- Tweaked the estate disaster progress, at 100 influence no matter the loyalty the disaster will progress although slower
-- Bookmark recommended country added to other countries from memory
-- Madagascar tree extended
 
-Fixes
-- Jewish faiths local provinces value fix 1%>10%
-- Internally removed some files or made them separate as to not use vanilla files
-- Error log fixes
-- Centralization static manpower/sailor bonus removed and replaced with 10% global modifier for each
-
-Balance
-- Hard and Very Hard sligtly tweaked to more reasonable levels to make AI hard but not OP and spam troops for no cost
-- Slightly increased colonist cost in arctic/arid/tropical (-10>-15)
-- Non-adjacent colonies -5>-10
-- Decreased amount of manpower you get from a single province (25%>15%)
-
-Graphics
-- Fixed imperialism institution icon positioning
 
 [/quote]
 [/quote]
