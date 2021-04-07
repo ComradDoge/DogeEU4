@@ -50,6 +50,7 @@ Feel free to send me the save if something breaks.
 
 
 - Minor file clean up and a small bit smaller file size
+- Ainu is no longer indian and colour reverted to original
 
 [/quote]
 [/quote]
