@@ -35,7 +35,7 @@ Macaronesia MCR - A combination of portuguese and morrocans settlers (due to maj
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [quote]
-Primarily a shattered mod for 1.30 with lots of game balancing and content to provide engaging gameplay both in SP and MP. However, in addition to the shattered bookmark there is a vanilla bookmark if you are not interested in the shattered setting.
+Primarily a shattered mod for 1.30 with lots of game balancing and content to provide engaging gameplay both in SP and MP. In addition to the shattered bookmark there is a vanilla bookmark if you are not interested in the shattered setting.
 
 All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck and feel free to inform.
 
@@ -48,7 +48,10 @@ Feel free to send me the save if something breaks.
 [h1] Changes 05/04/2021 [/h1]
 [quote]
 
+General
+- Missions for Kongo
 
+Fixes
 - Minor file clean up and a small bit smaller file size
 - Ainu is no longer indian and colour reverted to original
 
