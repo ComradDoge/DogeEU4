@@ -51,6 +51,9 @@ Feel free to send me the save if something breaks.
 General
 - Missions for Kongo
 
+Graphics
+- Faction frames updated and are deeper in colour
+
 Fixes
 - Minor file clean up and a small bit smaller file size
 - Ainu is no longer indian and colour reverted to original
@@ -123,6 +126,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers [/url] by Lk
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2326338687] Beyond Typus - Occitan Renaissance [/url] by Perry7484 n' Julien
 
     Flavour
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
