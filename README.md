@@ -15,96 +15,79 @@ https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEi
 https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 
-# DOCUMENTATION
-
-Various areas of the code (scripted stuff) are signed with "#Code Project Name" so it is easier to find later, here will be a list of them if I am not lazy.
-
-Additionally, this area will have changes to various small values, mostly in defines but for the most part its easier for interested people to just go to those files directly and check the changes.
-
----------------------------------------------------------
-- "#Colonial Region Lock" for changes that blocks colonies from colonizing outside regions until independent
-- Localisation and province_names has New World Province Localisation mod import.
-- Due to being a goof, DST and DSE are Doge Shattered Europe related prefix
-
-
-# LORE
-
-Macaronesia MCR - A combination of portuguese and morrocans settlers (due to major cities on the coast). Benefit for the country is to have accepted cultures of both port and mor, but being its own culture too.
-
 
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
+[img]https://i.imgur.com/aMye6zc.png[/img]
 [quote]
-Primarily a shattered mod for 1.30 with lots of game balancing and content to provide engaging gameplay both in SP and MP. However, in addition to the shattered bookmark there is a vanilla bookmark if you are not interested in the shattered setting.
-
-All DLCs are recommended, else some aspects of the game will not work as intended or worse crash but good luck and feel free to inform.
-
-[h1] Discord [/h1]
-[quote] Join this [url=https://discord.gg/DwNbtWY] discord [/url] to report bugs or inform me of something or just chill, its a PDX community server. 
-Feel free to send me the save if something breaks.
-[/quote]
-[/quote]
+[h1] 12/04/2021 [/h1]
 [quote]
-[h1] Changes 05/04/2021 [/h1]
-[quote]
-
-General
-- Can now covert the primary culture of your colony through subject interactions
-- Enlightenment and Industrialization abilities heavily tweaked
-- Ayyubid mission university decision slightly tweaked
-- Institution bonuses have been tweaked
-- Roads tweaked, removed tax/prod, province_trade_power increased
-- Burghers happy/neutral/angry modifiers changed to mostly vanilla types, churches got tax back but removed stab cost and tweaked missionary cost values
-- Tweaked the estate disaster progress, at 100 influence no matter the loyalty the disaster will progress although slower
-- Bookmark recommended country added to other countries from memory
-- Madagascar tree extended
-
-Fixes
-- Jewish faiths local provinces value fix 1%>10%
-- Internally removed some files or made them separate as to not use vanilla files
-- Error log fixes
-- Centralization static manpower/sailor bonus removed and replaced with 10% global modifier for each
-
-Balance
-- Hard and Very Hard sligtly tweaked to more reasonable levels to make AI hard but not OP and spam troops for no cost
-- Slightly increased colonist cost in arctic/arid/tropical (-10>-15)
-- Non-adjacent colonies -5>-10
-- Decreased amount of manpower you get from a single province (25%>15%)
-
-Graphics
-- Fixed imperialism institution icon positioning
+- Missions for Kongo
+- Faction frames updated and are deeper in colour
+- File clean up and a bit smaller file size
+- Ainu is no longer indian and colour reverted to original
+- Updated the steam workshop text
 
 [/quote]
 [/quote]
+
+[img]https://i.imgur.com/ja0Tj42.png[/img]
 [quote]
-[h1] Main Additions [/h1]
+The mod is a general overhaul of the game, focusing on a shattered setting, with lots of content in government reforms; formables; religions; trade and much more. While also ensuring a balanced game for both single-player and multi-player and fixing various issues whether it be AI or lack of QoL.
+[/quote]    
+
+[img]https://i.imgur.com/07m8BMD.png[/img]
+[QUOTE]
 [quote]
-- New Trade Goods, More Idea Groups, Buildings, Formables, Advisors, Ruler traits
-- A more balanced EU4 experience suitable for Multiplayer
-- Englightenment and Industrialization Age
-- A shattered and a vanilla bookmark
-- New Religions with Mechanics
-- Lost Colonies of the Old World
-- New State Edicts (that upgrade)
+The possible new formables, religions and more are on this [url=https://comraddoge.wordpress.com/] site [/url].
+[/quote]
+
+[quote]
+- Non-Braindead AI
+- 47 New Trade Goods
+- 50+ New Formables
+- 30+ New Idea Groups
+- 2 New Ages
+- 30 New Religions
+- 22 Islamic Schools
+- Upgradable State Edicts
 - Quality of Life Improvements
 - Religion specific Idea groups
 - Vastly expanded estate system
-- Game runs until 20th century
-- Dynamic Age bonuses
+- Dynamic Age objectives
 - Changeable trade goods
 [/quote]
-[quote]
-[h1] Formables, religions and more[/h1]
-The possible new formables, religions and more are on this [url=https://comraddoge.wordpress.com/] site [/url].
-[/quote]
-[/quote]
-[quote]
-[h1] Lite Version [/h1]
-[quote] This mod is my take on Shattered and I can understand if you are not interested in most of the game changing aspects. The Lite version is much more toned down and closer to vanilla but still has enough meat to it for a new feel.
+[/QUOTE]
 
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338] Lite Doge Shattered Europa[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338][img]https://i.imgur.com/Llj8JQu.png[/img][/url] 
+[quote]
+The mod is definately more than just a shattered map, if you dislike that there is a much more toned down version you can download by clicking on the banner.
 [/quote]
+
+[url=https://discord.gg/DwNbtWY][img]https://i.imgur.com/Jub0Xex.png[/img][/url]
+[quote]
+Join the Discord to report bugs, participate in mod surveys or just lurk and see the changelogs posted by clicking on the banner.
 [/quote]
+
+[url=https://steamcommunity.com/workshop/filedetails/discussion/2152606065/3115898713372561841/][img]https://i.imgur.com/nMx8dzc.png[/img][/url]
+[quote]
+See all the mods that have had at least some parts incorporated into the mod by clicking on the banner.
+[/quote]
+
+
+
+
+
+[url=LINK_URL][img]IMG_URL[/img][/url]
+[img]IMG_URL[/img]
+
+
+
+
+
+
+
+
 [quote]
 [h1] Credits [/h1]
 [quote]Credit to all the authors of mods that I have incorporated into Shattered. This is especially the case for flogi (Idea Variation Mod), Expanded Mods family, ArtemisFowl for understanding EU4 UI and Viking_Nephilim for religious work
@@ -119,22 +102,23 @@ Not all parts of the mods will be added or without changes which is why you see 
 
 [h3] Expanded Mod Family [/h3]
 [quote]    
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2198012132] Formables Expanded[/url]  by Silver Knight of Anor Londo (Verityvoid)
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded[/url] by Silver Knight of Anor Londo (Verityvoid)     
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded[/url] by Big Boss 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded[/url] by Big Boss     
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1596815683] Government Expanded[/url] by Jay 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded[/url] by MrMarcinQ‎ 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded[/url] by Stiopia/Expanded Team 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded[/url] by Lord Varangian
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team [/quote]
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2198012132] Formables Expanded [/url] by Silver Knight of Anor Londo (Verityvoid)
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1592328478] National Ideas Expanded [/url] by Silver Knight of Anor Londo (Verityvoid)      
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1596815683] Government Expanded [/url] by Jay 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1770950522] Trade Goods Expanded [/url] by MrMarcinQ‎ 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2164202838] Missions Expanded [/url] by Stiopia/Expanded Team 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded [/url] by Lord Varangian
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2172666098] Ages and Splendor Expanded [/url] by Melvasul
+[/quote]
     
 [h3] Other [/h3]
 [quote]
     Content
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation[/url] by flogi 
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism[/url] by Jan 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=604203692] Idea Variation [/url] by flogi 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=400151011] Hellenic Polytheism [/url] by Jan
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2128766791] Idea Groups Expanded [/url] by Big Boss 
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2141678271] Advisors Expanded [/url] by Big Boss    
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1578493491] Celtic Mod[/url] by MaitreKorda 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1810341847] Formable Nations: Reworked [/url] by Noah 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2016156036] City-State of Carthage [/url] by Reloader
@@ -142,6 +126,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2267159716] Scandinavia Overhaul for EU4 [/url] by galvinm05
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers [/url] by Lk
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2326338687] Beyond Typus - Occitan Renaissance [/url] by Perry7484 n' Julien
 
     Flavour
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
@@ -155,8 +140,10 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
-    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Mesogeios - New graphical cultures [/url] by Alyoshenka
 [/quote]
+
 [h1] Tips [/h1]
 If you want to tip me for spending an obscene amount of time on it and just overall feed me:
 https://ko-fi.com/comraddoge
+
+
