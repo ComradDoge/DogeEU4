@@ -23,10 +23,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 12/04/2021 [/h1]
 [quote]
+Content
+- Added a decision to form mandate of heaven, will appear when you own at least one of the provinces set for it (ie Beijing)
+
 Graphics
 - Aligned the text for ruler/heir/queen and their age in court view
 - Advisor screen added a blue banner cause I thought it looked neat
-
+- The Advisor Screen hidden on the main menu
 [/quote]
 [/quote]
 
