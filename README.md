@@ -29,7 +29,9 @@ Content
 Graphics
 - Aligned the text for ruler/heir/queen and their age in court view
 - Advisor screen added a blue banner cause I thought it looked neat
-- The Advisor Screen hidden on the main menu
+- The Subscription Screen removed on the main menu
+- Chinese LVL 10 Fort icon fixed
+- Some religion icons in province view centred better
 
 Fixes
 - Muslim School event wont spam you bi-yearly
