@@ -21,21 +21,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 [img]https://i.imgur.com/aMye6zc.png[/img]
 [quote]
-[h1] 12/04/2021 [/h1]
+[h1] xx/04/2021 [/h1]
 [quote]
-Content
-- Added a decision to form mandate of heaven, will appear when you own at least one of the provinces set for it (ie Beijing)
-- Minor flavour event when becoming USA
-
-Graphics
-- Aligned the text for ruler/heir/queen and their age in court view
-- Advisor screen added a blue banner cause I thought it looked neat
-- The Subscription Screen removed on the main menu
-- Chinese LVL 10 Fort icon fixed
-- Some religion icons in province view centred better
 
 Fixes
-- Muslim School event wont spam you bi-yearly
+- Zoroastrian group can now be harmonized
+
 [/quote]
 [/quote]
 
