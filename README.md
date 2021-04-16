@@ -26,6 +26,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 Fixes
 - Zoroastrian group can now be harmonized
+- Culture files cleaned up and should drastically reduced the cursed letters
 
 [/quote]
 [/quote]
