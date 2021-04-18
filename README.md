@@ -25,8 +25,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 
 Estate System
-- Display Legitimacy legitimacy cost 20>10
-- Corrupt Estates corruption cost 2>1
+- Display Legitimacy cost 20>10
+- Corrupt Estates cost 2>1
+- Display Prestige cost 20>10
 
 Fixes
 - Zoroastrian group can now be harmonized
