@@ -36,6 +36,7 @@ Fixes
 Graphics
 - Advisors banners made less saturated
 - Ages UI section made darker
+- Leader square made into a circle and slightly cleaned up
 
 [/quote]
 [/quote]
