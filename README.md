@@ -24,19 +24,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] xx/04/2021 [/h1]
 [quote]
 
-Estate System
-- Display Legitimacy cost 20>10
-- Corrupt Estates cost 2>1
-- Display Prestige cost 20>10
-
-Fixes
-- Zoroastrian group can now be harmonized
-- Culture files cleaned up and should drastically reduce the cursed letters
-
-Graphics
-- Advisors banners made less saturated
-- Ages UI section made darker
-- Leader square made into a circle and slightly cleaned up
+Balance
+- LVL 10 Fort and Trenches removed
+- 5th Idea groups moved from tech 8>9 and 10th idea group now is at tech 18
 
 [/quote]
 [/quote]
