@@ -18,27 +18,23 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
-
-[img]https://i.imgur.com/aMye6zc.png[/img]
+[img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
 [h1] xx/04/2021 [/h1]
-[quote]
 
 Balance
 - LVL 10 Fort and Trenches removed
 - 5th Idea groups moved from tech 8>9 and 10th idea group now is at tech 18
 
 [/quote]
-[/quote]
 
-[img]https://i.imgur.com/ja0Tj42.png[/img]
+[img]https://i.imgur.com/F14PpEA.png[/img]
 [quote]
 The mod is a general overhaul of the game, focusing on a shattered setting, with lots of content in government reforms; formables; religions; trade and much more. While also ensuring a balanced game for both single-player and multi-player and fixing various issues whether it be AI or lack of QoL.
-[/quote]
+[/quote]    
 
+[img]https://i.imgur.com/jIkgNsx.png[/img]
 
-[img]https://i.imgur.com/07m8BMD.png[/img]
-[QUOTE]
 [quote]
 The possible new formables, religions and more are on this [url=https://comraddoge.wordpress.com/] site [/url].
 [/quote]
@@ -58,23 +54,22 @@ The possible new formables, religions and more are on this [url=https://comraddo
 - Dynamic Age objectives
 - Changeable trade goods
 [/quote]
-[/QUOTE]
 
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338][img]https://i.imgur.com/Llj8JQu.png[/img][/url] 
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338][img]https://i.imgur.com/iUW930P.png[/img][/url] 
 [quote]
 The mod is definately more than just a shattered map, if you dislike that there is a much more toned down version you can download by clicking on the banner.
 [/quote]
 
-[url=https://discord.gg/DwNbtWY][img]https://i.imgur.com/Jub0Xex.png[/img][/url]
+[img]https://i.imgur.com/rdtTMF7.png[/img]
 [quote]
-Join the Discord to report bugs, participate in mod surveys or just lurk and see the changelogs posted by clicking on the banner.
+Join the [url=https://discord.gg/DwNbtWY]Discord[/url] to report bugs, participate in mod surveys or just lurk and see the changelogs posted.
 [/quote]
 
-[url=https://steamcommunity.com/workshop/filedetails/discussion/2152606065/3115898713372561841/][img]https://i.imgur.com/nMx8dzc.png[/img][/url]
+[url=https://steamcommunity.com/workshop/filedetails/discussion/2152606065/3115898713372561841/][img]https://i.imgur.com/801eNhE.png[/img][/url]
 [quote]
 See all the mods that have had at least some parts incorporated into the mod by clicking on the banner.
 [/quote]
-
 
 
 
