@@ -35,6 +35,7 @@ Buidings
 Fixes
 - Army/Navy has the localisation mentioning the forcelimit increase based on province dev
 - LVL 5 navy forcelimit modifiers works for grand_shipyards
+- Peace Text should have better formatting
 
 [/quote]
 
