@@ -5,14 +5,6 @@ tribe_mechanic = {
 	valid_for_nation_designer = no
 	heir = yes
 	queen = yes
-
-	custom_attributes = {
-		enables_monarchie_idea_group = no
-		enables_republik_idea_group = no
-		enables_diktatur_idea_group = no
-		enables_theokratie_idea_group = no
-		enables_horde_idea_group = yes
-	}
 }
 
 steppe_horde = {
@@ -29,6 +21,7 @@ steppe_horde = {
 	}
 	legacy_equivalent = steppe_horde_legacy
 	nomad = yes
+	raze_province = yes
 	valid_for_nation_designer = yes
 	nation_designer_cost = 0
 	nation_designer_trigger = {
@@ -69,6 +62,7 @@ great_mongol_state_reform = {
 	fixed_rank = 3
 	valid_for_nation_designer = no
 	nomad = yes
+	raze_province = yes
 	modifiers = {
 		horde_unity = 1
 		global_manpower_modifier = 0.2
@@ -79,10 +73,10 @@ great_mongol_state_reform = {
 		movement_speed = 0.2
 		years_of_nationalism = -5
 	}
-	#conditional = {
-	#	allow = { has_dlc = "Mandate of Heaven" }
-	#	allow_banners = yes
-	#}
+	conditional = {
+		allow = { has_dlc = "Mandate of Heaven" }
+		allow_banners = yes
+	}
 }
 
 tribal_federation = {
@@ -131,6 +125,42 @@ tribal_kingdom = {
 	}
 }
 
+polynesian_tribe = {
+	icon = "tribal_council"
+	allow_normal_conversion = no
+	potential = {
+		culture_group = pacific
+		has_reform = polynesian_tribe
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = -10
+	native_mechanic = no
+	allow_migration = yes
+	fixed_rank = 1
+	lock_level_when_selected = yes
+	modifiers = {
+		global_manpower_modifier = 0.2
+	}
+}
+
+polynesian_kingdom = {
+	icon = "tribal_council"
+	allow_normal_conversion = no
+	potential = {
+		culture_group = pacific
+		has_reform = polynesian_kingdom
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	modifiers = {
+		naval_forcelimit_modifier = 0.2
+		range = 0.2
+		vassal_income = 0.2
+		reduced_liberty_desire = 20
+		governing_capacity_modifier = -0.5
+	}
+}
+
 siberian_tribe = {
 	icon = "shaman"
 	allow_normal_conversion = no
@@ -147,6 +177,18 @@ siberian_tribe = {
 	modifiers = {
 		stability_cost_modifier = -0.33
 		global_institution_spread = -0.2
+	}
+}
+stateless_society = {
+	icon = "fist_in_air"
+	allow_normal_conversion = no
+	valid_for_nation_designer = yes
+	lock_level_when_selected = yes
+	nation_designer_cost = 0
+	modifiers = {
+		governing_capacity_modifier = -0.99
+		defensiveness = 0.75
+		land_morale = 0.15
 	}
 }
 
@@ -245,8 +287,8 @@ centralize_tribal_power_reform = {
 	icon = "tribal_centralize_power"
 	allow_normal_conversion = yes
 	modifiers = {
-		core_creation = -0.1
-		stability_cost_modifier = -0.1
+		core_creation = -0.05
+		stability_cost_modifier = -0.05
 	}
 }
 
@@ -265,7 +307,7 @@ horde_barbaric_despoilers_reform = {
 		
 	}
 	ai = {
-		factor = 0
+		factor = 2
 	}
 }
 
@@ -283,13 +325,18 @@ horde_tribal_unity_reform = {
 		horde_unity = 2
 	}
 	ai = {
-		factor = 1
+		factor = 2
 	}
 }
 
 tribe_becomes_monarchy_reform = {
 	icon = "king_highlighted"
 	allow_normal_conversion = yes
+	potential = {
+		NOT = { 
+			has_reform = stateless_society
+		}
+	}
 	effect = {
 		set_country_flag = populists_in_government
 		lose_reforms = 4
@@ -330,14 +377,6 @@ tribe_becomes_monarchy_reform = {
 	}
 	ai = {
 		factor = 1
-		modifier = {
-			factor = 2
-			has_reform = steppe_horde
-			OR = {
-				religion_group = muslim
-				religion_group = eastern
-			} 
-		}
 	}
 }
 
@@ -384,6 +423,12 @@ tribe_becomes_republic_reform = {
 			change_unit_type = chinese
 		}
 		change_government = republic
+		if = {
+			limit = {
+				have_had_reform = stateless_society
+			}
+			add_government_reform = peasants_republic
+		}
 	}
 	ai = {
 		factor = 1
@@ -408,6 +453,11 @@ tribe_becomes_republic_reform = {
 tribe_becomes_theocracy_reform = {
 	icon = "pope_highlighted"
 	allow_normal_conversion = yes
+	potential = {
+		NOT = { 
+			has_reform = stateless_society
+		}
+	}
 	trigger = {
 		NOT = { is_lesser_in_union = yes }
 	}
@@ -465,6 +515,11 @@ tribe_becomes_theocracy_reform = {
 tribe_becomes_horde_reform = {
 	icon = "horde_riding_highlighted"
 	allow_normal_conversion = yes
+	potential = {
+		NOT = { 
+			has_reform = stateless_society
+		}
+	}
 	effect = {
 		set_country_flag = populists_in_government
 		add_government_reform = steppe_horde

@@ -18,35 +18,44 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
-[img]https://i.imgur.com/aMye6zc.png[/img]
+[img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] xx/04/2021 [/h1]
-[quote]
+[h1] 28/04/2021 [/h1]
 
-Estate System
-- Display Legitimacy cost 20>10
-- Corrupt Estates cost 2>1
-- Display Prestige cost 20>10
+Update the mod to 1.31 Majapahit update
+
+Content
+- Added a bunch new monuments from GME
+- Added button sound for Polynesian religion (pog)
+
+Balance
+- 5th Idea slot at tech 8>9 and 9th idea slot at 16>17
+- Army Forcelimit dev based increase 0.05>0.1
+
+Buidings
+- LVL 10 Fort and Trenches removed
+- Barracks: Forcelimit 0.3>0.5
+- Conscription: Forcelimit 0.5>1, Price 400>500
+- Grand Shipyard: Price 400>500
+- Naval Battery: Price 300>400
 
 Fixes
-- Zoroastrian group can now be harmonized
-- Culture files cleaned up and should drastically reduce the cursed letters
-
-Graphics
-- Advisors banners made less saturated
-- Ages UI section made darker
-- Leader square made into a circle and slightly cleaned up
+- Various Leviathan fixes
+- Manaism icon changed
+- Colour changed of some religions so its easier to see
+- Army/Navy has the localisation mentioning the forcelimit increase based on province dev
+- LVL 5 navy forcelimit modifiers works for grand_shipyards
+- Peace Text should have better formatting
 
 [/quote]
-[/quote]
 
-[img]https://i.imgur.com/ja0Tj42.png[/img]
+[img]https://i.imgur.com/F14PpEA.png[/img]
 [quote]
 The mod is a general overhaul of the game, focusing on a shattered setting, with lots of content in government reforms; formables; religions; trade and much more. While also ensuring a balanced game for both single-player and multi-player and fixing various issues whether it be AI or lack of QoL.
 [/quote]    
 
-[img]https://i.imgur.com/07m8BMD.png[/img]
-[QUOTE]
+[img]https://i.imgur.com/jIkgNsx.png[/img]
+
 [quote]
 The possible new formables, religions and more are on this [url=https://comraddoge.wordpress.com/] site [/url].
 [/quote]
@@ -56,6 +65,7 @@ The possible new formables, religions and more are on this [url=https://comraddo
 - 47 New Trade Goods
 - 50+ New Formables
 - 30+ New Idea Groups
+- 50+ New Monuments
 - 2 New Ages
 - 30 New Religions
 - 22 Islamic Schools
@@ -66,23 +76,22 @@ The possible new formables, religions and more are on this [url=https://comraddo
 - Dynamic Age objectives
 - Changeable trade goods
 [/quote]
-[/QUOTE]
 
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338][img]https://i.imgur.com/Llj8JQu.png[/img][/url] 
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338][img]https://i.imgur.com/iUW930P.png[/img][/url] 
 [quote]
 The mod is definately more than just a shattered map, if you dislike that there is a much more toned down version you can download by clicking on the banner.
 [/quote]
 
-[url=https://discord.gg/DwNbtWY][img]https://i.imgur.com/Jub0Xex.png[/img][/url]
+[img]https://i.imgur.com/rdtTMF7.png[/img]
 [quote]
-Join the Discord to report bugs, participate in mod surveys or just lurk and see the changelogs posted by clicking on the banner.
+Join the [url=https://discord.gg/DwNbtWY]Discord[/url] to report bugs, participate in mod surveys or just lurk and see the changelogs posted.
 [/quote]
 
-[url=https://steamcommunity.com/workshop/filedetails/discussion/2152606065/3115898713372561841/][img]https://i.imgur.com/nMx8dzc.png[/img][/url]
+[url=https://steamcommunity.com/workshop/filedetails/discussion/2152606065/3115898713372561841/][img]https://i.imgur.com/801eNhE.png[/img][/url]
 [quote]
 See all the mods that have had at least some parts incorporated into the mod by clicking on the banner.
 [/quote]
-
 
 
 

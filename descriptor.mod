@@ -1,4 +1,4 @@
-name="1.30 Doge Shattered Europa"
+name="1.31 Doge Shattered Europa"
 replace_path="common/bookmarks"
 replace_path="common/estates"
 tags={
@@ -13,7 +13,7 @@ tags={
 	"Ages"
 	"Formables"
 }
-supported_version="1.30.*.*"
+supported_version="1.31.*.*"
 picture = "thumbnail.png"
 path="mod/DogeEU4"
 remote_file_id="2152606065"

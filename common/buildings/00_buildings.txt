@@ -238,11 +238,11 @@ workshop = {
 					has_building = weapons 
 					has_building = textile 
 					has_building = tradecompany 
-			has_building = tradecompany
+					has_building = tradecompany
 					has_building = tradecompany 
 					has_building = farm_estate 
 					has_building = mills 
-			has_building = mills
+					has_building = mills
 					has_building = mills 
 					has_building = plantations 
 					has_building = furnace 
@@ -265,7 +265,62 @@ temple = {
 		local_tax_modifier = 0.5
 		local_missionary_strength = 0.005
 	}
-	
+	on_built = {
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						religion = buddhism
+						religion = mahayana
+						religion = vajrayana
+					}
+					has_estate_privilege = estate_church_karma_temples
+				}
+			}
+			FROM = {
+				add_karma = 3
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					religion = catholic
+					has_estate_privilege = estate_church_influence_temples
+				}
+			}
+			FROM = {
+				add_papal_influence = 3
+			}
+		}
+	}
+	on_destroyed = {
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						religion = buddhism
+						religion = mahayana
+						religion = vajrayana
+					}
+					has_estate_privilege = estate_church_karma_temples
+				}
+			}
+			FROM = {
+				add_karma = -3
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					religion = catholic
+					has_estate_privilege = estate_church_influence_temples
+				}
+			}
+			FROM = {
+				add_papal_influence = -3
+			}
+		}
+	}	
 	ai_will_do = {
 		factor = 10
 		modifier = {
@@ -324,7 +379,30 @@ barracks = {
 	modifier = {
 		local_manpower_modifier = 0.25
 	}
-	
+	on_built = {
+		if = {
+			limit = {
+				FROM = {
+					has_reform = corvee_reform
+				}
+			}
+			FROM = {
+				add_manpower = 1
+			}
+		}
+	}
+	on_destroyed = {
+		if = {
+			limit = {
+				FROM = {
+					has_reform = corvee_reform
+				}
+			}
+			FROM = {
+				add_manpower = -1
+			}
+		}
+	}	
 	ai_will_do = {
 		factor = 8
 		modifier = {
@@ -543,7 +621,7 @@ fort_15th = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 			NOT = { is_capital = yes }			
@@ -556,7 +634,7 @@ fort_15th = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 			NOT = { is_capital = yes }
@@ -615,7 +693,7 @@ coastal_defence = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 		}
@@ -656,7 +734,31 @@ dock = {
 	modifier = {
 		local_sailors_modifier = 0.25
 	}
-
+	on_built = {
+		if = {
+			limit = {
+				FROM = {
+					has_reform = corvee_reform
+				}
+			}
+			FROM = {
+				add_sailors = 200
+			}
+		}
+	}
+	
+	on_destroyed = {
+		if = {
+			limit = {
+				FROM = {
+					has_reform = corvee_reform
+				}
+			}
+			FROM = {
+				add_sailors = -200
+			}
+		}
+	}
 	ai_will_do = {
 		factor = 0.8
 		modifier = {
@@ -732,7 +834,9 @@ regimental_camp = {
 	cost = 200
 	time = 12
 	modifier = {
-		land_forcelimit = 0.3
+		land_forcelimit = 0.5
+		regiment_recruit_speed = -0.1
+		
 	}
 
 	ai_will_do = {
@@ -833,7 +937,7 @@ fort_16th = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 			NOT = { is_capital = yes }			
@@ -846,7 +950,7 @@ fort_16th = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 			NOT = { is_capital = yes }
@@ -890,7 +994,7 @@ fort_16th = {
 naval_battery = {
 
 	make_obsolete = coastal_defence
-	cost = 300
+	cost = 400
 	time = 24
 	build_trigger = {
 		has_port = yes
@@ -900,6 +1004,7 @@ naval_battery = {
 		hostile_disembark_speed = 2.0
 		hostile_fleet_attrition = 5
 		allowed_num_of_buildings = 1
+		block_slave_raid = yes
 	}
 
 	ai_will_do = {
@@ -912,7 +1017,7 @@ naval_battery = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 		}
@@ -945,13 +1050,68 @@ naval_battery = {
 cathedral = {
 	make_obsolete = temple
 
-	cost = 300 #300
+	cost = 300
 	time = 24
 	modifier = {
 		local_missionary_strength = 0.03
 		local_tax_modifier = 1
 	}
-
+	on_built = {
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						religion = buddhism
+						religion = mahayana
+						religion = vajrayana
+					}
+					has_estate_privilege = estate_church_karma_temples
+				}
+			}
+			FROM = {
+				add_karma = 3
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					religion = catholic
+					has_estate_privilege = estate_church_influence_temples
+				}
+			}
+			FROM = {
+				add_papal_influence = 3
+			}
+		}
+	}
+	on_destroyed = {
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						religion = buddhism
+						religion = mahayana
+						religion = vajrayana
+					}
+					has_estate_privilege = estate_church_karma_temples
+				}
+			}
+			FROM = {
+				add_karma = -3
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					religion = catholic
+					has_estate_privilege = estate_church_influence_temples
+				}
+			}
+			FROM = {
+				add_papal_influence = -3
+			}
+		}
+	}
 	ai_will_do = {
 		factor = 10
 		modifier = {
@@ -1206,7 +1366,7 @@ trade_depot = {
 }
 
 grand_shipyard = {
-	cost = 400
+	cost = 500
 	time = 24
 
 	make_obsolete = shipyard
@@ -1307,7 +1467,30 @@ training_fields = {
 	modifier = {
 		local_manpower_modifier = 0.75
 	}
-
+	on_built = {
+		if = {
+			limit = {
+				FROM = {
+					has_reform = corvee_reform
+				}
+			}
+			FROM = {
+				add_manpower = 1
+			}
+		}
+	}
+	on_destroyed = {
+		if = {
+			limit = {
+				FROM = {
+					has_reform = corvee_reform
+				}
+			}
+			FROM = {
+				add_manpower = -1
+			}
+		}
+	}
 	ai_will_do = {
 		factor = 8
 		modifier = {
@@ -1431,7 +1614,7 @@ fort_17th = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 			NOT = { is_capital = yes }			
@@ -1444,7 +1627,7 @@ fort_17th = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 			NOT = { is_capital = yes }
@@ -1747,7 +1930,31 @@ drydock = {
 	modifier = {
 		local_sailors_modifier = 0.75
 	}
-
+	on_built = {
+		if = {
+			limit = {
+				FROM = {
+					has_reform = corvee_reform
+				}
+			}
+			FROM = {
+				add_sailors = 200
+			}
+		}
+	}
+	
+	on_destroyed = {
+		if = {
+			limit = {
+				FROM = {
+					has_reform = corvee_reform
+				}
+			}
+			FROM = {
+				add_sailors = -200
+			}
+		}
+	}
 	ai_will_do = {
 		factor = 0.8
 		modifier = {
@@ -1820,11 +2027,11 @@ drydock = {
 }
 
 conscription_center = {
-	cost = 400
+	cost = 500
 	time = 16
 
 	modifier = {
-		land_forcelimit = 0.5
+		land_forcelimit = 1
 		regiment_recruit_speed = -0.3
 	}
 
@@ -1932,7 +2139,7 @@ fort_18th = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 			NOT = { is_capital = yes }			
@@ -1945,7 +2152,7 @@ fort_18th = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 			NOT = { is_capital = yes }
@@ -1994,157 +2201,157 @@ fort_18th = {
 	} 
 }
 
-fort_19th = { # MODDED FROM ALBERT
-	
-	cost = 2000
-	time = 50
-	make_obsolete = fort_18th
+#fort_19th = { 
+#	
+#	cost = 2000
+#	time = 50
+#	make_obsolete = fort_18th
+#
+#
+#	modifier = {
+#		fort_level = 10
+#	}
+#
+#	onmap = yes
+#	
+#	influencing_fort = yes
+#	
+#	ai_will_do = {
+#		factor = 10
+#		modifier = {
+#			factor = 25
+#			is_capital = yes
+#		}
+#		modifier = {
+#			factor = 0.5
+#			island = yes
+#			NOT = { is_capital = yes }
+#		}	
+#		modifier = {
+#			factor = 0.5
+#			is_overseas = yes
+#		}
+#		modifier = {
+#			factor = 0.5
+#			owner = { government = tribal }
+#		}
+#		modifier = {
+#			factor = 0
+#			any_neighbor_province = {
+#				owned_by = FROM
+#				OR = {
+#					has_building = fort_15th
+#					has_building = fort_16th
+#					has_building = fort_17th
+#					has_building = fort_18th
+#					#has_building = fort_19th
+#				}
+#			}
+#			NOT = { is_capital = yes }			
+#		}
+#		modifier = {
+#			factor = 0.6
+#			any_neighbor_province = {
+#				OR = {
+#					has_building = fort_15th
+#					has_building = fort_16th
+#					has_building = fort_17th
+#					has_building = fort_18th
+#					#has_building = fort_19th
+#				}
+#			}
+#			NOT = { is_capital = yes }
+#		}
+#		modifier = {
+#			factor = 5
+#			any_neighbor_province = { owner = { is_rival = FROM } }
+#			OR = {
+#				has_building = fort_15th
+#				has_building = fort_16th
+#				has_building = fort_17th
+#			}
+#		}
+#		modifier = {
+#			factor = 2.5
+#			any_neighbor_province = { NOT = { owned_by = FROM } }
+#			OR = {
+#				has_building = fort_15th
+#				has_building = fort_16th
+#				has_building = fort_17th
+#			}
+#		}
+#		modifier = {
+#			factor = 1.667
+#			OR = {
+#				has_terrain = forest
+#				has_terrain = hills
+#				has_terrain = marsh
+#				has_terrain = highlands
+#				has_terrain = jungle
+#			}
+#		}
+#		modifier = {
+#			factor = 2.5
+#			OR = {
+#				has_terrain = mountain
+#			}
+#		}
+#		modifier = {
+#			factor = 1.25
+#			OR = {
+#				has_province_modifier = arid
+#				has_province_modifier = tropical
+#			}
+#		}
+#	} 
+#}
 
-
-	modifier = {
-		fort_level = 10
-	}
-
-	onmap = yes
-	
-	influencing_fort = yes
-	
-	ai_will_do = {
-		factor = 10
-		modifier = {
-			factor = 25
-			is_capital = yes
-		}
-		modifier = {
-			factor = 0.5
-			island = yes
-			NOT = { is_capital = yes }
-		}	
-		modifier = {
-			factor = 0.5
-			is_overseas = yes
-		}
-		modifier = {
-			factor = 0.5
-			owner = { government = tribal }
-		}
-		modifier = {
-			factor = 0
-			any_neighbor_province = {
-				owned_by = FROM
-				OR = {
-					has_building = fort_15th
-					has_building = fort_16th
-					has_building = fort_17th
-					has_building = fort_18th
-					has_building = fort_19th
-				}
-			}
-			NOT = { is_capital = yes }			
-		}
-		modifier = {
-			factor = 0.6
-			any_neighbor_province = {
-				OR = {
-					has_building = fort_15th
-					has_building = fort_16th
-					has_building = fort_17th
-					has_building = fort_18th
-					has_building = fort_19th
-				}
-			}
-			NOT = { is_capital = yes }
-		}
-		modifier = {
-			factor = 5
-			any_neighbor_province = { owner = { is_rival = FROM } }
-			OR = {
-				has_building = fort_15th
-				has_building = fort_16th
-				has_building = fort_17th
-			}
-		}
-		modifier = {
-			factor = 2.5
-			any_neighbor_province = { NOT = { owned_by = FROM } }
-			OR = {
-				has_building = fort_15th
-				has_building = fort_16th
-				has_building = fort_17th
-			}
-		}
-		modifier = {
-			factor = 1.667
-			OR = {
-				has_terrain = forest
-				has_terrain = hills
-				has_terrain = marsh
-				has_terrain = highlands
-				has_terrain = jungle
-			}
-		}
-		modifier = {
-			factor = 2.5
-			OR = {
-				has_terrain = mountain
-			}
-		}
-		modifier = {
-			factor = 1.25
-			OR = {
-				has_province_modifier = arid
-				has_province_modifier = tropical
-			}
-		}
-	} 
-}
-
-trenches = {
-	
-	cost = 500
-	time = 2
-	build_trigger = {
-		any_neighbor_province = {
-			controller = {
-				war_with = ROOT
-			}
-		}
-	}
-
-	modifier = {
-		#fort_level = 2
-		local_monthly_devastation = 1
-		allowed_num_of_buildings = 1
-		local_hostile_movement_speed = -0.50
-		defensiveness = 0.3
-	}
-
-	ai_will_do = {
-		factor = 1
-		modifier = {
-			factor = 0
-			NOT = {
-				any_neighbor_province = {
-					NOT = {
-						controller = { tag = ROOT }
-					}
-				}	
-			}
-		}
-		modifier = {
-			factor = 0
-			is_at_war = no
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				controller = {
-					war_with = ROOT
-				}
-			}
-		}
-	}
-}
+#trenches = {
+#	
+#	cost = 500
+#	time = 2
+#	build_trigger = {
+#		any_neighbor_province = {
+#			controller = {
+#				war_with = ROOT
+#			}
+#		}
+#	}
+#
+#	modifier = {
+#		#fort_level = 2
+#		local_monthly_devastation = 1
+#		allowed_num_of_buildings = 1
+#		local_hostile_movement_speed = -0.50
+#		defensiveness = 0.3
+#	}
+#
+#	ai_will_do = {
+#		factor = 1
+#		modifier = {
+#			factor = 0
+#			NOT = {
+#				any_neighbor_province = {
+#					NOT = {
+#						controller = { tag = ROOT }
+#					}
+#				}	
+#			}
+#		}
+#		modifier = {
+#			factor = 0
+#			is_at_war = no
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = {
+#				controller = {
+#					war_with = ROOT
+#				}
+#			}
+#		}
+#	}
+#}
 
 ################################################
 # Manufactories
@@ -2315,7 +2522,7 @@ plantations = {
 		palm_oil
 		saffron
 		cinnamon
-		clove
+		cloves
 		opium
 		dates
 		vanilla
@@ -2571,7 +2778,7 @@ ramparts = {
 					has_building = fort_16th
 					has_building = fort_17th
 					has_building = fort_18th
-					has_building = fort_19th
+					#has_building = fort_19th
 				}
 			}
 		}
