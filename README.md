@@ -37,6 +37,7 @@ Buidings
 - Barracks: Forcelimit 0.3>0.5
 - Conscription: Forcelimit 0.5>1, Price 400>500
 - Grand Shipyard: Price 400>500
+- Naval Battery: Price 300>400
 
 Fixes
 - Various Leviathan fixes
