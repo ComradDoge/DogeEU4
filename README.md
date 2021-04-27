@@ -22,10 +22,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 27/04/2021 [/h1]
 
+Update the mod to 1.31 Majapahit update
+
 Content
-- The whole damn Majapahit patch updated
-- Both Shattered and Vanilla bookmarks done
-- More than 50 new monuments
+- Added a bunch new monuments from GME
 - Added button sound for Polynesian religion (pog)
 
 Balance
