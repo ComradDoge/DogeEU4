@@ -58,27 +58,17 @@ NDefines.NCountry.REGULAR_COLONY_GROWTH = 10 --25
 NDefines.NCountry.PS_ARTILLERY_BARRAGE = 50
 NDefines.NCountry.PS_NAVAL_BARRAGE = 50
 
---- BEL Imports ---
---NDefines.NCountry.MERCHANT_REPUBLIC_SIZE_LIMIT = 9999
---NDefines.NCountry.MAX_ARMY_PROFESSIONALISM = 1.0
---NDefines.NCountry.LOW_ARMY_PROFESSIONALISM_MIN_RANGE = 0.0
---NDefines.NCountry.LOW_ARMY_PROFESSIONALISM_MAX_RANGE = 1.0
---NDefines.NCountry.HIGH_ARMY_PROFESSIONALISM_MIN_RANGE = 0.0
---NDefines.NCountry.HIGH_ARMY_PROFESSIONALISM_MAX_RANGE = 1.0
---NDefines.NCountry.STATE_MAINTENANCE_DEV_FACTOR = 0.012
---NDefines.NCountry.STATE_MAINTENANCE_DISTANCE_FACTOR = 0.001
---NDefines.NCountry.STATE_MAINTENANCE_CONTINENT_FACTOR = -0.5
---NDefines.NCountry.STATE_MAINTENANCE_CULTURE_FACTOR = 0.15
---NDefines.NCountry.SCRIPTED_ADVISOR_DISCOUNT = 0.33
---NDefines.NCountry.PS_BUY_IDEA = 250
---NDefines.NCountry.FREE_IDEA_GROUP_COST  = 7
---NDefines.NCountry.IDEA_TO_TECH = -0.01
---NDefines.NCountry.MAX_ACTIVE_POLICIES = 12
---NDefines.NCountry.BASE_POSSIBLE_POLICIES = 4
---NDefines.NCountry.MINIMUM_POLICY_TIME = 3
---NDefines.NCountry.PS_RAISE_TARIFFS = 10
---NDefines.NCountry.PS_LOWER_TARIFFS = 5
---NDefines.NCountry.MAX_IDEA_GROUPS_FROM_SAME_CATEGORY = 0.35
---NDefines.NCountry.DICTATORSHIP_TRADITION_FOR_MONARCHY = 20
---NDefines.NCountry.DICTATORSHIP_TRADITION_FOR_REPUBLIC = 60
---NDefines.NCountry.POWER_MAX = 999
+-- Great Projects
+
+NDefines.NCountry.TIME_TO_REPAIR_GREAT_PROJECT_ONE_PERCENT_IN_DAYS = 30		-- days to repair a great project 1%
+NDefines.NCountry.GREAT_PROJECT_FULL_STATE_OF_REPAIR = 100		-- full state of repair
+NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_PER_MONTH = 0.01 --how much a great project degrades in % per month
+NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_THRESHOLD_FOR_ALERT = 5 --below this % of repair, we'll show an alert
+NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_THRESHOLD_FOR_TIER_1 = 25 --state of repair threshold for tier 1 benefits
+NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_THRESHOLD_FOR_TIER_2 = 50 --state of repair threshold for tier 2 benefits
+NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_THRESHOLD_FOR_TIER_3 = 75 --state of repair threshold for tier 3 benefits
+NDefines.NCountry.GREAT_PROJECT_MANPOWER_REQUIRED_FOR_CONSTRUCTION_BOOST = 20 --use a bunch of manpower to move things on
+NDefines.NCountry.GREAT_PROJECT_MANPOWER_CONSTRUCTION_BOOST_AMOUNT_IN_DAYS = 730 --how far throwing men at the problem gets you
+NDefines.NCountry.GREAT_PROJECT_MONEY_REQUIRED_FOR_CONSTRUCTION_BOOST = 1000 --use a bunch of money to move things on
+NDefines.NCountry.GREAT_PROJECT_MONEY_CONSTRUCTION_BOOST_AMOUNT_IN_DAYS = 730 --how far throwing cash at the problem gets you
+NDefines.NCountry.GREAT_PROJECT_MOVE_COST_PER_DAY = 3 --how much to move a great project for one day

@@ -20,7 +20,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] xx/xx/2021 [/h1]
+[h1] 27/04/2021 [/h1]
+
+Content
+- The whole damn Majapahit patch updated
+- Both Shattered and Vanilla bookmarks done
+- More than 50 new monuments
+- Added button sound for Polynesian religion (pog)
 
 Balance
 - 5th Idea slot at tech 8>9 and 9th idea slot at 16>17
@@ -33,6 +39,9 @@ Buidings
 - Grand Shipyard: Price 400>500
 
 Fixes
+- Various Leviathan fixes
+- Manaism icon changed
+- Colour changed of some religions so its easier to see
 - Army/Navy has the localisation mentioning the forcelimit increase based on province dev
 - LVL 5 navy forcelimit modifiers works for grand_shipyards
 - Peace Text should have better formatting
@@ -55,6 +64,7 @@ The possible new formables, religions and more are on this [url=https://comraddo
 - 47 New Trade Goods
 - 50+ New Formables
 - 30+ New Idea Groups
+- 50+ New Monuments
 - 2 New Ages
 - 30 New Religions
 - 22 Islamic Schools
