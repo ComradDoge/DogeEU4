@@ -29,6 +29,7 @@ Fixes
 - Lakhor tag changed due to new duplicate
 - Bunch of Error Log fixes
 - 7 Privilege events fixed
+- Macrobuilder Autonomy Tab won't crash you
 
 Balance
 - Fire Temple tweaked
