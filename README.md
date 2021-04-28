@@ -22,17 +22,21 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 28/04/2021 [/h1]
 
+This is basically the 1.31.1 update, came out in the middle of me cleaning the error log.
+
 - All Zoroasatrian types have access to the Holy Site mechanic
 - Whole Zoroastrian Group has now access to the Fire Temple monument
+- Sikh UI now used the proper UI elements
+- Waitaha (NZL) migrated north
 
 Fixes
 - Lakhor tag changed due to new duplicate
 - Bunch of Error Log fixes
 - 7 Privilege events fixed
 - Macrobuilder Autonomy Tab won't crash you
+- On_actions adapted to new stuff
+- tech_strip frame file is now in a separate file
 
-Balance
-- Fire Temple tweaked
 
 [/quote]
 
