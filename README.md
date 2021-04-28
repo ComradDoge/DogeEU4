@@ -25,6 +25,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 - All Zoroasatrian types have access to the Holy Site mechanic
 - Whole Zoroastrian Group has now access to the Fire Temple monument
 
+Fixes
+- Lakhor tag changed due to new duplicate
 
 Balance
 - Fire Temple tweaked
