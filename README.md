@@ -22,30 +22,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 28/04/2021 [/h1]
 
-Update the mod to 1.31 Majapahit update
+- All Zoroasatrian types have access to the Holy Site mechanic
+- Whole Zoroastrian Group has now access to the Fire Temple monument
 
-Content
-- Added a bunch new monuments from GME
-- Added button sound for Polynesian religion (pog)
 
 Balance
-- 5th Idea slot at tech 8>9 and 9th idea slot at 16>17
-- Army Forcelimit dev based increase 0.05>0.1
-
-Buidings
-- LVL 10 Fort and Trenches removed
-- Barracks: Forcelimit 0.3>0.5
-- Conscription: Forcelimit 0.5>1, Price 400>500
-- Grand Shipyard: Price 400>500
-- Naval Battery: Price 300>400
-
-Fixes
-- Various Leviathan fixes
-- Manaism icon changed
-- Colour changed of some religions so its easier to see
-- Army/Navy has the localisation mentioning the forcelimit increase based on province dev
-- LVL 5 navy forcelimit modifiers works for grand_shipyards
-- Peace Text should have better formatting
+- Fire Temple tweaked
 
 [/quote]
 
