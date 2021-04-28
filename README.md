@@ -27,6 +27,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 Fixes
 - Lakhor tag changed due to new duplicate
+- Bunch of Error Log fixes
+- 7 Privilege events fixed
 
 Balance
 - Fire Temple tweaked
