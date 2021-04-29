@@ -23,7 +23,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 28/04/2021 [/h1]
 
 - Monuments further tweaked
-- Religion tab and start of conversion sound for: Alcheringa, Kemetism
+- Religion tab and start of conversion sound for: Alcheringa, Kemetism, Celtic, Manaism
 - Fars colour changed back to original
 - Trade Good icons positioning fixed
 
