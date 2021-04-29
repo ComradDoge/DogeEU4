@@ -24,7 +24,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 - Monuments further tweaked
 - Religion tab and start of conversion sound for: Alcheringa, Kemetism
-
+- Fars colour changed back to original
 
 [/quote]
 
