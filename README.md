@@ -22,9 +22,16 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 29/04/2021 [/h1]
 
+Content
+- The diktatorship reform government decision fully reworked
+- Diktatorship ideas slightly tweaked
+- Zaparozhie (or cossack_reform) now has access to Clergy and Burghers estate
+
 Fixes
 - Oda and Uesugi will have missions on vanilla bookmark
 - Monument fixes
+- Dictatorship ideas work now
+
 Setup
 - Mekong got one province from Khmer
 
