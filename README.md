@@ -25,7 +25,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Content
 - The diktatorship reform government decision fully reworked
 - Diktatorship ideas slightly tweaked
-- Zaparozhie (or cossack_reform) now has access to Clergy and Burghers estate
+
+Balance
+- Sich Rada now has access to Clergy and Burghers estate
+- Sich Rada goverment_capacity 50>100, absolutism -40>-50
+- Values for Cossack Estate happy modifiers lowered to not be equal to a literal state of cossacks
 
 Fixes
 - Oda and Uesugi will have missions on vanilla bookmark
