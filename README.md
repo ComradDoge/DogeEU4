@@ -23,7 +23,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 29/04/2021 [/h1]
 
 Content
-- The diktatorship reform government decision fully reworked
+- The diktatorship ideas decision fully reworked
 - Diktatorship ideas slightly tweaked
 
 Balance
