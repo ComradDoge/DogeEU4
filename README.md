@@ -23,10 +23,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 29/04/2021 [/h1]
 
 Content
-- The diktatorship ideas decision fully reworked
-- Diktatorship ideas slightly tweaked
+- The Dictatorship ideas final decision reworked
+- Road events reworked
 
 Balance
+- Dictatorship ideas slightly tweaked
 - Sich Rada now has access to Clergy and Burghers estate
 - Sich Rada goverment_capacity 50>100, absolutism -40>-50
 - Values for Cossack Estate happy modifiers lowered to not be equal to a literal state of cossacks
@@ -38,8 +39,12 @@ Fixes
 
 Setup
 - Mekong got one province from Khmer
+- Starting rulers for countries in Egypt and Levant
+- Mekong gets Khmer ideas
 
 UI
+- Fixed some macrobuilder elements causing a crash
+- Fixed macrobuilder top line going over some lines
 - Monument UI tweaked, can now actually read the text
 - Moved the Army/Navy text slightly better
 
