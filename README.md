@@ -20,10 +20,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 04/05/2021 [/h1]
+[h1] 05/05/2021 [/h1]
+- The curse from Indochina has been lifted and you can look upon it again
 
-- 1.31.2 Update
-- Estates UI reworked
+- Canals reworked, you can now Open|Close them
+- Aotearoa colour changed from wasteland grey to terracota
+- Animism>Dawayism in parts of Asia
+- Various Error log fixes
 
 [/quote]
 
@@ -106,6 +109,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2125424517] Mercenary Companies Expanded [/url] by Lord Varangian
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2185445645] Flavour and Events Expanded [/url] by UberEpicZach/Expanded Team
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2172666098] Ages and Splendor Expanded [/url] by Melvasul
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] Great Monuments Expanded [/url] by Melvasul
 [/quote]
     
 [h3] Other [/h3]
@@ -123,6 +127,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2053238435] Difficulty & AI changes Full version [/url] by Spirit Baker and LoStack
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers [/url] by Lk
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2326338687] Beyond Typus - Occitan Renaissance [/url] by Perry7484 n' Julien
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2476986387] Closeable Canals [/url] by lemonporn
 
     Flavour
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
