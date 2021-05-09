@@ -50,7 +50,6 @@ NDefines.NCountry.PARLIAMENT_PRESTIGE_HIT = -10			-- penalty if failed debate.
 NDefines.NCountry.PARLIAMENT_CHANCE_OF_DECISION = 10		-- % Chance debate is ended after PARLIAMENT_DEBATE_DURATION
 
 -- Colonialism
-
 NDefines.NCountry.REGULAR_COLONY_GROWTH = 10 --25
 
 
@@ -59,7 +58,6 @@ NDefines.NCountry.PS_ARTILLERY_BARRAGE = 50
 NDefines.NCountry.PS_NAVAL_BARRAGE = 50
 
 -- Great Projects
-
 NDefines.NCountry.TIME_TO_REPAIR_GREAT_PROJECT_ONE_PERCENT_IN_DAYS = 30		-- days to repair a great project 1%
 NDefines.NCountry.GREAT_PROJECT_FULL_STATE_OF_REPAIR = 100		-- full state of repair
 NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_PER_MONTH = 0.01 --how much a great project degrades in % per month

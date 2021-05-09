@@ -23,7 +23,6 @@ NDefines.NDiplomacy.HEGEMONY_LOST_DAYS = 3650 -- 10 years
 NDefines.NDiplomacy.DISHONORABLE_PEACE_MONTHS = 0 --Default 12. This is the thingie that forces you to wait a year before peacing out.
 NDefines.NDiplomacy.CALL_ALLY_DECLINE_PRESTIGE_PENALTY = -10 -- Default -25. Cost which you incur if you dont join an allies war.
 
-
 -- Celestial Empire
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_DEFAULT_INFLUENCE = 60 -- 60, Starting value for Mandate value of a new Chinese Emperor.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MODIFIER_THRESHOLD = 50 -- 50, Value of Mandate above which the positive Mandate Modifier is used instead of the negative one.
@@ -40,7 +39,7 @@ NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_NONTRIBUTARY_DEV = 	0.0
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_FROM_DEFENDING = 	5 	-- 5, How much Mandate is gained when successfully defending the Emperor title.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_5_LOANS =	-0.5 	-- -0.36, Yearly change of Mandate for every 5 loans.
 
-
+-- Holy Roman Empire
 NDefines.NDiplomacy.IMPERIAL_AUTHORITY_FROM_PRINCES = 0.06 --Defines 0.075 scales to threshold
 NDefines.NDiplomacy.IMPERIAL_REFORM_COST = 50  
 NDefines.NDiplomacy.EMPEROR_REVOKE_AUTHORITY_COST = 50		
@@ -50,7 +49,6 @@ NDefines.NDiplomacy.HRE_AUTHORITY_LEAVE_EMPIRE = -5 --Defines -10
 NDefines.NDiplomacy.HRE_AUTHORITY_PROVINCE_JOIN = 0.1
 NDefines.NDiplomacy.FORCE_JOIN_HRE_AUTHORITY_PER_DEVELOPMENT = 0.05 
 NDefines.NDiplomacy.FORCE_JOIN_HRE_YEARS_BOUND_BY_TREATY = 50 
-
 
 NDefines.NDiplomacy.HRE_VOTE_ENEMY = -200
 NDefines.NDiplomacy.HRE_VOTE_LEGUE_ENEMY = -200
