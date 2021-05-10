@@ -20,14 +20,23 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 05/05/2021 [/h1]
-- The curse from Indochina has been lifted and you can look upon it again
+[h1] 07/05/2021 [/h1]
 
-- Canals reworked, you can now Open|Close them
-- Aotearoa colour changed from wasteland grey to terracota
-- Animism>Dawayism in parts of Asia
-- Various Error log fixes
+- New Iberian Monuments
+- Added factions for the polynesians
+- Holy Orders can now be accessed by Catholics and Muslim Group, heavily tweaked though
+- Centralize states cost halved 100>50
 
+Fixes
+- Missions looking for any manufactories will properly work
+- Minor history errors in vanilla bookmark
+- Minor clean up of loc to be more spaced out
+
+GFX
+- New Tantra religion icon
+- Confucianism icon normalized
+- Top Estate UI reworked
+- New flags for South East Asia
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
