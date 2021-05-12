@@ -20,23 +20,16 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 07/05/2021 [/h1]
+[h1] 12/05/2021 [/h1]
 
-- New Iberian Monuments
-- Added factions for the polynesians
-- Holy Orders can now be accessed by Catholics and Muslim Group, heavily tweaked though
-- Centralize states cost halved 100>50
-
-Fixes
-- Missions looking for any manufactories will properly work
-- Minor history errors in vanilla bookmark
-- Minor clean up of loc to be more spaced out
+- 1.31.3 Update
+- Aegyptus gets Mamluk missions for the time being
+- Some province modifiers removed due to the addition of monuments
+- Qing formation requirements reverted and require either Celestial Emperor or Empire status.
 
 GFX
-- New Tantra religion icon
-- Confucianism icon normalized
-- Top Estate UI reworked
-- New flags for South East Asia
+- Jewish icons re-aligned
+
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
