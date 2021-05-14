@@ -25,6 +25,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 - 4 new trade goods
 - Latent Good system reworked
 
+- A lot of national ideas fixes and changes
 - Britanny can use its own monument
 - Decision to highlight monuments on the map
 - Decisions received icons for easier categorization
