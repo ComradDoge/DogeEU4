@@ -22,13 +22,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 12/05/2021 [/h1]
 
-- 1.31.3 Update
-- Aegyptus gets Mamluk missions for the time being
-- Some province modifiers removed due to the addition of monuments
-- Qing formation requirements reverted and require either Celestial Emperor or Empire status.
+- 4 new trade goods
+- Latent Good system reworked
 
-GFX
-- Jewish icons re-aligned
+- Britanny can use its own monument
+- Decision to highlight monuments on the map
+- Decisions received icons for easier categorization
+
 
 [/quote]
 
@@ -130,6 +130,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1373025259] More Province Modifiers [/url] by Lk
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2326338687] Beyond Typus - Occitan Renaissance [/url] by Perry7484 n' Julien
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2476986387] Closeable Canals [/url] by lemonporn
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2451296932] Xorme - AI [/url] by Xorme
 
     Flavour
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1375379791] New World Dynamic Colony Names[/url] by Cwrwi 
