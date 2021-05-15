@@ -22,12 +22,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 12/05/2021 [/h1]
 
+Early Update due to Country Ideas royally fucking up.
+
 - 4 new trade goods
 - Latent Good system reworked
-
+- Some Trade good values lowered
 - A lot of national ideas fixes and changes
 - Britanny can use its own monument
 - Decision to highlight monuments on the map
+- Road building received dev cost reduction back but at a reduced amount
 - Decisions received icons for easier categorization
 
 
