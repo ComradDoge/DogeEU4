@@ -176,12 +176,6 @@ NDefines.NAI.MISSIONARY_MAINTENANCE_SHARE = 0.3	--The most an AI will spend of i
 NDefines.NAI.REGIMENTS_PER_GENERAL = 20	--AI will want one general for every this number of regiments (will not exceed free leader pool).
 NDefines.NAI.MIN_SHIPS_FOR_ADMIRAL = 25	--The minimum navy size for the AI to bother with an admiral.
 	--MIN_SHIPS_FOR_ADMIRAL = 10
-	--Disables debase currency for AI
-NDefines.NAI.DEBASE_THRESHOLD = -5000 -- AI will not debase if it has more gold than this.
-
-NDefines.NAI.CANCEL_CONSTRUCTION_SIEGE_PROGRESS = 101 -- buildings don't get destroyed when sieged, not sure why AI cancels constructions at all
-NDefines.NAI.EXTRA_SURPLUS_WHEN_NEEDING_BUILDINGS = 0.10
-	-- CANCEL_CONSTRUCTION_SIEGE_PROGRESS = 0, -- If chance of fort falling is at least this, AI will cancel constructions in the province
 NDefines.NAI.DESIRED_SURPLUS = 0.10 -- AI will aim for having at least this fraction of their income as surplus when they don't have large savings
 	-- DESIRED_SURPLUS = 0.1, -- AI will aim for having at least this fraction of their income as surplus when they don't have large savings
 NDefines.NAI.BIGSHIP_FRACTION = 0.4 --The proportion of big ships in an AI navy of light ships and big ships (for coastal sea countries, this fraction is mostly galleys)
@@ -218,21 +212,31 @@ NDefines.NAI.MIN_FORCE_LIMIT_SHARE_REGION_ASSIGN = 0.1	--AI will only assign arm
 	--NDefines.NAI.BORDER_DISTANCE_SCORE_IMPACT = 3.0 
 
 
-	--MIN_FORCE_LIMIT_SHARE_REGION_ASSIGN = 0.1
-NDefines.NAI.ACCEPTABLE_BALANCE_DEFAULT = 1.8 --AI wants this advantage to enter battles typically. (There are some exceptions, e.g. offensives.)
-	--ACCEPTABLE_BALANCE_DEFAULT = 1.75
-NDefines.NAI.ACCEPTABLE_BALANCE_FRIEND_IN_COMBAT = 0.85
-	--ACCEPTABLE_BALANCE_FRIEND_IN_COMBAT = 0.75
---NDefines.NAI.PURSUE_DISTANCE = 100
 
+-- Estates
+NDefines.NAI.ESTATE_PRIVILEGE_REVOKE_THRESHOLD = 5.1
+NDefines.NAI.ESTATE_PRIVILEGE_GRANT_THRESHOLD = 7.5
+NDefines.NAI.ESTATE_INTERACTION_THRESHOLD = 49.9
+NDefines.NAI.ESTATE_MAX_WANTED_INFLUENCE = 85.0
+NDefines.NAI.ESTATE_MIN_WANTED_CROWNLAND = 20.0
 NDefines.NAI.ESTATE_MAX_PRIVILEDGES = 4
 
 
 NDefines.NAI.TRADE_COMPANY_INVESTMENT_COST_THRESHOLD = 2 -- How many times the cost of the investment must be in the treasury to consider buying it
 NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 100 -- AI scoring for repaying loans, multiplied by (MAX(budget - other loans, 0) * number_of_loans)/cost
 
-
+-- War
 NDefines.NAI.AGGRESSIVENESS = 500
 NDefines.NAI.AGGRESSIVENESS_BONUS_EASY_WAR = 600
 
-NDefines.NAI.POWERBALANCE_DISABLE_VERSUS_PLAYER = 0 --0 is vanilla
+
+-- Economy
+NDefines.NAI.ADVISOR_PROMOTION_AGE_CUTOFF = 45
+NDefines.NAI.ACCEPTABLE_BALANCE_DEFAULT = 1.75
+NDefines.NAI.ACCEPTABLE_BALANCE_FRIEND_IN_COMBAT = 0.85
+
+--Disables debase currency for AI
+NDefines.NAI.DEBASE_THRESHOLD = -5000 -- AI will not debase if it has more gold than this.
+
+NDefines.NAI.CANCEL_CONSTRUCTION_SIEGE_PROGRESS = 101 -- buildings don't get destroyed when sieged, not sure why AI cancels constructions at all
+NDefines.NAI.EXTRA_SURPLUS_WHEN_NEEDING_BUILDINGS = 0.15 -- D0.10
