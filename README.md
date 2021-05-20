@@ -22,17 +22,17 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 12/05/2021 [/h1]
 
-Early Update due to Country Ideas royally fucking up.
-
-- 4 new trade goods
-- Latent Good system reworked
-- Some Trade good values lowered
-- A lot of national ideas fixes and changes
-- Britanny can use its own monument
-- Decision to highlight monuments on the map
-- Road building received dev cost reduction back but at a reduced amount
-- Decisions received icons for easier categorization
-
+- Error Log fixes
+- One Idea Group basic policies removed (yes they existed)
+- Shortened some policy names
+- Privileges have been tweaked
+- Privilege Selection screen made slightly wider and made tweaks to it
+- Trade Ideas 1st idea "Shrew Commerce" now gives a country modifier instead of a province one (which did not work)
+- Galley Combat Width 0.5>1
+- Some tooltip localisation will be cleaner and faster to read
+- Siam Ideas nerfed and requires tech 10
+- Building and Defines AI logic slightly tweaked
+- Minor development tweaks in China
 
 [/quote]
 
@@ -49,7 +49,7 @@ The possible new formables, religions and more are on this [url=https://comraddo
 
 [quote]
 - Non-Braindead AI
-- 47 New Trade Goods
+- 50 New Trade Goods
 - 50+ New Formables
 - 30+ New Idea Groups
 - 50+ New Monuments
