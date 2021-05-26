@@ -36,6 +36,8 @@ Balance
 - Building and Defines AI logic slightly tweaked
 - One Idea Group basic policies removed (yes they existed)
 - Siam Ideas nerfed and requires tech 20>10
+- Shock/Fire Ideas slightly tweaked
+- Minor mercenary cost nerf, -25>-20
 - Galley Combat Width 0.5>1
 - Privileges have been tweaked
 
