@@ -20,35 +20,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 12/05/2021 [/h1]
+[h1] 0/0/2021 [/h1]
 
-- Shortened some policy names
-- Privilege Selection screen made slightly wider and made tweaks to it
-- Some tooltip localisation will be cleaner and faster to read such as government reform button or army units.
+Localisatioon
+- Trade Good tech requirements
 
-Fixes
-- Error Log fixes
-- Khmer grain mission now accepts rice too
-- Trade Ideas 1st idea "Shrew Commerce" now gives a country modifier instead of a province one (which did not work)
-
-Balance
-- Minor development tweaks in China
-- Building and Defines AI logic slightly tweaked
-- One Idea Group basic policies removed (yes they existed)
-- Siam Ideas nerfed and requires tech 20>10
-- Shock/Fire Ideas slightly tweaked
-- Minor mercenary cost nerf, -25>-20
-- Galley Combat Width 0.5>1
-- Privileges have been tweaked
-
-Trade Goods
-- Woodworking, Leather and Cannons innovativeness requirement removed
-- All Latent building require at minimum 10 development province
-- Steam Engine requires a 0>20 development province
-- Jewellery requires 20>15 development province
-- Fixed some loc errors
-- Slightly shuffled some latent good building tech requirements
-- Overall general number change
 
 [/quote]
 
