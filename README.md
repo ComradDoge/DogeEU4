@@ -33,9 +33,10 @@ Fixes
 - Gaeldom Brittany mission fixed
 - Nutmeg variable for goods_saves
 
-UI
+UI/GFX
 - Release screen list made longer to see more countries
 - Mercury Icon is different and totally drinkable
+- East Indies subcontinent has a new building graphic on the map
 
 [/quote]
 
