@@ -22,9 +22,20 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 0/0/2021 [/h1]
 
+Balance
+- Yanhzhou +15 settlers removed to slow down its unfettered expansion
+- Some building logic tweaked for AI to focus on production and military buildings
+
 Localisatioon
 - Trade Good tech requirements
 
+Fixes
+- Gaeldom Brittany mission fixed
+- Nutmeg variable for goods_saves
+
+UI
+- Release screen list made longer to see more countries
+- Mercury Icon is different and totally drinkable
 
 [/quote]
 
