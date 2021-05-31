@@ -25,18 +25,23 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Balance
 - Yanhzhou +15 settlers removed to slow down its unfettered expansion
 - Some building logic tweaked for AI to focus on production and military buildings
+- Strenghten Industry T7 reform tax_modifier -10>-25
+- Political Absolutism T9 max_absolutism modifier 5>10
+- Regional Representation T8 territory_min_autonomy -20>-25
 
 Localisatioon
 - Trade Good tech requirements
+- Native T4 "Trade with Foreigners" effect made clearer
 
 Fixes
-- Gaeldom Brittany mission fixed
+- Gaeldom Brittany mission does not require a port in an inland province
 - Nutmeg variable for goods_saves
 
 UI/GFX
 - Release screen list made longer to see more countries
-- Mercury Icon is different and totally drinkable
+- Mercury Icon is different and is totally drinkable
 - East Indies subcontinent has a new building graphic on the map
+- Asian roof tiles changed colour
 
 [/quote]
 
@@ -152,6 +157,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1792575623] Rebel Flag Variety Pack [/url] by quill13 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1754713140] Mesogeios - New graphical cultures[/url] by Alyoshenka
 [/quote]
 
 [h1] Tips [/h1]
