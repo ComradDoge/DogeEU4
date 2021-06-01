@@ -36,6 +36,7 @@ Localisatioon
 Fixes
 - Gaeldom Brittany mission does not require a port in an inland province
 - Nutmeg variable for goods_saves
+- Temple of Confucian also works for Zen and Taoism
 
 UI/GFX
 - Release screen list made longer to see more countries
