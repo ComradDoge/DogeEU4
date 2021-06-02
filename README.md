@@ -22,27 +22,38 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 0/0/2021 [/h1]
 
+General
+- Sokoto decision tweaked, only sahelian can form it; not being sunni does not prevent seeing the decision but its still a requirement
+- Wagadou decision tweaked, only mande and fulani/senegambian can form it; 1000 dev requirement removed
+
 Balance
 - Yanhzhou +15 settlers removed to slow down its unfettered expansion
 - Some building logic tweaked for AI to focus on production and military buildings
 - Strenghten Industry T7 reform tax_modifier -10>-25
 - Political Absolutism T9 max_absolutism modifier 5>10
 - Regional Representation T8 territory_min_autonomy -20>-25
+- Roogan religion loses the +1 merchant bonus
 
 Localisatioon
 - Trade Good tech requirements
 - Native T4 "Trade with Foreigners" effect made clearer
+- Ghana Empire renamed to Wagadou
+- Sokoto decision has the flag and teal colour
+- Buildings that require strategic resource will mention that you cannot build them on provinces that require the resource
 
 Fixes
 - Gaeldom Brittany mission does not require a port in an inland province
 - Nutmeg variable for goods_saves
 - Temple of Confucian also works for Zen and Taoism
+- Madagascar nations port mission makes sense now
+- Trade Goods with resource values should change correctly on province exchange
 
 UI/GFX
 - Release screen list made longer to see more countries
 - Mercury Icon is different and is totally drinkable
 - East Indies subcontinent has a new building graphic on the map
 - Asian roof tiles changed colour
+- United African Republic flag changed to pan-african tri-colour
 
 [/quote]
 
