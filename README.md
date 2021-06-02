@@ -33,6 +33,7 @@ Balance
 - Political Absolutism T9 max_absolutism modifier 5>10
 - Regional Representation T8 territory_min_autonomy -20>-25
 - Roogan religion loses the +1 merchant bonus
+- Road Infrastructure event toned down
 
 Localisatioon
 - Trade Good tech requirements
