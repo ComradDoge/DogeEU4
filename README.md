@@ -20,11 +20,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 0/0/2021 [/h1]
+[h1] 3/6/2021 [/h1]
 
 General
 - Sokoto decision tweaked, only sahelian can form it; not being sunni does not prevent seeing the decision but its still a requirement
 - Wagadou decision tweaked, only mande and fulani/senegambian can form it; 1000 dev requirement removed
+- 1.31.4 Update
 
 Balance
 - Yanhzhou +15 settlers removed to slow down its unfettered expansion
@@ -34,6 +35,7 @@ Balance
 - Regional Representation T8 territory_min_autonomy -20>-25
 - Roogan religion loses the +1 merchant bonus
 - Road Infrastructure event toned down
+- Removed 4 economic modifiers from AI cheat
 
 Localisatioon
 - Trade Good tech requirements
