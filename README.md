@@ -22,9 +22,14 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 3/6/2021 [/h1]
 
+General
+- New Uniform latent trade good
+- Camels and Llamas provide 10%>15% local production bonus
+- Cloth Price events decreased
+
 Fixes
 - Ajuraan starts with its own special reform
-
+- Sokoto decision errors
 
 UI/GFX
 - Ajuraan reform icon changed to its flag
