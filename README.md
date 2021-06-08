@@ -29,6 +29,7 @@ General
 
 Fixes
 - Ajuraan starts with its own special reform
+- Hisn Kayfa proper names
 - Sokoto decision errors
 
 UI/GFX
