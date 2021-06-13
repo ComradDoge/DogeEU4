@@ -1,0 +1,222 @@
+MAI_Missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		
+		tag = MAI
+	}
+	has_country_shield = yes
+	
+	MAI_renegotiate = {
+		icon = geneva_conventions
+		required_missions = { rhn_generic_fc }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = HES
+		}
+		trigger = {
+			OR = {
+				alliance_with = HES
+				has_won_war_against = {
+					who = HES
+					max_years_since = 100
+				}
+				AND = {
+					NOT = { exists = HES }
+					81 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = MAI_reward_if_alliance
+			tooltip = {
+				country_event = { id = ME_Mainz_Events.6 }
+			}
+			custom_tooltip = MAI_reward_if_conquest
+			tooltip = {
+				hesse_area = {
+					add_permanent_claim = ROOT
+				}
+				add_country_modifier = {
+					name = MAI_renegotiated_peace_of_frankfurt
+					duration = 10950
+				}
+			}
+		}
+	}
+	
+	MAI_restore_erfurt = {
+		icon = develop_our_capital
+		required_missions = { rhn_generic_expand }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 63
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			63 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_mil_power = 50
+			custom_tooltip = MAI_saxon
+			hidden_effect = {
+				if = {
+					limit = {
+						accepted_culture = saxon
+					}
+					add_dip_power = 100
+				}
+				else = {
+					add_accepted_culture = saxon
+				}
+			}
+		}
+	}
+}
+
+MAI_Missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		
+		tag = MAI
+	}
+	has_country_shield = yes
+	
+	MAI_mainz_staple_rights = {
+		icon = purely_for_commerce
+		required_missions = { rhn_generic_deving_capital }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 78
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_trade_building_trigger = yes }
+				NOT = { province_has_center_of_trade_of_level = 2 }
+			}
+		}
+		trigger = {
+			78 = {
+				owned_by = ROOT
+				OR = {
+					has_trade_building_trigger = yes
+					province_has_center_of_trade_of_level = 2
+				}
+			}
+		}
+		effect = {
+			add_years_of_income = 1
+			78 = {
+				add_or_upgrade_trade_building = yes
+			}
+		}
+	}
+}
+
+MAI_Missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		
+		tag = MAI
+	}
+	has_country_shield = yes
+	
+	MAI_primas_germaniae = {
+		icon = catholic_volunteers
+		required_missions = { rhn_generic_allies rhn_generic_reformation }
+		position = 3
+		provinces_to_highlight = {
+			owner = {
+				culture_group = germanic
+				has_reform = clerical_state
+				religion = ROOT
+				prestige = ROOT
+			}
+		}
+		trigger = {
+			has_country_modifier = "primas_germaniae"
+			prestige = 25
+			custom_trigger_tooltip = {
+				tooltip = MAI_no_bishopric
+				NOT = {
+					any_country = {
+						culture_group = germanic
+						has_reform = clerical_state
+						religion = ROOT
+						prestige = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			add_dip_power = 100
+			add_country_modifier = {
+				name = MAI_primas_germaniae_modifier
+				duration = 10950
+			}
+		}
+	}
+}
+
+MAI_Missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		
+		tag = MAI
+	}
+	has_country_shield = yes
+	
+	MAI_legatus_natus = {
+		icon = claim_tirol
+		required_missions = { MAI_primas_germaniae }
+		position = 4
+		provinces_to_highlight = {
+			owner = {
+				culture_group = germanic
+				has_reform = clerical_state
+				religion = ROOT
+				prestige = ROOT
+			}
+		}
+		trigger = {
+			num_of_cities = 3
+			has_country_modifier = "legatus_natus"
+			prestige = 50
+			devotion = 90
+			custom_trigger_tooltip = {
+				tooltip = MAI_no_bishopric
+				NOT = {
+					any_country = {
+						culture_group = germanic
+						has_reform = clerical_state
+						religion = ROOT
+						prestige = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = diplomat
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			add_country_modifier = {
+				name = MAI_legatus_natus_modifier
+				duration = 10950
+			}
+		}
+	}
+}
