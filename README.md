@@ -23,19 +23,20 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 3/6/2021 [/h1]
 
 General
-- New Uniform latent trade good
-- Camels and Llamas provide 10%>15% local production bonus
-- Cloth Price events decreased
+- FEE: added 15 events for Venice and Year without Summer event
+- ME: added a bunch of missions
+
+Missions
+- Minor: Frankfurt, Nuremberg, Nassau, Rothenburg, Stettin, Wolgast, Cleves, Coburg, Ansbach, Berg, Wurrtenburg, Bamberg, Wurzburg,
+- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Rhineland, Pomerania, Ferrara, Mantua, Montferrat, Florence, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont
+
+Balance
+- Rhineland ideas tweaked
+- Road events frequency should be decreased
+- Sicily reverted back to catholic but still has Sunni population in the south
 
 Fixes
-- Ajuraan starts with its own special reform
-- Hisn Kayfa proper names
-- Sokoto decision errors
-
-UI/GFX
-- Ajuraan reform icon changed to its flag
-
-
+- Provence cursed letters fixed
 
 [/quote]
 
