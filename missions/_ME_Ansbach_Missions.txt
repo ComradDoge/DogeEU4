@@ -1,0 +1,208 @@
+ANS_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		
+		OR = {
+			tag = ANS
+			AND = {
+				was_tag = ANS
+				tag = FKN
+			}
+		}
+	}
+	has_country_shield = yes
+
+	ANS_a_magraves_ambition = {
+		icon = reclaim_the_ducal_lands
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 71
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { base_manpower = 4 }
+			}
+		}
+		trigger = {
+			OR = {
+				army_size_percentage = 0.9
+				71 = {
+					owned_by = ROOT
+					base_manpower = 4
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Ansbach_Events.1 }
+		}
+	}
+	
+	ANS_duke_of_franconia = {
+		icon = sway_cologne
+		required_missions = { ANS_a_magraves_ambition }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ANS_most_frc_dev
+				NOT = {
+					any_country = {
+						primary_culture = franconian
+						total_development = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ANS_to_unify_franconia
+				duration = 9125
+			}
+			67 = {
+				add_core = ROOT
+			}
+		}
+	}
+	
+	ANS_free_cities = {
+		icon = imperial_capitals
+		required_missions = { ANS_duke_of_franconia }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 67
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			67 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ANS_burgraves_of_nuremberg
+				duration = -1
+			}
+		}
+	}
+}
+
+ANS_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		
+		OR = {
+			tag = ANS
+			AND = {
+				was_tag = ANS
+				tag = FKN
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	ANS_finish_the_church = {
+		icon = new_st_peters_basilica
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 71
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+		trigger = {
+			71 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			71 = {
+				add_or_upgrade_tax_building = yes
+			}
+			add_prestige_or_monarch_power = { amount = 10 }
+		}
+	}
+	
+	ANS_margraves_palace = {
+		icon = take_the_bishoprics
+		required_missions = { ANS_finish_the_church }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 71
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_courthouse_building_trigger = yes }
+				NOT = { renaissance = 100 }
+				NOT = { num_of_times_improved = 5 }
+			}
+		}
+		trigger = {
+			owns = 71
+			71 = {
+				num_of_times_improved = 5
+				has_courthouse_building_trigger = yes
+				renaissance = 100
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			71 = {
+				add_province_modifier = {
+					name = ANS_Palace
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ANS_Ansbach_porcelain = {
+		icon = porcelain_from_meissen
+		required_missions = { ANS_margraves_palace }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 61
+			NOT = { owned_by = ROOT }
+			owner = {
+				NOT = {
+					has_opinion = {
+						value = 100
+						who = ROOT
+					}
+				}
+			}
+		}
+		trigger = {
+			adm_tech = 24
+			custom_trigger_tooltip = {
+				tooltip = europeans_in_china_happened_tt
+				has_global_flag = europeans_in_china_happened
+			}
+			61 = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						has_opinion = {
+							value = 100
+							who = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			71 = {
+				add_province_modifier = {
+					name = ANS_ansbach_porcelain_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+}
