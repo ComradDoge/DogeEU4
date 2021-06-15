@@ -25,10 +25,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 General
 - FEE: added 15 events for Venice and Year without Summer event
 - ME: added a bunch of missions
+- Monument clean-up and new additions in Mashriq and Britain regions
+- Country colours tweaked, primarily near the Adriatic
+- Added set rulers to a bunch of nations in Balkans and Carpathia
+- 1st bookmark recommendations tweaked
 
 Missions
+---Feel free to inform me of "weird requirements or rewards" they are made for a vanilla setting so there might be some edge cases I missed.
 - Minor: Frankfurt, Nuremberg, Nassau, Rothenburg, Stettin, Wolgast, Cleves, Coburg, Ansbach, Berg, Wurrtenburg, Bamberg, Wurzburg,
-- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Rhineland, Pomerania, Ferrara, Mantua, Montferrat, Florence, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont
+- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Saxony, Rhineland, Pomerania, Ferrara, Mantua, Montferrat, Florence, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont
 
 Balance
 - Rhineland ideas tweaked
@@ -37,6 +42,7 @@ Balance
 
 Fixes
 - Provence cursed letters fixed
+- Tunis mission tree no longer looks weird
 
 [/quote]
 
@@ -52,7 +58,7 @@ The possible new formables, religions and more are on this [url=https://comraddo
 [/quote]
 
 [quote]
-- Non-Braindead AI
+- AI Improvements
 - 50 New Trade Goods
 - 50+ New Formables
 - 30+ New Idea Groups
@@ -61,8 +67,9 @@ The possible new formables, religions and more are on this [url=https://comraddo
 - 30 New Religions
 - 22 Islamic Schools
 - Upgradable State Edicts
+- More Government Reforms and missions
 - Quality of Life Improvements
-- Religion specific Idea groups
+- 30 Religion specific Idea groups
 - Vastly expanded estate system
 - Dynamic Age objectives
 - Changeable trade goods
@@ -71,7 +78,7 @@ The possible new formables, religions and more are on this [url=https://comraddo
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248615338][img]https://i.imgur.com/iUW930P.png[/img][/url] 
 [quote]
-The mod is definately more than just a shattered map, if you dislike that there is a much more toned down version you can download by clicking on the banner.
+The mod is definitely more than just a shattered map, if you dislike that there is a much more toned down version you can download by clicking on the banner.
 [/quote]
 
 [img]https://i.imgur.com/rdtTMF7.png[/img]
