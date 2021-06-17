@@ -39,10 +39,12 @@ Balance
 - Rhineland ideas tweaked
 - Road events frequency should be decreased
 - Sicily reverted back to catholic but still has Sunni population in the south
+- Monument Upgrade cost now is 1k/2.5k/5k; initial build cost reduced to 5k
 
 Fixes
 - Provence cursed letters fixed
 - Tunis mission tree no longer looks weird
+- Rhineland and Lusitania flags tweaked
 
 [/quote]
 
