@@ -45,6 +45,7 @@ Fixes
 - Provence cursed letters fixed
 - Tunis mission tree no longer looks weird
 - Rhineland and Lusitania flags tweaked
+- South German Confederation and Himalayan Empire flags changed for better quality
 
 [/quote]
 
