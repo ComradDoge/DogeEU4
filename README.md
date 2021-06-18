@@ -22,6 +22,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 3/6/2021 [/h1]
 
+Made [url=https://dogeshattered.fandom.com/wiki/Formables] Shattered Wiki [/url] which currently has all new formables and their ideas.
+
 General
 - FEE: added 15 events for Venice and Year without Summer event
 - ME: added a bunch of missions
@@ -57,7 +59,7 @@ The mod is a general overhaul of the game, focusing on a shattered setting, with
 [img]https://i.imgur.com/jIkgNsx.png[/img]
 
 [quote]
-The possible new formables, religions and more are on this [url=https://comraddoge.wordpress.com/] site [/url].
+The possible new formables and their ideas are on this [url=https://dogeshattered.fandom.com/wiki/Formables] site [/url].
 [/quote]
 
 [quote]
