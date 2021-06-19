@@ -41,13 +41,15 @@ Balance
 - Rhineland ideas tweaked
 - Road events frequency should be decreased
 - Sicily reverted back to catholic but still has Sunni population in the south
-- Monument Upgrade cost now is 1k/2.5k/5k; initial build cost reduced to 5k
+- Monument Upgrade cost now is 1k/3.5k/7k>1k/2.5k/5k
 
 Fixes
 - Provence cursed letters fixed
 - Tunis mission tree no longer looks weird
 - Rhineland and Lusitania flags tweaked
 - South German Confederation and Himalayan Empire flags changed for better quality
+- Byzantine culture AI will no longer keep trying to convert to the true belief of Zeus
+- Some Tribal land around Caddo tweaked as some noexistant tags controlled stuff 
 
 [/quote]
 
