@@ -49,7 +49,9 @@ Fixes
 - Rhineland and Lusitania flags tweaked
 - South German Confederation and Himalayan Empire flags changed for better quality
 - Byzantine culture AI will no longer keep trying to convert to the true belief of Zeus
-- Some Tribal land around Caddo tweaked as some noexistant tags controlled stuff 
+- Some Tribal land around Caddo tweaked as some noexistant tags controlled stuff
+- Fixed the Camel trading bonus, now affects Deserts/Coastal Deserts and Drylands.
+- The custom trading in bonus for new goods should occur faster so you are not stuck waiting
 
 [/quote]
 
