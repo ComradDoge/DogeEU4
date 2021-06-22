@@ -34,8 +34,9 @@ General
 
 Missions
 ---Feel free to inform me of "weird requirements or rewards" they are made for a vanilla setting so there might be some edge cases I missed.
+
 - Minor: Frankfurt, Nuremberg, Nassau, Rothenburg, Stettin, Wolgast, Cleves, Coburg, Ansbach, Berg, Wurrtenburg, Bamberg, Wurzburg,
-- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Saxony, Rhineland, Pomerania, Ferrara, Mantua, Montferrat, Florence, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont
+- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Saxony, Rhineland, Pomerania, Ferrara, Mantua, Montferrat, Florence, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont, Pisa, Venice
 
 Balance
 - Rhineland ideas tweaked
@@ -170,6 +171,7 @@ Not all parts of the mods will be added or without changes which is why you see 
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2346640696] Royal Eagle UI [/url] by CoYoT3
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2190605803] Heavy Europe - Accurate Countries Colors[/url] by (EXITPOL) DARZ (NEXTPOL)
     [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1754713140] Mesogeios - New graphical cultures[/url] by Alyoshenka
+    [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1137934074] Ordo Heraldica Regum et Ducum[/url] by Farroupilher
 [/quote]
 
 [h1] Tips [/h1]
