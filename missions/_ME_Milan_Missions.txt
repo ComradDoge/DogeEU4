@@ -1,0 +1,1172 @@
+milan_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = MLO
+			AND = {
+				was_tag = MLO
+				OR = {
+					tag = LVN
+					AND = {
+						tag = MLO
+						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
+					}
+					tag = ITA
+				}
+			}
+		}
+		OR = {
+			NOT = { has_dlc = "Emperor" }
+			AND = {
+				has_dlc = "Emperor"
+				
+			}
+		}
+	}
+	has_country_shield = yes
+
+	mlo_the_reinslaufer = {
+		icon = swiss_mercenaries
+		required_missions = {
+		}
+		position = 1
+		trigger = {
+			if = {
+				limit = {
+					exists = SWI
+				}
+				OR = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 1
+						culture = swiss
+					}
+					overlord_of = SWI
+					AND = {
+						alliance_with = SWI
+						SWI = {
+							has_opinion = {
+								who = ROOT
+								value = 150
+							}
+						}
+					}
+				}
+			}
+			else = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 1
+					culture = swiss
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = mlo_reislaufer
+				duration = 7300
+			}
+		}
+	}
+
+
+
+	mlo_genoan_wealth = {
+		icon = secure_the_republic
+		required_missions = {
+			mlo_republican_army
+		}
+		position = 3
+		provinces_to_highlight = {
+			province_id = 101
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			101 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = mlo_genoan_trade_school
+				duration = 7300
+			}
+			1298 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 7300
+					power = 10
+					key = mlo_genoan_trade_school
+				}
+			}
+			piedmont_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	mlo_merchant_guilds = {
+		icon = sources_of_trade
+		required_missions = {
+			mlo_genoan_wealth
+		}
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			province_has_center_of_trade_of_level = 2
+			NOT = { has_trade_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				province_has_center_of_trade_of_level = 2
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = mlo_milanese_merchant_guilds
+				duration = 7300
+			}
+		}
+	}
+
+	mlo_mercantile_superiority = {
+		icon = weimar_classicism
+		required_missions = {
+			mlo_merchant_guilds
+		}
+		position = 7
+		trigger = {
+			1298 = {
+				is_strongest_trade_power = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MILAN_MERCANTILE_SUPERIORITY_TRIGGER_TT
+				NOT = {
+					any_country = {
+						1298 = {
+							trade_share = {
+								country = PREV
+								share = 20
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Mare Nostrum"
+				}
+				mercantilism = 25
+			}
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 60
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = MLO_MERCANTILE_SUPERIORITY_TRADE_TT
+			hidden_effect = {
+				1298 = {
+					every_trade_node_member_province = {
+						limit = {
+							owned_by = ROOT
+							province_has_center_of_trade_of_level = 1
+						}
+						add_province_modifier = {
+							name = mlo_boom_commerce
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	mlo_world_trade_center = {
+		icon = medici_bank_ledgers
+		required_missions = {
+			mlo_mercantile_superiority
+		}
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 101
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { province_has_center_of_trade_of_level = 3 }
+						NOT = { has_trade_building_trigger = yes }
+						NOT = { has_tax_building_trigger = yes }
+						NOT = { has_production_building_trigger = yes }
+					}
+				}
+				AND = {
+					area = liguria_area
+					OR = {
+						NOT = { owned_by = ROOT }
+						AND = {
+							has_dlc = "Mandate of Heaven"
+							is_prosperous = no
+						}
+						AND = {
+							NOT = { has_dlc = "Mandate of Heaven" }
+							OR = {
+								devastation = 1
+								unrest = 1
+								local_autonomy = 20
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			101 = {
+				owned_by = ROOT
+				province_has_center_of_trade_of_level = 3
+				has_trade_building_trigger = yes
+				has_tax_building_trigger = yes
+				has_production_building_trigger = yes
+			}
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				liguria_area = {
+					type = all
+					owned_by = ROOT
+					custom_trigger_tooltip = {
+						tooltip = IS_PROSPEROUS
+						is_prosperous = yes
+					}
+				}
+			}
+			else = {
+				liguria_area = {
+					type = all
+					owned_by = ROOT
+					NOT = { devastation = 1 }
+					NOT = { unrest = 1 }
+					NOT = { local_autonomy = 20 }
+				}
+			}
+			1298 = {
+				highest_value_trade_node = yes
+			}
+		}
+		effect = {
+			101 = {
+				add_province_modifier = {
+					name = mlo_world_trade_center
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+milan_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = MLO
+			AND = {
+				was_tag = MLO
+				OR = {
+					tag = LVN
+					AND = {
+						tag = MLO
+						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
+					}
+					tag = ITA
+				}
+			}
+		}
+		OR = {
+			NOT = { has_dlc = "Emperor" }
+			AND = {
+				has_dlc = "Emperor"
+				
+			}
+		}
+	}
+	has_country_shield = yes
+
+
+
+	mlo_southern_front = {
+		icon = sweep_the_po
+		required_missions = {
+			mlo_republican_army
+		}
+		position = 3
+		provinces_to_highlight = {
+			area = emilia_romagna_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			emilia_romagna_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_accepted_culture = romagnan
+			add_country_modifier = {
+				name = mlo_lombard_reunification
+				duration = 5475
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = mlo_lombard_reunification_culture
+					duration = -1
+					hidden = yes
+				}
+			}
+			tuscany_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	mlo_italian_buffer_zone = {
+		icon = fortify_the_passes
+		required_missions = {
+			mlo_genoan_wealth
+		}
+		position = 4
+		provinces_to_highlight = {
+			area = piedmont_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			piedmont_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			piedmont_area = {
+				add_province_modifier = {
+					name = mlo_buffer_zone
+					duration = 18250
+				}
+			}
+		}
+	}
+
+	mlo_jewel_italy = {
+		icon = italian_riches
+		required_missions = {
+			mlo_illegitimate_signore
+		}
+		position = 5
+		provinces_to_highlight = {
+			province_id = 104
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 40 }
+			}
+		}
+		trigger = {
+			104 = {
+				owned_by = ROOT
+				development = 40
+			}
+			custom_trigger_tooltip = {
+				tooltip = MLO_JEWEL_ITALY_TRIGGER_TT
+				NOT = {
+					any_province = {
+						higher_development_than = 104
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = mlo_jewel_italy_modifier
+				duration = -1
+			}
+			custom_tooltip = emp_ven_plague_doctor_training_tt
+			set_country_flag = has_competent_doctors
+		}
+	}
+
+	mlo_holy_italian_emperor = {
+		icon = kingdom_of_lombardy
+		required_missions = {
+			mlo_consolidate_italy
+		}
+		position = 9
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MILAN_POLITICAL_OPPORTUNITY_CHOICE_EMPEROR_TT
+				has_country_flag = mlo_choice_emperor
+			}
+			is_emperor = yes
+		}
+		effect = {
+			tooltip = {
+				add_country_modifier = {
+					name = mlo_hre_roman
+					duration = 7300
+				}
+			}
+			custom_tooltip = MILAN_HOLY_ITALIAN_EMPEROR_TT
+			hidden_effect = {
+				complete_mission = mlo_beginning_end
+			}
+		}
+	}
+}
+
+milan_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = MLO
+			AND = {
+				was_tag = MLO
+				OR = {
+					tag = LVN
+					AND = {
+						tag = MLO
+						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
+					}
+					tag = ITA
+				}
+			}
+		}
+		OR = {
+			NOT = { has_dlc = "Emperor" }
+			AND = {
+				has_dlc = "Emperor"
+				
+			}
+		}
+	}
+	has_country_shield = yes
+
+	mlo_republican_army = {
+		icon = protect_against_austria
+		required_missions = {
+			
+		}
+		position = 2
+		trigger = {
+			OR = {
+				army_size_percentage = 1
+				AND = {
+					army_size_percentage = 0.75
+					manpower_percentage = 0.5
+				}
+			}
+		}
+		effect = {
+			add_army_tradition_or_mil_power = { amount = 10 }
+			if = {
+				limit = {
+					exists = VEN
+				}
+				add_casus_belli = {
+					type = cb_italy_humiliation_rivals
+					target = VEN
+					months = 300
+				}
+			}
+			if = {
+				limit = {
+					exists = GEN
+				}
+				add_casus_belli = {
+					type = cb_italy_humiliation_rivals
+					target = GEN
+					months = 300
+				}
+			}
+			109 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			emilia_romagna_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			liguria_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	mlo_illegitimate_signore = {
+		icon = tuscan_birthright
+		required_missions = {
+			mlo_republican_army
+			mlo_southern_front
+		}
+		position = 4
+		provinces_to_highlight = {
+			area = tuscany_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			tuscany_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 20
+			add_country_modifier = {
+				name = mlo_tuscan_bankers
+				duration = 7300
+			}
+			add_country_modifier = {
+				name = mlo_influx_great_minds
+				duration = 7300
+			}
+		}
+	}
+
+	mlo_disobbedisco = {
+		icon = take_the_bishoprics
+		required_missions = {
+			mlo_deal_with_serenissima
+		}
+		position = 6
+		provinces_to_highlight = {
+			province_id = 110
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			110 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_adm_power = 20
+			add_dip_power = 20
+			add_mil_power = 20
+		}
+	}
+
+	mlo_consolidate_italy = {
+		icon = the_law_colleges
+		required_missions = {
+			mlo_disobbedisco
+		}
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = liguria_area
+					NOT = {
+						liguria_area = {
+							owned_by = ROOT
+							fort_level = 2
+						}
+					}
+				}
+				AND = {
+					area = piedmont_area
+					NOT = {
+						piedmont_area = {
+							owned_by = ROOT
+							fort_level = 2
+						}
+					}
+				}
+				AND = {
+					area = lombardy_area
+					NOT = {
+						lombardy_area = {
+							owned_by = ROOT
+							fort_level = 2
+						}
+					}
+				}
+				AND = {
+					area = po_valley_area
+					NOT = {
+						po_valley_area = {
+							owned_by = ROOT
+							fort_level = 2
+						}
+					}
+				}
+				AND = {
+					area = venetia_area
+					NOT = {
+						venetia_area = {
+							owned_by = ROOT
+							fort_level = 2
+						}
+					}
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { fort_level = 2 }
+			}
+		}
+		trigger = {
+			army_size_percentage = 0.5
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Rights of Man"
+						has_dlc = "Emperor"
+					}
+				}
+				is_great_power = yes
+			}
+			total_development = 500
+			prestige = 75
+			liguria_area = {
+				owned_by = ROOT
+				fort_level = 2
+			}
+			piedmont_area = {
+				owned_by = ROOT
+				fort_level = 2
+			}
+			lombardy_area = {
+				owned_by = ROOT
+				fort_level = 2
+			}
+			po_valley_area = {
+				owned_by = ROOT
+				fort_level = 2
+			}
+			venetia_area = {
+				owned_by = ROOT
+				fort_level = 2
+			}
+		}
+		effect = {
+			country_event = { id = ME_Milan_Events.2 }
+		}
+	}
+
+	mlo_glory_milan = {
+		icon = milan_victorious
+		required_missions = {
+			mlo_holy_italian_emperor
+			mlo_beginning_end
+		}
+		position = 10
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Rights of Man"
+						has_dlc = "Emperor"
+					}
+				}
+				OR = {
+					AND = {
+						is_great_power = yes
+						NOT = { great_power_rank = 3 }
+					}
+					custom_trigger_tooltip = {
+						tooltip = MILAN_GLORY_MILAN_TRIGGER_TT
+						NOT = {
+							any_country = {
+								capital_scope = {
+									region = italy_region
+								}
+								total_development = ROOT
+							}
+						}
+					}
+				}
+			}
+			else = {
+				OR = {
+					total_development = 500
+					custom_trigger_tooltip = {
+						tooltip = MILAN_GLORY_MILAN_TRIGGER_TT
+						NOT = {
+							any_country = {
+								capital_scope = {
+									region = italy_region
+								}
+								total_development = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			if = {
+				limit = {
+					NOT = { tag = LVN }
+				}
+				set_country_flag = lvn_without_fe
+				swap_non_generic_missions = yes
+			}
+		}
+	}
+}
+
+milan_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = MLO
+			AND = {
+				was_tag = MLO
+				OR = {
+					tag = LVN
+					AND = {
+						tag = MLO
+						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
+					}
+					tag = ITA
+				}
+			}
+		}
+		OR = {
+			NOT = { has_dlc = "Emperor" }
+			AND = {
+				has_dlc = "Emperor"
+				
+			}
+		}
+	}
+	has_country_shield = yes
+
+	mlo_republic_gold = {
+		icon = secure_our_rule
+		required_missions = { }
+		position = 1
+		trigger = {
+			legitimacy_equivalent = 90
+			OR = {
+				is_year = 1500
+				custom_trigger_tooltip = {
+					tooltip = emp_mlo_ambrosian_republic_mission_trigger_tooltip
+					has_country_flag = ambrosian_republic_completely_resolved
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = mlo_order_restored
+				duration = 7300
+			}
+		}
+	}
+
+	mlo_center_of_fashion = {
+		icon = mission_have_manufactories
+		required_missions = { mlo_republic_gold }
+		position = 2
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 4
+				trade_goods = cloth
+				base_production = 10
+				has_production_building_trigger = yes
+			}
+		}
+		effect = {
+			custom_tooltip = MLO_CENTER_OF_FASHION_REWARD_TT
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						trade_goods = cloth
+						base_production = 10
+						has_production_building_trigger = yes
+						NOT = { has_province_flag = MLO_mission_effect_handler }
+					}
+					set_province_flag = MLO_mission_effect_handler
+					if = {
+						limit = {
+							has_building = textile
+						}
+						add_base_production = 2
+					}
+					else = {
+						add_building = textile
+					}
+				}
+				random_owned_province = {
+					limit = {
+						trade_goods = cloth
+						base_production = 10
+						has_production_building_trigger = yes
+						NOT = { has_province_flag = MLO_mission_effect_handler }
+					}
+					set_province_flag = MLO_mission_effect_handler
+					if = {
+						limit = {
+							has_building = textile
+						}
+						add_base_production = 2
+					}
+					else = {
+						add_building = textile
+					}
+				}
+				random_owned_province = {
+					limit = {
+						trade_goods = cloth
+						base_production = 10
+						has_production_building_trigger = yes
+						NOT = { has_province_flag = MLO_mission_effect_handler }
+					}
+					set_province_flag = MLO_mission_effect_handler
+					if = {
+						limit = {
+							has_building = textile
+						}
+						add_base_production = 2
+					}
+					else = {
+						add_building = textile
+					}
+				}
+				random_owned_province = {
+					limit = {
+						trade_goods = cloth
+						base_production = 10
+						has_production_building_trigger = yes
+						NOT = { has_province_flag = MLO_mission_effect_handler }
+					}
+					set_province_flag = MLO_mission_effect_handler
+					if = {
+						limit = {
+							has_building = textile
+						}
+						add_base_production = 2
+					}
+					else = {
+						add_building = textile
+					}
+				}
+				every_owned_province = {
+					clr_province_flag = MLO_mission_effect_handler
+				}
+			}
+		}
+	}
+
+	mlo_imperial_diploma = {
+		icon = reclaim_the_ducal_lands
+		required_missions = {
+			mlo_republican_army
+		}
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4739
+				province_id = 107
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 4739
+			owns_core_province = 107
+		}
+		effect = {
+			add_prestige = 10
+			add_country_modifier = {
+				name = mlo_reclaimed_ducal_lands
+				duration = 5475
+			}
+			venetia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	mlo_deal_with_serenissima = {
+		icon = nuova_promissione_ducale
+		required_missions = {
+			mlo_imperial_diploma
+		}
+		position = 5
+		provinces_to_highlight = {
+			area = venetia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			venetia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			venetia_area = {
+				add_province_modifier = {
+					name = mlo_serenissima_dealt
+					duration = 7300
+				}
+			}
+			110 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	mlo_beginning_end = {
+		icon = claim_the_borderlands
+		required_missions = {
+			mlo_consolidate_italy
+		}
+		position = 9
+		provinces_to_highlight = {
+			area = tirol_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MILAN_POLITICAL_OPPORTUNITY_CHOICE_ITALY_TT
+				has_country_flag = mlo_choice_italy
+			}
+			tirol_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = MILAN_IMPERIAL_EXIT_EXPANDED_EVENT
+			set_country_flag = mlo_imperial_exit_expand
+			hidden_effect = {
+				complete_mission = mlo_holy_italian_emperor
+			}
+		}
+	}
+}
+
+milan_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = MLO
+			AND = {
+				was_tag = MLO
+				OR = {
+					tag = LVN
+					AND = {
+						tag = MLO
+						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
+					}
+					tag = ITA
+				}
+			}
+		}
+		OR = {
+			NOT = { has_dlc = "Emperor" }
+			AND = {
+				has_dlc = "Emperor"
+				
+			}
+		}
+	}
+	has_country_shield = yes
+
+	mlo_milanese_renaissance = {
+		icon = mlo_renaissance_city
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			area = lombardy_area
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_times_improved = 10 }
+			}
+			NOT = {
+				lombardy_area = {
+					owned_by = ROOT
+					num_of_times_improved = 10
+				}
+			}
+		}
+		trigger = {
+			has_institution = renaissance
+			lombardy_area = {
+				owned_by = ROOT
+				num_of_times_improved = 10
+			}
+		}
+		effect = {
+			add_years_of_income = 2
+			every_owned_province = {
+				limit = {
+					culture = lombard
+				}
+				add_province_modifier = {
+					name = mlo_renaissance_thoughts
+					duration = 7300
+				}
+			}
+		}
+	}
+
+	mlo_milanese_steel = {
+		icon = confront_the_lombards
+		required_missions = {
+			mlo_republic_gold
+			mlo_milanese_renaissance
+		}
+		position = 2
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				base_production = 10
+				has_production_building_trigger = yes
+			}
+		}
+		effect = {
+			country_event = { id = ME_Milan_Events.3 }
+		}
+	}
+
+	mlo_horses_gonzagas = {
+		icon = expand_to_the_south
+		required_missions = {
+			mlo_republican_army
+		}
+		position = 3
+		provinces_to_highlight = {
+			province_id = 109
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			109 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			109 = {
+				add_province_modifier = {
+					name = mlo_mantuanesque_horses
+					duration = -1
+				}
+			}
+		}
+	}
+
+	mlo_venetian_expertises = {
+		icon = control_the_means_of_transaction
+		required_missions = {
+			mlo_deal_with_serenissima
+		}
+		position = 6
+		trigger = {
+			1308 = {
+				is_strongest_trade_power = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = MILAN_VENETIAN_EXPERTISES_TRIGGER_TT
+				NOT = {
+					any_country = {
+						1308 = {
+							trade_share = {
+								country = PREV
+								share = 20
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = mlo_venetian_maritime_school
+				duration = -1
+			}
+		}
+	}
+
+	mlo_maritime_traditions = {
+		icon = expand_the_arsenal
+		required_missions = {
+			mlo_venetian_expertises
+		}
+		position = 8
+		trigger = {
+			num_of_galley = 20
+			OR = {
+				dock = 5
+				drydock = 5
+			}
+			OR = {
+				shipyard = 5
+				grand_shipyard = 5
+			}
+			custom_trigger_tooltip = {
+				tooltip = MLO_MARITIME_TRADITIONS_TRIGGER_TT
+				NOT = {
+					any_country = {
+						capital_scope = {
+							region = italy_region
+						}
+						navy_size = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = mlo_milan_rules_waves
+				duration = -1
+			}
+
+		}
+	}
+}
