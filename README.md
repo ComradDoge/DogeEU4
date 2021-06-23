@@ -43,6 +43,7 @@ Balance
 - Road events frequency should be decreased
 - Sicily reverted back to catholic but still has Sunni population in the south
 - Monument Upgrade cost now is 1k/3.5k/7k>1k/2.5k/5k
+- Policies regarding republican tradition 1>0.5 and legitimacy 2>1
 
 Fixes
 - Provence cursed letters fixed
