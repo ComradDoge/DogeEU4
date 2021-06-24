@@ -84,6 +84,7 @@ PRU_missions_1 = {
 	potential = {
 		tag = PRU
 		
+		NOT = { has_country_flag = PRU_ducal }
 	}
 	has_country_shield = yes
 	
@@ -206,6 +207,7 @@ PRU_missions_1_2 = {
 	potential = {
 		tag = PRU
 		
+		NOT = { has_country_flag = PRU_ducal }
 	}
 	has_country_shield = yes
 	
@@ -354,6 +356,7 @@ PRU_missions_2 = {
 	potential = {
 		tag = PRU
 		
+		NOT = { has_country_flag = PRU_ducal }
 	}
 	has_country_shield = yes
 	
@@ -475,6 +478,7 @@ PRU_missions_2_2 = {
 	potential = {
 		tag = PRU
 		
+		NOT = { has_country_flag = PRU_ducal }
 	}
 	has_country_shield = yes
 	
@@ -932,22 +936,17 @@ PRU_missions_3 = {
 	potential = {
 		tag = PRU
 		
+		NOT = { has_country_flag = PRU_ducal }
 	}
 	has_country_shield = yes
 	
 	PRU_eagle_in_the_north = {
 		icon = ger_kaiserreich
-		required_missions = { }
+		required_missions = { POM_prussian_glory BRA_prussian_ascendance TEU_prussian_ascendance PRU_prussian_ascendance }
 		position = 7
 		provinces_to_highlight = {
 		}
 		trigger = {
-			OR = { 
-				mission_completed = POM_prussian_glory
-				mission_completed = BRA_prussian_ascendance
-				mission_completed = TEU_prussian_ascendance
-				mission_completed = PRU_prussian_ascendance
-			}
 			if = {
 				limit = {
 					has_dlc = "Cradle of Civilization"
@@ -1359,23 +1358,29 @@ PRU_missions_3 = {
 					duration = 10950
 				}
 			}
-			custom_tooltip = PRU_every_brass_bronze
-			tooltip = {
-				add_province_modifier = {
-					name = PRU_important_foundries
-					duration = 7300
+			if = {
+				limit = {
+					is_expanded_mod_active  = { mod = trade_goods }
 				}
-			}
-			hidden_effect = {
-				every_owned_province = {
-					limit = {
-						OR = {
-							trade_goods = brass
-						}
-					}
+				custom_tooltip = PRU_every_brass_bronze
+				tooltip = {
 					add_province_modifier = {
 						name = PRU_important_foundries
 						duration = 7300
+					}
+				}
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							OR = {
+								trade_goods = bronze
+								trade_goods = brass
+							}
+						}
+						add_province_modifier = {
+							name = PRU_important_foundries
+							duration = 7300
+						}
 					}
 				}
 			}
@@ -1560,6 +1565,7 @@ PRU_missions_4 = {
 	potential = {
 		tag = PRU
 		
+		NOT = { has_country_flag = PRU_ducal }
 	}
 	has_country_shield = yes
 	
@@ -2230,20 +2236,36 @@ PRU_missions_4 = {
 		position = 20
 		provinces_to_highlight = {
 			NOT = { owned_by = ROOT }
-			OR = {
+			if = {
+				limit = {
+					is_expanded_mod_active = { mod = trade_goods }
+				}
+				OR = {
+					trade_goods = grain
+					trade_goods = potato
+				}
+			}
+			else = {
 				trade_goods = grain
-				trade_goods = potato
 			}
 		}
 		trigger = {
 			stability = 2
 			has_institution = global_trade
-			num_of_owned_provinces_with = {
-				OR = {
-					trade_goods = grain
-					trade_goods = potato
+			if = {
+				limit = {
+					is_expanded_mod_active  = { mod = trade_goods }
 				}
-				value = 10
+				num_of_owned_provinces_with = {
+					OR = {
+						trade_goods = grain
+						trade_goods = potato
+					}
+					value = 10
+				}
+			}
+			else = {
+				grain = 10
 			}
 			OR = {
 				north_america = {
@@ -2255,192 +2277,298 @@ PRU_missions_4 = {
 			}
 		}
 		effect = {
-			custom_tooltip = ME_PRU_GRAIN_KARTOFFELN_TGE
-			tooltip = {
-				add_province_modifier = {
-					name = PRU_potatoes
-					duration = -1
+			if = {
+				limit = {
+					is_expanded_mod_active  = { mod = trade_goods }
+				}
+				custom_tooltip = ME_PRU_GRAIN_KARTOFFELN_TGE
+				tooltip = {
+					add_province_modifier = {
+						name = PRU_potatoes
+						duration = -1
+					}
+				}
+				hidden_effect = {
+					random_owned_province = { #1
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #2
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #3
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #4
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #5
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #6
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #7
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #8
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #9
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
+					random_owned_province = { #10
+						limit = {
+							OR = {
+								trade_goods = grain
+								trade_goods = potato
+							}
+						}
+						if = {
+							limit = {
+								trade_goods = grain
+							}
+							set_province_flag = PRU_convert_to_potato
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
+					}
 				}
 			}
-			hidden_effect = {
-				random_owned_province = { #1
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
-						}
-					}
-					if = {
-						limit = {
-							trade_goods = grain
-						}
-						set_province_flag = PRU_convert_to_potato
-					}
+			else = {
+				custom_tooltip = ME_PRU_GRAIN_KARTOFFELN
+				tooltip = {
 					add_province_modifier = {
 						name = PRU_potatoes
 						duration = -1
 					}
 				}
-				random_owned_province = { #2
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
-						}
-					}
-					if = {
+				hidden_effect = {
+					random_owned_province = { #1
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
-					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				random_owned_province = { #3
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
 						}
 					}
-					if = {
+					random_owned_province = {
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
-					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				random_owned_province = { #4
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
 						}
 					}
-					if = {
+					random_owned_province = { #3
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
-					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				random_owned_province = { #5
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
 						}
 					}
-					if = {
+					random_owned_province = {
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
-					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				random_owned_province = { #6
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
 						}
 					}
-					if = {
+					random_owned_province = { #5
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
-					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				random_owned_province = { #7
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
 						}
 					}
-					if = {
+					random_owned_province = {
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
-					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				random_owned_province = { #8
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
 						}
 					}
-					if = {
+					random_owned_province = { #7
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
-					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				random_owned_province = { #9
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
 						}
 					}
-					if = {
+					random_owned_province = {
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
-					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				random_owned_province = { #10
-					limit = {
-						OR = {
-							trade_goods = grain
-							trade_goods = potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
 						}
 					}
-					if = {
+					random_owned_province = { #9
 						limit = {
 							trade_goods = grain
 						}
-						set_province_flag = PRU_convert_to_potato
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
 					}
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
+					random_owned_province = {
+						limit = {
+							trade_goods = grain
+						}
+						add_province_modifier = {
+							name = PRU_potatoes
+							duration = -1
+						}
 					}
 				}
 			}
@@ -2455,6 +2583,7 @@ PRU_missions_5 = {
 	potential = {
 		tag = PRU
 		
+		NOT = { has_country_flag = PRU_ducal }
 	}
 	has_country_shield = yes
 	
@@ -2590,12 +2719,37 @@ PRU_missions_5 = {
 		required_missions = { }
 		position = 16
 		provinces_to_highlight = {
-			trade_goods = amber
+			if = {
+				limit = {
+					is_expanded_mod_active  = { mod = trade_goods }
+				}
+				trade_goods = amber
+			}
+			else = {
+				OR = {
+					province_id = 43
+					province_id = 41
+				}
+			}
 		}
 		trigger = {
-			development_in_provinces = {
-				trade_goods = amber
-				value = 65
+			if = {
+				limit = {
+					is_expanded_mod_active  = { mod = trade_goods }
+				}
+				development_in_provinces = {
+					trade_goods = amber
+					value = 65
+				}
+			}
+			else = {
+				development_in_provinces = {
+					OR = {
+						province_id = 43
+						province_id = 41
+					}
+					value = 65
+				}
 			}
 			41 = { owned_by = ROOT }
 		}
