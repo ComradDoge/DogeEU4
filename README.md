@@ -36,7 +36,7 @@ Missions
 ---Feel free to inform me of "weird requirements or rewards" they are made for a vanilla setting so there might be some edge cases I missed.
 
 - Minor: Frankfurt, Nuremberg, Nassau, Rothenburg, Stettin, Wolgast, Cleves, Coburg, Ansbach, Berg, Wurrtenburg, Bamberg, Wurzburg,
-- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Saxony, Rhineland, Pomerania, Ferrara, Mantua, Montferrat, Florence, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont, Pisa, Venice
+- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Saxony, Rhineland, Pomerania, Ferrara, Mantua, Montferrat, Florence, Tuscany, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont, Pisa, Venice, Generic Italian
 
 Balance
 - Rhineland ideas tweaked
