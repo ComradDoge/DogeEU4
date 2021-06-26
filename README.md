@@ -45,6 +45,7 @@ Balance
 - Monument Upgrade cost now is 1k/3.5k/7k>1k/2.5k/5k
 - Policies regarding republican tradition 1>0.5 and legitimacy 2>1
 - Holy Orders reverted to vanilla setting
+- Road events cleaned up internally
 
 Fixes
 - Provence cursed letters fixed
