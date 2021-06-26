@@ -55,6 +55,8 @@ Fixes
 - Some Tribal land around Caddo tweaked as some noexistant tags controlled stuff
 - Fixed the Camel trading bonus, now affects Deserts/Coastal Deserts and Drylands.
 - The custom trading in bonus for new goods should occur faster so you are not stuck waiting
+- Elections slightly overhauled and tooltips cleaned up for easier reading
+
 
 [/quote]
 
