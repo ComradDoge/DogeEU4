@@ -1,0 +1,177 @@
+country_decisions = {
+	maritime_republics_domestic_timber_sources = {
+		major = yes
+		potential = {
+			NOT = { has_country_flag = mr_timber_flag }
+			OR = {
+				tag = VEN
+				tag = GEN
+				tag = PIS
+			}
+		}
+		provinces_to_highlight = {
+			trade_goods = naval_supplies
+		}
+		allow = {
+			if = {
+				limit = { tag = VEN }
+				owns_core_province = 112
+			}
+			else_if = {
+				limit = { tag = GEN }
+				owns_core_province = 101
+			}
+			else = { owns_core_province = 115 }
+			OR = {
+				development_in_provinces = {
+					value = 30
+					trade_goods = naval_supplies
+				}
+				trading_bonus = {
+					trade_goods = naval_supplies
+					value = yes
+				}
+			}
+			any_owned_province = {
+				trade_goods = naval_supplies
+				has_shipyard_building_trigger = yes
+			}
+		}
+		effect = {
+			hidden_effect = { set_country_flag = mr_timber_flag }
+			add_country_modifier = {
+				name = mr_production_quality_timber
+				duration = 9125
+			}
+			country_event = {
+				id = ME_Maritime_Republics_Events.2
+			}
+		}
+	}
+	maritime_republics_galley_magistrate = {
+		major = yes
+		potential = {
+			NOT = { has_country_flag = mr_magistrate_galley_flag }
+			OR = {
+				OR = {
+					tag = VEN
+					AND = {
+						was_tag = VEN
+						OR = {
+							tag = LVN
+							has_country_flag = lvn_without_fe
+						}
+					}
+				}
+				tag = GEN
+				tag = PIS
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					if = {
+						limit = {
+							ROOT = { 
+								OR = {
+									tag = VEN
+									AND = {
+										was_tag = VEN
+										OR = {
+											tag = LVN
+											has_country_flag = lvn_without_fe
+										}
+									}
+								}
+							}
+						}
+						province_id = 112
+					}
+					else_if = {
+						limit = {
+							ROOT = { tag = GEN }
+						}
+						province_id = 101
+					}
+					else = {
+						province_id = 115
+					}
+					OR = {
+						NOT = { base_production = 15 }
+						NOT = { has_shipyard_building_trigger = yes }
+						NOT = { has_dock_building_trigger = yes }
+					}
+				}
+				AND = {
+					OR = {
+						NOT = { base_production = 10 }
+						NOT = { has_shipyard_building_trigger = yes }
+						NOT = { has_dock_building_trigger = yes }
+					}
+					owned_by = ROOT
+					has_port = yes
+				}
+			}
+		}
+		allow = {
+			mercantilism = 40
+			years_of_income = 2
+			if = {
+				limit = {
+					OR = {
+						tag = VEN
+						AND = {
+							was_tag = VEN
+							OR = {
+								tag = LVN
+								has_country_flag = lvn_without_fe
+							}
+						}
+					}
+				}
+				owns_core_province = 112
+				112 = {
+					base_production = 15
+					OR = {
+						has_shipyard_building_trigger = yes
+						has_dock_building_trigger = yes
+					}
+				}
+			}
+			else_if = {
+				limit = { tag = GEN }
+				owns_core_province = 101
+				101 = {
+					base_production = 15
+					OR = {
+						has_shipyard_building_trigger = yes
+						has_dock_building_trigger = yes
+					}
+				}
+			}
+			else = {
+				owns_core_province = 115
+				115 = {
+					base_production = 15
+					OR = {
+						has_shipyard_building_trigger = yes
+						has_dock_building_trigger = yes
+					}
+				}
+			}
+			num_of_owned_provinces_with = {
+				value = 10
+				base_production = 10
+				has_shipyard_building_trigger = yes
+				has_dock_building_trigger = yes
+			}
+		}
+		effect = {
+			hidden_effect = { set_country_flag = mr_magistrate_galley_flag }
+			add_years_of_income = -2
+			country_event = {
+				id = ME_Maritime_Republics_Events.4
+			}
+		}
+	}
+}
