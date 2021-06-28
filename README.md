@@ -41,12 +41,11 @@ Missions
 
 Balance
 - Rhineland ideas tweaked
-- Road events frequency should be decreased
+- Road events more or less cleaned up and tweaked, money received from events is based on the province instead of the country
 - Sicily reverted back to catholic but still has Sunni population in the south
 - Monument Upgrade cost now is 1k/3.5k/7k>1k/2.5k/5k
 - Policies regarding republican tradition 1>0.5 and legitimacy 2>1
 - Holy Orders reverted to vanilla setting
-- Road events cleaned up internally
 
 Fixes
 - Provence cursed letters fixed
@@ -59,6 +58,7 @@ Fixes
 - The custom trading in bonus for new goods should occur faster so you are not stuck waiting
 - Elections slightly overhauled and tooltips cleaned up for easier reading
 - Jerusalem mission enacting the T1 Jerusalem reform is now an event so you can choose to change or stay and instead have a modifier
+- Jerusalem European ties failsafe added for theocracies
 
 
 [/quote]
