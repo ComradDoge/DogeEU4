@@ -31,12 +31,13 @@ General
 - Country colours tweaked, primarily near the Adriatic
 - Added set rulers to a bunch of nations in Balkans and Carpathia
 - 1st bookmark recommendations tweaked
+- Icons added to some decisions for quicker differentiation
 
 Missions
 ---Feel free to inform me of "weird requirements or rewards or stuff breaking" they are made for a vanilla setting so there might be some edge cases I missed.
 
-- Minor: Frankfurt, Nuremberg, Nassau, Rothenburg, Stettin, Wolgast, Cleves, Coburg, Ansbach, Berg, Wurrtenburg, Bamberg, Wurzburg,
-- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Saxony, Rhineland, Franconia, Pomerania, Ferrara, Mantua, Montferrat, Florence, Tuscany, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont, Pisa, Venice, Generic Italian.
+- Minor: Frankfurt, Nuremberg, Nassau, Rothenburg, Stettin, Wolgast, Cleves, Coburg, Ansbach, Berg, Wurrtenburg, Bamberg, Wurzburg, Palatinate
+- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Saxony, Rhineland, Franconia, Pomerania, Ferrara, Mantua, Montferrat, Florence, Tuscany, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont, Pisa, Venice, Generic Italian, Korea.
 
 Balance
 - Rhineland ideas tweaked
@@ -57,6 +58,7 @@ Fixes
 - Fixed the Camel trading bonus, now affects Deserts/Coastal Deserts and Drylands.
 - The custom trading in bonus for new goods should occur faster so you are not stuck waiting
 - Elections slightly overhauled and tooltips cleaned up for easier reading
+- Jerusalem mission enacting the T1 Jerusalem reform is now an event so you can choose to change or stay and instead have a modifier
 
 
 [/quote]
@@ -116,7 +118,8 @@ See all the mods that have had at least some parts incorporated into the mod by 
 
 # Useful Stuff
 custom_tooltip = tooltip_line_seperate
-
+£icon_estate£ - for estate related decisions (?)
+£icon_trade£ - trade/merchanty stuff
 
 
 
