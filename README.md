@@ -118,8 +118,6 @@ See all the mods that have had at least some parts incorporated into the mod by 
 
 # Useful Stuff
 custom_tooltip = tooltip_line_seperate
-£icon_estate£ - for estate related decisions (?)
-£icon_trade£ - trade/merchanty stuff
 
 
 
