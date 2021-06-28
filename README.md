@@ -59,6 +59,7 @@ Fixes
 - Elections slightly overhauled and tooltips cleaned up for easier reading
 - Jerusalem mission enacting the T1 Jerusalem reform is now an event so you can choose to change or stay and instead have a modifier
 - Jerusalem European ties failsafe added for theocracies
+- Some CBs fixed that had religion group requirement that no longer exists
 
 
 [/quote]
