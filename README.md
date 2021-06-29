@@ -32,6 +32,7 @@ General
 - Added set rulers to a bunch of nations in Balkans and Carpathia
 - 1st bookmark recommendations tweaked
 - Icons added to some decisions for quicker differentiation
+- Added Deux Mers canal in southern france, option can be seen at ADM tech 24 and built at 26
 
 Missions
 ---Feel free to inform me of "weird requirements or rewards or stuff breaking" they are made for a vanilla setting so there might be some edge cases I missed.

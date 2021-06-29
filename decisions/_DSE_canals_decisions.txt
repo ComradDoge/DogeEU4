@@ -261,4 +261,87 @@ country_decisions = {
 			factor = 0
 		}
 	}
+
+	open_canal_decision_deux_canal = {
+		potential = {
+			owns = 2753
+			2753 = {
+				has_great_project = { type = deux_canal }
+				has_province_modifier = canal_closed
+			}
+			NOT = { has_country_flag = is_opening_a_canal }
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2753
+			}
+		}
+		allow = {
+			adm_power = 200
+			owns = 2753
+			controls = 2753
+			2753 = {
+				custom_trigger_tooltip = {
+					tooltip = CANAL_IS_CLOSED
+					has_province_modifier = canal_closed
+				}
+			}
+		}
+		effect = {
+			set_country_flag = is_opening_a_canal
+			add_adm_power = -200
+			2753 = {
+				hidden_effect = {
+					remove_province_modifier = canal_closed
+					add_canal = deux_canal
+				}
+				province_event = { id = closeable_canals_events.1 }
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+	close_canal_decision_deux_canal = {
+		potential = {
+			ai = no
+			owns = 2753
+			2753 = {
+				has_great_project = { type = deux_canal }
+				NOT = { has_province_modifier = canal_closed }
+			}
+			NOT = { has_country_flag = is_closing_a_canal }
+		}
+		provinces_to_highlight = {
+			province_id = 2753
+		}
+		allow = {
+			adm_power = 200
+			owns = 2753
+			controls = 2753
+			2753 = {
+				custom_trigger_tooltip = {
+					tooltip = CANAL_IS_NOT_CLOSED
+					NOT = { has_province_modifier = canal_closed }
+				}
+			}
+		}
+		effect = {
+			set_country_flag = is_closing_a_canal
+			add_adm_power = -200
+			2753 = {
+				hidden_effect = {
+					add_permanent_province_modifier = {
+						name = canal_closed
+						duration = -1
+					}
+					remove_canal = deux_canal
+				}
+				province_event = { id = closeable_canals_events.2 }
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
 }
