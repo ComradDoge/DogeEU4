@@ -22,45 +22,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 29/6/2021 [/h1]
 
-Made [url=https://dogeshattered.fandom.com/wiki/Formables] Shattered Wiki [/url] which currently has all new formables and their ideas.
-
-General
-- FEE: added 15 events for Venice and Year without Summer event
-- ME: added a bunch of missions
-- Monument clean-up and new additions in Mashriq and Britain regions
-- Country colours tweaked, primarily near the Adriatic
-- Added set rulers to a bunch of nations in Balkans and Carpathia
-- 1st bookmark recommendations tweaked
-- Icons added to some decisions for quicker differentiation
-- Added Deux Mers canal in southern france, option can be seen at ADM tech 24 and built at 26
-
-Missions
----Feel free to inform me of "weird requirements or rewards or stuff breaking" they are made for a vanilla setting so there might be some edge cases I missed.
-
-- Minor: Frankfurt, Nuremberg, Nassau, Rothenburg, Stettin, Wolgast, Cleves, Coburg, Ansbach, Berg, Wurrtenburg, Bamberg, Wurzburg, Palatinate
-- Medium/Major missions: Teutonic Order, Brandenburg, Prussia, Saxony, Rhineland, Franconia, Pomerania, Ferrara, Mantua, Montferrat, Florence, Tuscany, Naples, Sicily, Two Sicilies, Sardinia, Savoy, Sardinia-Piedmont, Pisa, Venice, Generic Italian, Korea.
+Fixes
+- Tantra and Bon can use the buddhist monuments
 
 Balance
-- Rhineland ideas tweaked
-- Road events more or less cleaned up and tweaked, money received from events is based on the province instead of the country
-- Sicily reverted back to catholic but still has Sunni population in the south
-- Monument Upgrade cost now is 1k/3.5k/7k>1k/2.5k/5k
-- Policies regarding republican tradition 1>0.5 and legitimacy 2>1
-- Holy Orders reverted to vanilla setting
-
-Fixes
-- Provence cursed letters fixed
-- Tunis mission tree no longer looks weird
-- Rhineland and Lusitania flags tweaked
-- South German Confederation and Himalayan Empire flags changed for better quality
-- Byzantine culture AI will no longer keep trying to convert to the true belief of Zeus
-- Some Tribal land around Caddo tweaked as some noexistant tags controlled stuff
-- Fixed the Camel trading bonus, now affects Deserts/Coastal Deserts and Drylands.
-- The custom trading in bonus for new goods should occur faster so you are not stuck waiting
-- Elections slightly overhauled and tooltips cleaned up for easier reading
-- Jerusalem mission enacting the T1 Jerusalem reform is now an event so you can choose to change or stay and instead have a modifier
-- Jerusalem European ties failsafe added for theocracies
-- Some CBs fixed that had religion group requirement that no longer exists
 
 
 [/quote]
