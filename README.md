@@ -24,6 +24,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 Fixes
 - Tantra and Bon can use the buddhist monuments
+- Baekje and Silla now have the Gogureyo ideas instead of national
 
 Balance
 
