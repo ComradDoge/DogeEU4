@@ -26,6 +26,7 @@ Fixes
 - Tantra and Bon can use the buddhist monuments
 - Baekje and Silla now have the Gogureyo ideas instead of national
 - Congress of Paderborn does not require you to be a 500 dip god diplomat
+- Added a tag that you can form through the Korean missions
 
 Balance
 
