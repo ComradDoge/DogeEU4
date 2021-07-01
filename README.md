@@ -25,6 +25,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Fixes
 - Tantra and Bon can use the buddhist monuments
 - Baekje and Silla now have the Gogureyo ideas instead of national
+- Congress of Paderborn does not require you to be a 500 dip god diplomat
 
 Balance
 
