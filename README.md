@@ -23,10 +23,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 29/6/2021 [/h1]
 
 Fixes
-- Tantra and Bon can use the buddhist monuments
-- Baekje and Silla now have the Gogureyo ideas instead of national
-- Congress of Paderborn does not require you to be a 500 dip god diplomat
-- Added a tag that you can form through the Korean missions
+- Venice: Negotiate with the Mamluks requirement tweaked
 
 Balance
 
