@@ -22,11 +22,17 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 29/6/2021 [/h1]
 
+General
+- Added monuments in: Vilnius; Neva;
+
 Fixes
 - Venice: Negotiate with the Mamluks requirement tweaked
+- Army Morale bonus from Fleet Base ideas removed
 
 Balance
+- Minor tweaks to ideas
 
+TODO? CHANGE ADMIN TO ACTUAL ADMIN IDEA INSTEAD OF BEING A MERC IDEA
 
 [/quote]
 
@@ -81,12 +87,6 @@ See all the mods that have had at least some parts incorporated into the mod by 
 
 [url=LINK_URL][img]IMG_URL[/img][/url]
 [img]IMG_URL[/img]
-
-
-
-# Useful Stuff
-custom_tooltip = tooltip_line_seperate
-
 
 
 [quote]
@@ -153,3 +153,119 @@ If you want to tip me for spending an obscene amount of time on it and just over
 https://ko-fi.com/comraddoge
 
 
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+###################################
+
+
+# Useful Stuff
+custom_tooltip = tooltip_line_seperate
+
+
+# great_projects template
+monument = {
+	start = province
+	
+	date = yearstuff
+	
+	time = { months = 0 }
+	
+	build_cost = 5000
+	can_be_moved = no
+	move_days_per_unit_distance = 10
+	starting_tier = 0
+	
+	type = monument
+
+	build_trigger = { 
+
+	}
+
+	on_built = { }
+	on_destroyed = { }
+
+	can_use_modifiers_trigger = { 
+
+	}
+	can_upgrade_trigger = { 
+
+	}
+	keep_trigger = { }
+
+	tier_0 = {
+		upgrade_time = { months = 0 }
+		cost_to_upgrade = { factor = 0 }
+		province_modifiers = { }
+		area_modifier = { }
+		country_modifiers = { }
+		on_upgraded = { }
+	}
+
+	tier_1 = {
+		upgrade_time = { months = 120 }
+		cost_to_upgrade = { factor = 1000 }
+
+		province_modifiers = {
+
+        }
+		area_modifier = {
+            
+        }
+		country_modifiers = {
+
+        }
+		on_upgraded = {
+
+        }
+	}
+
+	tier_2 = {
+		upgrade_time = { months = 240 }
+		cost_to_upgrade = { factor = 2500 }
+
+		province_modifiers = {
+
+        }
+		area_modifier = {
+            
+        }
+		country_modifiers = {
+
+        }
+		on_upgraded = {
+
+        }
+	}
+
+	tier_3 = {
+		upgrade_time = { months = 480 }
+		cost_to_upgrade = { factor = 5000 }
+
+		province_modifiers = {
+
+        }
+		area_modifier = {
+            
+        }
+		country_modifiers = {
+
+        }
+		on_upgraded = {
+
+        }
+	}
+}
