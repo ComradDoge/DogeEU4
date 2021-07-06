@@ -28,6 +28,8 @@ General
 Fixes
 - Venice: Negotiate with the Mamluks requirement tweaked
 - Army Morale bonus from Fleet Base ideas removed
+- Avignon final mission cleaned up and makes much more sense
+- Indigenous Idea goup now has policies from vanilla
 
 Balance
 - Minor tweaks to ideas
