@@ -23,7 +23,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 29/6/2021 [/h1]
 
 General
-- Added monuments in: Vilnius; Neva;
+- Added monuments in: Vilnius; Neva
+- 1.31.5 Update
 
 Fixes
 - Venice: Negotiate with the Mamluks requirement tweaked
@@ -34,7 +35,6 @@ Fixes
 Balance
 - Minor tweaks to ideas
 
-TODO? CHANGE ADMIN TO ACTUAL ADMIN IDEA INSTEAD OF BEING A MERC IDEA
 
 [/quote]
 

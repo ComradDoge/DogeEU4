@@ -32,6 +32,9 @@ oligarchy_reform = {
 	nation_designer_cost = 0
 	potential = {
 		NOT = { culture_group = latin }
+		NOT = { has_reform = crown_colony_government }
+		NOT = { has_reform = private_enterprise_colony_government }
+		NOT = { has_reform = self_governing_colony_government }
 	}
 	nation_designer_trigger = {
 		NOT = { culture_group = latin }
@@ -105,17 +108,15 @@ protectorate_parliament_reform = {
 	conditional = {
 		allow = { has_dlc = "Common Sense" }
 		has_parliament = yes
+		custom_attributes = {
+			blocked_call_diet = yes
+		}
 	}
 	has_term_election = no
 	custom_attributes = {
 		locked_government_type = yes
-		enables_monarchie_idea_group = no
 		enables_republik_idea_group = yes
-		enables_diktatur_idea_group = no
-		enables_theokratie_idea_group = no
-		enables_horde_idea_group = no
-		#is_merchant_republic = yes
-		blocked_call_diet = yes
+		enables_monarchie_idea_group = no
 	}
 }
 
@@ -201,6 +202,9 @@ merchants_reform = {
 				NOT = { map_setup = map_setup_random }
 			}
 		}
+		NOT = { has_reform = crown_colony_government }
+		NOT = { has_reform = private_enterprise_colony_government }
+		NOT = { has_reform = self_governing_colony_government }
 	}
 	trigger = {
 		OR = {
@@ -350,7 +354,7 @@ pirate_republic_reform = {
 		max_absolutism = -50
 		naval_forcelimit_modifier = 0.5
 		capture_ship_chance = 0.33
-		governing_cost = 0.75
+		state_governing_cost = 0.75
 		may_perform_slave_raid_on_same_religion = yes
 	}
 	trigger = {
@@ -409,6 +413,11 @@ noble_elite_reform = {
 	legacy_equivalent = noble_republic
 	valid_for_nation_designer = yes
 	nation_designer_cost = 0
+	potential = {
+		NOT = { has_reform = crown_colony_government }
+		NOT = { has_reform = private_enterprise_colony_government }
+		NOT = { has_reform = self_governing_colony_government }
+	}
 	modifiers = {
 		army_tradition = 0.10
 		general_cost = -0.15
@@ -989,9 +998,6 @@ american_republic = {
 	custom_attributes = {
 		enables_monarchie_idea_group = no
 		enables_republik_idea_group = yes
-		enables_diktatur_idea_group = no
-		enables_theokratie_idea_group = no
-		enables_horde_idea_group = no
 		blocked_call_diet = yes
 	}
 	conditional = {
@@ -999,6 +1005,9 @@ american_republic = {
 			has_dlc = "Common Sense"
 		}
 		has_parliament = yes
+		custom_attributes = {
+			blocked_call_diet = yes
+		}
 	}
 	duration = 4
 }
@@ -1032,18 +1041,17 @@ federal_republic = {
 	}
 
 	custom_attributes = {
-		enables_monarchie_idea_group = no
 		enables_republik_idea_group = yes
-		enables_diktatur_idea_group = no
-		enables_theokratie_idea_group = no
-		enables_horde_idea_group = no
-		blocked_call_diet = yes
+		enables_monarchie_idea_group = no
 	}
 	conditional = {
 		allow = {
 			has_dlc = "Common Sense"
 		}
 		has_parliament = yes
+		custom_attributes = {
+			blocked_call_diet = yes
+		}
 	}
 	duration = 4
 }
@@ -1056,6 +1064,9 @@ colonial_government = {
 	fixed_rank = 1
 	potential = {
 		is_colonial_nation = yes
+		NOT = { has_reform = crown_colony_government }
+		NOT = { has_reform = private_enterprise_colony_government }
+		NOT = { has_reform = self_governing_colony_government }
 	}
 	legacy_equivalent = colonial_government_legacy
 	modifiers = {
@@ -1067,14 +1078,12 @@ colonial_government = {
 
 	custom_attributes = {
 		locked_government_type = yes
-		enables_monarchie_idea_group = no
 		enables_republik_idea_group = yes
-		enables_diktatur_idea_group = no
-		enables_theokratie_idea_group = no
-		enables_horde_idea_group = no
+		enables_monarchie_idea_group = no
 	}
 	duration = 4
 }
+
 crown_colony_government = {
 	icon = "peasants"
 	valid_for_nation_designer = no
@@ -1083,7 +1092,11 @@ crown_colony_government = {
 	fixed_rank = 1
 	potential = {
 		is_colonial_nation = yes
-		has_reform = crown_colony_government
+		OR = {
+			has_reform = crown_colony_government
+			has_reform = private_enterprise_colony_government
+			has_reform = self_governing_colony_government
+		}
 	}
 	legacy_equivalent = colonial_government_legacy
 	modifiers = {
@@ -1109,7 +1122,11 @@ private_enterprise_colony_government = {
 	fixed_rank = 1
 	potential = {
 		is_colonial_nation = yes
-		has_reform = private_enterprise_colony_government
+		OR = {
+			has_reform = crown_colony_government
+			has_reform = private_enterprise_colony_government
+			has_reform = self_governing_colony_government
+		}
 	}
 	legacy_equivalent = colonial_government_legacy
 	modifiers = {
@@ -1121,10 +1138,8 @@ private_enterprise_colony_government = {
 
 	custom_attributes = {
 		locked_government_type = yes
-		enables_monarchie_idea_group = no
 		enables_republik_idea_group = yes
-		enables_diktatur_idea_group = no
-		enables_horde_idea_group = no
+		enables_monarchie_idea_group = no
 	}
 	duration = 4
 }
@@ -1137,7 +1152,13 @@ self_governing_colony_government = {
 	fixed_rank = 1
 	potential = {
 		is_colonial_nation = yes
-		has_reform = self_governing_colony_government 
+		OR = {
+			has_reform = crown_colony_government
+			has_reform = private_enterprise_colony_government
+			has_reform = self_governing_colony_government
+			has_reform = self_governing_colony_government 
+			has_reform = self_governing_colony_government
+		}
 	}
 	legacy_equivalent = colonial_government_legacy
 	modifiers = {
@@ -1149,11 +1170,8 @@ self_governing_colony_government = {
 
 	custom_attributes = {
 		locked_government_type = yes
-		enables_monarchie_idea_group = no
 		enables_republik_idea_group = yes
-		enables_diktatur_idea_group = no
-		enables_theokratie_idea_group = no
-		enables_horde_idea_group = no
+		enables_monarchie_idea_group = no
 	}
 	duration = 4
 }
