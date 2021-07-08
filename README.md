@@ -33,10 +33,6 @@ Fixes
 - Avignon final mission cleaned up and makes much more sense
 - Indigenous Idea goup now has policies from vanilla
 
-Balance
-- Minor tweaks to ideas
-
-
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
