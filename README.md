@@ -25,6 +25,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 General
 - Added monuments in: Vilnius; Neva
 - 1.31.5 Update
+- Monument Highlight decision removed due to new mapmode
 
 Fixes
 - Venice: Negotiate with the Mamluks requirement tweaked
