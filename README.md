@@ -22,16 +22,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 08/07/2021 [/h1]
 
-General
-- 1.31.5 Update
-- Added monuments in: Vilnius; Neva; Moscow
-- Monument Highlight decision removed due to new mapmode
+Balance
+- Pyramid of Cheops made more accessible but nerfed
 
 Fixes
-- Venice: Negotiate with the Mamluks requirement tweaked
-- Army Morale bonus from Fleet Base ideas removed
-- Avignon final mission cleaned up and makes much more sense
-- Indigenous Idea goup now has policies from vanilla
+- Aegan ideas ship cost fixed
 
 [/quote]
 
