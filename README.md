@@ -30,6 +30,7 @@ Balance
 Fixes
 - Aegan ideas ship cost fixed
 - Korean missions wont reset ideas to generic
+- Mines don't break anymore
 
 [/quote]
 
