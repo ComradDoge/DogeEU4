@@ -31,6 +31,7 @@ Fixes
 - Aegan ideas ship cost fixed
 - Korean missions wont reset ideas to generic
 - Mines don't break anymore
+- More AI on the Atlantic coast will consider exploration ideas to prevent perpetual medieval age
 
 [/quote]
 
