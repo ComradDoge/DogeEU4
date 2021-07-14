@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 08/07/2021 [/h1]
 
-Formable update and tweaks can be seen here: https://dogeshattered.fandom.com/wiki/Formables
+15 New/Tweaked formables. Update and tweaks can be seen here: https://dogeshattered.fandom.com/wiki/Formables
 
 Balance
 - Pyramid of Cheops made more accessible but nerfed
@@ -30,7 +30,7 @@ Balance
 Fixes
 - Aegan ideas ship cost fixed
 - Korean missions wont reset ideas to generic
-- Mines don't break anymore
+- Mines building doesn't break anymore
 - More AI on the Atlantic coast will consider exploration ideas to prevent perpetual medieval age
 
 [/quote]
