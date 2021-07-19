@@ -22,16 +22,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 14/07/2021 [/h1]
 
-15 New/Tweaked formables. Update and tweaks can be seen here: https://dogeshattered.fandom.com/wiki/Formables
-
 Balance
-- Pyramid of Cheops made more accessible but nerfed
+- Lowered Arctic/Arid/Tropical climate modifier colonial_growth penalty
 
 Fixes
-- Aegan ideas ship cost fixed
-- Korean missions wont reset ideas to generic
-- Mines building doesn't break anymore
-- More AI on the Atlantic coast will consider exploration ideas to prevent perpetual medieval age
+- Hesse "Friede von Frankfurt" and "Vertrag von Hitzkirchen" now work
 
 [/quote]
 
