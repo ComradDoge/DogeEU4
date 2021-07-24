@@ -26,7 +26,7 @@ Balance
 - Lowered Arctic/Arid/Tropical climate modifier colonial_growth penalty
 
 Fixes
-- Hesse "Friede von Frankfurt" and "Vertrag von Hitzkirchen" now work
+- Hesse and Rhineland missions fixed
 
 [/quote]
 
