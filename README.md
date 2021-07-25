@@ -22,11 +22,16 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 14/07/2021 [/h1]
 
-- Monument update focused on Carpathia and Balkans with few other additions
 - Intermarium formable added
+- Byzantium and Timurid cores in vanilla bookmark fixed
+- Monument update focused on Carpathia and Balkans with few other additions
 - Lowered Arctic/Arid/Tropical climate modifier colonial_growth penalty
+- 3 new government reforms for Siberian tribes
+
+Missions
 - Hesse and Rhineland missions fixed
-- Missions for the Siberian Tribes, Manchu tribes and Manchu itself
+- Missions for Manchu tribes (minor), Siberian tribes (minor) and Manchu (medium)
+- Aquileia missions replaced with the generic Italian minor ones
 
 [/quote]
 
