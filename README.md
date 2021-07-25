@@ -22,10 +22,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 14/07/2021 [/h1]
 
-Balance
+- Intermarium formable added
 - Lowered Arctic/Arid/Tropical climate modifier colonial_growth penalty
-
-Fixes
 - Hesse and Rhineland missions fixed
 
 [/quote]
