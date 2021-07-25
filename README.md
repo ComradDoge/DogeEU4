@@ -26,6 +26,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 - Intermarium formable added
 - Lowered Arctic/Arid/Tropical climate modifier colonial_growth penalty
 - Hesse and Rhineland missions fixed
+- Missions for the Siberian Tribes, Manchu tribes and Manchu itself
 
 [/quote]
 
