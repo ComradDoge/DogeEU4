@@ -20,19 +20,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 26/07/2021 [/h1]
-
-- Intermarium formable added
-- Byzantium and Timurid cores in vanilla bookmark fixed
-- Monuments added in Carpathia and Balkans
-- Lowered Arctic/Arid/Tropical climate modifier colonial_growth penalty
-- 3 new government reforms for Siberian tribes
-
-Missions
-- Hesse and Rhineland missions fixed
-- Missions for Manchu tribes (minor), Siberian tribes (minor) and Manchu (medium)
-- Aquileia missions replaced with the generic Italian minor ones
-
+[h1] 30/07/2021 [/h1]
+- Minor tweaks to various goverment reforms to make them contend with other options
+- North Sea Empire can be formed by Danish culture
+- The late game crasher should be fixed (ohlordhavemercy)
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
