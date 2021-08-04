@@ -21,9 +21,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
 [h1] 30/07/2021 [/h1]
-- Minor tweaks to various goverment reforms to make them contend with other options
-- North Sea Empire can be formed by Danish culture
-- The late game crasher should be fixed (ohlordhavemercy)
+- Italy Disaster not applying new reform
+
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
