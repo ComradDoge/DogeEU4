@@ -21,7 +21,18 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
 [h1] 30/07/2021 [/h1]
+
+Fixes
 - Italy Disaster not applying new reform
+- Added localisation for crownland_level_#.
+
+Balance
+- Economic Hegemon global_trade_goods_size_modifier reduced 0.20 > 0.10
+- Prosperity trade_goods_size_modifier reduced 0.25 > 0.15
+- Estate land control modifiers tweaked so that the less control of land you have, the less expensive it is for you to maintain your lands as the estates do it for you instead, this is so that being at 100% control is not a 100% positive but instead a choice. Tweaked other modifiers too, making low crownland as an option and not a complete negative
+- Cleaned up the crownland description also the lower numbers work in an increment of 10 instead of 5 ( higher numbers always worked in an increment of 10, don't ask why it worked like that) Total of 10 levels instead of 16
+- Low Crownland does not fuel vassal hatred towards you anymore
+
 
 [/quote]
 
