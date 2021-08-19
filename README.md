@@ -27,6 +27,7 @@ Fixes
 - Added localisation for crownland_level_#.
 
 Balance
+- Saudi Arabian formable 3rd Idea changed from missionary to 15% cavalry combat
 - Economic Hegemon global_trade_goods_size_modifier reduced 0.20 > 0.10
 - Prosperity trade_goods_size_modifier reduced 0.25 > 0.15
 - Estate land control modifiers tweaked so that the less control of land you have, the less expensive it is for you to maintain your lands as the estates do it for you instead, this is so that being at 100% control is not a 100% positive but instead a choice. Tweaked other modifiers too, making low crownland as an option and not a complete negative
