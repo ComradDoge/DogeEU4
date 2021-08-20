@@ -27,6 +27,7 @@ Fixes
 - Added localisation for crownland_level_#.
 - France cores added to vanilla bookmark
 - Teutonos Brothers of the sword tweaked
+- Alcheringa rebels added
 
 Balance
 - Saudi Arabian formable 3rd Idea changed from missionary to 15% cavalry combat
