@@ -14,7 +14,6 @@ manchu_missions_1 = {
 				tag = QNG
 			}
 		}
-		
 	}
 	has_country_shield = yes
 	
@@ -40,6 +39,20 @@ manchu_missions_1 = {
 			}
 		}
 		effect = {
+			xilin_gol_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			chahar_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
 			buryatia_area = {
 				limit = {
 					NOT = { is_core = ROOT }
@@ -148,6 +161,10 @@ manchu_missions_1 = {
 		}
 		effect = {
 			mongolia_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { owned_by = ROOT }
+				}
 				add_permanent_claim = ROOT
 			}
 			add_country_modifier = {
@@ -198,13 +215,51 @@ manchu_missions_2 = {
 			tag = MCH
 			tag = QNG
 		}
-		
 	}
 	has_country_shield = yes
+	
+	manchu_issue_seven_grievances = {
+		icon = me_mission_manchu_soldier
+		required_missions = { }
+		position = 3
+		trigger =  {
+			if = {
+				limit = { exists = MNG }
+				MNG = {
+					OR = {
+						has_opinion_modifier = {
+							who = ROOT
+							modifier = insulted
+						}
+						has_opinion_modifier = {
+							who = ROOT
+							modifier = scornfully_insulted
+						}
+						war_with = ROOT
+					}
+				}
+			}
+			else = {
+				legitimacy_equivalent = 75
+				prestige = 50
+			}
+		}
+		effect = {
+			add_prestige = 10
+			if = {
+				limit = {
+					exists = MNG
+					726 = { owned_by = MNG }
+				}
+				country_event = { id = ME_Manchu_Events.3 }
+			}
+		}
+	}
 
 	manchu_capture_fushun = {
 		icon = mission_asian_city
 		required_missions = {
+			manchu_issue_seven_grievances
 			jurchen_unite_manchuria
 			evenk_conquer_northern_jurchens
 			kamchatka_return_manchuria
@@ -366,7 +421,6 @@ manchu_missions_3 = {
 			tag = MCH
 			tag = QNG
 		}
-		
 	}
 	has_country_shield = yes
 	
@@ -626,7 +680,6 @@ manchu_missions_4 = {
 			tag = MCH
 			tag = QNG
 		}
-		
 	}
 	has_country_shield = yes
 	
@@ -646,7 +699,10 @@ manchu_missions_4 = {
 				has_manpower_building_trigger = yes
 				base_manpower = 10
 			}
-			has_idea = manchu_eight_banners
+			OR = {
+				has_idea = manchu_eight_banners
+				has_idea = expand_the_banners
+			}
 		}
 		effect = {
 			country_event = {
@@ -750,7 +806,6 @@ manchu_missions_5 = {
 			tag = MCH
 			tag = QNG
 		}
-		
 	}
 	has_country_shield = yes
 	
