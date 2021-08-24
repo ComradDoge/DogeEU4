@@ -20,10 +20,26 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 30/07/2021 [/h1]
-- Minor tweaks to various goverment reforms to make them contend with other options
-- North Sea Empire can be formed by Danish culture
-- The late game crasher should be fixed (ohlordhavemercy)
+[h1] 24/08/2021 [/h1]
+
+Fixes
+- Italy Disaster not applying new reform
+- Added localisation for crownland_level_#.
+- France cores added to vanilla bookmark
+- Teutons Brothers of the sword tweaked
+- Korean mission scripted effects will work
+- Alcheringa rebels added
+- 1.46% that the 1691 bug is fixed
+
+Balance
+- Saudi Arabian formable 3rd Idea changed from missionary to 15% cavalry combat
+- Economic Hegemon global_trade_goods_size_modifier reduced 0.20 > 0.10
+- Prosperity trade_goods_size_modifier reduced 0.25 > 0.15
+- Estate land control modifiers tweaked so that the less control of land you have, the less expensive it is for you to maintain your lands as the estates do it for you instead, this is so that being at 100% control is not a 100% positive but instead a choice. Tweaked other modifiers too, making low crownland as an option and not a complete negative
+- Cleaned up the crownland description also the lower numbers work in an increment of 10 instead of 5 ( higher numbers always worked in an increment of 10, don't ask why it worked like that) Total of 10 levels instead of 16
+- Low Crownland does not fuel vassal hatred towards you anymore
+
+
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
