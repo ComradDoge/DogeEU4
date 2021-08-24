@@ -20,14 +20,16 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 30/07/2021 [/h1]
+[h1] 24/08/2021 [/h1]
 
 Fixes
 - Italy Disaster not applying new reform
 - Added localisation for crownland_level_#.
 - France cores added to vanilla bookmark
-- Teutonos Brothers of the sword tweaked
+- Teutons Brothers of the sword tweaked
+- Korean mission scripted effects will work
 - Alcheringa rebels added
+- 1.46% that the 1691 bug is fixed
 
 Balance
 - Saudi Arabian formable 3rd Idea changed from missionary to 15% cavalry combat
