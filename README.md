@@ -25,8 +25,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Fixes
 - JOS.tga flag fixed
 - Added more colonial_region placeholders for RNW
+- Emperor of China Nomad disaster reinstated, nothing changed from vanilla but how the game and event is setup and how you get EoC in the shattered bookmark this event should only matter for the vanilla flavour bookmark.
 
-
+Balance
+- Reduced small chunk of garrison_size modifers
+- Downscaled a good chunk of land_forcelimit modifiers
+- Downscald a chunky piece of global_manpower modifiers
 
 [/quote]
 
