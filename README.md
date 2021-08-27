@@ -22,6 +22,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 24/08/2021 [/h1]
 
+General
+- Alcheringa religious idea added
+- Administration ideas reworked and are no longer light-mercenery group
+
 Fixes
 - JOS.tga flag fixed
 - Added more colonial_region placeholders for RNW
@@ -31,6 +35,8 @@ Balance
 - Reduced small chunk of garrison_size modifers
 - Downscaled a good chunk of land_forcelimit modifiers
 - Downscald a chunky piece of global_manpower modifiers
+- build_cost_in_subject_nation = -0.25 moved from development to adminstrative ideas
+- Influence yearly_absolutism replace by accept_vassalization_reasons
 
 [/quote]
 
