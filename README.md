@@ -20,7 +20,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 24/08/2021 [/h1]
+[h1] xx/09/2021 [/h1]
 
 General
 - Alcheringa religious idea added
@@ -37,6 +37,7 @@ Balance
 - Downscald a chunky piece of global_manpower modifiers
 - build_cost_in_subject_nation = -0.25 moved from development to adminstrative ideas
 - Influence yearly_absolutism replace by accept_vassalization_reasons
+- Workshop cost increased by 50 ducats
 
 [/quote]
 
