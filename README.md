@@ -25,19 +25,23 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 General
 - Alcheringa religious idea added
 - Administration ideas reworked and are no longer light-mercenery group
+- GME: bunch of Korean monuments added
 
 Fixes
 - JOS.tga flag fixed
 - Added more colonial_region placeholders for RNW
 - Emperor of China Nomad disaster reinstated, nothing changed from vanilla but how the game and event is setup and how you get EoC in the shattered bookmark this event should only matter for the vanilla flavour bookmark.
+- Most English/Scottish goverment reforms can now be seen by Northumbrian culture
+- More add_prestige replaced by add_prestige_or_monarch_power (if at max)
 
 Balance
 - Reduced small chunk of garrison_size modifers
 - Downscaled a good chunk of land_forcelimit modifiers
-- Downscald a chunky piece of global_manpower modifiers
+- Downscaled a chunky piece of global_manpower modifiers
 - build_cost_in_subject_nation = -0.25 moved from development to adminstrative ideas
-- Influence yearly_absolutism replace by accept_vassalization_reasons
+- Influence yearly_absolutism replaced by accept_vassalization_reasons
 - Workshop cost increased by 50 ducats
+- Slightly nerfed Concentrate development by decreasing total amount and how much of it goes only to the capital
 
 [/quote]
 
