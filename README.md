@@ -33,6 +33,7 @@ Fixes
 - Emperor of China Nomad disaster reinstated, nothing changed from vanilla but how the game and event is setup and how you get EoC in the shattered bookmark this event should only matter for the vanilla flavour bookmark.
 - Most English/Scottish goverment reforms can now be seen by Northumbrian culture
 - More add_prestige replaced by add_prestige_or_monarch_power (if at max)
+- Some Rhenish related missions fixed as they did not appear
 
 Balance
 - Reduced small chunk of garrison_size modifers
