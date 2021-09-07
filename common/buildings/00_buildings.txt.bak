@@ -30,11 +30,10 @@
 marketplace = {
 	cost = 200
 	time = 12
-
 	modifier = {
 		province_trade_power_modifier = 0.5
 	}
-
+	
 	ai_will_do = {
 		factor = 1.0
 		#LIMIT
@@ -620,7 +619,7 @@ barracks = {
 			xorme_additional_manpower_goods_trigger = yes
 		}
 	}
-}
+}	
 
 shipyard = {
 	cost = 200
@@ -780,7 +779,38 @@ coastal_defence = {
 	}
 
 	ai_will_do = {
-		factor = 0
+		factor = 2.5
+		modifier = {
+			factor = 0
+			NOT = {
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+					#has_building = fort_19th
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			NOT = { num_free_building_slots = 2 }
+			NOT = { trade_goods = gold }
+			NOT = {
+				OR = {
+					has_building = wharf 
+					has_building = weapons 
+					has_building = textile 
+					has_building = tradecompany 
+					has_building = farm_estate 
+					has_building = mills 
+					has_building = plantations 
+					has_building = furnace 
+					has_building = soldier_households 
+					has_building = impressment_offices
+				}
+			}
+		}
 	}
 }
 
@@ -788,6 +818,7 @@ coastal_defence = {
 ################################################
 # Tier 2, 16th Century Buildings
 ################################################
+
 
 dock = {
 	cost = 200
@@ -908,6 +939,8 @@ regimental_camp = {
 fort_16th = {
 	cost = 800
 	time = 30
+	
+
 	make_obsolete = fort_15th
 	modifier = {
 		fort_level = 4
@@ -1064,7 +1097,6 @@ cathedral = {
 			}
 		}
 	}
-
 	ai_will_do = {
 		factor = 6.0
 		#LIMIT
@@ -2115,40 +2147,237 @@ fort_18th = {
 
 	influencing_fort = yes
 
+	
 	ai_will_do = {
-		factor = 10.0
+		factor = 10
 		modifier = {
-			factor = 0.1
-			any_neighbor_province = {
-				xorme_ai_has_any_fort_trigger = yes
+			factor = 25
+			is_capital = yes
+			FROM = { num_of_cities = 2 }
+			OR = {
+				owner = { government = monarchy }
+				owner = { government = republic }
+				owner = { government = theocracy }
 			}
 		}
 		modifier = {
-			factor = 1.5
-			FROM = { treasury = 800 }
+			factor = 0.5
+			island = yes
+			NOT = { is_capital = yes }
+		}	
+		modifier = {
+			factor = 0.5
+			is_overseas = yes
 		}
 		modifier = {
-			factor = 1.5
-			FROM = { treasury = 1000 }
+			factor = 0.1
+			OR = {
+				owner = { government = tribal }
+				owner = { government = native }
+				FROM = { NOT = { num_of_cities = 2 } }
+			}
 		}
 		modifier = {
-			factor = 1.5
-			FROM = { treasury = 1200 }
+			factor = 0
+			any_neighbor_province = {
+				owned_by = FROM
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+			}
+			NOT = { is_capital = yes }			
 		}
 		modifier = {
-			factor = 1.5
-			FROM = { treasury = 1400 }
+			factor = 0.6
+			any_neighbor_province = {
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+			}
+			NOT = { is_capital = yes }
 		}
+
 		modifier = {
-			factor = 2.0
-			xorme_high_terrain_trigger = yes
+			factor = 1.667
+			OR = {
+				has_terrain = forest
+				has_terrain = hills
+				has_terrain = marsh
+				has_terrain = highlands
+				has_terrain = jungle
+			}
 		}
 		modifier = {
 			factor = 2.5
-			is_capital = yes
+			has_terrain = mountain
 		}
-	}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_province_modifier = arid
+				has_province_modifier = tropical
+			}
+		}
+	} 
 }
+
+#fort_19th = { 
+#	
+#	cost = 2000
+#	time = 50
+#	make_obsolete = fort_18th
+#
+#
+#	modifier = {
+#		fort_level = 10
+#	}
+#
+#	onmap = yes
+#	
+#	influencing_fort = yes
+#	
+#	ai_will_do = {
+#		factor = 10
+#		modifier = {
+#			factor = 25
+#			is_capital = yes
+#		}
+#		modifier = {
+#			factor = 0.5
+#			island = yes
+#			NOT = { is_capital = yes }
+#		}	
+#		modifier = {
+#			factor = 0.5
+#			is_overseas = yes
+#		}
+#		modifier = {
+#			factor = 0.5
+#			owner = { government = tribal }
+#		}
+#		modifier = {
+#			factor = 0
+#			any_neighbor_province = {
+#				owned_by = FROM
+#				OR = {
+#					has_building = fort_15th
+#					has_building = fort_16th
+#					has_building = fort_17th
+#					has_building = fort_18th
+#					#has_building = fort_19th
+#				}
+#			}
+#			NOT = { is_capital = yes }			
+#		}
+#		modifier = {
+#			factor = 0.6
+#			any_neighbor_province = {
+#				OR = {
+#					has_building = fort_15th
+#					has_building = fort_16th
+#					has_building = fort_17th
+#					has_building = fort_18th
+#					#has_building = fort_19th
+#				}
+#			}
+#			NOT = { is_capital = yes }
+#		}
+#		modifier = {
+#			factor = 5
+#			any_neighbor_province = { owner = { is_rival = FROM } }
+#			OR = {
+#				has_building = fort_15th
+#				has_building = fort_16th
+#				has_building = fort_17th
+#			}
+#		}
+#		modifier = {
+#			factor = 2.5
+#			any_neighbor_province = { NOT = { owned_by = FROM } }
+#			OR = {
+#				has_building = fort_15th
+#				has_building = fort_16th
+#				has_building = fort_17th
+#			}
+#		}
+#		modifier = {
+#			factor = 1.667
+#			OR = {
+#				has_terrain = forest
+#				has_terrain = hills
+#				has_terrain = marsh
+#				has_terrain = highlands
+#				has_terrain = jungle
+#			}
+#		}
+#		modifier = {
+#			factor = 2.5
+#			OR = {
+#				has_terrain = mountain
+#			}
+#		}
+#		modifier = {
+#			factor = 1.25
+#			OR = {
+#				has_province_modifier = arid
+#				has_province_modifier = tropical
+#			}
+#		}
+#	} 
+#}
+
+#trenches = {
+#	
+#	cost = 500
+#	time = 2
+#	build_trigger = {
+#		any_neighbor_province = {
+#			controller = {
+#				war_with = ROOT
+#			}
+#		}
+#	}
+#
+#	modifier = {
+#		#fort_level = 2
+#		local_monthly_devastation = 1
+#		allowed_num_of_buildings = 1
+#		local_hostile_movement_speed = -0.50
+#		defensiveness = 0.3
+#	}
+#
+#	ai_will_do = {
+#		factor = 1
+#		modifier = {
+#			factor = 0
+#			NOT = {
+#				any_neighbor_province = {
+#					NOT = {
+#						controller = { tag = ROOT }
+#					}
+#				}	
+#			}
+#		}
+#		modifier = {
+#			factor = 0
+#			is_at_war = no
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = {
+#				controller = {
+#					war_with = ROOT
+#				}
+#			}
+#		}
+#	}
+#}
 
 ################################################
 # Manufactories
@@ -2163,6 +2392,8 @@ manufactory = {
 	}
 }
 
+#If trade good assignment changes, also update scripted trigger "has_manufactory trigger"!
+
 wharf = {
 	manufactory = {
 		naval_supplies
@@ -2174,135 +2405,49 @@ wharf = {
 	onmap = yes
 
 	ai_will_do = {
-		factor = 10.0
-		#LIMIT
-		modifier = {
-			factor = 0
-			FROM = { num_of_loans = 3 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
-		}
-		modifier = {
-			factor = 0.5
-			FROM = { num_of_loans = 1 }
-		}
+		factor = 5
 		modifier = {
 			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
 		}
-		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
+		modifier = { 
+			factor = 0.8
+			NOT = { base_production = 3 }
 		}
-		#TREASURY
-		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
-		}
-		modifier = {
-			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#BASE
-		modifier = {
-			factor = 1.5
-			base_production = 2
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 4
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 6
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 8
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 10
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 12
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 14
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 15
-		}
-
-		#AI
-		modifier = {
-			factor = 2.0
-			FROM = { ruler_has_good_adm_personality = yes }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = {
-				OR = {
-					personality = ai_capitalist
-					personality = ai_balanced
-				}
+		modifier = { 
+			factor = 0.6
+			AND = { 
+				NOT = { base_production = 4 }
+				NOT = { trade_goods = salt }
 			}
 		}
-
-		#PROVINCE IMPORTANCE
-		modifier = {
-			factor = 3.5
-			development = 10
+		modifier = { 
+			factor = 0.5
+			trade_goods = fish
+		}
+		modifier = { 
+			factor = 2
+			OR = {
+				has_province_modifier = skanemarket
+				has_province_modifier = comet_ore_modifier
+				has_province_modifier = paradise_modifier
+			}
 		}
 		modifier = {
-			factor = 3.5
-			development = 20
+			factor = 2
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+			}
 		}
 		modifier = {
-			factor = 5.0
-			xorme_wealthy_province_trigger = yes
-		}
-		#TERRAIN
-		modifier = {
-			factor = 5.0
-			xorme_flat_terrain_trigger = yes
-		}
-
-		#BUILDINGS
-		modifier = {
-			factor = 5.0
-			has_manufactory_trigger = yes
-		}
-		
-		#TRADE GOODS
-		modifier = {
-			factor = 10.0
-			xorme_province_with_special_goods_produced_trigger = yes
+			factor = 0.8
+				NOT = { tolerance_to_this = 0 }
 		}
 		modifier = {
-			factor = 15.0
-			xorme_lowest_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 20.0
-			xorme_low_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 25.5
-			xorme_medium_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 30.0
-			xorme_high_quality_trade_goods_trigger = yes
+			factor = 0.8
+			has_latent_trade_goods = coal
 		}
 	}
 }
@@ -2311,6 +2456,7 @@ weapons = {
 	manufactory = {
 		copper
 		iron
+		
 		lead
 		mercury
 		tin
@@ -2322,135 +2468,27 @@ weapons = {
 	onmap = yes
 
 	ai_will_do = {
-		factor = 10.0
-		#LIMIT
+		factor = 5
 		modifier = {
-			factor = 0
-			FROM = { num_of_loans = 3 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
-		}
-		modifier = {
-			factor = 0.5
-			FROM = { num_of_loans = 1 }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
-		}
-		#TREASURY
-		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
-		}
-		modifier = {
-			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#BASE
-		modifier = {
-			factor = 1.5
-			base_production = 2
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 4
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 6
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 8
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 10
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 12
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 14
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 15
-		}
-
-		#AI
-		modifier = {
-			factor = 2.0
-			FROM = { ruler_has_good_adm_personality = yes }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = {
-				OR = {
-					personality = ai_capitalist
-					personality = ai_balanced
-				}
+			factor = 2
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+				has_building = steam_factory
 			}
 		}
-
-		#PROVINCE IMPORTANCE
 		modifier = {
-			factor = 3.5
-			development = 10
+			factor = 0.75
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
 		}
 		modifier = {
-			factor = 3.5
-			development = 20
+			factor = 0.8
+				NOT = { tolerance_to_this = 0 }
 		}
 		modifier = {
-			factor = 5.0
-			xorme_wealthy_province_trigger = yes
-		}
-		#TERRAIN
-		modifier = {
-			factor = 5.0
-			xorme_flat_terrain_trigger = yes
-		}
-
-		#BUILDINGS
-		modifier = {
-			factor = 5.0
-			has_manufactory_trigger = yes
-		}
-		
-		#TRADE GOODS
-		modifier = {
-			factor = 10.0
-			xorme_province_with_special_goods_produced_trigger = yes
-		}
-		modifier = {
-			factor = 15.0
-			xorme_lowest_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 20.0
-			xorme_low_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 25.5
-			xorme_medium_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 30.0
-			xorme_high_quality_trade_goods_trigger = yes
+			factor = 0.8
+			has_latent_trade_goods = coal
 		}
 	}
 }
@@ -2461,141 +2499,42 @@ textile = {
 		cloth
 		silk
 		dyes
+
 		indigo
 		uniforms
 	}
 	onmap = yes
 
 	ai_will_do = {
-		factor = 10.0
-		#LIMIT
+		factor = 5
 		modifier = {
-			factor = 0
-			FROM = { num_of_loans = 3 }
+			factor = 0.8
+			NOT = { development = 3 }
 		}
 		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
+			factor = 0.6
+			trade_goods = wool
 		}
 		modifier = {
-			factor = 0.5
-			FROM = { num_of_loans = 1 }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
-		}
-		#TREASURY
-		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
-		}
-		modifier = {
-			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#BASE
-		modifier = {
-			factor = 1.5
-			base_production = 2
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 4
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 6
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 8
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 10
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 12
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 14
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 15
-		}
-
-		#AI
-		modifier = {
-			factor = 2.0
-			FROM = { ruler_has_good_adm_personality = yes }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = {
-				OR = {
-					personality = ai_capitalist
-					personality = ai_balanced
-				}
+			factor = 2
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+				has_building = steam_factory
 			}
 		}
-
-		#PROVINCE IMPORTANCE
 		modifier = {
-			factor = 3.5
-			development = 10
+			factor = 0.75
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
 		}
 		modifier = {
-			factor = 3.5
-			development = 20
+			factor = 0.8
+				NOT = { tolerance_to_this = 0 }
 		}
 		modifier = {
-			factor = 5.0
-			xorme_wealthy_province_trigger = yes
-		}
-		#TERRAIN
-		modifier = {
-			factor = 5.0
-			xorme_flat_terrain_trigger = yes
-		}
-
-		#BUILDINGS
-		modifier = {
-			factor = 5.0
-			has_manufactory_trigger = yes
-		}
-		
-		#TRADE GOODS
-		modifier = {
-			factor = 10.0
-			xorme_province_with_special_goods_produced_trigger = yes
-		}
-		modifier = {
-			factor = 15.0
-			xorme_lowest_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 20.0
-			xorme_low_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 25.5
-			xorme_medium_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 30.0
-			xorme_high_quality_trade_goods_trigger = yes
+			factor = 0.8
+			has_latent_trade_goods = coal
 		}
 	}
 }
@@ -2608,6 +2547,7 @@ plantations = {
 		tobacco
 		tea
 		cocoa
+
 		palm_oil
 		saffron
 		cinnamon
@@ -2620,135 +2560,27 @@ plantations = {
 	onmap = yes
 
 	ai_will_do = {
-		factor = 10.0
-		#LIMIT
+		factor = 5
 		modifier = {
-			factor = 0
-			FROM = { num_of_loans = 3 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
-		}
-		modifier = {
-			factor = 0.5
-			FROM = { num_of_loans = 1 }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
-		}
-		#TREASURY
-		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
-		}
-		modifier = {
-			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#BASE
-		modifier = {
-			factor = 1.5
-			base_production = 2
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 4
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 6
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 8
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 10
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 12
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 14
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 15
-		}
-
-		#AI
-		modifier = {
-			factor = 2.0
-			FROM = { ruler_has_good_adm_personality = yes }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = {
-				OR = {
-					personality = ai_capitalist
-					personality = ai_balanced
-				}
+			factor = 2
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+				has_building = steam_factory
 			}
 		}
-
-		#PROVINCE IMPORTANCE
 		modifier = {
-			factor = 3.5
-			development = 10
+			factor = 0.75
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
 		}
 		modifier = {
-			factor = 3.5
-			development = 20
+			factor = 0.8
+				NOT = { tolerance_to_this = 0 }
 		}
 		modifier = {
-			factor = 5.0
-			xorme_wealthy_province_trigger = yes
-		}
-		#TERRAIN
-		modifier = {
-			factor = 5.0
-			xorme_flat_terrain_trigger = yes
-		}
-
-		#BUILDINGS
-		modifier = {
-			factor = 5.0
-			has_manufactory_trigger = yes
-		}
-		
-		#TRADE GOODS
-		modifier = {
-			factor = 10.0
-			xorme_province_with_special_goods_produced_trigger = yes
-		}
-		modifier = {
-			factor = 15.0
-			xorme_lowest_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 20.0
-			xorme_low_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 25.5
-			xorme_medium_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 30.0
-			xorme_high_quality_trade_goods_trigger = yes
+			factor = 0.8
+			has_latent_trade_goods = coal
 		}
 	}
 }
@@ -2760,6 +2592,7 @@ tradecompany = {
 		spices
 		fur
 		incense
+
 		whaling
 		beer
 		rum
@@ -2775,139 +2608,36 @@ tradecompany = {
 		jewellery
 		maple_syrup
 		sea_turtle
+		
 	}
 	onmap = yes
 
 	ai_will_do = {
-		factor = 10.0
-		#LIMIT
-		modifier = {
-			factor = 0
-			FROM = { num_of_loans = 3 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
-		}
-		modifier = {
-			factor = 0.5
-			FROM = { num_of_loans = 1 }
-		}
+		factor = 5
 		modifier = {
 			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
+			trade_goods = incense
 		}
 		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
-		}
-		#TREASURY
-		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
-		}
-		modifier = {
-			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#BASE
-		modifier = {
-			factor = 1.5
-			base_production = 2
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 4
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 6
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 8
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 10
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 12
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 14
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 15
-		}
-
-		#AI
-		modifier = {
-			factor = 2.0
-			FROM = { ruler_has_good_adm_personality = yes }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = {
-				OR = {
-					personality = ai_capitalist
-					personality = ai_balanced
-				}
+			factor = 2
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+				has_building = steam_factory
 			}
 		}
-
-		#PROVINCE IMPORTANCE
 		modifier = {
-			factor = 3.5
-			development = 10
+			factor = 0.75
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
 		}
 		modifier = {
-			factor = 3.5
-			development = 20
+			factor = 0.8
+				NOT = { tolerance_to_this = 0 }
 		}
 		modifier = {
-			factor = 5.0
-			xorme_wealthy_province_trigger = yes
-		}
-		#TERRAIN
-		modifier = {
-			factor = 5.0
-			xorme_flat_terrain_trigger = yes
-		}
-
-		#BUILDINGS
-		modifier = {
-			factor = 5.0
-			has_manufactory_trigger = yes
-		}
-		
-		#TRADE GOODS
-		modifier = {
-			factor = 10.0
-			xorme_province_with_special_goods_produced_trigger = yes
-		}
-		modifier = {
-			factor = 15.0
-			xorme_lowest_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 20.0
-			xorme_low_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 25.5
-			xorme_medium_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 30.0
-			xorme_high_quality_trade_goods_trigger = yes
+			factor = 0.8
+			has_latent_trade_goods = coal
 		}
 	}
 }
@@ -2917,6 +2647,7 @@ farm_estate = {
 		grain
 		livestock
 		wine
+
 		apiculture
 		rice
 		horses
@@ -2933,135 +2664,49 @@ farm_estate = {
 	onmap = yes
 
 	ai_will_do = {
-		factor = 10.0
-		#LIMIT
-		modifier = {
-			factor = 0
-			FROM = { num_of_loans = 3 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
-		}
-		modifier = {
-			factor = 0.5
-			FROM = { num_of_loans = 1 }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
-		}
-		#TREASURY
-		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
-		}
-		modifier = {
-			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#BASE
-		modifier = {
-			factor = 1.5
-			base_production = 2
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 4
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 6
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 8
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 10
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 12
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 14
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 15
-		}
+		factor = 2
 
-		#AI
-		modifier = {
-			factor = 2.0
-			FROM = { ruler_has_good_adm_personality = yes }
+
+		modifier = { 
+			factor = 0.4
+			NOT = { base_production = 3 }
+		}
+		modifier = { 
+			factor = 0.6
+			NOT = { base_production = 4 }
 		}
 		modifier = {
-			factor = 2.0
+			factor = 0.75
 			FROM = {
-				OR = {
-					personality = ai_capitalist
-					personality = ai_balanced
-				}
+				has_idea_group = quantity_ideas
 			}
 		}
-
-		#PROVINCE IMPORTANCE
 		modifier = {
-			factor = 3.5
-			development = 10
+			factor = 0.75
+			FROM = {
+				religion = orthodox
+			}
 		}
 		modifier = {
-			factor = 3.5
-			development = 20
+			factor = 2
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+				has_building = steam_factory
+			}
 		}
 		modifier = {
-			factor = 5.0
-			xorme_wealthy_province_trigger = yes
-		}
-		#TERRAIN
-		modifier = {
-			factor = 5.0
-			xorme_flat_terrain_trigger = yes
-		}
-
-		#BUILDINGS
-		modifier = {
-			factor = 5.0
-			has_manufactory_trigger = yes
-		}
-		
-		#TRADE GOODS
-		modifier = {
-			factor = 10.0
-			xorme_province_with_special_goods_produced_trigger = yes
+			factor = 0.75
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
 		}
 		modifier = {
-			factor = 15.0
-			xorme_lowest_quality_trade_goods_trigger = yes
+			factor = 0.8
+				NOT = { tolerance_to_this = 0 }
 		}
 		modifier = {
-			factor = 20.0
-			xorme_low_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 25.5
-			xorme_medium_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 30.0
-			xorme_high_quality_trade_goods_trigger = yes
+			factor = 0.8
+			has_latent_trade_goods = coal
 		}
 	}
 }
@@ -3074,6 +2719,7 @@ mills = {
 		tropical_wood
 		glass
 		chinaware
+
 		lumber
 		ebony
 		amber
@@ -3083,135 +2729,38 @@ mills = {
 	onmap = yes
 
 	ai_will_do = {
-		factor = 10.0
-		#LIMIT
+		factor = 5
 		modifier = {
-			factor = 0
-			FROM = { num_of_loans = 3 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
+			factor = 0.8
+			NOT = { base_production = 3 }
 		}
 		modifier = {
 			factor = 0.5
-			FROM = { num_of_loans = 1 }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
-		}
-		#TREASURY
-		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
-		}
-		modifier = {
-			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#BASE
-		modifier = {
-			factor = 1.5
-			base_production = 2
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 4
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 6
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 8
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 10
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 12
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 14
-		}
-		modifier = {
-			factor = 1.5
-			base_production = 15
-		}
-
-		#AI
-		modifier = {
-			factor = 2.0
-			FROM = { ruler_has_good_adm_personality = yes }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = {
-				OR = {
-					personality = ai_capitalist
-					personality = ai_balanced
-				}
+			AND = {
+				trade_goods = tropical_wood
+				NOT = { base_production = 4 }
 			}
 		}
-
-		#PROVINCE IMPORTANCE
 		modifier = {
-			factor = 3.5
-			development = 10
+			factor = 2
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+				has_building = steam_factory
+			}
 		}
 		modifier = {
-			factor = 3.5
-			development = 20
+			factor = 0.75
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
 		}
 		modifier = {
-			factor = 5.0
-			xorme_wealthy_province_trigger = yes
-		}
-		#TERRAIN
-		modifier = {
-			factor = 5.0
-			xorme_flat_terrain_trigger = yes
-		}
-
-		#BUILDINGS
-		modifier = {
-			factor = 5.0
-			has_manufactory_trigger = yes
-		}
-		
-		#TRADE GOODS
-		modifier = {
-			factor = 10.0
-			xorme_province_with_special_goods_produced_trigger = yes
+			factor = 0.8
+				NOT = { tolerance_to_this = 0 }
 		}
 		modifier = {
-			factor = 15.0
-			xorme_lowest_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 20.0
-			xorme_low_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 25.5
-			xorme_medium_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 30.0
-			xorme_high_quality_trade_goods_trigger = yes
+			factor = 0.8
+			has_latent_trade_goods = coal
 		}
 	}
 }
@@ -3226,13 +2775,19 @@ furnace = {
 	}
 
 	modifier = {
-		global_trade_goods_size_modifier = 0.05
+		global_trade_goods_size_modifier = 0.05 #National Bonus
+		local_state_maintenance_modifier = 1.0
 	}
 	onmap = yes
-	show_separate = yes
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
 
 	ai_will_do = {
-		factor = 1000
+		factor = 100
+		modifier = {
+			factor = 0.1
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
+		}
 	}
 }
 
@@ -3246,10 +2801,68 @@ ramparts = {
 		local_state_maintenance_modifier = 1.0
 	}
 	onmap = no
-	show_separate = yes
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
 
 	ai_will_do = {
-		factor = 1
+		factor = 5
+		modifier = {
+			factor = 0
+			NOT = {
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+					#has_building = fort_19th
+				}
+			}
+		}
+		modifier = {
+			factor = 1.667
+			OR = {
+				has_terrain = forest
+				has_terrain = hills
+				has_terrain = marsh
+				has_terrain = highlands
+				has_terrain = jungle
+			}
+		}
+		modifier = {
+			factor = 2.5
+			has_terrain = mountain
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_province_modifier = arid
+				has_province_modifier = tropical
+			}
+		}
+		modifier = {
+			factor = 1.5
+			FROM = {
+				has_idea_group = defensive_ideas
+			}
+		}
+		modifier = {
+			factor = 0
+			NOT = { num_free_building_slots = 2 }
+			NOT = { trade_goods = gold }
+			NOT = {
+				OR = {
+					has_building = wharf 
+					has_building = weapons 
+					has_building = textile 
+					has_building = tradecompany 
+					has_building = farm_estate 
+					has_building = mills 
+					has_building = plantations 
+					has_building = furnace 
+					has_building = soldier_households 
+					has_building = impressment_offices
+				}
+			}
+		}
 	}
 }
 
@@ -3258,11 +2871,12 @@ soldier_households = {
 		all
 	}
 
-	bonus_manufactory = {
+	bonus_manufactory = { # Will apply an extra modifier if these goods
 		grain
 		fish
 		livestock
 		wine
+		
 		apiculture
 		rice
 		horses
@@ -3284,117 +2898,87 @@ soldier_households = {
 		local_manpower = 0.75
 	}
 	onmap = no
-	show_separate = yes
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
 
 	ai_will_do = {
-		factor = 10.0
-		#LIMIT
+		factor = 10
 		modifier = {
 			factor = 0
-			FROM = { num_of_loans = 3 }
+			NOT = {
+				OR = {
+					trade_goods = gold
+					trade_goods = grain
+					trade_goods = fish
+					trade_goods = livestock
+					trade_goods = wine
+					trade_goods = rice
+					trade_goods = horses
+					trade_goods = camel
+					trade_goods = elephants
+					trade_goods = potato
+					trade_goods = maize
+					trade_goods = tomato
+				}
+			}
 		}
 		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
+			factor = 1.5
+			OR = {
+				trade_goods = grain
+				trade_goods = fish
+				trade_goods = livestock
+				trade_goods = wine
+				trade_goods = rice
+				trade_goods = horses
+				trade_goods = camel
+				trade_goods = elephants
+				trade_goods = potato
+				trade_goods = maize
+				trade_goods = tomato
+			}
 		}
 		modifier = {
 			factor = 0.5
-			FROM = { num_of_loans = 1 }
+			has_latent_trade_goods = coal
 		}
 		modifier = {
-			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
+			factor = 2
+			OR = {
+				has_building = barracks
+				has_building = conscription_center
+			}
 		}
 		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
+			factor = 0.25
+			NOT = { is_state = yes }
 		}
-		#TREASURY
 		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
+			factor = 1.5
+			FROM = {
+				has_idea_group = quantity_ideas
+			}
 		}
 		modifier = {
 			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#BASE
-		modifier = {
-			factor = 1.5
-			base_manpower = 2
+			FROM = {
+				religion = orthodox
+			}
 		}
 		modifier = {
 			factor = 1.5
-			base_manpower = 4
+			area_for_scope_province = {
+				owner = { tag = ROOT }
+				province_has_center_of_trade_of_level = 3
+			}
 		}
 		modifier = {
-			factor = 1.5
-			base_manpower = 6
+			factor = 0.66
+			AND = {
+				NOT = { has_owner_accepted_culture = yes }
+				NOT = { has_owner_culture = yes }
+				NOT = { culture_group = ROOT }
+			}
 		}
-		modifier = {
-			factor = 1.5
-			base_manpower = 8
-		}
-		modifier = {
-			factor = 1.5
-			base_manpower = 10
-		}
-		modifier = {
-			factor = 1.5
-			base_manpower = 12
-		}
-		modifier = {
-			factor = 1.5
-			base_manpower = 14
-		}
-		modifier = {
-			factor = 1.5
-			base_manpower = 15
-		}
-
-		#AI
-		modifier = {
-			factor = 2.0
-			FROM = { ruler_has_good_mil_personality = yes }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { personality = ai_militarist }
-		}
-
-		#PROVINCE IMPORTANCE
-		modifier = {
-			factor = 2.5
-			development = 10
-		}
-		modifier = {
-			factor = 2.5
-			development = 20
-		}
-		#TERRAIN
-		modifier = {
-			factor = 2.5
-			xorme_flat_terrain_trigger = yes
-		}
-
-		#BUILDINGS
-		modifier = {
-			factor = 5.0
-			has_manpower_building_trigger = yes
-		}
-		#TRADE GOODS
-		modifier = {
-			factor = 10.0
-			xorme_lowest_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 15.0
-			xorme_additional_manpower_goods_trigger = yes
-		}		
 	}
 }
 
@@ -3403,7 +2987,7 @@ impressment_offices = {
 		all
 	}
 
-	bonus_manufactory = {
+	bonus_manufactory = { # Will apply an extra modifier if these goods
 		salt
 		fish
 		naval_supplies
@@ -3424,23 +3008,71 @@ impressment_offices = {
 		local_sailors = 300
 	}
 	onmap = no
-	show_separate = yes
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
 
 	ai_will_do = {
-		factor = 1
+		factor = 1.5
+		modifier = {
+			factor = 0.1
+			NOT = {
+				OR = {
+					trade_goods = gold
+					trade_goods = salt
+					trade_goods = fish
+					trade_goods = naval_supplies
+					trade_goods = tropical_wood
+					trade_goods = seafood
+					trade_goods = tar
+				}
+			}
+		}
+		modifier = {
+			factor = 0.25
+			NOT = {
+				FROM = {
+						OR = {
+							has_idea_group = maritime_ideas
+							has_idea_group = galle0
+							has_idea_group = gross0
+							has_idea_group = handel0
+						}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.8
+			has_latent_trade_goods = coal
+		}
+		modifier = {
+			factor = 0
+			FROM = { is_tribal = yes }
+		}
+		modifier = {
+			factor = 0
+			FROM = { primitives = yes }
+		}
+		modifier = {
+			factor = 0
+			FROM = { 
+				NOT = { num_of_ports = 1 }
+				NOT = { is_colonial_nation = yes }
+			}
+		}
 	}
 }
+
 
 state_house = {
 	manufactory = {
 		all
 	}
 
-	bonus_manufactory = {
+	bonus_manufactory = { # Will apply an extra modifier if these goods
 		paper
 		glass
 		gems
 		amber
+		pearls
 	}
 
 	build_trigger = {
@@ -3482,93 +3114,118 @@ state_house = {
 		min_local_autonomy = -5
 	}
 	onmap = no
-	show_separate = yes
+	show_separate = yes # Means as a manufactory it will be shown according to the old way
 
 	ai_will_do = {
-		factor = 1000.0
-		#LIMIT
+		factor = 400
 		modifier = {
-			factor = 0
+			factor = 0.25
+			NOT = { is_state = yes }
+			is_owned_by_trade_company = no
+		}
+		modifier = {
+			factor = 0.25
 			area_for_scope_province = {
-				any_province = {
-					area = PREV
-					is_capital_of = FROM
+				owner = { tag = ROOT }
+				is_capital = yes
+			}
+		}
+		modifier = {
+			factor = 5
+			is_owned_by_trade_company = yes
+		}
+		modifier = {
+			factor = 1.2
+			FROM = { num_of_states = 10 }
+		}
+		modifier = {
+			factor = 1.2
+			FROM = { num_of_states = 15 }
+		}
+		modifier = {
+			factor = 1.2
+			FROM = { num_of_states = 20 }
+		}
+		modifier = {
+			factor = 1.2
+			FROM = { num_of_states = 25 }
+		}
+		modifier = {
+			factor = 1.2
+			FROM = { num_of_states = 30 }
+		}
+		modifier = {
+			factor = 1.2
+			FROM = { num_of_states = 35 }
+		}
+		modifier = {
+			factor = 1.2
+			FROM = { num_of_states = 40 }
+		}
+		modifier = {
+			factor = 1.2
+			FROM = { num_of_states = 50 }
+		}
+		modifier = {
+			factor = 5
+			development = 40
+			is_in_capital_area = no
+		}
+		modifier = {
+			factor = 2
+			development = 30
+		}
+		modifier = {
+			factor = 2
+			development = 20
+		}
+		modifier = {
+			factor = 5
+			FROM = { 
+				num_of_owned_provinces_with = {
+					value = 5
+					
+					NOT = { is_state_core = FROM  }
+					is_territorial_core = FROM 
+					is_owned_by_trade_company = no
+					is_overseas = no
+					NOT = { has_construction = core }
 				}
 			}
 		}
 		modifier = {
-			factor = 0
-			FROM = { num_of_loans = 3 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { num_of_loans = 2 }
-		}
-		modifier = {
 			factor = 0.5
-			FROM = { num_of_loans = 1 }
+			is_owned_by_trade_company = no
+			NOT = {
+				FROM = { 
+					num_of_owned_provinces_with = {
+						value = 3
+						
+						NOT = { is_state_core = FROM  }
+						is_territorial_core = FROM 
+						is_owned_by_trade_company = no
+						is_overseas = no
+						NOT = { has_construction = core }
+					}
+				}
+			}
 		}
 		modifier = {
-			factor = 0.5
-			FROM = { NOT = { governing_capacity_percentage = 0.5 } }
-		}
-		modifier = {
-			factor = 0.5
-			has_no_manufactory_trigger = yes
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { NOT = { treasury = 500 } }
-		}
-		modifier = {
-			factor = 0.75
-			FROM = { is_in_deficit = yes }
-		}
-		#TREASURY
-		modifier = {
-			factor = 1.2
-			FROM = { treasury = 500 }
-		}
-		modifier = {
-			factor = 1.3
-			FROM = { treasury = 750 }
-		}
-		modifier = {
-			factor = 1.4
-			FROM = { treasury = 1000 }
-		}
-		#TRADE GOODS
-		modifier = {
-			factor = 0
-			xorme_province_with_special_goods_produced_trigger = yes
-		}
-		modifier = {
-			factor = 0.2
-			xorme_high_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 0.4
-			xorme_medium_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 0.5
-			xorme_low_quality_trade_goods_trigger = yes
-		}
-		modifier = {
-			factor = 2.0
-			trade_goods = gold
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { governing_capacity_percentage = 0.8 }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { governing_capacity_percentage = 1.0 }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { governing_capacity_percentage = 1.1 }
+			factor = 0.1
+			NOT = { num_free_building_slots = 2 }
+			NOT = { trade_goods = gold }
+			AND = {
+				NOT = { has_building = wharf }
+				NOT = { has_building = weapons }
+				NOT = { has_building = textile }
+				NOT = { has_building = tradecompany }
+				NOT = { has_building = farm_estate }
+				NOT = { has_building = mills }
+				NOT = { has_building = plantations }
+				NOT = { has_building = furnace }
+				NOT = { has_building = soldier_households }
+				NOT = { has_building = impressment_offices }
+			}
 		}
 	}
 }

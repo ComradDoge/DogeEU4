@@ -23,9 +23,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] xx/09/2021 [/h1]
 
 General
+- XORME AI building logic integrated
 - Alcheringa religious idea added
 - Administration ideas reworked and are no longer light-mercenery group
 - GME: bunch of Korean monuments added
+- Alexandria is now a merchant republic and has custom missions
 
 Fixes
 - JOS.tga flag fixed
@@ -34,6 +36,7 @@ Fixes
 - Most English/Scottish goverment reforms can now be seen by Northumbrian culture
 - More add_prestige replaced by add_prestige_or_monarch_power (if at max)
 - Some Rhenish related missions fixed as they did not appear
+- 2.3% chance that 1691 curse is removed
 
 Balance
 - Reduced small chunk of garrison_size modifers
