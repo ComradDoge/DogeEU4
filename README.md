@@ -27,7 +27,7 @@ General
 - Alcheringa religious idea added
 - Administration ideas reworked and are no longer light-mercenery group
 - GME: bunch of Korean monuments added
-- Alexandria is now a merchant republic and has custom missions
+- Alexandria is now a merchant republic
 
 Fixes
 - JOS.tga flag fixed
