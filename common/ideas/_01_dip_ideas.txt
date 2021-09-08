@@ -56,7 +56,39 @@ spy_ideas = {
 
 
 	ai_will_do = {
-		factor = 1
+		factor = 0.6
+		#LIMIT
+		modifier = {
+			factor = 0.5
+			is_great_power = yes
+		}
+		modifier = {
+			factor = 0.75
+			total_development = 200
+		}
+		#PERSONALITY
+		modifier = {
+			factor = 1.5
+			ruler_has_personality = intricate_web_weaver_personality
+		}
+		modifier = {
+			factor = 1.5
+			ruler_has_personality = secretive_personality
+		}
+		#POTENTIAL
+		modifier = {
+			factor = 1.5
+			is_part_of_hre = yes
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { num_of_cities = 10 }
+		}
+		modifier = {
+			factor = 2.0
+			is_subject_other_than_tributary_trigger = yes
+		}
+		#IDEAS
 	}
 }
 
@@ -138,20 +170,26 @@ influence_ideas = {
 	}
 
 	ai_will_do = {
-		factor = 10
-
+		factor = 0.5
+		#LIMIT
+		modifier = {
+			factor = 0
+			is_subject_other_than_tributary_trigger = yes
+		}
+		#POTENTIAl
 		modifier = {
 			factor = 1.5
-			is_emperor = yes
+			num_of_non_tributary_subjects = 2
 		}
 		modifier = {
-			factor = 1.25
-			personality = ai_diplomat 
+			factor = 1.5
+			num_of_non_tributary_subjects = 3
 		}
-
-		
-
-	}	
+		modifier = {
+			factor = 1.5
+			num_of_non_tributary_subjects = 4
+		}
+	}
 }
 
 
@@ -187,31 +225,67 @@ trade_ideas = {
 	}
 
 	ai_will_do = {
-		factor = 30
+		factor = 0.7
+		#LIMIT
 		modifier = {
-			factor = 10
-			is_colonial_nation = yes
+			factor = 0.5
+			NOT = { trade_income_percentage = 0.3 }
 		}
 		modifier = {
-			factor = 0
-			NOT = { trade_income_percentage = 0.25 }
-			NOT = { is_colonial_nation = yes }
+			factor = 0.75
+			is_great_power = no
 		}
-		modifier = {
-			factor = 0.33
-			NOT = { trade_income_percentage = 0.33 }
-		}
+		#PERSONALITY
 		modifier = {
 			factor = 1.5
-			trade_income_percentage = 0.25
-			personality = ai_capitalist
+			ruler_has_good_dip_personality = yes
+		}
+		#POTENTIAL
+		modifier = {
+			factor = 1.5
+			is_great_power = yes
 		}
 		modifier = {
-			factor = 6
-			trade_income_percentage = 0.33
+			factor = 2.0
+			num_of_cities = 20
 		}
-
-
+		modifier = {
+			factor = 2.5
+			num_of_cities = 40
+		}
+		modifier = {
+			factor = 2.0
+			is_institution_enabled = global_trade
+		}
+		modifier = {
+			factor = 2.0
+			colony = 2
+		}
+		modifier = {
+			factor = 3.0
+			ROOT = { government = republic }
+		}
+		modifier = {
+			factor = 3.5
+			xorme_wealthy_region_trigger = yes
+		}
+		#IDEAS
+		modifier = {
+			factor = 3.0
+			has_idea_group = handel0
+		}
+		modifier = {
+			factor = 3.0
+			has_idea_group = quantity_ideas
+		}
+		modifier = {
+			factor = 5.0
+			xorme_can_select_fifth_idea_group_trigger = yes
+		}
+		modifier = {
+			factor = 10.0
+			xorme_can_select_seventh_idea_group_trigger = yes
+		}
 	}
 }
 
@@ -249,62 +323,93 @@ exploration_ideas = {
 	}
 
 	ai_will_do = {
-		factor = 10
+		factor = 0.9
 		modifier = {
 			factor = 0
-			OR = {
-				is_subject = yes
-				is_vassal = yes
-				is_colonial_nation = yes
-				is_tribal = yes
-				primitives = yes
+			is_colonial_nation = yes
+		}
+		modifier = {
+			factor = 0
+			is_tribal = yes
+		}
+		modifier = {
+			factor = 0
+			primitives = yes
+		}
+		modifier = {
+			factor = 0
+			OR = { 
+				current_age = age_of_enlightenment
+				current_age = industrial_age
+				current_age = age_of_revolutions
 			}
 		}
 		modifier = {
 			factor = 0
-			NOT = { num_of_ports = 1 }
+			NOT = {
+				any_owned_province = {
+					has_port = yes
+					sea_zone = {
+						NOT = { area = eastern_mediterrenean_area }
+					}
+				}
+			}
+			NOT = { 
+				any_owned_province = { 
+					is_in_capital_area = yes
+					has_empty_adjacent_province = yes
+				} 
+			}
 		}
 		modifier = {
-			factor = 0.5
-			NOT = { num_of_ports = 2 }
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { num_of_ports = 3 }
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { num_of_ports = 4 }
-			num_of_cities = 4
-		}
-		modifier = {
-			factor = 50
-			OR = {
-				tag = POR
-				tag = GAL
-				tag = ICE
-				tag = MCN
-				tag = KBU
-				tag = JOL
-				tag = MRK
-				tag = SOS
-				tag = ALN
-				tag = GAL
+			factor = 0.15
+			NOT = {
+				any_owned_province = {
+					has_port = yes
+					sea_zone = {
+						OR = {
+							NOT = { region = mediterrenean_region }
+							province_id = 1293 #Gibraltar
+							province_id = 1294 #Almeria
+						}
+						NOT = { area = red_sea_area }
+						NOT = { area = baltic_area }
+					}
+				}
+			}
+			NOT = { 
+				any_owned_province = { 
+					is_in_capital_area = yes
+					has_empty_adjacent_province = yes
+				} 
 			}
 		}
 		modifier = {
 			factor = 0.1
-			NOT = { technology_group = western }
-			NOT = { technology_group = high_american }
+			NOT = { num_of_ports = 3 }
+			NOT = { 
+				any_owned_province = { 
+					is_in_capital_area = yes
+					has_empty_adjacent_province = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = { has_institution = renaissance }
+			NOT = { tag = POR }
+			NOT = { tag = CAS }
 		}
 		modifier = {
 			factor = 0.1
 			capital_scope = {
 				NOT = {
-					region = france_region
-					region = iberia_region
-					region = british_isles_region
-					region = low_countries_region
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = british_isles_region
+						region = low_countries_region
+					}
 				}
 			}
 			NOT = { technology_group = high_american }
@@ -312,9 +417,9 @@ exploration_ideas = {
 		modifier = {
 			factor = 0.5
 			tag = ARA
-		}	
+		}
 		modifier = {
-			factor = 0.1
+			factor = 0.2
 			NOT = { is_year = 1490 }
 			capital_scope = {
 				NOT = {
@@ -325,6 +430,10 @@ exploration_ideas = {
 		modifier = {
 			factor = 10
 			technology_group = high_american
+		}
+		modifier = {
+			factor = 1.2
+			num_of_ports = 3
 		}
 		modifier = {
 			factor = 2.0
@@ -343,76 +452,26 @@ exploration_ideas = {
 			num_of_ports = 20
 		}
 		modifier = {
-			factor = 40
+			factor = 2.0
 			OR = {
-				tag = GBR
-				tag = NED
-				tag = ENG
-				tag = FRA
-				tag = CAS
+				capital_scope = {
+					area = brittany_area
+				}
+				owns_all_provinces = {
+					area = brittany_area
+				}
 			}
 		}
 		modifier = {
-			factor = 50
-			technology_group = western
-			capital_scope = { region = iberia_region }
-			any_known_country = {
-				has_idea_group = exploration_ideas
-			}
-			num_of_ports = 3 
-		}
-		modifier = {
-			factor = 10
-			personality = ai_colonialist
-			has_idea_group = expansion_ideas
-		}
-
-		modifier = {	
-			factor = 3
-			technology_group = western 
-			num_of_ports = 5
-			any_neighbor_country = {
-				has_idea_group = exploration_ideas
-					num_of_colonies = 1
-				
+			factor = 1000.0
+			AND = {
+				xorme_exploration_idea_group_priority_trigger = yes
+				OR = {
+					xorme_can_select_second_idea_group_trigger = yes
+					xorme_can_select_third_idea_group_trigger = yes
+				}
 			}
 		}
-		modifier = {			
-			factor = 3
-			technology_group = western 
-			num_of_ports = 3
-			any_rival_country = {
-				has_idea_group = exploration_ideas
-	
-					num_of_colonies = 1
-				
-			}
-		}
-		modifier = {			
-			factor = 3
-			num_of_ports = 9
-			any_neighbor_country = {
-				has_idea_group = exploration_ideas
-
-					num_of_colonies = 1
-				
-			}
-		}
-		modifier = {			
-			factor = 3
-			num_of_ports = 7
-			any_rival_country = {
-				has_idea_group = exploration_ideas
-
-					num_of_colonies = 1
-				
-			}
-		}
-		modifier = {
-			factor = 0.75
-			is_year = 1600
-		}
-						
 	}
 }
 
@@ -455,43 +514,7 @@ maritime_ideas = {
 	}
 
 	ai_will_do = {
-		factor = 10
-		modifier = {
-			factor = 0
-			NOT = { num_of_ports = 3 }
-		}
-		modifier = {
-			factor = 0
-			NOT = { num_of_ports = 5 }
-			num_of_cities = 5
-		}
-		modifier = {
-			factor = 2
-			OR = {
-			tag = SPA
-			tag = ENG
-			tag = GBR
-			tag = CAS
-			tag = POR
-			tag = NED
-			tag = HOL
-			tag = BUR
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { num_of_ports = 8 }
-			num_of_cities = 10
-		}
-		modifier = {
-			factor = 3
-			OR = {
-				num_of_heavy_ship = 20
-				num_of_light_ship = 50
-				num_of_galley = 70
-			}
-		}
-	
+		factor = 0.25
 	}
 }
 
@@ -551,48 +574,33 @@ gross0 = {
 	}
 	
 	ai_will_do = {
-		factor = 10
+		factor = 1
+		#LIMIT
 		modifier = {
 			factor = 0
-			NOT = { num_of_ports = 3 }
+			is_tribal = yes
 		}
 		modifier = {
-			factor = 0
-			NOT = { num_of_ports = 5 }
-			num_of_cities = 5
+			factor = 0.5
+			NOT = { num_of_ports = 20 }
 		}
 		modifier = {
-			factor = 10
-			OR = {
-			tag = SPA
-			tag = ENG
-			tag = GBR
-			tag = CAS
-			tag = POR
-			tag = NED
-			tag = HOL
-			tag = BUR
+			factor = 0.8
+			NOT = { num_of_ports = 10 }
+		}
+		#POTENTIAl
+		modifier = {
+			factor = 3.0
+			is_colonial_nation = yes
+		}
+		modifier = {
+			factor = 4
+			ROOT ={
+				capital_scope = {
+					is_island = yes
+				}
 			}
 		}
-		modifier = {
-			factor = 0
-			NOT = { num_of_ports = 8 }
-			num_of_cities = 10
-		}
-		modifier = {
-			factor = 1.5
-			has_idea_group = maritime_ideas
-		}
-		modifier = {
-			factor = 2
-			OR = {
-				num_of_heavy_ship = 12
-				num_of_light_ship = 18
-				num_of_galley = 28
-			}
-			personality = ai_militarist 
-		}
-	
 	}
 }
 
@@ -748,35 +756,37 @@ handel0 = {
 	}
 	
 	ai_will_do = {
-		factor = 10
+		factor = 0.4
+		#LIMIT
 		modifier = {
 			factor = 0
-			NOT = { num_of_ports = 3 }
+			is_tribal = yes
 		}
 		modifier = {
-			factor = 0
-			NOT = { num_of_ports = 5 }
-			num_of_cities = 5
+			factor = 0.5
+			NOT = { num_of_ports = 20 }
 		}
 		modifier = {
-			factor = 0
-			NOT = { num_of_ports = 8 }
-			num_of_cities = 10
+			factor = 0.8
+			NOT = { num_of_ports = 10 }
+		}
+		#POTENTIAl
+		modifier = {
+			factor = 4.0
+			NOT = { trade_income_percentage = 0.3 }
 		}
 		modifier = {
-			factor = 1.5
-			has_idea_group = maritime_ideas
+			factor = 3.0
+			is_colonial_nation = yes
 		}
 		modifier = {
-			factor = 1.5
-			has_idea_group = flottenbasis0
+			factor = 3.5
+			ROOT ={
+				capital_scope = {
+					is_island = yes
+				}
+			}
 		}
-		modifier = {
-			factor = 20
-
-				num_of_light_ship = 50
-		}
-		
 	}
 }
 
