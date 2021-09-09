@@ -23,7 +23,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] xx/09/2021 [/h1]
 
 General
-- XORME AI building logic integrated
+- XORME AI building logic and a few tweaks integrated
 - Alcheringa religious idea added
 - Administration ideas reworked and are no longer light-mercenery group
 - GME: bunch of Korean monuments added
