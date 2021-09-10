@@ -26,6 +26,7 @@ General
 - Administration ideas reworked and are no longer light-mercenery group
 - XORME AI building and idea logic and a few tweaks integrated
 - Loading tips have been tweaked to make sense with the mod
+- New missions for Lithuanian (major), Poland (major), Westphalia (medium), Hannover (minor), Aachen (minor)
 - Alexandria is now a merchant republic
 - GME: bunch of Korean monuments added
 - Alcheringa religious idea added
