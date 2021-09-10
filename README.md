@@ -20,32 +20,34 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] xx/09/2021 [/h1]
+[h1] 10/09/2021 [/h1]
 
 General
-- XORME AI building logic and a few tweaks integrated
-- Alcheringa religious idea added
 - Administration ideas reworked and are no longer light-mercenery group
-- GME: bunch of Korean monuments added
+- XORME AI building and idea logic and a few tweaks integrated
+- Loading tips have been tweaked to make sense with the mod
 - Alexandria is now a merchant republic
+- GME: bunch of Korean monuments added
+- Alcheringa religious idea added
 
 Fixes
-- JOS.tga flag fixed
-- Added more colonial_region placeholders for RNW
 - Emperor of China Nomad disaster reinstated, nothing changed from vanilla but how the game and event is setup and how you get EoC in the shattered bookmark this event should only matter for the vanilla flavour bookmark.
+- Decisions that AI loves to spam at the start of the game slightly delayed as to spread out the start lag
 - Most English/Scottish goverment reforms can now be seen by Northumbrian culture
 - More add_prestige replaced by add_prestige_or_monarch_power (if at max)
+- Added more colonial_region placeholders for RNW since it somehow works
 - Some Rhenish related missions fixed as they did not appear
-- 2.3% chance that 1691 curse is removed
+- 5.3% chance that 1691 curse is removed
+- JOS.tga flag fixed
 
 Balance
-- Reduced small chunk of garrison_size modifers
-- Downscaled a good chunk of land_forcelimit modifiers
-- Downscaled a chunky piece of global_manpower modifiers
+- Slightly nerfed Concentrate development by decreasing total amount and how much of it goes only to the capital
 - build_cost_in_subject_nation = -0.25 moved from development to adminstrative ideas
 - Influence yearly_absolutism replaced by accept_vassalization_reasons
+- Downscaled a chunky piece of global_manpower modifiers
+- Downscaled a good chunk of land_forcelimit modifiers
+- Reduced small chunk of garrison_size modifers
 - Workshop cost increased by 50 ducats
-- Slightly nerfed Concentrate development by decreasing total amount and how much of it goes only to the capital
 
 [/quote]
 
