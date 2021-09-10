@@ -20,25 +20,35 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 24/08/2021 [/h1]
+[h1] 10/09/2021 [/h1]
+
+General
+- Administration ideas reworked and are no longer light-mercenery group
+- XORME AI building and idea logic and a few tweaks integrated
+- Loading tips have been tweaked to make sense with the mod
+- New missions for Lithuanian (major), Poland (major), Westphalia (medium), Hannover (minor), Aachen (minor)
+- Alexandria is now a merchant republic
+- GME: bunch of Korean monuments added
+- Alcheringa religious idea added
 
 Fixes
-- Italy Disaster not applying new reform
-- Added localisation for crownland_level_#.
-- France cores added to vanilla bookmark
-- Teutons Brothers of the sword tweaked
-- Korean mission scripted effects will work
-- Alcheringa rebels added
-- 1.46% that the 1691 bug is fixed
+- Emperor of China Nomad disaster reinstated, nothing changed from vanilla but how the game and event is setup and how you get EoC in the shattered bookmark this event should only matter for the vanilla flavour bookmark.
+- Decisions that AI loves to spam at the start of the game slightly delayed as to spread out the start lag
+- Most English/Scottish goverment reforms can now be seen by Northumbrian culture
+- More add_prestige replaced by add_prestige_or_monarch_power (if at max)
+- Added more colonial_region placeholders for RNW since it somehow works
+- Some Rhenish related missions fixed as they did not appear
+- 5.3% chance that 1691 curse is removed
+- JOS.tga flag fixed
 
 Balance
-- Saudi Arabian formable 3rd Idea changed from missionary to 15% cavalry combat
-- Economic Hegemon global_trade_goods_size_modifier reduced 0.20 > 0.10
-- Prosperity trade_goods_size_modifier reduced 0.25 > 0.15
-- Estate land control modifiers tweaked so that the less control of land you have, the less expensive it is for you to maintain your lands as the estates do it for you instead, this is so that being at 100% control is not a 100% positive but instead a choice. Tweaked other modifiers too, making low crownland as an option and not a complete negative
-- Cleaned up the crownland description also the lower numbers work in an increment of 10 instead of 5 ( higher numbers always worked in an increment of 10, don't ask why it worked like that) Total of 10 levels instead of 16
-- Low Crownland does not fuel vassal hatred towards you anymore
-
+- Slightly nerfed Concentrate development by decreasing total amount and how much of it goes only to the capital
+- build_cost_in_subject_nation = -0.25 moved from development to adminstrative ideas
+- Influence yearly_absolutism replaced by accept_vassalization_reasons
+- Downscaled a chunky piece of global_manpower modifiers
+- Downscaled a good chunk of land_forcelimit modifiers
+- Reduced small chunk of garrison_size modifers
+- Workshop cost increased by 50 ducats
 
 [/quote]
 
