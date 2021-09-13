@@ -1,0 +1,371 @@
+
+
+ALEXANDRIA_missions_column_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = ALX
+    }
+	has_country_shield = yes
+
+
+    ALEXANDRIA_conquer_bahari_state = {
+		icon = mission_egyptian_mamluk_soldier
+		required_missions = {
+            ALEXANDRIA_nile_state_focus
+
+		}
+		position = 2
+
+        provinces_to_highlight = {
+            area = bahari_area
+            NOT = { owned_by = root }
+		}
+        
+		trigger = {
+            bahari_area = {
+                owned_by = root
+            }
+
+		}
+		effect = {
+            add_prestige = 10
+
+		}
+	}
+
+    ALEXANDRIA_development_improvement = {
+		icon = mission_develop_nevas_port
+		required_missions = {
+            ALEXANDRIA_conquer_egypt
+
+		}
+		position = 4
+
+		provinces_to_highlight = {
+			owned_by = root
+            region = egypt_region
+            NOT = { num_of_times_improved = 5 }
+		}
+        
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 10
+				region = egypt_region
+				num_of_times_improved = 5
+			}
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = ALX_development_improvement
+				duration = 10950
+			}
+		}
+	}
+
+}
+
+
+ALEXANDRIA_missions_column_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = ALX
+    }
+	has_country_shield = yes
+
+	ALEXANDRIA_nile_state_focus = {
+		icon = the_italian_league
+		required_missions = {
+
+		}
+		position = 1
+
+        
+		trigger = {
+			OR = {
+				manpower_percentage = 0.9
+				army_size_percentage = 0.9
+			}
+			NOT = { war_exhaustion = 1 }
+		}
+		effect = {
+			bahari_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			vostani_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			said_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = nap_military_campaign
+				duration = 9125
+			}
+		}
+	}
+
+    ALEXANDRIA_conquer_vostani_state = {
+		icon = adriatic_access
+		required_missions = {
+            ALEXANDRIA_nile_state_focus
+
+		}
+		position = 2
+
+        provinces_to_highlight = {
+            area = vostani_area
+            NOT = { owned_by = root }
+		}
+        
+		trigger = {
+            vostani_area = {
+                owned_by = root
+            }
+
+		}
+		effect = {
+            add_prestige = 10
+
+		}
+	}
+
+	ALEXANDRIA_conquer_egypt = {
+		icon = fortify_malta
+		required_missions = {
+            ALEXANDRIA_conquer_vostani_state
+            ALEXANDRIA_conquer_said_state
+            ALEXANDRIA_conquer_bahari_state
+
+		}
+		position = 3
+
+        provinces_to_highlight = {
+            region = egypt_region
+            NOT = { owned_by = root }
+		}
+        
+		trigger = {
+
+		}
+		effect = {
+			egypt_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+    ALEXANDRIA_development_buildings = {
+		icon = mission_early_game_buildings
+		required_missions = {
+            ALEXANDRIA_conquer_egypt
+
+		}
+		position = 4
+
+		provinces_to_highlight = {
+			owned_by = root
+			has_tax_building_trigger = no
+            has_production_building_trigger = no
+		}
+        
+		trigger = {
+            num_of_owned_provinces_with = {
+                has_production_building_trigger = yes
+                has_tax_building_trigger = yes
+                value = 5
+            }
+
+		}
+		effect = {
+			custom_tooltip = alexandria_egypt_construction_cost_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = egypt_region
+					}
+					add_province_modifier = {
+						name = egypt_construction_cost_forever
+						duration = -1
+					}
+				}
+				
+			}
+		}
+	}
+
+
+    ALEXANDRIA_development_egypt_finisher = {
+		icon = prosperity_for_all
+		required_missions = {
+            ALEXANDRIA_development_buildings
+            ALEXANDRIA_development_improvement
+            ALEXANDRIA_development_unrest
+
+		}
+		position = 5
+
+		provinces_to_highlight = {
+			NOT = { owned_by = root }
+            region = egypt_region
+		}
+        
+		trigger = {
+            egypt_region = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+
+			custom_tooltip = alexandria_nile_states_defined.tooltip
+			custom_tooltip = alexandria_non_nile_construction_cost_tooltip
+			custom_tooltip = alexandria_nile_development_cost_tooltip
+            custom_tooltip = alexandria_state_prosperity_tooltip
+            
+            hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = bahari_area
+						area = vostani_area
+						area = said_area
+					}
+					add_province_modifier = {
+						name = nile_state_dev_cost_25
+						duration = 9125
+					}
+					add_province_modifier = {
+						name = nile_state_dev_cost_forever
+						duration = -1
+					}
+				}
+				every_owned_province = {
+					limit = {
+						area = cyrenaica_area
+						area = al_wahat_area
+						area = gulf_of_arabia_area
+	
+					}
+					add_province_modifier = {
+						name = non_nile_state_construction_cost_25
+						duration = 9125
+					}
+				}
+
+                # NILE STATES
+                delta_area = {
+                    add_prosperity = 75
+                }
+                bahari_area = {
+                    add_prosperity = 75
+                }
+                vostani_area = {
+                    add_prosperity = 75
+                }
+                said_area = {
+                    add_prosperity = 75
+                }
+
+                #NON NILE STATES
+                cyrenaica_area = {
+                    add_prosperity = 25
+                }
+				al_wahat_area = {
+					add_prosperity = 25
+				}
+				gulf_of_arabia_area = {
+					add_prosperity = 25
+				}
+            }
+		}
+	}
+
+}
+
+
+ALEXANDRIA_missions_column_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = ALX
+    }
+	has_country_shield = yes
+
+	ALEXANDRIA_conquer_said_state = {
+		icon = mission_arabian_fort
+		required_missions = {
+            ALEXANDRIA_nile_state_focus
+
+		}
+		position = 2
+
+        provinces_to_highlight = {
+            area = said_area
+            NOT = { owned_by = root }
+		}
+        
+		trigger = {
+            said_area = {
+                owned_by = root
+            }
+
+		}
+		effect = {
+            add_prestige = 10
+		}
+	}
+
+    ALEXANDRIA_development_unrest = {
+		icon = mission_market_place_with_asian_traders
+		required_missions = {
+            ALEXANDRIA_conquer_egypt
+
+		}
+		position = 4
+
+		provinces_to_highlight = {
+			owned_by = root
+            region = egypt_region
+            NOT = { unrest = 1 }
+		}
+        
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 15
+				region = egypt_region
+				NOT = { unrest = 1 }
+			}
+
+		}
+		effect = {
+			every_owned_province = {
+				limit = {
+					region = egypt_region
+				}
+				add_local_autonomy = -15
+			}
+		}
+	}
+
+}
