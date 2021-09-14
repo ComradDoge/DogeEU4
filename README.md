@@ -28,7 +28,7 @@ Flavour
 Balance
 - Administrative: nerfed monthly devastation -0.2 > -0.1 cause it basicaly negated the whole devastation mechanic
 - Absolutism Age: University objective 5>10 cause I felt like it
-- Ages special abilities requirements changed
+- Ages special abilities requirements and numbers tweaked
 - Espionage: given 0.2 special_unit_forcelimit
 
 [/quote]
