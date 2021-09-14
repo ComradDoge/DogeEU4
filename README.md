@@ -22,8 +22,14 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 10/09/2021 [/h1]
 
-General
-- Alexandria small mission tree
+Flavour
+- Minor decision for Galicia/Volhynia to combine the name
+
+Balance
+- Administrative: nerfed monthly devastation -0.2 > -0.1 cause it basicaly negated the whole devastation mechanic
+- Absolutism Age: University objective 5>10 cause I felt like it
+- Ages special abilities requirements changed
+- Espionage: given 0.2 special_unit_forcelimit
 
 [/quote]
 
