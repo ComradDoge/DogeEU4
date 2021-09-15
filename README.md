@@ -31,6 +31,9 @@ Balance
 - Ages special abilities requirements and numbers tweaked
 - Espionage: given 0.2 special_unit_forcelimit
 
+Fixes
+- Mine Icon missing
+
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
