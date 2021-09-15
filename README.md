@@ -33,6 +33,7 @@ Balance
 
 Fixes
 - Mine Icon missing
+- "Hire Advisor" decision localisation cleaned up
 
 [/quote]
 
