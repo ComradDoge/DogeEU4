@@ -22,23 +22,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 18/09/2021 [/h1]
 
-Flavour
-- Minor decision for Galicia/Volhynia to combine the name
-
-Balance
-- Administrative: nerfed monthly devastation -0.2 > -0.1 cause it basicaly negated the whole devastation mechanic
-- Absolutism Age: University objective 5>10 cause I felt like it
-- Ages special abilities requirements and numbers tweaked
-- Age related state edicts slightly buffed (yes they exist)
-- Espionage: given 0.2 special_unit_forcelimit (please pick it, its definately a good a idea group, I would never lie)
-
 Fixes
-- Mine Icon missing
-- "Hire Advisor" decision localisation cleaned up
-- Ebony is now shown in "Trade Good Info"
-- The Curse is lifted (99.9% sure) thank typedeck for it
-- USA name choosing event won't bugger you every 15 days
-- Background stuff regarding special modifiers for goods like camels, llamas or metalworking has been revamped and is much more responsive
+- Oda "Appease Shogun" mission tweaked
 
 [/quote]
 
