@@ -25,6 +25,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Fixes
 - Oda "Appease Shogun" mission tweaked
 - BYZ purple_phoenix pretender event that can bug out
+- Minor Jerusalem mission loc clarification
 
 [/quote]
 
