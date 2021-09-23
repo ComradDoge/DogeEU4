@@ -22,13 +22,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 22/09/2021 [/h1]
 
+Balance
+- Slightly buffed Reformed Trade option
+- Papal Golden Bull numbers buffed
+- Council of Trent modifiers tweaked
+
 Fixes
-- Error fixes
-- Missing italian reform mechanics
-- Oda "Appease Shogun" mission tweaked
-- Minor Jerusalem mission loc clarification
-- BYZ purple_phoenix pretender event that can bug out
-- The MP instability and save issue, might require a new campaign
+- Samogitia and Klaipeda got Lithuanian ideas
+- Generic Horde Ideas missing ideas
+
 
 [/quote]
 
