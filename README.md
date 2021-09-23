@@ -26,8 +26,9 @@ Fixes
 - Error fixes
 - Missing italian reform mechanics
 - Oda "Appease Shogun" mission tweaked
-- BYZ purple_phoenix pretender event that can bug out
 - Minor Jerusalem mission loc clarification
+- BYZ purple_phoenix pretender event that can bug out
+- The MP instability and save issue, might require a new campaign
 
 [/quote]
 
