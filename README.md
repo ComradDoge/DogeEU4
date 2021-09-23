@@ -20,25 +20,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 18/09/2021 [/h1]
-
-Flavour
-- Minor decision for Galicia/Volhynia to combine the name
-
-Balance
-- Administrative: nerfed monthly devastation -0.2 > -0.1 cause it basicaly negated the whole devastation mechanic
-- Absolutism Age: University objective 5>10 cause I felt like it
-- Ages special abilities requirements and numbers tweaked
-- Age related state edicts slightly buffed (yes they exist)
-- Espionage: given 0.2 special_unit_forcelimit (please pick it, its definately a good a idea group, I would never lie)
+[h1] 23/09/2021 [/h1]
 
 Fixes
-- Mine Icon missing
-- "Hire Advisor" decision localisation cleaned up
-- Ebony is now shown in "Trade Good Info"
-- The Curse is lifted (99.9% sure) thank typedeck for it
-- USA name choosing event won't bugger you every 15 days
-- Background stuff regarding special modifiers for goods like camels, llamas or metalworking has been revamped and is much more responsive
+- Error fixes
+- Missing italian reform mechanics
+- Oda "Appease Shogun" mission tweaked
+- Minor Jerusalem mission loc clarification
+- BYZ purple_phoenix pretender event that can bug out
+- The MP instability and save issue, might require a new campaign
 
 [/quote]
 
