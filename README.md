@@ -31,6 +31,7 @@ Balance
 - Council of Trent modifiers tweaked
 - Minor tweaks to some monuments
 - All monuments that were T2 or T3 at start are T1
+- Monument upgrade costs increased
 
 Fixes
 - Samogitia and Klaipeda got Lithuanian ideas
