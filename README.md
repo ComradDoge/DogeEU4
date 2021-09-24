@@ -24,6 +24,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 General
 - 4 new monuments in France
+- 1 new monument in Baghdad
 
 Balance
 - Slightly buffed Reformed Trade option
@@ -31,8 +32,8 @@ Balance
 - Council of Trent modifiers tweaked
 - Minor tweaks to some monuments
 - All monuments that were T2 or T3 at start are T1
-- Monument upgrade costs increased
-- Innovativeness gain from picking an idea first halved (1.0 > 0.5) 
+- Monument upgrade costs increased (now 2500/5000/10000)
+- Innovativeness gain from picking an idea and tech first decreased 
 
 Fixes
 - Samogitia and Klaipeda got Lithuanian ideas
