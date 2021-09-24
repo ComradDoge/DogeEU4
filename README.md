@@ -22,10 +22,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 22/09/2021 [/h1]
 
+General
+- 4 new monuments in France
+
 Balance
 - Slightly buffed Reformed Trade option
 - Papal Golden Bull numbers buffed
 - Council of Trent modifiers tweaked
+- Minor tweaks to some monuments
+- All monuments that were T2 or T3 at start are T1
 
 Fixes
 - Samogitia and Klaipeda got Lithuanian ideas
