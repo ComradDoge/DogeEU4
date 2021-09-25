@@ -41,7 +41,7 @@ Fixes
 - Samogitia and Klaipeda got Lithuanian ideas
 - Generic Horde Ideas missing ideas
 - Sell/Seize land for Rhineland Industrialists estate
-
+- Akershus mission province modifier (defensiveness) is no longer able to exert influence over all your provinces
 
 [/quote]
 
