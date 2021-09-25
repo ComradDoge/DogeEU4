@@ -23,8 +23,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 22/09/2021 [/h1]
 
 General
-- 5 new monuments in France
+- 6 new monuments in France
 - 1 new monument in Baghdad
+- 3 new monuments in Benelux
+- 4 new minor province flavour modifiers
 
 Balance
 - Slightly buffed Reformed Trade option
