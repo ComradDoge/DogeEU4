@@ -23,7 +23,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 22/09/2021 [/h1]
 
 General
-- 4 new monuments in France
+- 5 new monuments in France
 - 1 new monument in Baghdad
 
 Balance
@@ -38,6 +38,7 @@ Balance
 Fixes
 - Samogitia and Klaipeda got Lithuanian ideas
 - Generic Horde Ideas missing ideas
+- Sell/Seize land for Rhineland Industrialists estate
 
 
 [/quote]
