@@ -22,26 +22,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 22/09/2021 [/h1]
 
-General
-- 6 new monuments in France
-- 1 new monument in Baghdad
-- 3 new monuments in Benelux
-- 4 new minor province flavour modifiers
-
-Balance
-- Slightly buffed Reformed Trade option
-- Papal Golden Bull numbers buffed
-- Council of Trent modifiers tweaked
-- Minor tweaks to some monuments
-- All monuments that were T2 or T3 at start are T1
-- Monument upgrade costs increased (now 2500/5000/10000)
-- Innovativeness gain from picking tech and idea first decreased (4/2>2/1)
-
 Fixes
-- Samogitia and Klaipeda got Lithuanian ideas
-- Generic Horde Ideas missing ideas
-- Sell/Seize land for Rhineland Industrialists estate
-- Akershus mission province modifier (defensiveness) is no longer able to exert influence over all your provinces
+- Klaipeda, Samogitia idea fix
 
 [/quote]
 
