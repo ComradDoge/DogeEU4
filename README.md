@@ -35,7 +35,7 @@ Balance
 - Minor tweaks to some monuments
 - All monuments that were T2 or T3 at start are T1
 - Monument upgrade costs increased (now 2500/5000/10000)
-- Innovativeness gain from picking an idea and tech first decreased 
+- Innovativeness gain from picking tech and idea first decreased (4/2>2/1)
 
 Fixes
 - Samogitia and Klaipeda got Lithuanian ideas
