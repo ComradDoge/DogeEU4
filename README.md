@@ -20,15 +20,28 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 [quote]
-[h1] 23/09/2021 [/h1]
+[h1] 22/09/2021 [/h1]
+
+General
+- 6 new monuments in France
+- 1 new monument in Baghdad
+- 3 new monuments in Benelux
+- 4 new minor province flavour modifiers
+
+Balance
+- Slightly buffed Reformed Trade option
+- Papal Golden Bull numbers buffed
+- Council of Trent modifiers tweaked
+- Minor tweaks to some monuments
+- All monuments that were T2 or T3 at start are T1
+- Monument upgrade costs increased (now 2500/5000/10000)
+- Innovativeness gain from picking tech and idea first decreased (4/2>2/1)
 
 Fixes
-- Error fixes
-- Missing italian reform mechanics
-- Oda "Appease Shogun" mission tweaked
-- Minor Jerusalem mission loc clarification
-- BYZ purple_phoenix pretender event that can bug out
-- The MP instability and save issue, might require a new campaign
+- Samogitia and Klaipeda got Lithuanian ideas
+- Generic Horde Ideas missing ideas
+- Sell/Seize land for Rhineland Industrialists estate
+- Akershus mission province modifier (defensiveness) is no longer able to exert influence over all your provinces
 
 [/quote]
 
