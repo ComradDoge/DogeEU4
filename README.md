@@ -24,6 +24,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 Fixes
 - Klaipeda, Samogitia idea fix
+- Harmonzing Jewish or Zoroastrian groups should no longer demolish your existence
 - Lots of internal clean up
 
 [/quote]
