@@ -24,6 +24,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 
 Fixes
 - Klaipeda, Samogitia idea fix
+- Lots of internal clean up
 
 [/quote]
 
