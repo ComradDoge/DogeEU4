@@ -23,10 +23,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [h1] 28/09/2021 [/h1]
 
 Fixes
-- Lots of internal clean up
-- Klaipeda, Samogitia idea fix
-- Harmonzing Jewish or Zoroastrian groups should no longer demolish your existence
-- Portuguese/Granadan/Spanish/Aragonese mission tree spread out over iberia region countries, some might be weird but its better than having the basic tree
+- Sicilian mission tree split for better gameplay choice in SP/MP
 
 [/quote]
 
