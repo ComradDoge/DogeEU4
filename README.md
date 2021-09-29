@@ -22,6 +22,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [quote]
 [h1] 28/09/2021 [/h1]
 
+General
+- Addded Missions: Ethiopia
+
 Balance
 - Coptic Blessings: Discipline 2.5%>5%, Manpower Recovery 10%>15%, Core Creation -10%>-15%
 - Cathar Aspects: Advisor Cost -5%>-10%, Production Efficiency 10%>15%, Land Morale 10%>15%, Missionary Strength 1%>2%
