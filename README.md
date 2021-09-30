@@ -31,6 +31,9 @@ Balance
 
 Fixes
 - Sicilian mission tree split for better gameplay choice in SP/MP
+- Azerbaijan Ideas: monthly_piety 2>0.2
+- South German Confederation province requirements
+- Lower Saxon culture not seeing Germany formable decision
 
 [/quote]
 
