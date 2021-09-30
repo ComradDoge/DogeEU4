@@ -492,38 +492,14 @@ cannon_foundry = {
 	}	
 	ai_will_do = {
 		factor = 2000
-		
+
 		modifier = {	
 			factor = 0
-			any_owned_province = { 
-				has_building = off
+			FROM = {
+				cannon = 3
 			}
 		}
 		
-		modifier = {	
-			factor = 0
-			owner = {
-				check_variable = {
-					which = cannon_foundry_amount
-					value = 3
-				}
-				
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			any_owned_province = { 
-				has_construction = building
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			ROOT = {
-				has_province_flag = has_latent_good
-			}
-		}
 	}
 }
 
@@ -647,35 +623,10 @@ metalworking_workshop = {
 		
 		modifier = {	
 			factor = 0
-			any_owned_province = { 
-				has_building = off_2
+			FROM = {
+				metalworking = 3
 			}
 		}
-		
-		modifier = {	
-			factor = 0
-			owner = {
-				check_variable = {
-					which = metalworking_workshop_amount
-					value = 3
-				}
-				
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			any_owned_province = { 
-				has_construction = building
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			ROOT = {
-				has_province_flag = has_latent_good
-			}
-		}		
 	}
 }
 
@@ -794,36 +745,11 @@ munition_factory = {
 	
 	ai_will_do = {
 		factor = 3000
-		
+
 		modifier = {	
 			factor = 0
-			any_owned_province = { 
-				has_building = off_3
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			owner = {
-				check_variable = {
-					which = munition_factory_amount
-					value = 3
-				}
-				
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			any_owned_province = { 
-				has_construction = building
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			ROOT = {
-				has_province_flag = has_latent_good
+			FROM = {
+				munitions = 3
 			}
 		}
 	}
@@ -877,13 +803,15 @@ wood_workshop = {
 	}	
 	
 	ai_will_do = {
-		factor = 1000
+		factor = 700
+		
 		modifier = {	
 			factor = 0
-			ROOT = {
-				has_province_flag = has_latent_good
+			FROM = {
+				woodworking = 3
 			}
 		}
+
 	}
 }
 
@@ -944,7 +872,64 @@ leather_workshop = {
 }
 
 
+sculpture_workshop = {
+	cost = 1000
+	time = 16
+	
+	build_trigger = {
+		ROOT = {
+			trade_goods = marble
+			development = 15
+			NOT = { has_province_flag = has_latent_good }
+		}
+		
+		has_dlc = "Leviathan"
+		
+		FROM = {
+			adm_tech = 10
+			OR = {
+				innovativeness = 10
+				NOT = { has_dlc = "Rule Britannia" }
+			}
+			
+		}
+		NOT = { has_global_flag = No_Marble_sculpture }
+	}
+	
+	
 
+	on_built = {
+		hidden_effect = { 
+			ROOT = { 
+				goods_save = yes
+				change_trade_goods = marble_sculpture 
+				set_province_flag = has_latent_good
+			}
+		}
+	}
+	
+	on_destroyed = {
+		ROOT = {
+			clr_province_flag = has_latent_good
+			goods_back = yes	
+		}
+	}
+
+	modifier = {
+		allowed_num_of_buildings = 1
+		local_governing_cost = 0.15
+	}	
+	
+	ai_will_do = {
+		factor = 1
+		
+		modifier = {	
+			factor = 0
+			NOT = { has_dlc = "Leviathan" }
+		}
+		
+	}
+}
 
 
 jewellery_workshop = {
@@ -1070,13 +1055,14 @@ uniforms_workshop = {
 	
 	ai_will_do = {
 		factor = 2000
-		
+
 		modifier = {	
 			factor = 0
-			ROOT = {
-				has_province_flag = has_latent_good
+			FROM = {
+				uniforms = 3
 			}
 		}
+		
 	}
 }
 
@@ -1258,37 +1244,13 @@ steam_engine_manu = {
 
 	ai_will_do = {
 		factor = 6000
+
 		modifier = {	
 			factor = 0
-			any_owned_province = { 
-				has_building = off_4
+			FROM = {
+				steam_engine = 3
 			}
-		}
-		
-		modifier = {	
-			factor = 0
-			owner = {
-				check_variable = {
-					which = steam_engine_manu_amount
-					value = 3
-				}
-				
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			any_owned_province = { 
-				has_construction = building
-			}
-		}
-		
-		modifier = {	
-			factor = 0
-			ROOT = {
-				has_province_flag = has_latent_good
-			}
-		}
+		}	
 	}
 }
 
@@ -1464,12 +1426,14 @@ spectacle_factory = {
 	
 	ai_will_do = {
 		factor = 1000
+		
 		modifier = {	
 			factor = 0
-			any_owned_province = { 
-				has_building = off_5
+			FROM = {
+				optics = 3
 			}
 		}
+
 	}
 }
 
@@ -1564,40 +1528,47 @@ Ai_def_push_dip = {
 	one_per_country = yes
 	
 	build_trigger = {
-		owner = {
-			dip_power = 450
+		FROM = {
+			dip_power = 650
 			is_subject = no
 			ai = yes
 		}
-
-
+		
 		OR = {
 			AND = {
-				owner = {
-					any_owned_province = { trade_goods = copper	}
-					
+				FROM = {
+					copper = 1	
 					OR = {
 						innovativeness = 7
 						NOT = { has_dlc = "Rule Britannia" }
 					}
 				}
-				
-				OR = {
-					ROOT = { trade_goods = zinc }
-					ROOT = { trade_goods = tin }
-				}
-				
+				ROOT = { trade_goods = tin }
 				ROOT = { 
-					NOT = { base_production = 5 }
+					NOT = { base_production = 10 }
 				}
 			}
-
+			
+			AND = {
+				FROM = {
+					tin = 1	
+					OR = {
+						innovativeness = 7
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+				}
+				ROOT = { trade_goods = copper }
+				ROOT = { 
+					NOT = { base_production = 10 }
+				}
+			}
+			
 			AND = {
 				ROOT = { 
 					trade_goods = livestock 
 					NOT = { development = 10 }
 				}	
-				owner = {
+				FROM = {
 					OR = {
 						innovativeness = 7
 						NOT = { has_dlc = "Rule Britannia" }
@@ -1608,10 +1579,24 @@ Ai_def_push_dip = {
 			
 			AND = {
 				ROOT = { 
+					trade_goods = marble 
+					NOT = { development = 15 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 7
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					adm_tech = 7
+				}
+			}
+			
+			AND = {
+				ROOT = { 
 					trade_goods = lumber 
 					NOT = { development = 10 }
 				}	
-				owner = {
+				FROM = {
 					OR = {
 						innovativeness = 5
 						NOT = { has_dlc = "Rule Britannia" }
@@ -1623,9 +1608,9 @@ Ai_def_push_dip = {
 			AND = {
 				ROOT = { 
 					trade_goods = lead
-					NOT = { base_production = 8 }
+					NOT = { base_production = 10 }
 				}	
-				owner = {
+				FROM = {
 					OR = {
 						innovativeness = 17
 						NOT = { has_dlc = "Rule Britannia" }
@@ -1637,9 +1622,9 @@ Ai_def_push_dip = {
 			AND = {
 				ROOT = { 
 					trade_goods = iron
-					NOT = { base_production = 8 }
+					NOT = { base_production = 10 }
 				}	
-				owner = {
+				FROM = {
 					OR = {
 						innovativeness = 15
 						NOT = { has_dlc = "Rule Britannia" }
@@ -1647,8 +1632,23 @@ Ai_def_push_dip = {
 					mil_tech = 18
 				}
 			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = glass
+					NOT = { base_production = 10 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 15
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					dip_tech = 9
+				}
+			}
+			
 		}
-		
+
 		variable_arithmetic_trigger = {				
 			export_to_variable = {
 				variable_name = Base_tax 
@@ -1679,12 +1679,6 @@ Ai_def_push_dip = {
 			}
 		}
 	}
-	
-	potential = {
-		ai = yes
-		
-	}
-	
 
 	on_built = {
 		ROOT = {
@@ -1716,29 +1710,37 @@ Ai_def_push_tax = {
 	time = 1
 
 	build_trigger = {
-		owner = {
-			adm_power = 450
+		FROM = {
+			adm_power = 650
 			is_subject = no
 			ai = yes
 		}
 		OR = {
 			AND = {
-				owner = {
-					any_owned_province = { trade_goods = copper	}
-					
+				FROM = {
+					copper = 1	
 					OR = {
 						innovativeness = 7
 						NOT = { has_dlc = "Rule Britannia" }
 					}
 				}
-				
-				OR = {
-					ROOT = { trade_goods = zinc }
-					ROOT = { trade_goods = tin }
-				}
-				
+				ROOT = { trade_goods = tin }
 				ROOT = { 
-					NOT = { base_production = 5 }
+					NOT = { base_production = 10 }
+				}
+			}
+			
+			AND = {
+				FROM = {
+					tin = 1	
+					OR = {
+						innovativeness = 7
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+				}
+				ROOT = { trade_goods = copper }
+				ROOT = { 
+					NOT = { base_production = 10 }
 				}
 			}
 			
@@ -1747,7 +1749,7 @@ Ai_def_push_tax = {
 					trade_goods = livestock 
 					NOT = { development = 10 }
 				}	
-				owner = {
+				FROM = {
 					OR = {
 						innovativeness = 7
 						NOT = { has_dlc = "Rule Britannia" }
@@ -1758,10 +1760,24 @@ Ai_def_push_tax = {
 			
 			AND = {
 				ROOT = { 
+					trade_goods = marble 
+					NOT = { development = 15 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 7
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					adm_tech = 7
+				}
+			}
+			
+			AND = {
+				ROOT = { 
 					trade_goods = lumber 
 					NOT = { development = 10 }
 				}	
-				owner = {
+				FROM = {
 					OR = {
 						innovativeness = 5
 						NOT = { has_dlc = "Rule Britannia" }
@@ -1773,9 +1789,9 @@ Ai_def_push_tax = {
 			AND = {
 				ROOT = { 
 					trade_goods = lead
-					NOT = { base_production = 8 }
+					NOT = { base_production = 10 }
 				}	
-				owner = {
+				FROM = {
 					OR = {
 						innovativeness = 17
 						NOT = { has_dlc = "Rule Britannia" }
@@ -1787,14 +1803,28 @@ Ai_def_push_tax = {
 			AND = {
 				ROOT = { 
 					trade_goods = iron
-					NOT = { base_production = 8 }
+					NOT = { base_production = 10 }
 				}	
-				owner = {
+				FROM = {
 					OR = {
 						innovativeness = 15
 						NOT = { has_dlc = "Rule Britannia" }
 					}
 					mil_tech = 18
+				}
+			}
+			
+			AND = {
+				ROOT = { 
+					trade_goods = glass
+					NOT = { base_production = 10 }
+				}	
+				FROM = {
+					OR = {
+						innovativeness = 15
+						NOT = { has_dlc = "Rule Britannia" }
+					}
+					dip_tech = 9
 				}
 			}
 			
@@ -1830,12 +1860,6 @@ Ai_def_push_tax = {
 			}
 		}
 	}
-	
-	potential = {
-		ai = yes
-		
-	}
-	
 
 	on_built = {
 		ROOT = {
@@ -1860,6 +1884,7 @@ Ai_def_push_tax = {
 		factor = 1000
 	}
 }
+
 
 
 

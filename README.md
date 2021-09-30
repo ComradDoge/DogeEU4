@@ -22,23 +22,16 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.31.6
 Checksum:
 [quote]
-[h1] 30/09/2021 [/h1]
+[h1] 31/09/2021 [/h1]
 
 General
-- Addded Missions: Ethiopia
-- 1.31.6 Update
+- TGE: Marble Sculptures latent good
 
 Balance
-- Coptic Blessings: Discipline 2.5%>5%, Manpower Recovery 10%>15%, Core Creation -10%>-15%
-- Cathar Aspects: Advisor Cost -5%>-10%, Production Efficiency 10%>15%, Land Morale 10%>15%, Missionary Strength 1%>2%
+
 
 Fixes
-- Polish minors forming Poland getting default ideas
-- Sicilian mission tree split for better gameplay choice in SP/MP
-- Azerbaijan Ideas: monthly_piety 2>0.2
-- South German Confederation province requirements
-- Lower Saxon culture not seeing Germany formable decision
-- Horde Ideas not appearing for hordes
+
 
 [/quote]
 
