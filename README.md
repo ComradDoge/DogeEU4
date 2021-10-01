@@ -20,18 +20,24 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 Version: 1.31.6
-Checksum:
+Checksum: 0915
 [quote]
-[h1] 31/09/2021 [/h1]
+[h1] 1/10/2021 [/h1]
 
 General
 - TGE: Marble Sculptures latent good
 
 Balance
-
+- Monastic Brewery takes Beer now as well, nerfed values overall
+- Investigate Heresy: heresy speed increase 50%>25%
 
 Fixes
-
+- Indian Purbias Register reform appearing twice
+- Capitanata ruler is no longer a vampire
+- Indigo dye price change event localisation cleaned up
+- Innovative Ideas: 
+-- reform progress growth removed as it doesnt actually work
+-- mercenery_cost idea replaced with global_institution_spread and embracement_cost
 
 [/quote]
 
