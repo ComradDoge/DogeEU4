@@ -20,24 +20,21 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 Version: 1.31.6
-Checksum: 0915
+Checksum: 
 [quote]
 [h1] 1/10/2021 [/h1]
 
 General
-- TGE: Marble Sculptures latent good
+
 
 Balance
-- Monastic Brewery takes Beer now as well, nerfed values overall
-- Investigate Heresy: heresy speed increase 50%>25%
+- Winter/Monsoon speed severity reduced
+- Ideas tweaked: Macronesia, Imperial/Republican Russia
+- Blood Tax requires your vassal to have minimum 25 dev to count, don't keep zoos. No longer limited to french culture group.
+- Hanseatic Ties reform got the 25 dev minimum as well
 
 Fixes
-- Indian Purbias Register reform appearing twice
-- Capitanata ruler is no longer a vampire
-- Indigo dye price change event localisation cleaned up
-- Innovative Ideas: 
--- reform progress growth removed as it doesnt actually work
--- mercenery_cost idea replaced with global_institution_spread and embracement_cost
+- Papal religious league, Alexandrian final mission and Livonian crusader missions slightly tweaked
 
 [/quote]
 
