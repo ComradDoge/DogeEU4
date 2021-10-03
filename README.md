@@ -29,7 +29,7 @@ General
 
 Balance
 - Winter/Monsoon speed severity reduced
-- Ideas tweaked: Macronesia, Imperial/Republican Russia
+- Ideas tweaked: Macronesia, Imperial/Republican Russia, France
 - Blood Tax requires your vassal to have minimum 25 dev to count, don't keep zoos. No longer limited to french culture group.
 - Hanseatic Ties reform got the 25 dev minimum as well
 
