@@ -35,6 +35,9 @@ Balance
 
 Fixes
 - Papal religious league, Alexandrian final mission and Livonian crusader missions slightly tweaked
+- Republics: Lowered T7 empowered reforms point requirement from 3>2 and it provides the final points for T8 empowered reform.
+- Binnenhof is no longer populated by Vogons
+- Prussia mission fix mentioning brass tradegood which is no longer used
 
 [/quote]
 
