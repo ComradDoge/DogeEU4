@@ -24,10 +24,7 @@ Checksum:
 [quote]
 [h1] 1/10/2021 [/h1]
 
-General
-
-
-Balance
+General/Balance
 - Winter/Monsoon speed severity reduced
 - Ideas tweaked: Macronesia, Imperial/Republican Russia, France
 - Blood Tax requires your vassal to have minimum 25 dev to count, don't keep zoos. No longer limited to french culture group.
@@ -37,7 +34,9 @@ Fixes
 - Papal religious league, Alexandrian final mission and Livonian crusader missions slightly tweaked
 - Republics: Lowered T7 empowered reforms point requirement from 3>2 and it provides the final points for T8 empowered reform.
 - Binnenhof is no longer populated by Vogons
+- Added localisation for east_asian custom colonial nation names (11 regions, 6 for each )
 - Prussia mission fix mentioning brass tradegood which is no longer used
+- Lots of internal clean up
 
 [/quote]
 
