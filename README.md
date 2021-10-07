@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.31.6
 Checksum: 
 [quote]
-[h1] 1/10/2021 [/h1]
+[h1] 7/10/2021 [/h1]
 
 General/Balance
 - Winter/Monsoon speed severity reduced
@@ -33,9 +33,9 @@ General/Balance
 Fixes
 - Papal religious league, Alexandrian final mission and Livonian crusader missions slightly tweaked
 - Republics: Lowered T7 empowered reforms point requirement from 3>2 and it provides the final points for T8 empowered reform.
-- Binnenhof is no longer populated by Vogons
 - Added localisation for east_asian custom colonial nation names (11 regions, 6 for each )
 - Prussia mission fix mentioning brass tradegood which is no longer used
+- Binnenhof is no longer populated by Vogons
 - Lots of internal clean up
 
 [/quote]
