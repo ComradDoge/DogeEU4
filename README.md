@@ -22,18 +22,26 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.31.6
 Checksum: 
 [quote]
-[h1] 7/10/2021 [/h1]
+[h1] x/10/2021 [/h1]
 
 Balance
+- Monthly_piety removed from all ideas
+- Estates: merchant_republics, veche_republics and trading_cities will have access to estates except burghers/jains/vasaiyas
+
+Religion
 - Mysticism: land_morale 10%>20%
 - Legalism: tech_cost 10%>5%
-- Coptic: rep_tradition 0.2>0.3
-- monthly_piety removed from all ideas
+- Lollard Aspects: tech_cost 5%>10%, tax 15%>25%
+- Build_cost sources in religions changed to production efficiency
+- Coptic Blessings: rep_tradition 0.2>0.3, missionary_strength 1.5%>2%
+- Zoroastrian Blessings: manpower_recovery speed 10%>15%, build_cost>build_time -0.15, missionary_strenght 3%>2%
+
 
 Fixes
-- Colonial Empire weighted less for AI to pick
+- Hesse reforms buggin
 - Florence Santa Maria missing picture
 - Humanist 7.5% morale will work for Empires
+- Colonial Empire weighted less for AI to pick
 - rock_hewn_churches missionary strength modifier removed
 
 [/quote]
