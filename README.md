@@ -26,10 +26,14 @@ Checksum:
 
 Balance
 - Mysticism: land_morale 10%>20%
+- Legalism: tech_cost 10%>5%
+- Coptic: rep_tradition 0.2>0.3
 - monthly_piety removed from all ideas
 
 Fixes
-
+- Colonial Empire weighted less for AI to pick
+- Florence Santa Maria missing picture
+- Humanist 7.5% morale will work for Empires
 
 [/quote]
 
