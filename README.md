@@ -34,6 +34,7 @@ Fixes
 - Colonial Empire weighted less for AI to pick
 - Florence Santa Maria missing picture
 - Humanist 7.5% morale will work for Empires
+- rock_hewn_churches missionary strength modifier removed
 
 [/quote]
 
