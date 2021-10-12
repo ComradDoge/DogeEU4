@@ -34,7 +34,7 @@ Religion
 - Lollard Aspects: tech_cost 5%>10%, tax 15%>25%
 - Build_cost sources in religions changed to production efficiency
 - Coptic Blessings: rep_tradition 0.2>0.3, missionary_strength 1.5%>2%
-- Zoroastrian Blessings: manpower_recovery speed 10%>15%, build_cost>build_time -0.15, missionary_strenght 3%>2%
+- Zoroastrian Blessings: manpower_recovery speed 10%>20%, build_cost>build_time -0.15, missionary_strenght 3%>2%
 
 
 Fixes
