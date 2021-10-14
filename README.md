@@ -22,21 +22,27 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.31.6
 Checksum: 
 [quote]
-[h1] 7/10/2021 [/h1]
+[h1] x/10/2021 [/h1]
 
-General/Balance
-- Winter/Monsoon speed severity reduced
-- Ideas tweaked: Macronesia, Imperial/Republican Russia, France
-- Blood Tax requires your vassal to have minimum 25 dev to count, don't keep zoos. No longer limited to french culture group.
-- Hanseatic Ties reform got the 25 dev minimum as well
+Balance
+- Monthly_piety removed from all ideas
+- Estates: merchant_republics, veche_republics and trading_cities will have access to estates except burghers/jains/vasaiyas
+
+Religion
+- Mysticism: land_morale 10%>20%
+- Legalism: tech_cost 10%>5%
+- Lollard Aspects: tech_cost 5%>10%, tax 15%>25%
+- Build_cost sources in religions changed to production efficiency
+- Coptic Blessings: rep_tradition 0.2>0.3, missionary_strength 1.5%>2%
+- Zoroastrian Blessings: manpower_recovery speed 10%>20%, build_cost>build_time -0.15, missionary_strenght 3%>2%
+
 
 Fixes
-- Papal religious league, Alexandrian final mission and Livonian crusader missions slightly tweaked
-- Republics: Lowered T7 empowered reforms point requirement from 3>2 and it provides the final points for T8 empowered reform.
-- Added localisation for east_asian custom colonial nation names (11 regions, 6 for each )
-- Prussia mission fix mentioning brass tradegood which is no longer used
-- Binnenhof is no longer populated by Vogons
-- Lots of internal clean up
+- Hesse reforms buggin
+- Florence Santa Maria missing picture
+- Humanist 7.5% morale will work for Empires
+- Colonial Empire weighted less for AI to pick
+- rock_hewn_churches missionary strength modifier removed
 
 [/quote]
 
