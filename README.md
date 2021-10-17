@@ -26,6 +26,15 @@ Checksum:
 
 General
 
+Balance
+- Estate disaster progress at 100% influence 0.5 > 1
+- Massive trade_goods_size_modifier nerf
+
+Fixes
+- Alexandria mission modifier fix
+- 1 Discipline policy not being limited
+- Gaeldom britanny mission fix
+- War Taxes: unrest modifier removed, lowered the values of other modifiers
 
 
 [/quote]
