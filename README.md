@@ -34,6 +34,7 @@ Fixes
 - Alexandria mission modifier fix
 - 1 Discipline policy not being limited
 - Gaeldom britanny mission fix
+- West Slavic Monarchy heir issue fixed by term elections
 - War Taxes: unrest modifier removed, lowered the values of other modifiers
 
 
