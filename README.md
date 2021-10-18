@@ -29,6 +29,8 @@ General
 Balance
 - Estate disaster progress at 100% influence 0.5 > 1
 - Massive trade_goods_size_modifier nerf
+- Recruit generals gives 1% proffesionalism instead of 0.5%
+- Kongo Ideas: other forms of legitimacy added and slight buff
 
 Fixes
 - Alexandria mission modifier fix
