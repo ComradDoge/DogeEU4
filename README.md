@@ -28,14 +28,18 @@ General
 
 Balance
 - Estate disaster progress at 100% influence 0.5 > 1
-- Massive trade_goods_size_modifier nerf
-- Recruit generals gives 1% proffesionalism instead of 0.5%
+- Recruiting mercenaries no longer costs professionalism
+- Recruit generals gives 1% professionalism instead of 0.5%
 - Kongo Ideas: other forms of legitimacy added and slight buff
+- Massive trade_goods_size_modifier and global_trade_goods_size_modifier nerf
 
 Fixes
+- Gaeldom britanny mission fix
 - Alexandria mission modifier fix
 - 1 Discipline policy not being limited
-- Gaeldom britanny mission fix
+- 1 Development policy not being limited
+- Subject view governing capacity positioning
+- Development cost policies standardized and cleaned up
 - West Slavic Monarchy heir issue fixed by term elections
 - War Taxes: unrest modifier removed, lowered the values of other modifiers
 
