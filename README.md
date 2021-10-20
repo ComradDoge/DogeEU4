@@ -22,26 +22,46 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.31.6
 Checksum: 
 [quote]
-[h1] x/10/2021 [/h1]
+[h1] 20/10/2021 [/h1]
 
 General
+- Quantity ideas severely nerfed
+- Conscription ideas severely buffed
+- Tweaked State Affairs and its policies slightly
+- Recruiting mercenaries no longer costs professionalism
+- Some reinforce cost/speed policies and ideas tweaked, some buffed some nerfed
+- trade_goods_size_modifier and global_trade_goods_size_modifier sources severely nerfed
+
 
 Balance
 - Estate disaster progress at 100% influence 0.5 > 1
-- Recruiting mercenaries no longer costs professionalism
+- Some government reforms buffed to be viable options
 - Recruit generals gives 1% professionalism instead of 0.5%
 - Kongo Ideas: other forms of legitimacy added and slight buff
-- Massive trade_goods_size_modifier and global_trade_goods_size_modifier nerf
+- Some advisors modifiers nerfed/buffed and some AI logic added
+- Ideas where discipline is 2.5%, 3% or 3.5% upped to 5%, I forgor
+- Hindu and Suomenusko discipline deity 2.5% > 5%, hindu ae 5%>10%
+- Austria-Bavaria idea set got discipline to equal Bavarian version
+- War Taxes: unrest modifier removed, slightly lowered the values of other modifiers
+- Norse Ideas: colonist removed, no replacement as fleetbase mechanic already exists
+- Mass Ship Building state edict modifiers reversed (time good money bad > time bad money good)
+- Mercenary Ideas: 2nd idea merc_cost removed replaced with possible_condottieri, bonus slot merc_cost 0.20>0.25
+- Professionalism 80% and 100% tiers buffed to insentivise not slacking as much, modifiers slightly moved around
+- Mercenary cost modifiers cleaned up in ideas and standardized (maintenance 0.1/0.2>0.15, cost 0.15/0.2 > 0.1) with some exceptions
 
 Fixes
-- Gaeldom britanny mission fix
-- Alexandria mission modifier fix
-- 1 Discipline policy not being limited
-- 1 Development policy not being limited
+- 1 Discipline policy not being limited to 2
+- 1 Development policy not being limited to 2
+- Geat culture gets access to Swedish reforms
 - Subject view governing capacity positioning
+- Gaeldom britanny mission fix refusing to budge
+- Forming Egypt gives option to gets Egyptian ideas
 - Development cost policies standardized and cleaned up
 - West Slavic Monarchy heir issue fixed by term elections
-- War Taxes: unrest modifier removed, lowered the values of other modifiers
+- Alexandria mission modifier fix allowing for -100% build cost
+- Added some logic to horde ruler traits to not appear elsewhere
+- If Geat culture forms Scandinavia it will get Swedish version ideas
+- Albanian mission 1st column interference when getting new mission tree
 
 
 [/quote]
