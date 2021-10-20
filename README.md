@@ -27,7 +27,7 @@ Checksum:
 General
 - Quantity ideas severely nerfed
 - Conscription ideas severely buffed
-- Tweaked State Affairs and its policies slightly
+- Winning massive battles gives professionalism
 - Recruiting mercenaries no longer costs professionalism
 - Some reinforce cost/speed policies and ideas tweaked, some buffed some nerfed
 - trade_goods_size_modifier and global_trade_goods_size_modifier sources severely nerfed
