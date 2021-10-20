@@ -62,7 +62,7 @@ Fixes
 - Added some logic to horde ruler traits to not appear elsewhere
 - If Geat culture forms Scandinavia it will get Swedish version ideas
 - Albanian mission 1st column interference when getting new mission tree
-
+- Angevin Realm no longer requires Isle-de-France and instead requires the Loire Valley state
 
 [/quote]
 
