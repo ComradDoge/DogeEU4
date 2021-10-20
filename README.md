@@ -59,6 +59,7 @@ Fixes
 - Development cost policies standardized and cleaned up
 - West Slavic Monarchy heir issue fixed by term elections
 - Alexandria mission modifier fix allowing for -100% build cost
+- Austria mission section focusing on western expansion tweaked
 - Added some logic to horde ruler traits to not appear elsewhere
 - If Geat culture forms Scandinavia it will get Swedish version ideas
 - Albanian mission 1st column interference when getting new mission tree
