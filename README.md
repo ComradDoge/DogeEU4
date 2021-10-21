@@ -58,6 +58,7 @@ Fixes
 - Forming Egypt gives option to gets Egyptian ideas
 - Development cost policies standardized and cleaned up
 - West Slavic Monarchy heir issue fixed by term elections
+- Korea mission missing some activators preventing progress
 - Alexandria mission modifier fix allowing for -100% build cost
 - Austria mission section focusing on western expansion tweaked
 - Added some logic to horde ruler traits to not appear elsewhere
