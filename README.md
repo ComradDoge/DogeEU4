@@ -24,48 +24,14 @@ Checksum: f524
 [quote]
 [h1] 21/10/2021 [/h1]
 
-General
-- Quantity ideas severely nerfed
-- Conscription ideas severely buffed
-- Winning massive battles gives professionalism
-- Recruiting mercenaries no longer costs professionalism
-- Some advisors modifiers nerfed/buffed and some AI logic added
-- Some reinforce cost/speed policies and ideas tweaked, some buffed some nerfed
-- trade_goods_size_modifier and global_trade_goods_size_modifier sources severely nerfed
-- Professionalism 80% and 100% tiers buffed to insentivise not slacking as much, modifiers slightly moved around
-
-
-Balance
-- Estate disaster progress at 100% influence 0.5 > 1
-- Some government reforms buffed to be viable options
-- Recruit generals gives 1% professionalism instead of 0.5%
-- Kongo Ideas: other forms of legitimacy added and slight buff
-- Ideas where discipline is 2.5%, 3% or 3.5% upped to 5%, I forgor
-- Hindu and Suomenusko discipline deity 2.5% > 5%, hindu AE 5%>10%
-- Austria-Bavaria idea set got discipline to equal Bavarian-Austrian version
-- War Taxes: unrest modifier removed, slightly lowered the values of other modifiers
-- Norse Ideas: colonist removed, no replacement as fleetbase mechanic already exists
-- Mass Ship Building state edict modifiers reversed (time good money bad > time bad money good)
-- Mercenary Ideas: 2nd idea merc_cost removed replaced with possible_condottieri, bonus slot merc_cost 0.20>0.25
-- Mercenary cost modifiers cleaned up in ideas and standardized
--- Maintenance 0.1/0.2 > 0.15, cost 0.15/0.2 > 0.1 with some exceptions
-
-Fixes
-- 1 Discipline policy not being limited to 2
-- 1 Development policy not being limited to 2
-- Geat culture gets access to Swedish reforms
-- Subject view governing capacity positioning
-- Gaeldom britanny mission fix refusing to budge
-- Forming Egypt gives option to gets Egyptian ideas
-- Development cost policies standardized and cleaned up
-- West Slavic Monarchy heir issue fixed by term elections
-- Korea mission missing some activators preventing progress
-- Alexandria mission modifier fix allowing for -100% build cost
-- Austria mission section focusing on western expansion tweaked
-- Added some logic to horde ruler traits to not appear elsewhere
-- If Geat culture forms Scandinavia it will get Swedish version ideas
-- Albanian mission 1st column interference when getting new mission tree
-- Angevin Realm no longer requires Isle-de-France and instead requires the Loire Valley state
+Hotfix
+- Weapon Quality; Quality, Quantity, Conscription and Standing Army tweaked :D
+--- Unit_power reduced except standing army
+--- Quantity: land_maintenance 0.1>0.2, forcelimit 0.2>0.15
+--- Conscription: received forcelimit = 0.25
+--- Standing Army: 4th Ideas is now 1st, maintenance 0.2>0.3
+--- Weapon Qualit: 7.5% production efficiency replaced with reinforce_cost -0.1
+--- Reverted 3.5% > 5% as it borked stuff up
 
 [/quote]
 
