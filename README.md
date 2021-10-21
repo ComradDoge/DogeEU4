@@ -29,7 +29,7 @@ Hotfix
 --- Unit_power reduced except standing army
 --- Quantity: land_maintenance 0.1>0.2, forcelimit 0.2>0.15
 --- Conscription: received forcelimit = 0.25
---- Standing Army: 4th Ideas is now 1st, maintenance 0.2>0.3
+--- Standing Army: 4th Ideas is now 1st, maintenance 0.2>0.3, added reinforce_cost 0.1 penalty
 --- Weapon Qualit: 7.5% production efficiency replaced with reinforce_cost -0.1
 --- Reverted 3.5% > 5% as it borked stuff up
 
