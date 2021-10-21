@@ -29,8 +29,10 @@ General
 - Conscription ideas severely buffed
 - Winning massive battles gives professionalism
 - Recruiting mercenaries no longer costs professionalism
+- Some advisors modifiers nerfed/buffed and some AI logic added
 - Some reinforce cost/speed policies and ideas tweaked, some buffed some nerfed
 - trade_goods_size_modifier and global_trade_goods_size_modifier sources severely nerfed
+- Professionalism 80% and 100% tiers buffed to insentivise not slacking as much, modifiers slightly moved around
 
 
 Balance
@@ -38,16 +40,15 @@ Balance
 - Some government reforms buffed to be viable options
 - Recruit generals gives 1% professionalism instead of 0.5%
 - Kongo Ideas: other forms of legitimacy added and slight buff
-- Some advisors modifiers nerfed/buffed and some AI logic added
 - Ideas where discipline is 2.5%, 3% or 3.5% upped to 5%, I forgor
-- Hindu and Suomenusko discipline deity 2.5% > 5%, hindu ae 5%>10%
-- Austria-Bavaria idea set got discipline to equal Bavarian version
+- Hindu and Suomenusko discipline deity 2.5% > 5%, hindu AE 5%>10%
+- Austria-Bavaria idea set got discipline to equal Bavarian-Austrian version
 - War Taxes: unrest modifier removed, slightly lowered the values of other modifiers
 - Norse Ideas: colonist removed, no replacement as fleetbase mechanic already exists
 - Mass Ship Building state edict modifiers reversed (time good money bad > time bad money good)
 - Mercenary Ideas: 2nd idea merc_cost removed replaced with possible_condottieri, bonus slot merc_cost 0.20>0.25
-- Professionalism 80% and 100% tiers buffed to insentivise not slacking as much, modifiers slightly moved around
-- Mercenary cost modifiers cleaned up in ideas and standardized (maintenance 0.1/0.2>0.15, cost 0.15/0.2 > 0.1) with some exceptions
+- Mercenary cost modifiers cleaned up in ideas and standardized
+-- Maintenance 0.1/0.2 > 0.15, cost 0.15/0.2 > 0.1 with some exceptions
 
 Fixes
 - 1 Discipline policy not being limited to 2
