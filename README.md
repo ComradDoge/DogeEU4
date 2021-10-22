@@ -24,14 +24,9 @@ Checksum: f524
 [quote]
 [h1] 21/10/2021 [/h1]
 
-Hotfix
-- Weapon Quality; Quality, Quantity, Conscription and Standing Army tweaked :D
---- Unit_power reduced except standing army
---- Quantity: land_maintenance 0.1>0.2, forcelimit 0.2>0.15
---- Conscription: received forcelimit = 0.25
---- Standing Army: 4th Ideas is now 1st, maintenance 0.2>0.3, added reinforce_cost 0.1 penalty
---- Weapon Qualit: 7.5% production efficiency replaced with reinforce_cost -0.1
---- Reverted 3.5% > 5% as it borked stuff up
+Fixes
+- Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
+- Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
 
 [/quote]
 
