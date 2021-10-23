@@ -28,6 +28,7 @@ General
 - Minor localisation tweaks in ideas
 - Trade+Religious policy brought back
 - Conscription land_morale swapped with last idea
+- State Edict maintenance increase 0.5 > 1
 
 Fixes
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
