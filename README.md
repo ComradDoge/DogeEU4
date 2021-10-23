@@ -27,6 +27,7 @@ Checksum: f524
 Fixes
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
+- Trade+Religious policy brought back
 
 [/quote]
 
