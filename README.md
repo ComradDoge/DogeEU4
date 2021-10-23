@@ -27,12 +27,16 @@ Checksum: f524
 General
 - Minor localisation tweaks in ideas
 - Trade+Religious policy brought back
-- Conscription land_morale swapped with last idea
-- State Edict maintenance increase 0.5 > 1
+- State Edict: maintenance increase 0.5 > 1
+- Quantity: forcelimit 0.15>0.25, maintenance -0.25>-0.1
+- Conscription: 0.25 forcelimit removed, land_morale swapped with last idea
+- Standing: reinforce_cost 0.1 > 0.15
+- Mercenary: discipline 0.075>0.1
 
 Fixes
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
+- Carthage: dominate Genoa mission
 
 [/quote]
 
