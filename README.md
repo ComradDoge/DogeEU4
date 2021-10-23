@@ -24,10 +24,14 @@ Checksum: f524
 [quote]
 [h1] 21/10/2021 [/h1]
 
+General
+- Minor localisation tweaks in ideas
+- Trade+Religious policy brought back
+- Conscription land_morale swapped with last idea
+
 Fixes
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
-- Trade+Religious policy brought back
 
 [/quote]
 
