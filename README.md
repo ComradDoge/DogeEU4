@@ -20,14 +20,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 Version: 1.31.6
-Checksum: f524
+Checksum: 
 [quote]
-[h1] 21/10/2021 [/h1]
+[h1] 24/10/2021 [/h1]
 
-Shattered wiki now has the beginnings of a policy page, currently it has information on Development Cost and Discipline modifiers
+Shattered wiki now has the beginnings of a policy page, currently it has information on Development Cost and Discipline combinations
 
 General
-- Development policy combinations reworked (12>16 total, but way more spread out)
+- Development policy combinations reworked
+- Discipline policy combinations reworked
 - Minor localisation tweaks in ideas
 - Trade+Religious policy brought back
 - State Edict: maintenance increase 0.5 > 1
@@ -39,8 +40,8 @@ General
 Fixes
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
-- Carthage: dominate Genoa mission
 - Fortress: 2nd idea missing localisation for ability to refill garrison
+- Carthage: dominate Genoa mission
 
 [/quote]
 
