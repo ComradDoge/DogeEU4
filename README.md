@@ -24,7 +24,10 @@ Checksum: f524
 [quote]
 [h1] 21/10/2021 [/h1]
 
+Shattered wiki now has the beginnings of a policy page, currently it has information on Development Cost and Discipline modifiers
+
 General
+- Development policy combinations reworked (12>16 total, but way more spread out)
 - Minor localisation tweaks in ideas
 - Trade+Religious policy brought back
 - State Edict: maintenance increase 0.5 > 1
@@ -37,6 +40,7 @@ Fixes
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
 - Carthage: dominate Genoa mission
+- Fortress: 2nd idea missing localisation for ability to refill garrison
 
 [/quote]
 
