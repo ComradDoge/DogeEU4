@@ -36,6 +36,7 @@ General
 - Conscription: 0.25 forcelimit removed, land_morale swapped with last idea
 - Standing: reinforce_cost 0.1 > 0.15
 - Mercenary: discipline 0.075>0.1
+- Global Trade: spreading will no longer get a boost from just having printing press
 
 Fixes
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
