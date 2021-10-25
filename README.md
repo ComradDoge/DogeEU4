@@ -27,18 +27,26 @@ Checksum:
 Shattered wiki now has the beginnings of a policy page, currently it has information on Development Cost and Discipline combinations
 
 General
-- Development policy combinations reworked
-- Discipline policy combinations reworked
 - Minor localisation tweaks in ideas
 - Trade+Religious policy brought back
 - State Edict: maintenance increase 0.5 > 1
+- Global Trade: spreading will no longer get a boost from just having printing press
+- Exclusive ideas are now fully color coded instead of asterisks
+- Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation
+- Some exclusive republican policies removed due to increase in other areas
+- There has been some general pruning and tweaking in policies
+
+Ideas
+- Development policy combinations reworked
+- Discipline policy combinations reworked
 - Quantity: forcelimit 0.15>0.25, maintenance -0.25>-0.1
 - Conscription: 0.25 forcelimit removed, land_morale swapped with last idea
 - Standing: reinforce_cost 0.1 > 0.15
+- Health: manpower 0.15>0.1
 - Mercenary: discipline 0.075>0.1
-- Global Trade: spreading will no longer get a boost from just having printing press
 
 Fixes
+- UI: Backdrop behind Naval engagement width and slightly more compact
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
 - Fortress: 2nd idea missing localisation for ability to refill garrison
