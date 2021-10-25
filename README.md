@@ -24,7 +24,7 @@ Checksum:
 [quote]
 [h1] 24/10/2021 [/h1]
 
-Shattered wiki now has the beginnings of a policy page, currently it has information on Development Cost and Discipline combinations
+Shattered wiki now has the beginnings of a policy page, currently it has information on XX XX XX XX
 
 General
 - Minor localisation tweaks in ideas
@@ -37,13 +37,16 @@ General
 - There has been some general pruning and tweaking in policies
 
 Ideas
-- Development policy combinations reworked
-- Discipline policy combinations reworked
-- Quantity: forcelimit 0.15>0.25, maintenance -0.25>-0.1
-- Conscription: 0.25 forcelimit removed, land_morale swapped with last idea
-- Standing: reinforce_cost 0.1 > 0.15
-- Health: manpower 0.15>0.1
+- Monarchy: legitimacy 2>1
+- Health: manpower 0.15>0.1, tax 0.1>0.15
 - Mercenary: discipline 0.075>0.1
+- Standing: reinforce_cost 0.1 > 0.15
+- War Production: reinforce_speed 0.25>0.15
+- Quantity: forcelimit 0.15>0.25, maintenance -0.25>-0.1
+- governing_capacity_modifier in ideas lowered to 0.15 except in State Focus ideas
+- Centralization: defensiveness 0.1>0.15, tax 0.2>0.25, build_cost -0.075
+- Conscription: 0.25 forcelimit removed, land_morale swapped with last idea, reinforce_speed 0.5>0.33
+- Policy Rework: Discipline, development, manpower recovery, manpower, legitimacy, construction cost
 
 Fixes
 - UI: Backdrop behind Naval engagement width and slightly more compact
