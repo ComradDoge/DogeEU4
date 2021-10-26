@@ -25,6 +25,7 @@ Checksum:
 [h1] 24/10/2021 [/h1]
 
 Shattered wiki now has the beginnings of a policy page, currently it has information on XX XX XX XX
+Note: reform_progress_growth does not work in ideas (and I think everywhere) as it does not actually apply, this is base game issue so just ignore that modifier for the time being
 
 General
 - Minor localisation tweaks in ideas
