@@ -28,14 +28,16 @@ Shattered wiki now has the beginnings of a policy page, currently it has informa
 Note: reform_progress_growth does not work in ideas (and I think everywhere) as it does not actually apply, this is base game issue so just ignore that modifier for the time being
 
 General
-- Minor localisation tweaks in ideas
-- Trade+Religious policy brought back
 - State Edict: maintenance increase 0.5 > 1
-- Global Trade: spreading will no longer get a boost from just having printing press
 - Exclusive ideas are now fully color coded instead of asterisks
-- Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation
-- Some exclusive republican policies removed due to increase in other areas
-- There has been some general pruning and tweaking in policies
+- Global Trade: spreading will no longer get a boost from just having printing press
+- Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation (Any Government Idea, Any Fleet Focus, Any State Focus, State Rank Idea, Any Doctrine)
+
+Policies
+- Complete rework with an accompandied image for your viewing pleasure!
+- Enemy_core_creation (4) removed
+- Unit_cost policies (4) removed
+
 
 Ideas
 - Monarchy: legitimacy 2>1
@@ -43,11 +45,12 @@ Ideas
 - Mercenary: discipline 0.075>0.1
 - Standing: reinforce_cost 0.1 > 0.15
 - War Production: reinforce_speed 0.25>0.15
-- Quantity: forcelimit 0.15>0.25, maintenance -0.25>-0.1
+- Quantity: forcelimit 0.15>0.2, maintenance -0.25>-0.1
 - governing_capacity_modifier in ideas lowered to 0.15 except in State Focus ideas
 - Centralization: defensiveness 0.1>0.15, tax 0.2>0.25, build_cost -0.075
 - Conscription: 0.25 forcelimit removed, land_morale swapped with last idea, reinforce_speed 0.5>0.33
-- Policy Rework: Discipline, development, manpower recovery, manpower, legitimacy, construction cost
+- Highest source of land_forcelimit_modifier are military ideas with 10%, ADM/DIP with 7.5%, except quantity with 20%
+
 
 Fixes
 - UI: Backdrop behind Naval engagement width and slightly more compact
