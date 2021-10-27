@@ -42,13 +42,15 @@ Policies
 
 Ideas
 - Monarchy: legitimacy 2>1
-- Health: manpower 0.15>0.1, tax 0.1>0.15
+- Trade ideas caravan power 0.2>0.15
 - Mercenary: discipline 0.075>0.1
 - Standing: reinforce_cost 0.1 > 0.15
+- Health: manpower 0.15>0.1, tax 0.1>0.15
 - War Production: reinforce_speed 0.25>0.15
+- State Administration reworked fully
 - Quantity: forcelimit 0.15>0.2, maintenance -0.25>-0.1
-- governing_capacity_modifier in ideas lowered to 0.15 except in State Focus ideas
 - Centralization: defensiveness 0.1>0.15, tax 0.2>0.25, build_cost -0.075
+- governing_capacity_modifier in ideas lowered to 0.15 except in State Focus ideas
 - Conscription: 0.25 forcelimit removed, land_morale swapped with last idea, reinforce_speed 0.5>0.33
 - Highest source of land_forcelimit_modifier are military ideas with 10%, ADM/DIP with 7.5%, except quantity with 20%
 
