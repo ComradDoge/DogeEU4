@@ -28,6 +28,7 @@ Shattered wiki now has the beginnings of a policy page, currently it has informa
 Note: reform_progress_growth does not work in ideas (and I think everywhere) as it does not actually apply, this is base game issue so just ignore that modifier for the time being
 
 General
+- Fires of Industry build_cost removed
 - State Edict: maintenance increase 0.5 > 1
 - Exclusive ideas are now fully color coded instead of asterisks
 - Global Trade: spreading will no longer get a boost from just having printing press
