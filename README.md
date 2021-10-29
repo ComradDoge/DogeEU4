@@ -30,6 +30,7 @@ Note: reform_progress_growth does not work in ideas (and I think everywhere) as 
 General
 - Fires of Industry build_cost removed
 - State Edict: maintenance increase 0.5 > 1
+- Nationalist estate disaster added lmao
 - Exclusive ideas are now fully color coded instead of asterisks
 - Global Trade: spreading will no longer get a boost from just having printing press
 - Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation (Any Government Idea, Any Fleet Focus, Any State Focus, State Rank Idea, Any Doctrine)
