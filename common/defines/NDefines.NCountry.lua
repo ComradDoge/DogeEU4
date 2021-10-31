@@ -46,7 +46,7 @@ NDefines.NCountry.STARTING_FLEET_SIZE = 0.75 --.9
 
 
 --Estates
-NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 8		-- Max. number of privileges active at the same time
+NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 6		-- Max. number of privileges active at the same time
 NDefines.NCountry.ESTATE_CROWNLAND_FROM_DEV = 0.1		--0.2	-- How much crownland you gain from developing a province.
 
 
