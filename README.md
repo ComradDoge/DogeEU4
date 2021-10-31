@@ -24,36 +24,33 @@ Checksum:
 [quote]
 [h1] 24/10/2021 [/h1]
 
-Shattered wiki now has the beginnings of a policy page, currently it has information on XX XX XX XX
-Note: reform_progress_growth does not work in ideas (and I think everywhere) as it does not actually apply, this is base game issue so just ignore that modifier for the time being
+
 
 General
+- Maximum priviledges 8>6
+- State Administration reworked fully
 - Fires of Industry build_cost removed
+- Powerpoint priviledges cost a bit more
+- MIL Ahead of Time siege_ability 0.2>0.1
 - State Edict: maintenance increase 0.5 > 1
-- Nationalist estate disaster added lmao
+- Nationalist estate disaster added that is not nice at all
 - Exclusive ideas are now fully color coded instead of asterisks
 - Global Trade: spreading will no longer get a boost from just having printing press
+- Complete policy rework with an accompandied image for your viewing pleasure!
 - Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation (Any Government Idea, Any Fleet Focus, Any State Focus, State Rank Idea, Any Doctrine)
-
-Policies
-- Complete rework with an accompandied image for your viewing pleasure!
-- Enemy_core_creation (4) removed
-- Unit_cost policies (4) removed
-
 
 Ideas
 - Monarchy: legitimacy 2>1
-- Trade ideas caravan power 0.2>0.15
+- Trade: caravan_power 0.2>0.15
 - Mercenary: discipline 0.075>0.1
 - Standing: reinforce_cost 0.1 > 0.15
-- Health: manpower 0.15>0.1, tax 0.1>0.15
+- Health: global_manpower 0.15>0.1, global_tax 0.1>0.15
 - War Production: reinforce_speed 0.25>0.15
-- State Administration reworked fully
 - Quantity: forcelimit 0.15>0.2, maintenance -0.25>-0.1
 - Centralization: defensiveness 0.1>0.15, tax 0.2>0.25, build_cost -0.075
-- governing_capacity_modifier in ideas lowered to 0.15 except in State Focus ideas
-- Conscription: 0.25 forcelimit removed, land_morale swapped with last idea, reinforce_speed 0.5>0.33
-- Highest source of land_forcelimit_modifier are military ideas with 10%, ADM/DIP with 7.5%, except quantity with 20%
+- governing_capacity_modifier lowered to 0.15 except in State Focus ideas
+- Conscription: 0.25 forcelimit removed, land_morale swapped with last idea, reinforce_speed 0.5>0.33, added unit_construction_speed
+- Source of land_forcelimit_modifier: MIL ideas 10%, ADM/DIP 7.5%, except quantity with 20%
 
 
 Fixes
