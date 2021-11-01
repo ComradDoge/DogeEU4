@@ -35,8 +35,9 @@ General
 - State Edict: maintenance increase 0.5 > 1
 - Nationalist estate disaster added that is not nice at all
 - Exclusive ideas are now fully color coded instead of asterisks
-- Global Trade: spreading will no longer get a boost from just having printing press
 - Complete policy rework with an accompandied image for your viewing pleasure!
+- Global Trade: spreading will no longer get a boost from just having printing press
+- Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
 - Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation (Any Government Idea, Any Fleet Focus, Any State Focus, State Rank Idea, Any Doctrine)
 
 Ideas
