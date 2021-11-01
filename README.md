@@ -31,6 +31,7 @@ General
 - Fires of Industry build_cost removed
 - Powerpoint priviledges cost a bit more
 - Humanist advisor mechanic slightly reworked
+- Goods Info Panel separated for future proofing
 - Nationalist estate disaster added that is not nice at all
 - Exclusive ideas are now fully color coded instead of asterisks
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
