@@ -28,7 +28,6 @@ Checksum:
 
 General
 - Maximum priviledges 8>6
-- State Administration reworked fully
 - Fires of Industry build_cost removed
 - Powerpoint priviledges cost a bit more
 - MIL Ahead of Time siege_ability 0.2>0.1
@@ -38,6 +37,7 @@ General
 - Complete policy rework with an accompandied image for your viewing pleasure!
 - Global Trade: spreading will no longer get a boost from just having printing press
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
+- State Administration and Tactical reworked fully, now called Trade Management and Logistics
 - Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation (Any Government Idea, Any Fleet Focus, Any State Focus, State Rank Idea, Any Doctrine)
 
 Ideas
