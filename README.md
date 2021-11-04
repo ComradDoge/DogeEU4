@@ -68,7 +68,9 @@ Fixes
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
 - Fortress: 2nd idea missing localisation for ability to refill garrison
 - Slavery Abolition decision will appear in Enlightenment Age
+- Goods Info Event follows same order as in macrobuilder
 - Carthage: dominate Genoa mission
+- Cheese added to goods info page
 
 [/quote]
 
