@@ -24,7 +24,9 @@ Checksum:
 [quote]
 [h1] 24/10/2021 [/h1]
 
-
+1.32 
+- Any Shattered changes to concentrate development turned off and now using vanilla changes instead 
+- Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear with some tweaks
 
 General
 - Maximum priviledges 8>6
