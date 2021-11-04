@@ -47,6 +47,8 @@ Balance
 - Fires of Industry build_cost removed
 - State Edict: maintenance increase 0.5 > 1
 - MIL Ahead of Time siege_ability 0.2>0.1
+- Government building governing_cost reductions reduced
+- Latent building governing_cost tweaked 10%/20%/30%
 
 Ideas
 - Monarchy: legitimacy 2>1
