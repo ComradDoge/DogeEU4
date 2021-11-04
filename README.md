@@ -29,9 +29,6 @@ Checksum:
 - Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear with some tweaks
 
 General
-- Maximum priviledges 8>6
-- Fires of Industry build_cost removed
-- Powerpoint priviledges cost a bit more
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
 - Nationalist estate disaster added that is not nice at all
@@ -43,6 +40,9 @@ General
 - Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation (Any Government Idea, Any Fleet Focus, Any State Focus, State Rank Idea, Any Doctrine)
 
 Balance
+- Maximum priviledges 8>6
+- Powerpoint priviledges cost a bit more
+- Fires of Industry build_cost removed
 - State Edict: maintenance increase 0.5 > 1
 - MIL Ahead of Time siege_ability 0.2>0.1
 
