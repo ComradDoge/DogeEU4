@@ -29,6 +29,8 @@ Checksum:
 - Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear with some tweaks
 
 General
+- Added Abolish Slavery CB
+- Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
 - Nationalist estate disaster added that is not nice at all
@@ -65,6 +67,7 @@ Fixes
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
 - Fortress: 2nd idea missing localisation for ability to refill garrison
+- Slavery Abolition decision will appear in Enlightenment Age
 - Carthage: dominate Genoa mission
 
 [/quote]
