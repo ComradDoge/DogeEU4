@@ -29,39 +29,27 @@ Checksum:
 - Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear with some tweaks
 
 General
-- Added Abolish Slavery CB
-- Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
+- Added Abolish Slavery CB (PTE)
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
 - Nationalist estate disaster added that is not nice at all
 - Exclusive ideas are now fully color coded instead of asterisks
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
-- Complete policy rework with an accompandied image for your viewing pleasure!
-- Global Trade: spreading will no longer get a boost from just having printing press
-- State Administration and Tactical reworked fully, now called Trade Management and Logistics
-- Policies that accept any of the exclusives instead of a specific one, will have much clearer localisation (Any Government Idea, Any Fleet Focus, Any State Focus, State Rank Idea, Any Doctrine)
+- Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
+
+- Policies have been fully reworked and have little simillarity to previous version. The policies have certain type of logic in the premise of single modifiers and set policies with two modifiers. There have been modifiers that were completely removed and will not be making a comeback, while some might. Compared to previous, a few more policies are limited to a maximum of two policies. Dictatorship combination policies are different and I kind of did not touch cause its a funny meme. A more important part of the policies however is that there is now an image of it with all combinations, so yes you can stop pestering me for it.
+
+- Almost all ideas have been touched in some form or shape so don't blindly pick them based on 1.31 information. Most are not drastic changes when compared to State Management or Tactical who have become Trade Management and Logistics respectively. Nonetheless its different enough when taking in account all ideas and policy change.
 
 Balance
 - Maximum priviledges 8>6
-- Powerpoint priviledges cost a bit more
-- Fires of Industry build_cost removed
+- ADM/DIP/MIL priviledges cost a bit more
+- MIL tech Ahead of Time siege_ability 0.2>0.1
 - State Edict: maintenance increase 0.5 > 1
-- MIL Ahead of Time siege_ability 0.2>0.1
-- Government building governing_cost reductions reduced
 - Latent building governing_cost tweaked 10%/20%/30%
-
-Ideas
-- Monarchy: legitimacy 2>1
-- Trade: caravan_power 0.2>0.15
-- Mercenary: discipline 0.075>0.1
-- Standing: reinforce_cost 0.1 > 0.15
-- Health: global_manpower 0.15>0.1, global_tax 0.1>0.15
-- War Production: reinforce_speed 0.25>0.15
-- Quantity: forcelimit 0.15>0.2, maintenance -0.25>-0.1
-- Centralization: defensiveness 0.1>0.15, tax 0.2>0.25, build_cost -0.075
-- governing_capacity_modifier lowered to 0.15 except in State Focus ideas
-- Conscription: 0.25 forcelimit removed, land_morale swapped with last idea, reinforce_speed 0.5>0.33, added unit_construction_speed
-- Source of land_forcelimit_modifier: MIL ideas 10%, ADM/DIP 7.5%, except quantity with 20%
+- Government building governing_cost reductions reduced
+- T7 Reforms: trade and tax reforms buffed to contend with the industrial one
+- Global Trade: spreading will no longer get a boost from just having printing press
 
 
 Fixes
