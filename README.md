@@ -19,10 +19,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.31.6
+Version: 1.32.0
 Checksum: 
 [quote]
-[h1] 24/10/2021 [/h1]
+[h1] xx/11/2021 [/h1]
 
 1.32 
 - Any Shattered changes to concentrate development turned off and now using vanilla changes instead 
@@ -43,9 +43,11 @@ General
 
 Balance
 - Maximum priviledges 8>6
+- Absolutism: discipline 5%>7.5%
+- Monument T1 cost reduced 2.5k > 1k
 - ADM/DIP/MIL priviledges cost a bit more
-- MIL tech Ahead of Time siege_ability 0.2>0.1
 - State Edict: maintenance increase 0.5 > 1
+- MIL tech Ahead of Time siege_ability 0.2>0.1
 - Latent building governing_cost tweaked 10%/20%/30%
 - Government building governing_cost reductions reduced
 - T7 Reforms: trade and tax reforms buffed to contend with the industrial one
