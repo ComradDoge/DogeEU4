@@ -59,6 +59,7 @@ Fixes
 - Cheese added to goods info page
 - Carthage: dominate Genoa mission
 - Goods Info Event follows same order as in macrobuilder
+- Dal naval supplies switched to fish since its landlocked
 - Slavery Abolition decision will appear in Enlightenment Age
 - UI: Backdrop behind Naval engagement width and slightly more compact
 - Fortress: 2nd idea missing localisation for ability to refill garrison
