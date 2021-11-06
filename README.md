@@ -37,10 +37,11 @@ General
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
 - Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
 
-- Policies have been fully reworked and have little simillarity to previous version. The policies have certain type of logic in the premise of single modifiers and set policies with two modifiers. There have been modifiers that were completely removed and will not be making a comeback, while some might. Compared to previous, a few more policies are limited to a maximum of two policies. Dictatorship combination policies are different and I kind of did not touch cause its a funny meme. A more important part of the policies however is that there is now an image of it with all combinations, so yes you can stop pestering me for it.
+- Policies have been fully reworked and have little simillarity to previous version. The policies have certain type of logic in the premise of single modifiers and set policies with two modifiers. There have been modifiers that were completely removed and will not be making a comeback, while some might. Compared to previous, a few more policies are limited to a maximum of two policies. A more important part of the policies however is that there is now an image of it with all combinations, so yes you can stop pestering me for it.
 - Btw I am always open for better names for policies as my brain went numb thinking of them rather fast
 
 - Almost all ideas have been touched in some form or shape so don't blindly pick them based on 1.31 information. Most are not drastic changes when compared to State Management or Tactical who have become Trade Management and Logistics respectively. Nonetheless its different enough when taking in account all ideas and policy change.
+-  Dictatorship has been removed, the memey decision event mechanic is now just tied to any dictatoship government reform
 
 Balance
 - Maximum priviledges 8>6
@@ -63,6 +64,7 @@ Fixes
 - Slavery Abolition decision will appear in Enlightenment Age
 - UI: Backdrop behind Naval engagement width and slightly more compact
 - Fortress: 2nd idea missing localisation for ability to refill garrison
+- Cleaned up a bunch of reform mentioning "Allow X Idea group" that meant nothing
 - Hovering over North Sea Empire decision requirements will no longer lag you out
 - Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
 - Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
