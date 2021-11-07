@@ -29,6 +29,7 @@ Checksum:
 - Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear with some tweaks
 
 General
+- Added Bosporan formable
 - Added Abolish Slavery CB (PTE)
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
