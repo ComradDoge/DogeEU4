@@ -49,6 +49,7 @@ Balance
 - Maximum priviledges 8>6
 - Absolutism: discipline 5%>7.5%
 - Monument T1 cost reduced 2.5k > 1k
+- Government building values tweaked
 - ADM/DIP/MIL priviledges cost a bit more
 - State Edict: maintenance increase 0.5 > 1
 - MIL tech Ahead of Time siege_ability 0.2>0.1
