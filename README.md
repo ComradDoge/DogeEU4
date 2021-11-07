@@ -50,9 +50,9 @@ Balance
 - Absolutism: discipline 5%>7.5%
 - Monument T1 cost reduced 2.5k > 1k
 - Government building values tweaked
-- ADM/DIP/MIL priviledges cost a bit more
 - State Edict: maintenance increase 0.5 > 1
 - MIL tech Ahead of Time siege_ability 0.2>0.1
+- ADM/DIP/MIL point priviledges currently removed
 - Latent building governing_cost tweaked 10%/20%/30%
 - Government building governing_cost reductions reduced
 - T7 Reforms: trade and tax reforms buffed to contend with the industrial one
