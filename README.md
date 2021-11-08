@@ -48,6 +48,7 @@ General
 
 Balance
 - Maximum priviledges 8>6
+- Three T7 Reforms rebalanced
 - Absolutism: discipline 5%>7.5%
 - Monument T1 cost reduced 2.5k > 1k
 - Government building values tweaked
@@ -56,7 +57,6 @@ Balance
 - ADM/DIP/MIL point priviledges currently removed
 - Latent building governing_cost tweaked 10%/20%/30%
 - Government building governing_cost reductions reduced
-- T7 Reforms: trade and tax reforms buffed to contend with the industrial one
 - Global Trade: spreading will no longer get a boost from just having printing press
 
 
