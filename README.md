@@ -30,15 +30,15 @@ Checksum:
 
 General
 - Added Bosporan formable
-- Added Abolish Slavery CB (PTE)
+- Government Tab reworked (Thank Artemis)
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
 - Nationalist estate disaster added that is not nice at all
 - Exclusive ideas are now fully color coded instead of asterisks
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
 - Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
-- Due finnicky stuff, latent buildings that use resources can only be built once at time. In exchange time to build them was reduced to 24>12 months
-- Government Tab reworkedd (Thank Artemis)
+- Added Abolish Slavery CB (PTE), World Revolution CB for Peasants Republic and PRC reform
+- Due finnicky stuff, latent buildings that use resources can only be built once at time. In exchange time to build them was reduced 24>12 months
 
 - Policies have been fully reworked and have little simillarity to previous version. The policies have certain type of logic in the premise of single modifiers and set policies with two modifiers. There have been modifiers that were completely removed and will not be making a comeback, while some might. Compared to previous, a few more policies are limited to a maximum of two policies. A more important part of the policies however is that there is now an image of it with all combinations, so yes you can stop pestering me for it.
 - Btw I am always open for better names for policies as my brain went numb thinking of them rather fast
