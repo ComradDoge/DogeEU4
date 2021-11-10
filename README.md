@@ -30,10 +30,10 @@ Checksum:
 
 General
 - Added Bosporan formable
+- Nationalist estate disaster added
 - Government Tab reworked (Thank Artemis)
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
-- Nationalist estate disaster added that is not nice at all
 - Exclusive ideas are now fully color coded instead of asterisks
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
 - Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
