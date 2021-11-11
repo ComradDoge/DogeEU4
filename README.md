@@ -53,7 +53,6 @@ Balance
 - Government building values tweaked
 - ADM/DIP/MIL point priviledges removed
 - State Edict: maintenance increase 0.5 > 1
-- MIL tech Ahead of Time siege_ability 0.2>0.1
 - Latent building governing_cost tweaked 10%/20%/30%
 - Government building governing_cost reductions reduced
 - Global Trade: spreading will no longer get a boost from just having printing press
