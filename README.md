@@ -34,6 +34,7 @@ General
 - Government Tab reworked (Thank Artemis)
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
+- Decision to show where you are lacking resources for factories
 - Exclusive ideas are now fully color coded instead of asterisks
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
 - Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
