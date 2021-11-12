@@ -26,7 +26,7 @@ Checksum:
 
 1.32 
 - Any Shattered changes to concentrate development turned off and now using vanilla changes instead 
-- Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear with some tweaks
+- Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear
 
 General
 - Added Bosporan formable
