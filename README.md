@@ -30,6 +30,7 @@ Checksum:
 
 General
 - Added Bosporan formable
+- Decision religious icons changed
 - Nationalist estate disaster added
 - Government Tab reworked (Thank Artemis)
 - Humanist advisor mechanic slightly reworked
