@@ -29,9 +29,9 @@ Checksum:
 - Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear
 
 General
-- Added Bosporan formable
 - Decision religious icons changed
 - Nationalist estate disaster added
+- Added Bosporan and Etruria formable
 - Government Tab reworked (Thank Artemis)
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
