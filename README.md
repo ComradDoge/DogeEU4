@@ -29,6 +29,7 @@ Checksum:
 - Mali and Ethiopia shattered missions will appear if you don't have Origins DLC, otherwise Origins missions will appear
 
 General
+- Lumber price event added
 - Decision religious icons changed
 - Nationalist estate disaster added
 - Added Bosporan and Etruria formable
