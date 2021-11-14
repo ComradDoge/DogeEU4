@@ -39,6 +39,7 @@ General
 - Decision to show where you are lacking resources for factories
 - Exclusive ideas are now fully color coded instead of asterisks
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
+- Missions for south and central indians (minor), 
 - Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
 - Added Abolish Slavery CB (PTE), World Revolution CB for Peasants Republic and PRC reform
 - Due finnicky stuff, latent buildings that use resources can only be built one at a time. In exchange time to build them was reduced 24>12 months
