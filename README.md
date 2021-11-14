@@ -32,10 +32,10 @@ General
 - Lumber price event added
 - Decision religious icons changed
 - Nationalist estate disaster added
-- Added Bosporan, Etruria and Czechoslovakia formable
-- Government Tab reworked (Thank Artemis)
+- Government Tab reworked (Artemis UI)
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
+- Added Bosporan, Etruria and Czechoslovakia formable
 - Decision to show where you are lacking resources for factories
 - Exclusive ideas are now fully color coded instead of asterisks
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
