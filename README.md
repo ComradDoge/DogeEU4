@@ -32,7 +32,7 @@ General
 - Lumber price event added
 - Decision religious icons changed
 - Nationalist estate disaster added
-- Added Bosporan and Etruria formable
+- Added Bosporan, Etruria and Czechoslovakia formable
 - Government Tab reworked (Thank Artemis)
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
