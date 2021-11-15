@@ -26,25 +26,25 @@ Checksum:
 
 
 General
-- Lumber price event added
 - Decision religious icons changed
+- Lumber price event added at adm 21
 - Government Tab reworked (Artemis UI)
 - Kurland land and country starts as Romuva
 - Humanist advisor mechanic slightly reworked
 - Goods Info Panel separated for future proofing
 - Added Bosporan, Etruria and Czechoslovakia formable
-- Decision to show where you are lacking resources for factories
 - Exclusive ideas are now fully color coded instead of asterisks
 - Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
 - Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
 - Added Abolish Slavery CB (PTE), World Revolution CB for Peasants Republic and PRC reform
 - ME Missions for south and central indians, Golkonda, Bijapur, Berar, Ahmendagar, Nagpur, Mysore
 - Any Shattered changes to concentrate development turned off and now using vanilla changes instead to see how that goes
+- Decision to point out you are lacking resources for latent good and to delete them so you dont waste 50 years of no production
 - Shattered Mali, Kongo and Songhai missions will appear if you don't have Origins DLC, otherwise Origins DLC missions will appear
 - Due to finnicky stuff, latent buildings that use resources can only be built one at a time. In exchange time to build them was reduced 24>12 months
 - Dictatorship idea has been removed, the memey decision event mechanic that was tied to it is now just tied to any dictatoship = yes government reform
 
-- Policies have been fully reworked and have little simillarity to previous version. The policies have certain type of logic in the premise of single modifiers and set policies with two modifiers. There have been modifiers that were completely removed and will not be making a comeback, while some might. Compared to previous, a few more policies are limited to a maximum of two policies. A more important part of the policies however is that there is now a google dock with policy combos that you can check, so yes you can stop pestering me for it. By the way, I am always open for better names for policies as my brain went numb thinking of them after a while.
+- Policies have been fully reworked and have little simillarity to previous version. The policies have certain type of logic in the premise of single modifiers and set policies with two modifiers and how they are sprea out. There have been modifiers that were completely removed and will not be making a comeback, while some might. Compared to previous, a few more policies are limited to a maximum of two policies. A more important part of the policies however is that there is now a google spreadsheet on the wiki with policy combos that you can check, so yes you can stop pestering me for it. By the way, I am always open for better names for policies as my brain went numb thinking of them after a while.
 
 - Almost all ideas have been touched in some form or shape so don't blindly pick them based on 1.31 information. Most are not drastic changes when compared to State Management, Tactical and overall military ideas. Nonetheless it is different enough when taking in account all ideas and policy changes.
 
@@ -52,11 +52,10 @@ Balance
 - Woad penalties are harsher
 - Absolutism: discipline 5%>7.5%
 - Maximum privileges reduced 8>6
+- Some government reforms tweaked
 - Monument T1 cost reduced 2.5k > 1k
 - Government building values tweaked
-- Some government reforms tweaked (T7)
 - ADM/DIP/MIL point privileges removed
-- Government building modifiers rebalanced
 - State Edict: maintenance increase 0.5 > 1
 - Latent building governing_cost tweaked 10%/20%/30%
 - Global Trade: spreading will no longer get a boost from just having printing press
