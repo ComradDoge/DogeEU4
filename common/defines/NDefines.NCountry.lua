@@ -46,7 +46,7 @@ NDefines.NCountry.STARTING_FLEET_SIZE = 0.75 --.9
 
 
 --Estates
-NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 8		-- Max. number of privileges active at the same time
+NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 6		-- Max. number of privileges active at the same time
 NDefines.NCountry.ESTATE_CROWNLAND_FROM_DEV = 0.1		--0.2	-- How much crownland you gain from developing a province.
 
 
@@ -72,7 +72,7 @@ NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_THRESHOLD_FOR_ALERT = 5 --be
 NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_THRESHOLD_FOR_TIER_1 = 25 --state of repair threshold for tier 1 benefits
 NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_THRESHOLD_FOR_TIER_2 = 50 --state of repair threshold for tier 2 benefits
 NDefines.NCountry.GREAT_PROJECT_DEGRADATION_PERCENT_THRESHOLD_FOR_TIER_3 = 75 --state of repair threshold for tier 3 benefits
-NDefines.NCountry.GREAT_PROJECT_MANPOWER_REQUIRED_FOR_CONSTRUCTION_BOOST = 5000 --use a bunch of manpower to move things on
+NDefines.NCountry.GREAT_PROJECT_MANPOWER_REQUIRED_FOR_CONSTRUCTION_BOOST = 10000 --use a bunch of manpower to move things on
 NDefines.NCountry.GREAT_PROJECT_MANPOWER_CONSTRUCTION_BOOST_AMOUNT_IN_DAYS = 730 --how far throwing men at the problem gets you
 NDefines.NCountry.GREAT_PROJECT_MONEY_REQUIRED_FOR_CONSTRUCTION_BOOST = 500 --use a bunch of money to move things on
 NDefines.NCountry.GREAT_PROJECT_MONEY_CONSTRUCTION_BOOST_AMOUNT_IN_DAYS = 730 --how far throwing cash at the problem gets you
