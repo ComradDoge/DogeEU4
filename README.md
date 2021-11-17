@@ -24,7 +24,7 @@ Checksum:
 [quote]
 [h1] 15/11/2021 [/h1]
 
-- Can make crown colonies and private enterprises start a war
+- Minor localisation change for strong duchies privelege
 - World Revolution CB gives option to enforce peasants republic
 
 [/quote]
