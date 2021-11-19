@@ -19,13 +19,17 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.32.0
+Version: 1.32.1
 Checksum: 
 [quote]
-[h1] 15/11/2021 [/h1]
+[h1] 19/11/2021 [/h1]
 
 - Minor localisation change for strong duchies privelege
 - World Revolution CB gives option to enforce peasants republic
+- Being ahead of time gives you bonuses fixed
+- Fixed some religion decisions to appear in the whole group (jewish, zoroastrian)
+- Slightly buffed one of the zoroastrian decisions
+- One ruler trait that gave -10% dev cost is now -5%, the crusade continues
 
 [/quote]
 
