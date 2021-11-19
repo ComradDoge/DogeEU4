@@ -24,63 +24,8 @@ Checksum:
 [quote]
 [h1] 15/11/2021 [/h1]
 
-
-General
-- Decision religious icons changed
-- Lumber price event added at adm 21
-- Government Tab reworked (Artemis UI)
-- Kurland land and country starts as Romuva
-- Humanist advisor mechanic slightly reworked
-- Goods Info Panel separated for future proofing
-- Added Bosporan, Etruria and Czechoslovakia formable
-- Exclusive ideas are now fully color coded instead of asterisks
-- Added 5 Irish colonial names (Canada, America, Louisian, Mexico, Carribean)
-- Triangle Trade increases slave price 50%>100% and abolition event decreases -40%>-50%
-- Added Abolish Slavery CB (PTE), World Revolution CB for Peasants Republic and PRC reform
-- ME Missions for south and central indians, Golkonda, Bijapur, Berar, Ahmendagar, Nagpur, Mysore
-- Any Shattered changes to concentrate development turned off and now using vanilla changes instead to see how that goes
-- Decision to point out you are lacking resources for latent good and to delete them so you dont waste 50 years of no production
-- Shattered Mali, Kongo and Songhai missions will appear if you don't have Origins DLC, otherwise Origins DLC missions will appear
-- Due to finnicky stuff, latent buildings that use resources can only be built one at a time. In exchange time to build them was reduced 24>12 months
-- Dictatorship idea has been removed, the memey decision event mechanic that was tied to it is now just tied to any dictatoship = yes government reform
-
-- Policies have been fully reworked and have little simillarity to previous version. The policies have certain type of logic in the premise of single modifiers and set policies with two modifiers and how they are sprea out. There have been modifiers that were completely removed and will not be making a comeback, while some might. Compared to previous, a few more policies are limited to a maximum of two policies. A more important part of the policies however is that there is now a google spreadsheet on the wiki with policy combos that you can check, so yes you can stop pestering me for it. By the way, I am always open for better names for policies as my brain went numb thinking of them after a while.
-
-- Almost all ideas have been touched in some form or shape so don't blindly pick them based on 1.31 information. Most are not drastic changes when compared to State Management, Tactical and overall military ideas. Nonetheless it is different enough when taking in account all ideas and policy changes.
-
-Balance
-- Woad penalties are harsher
-- Absolutism: discipline 5%>7.5%
-- Maximum privileges reduced 8>6
-- Some government reforms tweaked
-- Monument T1 cost reduced 2.5k > 1k
-- Government building values tweaked
-- ADM/DIP/MIL point privileges removed
-- State Edict: maintenance increase 0.5 > 1
-- Latent building governing_cost tweaked 10%/20%/30%
-- Global Trade: spreading will no longer get a boost from just having printing press
-
-
-Fixes
-- Cheese added to goods info page
-- Carthage: dominate Genoa mission
-- Nationalist estate disaster added
-- Zapadoslavia army decision with wrong modifier
-- Goods Info Event follows same order as in macrobuilder
-- Dal naval supplies switched to fish since its landlocked
-- Slavery Abolition decision will appear in Enlightenment Age
-- Colonial advisors will stop pestering you despite not having a port
-- UI: Backdrop behind Naval engagement width and slightly more compact
-- Strategic resource numbers will update when any trade good is changed
-- Fortress: 2nd idea missing localisation for ability to refill garrison
-- Puppet master ruler trait wont appear if you dont have at least 1 subject
-- Home Market reform modifier gets removed when you change to another reform
-- Triggered modifiers intended for colonial nations wont work for exodus nations
-- Hovering over North Sea Empire decision requirements will no longer lag you out
-- Cleaned up a bunch of reforms mentioning "Allow X Idea group" that meant nothing
-- Kingdom/Empire ideas are fully dependant on your government rank and nothing else
-- Republican Mercenary Corps mechanic uses the same as Monarchy Mercenary Corps reform
-- Mercenary Corps foreign_experts mechanic nation requires to be at least 25 development
+- Minor localisation change for strong duchies privelege
+- World Revolution CB gives option to enforce peasants republic
 
 [/quote]
 
