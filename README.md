@@ -25,6 +25,8 @@ Checksum:
 [h1] 19/11/2021 [/h1]
 
 - Centralization Idea: dev_cost reduction mechanic moved to the back
+- Cheese is now more cheesy (baseprice: 3 and works with soldier households)
+- Champagne no longers gets bonus from soldier households
 
 
 [/quote]
