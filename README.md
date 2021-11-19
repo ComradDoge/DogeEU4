@@ -24,12 +24,8 @@ Checksum:
 [quote]
 [h1] 19/11/2021 [/h1]
 
-- Minor localisation change for strong duchies privelege
-- World Revolution CB gives option to enforce peasants republic
-- Being ahead of time gives you bonuses fixed
-- Fixed some religion decisions to appear in the whole group (jewish, zoroastrian)
-- Slightly buffed one of the zoroastrian decisions
-- One ruler trait that gave -10% dev cost is now -5%, the crusade continues
+- Centralization Idea: dev_cost reduction mechanic moved to the back
+
 
 [/quote]
 
