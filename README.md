@@ -30,6 +30,7 @@ Checksum:
 - Ramparts: attrition for hostiles 1>3
 - Impressment Offices: sailors increase 300>500
 - Soldier Households: very slightly reduced the bonus manpower
+- The lack of resources warning can now show which provinces have it by hovering over the question mark
 
 [/quote]
 
