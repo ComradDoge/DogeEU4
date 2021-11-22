@@ -31,6 +31,9 @@ Checksum:
 - Impressment Offices: sailors increase 300>500
 - Soldier Households: very slightly reduced the bonus manpower
 - The lack of resources warning can now show which provinces have it by hovering over the question mark
+- T7 Continental System now asks for vassals instead of allies
+- T4 New monarchy/republic naval reform
+- Unify Islam province requirements tweaked so it might happen for once in our lifetime
 
 [/quote]
 
