@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.32.1
 Checksum: 
 [quote]
-[h1] xx/11/2021 [/h1]
+[h1] 24/11/2021 [/h1]
 
 - Centralization Idea: dev_cost reduction mechanic moved to the back
 - Cheese is now more cheesy (baseprice: 3 and works with soldier households)
@@ -30,7 +30,7 @@ Checksum:
 - Ramparts: attrition for hostiles 1>3
 - Impressment Offices: sailors increase 300>500
 - Soldier Households: very slightly reduced the bonus manpower
-- The lack of resources warning can now show which provinces have it by hovering over the question mark
+- The lack of resources warning can now show which provinces have it by clicking the question mark
 - T7 Continental System now asks for vassals instead of allies
 - T4 New monarchy/republic naval reform
 - Unify Islam province requirements tweaked so it might happen for once in our lifetime
