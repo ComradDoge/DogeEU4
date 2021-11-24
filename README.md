@@ -38,6 +38,8 @@ Checksum:
 - Going over naval forcelimit costs a tad bit more
 - Buffed a few military values of cult deities
 - Metalworking bonus will reapply if you already have it and you gain provinces that don't
+- Slight tweaks to France ideas
+- Tweaks to AI logic regarding some policies
 
 [/quote]
 
