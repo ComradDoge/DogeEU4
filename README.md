@@ -35,6 +35,7 @@ Checksum:
 - T4 New monarchy/republic naval reform
 - Unify Islam province requirements tweaked so it might happen for once in our lifetime
 - Blockades cause monthly devastation as they do in vanilla
+- Going over naval forcelimit costs a tad bit more
 
 [/quote]
 

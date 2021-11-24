@@ -1,8 +1,8 @@
 ----- DOGE NDefines.NDiplomacy -----
 
 --Cores
-NDefines.NCountry.ABANDON_CORE_PRESTIGE = 0 -- Default -10
-NDefines.NCountry.CORE_LOSE_PRESTIGE = 0 -- Default -10
+NDefines.NCountry.ABANDON_CORE_PRESTIGE = -1 -- Default -10
+NDefines.NCountry.CORE_LOSE_PRESTIGE = -1 -- Default -10
 
 --Rivals
 NDefines.NCountry.PS_REPLACE_RIVAL = 50 --Default 100
@@ -12,7 +12,7 @@ NDefines.NCountry.NAT_FOCUS_YEARS = 15 -- Default 25
 NDefines.NCountry.NAT_FOCUS_YEARS_RANK = 5 -- Default 5
 
 --Advisor
-NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.0075
+NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.008
 NDefines.NCountry.SCRIPTED_ADVISOR_DISCOUNT = 0.75
 
 --Wars
@@ -21,7 +21,7 @@ NDefines.NCountry.SCRIPTED_ADVISOR_DISCOUNT = 0.75
 NDefines.NCountry.BREAK_VASSAL_PRESTIGE_PENALTY = -10 -- Default -25
 
 --Dynasty
-NDefines.NCountry.LEGITIMACY_DYNASTY_CHANGE = 50 -- Default 20
+NDefines.NCountry.LEGITIMACY_DYNASTY_CHANGE = 40 -- Default 20
 
 -- For Ideas Expanded
 NDefines.NCountry.PS_BUY_IDEA = 300
@@ -39,7 +39,7 @@ NDefines.NCountry.INNOVATIVENESS_FIRST_REACHED_TECH_LEVEL = 2 -- 4.0
 
 -- Military
 NDefines.NCountry.LAND_FORCELIMIT_EXTRA_COST_FACTOR = 6.0
-NDefines.NCountry.NAVAL_FORCELIMIT_EXTRA_COST_FACTOR = 6.0
+NDefines.NCountry.NAVAL_FORCELIMIT_EXTRA_COST_FACTOR = 8.0
 NDefines.NCountry.STARTING_ARMY_SIZE = 0.75 --.75
 NDefines.NCountry.STARTING_FLEET_SIZE = 0.75 --.9
 --NDefines.NCountry.PS_SCORCH_EARTH = 5
