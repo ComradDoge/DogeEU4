@@ -22,14 +22,24 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.32.1
 Checksum: 
 [quote]
-[h1] 19/11/2021 [/h1]
+[h1] 24/11/2021 [/h1]
 
-- Minor localisation change for strong duchies privelege
-- World Revolution CB gives option to enforce peasants republic
-- Being ahead of time gives you bonuses fixed
-- Fixed some religion decisions to appear in the whole group (jewish, zoroastrian)
-- Slightly buffed one of the zoroastrian decisions
-- One ruler trait that gave -10% dev cost is now -5%, the crusade continues
+- Centralization Idea: dev_cost reduction mechanic moved to the back
+- Cheese is now more cheesy (baseprice: 3 and works with soldier households)
+- Champagne no longers gives bonus to soldier households
+- Ramparts: attrition for hostiles 1>3
+- Impressment Offices: sailors increase 300>500
+- Soldier Households: very slightly reduced the bonus manpower
+- The lack of resources warning can now show which provinces have it by clicking the question mark
+- T7 Continental System now asks for vassals instead of allies
+- T4 New monarchy/republic naval reform
+- Unify Islam province requirements tweaked so it might happen for once in our lifetime
+- Blockades cause monthly devastation as they do in vanilla
+- Going over naval forcelimit costs a tad bit more
+- Buffed a few military values of cult deities
+- Metalworking bonus will reapply if you already have it and you gain provinces that don't
+- Slight tweaks to France ideas
+- Tweaks to AI logic regarding some policies
 
 [/quote]
 
