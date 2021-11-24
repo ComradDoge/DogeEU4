@@ -2,7 +2,7 @@ namespace = tge_tradingbonus_special
 # Ebony; Indigo; Llama; Camel; Metalworking
 # N1 Activates when you have a trading bonus but not the flag, after which it checks all no matter which good triggered it
 # N2 Activates when flag is present but no trading bonus, checks all and removes if applicable 
-# N3/N4 Deals with metalworking adding and removing respectively
+# N3/N4/N5 Deals with metalworking adding, refreshing and removing respectively
 
 
 country_event = {
@@ -48,11 +48,6 @@ country_event = {
 				}
 			}
 		}
-	}
-	
-	option = {
-		name = prices_marcin.12.a
-		ai_chance = { factor = 100 }
 	}
 	
 	immediate = {
@@ -226,6 +221,11 @@ country_event = {
 			}
 		}
 	}
+
+	option = {
+		name = tge_tradingbonus_special.1.a
+		ai_chance = { factor = 100 }
+	}	
 }
 
 country_event = {
@@ -273,12 +273,7 @@ country_event = {
 			}
 		}
 	}
-	
-	option = {
-		name = prices_marcin.12.a
-		ai_chance = { factor = 100 }
-	}
-	
+
 	immediate = {
 		log = " ==================== SPECIAL_TRADING_BONUS REMOVED ====================="
 			
@@ -374,6 +369,11 @@ country_event = {
 			}
 		}
 	}
+
+	option = {
+		name = tge_tradingbonus_special.1.a
+		ai_chance = { factor = 100 }
+	}	
 }
 
 
@@ -391,11 +391,6 @@ country_event = {
             trade_goods = metalworking
             value = yes
         }
-	}
-	
-	option = {
-		name = prices_marcin.14.a
-		ai_chance = { factor = 100 }
 	}
 	
 	immediate = {
@@ -423,6 +418,11 @@ country_event = {
             }
         }
 	}
+
+	option = {
+		name = tge_tradingbonus_special.1.a
+		ai_chance = { factor = 100 }
+	}	
 }
 
 country_event = {
@@ -440,12 +440,7 @@ country_event = {
             value = no
         }
 	}
-	
-	option = {
-		name = prices_marcin.14.a
-		ai_chance = { factor = 100 }
-	}
-	
+
 	immediate = {
 		log = " ==================== METALWORKING REMOVED ====================="
         clr_country_flag = metalworking_here
@@ -458,4 +453,59 @@ country_event = {
             remove_province_modifier = metalworking_modifier_leader_new 
         }
 	}
+	
+	option = {
+		name = tge_tradingbonus_special.1.a
+		ai_chance = { factor = 100 }
+	}
+}
+
+country_event = {
+	id = tge_tradingbonus_special.5
+	title = tge_tradingbonus_special.5.t
+	desc = tge_tradingbonus_special.5.d
+	picture = TRADE_GOODS_METALS_AND_MINING_EQUIPENT_eventPicture
+
+	hidden = yes
+	
+	trigger = {
+        has_country_flag = metalworking_here
+        trading_bonus = {
+            trade_goods = metalworking
+            value = yes
+        }
+		any_owned_province = {
+			NOT = { has_province_modifier = metalworking_modifier_leader_new }
+		}
+	}
+	
+	immediate = {
+        log = " ==================== METALWORKING REFRESHER ====================="
+
+        every_owned_province = {
+
+            if = {
+                limit = {
+                    AND = {
+                        OR = {
+                            has_building = workshop 
+                            has_building = counting_house
+                            has_building = steam_factory
+                        }
+                        NOT = { has_province_modifier = metalworking_modifier_leader_new }
+                    }
+                }
+                
+                add_province_modifier = { 
+                    name = metalworking_modifier_leader_new
+                    duration = -1
+                }
+            }
+        }
+	}
+
+	option = {
+		name = tge_tradingbonus_special.1.a
+		ai_chance = { factor = 100 }
+	}	
 }

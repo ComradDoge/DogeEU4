@@ -36,6 +36,7 @@ Checksum:
 - Unify Islam province requirements tweaked so it might happen for once in our lifetime
 - Blockades cause monthly devastation as they do in vanilla
 - Going over naval forcelimit costs a tad bit more
+- Metalworking bonus will reapply if you already have it and you gain provinces that don't
 
 [/quote]
 
