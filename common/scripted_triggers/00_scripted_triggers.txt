@@ -476,38 +476,43 @@ has_manufactory_no_custom_tooltip_trigger = { #Province Scope
 root_can_build_manufactory_here_trigger = {
     has_no_manufactory_trigger = yes
     num_free_building_slots = 1
-    if = {
-        limit = {
+	OR = {
+		AND = {
             OR = {
                 trade_goods = naval_supplies
                 trade_goods = fish
                 trade_goods = salt
+				trade_goods = seafood
+				trade_goods = tar
             }
-        }
-        ROOT = { dip_tech = 11 }
-    }
-    else_if = {
-        limit = {
+			ROOT = { dip_tech = 11 }
+		}
+		AND = {
             OR = {
                 trade_goods = copper
                 trade_goods = iron
+				trade_goods = lead
+				trade_goods = mercury
+				trade_goods = tin
+				trade_goods = metalworking
+				trade_goods = munitions
+				trade_goods = zinc
+				trade_goods = cannon
             }
-        }
-        ROOT = { mil_tech = 11 }
-    }
-    else_if = {
-        limit = {
+			ROOT = { mil_tech = 11 }
+		}
+		AND = {
             OR = {
                 trade_goods = wool
                 trade_goods = cloth
                 trade_goods = silk
                 trade_goods = dyes
+				trade_goods = indigo
+				trade_goods = uniforms
             }
-        }
-        ROOT = { adm_tech = 11 }
-    }
-    else_if = {
-        limit = {
+			ROOT = { adm_tech = 11 }
+		}
+		AND = {
             OR = {
                 trade_goods = coffee
                 trade_goods = cotton
@@ -515,51 +520,83 @@ root_can_build_manufactory_here_trigger = {
                 trade_goods = tobacco
                 trade_goods = tea
                 trade_goods = cocoa
+				trade_goods = palm_oil
+				trade_goods = saffron
+				trade_goods = cinnamon
+				trade_goods = cloves
+				trade_goods = opium
+				trade_goods = dates
+				trade_goods = vanilla
+				trade_goods = nutmeg
             }
-        }
-        ROOT = { adm_tech = 14 }
-    }
-    else_if = {
-        limit = {
+			ROOT = { adm_tech = 14 }
+		}
+		AND = {
             OR = {
                 trade_goods = ivory
                 trade_goods = slaves
                 trade_goods = spices
-                trade_goods = cloves
                 trade_goods = fur
                 trade_goods = incense
+				trade_goods = whaling
+				trade_goods = beer
+				trade_goods = rum
+				trade_goods = jade
+				trade_goods = marble
+				trade_goods = gunpowder
+				trade_goods = cheese
+				trade_goods = carpet
+				trade_goods = exotic_animals
+				trade_goods = sulfur
+				trade_goods = leather
+				trade_goods = woodworking
+				trade_goods = jewellery
+				trade_goods = maple_syrup
+				trade_goods = sea_turtle
             }
-        }
-        ROOT = { dip_tech = 14 }
-    }
-    else_if = {
-        limit = {
+			ROOT = { dip_tech = 14 }
+		}
+		AND = {
             OR = {
                 trade_goods = grain
                 trade_goods = livestock
                 trade_goods = wine
+				trade_goods = apiculture
+				trade_goods = rice
+				trade_goods = horses
+				trade_goods = olive_oil
+				trade_goods = camel
+				trade_goods = elephants
+				trade_goods = citrus
+				trade_goods = potato
+				trade_goods = maize
+				trade_goods = tomato
+				trade_goods = champagne
+				trade_goods = llama
             }
-        }
-        ROOT = { adm_tech = 6 }
-    }
-    else_if = {
-        limit = {
+			ROOT = { adm_tech = 6 }
+		}
+		AND = {
             OR = {
                 trade_goods = paper
                 trade_goods = gems
+				trade_goods = pearls
                 trade_goods = tropical_wood
                 trade_goods = glass
                 trade_goods = chinaware
+				trade_goods = lumber
+				trade_goods = ebony
+				trade_goods = amber
+				trade_goods = steam_engine
+				trade_goods = optics
             }
-        }
-        ROOT = { adm_tech = 16 }
-    }
-    else_if = {
-        limit = {
+			ROOT = { adm_tech = 16 }
+		}
+		AND = {
             trade_goods = coal
-        }
-        ROOT = { adm_tech = 21 }
-    }
+			ROOT = { adm_tech = 21 }
+		}
+	}
 }
 
 has_nobles_trade_good_trigger = {
@@ -1670,12 +1707,9 @@ has_better_tech_than_westerns = {
 	custom_trigger_tooltip = {
 		tooltip = has_better_tech_than_westerns_tt
 		NOT = {
-			calc_true_if = {
-				all_country = {
-					tech_difference = 1
-					technology_group = western
-				}
-				amount = 1
+			any_country = {
+				tech_difference = 1
+				technology_group = western
 			}
 		}
 	}
@@ -1737,4 +1771,34 @@ mal_owns_provinces_in_region = {
 		AND = { has_country_flag = mal_journey_to_arabia			any_owned_province = { region = arabia_region			} }
 		AND = { has_country_flag = mal_journey_to_horn_of_africa	any_owned_province = { region = horn_of_africa_region	} }
 	}
+}
+
+
+
+province_is_or_accepts_culture = {
+	OR = {
+		has_owner_culture = yes
+		has_owner_accepted_culture = yes
+	}
+}
+
+province_is_buddhist_or_accepts_buddhism = {
+	OR = {
+		religion = buddhism
+		religion = vajrayana
+		religion = mahayana
+		AND = {
+			religion = hinduism
+			owner = {
+				has_personal_deity = buddha	
+			}						
+		}
+		AND = {
+			religion = shamanism
+			owner = {
+				has_unlocked_cult = buddhism_cult
+			}
+		}
+	}
+	has_owner_religion = yes
 }
