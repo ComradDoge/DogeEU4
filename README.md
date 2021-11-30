@@ -19,7 +19,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.32.1
+Version: 1.32.2
 Checksum: 
 [quote]
 [h1] 24/11/2021 [/h1]
@@ -40,6 +40,10 @@ Checksum:
 - Metalworking bonus will reapply if you already have it and you gain provinces that don't
 - Slight tweaks to France ideas
 - Tweaks to AI logic regarding some policies
+
+[h1] 30/11/2021 [/h1]
+
+- 1.32.2 Update
 
 [/quote]
 

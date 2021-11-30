@@ -2101,58 +2101,58 @@ judaism_on_province_culture_converted_effect = {
 
 #Country effect
 judaism_on_religion_change_effect = {
-	if = {
+	every_owned_province = {
 		limit = {
-			NOT = { religion = jewish }
-			any_owned_province = {
-				OR = {
-					has_province_modifier = judaism_abrahamic_roots
-					has_province_modifier = judaism_community_same_culture_group
-					has_province_modifier = judaism_community_wrong_culture
-				}
-			}
-		}
-		every_owned_province = {
-			limit = {
+			OR = {
 				has_province_modifier = judaism_abrahamic_roots
-			}
-			remove_province_modifier = judaism_abrahamic_roots
-		}
-		every_owned_province = {
-			limit = {
 				has_province_modifier = judaism_community_same_culture_group
-			}
-			remove_province_modifier = judaism_community_same_culture_group
-		}
-		every_owned_province = {
-			limit = {
 				has_province_modifier = judaism_community_wrong_culture
 			}
-			remove_province_modifier = judaism_community_wrong_culture
 		}
+		remove_province_modifier = judaism_abrahamic_roots
+		remove_province_modifier = judaism_community_same_culture_group
+		remove_province_modifier = judaism_community_wrong_culture
 	}
 }
 
 #Country effect
-judaism_on_culture_promoted_effect = {
-	every_owned_province = {
+judaism_on_culture_country_effect = {
+	if = {
 		limit = {
-			OR = {
-				has_owner_accepted_culture = yes
-				has_owner_culture = yes
-			}
-			OR = {
-				has_province_modifier = judaism_community_wrong_culture
-				has_province_modifier = judaism_community_same_culture_group
-			}
+			has_church_aspect = judaism_communities_aspect
 		}
-		if = {
-			limit = { has_province_modifier = judaism_community_wrong_culture }
+		every_owned_province = {
 			remove_province_modifier = judaism_community_wrong_culture
-		}
-		if = {
-			limit = { has_province_modifier = judaism_community_same_culture_group }
 			remove_province_modifier = judaism_community_same_culture_group
+		}
+		every_owned_province = {
+			limit = {
+				religion = jewish
+			}
+			if = {
+				limit = {
+					NOT = { culture_group = ROOT }
+					has_owner_accepted_culture = no
+					has_owner_culture = no
+				}
+				add_province_modifier = {
+					name = judaism_community_wrong_culture
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					owner = {
+						has_cultural_union = no
+					}
+					culture_group = ROOT
+					has_owner_accepted_culture = no
+				}
+				add_province_modifier = {
+					name = judaism_community_same_culture_group
+					duration = -1
+				}
+			}
 		}
 	}
 }
@@ -2167,8 +2167,8 @@ kongo_on_province_change_culture_or_change_owner_effect = {
 			}
 			has_owner_accepted_culture = no
 			OR = {
+				culture_group = southern_african
 				culture_group = african
-				culture_group = west_african
 				culture_group = great_lakes_group
 			}
 		}
@@ -2186,13 +2186,29 @@ kongo_on_province_change_culture_or_change_owner_effect = {
 }
 
 #Country effect
-kongo_on_culture_promoted_effect = {
+kongo_on_culture_country_effect = {
 	every_owned_province = {
-		limit = {
-			has_owner_culture = yes
-			has_province_modifier = kon_south_african_hegemony_province
-		}
 		remove_province_modifier = kon_south_african_hegemony_province
+	}
+	if = {
+		limit = {
+			has_country_modifier = kon_south_african_hegemony
+		}
+		every_owned_province = {
+			limit = {
+				OR = {
+					culture_group = southern_african
+					culture_group = african
+					culture_group = great_lakes_group
+				}
+				NOT = { has_province_modifier = kon_south_african_hegemony_province }
+				has_owner_accepted_culture = no
+			}
+			add_province_modifier = {
+				name = kon_south_african_hegemony_province
+				duration = -1
+			}
+		}
 	}
 }
 
