@@ -28,7 +28,7 @@ Checksum:
 - Changed one loading screen to "The Great Day of his Wrath" by John Martin
 - The Siberian tribes will start with rulers instead of a regency
 - Austria Missions: one of the sections were locked behind HRE related stuff which is no longer the case
-
+- Bosporan Ambition now exists
 
 [/quote]
 
