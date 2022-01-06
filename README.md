@@ -20,14 +20,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
 Version: 1.32.2
-Checksum: 
+Checksum: ?
 [quote]
-[h1] xx/11/2021 [/h1]
+[h1] 06/01/2022 [/h1]
 
 - Fixed some localisation quirks
 - Changed one loading screen to "The Great Day of his Wrath" by John Martin
 - The Siberian tribes will start with rulers instead of a regency
 - Austria Missions: one of the sections were locked behind HRE related stuff which is no longer the case
+- Dalmatian mission added
 - Bosporan Ambition now exists
 
 [/quote]
