@@ -37,7 +37,12 @@ country_event = {
 					adm = 1
 					age = 23
 				}
-				add_government_reform = dynastic_theocracy_reform
+				if = {
+					limit = {
+						is_expanded_mod_active   = { mod = governments }
+					}
+					add_government_reform = dynastic_theocracy_reform
+				}
 				custom_tooltip = BRA_recurring_hohenzollerns
 			}
 		}
@@ -122,7 +127,12 @@ country_event = {
 			adm = 1
 			age = 23
 		}
-		add_government_reform = dynastic_theocracy_reform
+		if = {
+			limit = {
+				is_expanded_mod_active = { mod = governments }
+			}
+			add_government_reform = dynastic_theocracy_reform
+		}
 		custom_tooltip = BRA_recurring_hohenzollerns
 		set_country_flag = BRA_recurring_hohenzollernsevent
 		ai_chance = {
@@ -697,7 +707,7 @@ country_event = {
 		ai_chance = { factor = 100 }
 		
 		add_years_of_income = -0.5 #The coronation was lavish
-		add_legitimacy = 10
+		add_legitimacy_equivalent = { amount = 10 republican_tradition = 5 }
 		add_prestige_or_monarch_power = { amount = 10 }
 	}
 	option = {
@@ -919,7 +929,7 @@ country_event = {
 		
 		ai_chance = { factor = 100 }
 		
-		create_general = { tradition = 100 }
+		create_general = { tradition = 150 }
 	}
 }
 
@@ -940,6 +950,9 @@ country_event = {
 				if = {
 					limit = {
 						exists = HAB
+						HAB = {
+							is_subject = no 
+						}
 					}
 					if = {
 						limit = {
@@ -953,6 +966,11 @@ country_event = {
 					else_if = {
 						limit = {
 							emperor = { total_development = HAB }
+							emperor = {
+								NOT = {
+									tag = ROOT
+								}
+							}
 						}
 						emperor = {
 							save_global_event_target_as = ME_PRU_EMPEROR_TARGET
@@ -976,6 +994,9 @@ country_event = {
 			else_if = {
 				limit = {
 					exists = HAB
+					HAB = {
+						is_subject = no 
+					}
 				}
 				HAB = {
 					save_global_event_target_as = ME_PRU_EMPEROR_TARGET
@@ -1229,8 +1250,7 @@ country_event = {
 		custom_tooltip = PRU_may_convert_vassals
 		
 		custom_tooltip = PRU_decision_germany
-		set_country_flag = formed_germany_flag
-		set_country_flag = formed_northgermancon_nation
+		set_country_flag = formed_germany_flag 
 		add_country_modifier = {
 			name = PRU_vassal_play
 			duration = -1
@@ -1267,10 +1287,12 @@ country_event = {
 		
 		if = {
 			limit = {
+				is_expanded_mod_active = { mod = governments }
 				has_reform_on_level = 5
 				NOT = { has_reform = kreditwerk_reform }
 			}
 			add_government_reform = kreditwerk_reform
+			#custom_tooltip = GE_Kreditwerk
 			set_country_flag = GE_Kreditwerk_flag
 		}
 		else = {
