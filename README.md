@@ -24,7 +24,7 @@ Checksum: ?
 [quote]
 [h1] 06/01/2022 [/h1]
 
-- Increased effect of blockading on lowering the recruitment of troops and ships (-50% and -100%)
+- Increased effect of blockading on lowering the recruitment of troops and ships (-25% and -50%)
 - Good chunk of "interest per annum" sources lowered.
 - Kongo Origin 4th mission requirement tweaked to not require a privilege that does not exist
 
