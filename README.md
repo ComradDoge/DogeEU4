@@ -24,13 +24,9 @@ Checksum: ?
 [quote]
 [h1] 06/01/2022 [/h1]
 
-- Fixed some localisation quirks
-- Changed one loading screen to "The Great Day of his Wrath" by John Martin
-- The Siberian tribes will start with rulers instead of a regency
-- Austria Missions: one of the sections were locked behind HRE related stuff which is no longer the case
-- Tweaked "Beatification of Joan" event
-- Dalmatian/Ragusan missions added
-- Bosporan Ambition now exists
+- Increased effect of blockading on lowering the recruitment of troops and ships (-50% and -100%)
+- Good chunk of "interest per annum" sources lowered.
+- Kongo Origin 4th mission requirement tweaked to not require a privilege that does not exist
 
 [/quote]
 

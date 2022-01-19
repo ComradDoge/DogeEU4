@@ -1,14 +1,10 @@
 ----- DOGE NDefines.NEconomy -----
 
---BANKRUPTCY_PROVINCE_DEVASTATION_GAIN = 10,		-- Default 10. Devastation gained in country provinces after declaring bankrutcy.
---NDefines.NEconomy.BANKRUPTCY_DURATION = 5	-- Default 5.
---NDefines.NEconomy.BANKRUPTCY_BUILDING_DESTRUCTION_THRESHOLD = 6	--Default 5, why +1? To see if it fucks with bankruptcy builders more than the avergae player. Bankruptcy will destroy building that have been build in the latest X amount of years. Set to zero to disable the destruction mechanic.
---NDefines.NEconomy.MAX_BUILDING_SLOTS = x -- Default 12, this will probably will change if buildings added.
-
 --Economy
 NDefines.NEconomy.DEBASE_MAX_CORRUPTION = 30 -- Default 90, Above this level of corruption, you won't be able to Debase Currency.
-NDefines.NEconomy.MAX_BUILDING_SLOTS = 16 --12
+NDefines.NEconomy.MAX_BUILDING_SLOTS = 16 -- Default 12
 NDefines.NEconomy.INFLATION_FROM_LOAN = 0.2
+NDefines.NEconomy.BASE_INTERESTS = 6.0 -- Default 4.0
 
 --Trade
 NDefines.NEconomy.COT_DOWNGRADE_PRESTIGE_COST = -5 -- Default -10, QoL change. Cost in prestige to downgrade a Center of Trade.
@@ -33,5 +29,6 @@ NDefines.NEconomy.FORT_FRACTION_CAPITALIST = 0.25
 NDefines.NEconomy.LOAN_REPAYMENT_SAVINGS_PRIORITY = 2
 
 -- Bankruptcy
-NDefines.NEconomy.BANKRUPTCY_DURATION = 10
-NDefines.NEconomy.BANKRUPTCY_BUILDING_DESTRUCTION_THRESHOLD = 10
+NDefines.NEconomy.BANKRUPTCY_DURATION = 10 -- Default 5.
+NDefines.NEconomy.BANKRUPTCY_BUILDING_DESTRUCTION_THRESHOLD = 10 -- Default 5. 
+NDefines.NEconomy.BANKRUPTCY_PROVINCE_DEVASTATION_GAIN = 30		-- Default 10. Devastation gained in country provinces after declaring bankrutcy.
