@@ -26,7 +26,10 @@ Checksum: ?
 
 - Increased effect of blockading on lowering the recruitment of troops and ships (-25% and -50%)
 - Good chunk of "interest per annum" sources lowered.
+- Bank interest has risen by 2% as a response to the rising inflation
 - Kongo Origin 4th mission requirement tweaked to not require a privilege that does not exist
+- Added a few missing cores in the vanilla flavour bookmarks
+- Rhineland got an additional -5% regiment cost and +5% manpower in its ideas
 
 [/quote]
 
