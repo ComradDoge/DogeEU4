@@ -1,0 +1,174 @@
+Theorycrafting
+
+No negatives modifiers for the moment, to encourage merc idea group and because (hopefully) its a very fun neat mechanic
+
+
+# SYSTEM NOT USED DUE TO THE CONSTRAINTS OF OUR TIME
+# only preset system should be done, but at that point there is not much need for this interface
+
+
+OPEN THIS EVENT AGAIN = OTE
+
+REINFORCE SPEED
+RECOVER ARMY MORALE SPEED
+SHOCK DAMAGE
+SHOCK DAMAGE RECEIVED
+FIRE DAMAGE
+FIRE DAMAGE RECEIVED
+LAND MORALE
+DISCIPLINE
+MOVEMENT SPEED
+PRESTIGE FROM LAND BATTLE 
+RESERVES ORGANISATION
+
+
+DECISION TO OPEN THE "Build-A-Merc" EVENT
+- CANT HAVE ANY OF CUSTOM MERCS TO BE CURRENTLY HIRED
+- CANT HAVE merc_no_custom_mercenaries
+- SET FLAG, merc_no_custom_mercenaries
+
+
+
+
+########### Build-A-Merc Inc. TOP ###########
+
+
+Mercenaries are a good source of expendable manpower but what if we 'made' one ourselves? Now, of course they would not be affiliated to us in any way shape or form and would be kept under wraps but the benefits would be amazing. We could ensure that trained men are in them and that their effectiveness and composition is guaranteed.
+    ###### DEDICATION EVENT TOP ######
+    I. DEDICATION - [Root.GetMercDedicationPick]
+        1. INFANTRY (SET, REMOVE OTHERS, OTE)
+        2. CAVALRY (SET, REMOVE OTHERS, OTE)
+        3. ARTILLERY (SET, REMOVE OTHERS, OTE)
+
+        4. BACK (I+II SCREEN)
+
+    ###### DEDICATION EVENT BOT ######
+    ###### MODIFIER EVENT TOP ######
+    II. MODIFIERS
+        1. ###### 1ST - [Root.GetMerc1stModifier] TOP ######
+            1. SHOCK DAMAGE (SET, REMOVE OTHERS, OTE)
+            2. SHOCK DAMAGE RECEIVED (SET, REMOVE OTHERS, OTE)
+            3. FIRE DAMAGE (SET, REMOVE OTHERS, OTE)
+            4. FIRE DAMAGE RECEIVED (SET, REMOVE OTHERS, OTE)
+            5. NONE (REMOVE ALL FLAGS, OTE)
+
+            6. BACK (II SCREEN)
+           ###### 1ST MODIFIER BOT ######
+        2. ###### 2ND - [Root.GetMerc2ndModifier] TOP ######
+            1. REINFORCE SPEED (SET, REMOVE OTHERS, OTE)
+            2. REINFORCE COST (SET, REMOVE OTHERS, OTE)
+            3. RESERVES ORGANISATION (SET, REMOVE OTHERS, OTE)
+            4. RECOVER ARMY MORALE SPEED (SET, REMOVE OTHERS, OTE)
+            5. NONE (REMOVE ALL FLAGS, OTE)
+
+            6. BACK (II SCREEN)
+           ###### 2ND MODIFIER BOT ######
+        3. ###### 3RD [Root.GetMerc3rdModifier] TOP ######
+            1. DISCPLINE (SET FLAG, REMOVE LAND FLAG, OTE)
+            2. LAND MORALE (SET FLAG, REMOVE DISCIPLINE FLAG, OTE)
+            3. NONE (REMOVE ALL FLAGS, OTE)
+
+            4. BACK (II SCREEN)
+           ###### 3RD MODIFIER BOT ######
+        4. BACK (I+II SCREEN)
+    ###### MODIFIER EVENT BOT ######
+    III. DONE (REMOVE merc_no_custom_mercenaries flag )
+
+
+########### Build-A-Merc Inc. BOT ###########
+MAIN EVENT
+    1 DEDICATION
+    2 MODIFIERS
+        1 FIRST
+        2 SECOND
+        3 THIRD
+
+event_buildamerc_interface.1 # main event
+event_buildamerc_interface.1.t
+event_buildamerc_interface.1.d
+
+event_buildamerc_interface.1.o1 # dedications button
+    event_buildamerc_interface.2
+    event_buildamerc_interface.2.t
+    event_buildamerc_interface.2.d
+
+    event_buildamerc_interface.2.o1 # infantry
+    event_buildamerc_interface.2.o2 # cavalry
+    event_buildamerc_interface.2.o3 # artillery
+
+    event_buildamerc_interface.2.exit # event 1
+
+event_buildamerc_interface.1.o2 # modifiers button
+    event_buildamerc_interface.3
+    event_buildamerc_interface.3.t 
+    event_buildamerc_interface.3.d
+
+    event_buildamerc_interface.3.o1 # modifier 1
+        event_buildamerc_interface.4
+        event_buildamerc_interface.4.t
+        event_buildamerc_interface.4.d
+
+        event_buildamerc_interface.4.o1
+        event_buildamerc_interface.4.o2
+        event_buildamerc_interface.4.o3
+        event_buildamerc_interface.4.o4
+
+        event_buildamerc_interface.4.exit # event 3
+    event_buildamerc_interface.3.o2 # modifier 2
+        event_buildamerc_interface.5
+        event_buildamerc_interface.5.t
+        event_buildamerc_interface.5.d
+
+        event_buildamerc_interface.5.o1
+        event_buildamerc_interface.5.o2
+        event_buildamerc_interface.5.o3
+        event_buildamerc_interface.5.o4
+
+        event_buildamerc_interface.5.exit # event 3
+    event_buildamerc_interface.3.o3 # modifier 3
+        event_buildamerc_interface.6
+        event_buildamerc_interface.6.t
+        event_buildamerc_interface.6.d
+
+        event_buildamerc_interface.6.o1 # discipline
+        event_buildamerc_interface.6.o2 # land morale
+
+        event_buildamerc_interface.6.exit # event 3
+
+    event_buildamerc_interface.3.exit # event 1
+
+event_buildamerc_interface.1.exit # done
+
+trigger = {
+    AND = {
+        has_country_flag = merc_infantry_dedication_picked
+        has_country_flag = merc_shock_dmg_picked
+        has_country_flag = merc_discipline_picked
+    }
+    NOT = {
+        has_country_flag = merc_infantry_dedication_picked
+        has_country_flag = merc_cavalry_dedication_picked
+        has_country_flag = merc_artillery_dedication_picked
+
+        ##############################################
+        has_country_flag = merc_shock_dmg_picked 10%
+        has_country_flag = merc_shock_dmg_received_picked 10%
+        has_country_flag = merc_fire_dmg_picked 10%
+        has_country_flag = merc_fire_dmg_received_picked 10%
+
+        has_country_flag = merc_reinforce_speed_picked 15%
+        has_country_flag = merc_reinforce_cost_picked 15%
+        has_country_flag = merc_reserves_organisation_picked 20%
+        has_country_flag = merc_recover_army_morale_speed_picked 20%
+        
+        has_country_flag = merc_discipline_picked 5%
+        has_country_flag = merc_land_morale_picked 10%
+        #############################################
+
+        has_country_flag = merc_no_custom_mercenaries
+    }
+}
+
+1111
+1222
+1333

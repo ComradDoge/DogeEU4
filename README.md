@@ -30,6 +30,8 @@ Checksum: ?
 - Kongo Origin 4th mission requirement tweaked to not require a privilege that does not exist
 - Fixed a bunch of missing cores in the vanilla flavour bookmark
 - Rhineland got an additional -5% regiment cost and +5% manpower in its ideas
+- Non-vanilla units that appeared tech 33-40 removed, in echange other bonuses upped in those tech for funsies if you get to that point. German techgroup is also no longer in use for the time being.
+- Mercenary Ideas: added a "Build-A-Merc" system where you are able to, within games limitations, upgrade your independent mercenary group by choosing various modifiers.
 
 [/quote]
 
