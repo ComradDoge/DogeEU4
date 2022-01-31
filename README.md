@@ -34,7 +34,7 @@ Checksum: ?
 - Mercenary Ideas: last idea gives you 5 mercenary groups (2inf, 2cav, 1art) with preset modifiers and a cap of 40.
 - Mercenery companies maximum amount of regiment set to 40. Mercenary companies are now comprised of a single unit instead of a weird mishmash.
 - Advisors have been fully cleaned up and are back to vanilla amount (21) with some tweaks. To compensate for the loss of content each advisor got an event made (akin to the one-time events at level 3) for a total of additional 21 events (total 42) that have a chance to activate. More advisor option might come in the future but this is for the sake of better maintenance for the future.
-- Possible advisor sources lowered
+- Breton, Welsh and Cornish are in their original respective culture groups to help ease the conquest of the region they are in.
 
 
 [/quote]
