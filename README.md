@@ -24,16 +24,22 @@ Checksum: ?
 [quote]
 [h1] 06/01/2022 [/h1]
 
-- Increased effect of blockading on lowering the recruitment of troops and ships (-25% and -50%)
-- Good chunk of "interest per annum" sources lowered.
-- Bank interest has risen by 2% as a response to the rising inflation
-- Kongo Origin 4th mission requirement tweaked to not require a privilege that does not exist
-- Fixed a bunch of missing cores in the vanilla flavour bookmark
-- Rhineland got an additional -5% regiment cost and +5% manpower in its ideas
+Gameplay
+- Advisors have been fully cleaned up, some remove other added, all advisors can be seen on the mod wiki.
 - Non-vanilla units that appeared tech 33-40 removed, in exchange other bonuses upped in those techs for funsies if you get to that point. German techgroup is also no longer in use for the time being.
 - Mercenary Ideas: last idea gives you 5 mercenary groups (2inf, 2cav, 1art) with preset modifiers and a cap of 40.
 - Mercenery companies maximum amount of regiment set to 40. Mercenary companies are now comprised of a single unit instead of a weird mishmash.
-- Advisors have been fully cleaned up and are back to vanilla amount (21) with some tweaks. To compensate for the loss of content each advisor got an event made (akin to the one-time events at level 3) for a total of additional 21 events (total 42) that have a chance to activate. More advisor option might come in the future but this is for the sake of better maintenance for the future.
+- All advisor privileges have been removed
+
+Balance
+- Increased effect of blockading on lowering the recruitment of troops and ships (-25% and -50%)
+- Rhineland got an additional -5% regiment cost and +5% manpower in its ideas
+- Bank interest has risen by 2% as a response to the rising inflation
+- Good chunk of "interest per annum" sources lowered.
+
+Fixes
+- Fixed a bunch of missing cores in the vanilla flavour bookmark
+- Kongo Origin 4th mission requirement tweaked to not require a privilege that does not exist
 - Breton, Welsh and Cornish are in their original respective culture groups to help ease the conquest of the region they are in.
 
 
@@ -57,6 +63,7 @@ The possible new formables and their ideas are on this [url=https://dogeshattere
 - 30+ New Idea Groups
 - 50+ New Monuments
 - 2 New Ages
+- 15 New Advisors
 - 30 New Religions
 - 22 Islamic Schools
 - Upgradable State Edicts
