@@ -30,6 +30,7 @@ Gameplay
 - Mercenary Ideas: last idea gives you 5 mercenary groups (2inf, 2cav, 1art) with preset modifiers and a cap of 40.
 - Mercenery companies maximum amount of regiment set to 40. Mercenary companies are now comprised of a single unit instead of a weird mishmash.
 - All advisor privileges have been removed
+- Pontifex decisio completely reworked
 
 Balance
 - Increased effect of blockading on lowering the recruitment of troops and ships (-25% and -50%)
@@ -279,3 +280,6 @@ monument = {
         }
 	}
 }
+
+
+BYZ gets ROME > click decision > gets 2 modifiers and access to introspection > others get CB on rome > they conquer it > BYZ loses seat > they core it > click decision > become pontifex > get 1 modifier plus acces to introspection > repeat
