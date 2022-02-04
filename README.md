@@ -25,7 +25,7 @@ Checksum: ?
 [h1] 06/01/2022 [/h1]
 
 Gameplay
-- Advisors have been fully cleaned up, some removed others added, all advisors can be seen on the mod wiki.
+- Advisors have been fully cleaned up and can be checked on the mod wiki. There are now a total of 36 advisors. 21 Vanilla and 15 new ones. The new ones also have their own respective one-time events simillar to vanilla.
 - Non-vanilla units that appeared tech 33-40 removed, in exchange other bonuses upped in those techs for funsies if you get to that point. German techgroup is also no longer in use for the time being.
 - Mercenary Ideas: last idea gives you 5 mercenary groups (2inf, 2cav, 1art) with preset modifiers and a cap of 40.
 - Mercenery companies maximum amount of regiment set to 40. Mercenary companies are now comprised of a single unit instead of a weird mishmash.
