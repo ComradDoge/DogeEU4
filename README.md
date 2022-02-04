@@ -25,18 +25,18 @@ Checksum: ?
 [h1] 06/01/2022 [/h1]
 
 Gameplay
-- Advisors have been fully cleaned up, some remove other added, all advisors can be seen on the mod wiki.
+- Advisors have been fully cleaned up, some removed others added, all advisors can be seen on the mod wiki.
 - Non-vanilla units that appeared tech 33-40 removed, in exchange other bonuses upped in those techs for funsies if you get to that point. German techgroup is also no longer in use for the time being.
 - Mercenary Ideas: last idea gives you 5 mercenary groups (2inf, 2cav, 1art) with preset modifiers and a cap of 40.
 - Mercenery companies maximum amount of regiment set to 40. Mercenary companies are now comprised of a single unit instead of a weird mishmash.
-- All advisor privileges have been removed
-- Pontifex decisio completely reworked
+- Pontifex decision completely reworked
 
 Balance
 - Increased effect of blockading on lowering the recruitment of troops and ships (-25% and -50%)
 - Rhineland got an additional -5% regiment cost and +5% manpower in its ideas
 - Bank interest has risen by 2% as a response to the rising inflation
 - Good chunk of "interest per annum" sources lowered.
+- All advisor privileges have been removed
 
 Fixes
 - Fixed a bunch of missing cores in the vanilla flavour bookmark
@@ -280,6 +280,3 @@ monument = {
         }
 	}
 }
-
-
-BYZ gets ROME > click decision > gets 2 modifiers and access to introspection > others get CB on rome > they conquer it > BYZ loses seat > they core it > click decision > become pontifex > get 1 modifier plus acces to introspection > repeat
