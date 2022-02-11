@@ -26,23 +26,23 @@ Checksum: ?
 
 Gameplay
 - Advisors have been fully cleaned up and can be checked on the mod wiki. There are now a total of 36 advisors. 21 Vanilla and 15 new ones. The new ones also have their own respective one-time events simillar to vanilla.
-- Non-vanilla units that appeared tech 33-40 removed, in exchange other bonuses upped in those techs for funsies if you get to that point. German techgroup is also no longer in use for the time being.
-- Mercenary Ideas: last idea gives you 5 mercenary groups (2inf, 2cav, 1art) with preset modifiers and a cap of 40.
 - Mercenery companies maximum amount of regiment set to 40. Mercenary companies are now comprised of a single unit instead of a weird mishmash.
-- Pontifex decision completely reworked
+- Pontifex decision completely reworked. If a Byzantine or Italian restores it Hellenics and even Catholics get CB to take over the position. The position provides a bonus and an Introspection mechanic allowing you tp remove a bad trait every 5 years of your own choosing.
+- Getting Hellenism changed and Sol Invictus added to as a 'leader' of Hellenism. 
+- Sol Invictus: an aspect system which gives you very powerful bonuses at the cost of church power but they last for a short time so time them well. A CB that allows you to convert others to Hellenism (not Sol Invictus because you are special) and make them into a Hellenic Tributary.
 
 Balance
+- Mercenary Ideas: last idea gives you 5 mercenary groups (2inf, 2cav, 1art) with preset modifiers and a cap of 40.
 - Increased effect of blockading on lowering the recruitment of troops and ships (-25% and -50%)
 - Rhineland got an additional -5% regiment cost and +5% manpower in its ideas
-- Bank interest has risen by 2% as a response to the rising inflation
+- All advisor privileges have been removed, they may come back in the future.
 - Good chunk of "interest per annum" sources lowered.
-- All advisor privileges have been removed
 
-Fixes
+Fixes + Other
 - Fixed a bunch of missing cores in the vanilla flavour bookmark
 - Kongo Origin 4th mission requirement tweaked to not require a privilege that does not exist
 - Breton, Welsh and Cornish are in their original respective culture groups to help ease the conquest of the region they are in.
-
+- Mod units that appeared at tech 33-40 removed, in exchange other bonuses upped in those techs for funsies if you get to that point. German techgroup is also no longer in use until I think of something more interesting.
 
 [/quote]
 

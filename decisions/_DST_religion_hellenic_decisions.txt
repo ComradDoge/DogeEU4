@@ -1,92 +1,248 @@
 country_decisions = {
-	
-	restore_hellenic_pantheon = {
+
+
+	byzantine_convert_hellenism = {
 		major = yes
 		potential = {
-			religion = hellenic_pagan
-			NOT = {
-				has_country_modifier = restored_hellenic_pantheon
-			}
-			NOT = {
-				has_global_flag = pantheon_restored
-			}
-		}
-		allow = {
-			religion = hellenic_pagan
-			owns_or_vassal_of = 146
-			owns_or_vassal_of = 118
-			owns_or_vassal_of = 358
-			owns_or_vassal_of = 148
-			owns_or_vassal_of = 2296
-			owns_or_vassal_of = 341
-			all_owned_province = {
-				religion = hellenic_pagan
-			}
-			years_of_income = 1
-			adm_power = 100
-			mil_power = 100
-			dip_power = 100
-		}
-		effect = {
-			add_country_modifier = {
-				name = restored_hellenic_pantheon
-				duration = -1
-			}
-			set_global_flag = pantheon_restored
-			add_years_of_income = -1
-			add_adm_power = -100
-			add_mil_power = -100
-			add_dip_power = -100
-		}
-		ai_will_do = {
-			factor = 1
-		}
-	}
-	
-	convert_to_hellenic = {
-		major = yes
-		potential = {
-			NOT = { is_year = 1450 }
 			ai = no
+			NOT = { has_country_flag = byzantine_converted_to_hellenism_flag }
 			NOT = { religion = hellenic_pagan }
+			NOT = { religion = solar_monism }
 			NOT = { tag = PAP }
-			NOT = { tag = KNI }
 			NOT = { exists = TUR }
 			culture_group = byzantine
 			is_emperor = no
-			NOT = { has_country_flag = converted_to_hellenic_decision }
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 151
+				province_id = 148
+				province_id = 146
+				province_id = 1773
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
 		}
 		allow = {
-			NOT = { is_year = 1450 }
-			#NOT = { has_country_flag = converted_to_hellenic_decision }
+			owns_core_province = 151
+			owns_core_province = 148
+			owns_core_province = 146
+			owns_core_province = 1773
 			is_at_war = no
 			is_subject = no
 			is_defender_of_faith = no
 		}
 		effect = {
-			set_country_flag = converted_to_hellenic_decision
-			change_religion = hellenic_pagan
-			capital_scope = { change_religion = hellenic_pagan }
-			if = {
-				limit = {
-					num_of_cities = 3
-				}
-				add_country_modifier = {
-					name = hellenic_zeal
-					duration = 3650
-				}
-			}
-			if = {
-				limit = {
-					NOT = { num_of_cities = 3 }
-				}
-				add_country_modifier = {
-					name = hellenic_zeal_small
-					duration = 5475
-				}
-			}
+			set_global_flag = byzantine_converted_to_hellenism_global_flag
+			set_country_flag = byzantine_converted_to_hellenism_flag
+			country_event = { id = dse_hellenic_conversion.2 }
 		}
 	}
+
+
+	italians_convert_hellenism = {
+		major = yes
+		potential = {
+			ai = no
+
+			NOT = { has_country_flag = byzantine_converted_to_hellenism_flag }
+			has_global_flag = byzantine_converted_to_hellenism_global_flag
+
+			NOT = { religion = hellenic_pagan }
+			NOT = { religion = solar_monism }
+			NOT = { tag = PAP }
+			NOT = { exists = TUR }
+			culture_group = latin
+			owns = 118
+			is_emperor = no
+		}
+		provinces_to_highlight = {
+			province_id = 118
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			is_subject = no
+			is_defender_of_faith = no
+			owns_core_province = 118
+		}
+		effect = {
+			set_country_flag = byzantine_converted_to_hellenism_flag
+			country_event = { id = dse_hellenic_conversion.2 }
+		}
+	}
+
+
+	others_convert_hellenism = {
+		major = yes
+		potential = {
+			ai = no
+			has_global_flag = byzantine_converted_to_hellenism_global_flag
+			NOT = { has_country_flag = others_converted_to_hellenism_flag }
+			NOT = { religion = hellenic_pagan }
+			NOT = { religion = solar_monism }
+			NOT = { culture_group = byzantine }
+			NOT = { culture_group = latin }
+			NOT = { tag = PAP }
+			NOT = { exists = TUR }
+			OR = {
+				owns = 151
+				owns = 148
+				owns = 146
+				owns = 1773
+			}
+			is_emperor = no
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 151
+				province_id = 148
+				province_id = 146
+				province_id = 1773
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			is_subject = no
+			is_defender_of_faith = no
+			owns_core_province = 151
+			owns_core_province = 148
+			owns_core_province = 146
+			owns_core_province = 1773
+		}
+		effect = {
+			set_global_flag = others_converted_to_hellenism_global_flag
+			set_country_flag = others_converted_to_hellenism_flag
+			country_event = { id = dse_hellenic_conversion.2 }
+		}
+	}
+
+	invictus_hellenism = {
+		major = yes
+		potential = {
+			ai = no
+			religion = hellenic_pagan
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 118
+				province_id = 151
+				province_id = 148
+				province_id = 146
+				province_id = 1773
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			is_subject = no
+			is_defender_of_faith = no
+			owns_core_province = 118
+			owns_core_province = 151
+			owns_core_province = 148
+			owns_core_province = 146
+			owns_core_province = 1773
+		}
+		effect = {
+			set_global_flag = an_invictus_state
+			country_event = { id = dse_hellenic_conversion.3 }
+		}
+	}
+
+
+
+	
+	#restore_hellenic_pantheon = { deos not make sense
+	#	major = yes
+	#	potential = {
+	#		religion = hellenic_pagan
+	#		NOT = {
+	#			has_country_modifier = restored_hellenic_pantheon
+	#		}
+	#		NOT = {
+	#			has_global_flag = pantheon_restored
+	#		}
+	#	}
+	#	allow = {
+	#		religion = hellenic_pagan
+	#		owns_or_vassal_of = 146
+	#		owns_or_vassal_of = 118
+	#		owns_or_vassal_of = 358
+	#		owns_or_vassal_of = 148
+	#		owns_or_vassal_of = 2296
+	#		owns_or_vassal_of = 341
+	#		all_owned_province = {
+	#			religion = hellenic_pagan
+	#		}
+	#		years_of_income = 1
+	#		adm_power = 100
+	#		mil_power = 100
+	#		dip_power = 100
+	#	}
+	#	effect = {
+	#		add_country_modifier = {
+	#			name = restored_hellenic_pantheon
+	#			duration = -1
+	#		}
+	#		set_global_flag = pantheon_restored
+	#		add_years_of_income = -1
+	#		add_adm_power = -100
+	#		add_mil_power = -100
+	#		add_dip_power = -100
+	#	}
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#}
+	
+	#convert_to_hellenic = { # Old way to convert to hellenic, acted as a bandaid
+	#	major = yes
+	#	potential = {
+	#		NOT = { is_year = 1450 }
+	#		ai = no
+	#		NOT = { religion = hellenic_pagan }
+	#		NOT = { tag = PAP }
+	#		NOT = { tag = KNI }
+	#		NOT = { exists = TUR }
+	#		culture_group = byzantine
+	#		is_emperor = no
+	#		NOT = { has_country_flag = converted_to_hellenic_decision }
+	#	}
+	#	allow = {
+	#		NOT = { is_year = 1450 }
+	#		#NOT = { has_country_flag = converted_to_hellenic_decision }
+	#		is_at_war = no
+	#		is_subject = no
+	#		is_defender_of_faith = no
+	#	}
+	#	effect = {
+	#		set_country_flag = converted_to_hellenic_decision
+	#		change_religion = hellenic_pagan
+	#		capital_scope = { change_religion = hellenic_pagan }
+	#		if = {
+	#			limit = {
+	#				num_of_cities = 3
+	#			}
+	#			add_country_modifier = {
+	#				name = hellenic_zeal
+	#				duration = 3650
+	#			}
+	#		}
+	#		if = {
+	#			limit = {
+	#				NOT = { num_of_cities = 3 }
+	#			}
+	#			add_country_modifier = {
+	#				name = hellenic_zeal_small
+	#				duration = 5475
+	#			}
+	#		}
+	#	}
+	#}
 
 	
 #	convert_to_soli = {
