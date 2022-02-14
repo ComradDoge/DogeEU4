@@ -43,6 +43,7 @@ Fixes + Other
 - Kongo Origin 4th mission requirement tweaked to not require a privilege that does not exist
 - Breton, Welsh and Cornish are in their original respective culture groups to help ease the conquest of the region they are in.
 - Mod units that appeared at tech 33-40 removed, in exchange other bonuses upped in those techs for funsies if you get to that point. German techgroup is also no longer in use until I think of something more interesting.
+- Estate privilege UI slightly updated and estate icons made smaller to focus on the numbers instead
 
 [/quote]
 
