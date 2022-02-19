@@ -1,0 +1,90 @@
+namespace = dse_nationalism_events
+
+
+# Adds the unrest when a province has 100% nationalism and not of your culture or you havent accepted it
+country_event = {
+	id = dse_nationalism_events.1
+	title = dse_nationalism_events.1.t
+	desc = dse_nationalism_events.1.d
+	picture = WESTERNISATION_eventPicture
+	hidden = yes
+
+	trigger = {
+        any_owned_province = {
+            AND = {
+                OR = {
+                    has_owner_accepted_culture = no
+                    has_owner_culture = no
+                }
+                nationalism_institution = 100
+                NOT = { has_province_modifier = nationalism_event_unrest_mod }
+            }
+        }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = dse_nationalism_events.1.o1
+		
+		every_owned_province = {
+			limit = {
+                has_owner_accepted_culture = no
+                nationalism_institution = 100
+			}
+			add_province_modifier = {
+				name = nationalism_event_unrest_mod
+				duration = -1
+			}
+		}
+	}
+}
+
+# Removes the unrest
+country_event = {
+	id = dse_nationalism_events.2
+	title = dse_nationalism_events.2.t
+	desc = dse_nationalism_events.2.d
+	picture = WESTERNISATION_eventPicture
+	hidden = yes
+
+	trigger = {
+        any_owned_province = {
+            AND = {
+                OR = {
+                    has_owner_accepted_culture = yes
+                    has_owner_culture = yes
+                }
+                nationalism_institution = 100
+                has_province_modifier = nationalism_event_unrest_mod
+            }
+        }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = dse_nationalism_events.2.o1
+		
+		every_owned_province = {
+			limit = {
+                has_owner_accepted_culture = yes
+                nationalism_institution = 100
+				has_province_modifier = nationalism_event_unrest_mod
+			}
+			remove_province_modifier = nationalism_event_unrest_mod
+		}
+		every_owned_province = {
+			limit = {
+                has_owner_culture = yes
+                nationalism_institution = 100
+				has_province_modifier = nationalism_event_unrest_mod
+			}
+			remove_province_modifier = nationalism_event_unrest_mod
+		}
+	}
+}
