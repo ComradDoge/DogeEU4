@@ -682,7 +682,7 @@ interaction = {
         }
     }
 	ai_will_do = {
-		factor = 5
+		factor = 1
 		
 	}
 }
@@ -751,5 +751,170 @@ interaction = {
 	ai_will_do = {
 		factor = 0
 		
+	}
+}
+
+
+
+
+
+
+#########################
+#########################
+
+#This is exclusive for AI so it still can sell land
+interaction = {
+    key = sale_of_titles_AI
+    random_seed = crown_land_share
+	cooldown_months = 60
+
+    trigger = {
+		ai = yes
+        crown_land_share = 0.2
+        NOT = { num_of_rebel_armies = 1 }
+		NOT = { num_of_rebel_controlled_provinces = 1 }
+		hidden_trigger = { has_any_estates = yes }
+		has_factions = no
+		is_colonial_nation = no
+    }
+    effect = {
+		if = {
+            limit = { current_age = age_of_discovery }
+            add_years_of_estate_land_income = 3.5
+        }
+        else_if = {
+            limit = { current_age = age_of_reformation }
+            add_years_of_estate_land_income = 3
+        }
+        else_if = {
+            limit = { current_age = age_of_absolutism }
+            add_years_of_estate_land_income = 2.5
+        }
+		else_if = {
+			limit = { current_age = age_of_enlightenment }
+			add_years_of_estate_land_income = 2
+		}
+		else_if = {
+			limit = { current_age = industrial_age }
+			add_years_of_estate_land_income = 1.5
+		}
+        else_if = {
+            limit = { current_age = age_of_revolutions }
+            add_years_of_estate_land_income = 1
+        }
+        custom_tooltip = ESTATES_SALE_OF_TITLES_DESC
+        give_estate_land_share_gigantic = { estate = all }
+        add_estate_loyalty = {
+            estate = all
+            loyalty = 10
+            short = yes
+        }
+		if = {
+			limit = {
+				has_country_flag = recent_land_distribution
+			}
+			clr_country_flag = recent_land_distribution
+		}
+		set_country_flag = recent_land_distribution
+    }
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			factor = 0
+			OR = {
+				NOT = { crown_land_share = 25 }
+				AND = {
+					is_absolutism_active = yes
+					NOT = { crown_land_share = 40 }
+				}
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				NOT = { crown_land_share = 35 }
+				AND = {
+					is_absolutism_active = yes
+					NOT = { crown_land_share = 50 }
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 0.5
+			is_in_deficit = no
+		}
+		modifier = {
+			factor = 1.25
+			has_any_disaster = yes
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+			is_in_deficit = yes
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 5
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 10
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 15
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 20
+		}
+		modifier = {
+			factor = 1.2
+			NOT = {
+				estate_loyalty = {
+					estate = all
+					loyalty = 25
+				}
+			}
+		}
+		modifier = {
+			factor = 1.1
+			crown_land_share = 80
+		}
+		modifier = {
+			factor = 0.75
+			num_of_powerful_estates = 1
+		}
+		modifier = {
+			factor = 0.8
+			has_country_flag = recent_land_distribution
+			NOT = {
+				had_country_flag = {
+					flag = recent_land_distribution
+					days = 5475
+				}
+			}
+		}
+		modifier = {
+			factor = 1.2
+			had_country_flag = {
+				flag = recent_land_distribution
+				days = 10950
+			}
+		}
+		modifier = {
+			factor = 0.5
+			has_country_flag = recent_land_seizure
+			NOT = {
+				had_country_flag = {
+					flag = recent_land_seizure
+					days = 5475
+				}
+			}
+		}
 	}
 }
