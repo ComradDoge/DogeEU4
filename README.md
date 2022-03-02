@@ -31,6 +31,7 @@ Content
 - Getting Hellenism changed and Sol Invictus added to as a 'leader' of Hellenism. 
 - Sol Invictus: an aspect system which gives you very powerful bonuses at the cost of church power but they last for a short time so time them well. A CB that allows you to convert others to Hellenism (not Sol Invictus because you are special) and make them into a Hellenic Tributary.
 - Low countries got 10 more monuments
+- Missions: Siena, Lucca, Verona, Perugia
 
 Balance
 - Mercenary Ideas: last idea gives you 5 mercenary groups (2inf, 2cav, 1art) with preset modifiers and a cap of 40.

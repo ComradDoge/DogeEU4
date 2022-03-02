@@ -70,23 +70,43 @@ ferrara_missions_1 = {
 		required_missions = { fer_estensi_ferrara }
 		position = 3
 		trigger = {
-			emperor = {
+			if = {
+				limit = { hre_size = 1 }
 				OR = {
-					alliance_with = ROOT
-					has_opinion = {
-						who = ROOT
-						value = 100
+					emperor = {
+						OR = {
+							alliance_with = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+						}
+					}
+					calc_true_if = {
+						amount = 2
+						all_elector = {
+							OR = {
+								alliance_with = ROOT
+								has_opinion = {
+									who = ROOT
+									value = 100
+								}
+							}
+						}
 					}
 				}
 			}
-			calc_true_if = {
-				amount = 2
-				all_elector = {
-					OR = {
-						alliance_with = ROOT
-						has_opinion = {
-							who = ROOT
-							value = 100
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = ITALY_CONQUEST_ROME_TT
+					NOT = {
+						any_country = {
+							culture_group = latin
+							capital_scope = {
+								region = italy_region
+							}
+							army_size = 1
+							total_development = ROOT
 						}
 					}
 				}
@@ -97,24 +117,30 @@ ferrara_missions_1 = {
 				name = man_imperial_consecration
 				duration = 7300
 			}
-			every_country = {
-				limit = {
-					is_part_of_hre = yes
-					OR = {
-						capital_scope = {
-							region = italy_region
+			if = {
+				limit = { hre_size = 1 }
+				custom_tooltip = MAN_IMPERIAL_CONSECRATION
+				hidden_effect = {
+					every_country = {
+						limit = {
+							is_part_of_hre = yes
+							OR = {
+								capital_scope = {
+									region = italy_region
+								}
+								is_elector = yes
+								is_emperor = yes
+							}
 						}
-						is_elector = yes
-						is_emperor = yes
+						add_opinion = {
+							who = ROOT
+							modifier = man_imperial_consecration_opinion
+						}
+						reverse_add_opinion = {
+							who = ROOT
+							modifier = man_imperial_consecration_opinion
+						}
 					}
-				}
-				add_opinion = {
-					who = ROOT
-					modifier = man_imperial_consecration_opinion
-				}
-				reverse_add_opinion = {
-					who = ROOT
-					modifier = man_imperial_consecration_opinion
 				}
 			}
 		}
@@ -154,10 +180,7 @@ ferrara_missions_1 = {
 			}
 		}
 		effect = {
-			add_legitimacy_equivalent = {
-				amount = 10
-				republican_tradition = 5
-			}
+			add_legitimacy_equivalent = { amount = 10 republican_tradition = 10 }
 			add_dip_power = 25
 		}
 	}
@@ -178,10 +201,9 @@ ferrara_missions_1 = {
 			OR = {
 				NOT = { exists = VEN }
 				overlord_of = VEN
-				VEN = {
-					NOT = {
-						any_province = { region = italy_region }
-					}
+				italy_region = {
+					type = all
+					NOT = { owned_by = VEN }
 				}
 			}
 		}
@@ -221,21 +243,24 @@ ferrara_missions_2 = {
 		}
 		position = 2
 		trigger = {
-			calc_true_if = {
-				amount = 2
-				all_country = {
-					OR = {
-						army_strength = {
-							who = ROOT
-							value = 1.5
+			OR = {
+				num_of_allies = 4
+				calc_true_if = {
+					amount = 2
+					all_country = {
+						OR = {
+							army_strength = {
+								who = ROOT
+								value = 1.5
+							}
+							total_development = ROOT
 						}
-						total_development = ROOT
-					}
-					OR = {
-						alliance_with = ROOT
-						has_opinion = {
-							who = ROOT
-							value = 100
+						OR = {
+							alliance_with = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
 						}
 					}
 				}
@@ -249,7 +274,7 @@ ferrara_missions_2 = {
 			define_advisor = {
 				type = diplomat
 				skill = 2
-				name = "Niccolò III"
+				name = "Niccolai III"
 				cost_multiplier = 0.25
 			}
 			emilia_romagna_area = {
@@ -269,13 +294,17 @@ ferrara_missions_2 = {
 		}
 	}
 
-	fer_plains_emilia = {
+	fer_plains_emilia = {nces_with = {
+				value = 4
 		icon = jageillonian_union
 		required_missions = { fer_ward_save }
 		position = 4
+		provinces_to_highlight = {
+			area = emilia_romagna_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
 		trigger = {
-			num_of_owned_provinces_with = {
-				value = 4
+			num_of_owned_provi
 				area = emilia_romagna_area
 			}
 		}
@@ -526,12 +555,9 @@ ferrara_mission_3 = {
 			OR = {
 				NOT = { exists = MLO }
 				overlord_of = MLO
-				MLO = {
-					NOT = {
-						any_province = {
-							region = italy_region
-						}
-					}
+				italy_region = {
+					type = all
+					NOT = { owned_by = MLO }
 				}
 			}
 		}
@@ -567,21 +593,26 @@ ferrara_mission_3 = {
 		}
 		position = 13
 		trigger = {
-			NOT = {
-				any_country = {
-					culture_group = latin
-					capital_scope = {
-						region = italy_region
-					}
-					army_strength = {
-						who = ROOT
-						value = 1
+			custom_trigger_tooltip = {
+				tooltip = ITALY_CONQUEST_ROME_TT
+				NOT = {
+					any_country = {
+						culture_group = latin
+						capital_scope = {
+							region = italy_region
+						}
+						army_size = 1
+						total_development = ROOT
 					}
 				}
 			}
 		}
 		effect = {
 			118 = { add_core = ROOT }
+			capital_scope = {
+				add_development_scaled_on_monthly_monarch_power = yes
+			}
+			add_mana_scaled_on_monthly_monarch_power = yes
 			complete_conquest_of_rome_missions = yes
 		}
 	}
@@ -667,7 +698,13 @@ ferrara_mission_4 = {
 		}
 		effect = {
 			add_prestige = 10
-			add_splendor = 50
+			if = {
+				limit = { has_dlc = "Mandate of Heaven" }
+				add_splendor = 50
+			}
+			else = {
+				add_adm_power = 50
+			}
 			add_country_modifier = {
 				name = fer_universita_ferrara
 				duration = -1
@@ -682,7 +719,7 @@ ferrara_mission_4 = {
 		}
 		position = 10
 		trigger = {
-			legitimacy = 75
+			legitimacy_equivalent = 75
 			if = {
 				limit = {
 					exists = BAV
@@ -802,7 +839,7 @@ ferrara_mission_4 = {
 		position = 12
 		trigger = {
 			OR = {
-				overlord_of = ROOT
+				overlord_of = BAV
 				AND = {
 					lower_bavaria_area = {
 						type = all
@@ -857,6 +894,7 @@ ferrara_mission_5 = {
 			OR = {
 				artist = 2
 				ADM = 3
+				monthly_adm = 8
 			}
 		}
 		effect = {
@@ -923,7 +961,7 @@ ferrara_mission_5 = {
 				has_mil_advisor_3 = yes
 			}
 			artillery_fraction = 0.5
-			army_size = 20			
+			army_size = 20
 		}
 		effect = {
 			add_country_modifier = {
@@ -1032,7 +1070,7 @@ ferrara_mission_5 = {
 					type = cb_restore_personal_union
 				}
 			}
-			2981 = { 
+			2981 = {
 				if = {
 					limit = {
 						NOT = { owned_by = ROOT }
@@ -1045,14 +1083,14 @@ ferrara_mission_5 = {
 				limit = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
-				}				
+				}
 				add_permanent_claim = ROOT
 			}
 			sicily_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
-				}				
+				}
 				add_permanent_claim = ROOT
 			}
 		}
