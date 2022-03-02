@@ -777,11 +777,16 @@ restore_country_name_effect = {
 
 #Used to clone the nation when forming a colonial tag.
 restore_old_nation_on_formation_effect = {
-	custom_tooltip = loses_old_world_provs_tt
+	if = {
+		limit = {
+			NOT = { is_former_colonial_nation = yes }
+		}
+		custom_tooltip = loses_old_world_provs_tt
+	}
 	hidden_effect = {
 		if = {
 			limit = {
-				NOT = { is_former_colonial_nation = yes }
+				has_country_flag = was_not_former_colonial_nation
 			}
 			every_province = {
 				limit = {
@@ -1632,7 +1637,28 @@ add_inflation_scaled_to_trade = {
 	hidden_effect = {
 		export_to_variable = {
 			which = trade_income_variable
-			value = trade_income_percentage
+			value = trigger_value:trade_income_percentage
+		}
+		multiply_variable = {
+			which = trade_income_variable
+			value = 100
+		}
+		multiply_variable = {
+			which = trade_income_variable
+			value = $inflation$
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = trade_income_variable
+					value = 1
+				}
+			}
+			add_inflation = 1
+			subtract_variable = {
+				which = trade_income_variable
+				value = 1
+			}
 		}
 		multiply_variable = {
 			which = trade_income_variable
@@ -1645,7 +1671,7 @@ add_inflation_scaled_to_trade = {
 					value = 1
 				}
 			}
-			add_inflation = $inflation$
+			add_inflation = 0.01
 			subtract_variable = {
 				which = trade_income_variable
 				value = 1
@@ -1784,7 +1810,10 @@ add_increase_same_religion_opinion = {
 		set_country_flag = has_increased_religios_opinion
 		every_known_country = {
 			limit = {
-				religion = ROOT
+				OR = {
+					ROOT = { has_harmonized_with = PREV }
+					religion = ROOT
+				}
 				NOT = {
 					has_opinion_modifier = {
 						who = ROOT
@@ -2685,7 +2714,7 @@ add_years_of_trade_income = {
 		}
 		export_to_variable = {
 			which = percentage_of_yearly_trade_income
-			value = trade_income_percentage
+			value = trigger_value:trade_income_percentage
 		}
 		export_to_variable = {
 			which = yearly_trade_income
@@ -3110,21 +3139,21 @@ slave_raid_pillage_capital_effect = {
 		}
 	}
 }
-
-#Country effect
-disable_stab_hit_on_ruler_death = {
-	custom_tooltip = disable_stab_hit_on_ruler_death_tt
-	hidden_effect = {
-		set_country_flag = no_stab_hit_on_ruler_death
-	}
-}
-
-enable_stab_hit_on_ruler_death = {
-	custom_tooltip = enable_stab_hit_on_ruler_death_tt
-	hidden_effect = {
-		clr_country_flag = no_stab_hit_on_ruler_death
-	}
-}
+#removed in 1.33 but dont know where the new one is (internal now?)
+##Country effect
+#disable_stab_hit_on_ruler_death = {
+#	custom_tooltip = disable_stab_hit_on_ruler_death_tt
+#	hidden_effect = {
+#		set_country_flag = no_stab_hit_on_ruler_death
+#	}
+#}
+#
+#enable_stab_hit_on_ruler_death = {
+#	custom_tooltip = enable_stab_hit_on_ruler_death_tt
+#	hidden_effect = {
+#		clr_country_flag = no_stab_hit_on_ruler_death
+#	}
+#}
 
 #Country effect
 enable_tributary_state_use = {
@@ -3268,7 +3297,7 @@ select_biggest_country_of_region = {
 				save_event_target_as = selected_biggest_country_of_region
 			}
 		}
-		else = {
+		else_if = {
 			limit = { any_country = { capital_scope = { region = $region$ } } }
 			random_country = { 
 				limit = { capital_scope = { region = $region$ } }
@@ -3283,17 +3312,17 @@ select_biggest_country_of_region = {
 mal_mansa_musa_visit_effect = {
 	trigger_switch = {
 		on_trigger = has_country_flag
-		mal_journey_to_maghreb = { 			every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = maghreb_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_iberia = { 			every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = iberia_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_france = { 			every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = france_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_italy = { 			every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = italy_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_south_germany = { 	every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = south_german_region } }	add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_balkans = { 			every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = balkan_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_anatolia = { 		every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = anatolia_region } }		add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_mashriq = { 			every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = mashriq_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_egypt = { 			every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = egypt_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_arabia = { 			every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = arabia_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
-		mal_journey_to_horn_of_africa = { 	every_country = { limit = { NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = horn_of_africa_region } }	add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_maghreb = { 			every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = maghreb_region } }		add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_iberia = { 			every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = iberia_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_france = { 			every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = france_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_italy = { 			every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = italy_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_south_germany = { 	every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = south_german_region } }	add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_balkans = { 			every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = balkan_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_anatolia = { 		every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = anatolia_region } }		add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_mashriq = { 			every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = mashriq_region } }		add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_egypt = { 			every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = egypt_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_arabia = { 			every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = arabia_region } }			add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
+		mal_journey_to_horn_of_africa = { 	every_country = { limit = { NOT = { tag = ROOT } NOT = { has_country_flag = mal_is_already_getting_visit } capital_scope = { region = horn_of_africa_region } }	add_country_modifier = { name = mal_the_gold_inflation duration = 1825 } } }
 	}
 }
 

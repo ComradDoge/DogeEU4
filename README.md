@@ -19,16 +19,17 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.32.2
-Checksum: ?
+Version: 1.33.2
+Checksum: 476c
 [quote]
-[h1] 06/01/2022 [/h1]
+[h1] 02/03/2022 [/h1]
 
 Content
-- Advisors have been fully cleaned up and can be checked on the mod wiki. There are now a total of 36 advisors. 21 Vanilla and 15 new ones. The new ones also have their own respective one-time events simillar to vanilla.
+- Advisors have been fully cleaned up and can be checked on the mod wiki. There are now a total of 36 advisors. 21 Vanilla and 15 new ones. The 15 new ones also have their own respective one-time events simillar to vanilla.
+-- https://dogeshattered.fandom.com/wiki/Advisors
 - Mercenery companies maximum amount of regiment set to 40. Mercenary companies are now comprised of a single unit instead of a weird mishmash.
-- Pontifex decision completely reworked. If a Byzantine or Italian restores it Hellenics and even Catholics get CB to take over the position. The position provides a bonus and an Introspection mechanic allowing you tp remove a bad trait every 5 years of your own choosing.
-- Getting Hellenism changed and Sol Invictus added to as a 'leader' of Hellenism. 
+- Pontifex decision completely reworked. If a Byzantine or Italian restores it Hellenics and even Catholics get CB to take over the position. The position provides a bonus and an Introspection mechanic allowing you to remove a bad trait every 5 years of your own choosing.
+- Getting Hellenism changed and Sol Invictus added to as a 'leader' of Hellenism (historians begone, I know)
 - Sol Invictus: an aspect system which gives you very powerful bonuses at the cost of church power but they last for a short time so time them well. A CB that allows you to convert others to Hellenism (not Sol Invictus because you are special) and make them into a Hellenic Tributary.
 - Low countries got 10 more monuments
 - Missions: Siena, Lucca, Verona, Perugia
@@ -39,8 +40,9 @@ Balance
 - Dayawism now has access to Syncretic faith mechanic and slightly buffed its religion modifier
 - Rhineland got an additional -5% regiment cost and +5% manpower in its ideas
 - Global unrest reduction removed from monuments and tolerance numbers reduced
-- All advisor privileges have been removed, they may come back in the future.
+- All advisor spawning privileges have been removed
 - Good chunk of "interest per annum" sources lowered.
+- Harmonization: religion specific harmonizations buffed
 
 Fixes + Other
 - Vanilla Flavour: fixed missing cores and France not having strong duchies privilege

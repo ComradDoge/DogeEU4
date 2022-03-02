@@ -65,20 +65,23 @@ country_decisions = {
 			owns_core_province = 730		#Girin
 			730 = {							#Girin
 				is_state = yes
-			}			
-			custom_trigger_tooltip = {
-				tooltip = manchu_manchuria_decision.tooltip
-				num_of_owned_provinces_with = {
+			}		
+			num_of_owned_provinces_with = {
+				custom_trigger_tooltip = {
+					tooltip = manchu_manchuria_decision.tooltip
 					is_core = ROOT
 					OR = {
 						culture = manchu_new
 						culture = manchu
 					}
-					value = 20
 				}
+				value = 20
 			}
 		}
 		effect = {
+			add_prestige_or_monarch_power = { amount = 15 }
+			change_tag = MCH
+			swap_non_generic_missions = yes
 			change_primary_culture = manchu_new
 			set_ruler_culture = manchu_new
 			if = {
@@ -94,45 +97,26 @@ country_decisions = {
 				}
 				set_consort_culture = manchu_new
 			}
-			hidden_effect = {
-				every_province = {
-					limit = {
-						culture = manchu
-					}
-					change_culture = manchu_new
-				}
-				every_country = {
-					limit = {
-						primary_culture = manchu
-					}
-					change_primary_culture = manchu_new
-					set_ruler_culture = manchu_new
-					if = {
-						limit = {
-							has_heir = yes
-						}
-						set_heir_culture = manchu_new
-					}
-					if = {
-						limit = {
-							has_consort = yes
-							consort_culture = manchu
-						}
-						set_consort_culture = manchu_new
-					}
-				}
-			}
 			custom_tooltip = manchu_culture_tt
 			730 = {
 				move_capital_effect = yes
 			}
-			#manchuria_region = {
-			#	limit = {
-			#		NOT = { is_core = ROOT }
-			#		is_city = yes
-			#	}
-			#	add_core = MCH
-			#}
+			manchuria_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					is_city = yes
+				}
+				add_core = MCH
+			}
+			set_country_flag = formed_manchu_flag
+			if = {
+				limit = { 
+					has_custom_ideas = no
+					NOT = { has_idea_group = MCH_ideas }
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+
 			####### 4 AREAS GIVEN CORES IN MACHURIA
 			liaoning_area = {
 				limit = {
@@ -199,19 +183,48 @@ country_decisions = {
 				add_permanent_claim = MCH
 			}
 
-			add_prestige_or_monarch_power = { amount = 15 }
-			change_tag = MCH
-			swap_non_generic_missions = yes
-			if = {
-				limit = {
-					NOT = { government_rank = 2 }
+			hidden_effect = {
+				every_province = {
+					limit = {
+						culture = manchu
+					}
+					change_culture = manchu_new
 				}
-				set_government_rank = 2
-			}
-			set_country_flag = formed_manchu_flag
-			if = {
-				limit = { has_custom_ideas = no }
-				country_event = { id = ideagroups.1 } #Swap Ideas
+				every_country = {
+					limit = {
+						primary_culture = manchu
+					}
+					change_primary_culture = manchu_new
+					set_ruler_culture = manchu_new
+					if = {
+						limit = {
+							has_heir = yes
+						}
+						set_heir_culture = manchu_new
+					}
+					if = {
+						limit = {
+							has_consort = yes
+							consort_culture = manchu
+						}
+						set_consort_culture = manchu_new
+					}
+				}
+				if = {
+					limit = {
+						KOR = { 
+							exists = yes
+							is_subject = yes
+							NOT = { is_subject_of = ROOT }
+						}
+					}
+					KOR = {
+						country_event = {
+							id = flavor_kor.13
+							days = 20
+						}
+					}
+				}
 			}
 		}
 		ai_importance = 500		
