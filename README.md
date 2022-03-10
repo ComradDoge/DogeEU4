@@ -30,6 +30,7 @@ Balance
 
 Fixes
 - Rum missions work again
+- Scanian is back in Scandinavian culture group
 
 [/quote]
 
