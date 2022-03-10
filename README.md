@@ -26,6 +26,7 @@ Checksum: 476c
 
 Balance
 - infiltrate_administration moved from TECH 31 to TECH 28
+- Advisors: Defensiveness 20%>25% ; Global Tariffs 15%>20%
 
 Fixes
 - Rum missions work again
