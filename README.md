@@ -24,6 +24,8 @@ Checksum: 476c
 [quote]
 [h1] 02/03/2022 [/h1]
 
+Missions: Sulawesi (MKS, BNE, LUW, BTN) 
+
 Balance
 - infiltrate_administration moved from TECH 31 to TECH 28
 - Advisors: Defensiveness 20%>25% ; Global Tariffs 15%>20%
