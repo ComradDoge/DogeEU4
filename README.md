@@ -24,7 +24,7 @@ Checksum: 476c
 [quote]
 [h1] 02/03/2022 [/h1]
 
-Missions: Sulawesi (MKS, BNE, LUW, BTN) 
+ME Missions: the Indonesia/Philipines region now has a bunch of missions, Malaysa also has its own mission
 
 Balance
 - infiltrate_administration moved from TECH 31 to TECH 28
