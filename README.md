@@ -24,18 +24,17 @@ Checksum: 476c
 [quote]
 [h1] 13/03/2022 [/h1]
 
-ME Missions: the Indonesia/Philipines region now has a bunch of missions, Malaysa also has its own mission. I haven't fully gone through them so if something is acting up funnilly just report it to me.
-
-Balance
+- Manchu region setup changed
+- South China religion setup changed
 - infiltrate_administration moved from TECH 31 to TECH 28
 - Advisors: Defensiveness 20%>25% ; Global Tariffs 15%>20%
+- ME Missions: the Indonesia/Philipines region now has a bunch of missions, Malaysa also has its own mission. I haven't fully gone through them so if something is acting up funnilly just report it to me.
 
 Fixes
 - Rum missions work again
 - Laristan gets the Lur ideas
 - West Africa setup slightly tweaked
 - Scanian is back in Scandinavian culture group
-- Manchu region setup changed up quite a bit
 - Manchu region setup in vanilla flavor is now correctly set up
 - Emperor of Japan reform duration 100>4 for the sake of consistency with tooltip and game mechanics
 
