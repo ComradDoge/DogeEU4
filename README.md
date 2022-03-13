@@ -33,6 +33,8 @@ Balance
 Fixes
 - Rum missions work again
 - Scanian is back in Scandinavian culture group
+- Manchu region setup cleaned up for shattered and vanilla bookmarks
+- West Africa setup slightly tweaked
 
 [/quote]
 
