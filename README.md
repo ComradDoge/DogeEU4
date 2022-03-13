@@ -37,6 +37,7 @@ Fixes
 - Scanian is back in Scandinavian culture group
 - Manchu region setup changed up quite a bit
 - Manchu region setup in vanilla flavor is now correctly set up
+- Emperor of Japan reform duration 100>4 for the sake of consistency with tooltip and game mechanics
 
 [/quote]
 
