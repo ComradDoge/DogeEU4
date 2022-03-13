@@ -22,9 +22,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.33.2
 Checksum: 476c
 [quote]
-[h1] 02/03/2022 [/h1]
+[h1] 13/03/2022 [/h1]
 
-ME Missions: the Indonesia/Philipines region now has a bunch of missions, Malaysa also has its own mission
+ME Missions: the Indonesia/Philipines region now has a bunch of missions, Malaysa also has its own mission. I haven't fully gone through them so if something is acting up funnilly just report it to me.
 
 Balance
 - infiltrate_administration moved from TECH 31 to TECH 28
@@ -32,9 +32,11 @@ Balance
 
 Fixes
 - Rum missions work again
-- Scanian is back in Scandinavian culture group
-- Manchu region setup cleaned up for shattered and vanilla bookmarks
+- Laristan gets the Lur ideas
 - West Africa setup slightly tweaked
+- Scanian is back in Scandinavian culture group
+- Manchu region setup changed up quite a bit
+- Manchu region setup in vanilla flavor is now correctly set up
 
 [/quote]
 
