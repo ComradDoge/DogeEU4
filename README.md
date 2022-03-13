@@ -35,6 +35,7 @@ Fixes
 - Laristan gets the Lur ideas
 - West Africa setup slightly tweaked
 - Scanian is back in Scandinavian culture group
+- Can't be a hothead and timid at the same time as traits
 - Manchu region setup in vanilla flavor is now correctly set up
 - Emperor of Japan reform duration 100>4 for the sake of consistency with tooltip and game mechanics
 
