@@ -22,22 +22,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.33.2
 Checksum: -
 [quote]
-[h1] 13/03/2022 [/h1]
+[h1] 28/03/2022 [/h1]
 
-- Manchu region setup changed
-- South China religion setup changed
-- infiltrate_administration moved from TECH 31 to TECH 28
-- Advisors: Defensiveness 20%>25% ; Global Tariffs 15%>20%
-- ME Missions: the Indonesia/Philipines region now has a bunch of missions, Malaysa also has its own mission. I haven't fully gone through them so if something is acting up funnilly just report it to me.
-
-Fixes
-- Rum missions work again
-- Laristan gets the Lur ideas
-- West Africa setup slightly tweaked
-- Scanian is back in Scandinavian culture group
-- Can't be a hothead and timid at the same time as traits
-- Manchu region setup in vanilla flavor is now correctly set up
-- Emperor of Japan reform duration 100>4 for the sake of consistency with tooltip and game mechanics
+- Byzantine missions tree accepts Sol Invictus for triggers
+- Religion icons cleaned up, changed and just overall better.
 
 [/quote]
 
