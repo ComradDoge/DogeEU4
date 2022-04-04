@@ -26,6 +26,11 @@ Checksum: -
 
 - Byzantine missions tree accepts Sol Invictus for triggers
 - Religion icons cleaned up, changed and just overall better.
+- African missions with cult unlock requirements changed
+- African missions with only shamanism religion trigger now accept all african_pagan religions
+- Korean monument fixes regarding culture and religion triggers
+- All monuments start at T0. Those that did exist in the timeframe are merely not counted as built up monuments until you 'better' them with your grace. thonk
+- The reformation should be much slower. Hopefully. Hopefully not too slow either. I am sure you'll tell me.
 
 [/quote]
 
