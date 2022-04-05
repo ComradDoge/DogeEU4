@@ -7,35 +7,13 @@ me_venice_missions_1 = {
 			tag = VEN
 			AND = {
 				was_tag = VEN
-				OR = {
-					tag = LVN
-					AND = {
-						tag = VEN
-						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-					AND = {
-						tag = ITA
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-				}
+				tag = ITA
+				NOT = { was_tag = SPI }
+				NOT = { was_tag = TUS }
+				NOT = { was_tag = TTS }
+				country_was_not_more_than_one_italian_formable = yes
 			}
 		}
-		
 	}
 	has_country_shield = yes
 
@@ -93,32 +71,15 @@ me_venice_missions_1 = {
 					duration = 9125
 				}
 			}
-			custom_tooltip = VEN_SPANISH_SHORES_TRADERS
-			hidden_effect = {
-				if = {
-					limit = {
-						OR = {
-							AND = {
-								has_dlc = "Res Publica"
-								faction_in_power = mr_traders
-							}
-							estate_loyalty = {
-								estate = estate_burghers
-								loyalty = 60
-							}
-						}
-					}
-					random_owned_province = {
-						limit = {
-							OR = {
-								province_id = 213
-								province_id = 220
-								province_id = 2988
-							}
-						}
-						create_or_add_center_of_trade_level = { level = 1 }
+			random_owned_province = {
+				limit = {
+					OR = {
+						province_id = 213
+						province_id = 220
+						province_id = 2988
 					}
 				}
+				create_or_add_center_of_trade_level = { level = 1 }
 			}
 		}
 	}
@@ -221,7 +182,11 @@ me_venice_missions_1 = {
 			321 = {
 				owned_by = ROOT
 				is_core = ROOT
+			}
+			321 = {
 				NOT = { unrest = 1 }
+			}
+			321 = {
 				OR = {
 					has_shipyard_building_trigger = yes
 					has_dock_building_trigger = yes
@@ -241,6 +206,7 @@ me_venice_missions_1 = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
 					has_port = yes
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
@@ -249,6 +215,7 @@ me_venice_missions_1 = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
 					has_port = yes
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
@@ -356,30 +323,30 @@ me_venice_missions_1 = {
 			ven_arsenal
 		}
 		position = 7
-		provinces_to_highlight = {
-			province_id = 142
-			OR = {
-				NOT = { owned_by = ROOT }
-				AND = {
-					NOT = { has_dock_building_trigger = yes }
-					NOT = { has_shipyard_building_trigger = yes }
-				}
-			}
-		}
+		#provinces_to_highlight = {
+		#	province_id = 142
+		#	OR = {
+		#		NOT = { owned_by = ROOT }
+		#		AND = {
+		#			NOT = { has_dock_building_trigger = yes }
+		#			NOT = { has_shipyard_building_trigger = yes }
+		#		}
+		#	}
+		#}
 		trigger = {
-			142 = {
-				owned_by = ROOT
-				OR = {
-					has_dock_building_trigger = yes
-					has_shipyard_building_trigger = yes
-				}
-			}
+			#142 = {
+			#	owned_by = ROOT
+			#	OR = {
+			#		has_dock_building_trigger = yes
+			#		has_shipyard_building_trigger = yes
+			#	}
+			#}
 			num_of_owned_provinces_with = {
+				value = 6
 				OR = {
 					has_dock_building_trigger = yes
 					has_shipyard_building_trigger = yes
 				}
-				value = 5
 			}
 		}
 		effect = {
@@ -389,6 +356,17 @@ me_venice_missions_1 = {
 				add_or_upgrade_shipyard_building = yes
 			}
 			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_dock_building_trigger = yes
+							has_shipyard_building_trigger = yes
+						}
+						NOT = { has_province_flag = VEN_mission_effect_handler }
+					}
+					set_province_flag = VEN_mission_effect_handler
+					add_or_upgrade_shipyard_building = yes
+				}
 				random_owned_province = {
 					limit = {
 						OR = {
@@ -523,35 +501,13 @@ me_venice_missions_2 = {
 			tag = VEN
 			AND = {
 				was_tag = VEN
-				OR = {
-					tag = LVN
-					AND = {
-						tag = VEN
-						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-					AND = {
-						tag = ITA
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-				}
+				tag = ITA
+				NOT = { was_tag = SPI }
+				NOT = { was_tag = TUS }
+				NOT = { was_tag = TTS }
+				country_was_not_more_than_one_italian_formable = yes
 			}
 		}
-		
 	}
 	has_country_shield = yes
 
@@ -571,23 +527,23 @@ me_venice_missions_2 = {
 			}
 		}
 		effect = {
-			add_legitimacy_equivalent = {
-				amount = 5
-				republican_tradition = 5
-			}
+			add_legitimacy_equivalent = { amount = 3 republican_tradition = 3 }
 			east_adriatic_coast_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
 					has_port = yes
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
 			custom_tooltip = VEN_MARE_HADRIATICUM_TRADE_TT
 			tooltip = {
-				add_province_modifier = {
-					name = ven_monopoio_adriatico
-					duration = 7300
+				137 = {
+					add_province_modifier = {
+						name = ven_monopoio_adriatico
+						duration = 7300
+					}
 				}
 			}
 			hidden_effect = {
@@ -610,6 +566,7 @@ me_venice_missions_2 = {
 							has_port = yes
 							NOT = { owned_by = ROOT }
 							NOT = { is_core = ROOT }
+							NOT = { is_empty = yes }
 						}
 						add_permanent_claim = ROOT
 					}
@@ -709,44 +666,25 @@ me_venice_missions_2 = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
 					has_port = yes
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
-			custom_tooltip = VEN_SPICE_TRADE_TRADERS
-			hidden_effect = {
-				if = {
-					limit = {
-						OR = {
-							AND = {
-								has_dlc = "Res Publica"
-								faction_in_power = mr_traders
-							}
-							AND = {
-								has_estate = estate_burghers
-								estate_loyalty = {
-									estate = estate_burghers
-									loyalty = 60
-								}
-							}
-						}
-					}
-					random_owned_province = {
-						limit = {
-							area = malabar_area
-							has_port = yes
-						}
-						light_ship = ROOT
-						light_ship = ROOT
-						light_ship = ROOT
-					}
-					random_owned_province = {
-						limit = {
-							area = malabar_area
-						}
-						add_base_production = 2
-						add_nationalism = -5
-					}
+			random_owned_province = {
+				limit = {
+					area = malabar_area
+					has_port = yes
 				}
+				light_ship = ROOT
+				light_ship = ROOT
+				light_ship = ROOT
+			}
+			random_owned_province = {
+				limit = {
+					area = malabar_area
+				}
+				add_base_production = 2
+				add_nationalism = -5
 			}
 		}
 	}
@@ -819,35 +757,13 @@ me_venice_missions_3 = {
 			tag = VEN
 			AND = {
 				was_tag = VEN
-				OR = {
-					tag = LVN
-					AND = {
-						tag = VEN
-						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-					AND = {
-						tag = ITA
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-				}
+				tag = ITA
+				NOT = { was_tag = SPI }
+				NOT = { was_tag = TUS }
+				NOT = { was_tag = TTS }
+				country_was_not_more_than_one_italian_formable = yes
 			}
 		}
-		
 	}
 	has_country_shield = yes
 
@@ -876,11 +792,42 @@ me_venice_missions_3 = {
 				name = ven_venetian_naval_expansion
 				duration = 7300
 			}
+			custom_tooltip = VEN_ARMADA_CONQUEST_TT
+			hidden_effect = {
+				137 = {
+					every_trade_node_member_province = {
+						limit = {
+							has_port = yes
+							NOT = { owned_by = ROOT }
+							NOT = { is_core = ROOT }
+							NOT = { is_empty = yes }
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+			}
+			aegean_archipelago_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
+				}
+				add_permanent_claim = ROOT
+			}
+			catalonia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
+				}
+				add_permanent_claim = ROOT
+			}
 			220 = {
 				if = {
 					limit = {
 						NOT = { owned_by = ROOT }
 						NOT = { is_core = ROOT }
+						NOT = { is_empty = yes }
 					}
 					add_permanent_claim = ROOT
 				}
@@ -890,15 +837,7 @@ me_venice_missions_3 = {
 					limit = {
 						NOT = { owned_by = ROOT }
 						NOT = { is_core = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			146 = {
-				if = {
-					limit = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
+						NOT = { is_empty = yes }
 					}
 					add_permanent_claim = ROOT
 				}
@@ -908,16 +847,10 @@ me_venice_missions_3 = {
 					limit = {
 						NOT = { owned_by = ROOT }
 						NOT = { is_core = ROOT }
+						NOT = { is_empty = yes }
 					}
 					add_permanent_claim = ROOT
 				}
-			}
-			catalonia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
 			}
 		}
 	}
@@ -1182,8 +1115,7 @@ me_venice_missions_3 = {
 		required_missions = { }
 		position = 8
 		trigger = {
-			army_size_percentage = 0.9
-			num_of_generals = 1
+			army_size_percentage = 1
 		}
 		effect = {
 			create_general = {
@@ -1213,10 +1145,19 @@ me_venice_missions_3 = {
 					months = 300
 				}
 			}
+			venetia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
+				}
+				add_permanent_claim = ROOT
+			}
 			lombardy_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
@@ -1224,6 +1165,7 @@ me_venice_missions_3 = {
 				limit = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
@@ -1231,6 +1173,7 @@ me_venice_missions_3 = {
 				limit = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
@@ -1311,35 +1254,13 @@ me_venice_missions_4 = {
 			tag = VEN
 			AND = {
 				was_tag = VEN
-				OR = {
-					tag = LVN
-					AND = {
-						tag = VEN
-						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-					AND = {
-						tag = ITA
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-				}
+				tag = ITA
+				NOT = { was_tag = SPI }
+				NOT = { was_tag = TUS }
+				NOT = { was_tag = TTS }
+				country_was_not_more_than_one_italian_formable = yes
 			}
 		}
-		
 	}
 	has_country_shield = yes
 
@@ -1435,21 +1356,23 @@ me_venice_missions_4 = {
 			aegean_archipelago_area = {
 				limit = {
 					NOT = { owned_by = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = { is_core = ROOT }
 				}
 				add_permanent_claim = ROOT
 			}
 			morea_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT	}
+					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
 			northern_greece_area = {
 				limit = {
 					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT	}
+					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
@@ -1505,22 +1428,25 @@ me_venice_missions_4 = {
 			}
 			northern_greece_area = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
 			macedonia_area = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
 			thrace_area = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+					NOT = { is_empty = yes }
 				}
 				add_permanent_claim = ROOT
 			}
@@ -1680,35 +1606,13 @@ me_venice_missions_5 = {
 			tag = VEN
 			AND = {
 				was_tag = VEN
-				OR = {
-					tag = LVN
-					AND = {
-						tag = VEN
-						has_country_flag = lvn_without_fe #this is needed if you don't have FE active
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-					AND = {
-						tag = ITA
-						NOT = {
-							calc_true_if = {
-								amount = 2
-								was_tag = TUS
-								was_tag = TTS
-								was_tag = SPI
-							}
-						}
-					}
-				}
+				tag = ITA
+				NOT = { was_tag = SPI }
+				NOT = { was_tag = TUS }
+				NOT = { was_tag = TTS }
+				country_was_not_more_than_one_italian_formable = yes
 			}
 		}
-		
 	}
 	has_country_shield = yes
 
@@ -1869,13 +1773,23 @@ me_venice_missions_5 = {
 					limit = {
 						NOT = { owned_by = ROOT }
 						NOT = { is_core = ROOT }
+						NOT = { is_empty = yes }
+					}
+					add_permanent_claim = ROOT
+				}
+				bahari_area = {
+					limit = {
+						has_port = yes
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+						NOT = { is_empty = yes }
 					}
 					add_permanent_claim = ROOT
 				}
 			}
 			else = {
 				MAM = {
-					country_event = { id = ME_Venice_Events.16 days = 60 }
+					country_event = { id = ME_Venice_Events.11 days = 60 }
 				}
 			}
 			delta_area = {
