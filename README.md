@@ -31,7 +31,7 @@ Checksum: -
 - Korean monument fixes regarding culture and religion triggers
 - All monuments start at T0. Those that did exist in the timeframe are merely not counted as built up monuments until you 'better' them with your grace. thonk
 - The reformation should be much slower. Hopefully. Hopefully not too slow either. I am sure you'll tell me.
-
+- Removed a good chunk of global_unrest reductions in government reforms as the modifier bloat has made it inconsequantial
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
