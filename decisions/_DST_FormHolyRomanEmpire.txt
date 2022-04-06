@@ -65,7 +65,6 @@ country_decisions = {
 		effect = {
 			change_tag = HLR # Country TAG
             restore_country_name_effect = yes
-            country_event = { id = ideagroups.1 } #Swap Ideas
 			set_country_flag = formed_holy_roman_empire_forming # Country Formation Flag
 			HLR = { # Capital change and bonuses				
 				set_capital = 1878 # Achen
@@ -74,40 +73,49 @@ country_decisions = {
 					add_base_production = 2
 					add_base_manpower = 2
 				
-                if = {
-                    limit = {
-                        is_part_of_hre = yes
-                    }
-                    every_owned_province = {
-                        limit = {
-                            is_part_of_hre = yes
-                        }
-                        set_in_empire = no
-                    }
-                }
-
-				hidden_effect = { # Hidden Effects to fix bad tooltips
-					# Region/Area Claims
-					# Government Rank change				
 					if = {
 						limit = {
-							NOT = {
-								government_rank = 3
-								}
+							is_part_of_hre = yes
+						}
+						every_owned_province = {
+							limit = {
+								is_part_of_hre = yes
 							}
-						set_government_rank = 3 
+							set_in_empire = no
+						}
 					}
-					# Government Type Change																	
+
+					hidden_effect = { # Hidden Effects to fix bad tooltips
+						# Region/Area Claims
+						# Government Rank change				
+						if = {
+							limit = {
+								NOT = {
+									government_rank = 3
+									}
+								}
+							set_government_rank = 3 
+						}
+						# Government Type Change																	
+					}
 				}
-				# Custom Ideas check and change
+			}
+			# Events
+			custom_tooltip = tooltip_line_seperate
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			# Modifiers
+			custom_tooltip = tooltip_line_seperate
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
 			}
 		}
-	}
-
-	ai_will_do = {
-		factor = 1
-	}
-	ai_importance = 400
-
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
 	}
 }
