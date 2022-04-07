@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.33.2
 Checksum: -
 [quote]
-[h1] 06/04/2022 [/h1]
+[h1] 07/04/2022 [/h1]
 
 - Byzantine missions tree accepts Sol Invictus for triggers
 - Religion icons cleaned up, changed and just overall better.
