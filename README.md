@@ -24,14 +24,7 @@ Checksum: -
 [quote]
 [h1] 07/04/2022 [/h1]
 
-- Byzantine missions tree accepts Sol Invictus for triggers
-- Religion icons cleaned up, changed and just overall better.
-- African missions with cult unlock requirements changed
-- African missions with only shamanism religion trigger now accept all african_pagan religions
-- Korean monument fixes regarding culture and religion triggers
-- All monuments start at T0. Those that did exist in the timeframe are merely not counted as built up monuments until you 'better' them with your grace. thonk
-- The reformation should be much slower. Hopefully. Hopefully not too slow either. I am sure you'll tell me.
-- Removed a good chunk of global_unrest reductions in government reforms as the modifier bloat has made it inconsequantial
+- Insult CB AE effect decreased by 50% and prestige increased by 100% to 300%
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
