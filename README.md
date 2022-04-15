@@ -27,6 +27,7 @@ Checksum: -
 - Insult CB AE effect decreased by 50% and prestige increased by 100% to 300%
 - China CB nerfed, no longer has the cores mechanic
 - Byzantium no longer gets free point events
+- AI won't pick naval related ideas when it has no ports
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
