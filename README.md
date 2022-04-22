@@ -29,6 +29,7 @@ Checksum: -
 - Byzantium no longer gets free point events
 - AI won't pick naval related ideas when it has no ports
 - Added Muskogee formable with ideas, factions and a mission tree
+- Deux canal tech required lowered to be equal with Suez
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
