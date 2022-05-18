@@ -1,0 +1,709 @@
+muskogee_column_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = N01
+	}
+
+	muskogee_woodpecker_warriors = {
+		icon = mission_woodpecker_warriors_icon
+		position = 1
+		required_missions = {  }
+		trigger = { 
+			army_size_percentage = 0.8
+			army_professionalism = 0.6
+		}
+		effect = { 
+			add_country_modifier = {
+				name = muskogee_woodpecker_warriors_modifier
+				duration = -1
+			}
+		}
+	}
+	muskogee_carolina_arms = {
+		icon = mission_carolina_arms_icon
+		position = 2
+		required_missions = { muskogee_woodpecker_warriors }
+		trigger = { 
+			mil_tech = 7
+			1500 = {
+				has_merchant = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = muskogee_carolina_arms_modifier
+			}
+		}
+	}
+	muskogee_sacred_waterways = {
+		icon = mission_sacred_waterways_icon
+		position = 3
+		required_missions = {  }
+		provinces_to_highlight = {
+			province_id = 893
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { has_building = shipyard }
+					NOT = { has_building = grand_shipyard }
+				}
+				AND = {
+					NOT = { has_building = dock }
+					NOT = { has_building = drydock }
+				}
+			}
+		}
+		trigger = {
+			893 = {
+				development = 25
+				country_or_non_sovereign_subject_holds = ROOT
+				has_shipyard_building_trigger = yes
+				has_dock_building_trigger = yes
+			}
+		}
+		effect = { 
+			add_yearly_sailors = 2
+			893 = {
+				add_province_modifier = {
+					name = muskogee_new_orleans_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+	muskogee_crawfish_navy = {
+		icon = imperial_navy
+		position = 4
+		required_missions = { muskogee_sacred_waterways }
+		trigger = { 
+			navy_size_percentage = 1
+		}
+		effect = { 
+			add_country_modifier = {
+				name = muskogee_crawfish_navy_modifier
+				duration = -1
+			}
+			lucayan_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			cuba_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			east_cuba_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+		}
+	}
+	muskogee_secure_offshore_trading = {
+		icon = mission_seize_north_sea_trade
+		position = 5
+		required_missions = { muskogee_crawfish_navy }
+		provinces_to_highlight = {
+			OR = {
+				area = lucayan_area
+				area = cuba_area
+				area = east_cuba_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = { 
+			lucayan_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			cuba_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			east_cuba_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = { 
+			928 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+				else = {
+					add_base_production = 2
+				}
+			}
+			add_country_modifier = {
+				name = muskogee_secure_offshore_trading_modifier
+				duration = 36500
+			}
+		}
+	}
+}
+
+muskogee_column_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = N01
+	}
+
+	muskogee_cotton_milkweed = {
+		icon = mission_cotton_milkweed_icon
+		position = 2
+		required_missions = { muskogee_black_belt }
+		provinces_to_highlight = {
+			trade_goods = cotton
+			country_or_non_sovereign_subject_holds = ROOT
+			has_production_building_trigger = yes
+			NOT = { development = 20 }
+		}
+		trigger = { 
+			num_of_owned_provinces_with = {
+				value = 10
+				trade_goods = cotton
+				has_production_building_trigger = yes
+				development = 20
+			}
+		}
+		effect = {
+			custom_tooltip = muskogee_cotton_milkweed_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						trade_goods = cotton
+						development = 20
+						has_production_building_trigger = yes
+					}
+					set_province_flag = MLO_mission_effect_handler
+					if = {
+						limit = {
+							has_building = plantations
+						}
+						add_base_production = 2
+					}
+					else = {
+						add_building = plantations
+					}
+				}
+			}
+		}
+	}
+	muskogee_chief_cotton = {
+		icon = mission_chief_cotton_icon
+		position = 3
+		required_missions = { muskogee_cotton_milkweed }
+		provinces_to_highlight = {
+			trade_goods = cotton
+			country_or_non_sovereign_subject_holds = ROOT
+			has_production_building_trigger = yes
+			NOT = { development = 30 }
+		}
+		trigger = { 
+			num_of_owned_provinces_with = {
+				value = 10
+				trade_goods = cotton
+				has_production_building_trigger = yes
+				development = 30
+			}
+		}
+		effect = {
+			custom_tooltip = muskogee_chief_cotton_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						trade_goods = cotton
+						has_production_building_trigger = yes
+						development = 30
+					}
+					add_province_modifier = {
+						name = muskogee_chief_cotton_modifier
+						duration = -1
+					}
+				}	
+			}
+		}
+	}
+}
+
+muskogee_column_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = N01
+	}
+
+	muskogee_black_belt = {
+		icon = mission_black_belt_soil_icon
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {
+			trade_goods = cotton
+			country_or_non_sovereign_subject_holds = ROOT
+			NOT = { has_production_building_trigger = yes }
+		}
+		trigger = { 
+			num_of_owned_provinces_with = {
+				value = 5
+				trade_goods = cotton
+				has_production_building_trigger = yes
+				development = 10
+			}
+		}
+		effect = {
+			custom_tooltip = muskogee_black_belt_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						trade_goods = cotton
+						has_production_building_trigger = yes
+						development = 10
+					}
+					add_base_production = 2
+				}				
+			}
+		}
+	}
+	muskogee_natchez_trace = {
+		icon = mission_natchez_trace_pathway_icon
+		position = 2
+		required_missions = { muskogee_black_belt }
+		provinces_to_highlight = {
+			OR = {
+				area = mississippi_area
+				area = choctaw_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = { 
+			choctaw_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				development = 10
+			}
+			mississippi_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				development = 10
+			}
+		}
+		effect = { 
+			2529 = {
+				add_province_modifier = {
+					name = muskogee_natchez_trace_modifier
+					duration = -1
+				}
+			}
+			920 = {
+				add_province_modifier = {
+					name = muskogee_natchez_trace_modifier
+					duration = -1
+				}
+			}
+			919 = {
+				add_province_modifier = {
+					name = muskogee_natchez_trace_modifier
+					duration = -1
+				}
+			}
+			918 = {
+				add_province_modifier = {
+					name = muskogee_natchez_trace_modifier
+					duration = -1
+				}
+			}
+			4913 = {
+				add_province_modifier = {
+					name = muskogee_natchez_trace_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+	muskogee_fortify_bluffs = {
+		icon = mission_fortify_rajputana
+		position = 3
+		required_missions = { muskogee_natchez_trace }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4913
+				province_id = 936
+				province_id = 931
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = { 
+			4913 = {
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				base_manpower = 10
+			}
+			936 = {
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				base_manpower = 10
+			}
+			931 = {
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				base_manpower = 10
+			}
+		}
+		effect = { 
+			4913 = {
+				add_province_modifier = {
+					name = muskogee_fort_bluffs_modifier
+					duration = -1
+				}
+			}
+			936 = {
+				add_province_modifier = {
+					name = muskogee_fort_bluffs_modifier
+					duration = -1
+				}
+			}
+			931 = {
+				add_province_modifier = {
+					name = muskogee_fort_bluffs_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+	muskogee_control_river_traffic = {
+		icon = mission_control_river_traffic_icon
+		position = 4
+		required_missions = { muskogee_fortify_bluffs }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4913
+				province_id = 936
+				province_id = 931
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = { 
+			treasury = 1000
+			918 = {
+				development = 15
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_treasury = -1000
+			918 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+				else = {
+					add_base_production = 2
+				}
+			}
+		}
+	}
+}
+
+muskogee_column_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = N01
+	}
+
+	muskogee_incorporate_caddo = {
+		icon = mission_caddo_icon
+		position = 2
+		required_missions = { muskogee_unite_tribes }
+		provinces_to_highlight = {
+			OR = {
+				area = mississippi_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = { 
+			mississippi_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = { 
+			coastal_prarie_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			texas_plains_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}			
+			lower_plains_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			mississippi_plain_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			ozarks_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			lower_louisiana_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+		}
+	}
+	muskogee_superchieftain = {
+		icon = me_mission_native_chief
+		position = 4
+		required_missions = { muskogee_incorporate_caddo muskogee_restore_cahokia }
+		trigger = { 
+			stability = 3
+			prestige = 70
+			great_lakes_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			mississippi_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+
+		}
+		effect = { 
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			north_america_superregion = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			add_country_modifier = {
+				name = muskogee_superchieftain_modifier
+				duration = -1
+			}
+		}
+	}
+}
+
+muskogee_column_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = N01
+	}
+
+	muskogee_unite_tribes = {
+		icon = me_mission_native_united_tribes
+		position = 1
+		required_missions = {  }
+		trigger = { 
+			stability = 1
+			army_size_percentage = 1
+		}
+		effect = {
+			every_country = {
+				limit = {
+					NOT = { tag = N01 }
+					is_free_or_tributary_trigger = yes
+					OR = {
+						culture_group = muskogean
+						tag = CHE
+					}
+				}
+				reverse_add_casus_belli = {
+					target = ROOT
+					type = cb_vassalize_mission
+				}
+			}
+			south_carolina_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			south_carolina_piedmont_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			western_kentucky_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			kentucky_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			south_appalachia_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			choctaw_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			mississippi_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			alabama_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			upper_american_georgia_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			american_georgia_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			north_florida_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			west_florida_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			florida_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+		}
+	}
+	muskogee_reclaim_north = {
+		icon = mission_rb_settle_the_north
+		position = 2
+		required_missions = { muskogee_unite_tribes }
+		provinces_to_highlight = {
+			OR = {
+				area = western_kentucky_area
+				area = kentucky_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = { 
+			western_kentucky_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			kentucky_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = { 
+			upper_louisiana_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			illinois_country_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			southern_illinois_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			iowa_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			wisconsin_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			minnessota_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			lake_superior_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			miami_river_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			ohio_country_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+			michigan_area = {
+				limit = { NOT = { owned_by = ROOT } }
+				add_permanent_claim = N01
+			}
+		}
+	}
+	muskogee_restore_cahokia = {
+		icon = mission_restore_cahokia_tradepost_icon
+		position = 3
+		required_missions = { muskogee_reclaim_north }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 917
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			917 = { development = 15 }
+			owns_core_province = 917
+			treasury = 1000
+		}
+		effect = {
+			add_treasury = -1000
+			917 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+				else = {
+					add_base_production = 2
+				}
+			}
+		}
+	}
+}
+

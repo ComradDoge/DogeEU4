@@ -28,7 +28,7 @@ Checksum: -
 - China CB nerfed, no longer has the cores mechanic
 - Byzantium no longer gets free point events
 - AI won't pick naval related ideas when it has no ports
-- Added Muskogee formable with ideas, factions and a mission tree
+- Added Muskogee formable with ideas, factions and a small mission tree
 - Deux canal tech required lowered to be equal with Suez
 - Fixed election event numbers not working properly and localisation made cleaner for better readability
 [/quote]
