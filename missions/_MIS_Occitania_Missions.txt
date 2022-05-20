@@ -10,8 +10,33 @@ occitan_c1 = {
 		icon = mission_build_up_to_force_limit
 		position = 2
 		required_missions = { occitan_rome_converted }
-		trigger = { }
-		effect = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 219
+				area = toledo_area
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 219
+			toledo_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = { 
+			219 = {
+				if = {
+					limit = {
+						NOT = { religion = cathar }
+					}
+					change_religion = cathar
+				}
+				add_reform_center = cathar
+			}
+		}
 	}
 	occitan_newworld_conversion = {
 		icon = mission_build_up_to_force_limit
@@ -34,8 +59,33 @@ occitan_c2 = {
 		icon = mission_build_up_to_force_limit
 		position = 2
 		required_missions = { occitan_rome_converted }
-		trigger = { }
-		effect = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 236
+				area = home_counties_area
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 236
+			home_counties_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = { 
+			236 = {
+				if = {
+					limit = {
+						NOT = { religion = cathar }
+					}
+					change_religion = cathar
+				}
+				add_reform_center = cathar
+			}
+		}
 	}
 	occitan_africa_conversion = {
 		icon = mission_build_up_to_force_limit
@@ -58,22 +108,139 @@ occitan_c3 = {
 		icon = mission_occitan_flag
 		position = 1
 		required_missions = {  }
-		trigger = { }
-		effect = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 118
+				area = lazio_area
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 118
+			lazio_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			set_global_flag = cathar_reformation_has_begun_global_flag
+			set_country_flag = cathar_reformation_has_begun_country_flag
+			custom_tooltip = occitan_rome_converted_tooltip
+			118 = {
+				if = {
+					limit = {
+						NOT = { religion = cathar }
+					}
+					change_religion = cathar
+				}
+				add_reform_center = cathar
+			}
+			country_event = { id = occ_flavour_religious.1 }
+			every_country = {
+				limit = {
+					capital_scope = {
+						superregion = europe_superregion
+						region = balkan_region
+						region = carpathia_region
+						region = poland_region
+					}
+				}
+				country_event = {
+					id = occ_flavour_religious.2
+				}
+			}
+
+		}
 	}
 	occitan_germany_conversion = {
 		icon = mission_build_up_to_force_limit
 		position = 2
 		required_missions = { occitan_rome_converted }
-		trigger = { }
-		effect = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1878 # Aachen
+				province_id = 1876 # Frankfurt
+				province_id = 1872 # Ulm
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 1878
+			owns_core_province = 1876
+			owns_core_province = 1872
+		}
+		effect = { 
+			1878 = {
+				if = {
+					limit = {
+						NOT = { religion = cathar }
+					}
+					change_religion = cathar
+				}
+				add_reform_center = cathar
+			}
+			1876 = {
+				if = {
+					limit = {
+						NOT = { religion = cathar }
+					}
+					change_religion = cathar
+				}
+				add_reform_center = cathar
+			}
+			1872 = {
+				if = {
+					limit = {
+						NOT = { religion = cathar }
+					}
+					change_religion = cathar
+				}
+				add_reform_center = cathar
+			}
+		}
 	}
 	occitan_eu_choice_conversion = {
 		icon = mission_build_up_to_force_limit
 		position = 3
 		required_missions = { occitan_britain_conversion occitan_iberia_conversion occitan_germany_conversion occitan_scandinavia_conversion occitan_balkans_conversion }
 		trigger = { }
-		effect = { }
+		effect = {
+			every_country = {
+				limit = {
+					capital_scope = {
+						superregion = europe_superregion
+						region = balkan_region
+						region = carpathia_region
+						region = poland_region
+						AND = { 
+							region = baltic_region
+							religion = catholic
+						}
+					}
+				}
+				country_event = { id = occ_flavour_religious_choice.1 }
+			}
+			every_country = {
+				limit = {
+					NOT = { culture_group = tartar }
+					capital_scope = {
+						AND = { 
+							region = baltic_region
+							NOT = { religion = catholic }
+						}
+						region = russia_region
+						region = ruthenia_region
+						region = crimea_region
+					}
+				}
+				country_event = { id = occ_flavour_religious_choice.2 }
+			}
+		}
+		
 	}
 	occitan_middleeast_conversion = {
 		icon = mission_build_up_to_force_limit
@@ -87,7 +254,14 @@ occitan_c3 = {
 		position = 5
 		required_missions = { occitan_newworld_conversion occitan_africa_conversion occitan_middleeast_conversion occitan_southeastasia_conversion occitan_eastasia_conversion }
 		trigger = { }
-		effect = { }
+		effect = { 
+			every_country = {
+				limit = {
+					NOT = { religion = cathar }
+				}
+				country_event = { id = occ_flavour_religious_choice.3 }
+			}
+		}
 	}
 }
 
@@ -103,8 +277,33 @@ occitan_c4 = {
 		icon = mission_build_up_to_force_limit
 		position = 2
 		required_missions = { occitan_rome_converted }
-		trigger = { }
-		effect = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 12
+				area = denmark_area
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 12
+			denmark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = { 
+			12 = {
+				if = {
+					limit = {
+						NOT = { religion = cathar }
+					}
+					change_religion = cathar
+				}
+				add_reform_center = cathar
+			}
+		}
 	}
 	occitan_southeastasia_conversion = {
 		icon = mission_build_up_to_force_limit
@@ -127,8 +326,26 @@ occitan_c5 = {
 		icon = mission_build_up_to_force_limit
 		position = 2
 		required_missions = { occitan_rome_converted }
-		trigger = { }
-		effect = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 137
+				province_id = 146
+				province_id = 151
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 137
+			owns_core_province = 146
+			owns_core_province = 151
+		}
+		effect = {
+			country_event = {
+				id = occ_flavour_religious.101
+			}
+		}
 	}
 	occitan_eastasia_conversion = {
 		icon = mission_build_up_to_force_limit
