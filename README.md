@@ -31,6 +31,7 @@ Checksum: -
 - Added Muskogee formable with ideas, factions and a small mission tree
 - Deux canal tech required lowered to be equal with Suez
 - Fixed election event numbers not working properly and localisation made cleaner for better readability
+- Updated a few government reform icons to not be repeats
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
