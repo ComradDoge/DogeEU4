@@ -226,8 +226,8 @@ NDefines.NAI.TRADE_COMPANY_INVESTMENT_COST_THRESHOLD = 2 -- How many times the c
 NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 100 -- AI scoring for repaying loans, multiplied by (MAX(budget - other loans, 0) * number_of_loans)/cost
 
 -- War
-NDefines.NAI.AGGRESSIVENESS = 500
-NDefines.NAI.AGGRESSIVENESS_BONUS_EASY_WAR = 600
+NDefines.NAI.AGGRESSIVENESS = 800
+NDefines.NAI.AGGRESSIVENESS_BONUS_EASY_WAR = 800
 
 
 -- Economy
