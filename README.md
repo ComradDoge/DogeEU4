@@ -32,6 +32,7 @@ Checksum: -
 - Deux canal tech required lowered to be equal with Suez
 - Fixed election event numbers not working properly and localisation made cleaner for better readability
 - Updated a few government reform icons to not be repeats
+- Governing capacity fix in subjects view
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
