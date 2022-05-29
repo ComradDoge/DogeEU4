@@ -19,7 +19,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.33.2
+Version: 1.34.0
 Checksum: -
 [quote]
 [h1] 07/04/2022 [/h1]
@@ -33,6 +33,7 @@ Checksum: -
 - Fixed election event numbers not working properly and localisation made cleaner for better readability
 - Updated a few government reform icons to not be repeats
 - Governing capacity fix in subjects view
+- Bunch of clean up and fixes
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
