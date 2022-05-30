@@ -78,3 +78,172 @@ hellenic_tributary = {
 	# Modifiers:
 	modifier_subject = clear # Tributaries don't get the ordinary subject_nation penalty 
 }
+
+persian_satrapy = {
+	copy_from = default
+	count = vassal
+
+	# Graphics:
+	sprite = GFX_icon_persian_satrapy
+	diplomacy_overlord_sprite = GFX_diplomacy_leadpersian_satrapy
+	diplomacy_subject_sprite = GFX_diplomacy_ampersian_satrapy
+
+	# Triggers:
+	is_potential_overlord = {
+		is_subject = no
+		government = monarchy
+		OR = {
+			tag = PER
+			primary_culture = persian
+			AND = {
+				culture_group = iranian
+				dominant_culture = ROOT
+			}
+			AND = {
+				NOT = { culture_group = iranian }
+				OR = {
+					AND = {
+						dominant_culture = persian
+						accepted_culture = persian
+					}
+					AND = {
+						dominant_culture = luri
+						accepted_culture = luri
+					}
+					AND = {
+						dominant_culture = azerbaijani
+						accepted_culture = azerbaijani
+					}
+					AND = {
+						dominant_culture = khorasani
+						accepted_culture = khorasani
+					}
+					AND = {
+						dominant_culture = baluchi
+						accepted_culture = baluchi
+					}
+					AND = {
+						dominant_culture = afghani
+						accepted_culture = afghani
+					}
+					AND = {
+						dominant_culture = kurdish
+						accepted_culture = kurdish
+					}
+					AND = {
+						dominant_culture = mazandarani
+						accepted_culture = mazandarani
+					}
+				}
+			}
+			AND = {
+				accepted_culture = persian
+				num_of_owned_provinces_with = {
+					value = 10
+					culture = persian
+				}
+			}
+		}
+	}
+
+	# Properties:
+	transfer_trade_if_merchant_republic = yes
+	uses_tariffs = yes
+	dynamically_created_during_history = yes
+	has_power_projection = no
+	overlord_protects_external = yes
+	overlord_enforce_peace_attacking = yes
+	share_rebel_popup = no
+	separatists_become_subjects = yes
+	allows_taking_land_without_independence = yes
+	can_transfer_in_peace = no
+	transfer_subjects_when_made = yes
+	extend_trading_range = yes
+
+	max_government_rank = 1
+
+	base_liberty_desire = -20.0
+	liberty_desire_negative_prestige = 0.05
+	liberty_desire_development_ratio = 0.25
+	liberty_desire_same_dynasty = -10.0
+	forcelimit_to_overlord = 0.2
+
+	relative_power_class = 4
+	diplomacy_view_class = 1
+
+	restoration_cb = cb_disloyal_vassal
+
+	can_fight = {
+		other_overlord = persian_satrapy
+		other_overlord = tributary_state
+	}
+	can_rival = {
+		independent_nations = yes
+		other_overlord = all
+	}
+	can_ally = {
+		same_overlord = persian_satrapy
+	}
+	can_marry = {
+	}
+
+	# Subject Interactions:
+	# (continuous)
+	subsidize_armies = yes
+	send_officers = yes
+	divert_trade = yes
+	# (immediate)
+	placate_rulers = yes
+	replace_governor = yes
+	enforce_culture = yes
+	siphon_income = yes
+	grant_core_claim = no
+	increase_tariffs = yes
+	decrease_tariffs = yes
+	contribute_to_capital = yes
+	conscript_general = yes
+
+	# Modifiers:
+	modifier_subject = clear
+	modifier_subject = {
+		modifier = subject_nation
+	}
+	modifier_subject = {
+		modifier = persian_satrapy_modifier
+	}
+	modifier_subject = {
+		trigger = {
+			FROM = {
+				NOT = { legitimacy_equivalent = 50 }
+			}
+		}
+		modifier = persian_satrapy_overlord_has_low_legitimacy_modifier
+	}
+
+	modifier_overlord = clear
+	modifier_overlord = {
+		modifier = persian_satrapy_overlord_modifier
+	}
+	modifier_overlord = {
+		modifier = vassal_subject
+	}
+	modifier_overlord = {
+		trigger = {
+			capital_scope = {
+				region_for_scope_province = {
+					is_capital_of = FROM
+				}
+			}
+		}
+		modifier = persian_satrapy_overlord_no_dip_relation_cost_modifier
+	}
+	modifier_overlord = {
+		trigger = {
+			has_country_modifier = persian_satrapy_sword_hunt_modifier
+		}
+		modifier = persian_satrapy_overlord_sword_hunt_modifier
+	}
+
+	overlord_opinion_modifier = is_persian_satrapy
+	subject_opinion_modifier = is_persian_satrapy
+}
