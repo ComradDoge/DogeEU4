@@ -33,7 +33,7 @@ Checksum: -
 - Fixed election event numbers not working properly and localisation made cleaner for better readability
 - Updated a few government reform icons to not be repeats
 - ME: New Persia mission tree (large, like oh my fucking god it's large, large)
-- ME: Mazandaran, Tibet, Hannover and Generic Persia tree added
+- ME: Mazandaran, Tibet, Hannover, Lubeck and Generic Persia tree added
 - GE: A bunch of monuments in relatively Persia region
 - The Mandala upgrading steps are clearer and cleaner
 - Governing capacity fix in subjects view
