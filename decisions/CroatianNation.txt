@@ -16,7 +16,7 @@ country_decisions = {
 			NOT = { tag = ILR }
 			NOT = { tag = ADR }
 			OR = {
-				NOT = { exists = CRO}
+				NOT = { exists = CRO }
 				ai = no
 			}
 			OR = {
@@ -101,40 +101,53 @@ country_decisions = {
 			}
 		}
 		effect = {
-			add_prestige_or_monarch_power = { amount = 15 }
-			131 = { # Zagreb
-				move_capital_effect = yes
-			}
+			# General
+            custom_tooltip = tooltip_line_seperate_general
 			change_tag = CRO
-			set_country_flag = formed_croatia_flag
+			#restore_country_name_effect = yes
 			swap_non_generic_missions = yes
+			add_prestige_or_monarch_power = { amount = 15 }
+
+            # Flags Hidden
+			set_country_flag = formed_croatia_flag
+
+            # Other
+            custom_tooltip = tooltip_line_seperate_other
+			set_capital = 131
+
+            # Government
+            custom_tooltip = tooltip_line_seperate_government
+			if = {
+				limit = {
+					NOT = {
+						government = republic
+					}
+				}
+				change_government = republic
+			}
 			if = {
 				limit = {
 					NOT = { government_rank = 2 }
 				}
 				set_government_rank = 2
 			}
+			
+            #### Gov Reform
+            #custom_tooltip = tooltip_line_seperate_gov_gap
+
+			# Culture
+			custom_tooltip = tooltip_line_seperate_culture
 			if = {
-				limit = {
-					NOT = { primary_culture = croatian }
-					NOT = { accepted_culture = croatian }
-				}
-				add_accepted_culture = croatian
+				limit = { NOT = { accepted_culture = croatian } }
+				add_accepted_culture_or_dip_power = { culture = croatian }
 			}
 			if = {
-				limit = {
-					NOT = { primary_culture = dalmatian }
-					NOT = { accepted_culture = dalmatian }
-				}
-				add_accepted_culture = dalmatian
+				limit = { NOT = { accepted_culture = dalmatian } }
+				add_accepted_culture_or_dip_power = { culture = dalmatian }
 			}
-			east_adriatic_coast_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = CRO
-			}
+
+			# Claims
+			custom_tooltip = tooltip_line_seperate_claims
 			every_province = {
 				limit = {
 					OR = {
@@ -148,26 +161,25 @@ country_decisions = {
 				}
 				add_permanent_claim = CRO
 			}
-			if = {
-				limit = {
-					government = republic
-				}
-				change_government_to_monarchy = yes
-				#set_legacy_government = feudal_monarchy
-			}
+
 			# Events
-			custom_tooltip = tooltip_line_seperate
+			custom_tooltip = tooltip_line_seperate_events
 			if = {
 				limit = { has_custom_ideas = no }
 				country_event = { id = ideagroups.1 } #Swap Ideas
 			}
+
 			# Modifiers
-			custom_tooltip = tooltip_line_seperate
+			custom_tooltip = tooltip_line_seperate_modifiers
 			add_country_modifier = {
 				name = "centralization_modifier"
 				duration = 7300
 			}
+
+            # Hidden Effects
+
 		}
+
 		ai_will_do = {
 			factor = 1
 		}

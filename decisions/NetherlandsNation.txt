@@ -89,37 +89,21 @@ country_decisions = {
 				NOT = { has_disaster = dutch_revolt_disaster }
 			}
 		}
-	 	effect = {
-			if = {
-				limit = {
-					is_elector = no
-					is_emperor = no
-					OR = {
-						is_part_of_hre = yes
-						any_owned_province = {
-							is_part_of_hre = yes
-						}
-					}
-				}
-				set_in_empire = no
-				hidden_effect = {
-					every_owned_province = {
-						limit = {
-							is_part_of_hre = yes
-						}
-						set_in_empire = no
-					}
-				}
-			}
-	  		if = {
-	  			limit = {
-	  				tag = BUR
-	  			}
-	  			change_primary_culture = dutch
-				97 = {
-					move_capital_effect = yes
-				}
-			}
+		effect = {
+			# General
+            custom_tooltip = tooltip_line_seperate_general
+			change_tag = NED
+			#restore_country_name_effect = yes
+			swap_non_generic_missions = yes
+			add_prestige_or_monarch_power = { amount = 15 }
+
+
+            # Flags Hidden
+			set_country_flag = formed_netherlands_flag
+
+
+            # Other
+            custom_tooltip = tooltip_line_seperate_other
 			if = {
 				limit = {
 					tag = BUR
@@ -163,11 +147,53 @@ country_decisions = {
 					}
 				}
 	  		}
-			custom_tooltip = tooltip_line_seperate
-			change_tag = NED
-			swap_non_generic_missions = yes
-			set_country_flag = formed_netherlands_flag
-			custom_tooltip = tooltip_line_seperate
+
+            # Government
+            custom_tooltip = tooltip_line_seperate_government
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				set_government_rank = 2
+			}
+			if = {
+				limit = {
+					is_elector = no
+					is_emperor = no
+					OR = {
+						is_part_of_hre = yes
+						any_owned_province = {
+							is_part_of_hre = yes
+						}
+					}
+				}
+				set_in_empire = no
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							is_part_of_hre = yes
+						}
+						set_in_empire = no
+					}
+				}
+			}
+
+            #### Gov Reform
+            #custom_tooltip = tooltip_line_seperate_gov_gap
+
+
+			# Culture
+			custom_tooltip = tooltip_line_seperate_culture
+	  		if = {
+	  			limit = {
+	  				tag = BUR
+	  			}
+	  			change_primary_culture = dutch
+				set_capital = 97
+			}
+
+			# Claims
+			custom_tooltip = tooltip_line_seperate_claims
 			low_countries_region = {
 				limit = {
 					NOT = { owned_by = ROOT }
@@ -176,30 +202,26 @@ country_decisions = {
 				}
 				add_permanent_claim = NED
 			}
-			if = {
-				limit = {
-					NOT = {
-						government_rank = 2
-					}
-				}
-				NED = { set_government_rank = 2 }
-			}
-			custom_tooltip = tooltip_line_seperate
-			#custom_tooltip = cannot_form_belgium
-			add_prestige_or_monarch_power = { amount = 15 }
+
 			# Events
-			custom_tooltip = tooltip_line_seperate
+			custom_tooltip = tooltip_line_seperate_events
 			if = {
 				limit = { has_custom_ideas = no NOT = { has_idea_group = NED_ideas } }
 				country_event = { id = ideagroups.1 } #Swap Ideas
 			}
+
+
 			# Modifiers
-			custom_tooltip = tooltip_line_seperate
+			custom_tooltip = tooltip_line_seperate_modifiers
 			add_country_modifier = {
 				name = "centralization_modifier"
 				duration = 7300
 			}
+
+            # Hidden Effects
+
 		}
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
