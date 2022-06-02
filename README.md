@@ -38,6 +38,7 @@ Checksum: -
 - The Mandala upgrading steps are clearer and cleaner
 - Governing capacity fix in subjects view
 - Bunch of clean up and fixes
+- Country formation decisions format changed
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
