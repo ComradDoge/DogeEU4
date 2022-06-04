@@ -35,10 +35,12 @@ Checksum: -
 - ME: New Persia mission tree (large, like oh my fucking god it's large, large)
 - ME: Mazandaran, Tibet, Hannover, Lubeck and Generic Persia tree added
 - GE: A bunch of monuments in relatively Persia region
+- GME: a bunch of new monuments added, primarily in Persia and periphery
 - The Mandala upgrading steps are clearer and cleaner
-- Governing capacity fix in subjects view
+- Governing capacity icon fix in subjects view
 - Bunch of clean up and fixes
 - Country formation decisions format changed
+- A few West African nations had their ideas jumbled up
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
