@@ -32,15 +32,13 @@ Checksum: -
 - Deux canal tech required lowered to be equal with Suez
 - Fixed election event numbers not working properly and localisation made cleaner for better readability
 - Updated a few government reform icons to not be repeats
-- ME: New Persia mission tree (large, like oh my fucking god it's large, large)
-- ME: Mazandaran, Tibet, Hannover, Lubeck and Generic Persia tree added
-- GE: A bunch of monuments in relatively Persia region
-- GME: a bunch of new monuments added, primarily in Persia and periphery
+- ME: Persia, Lubeck, Mazandaran, Tibet and Hannover missions added
+- GME: Persia and Tibet region monuments added
 - The Mandala upgrading steps are clearer and cleaner
 - Governing capacity icon fix in subjects view
-- Bunch of clean up and fixes
 - Country formation decisions format changed
 - A few West African nations had their ideas jumbled up
+- Bunch of clean up and fixes
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
