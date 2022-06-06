@@ -39,6 +39,7 @@ Checksum: -
 - Country formation decisions format changed
 - A few West African nations had their ideas jumbled up
 - Bunch of clean up and fixes
+- The shattered setup in persia changed
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
