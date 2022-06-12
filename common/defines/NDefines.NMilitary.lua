@@ -2,16 +2,16 @@
 ----- DOGE NDefines.NMilitary -----
 
 --Army
-NDefines.NMilitary.SUPPLY_DEPOT_MIL_COST = 25	-- Default 20, Mil power cost to build a supply depot in an area.
-NDefines.NMilitary.SUPPLY_DEPOT_DURATION_MONTHS = 120 -- D 60
+NDefines.NMilitary.SUPPLY_DEPOT_MIL_COST = 25	                          -- Default 20, Mil power cost to build a supply depot in an area.
+NDefines.NMilitary.SUPPLY_DEPOT_DURATION_MONTHS = 120                     -- Default 60
 
 NDefines.NMilitary.SUPPLYLIMIT_BASE_MULTIPLIER = 8.0
 NDefines.NMilitary.BANNER_REINFORCE_SPEED = -0.25
 NDefines.NMilitary.NOMAD_PLAINS_SHOCK_BONUS = 0.15	
 NDefines.NMilitary.NOMAD_NON_PLAINS_SHOCK_PENALTY =	-0.25
-NDefines.NMilitary.LEADER_GAIN_PERSONALITY_BASE_CHANCE = 22.0 --Base chance in percent for leader to gain a trait after combat (modified by tradition gained).
+NDefines.NMilitary.LEADER_GAIN_PERSONALITY_BASE_CHANCE = 22.0             -- Base chance in percent for leader to gain a trait after combat (modified by tradition gained).
 
-NDefines.NMilitary.CAVALRY_COST = 20 -- from 25, to offset the worthlessness of cavalry in most armies. Hordes are somewhat nerfed in the mod eitherway.
+NDefines.NMilitary.CAVALRY_COST = 20                                      -- Default 25, to offset the worthlessness of cavalry in most armies. Hordes are somewhat nerfed in the mod eitherway.
 
 --NDefines.NMilitary.COMBAT_DICE_SIDE = 12
 NDefines.NMilitary.CANNOT_RETREAT_DAYS = 7
@@ -48,3 +48,34 @@ NDefines.NMilitary.MERCENARY_TRADE_RANGE_MODIFIER = 1.0                   -- Wha
 NDefines.NMilitary.MERCENARY_COMPANY_BUILDING_TIME = 0.25                 -- Multiplies by the distance from company's home province in pixels to determine recruitment time in days.
 NDefines.NMilitary.MERCENARY_COMPANY_LOCAL_VIRTUAL_DISTANCE = 40          -- How many "pixels away" local companies pretend to be.
 NDefines.NMilitary.MERCENARY_COMPANY_ARMY_TRADITION = 60.0                -- 50, At what army tradition mercenary leaders are generated at.
+
+-- Xorme
+
+NDefines.NAI.FORCE_COMPOSITION_CHANGE_TECH_LEVEL = 14
+NDefines.NAI.CONQUEST_INTEREST_DISTANCE = 110
+
+NDefines.NAI.ASSIMILATION_INTEREST_AMOUNT_FACTOR = 150
+NDefines.NAI.ARMY_DISTANCE_SCORE_IMPACT	= 0.7
+NDefines.NAI.BORDER_DISTANCE_SCORE_IMPACT = 7.7
+NDefines.NAI.PURSUE_DISTANCE = 85
+
+NDefines.NAI.INVADING_MAX_AWAY_RATIO = 1.6
+NDefines.NAI.INVADING_BRAVERY = 1.45
+NDefines.NAI.INVASION_ARMY_LOOKUP_INTERVAL_ON_FAILURE = 13
+
+NDefines.NAI.REGION_PLANNING_HOMELAND_PRIORIZATION = 7.5
+NDefines.NAI.MIN_FORCE_LIMIT_SHARE_REGION_ASSIGN = 0.2
+NDefines.NAI.MAX_TASKS_NEW_REGION_ASSIGN_ALGORITHM = 100
+NDefines.NAI.MAX_ARMIES_NEW_REGION_ASSIGN_ALGORITHM = 80
+
+NDefines.NAI.TRANSPORT_FRACTION = 0.25
+NDefines.NAI.OVER_FORCELIMIT_AVOIDANCE_FACTOR = 50
+NDefines.NAI.ARTILLERY_FRACTION = 0.35
+NDefines.NAI.MIN_CAV_PERCENTAGE = 4.0
+NDefines.NAI.MAX_CAV_PERCENTAGE = 40
+NDefines.NAI.REGIMENTS_PER_GENERAL = 20
+
+NDefines.NAI.ACCEPTABLE_BALANCE_DEFAULT = 1.375
+
+NDefines.NAI.IMPORTANT_PROVINCE_THRESHOLD = 0.03
+

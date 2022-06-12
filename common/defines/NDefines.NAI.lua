@@ -186,8 +186,8 @@ NDefines.NAI.HOME_FLEET_MAX_RATIO = 0.6 --Maximum proportion of warships in home
 	--HOME_FLEET_MAX_RATIO = 0.85
 
  -- AI will not develop provinces that have more development than this or DEVELOPMENT_CAP_MULT*original development (whichever is bigger)
-NDefines.NAI.DEVELOPMENT_CAP_BASE = 60 -- Default 10
-NDefines.NAI.DEVELOPMENT_CAP_MULT = 5  -- Default 2
+NDefines.NAI.DEVELOPMENT_CAP_BASE = 30 -- Default 10
+NDefines.NAI.DEVELOPMENT_CAP_MULT = 2  -- Default 2
 
 NDefines.NAI.ARTILLERY_FRACTION = 0.25 --Ratio of artillery to infantry AI will build.
 	--ARTILLERY_FRACTION = 0.35
@@ -226,7 +226,7 @@ NDefines.NAI.TRADE_COMPANY_INVESTMENT_COST_THRESHOLD = 2 -- How many times the c
 NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 100 -- AI scoring for repaying loans, multiplied by (MAX(budget - other loans, 0) * number_of_loans)/cost
 
 -- War
-NDefines.NAI.AGGRESSIVENESS = 800
+NDefines.NAI.AGGRESSIVENESS = 600
 NDefines.NAI.AGGRESSIVENESS_BONUS_EASY_WAR = 800
 
 
@@ -240,3 +240,8 @@ NDefines.NAI.DEBASE_THRESHOLD = -5000 -- AI will not debase if it has more gold 
 
 NDefines.NAI.CANCEL_CONSTRUCTION_SIEGE_PROGRESS = 101 -- buildings don't get destroyed when sieged, not sure why AI cancels constructions at all
 NDefines.NAI.EXTRA_SURPLUS_WHEN_NEEDING_BUILDINGS = 0.15 -- D0.10
+
+-- Edicts
+NDefines.NAI.EDICT_VALUE_THRESHOLD = 25 -- 120
+NDefines.NAI.EDICT_VALUE_THRESHOLD_MULTIPLY_DEFICIT = 5.0 -- 10
+NDefines.NAI.EDICT_VALUE_THRESHOLD_MULTIPLY_LOW_INCOME = 1.5 -- 3
