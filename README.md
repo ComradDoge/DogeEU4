@@ -22,10 +22,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.0
 Checksum: -
 [quote]
-[h1] 07/04/2022 [/h1]
+[h1] 00/06/2022 [/h1]
 
-- Insult CB AE effect decreased by 50% and prestige increased by 100% to 300%
-- China CB nerfed, no longer has the cores mechanic
+- Insult CB: AE effect decreased 100%>50% and prestige increased 200%>300%
+- China CB: nerfed, no longer has the cores mechanic
 - Byzantium no longer gets free point events
 - AI won't pick naval related ideas when it has no ports
 - Added Muskogee formable with ideas, factions and a small mission tree
@@ -38,8 +38,10 @@ Checksum: -
 - Governing capacity icon fix in subjects view
 - Country formation decisions format changed
 - A few West African nations had their ideas jumbled up
+- The shattered setup in Persia changed
+- Tibet nations start as theocracies
+- New Naval government reform tier added to separate from the military tab
 - Bunch of clean up and fixes
-- The shattered setup in persia changed
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
