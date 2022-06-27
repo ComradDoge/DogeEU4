@@ -26,6 +26,9 @@ Checksum: -
 
 - Espionage provides another way to access Steal Maps, Sow Disconent and Sabotage Reputation by finishing the idea group.
 - Move Liberty agitation and infiltrate administration to unlock slightly earlier in tech
+- Leadership: leader_slots replaced with a leader_cost reduction and army_decay reduction
+- Militarism: leader_slots replaced with army_decay reduction
+
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
