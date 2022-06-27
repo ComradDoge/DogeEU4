@@ -24,25 +24,8 @@ Checksum: -
 [quote]
 [h1] 12/06/2022 [/h1]
 
-- Fixed election event numbers not working properly and localisation made cleaner for better readability
-- New Naval government reform tier added to separate naval reforms from the military tab
-- Insult CB: AE effect decreased 100%>50% and prestige increased 200%>300%
-- Added Muskogee formable with ideas, factions and a small mission tree
-- ME: Persia, Lubeck, Mazandaran, Tibet and Hannover missions added
-- Updated a few government reform icons to not be repeats
-- Deux canal tech required lowered to be equal with Suez
-- AI won't pick naval related ideas when it has no ports
-- A few West African nations had their ideas jumbled up
-- The Mandala upgrading steps are clearer and cleaner
-- Balanced some government reforms to be more viable
-- GME: Persia and Tibet region monuments added
-- Governing capacity icon fix in subjects view
-- China CB: no longer has the cores mechanic
-- Country formation decisions format changed
-- Byzantium no longer gets free point events
-- The shattered setup in Persia changed
-- Tibet nations start as theocracies
-- Bunch of clean up and fixes
+- Espionage provides another way to access Steal Maps, Sow Disconent and Sabotage Reputation by finishing the idea group.
+- Move Liberty agitation and infiltrate administration to unlock slightly earlier in tech
 [/quote]
 
 [img]https://i.imgur.com/F14PpEA.png[/img]
