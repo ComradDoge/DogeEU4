@@ -29,6 +29,8 @@ Checksum: -
 - Move Liberty agitation and infiltrate administration to unlock slightly earlier in tech
 - Leadership: leader_slots replaced with a leader_cost reduction and army_decay reduction
 - Militarism: leader_slots replaced with army_decay reduction
+- FE: added new nations with ideas: Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
+- Wendish Empire formation requirements tweaked
 
 [/quote]
 

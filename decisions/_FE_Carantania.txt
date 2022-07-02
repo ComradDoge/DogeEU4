@@ -1,24 +1,36 @@
 country_decisions = {
 
-	celtic_empire = {
+	carantania_nation = {
 		major = yes
 		potential = {
 			normal_or_historical_nations = yes
 			was_never_end_game_tag_trigger = yes
-			NOT = { has_country_flag = formed_celtic_empire_country_flag }
-			NOT = { exists = CEE }
+			NOT = { has_country_flag = formed_carantania_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			NOT = { tag = ARB }
+			NOT = { tag = CAS }
 			NOT = { tag = PAP }
 			NOT = { tag = HLR }
-			NOT = { tag = GBR }
+			NOT = { tag = MAM }
+			NOT = { tag = ARA }
+			NOT = { tag = POR }
+			NOT = { tag = TUR }
 			OR = {
-				culture_group = gaelic
-				tag = SCO
+				primary_culture = croatian
+				primary_culture = serbian
+				primary_culture = bulgarian
+				primary_culture = albanian
+				primary_culture = slovene
+				primary_culture = bosnian
 			}
 			OR = {
 				ai = no
 				AND = {
 					ai = yes
-					num_of_cities = 10
+					num_of_cities = 5	#Any big Moroccan tag will try to usurp the title
 				}
 			}
 			is_colonial_nation = no
@@ -32,95 +44,57 @@ country_decisions = {
 		}
 		provinces_to_highlight = {
 			OR = {
-
-				area = connacht_area
-				area = munster_area
-				area = leinster_area
-				area = ulster_area
-				area = kingdom_of_the_isles_area
-				area = highlands_area
-				area = brittany_area
-				#One of these is required
-				area = wales_area
-				area = wessex_area
+				area = austria_proper_area
+				area = inner_austria_area
 			}
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
 			}
 		}
-
 		allow = {
-			is_subject = no
-			is_nomad = no
-			adm_tech = 15
+			NOT = { exists = CTR }
 			is_at_war = no
-			OR = {
-				culture_group = gaelic
-				tag = SCO
-			}
-			
-			connacht_area = {
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			austria_proper_area = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
-			munster_area = {
+			inner_austria_area = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
-			}
-			leinster_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			ulster_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			kingdom_of_the_isles_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			highlands_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			brittany_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-
-			OR = {
-				wales_area = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
-				}
-				wessex_area = {
-					type = all
-					country_or_non_sovereign_subject_holds = ROOT
-				}		
 			}
 		}
 		effect = {
 			# General
             custom_tooltip = tooltip_line_seperate_general
-			change_tag = CEE
+			change_tag = CTR
+			#restore_country_name_effect = yes
 			#swap_non_generic_missions = yes
 			add_prestige_or_monarch_power = { amount = 15 }
 
             # Flags Hidden
-			set_country_flag = formed_celtic_empire_country_flag
+			set_country_flag = formed_carantania_flag
 
             # Other
-            #custom_tooltip = tooltip_line_seperate_other
+            custom_tooltip = tooltip_line_seperate_other
+			capital_scope = {
+			 	add_base_tax = 1
+				add_base_production = 1
+			 	add_base_manpower = 1
+			}
 
             # Government
             custom_tooltip = tooltip_line_seperate_government
+			remove_non_electors_emperors_from_empire_effect = yes
 			if = {
 				limit = {
 					NOT = { government_rank = 2 }
 				}
 				set_government_rank = 2
 			}
+			
             #### Gov Reform
             #custom_tooltip = tooltip_line_seperate_gov_gap
 
@@ -128,10 +102,8 @@ country_decisions = {
 			#custom_tooltip = tooltip_line_seperate_culture
 
 			# Claims
-			custom_tooltip = tooltip_line_seperate_claims
-			british_isles_region = {
-				add_permanent_claim = CEE
-			}
+			#custom_tooltip = tooltip_line_seperate_claims
+			
 			# Events
 			custom_tooltip = tooltip_line_seperate_events
 			if = {
@@ -152,5 +124,5 @@ country_decisions = {
 		ai_will_do = {
 			factor = 1
 		}
+		ai_importance = 400
 	}
-}
