@@ -32,6 +32,7 @@ Checksum: -
 - FE: added new nations with ideas: Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
 - Wendish Empire formation requirements tweaked
 - Deity screen can be scrolled if you have a height resolution less than 1080
+- Fixed Ulm not having missions
 
 [/quote]
 
