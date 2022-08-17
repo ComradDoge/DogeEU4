@@ -33,6 +33,8 @@ Checksum: -
 - Wendish Empire formation requirements tweaked
 - Deity screen can be scrolled if you have a height resolution less than 1080
 - Fixed Ulm not having missions
+- Monopolies no longer give mercantilism
+- Athens missions slightly cleaned up
 
 [/quote]
 
