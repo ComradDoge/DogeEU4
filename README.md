@@ -40,6 +40,7 @@ Checksum: -
 - Cleaned up the Joan Retrial decision
 - Various sources of enforce_religion_cost reduced
 - Hungary mission tree tweaked so it makes a bit more gameplay sense in shattered
+- Around 300 idea group related events have been reformatted, tweaked and new ones added to existing and missing idea groups that did not have an event pool.
 
 [/quote]
 
