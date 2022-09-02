@@ -12,7 +12,7 @@ NDefines.NCountry.NAT_FOCUS_YEARS = 15 -- Default 25
 NDefines.NCountry.NAT_FOCUS_YEARS_RANK = 5 -- Default 5
 
 --Advisor
-NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.009
+NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.008
 NDefines.NCountry.SCRIPTED_ADVISOR_DISCOUNT = 0.75
 
 --Wars
