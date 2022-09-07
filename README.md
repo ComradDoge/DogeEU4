@@ -22,25 +22,37 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.33.0
 Checksum: -
 [quote]
-[h1] 12/06/2022 [/h1]
+[h1] 15/09/2022 [/h1]
 
+Content
 - Espionage provides another way to access Steal Maps, Sow Disconent, Sabotage Reputation and Sabotage Fort by finishing the idea group.
 - Nationalism and Fortress idea finishers give protection from espionage Sabotage Fort mechanic
+- FE: added new nations with ideas - Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
+- Koryak can be formed by the Kamchatkan culture group instead of just specific countries
+- Jurispudence, Health, Development and State Affairs event pools cleaned up.
+- Added X generic events for you to click on
+
+Balance
 - Move Liberty agitation and infiltrate administration to unlock slightly earlier in tech
 - Leadership: leader_slots replaced with a drill_gain and army_decay reduction
 - Militarism: leader_slots replaced with army_decay reduction
-- FE: added new nations with ideas - Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
+- Monopolies no longer give mercantilism
+- Your prestige. Give it to me.
+- Added +1 powerpoint to the base of everyone's generation as a response to the point generation drought.
+- Various sources of enforce_religion_cost reduced
+
+Fixes
 - Wendish Empire formation requirements tweaked
 - Deity screen can be scrolled if you have a height resolution less than 1080
-- Fixed Ulm not having missions
-- Monopolies no longer give mercantilism
-- Athens missions slightly cleaned up
-- Koryak can be formed by the Kamchatkan culture group instead of just specific countries
-- Your prestige. Give it to me.
 - Cleaned up the Joan Retrial decision
-- Various sources of enforce_religion_cost reduced
+- Transfer of knowledge to colonial nations (akin to how released vassals get the same amount of ideas unlocked as you) now works through a decision
+- Burgundy event should no longer fire during the shattered bookmark
+
+Missions
+- Fixed Ulm not having missions
+- Athens missions slightly cleaned up
 - Hungary mission tree tweaked so it makes a bit more gameplay sense in shattered
-- Jurispudence, Health, Development and State Affairs event pools cleaned up.
+- If you have the new Northern Lord DLC, you will get the new missions for corresponding nations (with some tweaks). If you do not, you will get the Shattered ones. Some nations might not receive the new ones at all due to how they are setup.
 
 [/quote]
 
