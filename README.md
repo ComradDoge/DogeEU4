@@ -30,8 +30,7 @@ Content
 - FE: added new nations with ideas - Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
 - Koryak can be formed by the Kamchatkan culture group instead of just specific countries
 - Jurispudence, Health, Development and State Affairs event pools cleaned up.
-- Added X generic events for you to click on
-- English and Celtic minors have basic mission trees, credit to VikingNephilim
+- English and Celtic minors have mission trees, credit to Viking_Nephilim
 - Zulu is more likely to happen
 
 Balance
@@ -42,6 +41,7 @@ Balance
 - Your prestige. Give it to me.
 - Added +1 powerpoint to the base of everyone's generation as a response to the point generation drought.
 - Various sources of enforce_religion_cost reduced
+- Reduced the cost of monuments
 
 Fixes
 - Wendish Empire formation requirements tweaked
@@ -49,6 +49,7 @@ Fixes
 - Cleaned up the Joan Retrial decision
 - Transfer of knowledge to colonial nations (akin to how released vassals get the same amount of ideas unlocked as you) now works through a decision
 - Burgundy event should no longer fire during the shattered bookmark
+- Country ideas fixed having more than 7
 
 Missions
 - Fixed Ulm not having missions
