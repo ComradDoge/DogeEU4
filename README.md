@@ -29,7 +29,7 @@ Content
 - Nationalism and Fortress idea finishers give protection from espionage Sabotage Fort mechanic
 - FE: added new nations with ideas - Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
 - Koryak can be formed by the Kamchatkan culture group instead of just specific countries
-- Added or tweaked ideas: Assyria, Skopje, Macedonia, Azov, Sudeten, Arkhangelsk, Vologda
+- Added or tweaked ideas: Assyria, Skopje, Macedonia, Azov, Sudeten, Arkhangelsk, Vologda, Knights Templar,
 - Jurispudence, Health, Development and State Affairs event pools cleaned up.
 - English and Celtic minors have mission trees, credit to Viking_Nephilim
 - Zulu is more likely to happen
