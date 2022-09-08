@@ -42,6 +42,7 @@ Balance
 - Your prestige. Give it to me.
 - Added +1 powerpoint to the base of everyone's generation as a response to the point generation drought.
 - Various sources of enforce_religion_cost reduced
+- Put steroids into Kemetism religion
 - Reduced the cost of monuments
 
 Fixes
