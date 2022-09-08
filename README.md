@@ -31,6 +31,7 @@ Content
 - Koryak can be formed by the Kamchatkan culture group instead of just specific countries
 - Jurispudence, Health, Development and State Affairs event pools cleaned up.
 - Added X generic events for you to click on
+- Zulu is more likely to happen
 
 Balance
 - Move Liberty agitation and infiltrate administration to unlock slightly earlier in tech
