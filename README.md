@@ -29,9 +29,8 @@ Content
 - Nationalism and Fortress idea finishers give protection from espionage Sabotage Fort mechanic
 - FE: added new nations with ideas - Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
 - Koryak can be formed by the Kamchatkan culture group instead of just specific countries
-- Added or tweaked ideas: Assyria, Skopje, Macedonia, Azov, Sudeten, Arkhangelsk, Vologda, Knights Templar,
+- Added or tweaked ideas: Assyria, Skopje, Macedonia, Azov, Sudeten, Arkhangelsk, Vologda, Knights Templar, Syria
 - Jurispudence, Health, Development and State Affairs event pools cleaned up.
-- English and Celtic minors have mission trees, credit to Viking_Nephilim
 - Zulu is more likely to happen
 
 Balance
@@ -57,6 +56,7 @@ Missions
 - Fixed Ulm not having missions
 - Athens missions slightly cleaned up
 - Hungary mission tree tweaked so it makes a bit more gameplay sense in shattered
+- English and Celtic minors have mission trees, credit to Viking_Nephilim
 - If you have the new Northern Lord DLC, you will get the new missions for corresponding nations (with some tweaks). If you do not, you will get the Shattered ones. Some nations might not receive the new ones at all due to how they are setup.
 
 [/quote]
