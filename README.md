@@ -57,6 +57,7 @@ Missions
 - Athens missions slightly cleaned up
 - Hungary mission tree tweaked so it makes a bit more gameplay sense in shattered
 - English and Celtic minors have mission trees, credit to Viking_Nephilim
+- ME: Added France missions.
 - If you have the new Northern Lord DLC, you will get the new missions for corresponding nations (with some tweaks). If you do not, you will get the Shattered ones. Some nations might not receive the new ones at all due to how they are setup.
 
 [/quote]
