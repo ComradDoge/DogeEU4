@@ -43,6 +43,8 @@ Balance
 - Various sources of enforce_religion_cost reduced
 - Put steroids into Kemetism religion
 - Reduced the cost of monuments
+- Statist<>Orangist modifiers buffed
+- Holland starts as a Republic
 
 Fixes
 - Wendish Empire formation requirements tweaked
@@ -51,6 +53,7 @@ Fixes
 - Transfer of knowledge to colonial nations (akin to how released vassals get the same amount of ideas unlocked as you) now works through a decision
 - Burgundy event should no longer fire during the shattered bookmark
 - Country ideas fixed having more than 7
+- Dutch Republic reform works and you get a choice when you form Netherlands
 
 Missions
 - Fixed Ulm not having missions
