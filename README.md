@@ -42,9 +42,11 @@ Balance
 - Added +1 powerpoint to the base of everyone's generation as a response to the point generation drought.
 - Various sources of enforce_religion_cost reduced
 - Put steroids into Kemetism religion
-- Reduced the cost of monuments
+- Reduced the cost of monuments 1k/5k/10k > 1k/2.5k/5k
 - Statist<>Orangist modifiers buffed
 - Holland starts as a Republic
+- Production buildings buffed  0.25/0.75/1.5 > 0.5/1/2
+- Manufactories no longer increase state_maintenance
 
 Fixes
 - Wendish Empire formation requirements tweaked
