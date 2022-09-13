@@ -32,6 +32,7 @@ Content
 - Added or tweaked ideas: Assyria, Skopje, Macedonia, Azov, Sudeten, Arkhangelsk, Vologda, Knights Templar, Syria
 - Jurispudence, Health, Development and State Affairs event pools cleaned up.
 - Zulu is more likely to happen
+- Added T1 reform for Madagascar nations
 
 Balance
 - Move Liberty agitation and infiltrate administration to unlock slightly earlier in tech
