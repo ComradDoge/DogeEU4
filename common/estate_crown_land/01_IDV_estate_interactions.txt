@@ -32,18 +32,27 @@ interaction = {
 		}
 		set_country_flag = recent_estate_agenda
 
-        add_estate_influence_modifier = {
-            estate = all
-            desc = EST_VAL_DIET_SUMMONED
-            duration = 7300
-            influence = 5
-            short = yes
-        }
+		if = {
+			limit = { NOT = { has_government_attribute = diet_increases_not_influence } }
+			add_estate_influence_modifier = {
+				estate = all
+				desc = EST_VAL_DIET_SUMMONED
+				duration = 7300
+				influence = 5
+				short = yes
+			}
+		}
         add_estate_loyalty = {
             estate = all
             loyalty = 5
             short = yes
         }
+		if = {
+			limit = {
+				has_government_attribute = republican_tradition_from_diets
+			}
+			add_scaled_republican_tradition = 2
+		}
     }
 	ai_will_do = {
 		factor = 0 # AI won't do agendas
@@ -66,8 +75,13 @@ interaction = {
 		hidden_trigger = { has_any_estates = yes }
     }
     effect = {
-	        country_event = { id = iv_estate_events.1 }               
-        #custom_tooltip = 
+	    country_event = { id = iv_estate_events.1 }               
+		if = {
+			limit = {
+				has_government_attribute = selling_titles_increases_pa
+			}
+			add_patriarch_authority = 0.05
+		}
     }
 	ai_will_do = {
 		factor = 25

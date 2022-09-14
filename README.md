@@ -25,6 +25,7 @@ Checksum: -
 [h1] 15/09/2022 [/h1]
 
 Content
+- 1.34 Update
 - Espionage provides another way to access Steal Maps, Sow Disconent, Sabotage Reputation and Sabotage Fort by finishing the idea group.
 - Nationalism and Fortress idea finishers give protection from espionage Sabotage Fort mechanic
 - FE: added new nations with ideas - Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
@@ -33,6 +34,7 @@ Content
 - Jurispudence, Health, Development and State Affairs event pools cleaned up.
 - Zulu is more likely to happen
 - Added T1 reform for Madagascar nations
+- 1.34 Breakthrough mechanic enabled (Cavalry has a chance to do a breakthrough)
 
 Balance
 - Move Liberty agitation and infiltrate administration to unlock slightly earlier in tech
@@ -41,13 +43,14 @@ Balance
 - Monopolies no longer give mercantilism
 - Your prestige. Give it to me.
 - Added +1 powerpoint to the base of everyone's generation as a response to the point generation drought.
+- At the start of the game an event gives points to rulers to make them, at minimum, 3/3/3 if they are below it. This is to make the early game not as tedious and more countries viable to pick.
 - Various sources of enforce_religion_cost reduced
 - Put steroids into Kemetism religion
 - Reduced the cost of monuments 1k/5k/10k > 1k/2.5k/5k
 - Statist<>Orangist modifiers buffed
 - Holland starts as a Republic
 - Production buildings buffed  0.25/0.75/1.5 > 0.5/1/2
-- Manufactories no longer increase state_maintenance
+- State_maintenance increases in buildings reduced or removed
 
 Fixes
 - Wendish Empire formation requirements tweaked
@@ -64,7 +67,7 @@ Missions
 - Hungary mission tree tweaked so it makes a bit more gameplay sense in shattered
 - English and Celtic minors have mission trees, credit to Viking_Nephilim
 - ME: Added France missions.
-- If you have the new Northern Lord DLC, you will get the new missions for corresponding nations (with some tweaks). If you do not, you will get the Shattered ones. Some nations might not receive the new ones at all due to how they are setup.
+- Regarding Lions of the North DLC missions. The countries which have the missions enabled: Finland, Riga, Livonia, Danzig, Gotland and Scandinavian if you are not SWE/DAN/NOR
 
 [/quote]
 
