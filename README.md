@@ -33,7 +33,7 @@ Content
 - Added or tweaked ideas: Assyria, Skopje, Macedonia, Azov, Sudeten, Arkhangelsk, Vologda, Knights Templar, Syria
 - Jurispudence, Health, Development and State Affairs event pools cleaned up.
 - Zulu is more likely to happen
-- Added T1 reform for Madagascar nations
+- Added T1 reform for Madagascar nations with 13 events attached to it that fire from time to time
 - 1.34 Breakthrough mechanic enabled (Cavalry has a chance to do a breakthrough)
 
 Balance
