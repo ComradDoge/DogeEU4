@@ -24,50 +24,22 @@ Checksum: -
 [quote]
 [h1] 15/09/2022 [/h1]
 
-Content
-- 1.34 Update
-- Espionage provides another way to access Steal Maps, Sow Disconent, Sabotage Reputation and Sabotage Fort by finishing the idea group.
-- Nationalism and Fortress idea finishers give protection from espionage Sabotage Fort mechanic
-- FE: added new nations with ideas - Polabia, Carantania, Campadesa, United Isles, Maluku, Sudan, Thessalonica, Thessaloniki
-- Koryak can be formed by the Kamchatkan culture group instead of just specific countries
-- Added or tweaked ideas: Assyria, Skopje, Macedonia, Azov, Sudeten, Arkhangelsk, Vologda, Knights Templar, Syria
-- Jurispudence, Health, Development and State Affairs event pools cleaned up.
-- Zulu is more likely to happen
-- Added T1 reform for Madagascar nations with 13 events attached to it that fire from time to time
-- 1.34 Breakthrough mechanic enabled (Cavalry has a chance to do a breakthrough)
-
-Balance
-- Move Liberty agitation and infiltrate administration to unlock slightly earlier in tech
-- Leadership: leader_slots replaced with a drill_gain and army_decay reduction
-- Militarism: leader_slots replaced with army_decay reduction
-- Monopolies no longer give mercantilism
-- Your prestige. Give it to me.
-- Added +1 powerpoint to the base of everyone's generation as a response to the point generation drought.
-- At the start of the game an event gives points to rulers to make them, at minimum, 3/3/3 if they are below it. This is to make the early game not as tedious and more countries viable to pick.
-- Various sources of enforce_religion_cost reduced
-- Put steroids into Kemetism religion
-- Reduced the cost of monuments 1k/5k/10k > 1k/2.5k/5k
-- Statist<>Orangist modifiers buffed
-- Holland starts as a Republic
-- Production buildings buffed  0.25/0.75/1.5 > 0.5/1/2
-- State_maintenance increases in buildings reduced or removed
-
-Fixes
-- Wendish Empire formation requirements tweaked
-- Deity screen can be scrolled if you have a height resolution less than 1080
-- Cleaned up the Joan Retrial decision
-- Transfer of knowledge to colonial nations (akin to how released vassals get the same amount of ideas unlocked as you) now works through a decision
-- Burgundy event should no longer fire during the shattered bookmark
-- Country ideas fixed having more than 7
-- Dutch Republic reform works and you get a choice when you form Netherlands
-
-Missions
-- Fixed Ulm not having missions
-- Athens missions slightly cleaned up
-- Hungary mission tree tweaked so it makes a bit more gameplay sense in shattered
-- English and Celtic minors have mission trees, credit to Viking_Nephilim
-- ME: Added France missions.
-- Regarding Lions of the North DLC missions. The countries which have the missions enabled: Finland, Riga, Livonia, Danzig, Gotland and Scandinavian if you are not SWE/DAN/NOR
+- Danzig missions fixed.
+- Kurland missions fixed.
+- Duplicate "Lands of the Church" reform removed.
+- Scandinavia decision will now refresh missions to get the new one.
+- Fixed the additional 1% that recruiting general gave.
+- Reformist advisor will work properly when something asks for any admin advisor.
+- Skopje and Knights Templar have their missing ideas.
+- Statist/Orangist modifier fixed for the proper Dutch Republic reform.
+- Buffed Protestant legitimacy aspect.
+- Mutapa missions fixed.
+- African religions get the same privileges that fetishism has.
+- African religions cult background shenanigans fix, so basically internally you actually do unlock the cults.
+- DLC Norway mission enabled if you own it.
+- Romuva local_tax_modifier fixed into a global one.
+- Buffed Romuva deities.
+- Added missing icons to some decisions.
 
 [/quote]
 
