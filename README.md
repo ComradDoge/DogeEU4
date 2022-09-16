@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.33.0
 Checksum: -
 [quote]
-[h1] 15/09/2022 [/h1]
+[h1] ?/09/2022 [/h1]
 
 - Danzig missions fixed.
 - Kurland missions fixed.
