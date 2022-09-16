@@ -24,22 +24,9 @@ Checksum: -
 [quote]
 [h1] ?/09/2022 [/h1]
 
-- Danzig missions fixed.
-- Kurland missions fixed.
-- Duplicate "Lands of the Church" reform removed.
-- Scandinavia decision will now refresh missions to get the new one.
-- Fixed the additional 1% that recruiting general gave.
-- Reformist advisor will work properly when something asks for any admin advisor.
-- Skopje and Knights Templar have their missing ideas.
-- Statist/Orangist modifier fixed for the proper Dutch Republic reform.
-- Buffed Protestant legitimacy aspect.
-- Mutapa missions fixed.
-- African religions get the same privileges that fetishism has.
-- African religions cult background shenanigans fix, so basically internally you actually do unlock the cults.
-- DLC Norway mission enabled if you own it.
-- Romuva local_tax_modifier fixed into a global one.
-- Buffed Romuva deities.
-- Added missing icons to some decisions.
+- Marine values fixed.
+- Annexing vassals costing abyssmally low diplomatic power fixed.
+
 
 [/quote]
 
