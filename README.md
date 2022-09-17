@@ -22,10 +22,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.33.0
 Checksum: -
 [quote]
-[h1] ?/09/2022 [/h1]
+[h1] 16/09/2022 [/h1]
 
-- Marine values fixed.
-- Annexing vassals costing abyssmally low diplomatic power fixed.
+- Cumania and Perm gets an event at the beginning of the game to choose horse path or settler path with religion picks.
+- Double Republican cost for when you re-elect someone fixed.
+- Admin tech development cost LOWERS not INCREASES cost.
 
 
 [/quote]
