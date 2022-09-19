@@ -24,9 +24,7 @@ Checksum: -
 [quote]
 [h1] 16/09/2022 [/h1]
 
-- Cumania and Perm gets an event at the beginning of the game to choose horse path or settler path with religion picks.
-- Double Republican cost for when you re-elect someone fixed.
-- Admin tech development cost LOWERS not INCREASES cost.
+- Cathar female rulers can become defender of the faith.
 
 
 [/quote]
