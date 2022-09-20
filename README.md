@@ -25,7 +25,8 @@ Checksum: -
 [h1] 16/09/2022 [/h1]
 
 - Cathar female rulers can become defender of the faith.
-
+- Localisation fixes.
+- Minor fixes.
 
 [/quote]
 
