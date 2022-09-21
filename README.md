@@ -25,6 +25,7 @@ Checksum: -
 [h1] 21/09/2022 [/h1]
 
 - Cathedral of Riga stays with you if you are a republic with 80% clergy loyalty.
+- Minor fixes.
 
 [/quote]
 
