@@ -22,9 +22,10 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.33.0
 Checksum: -
 [quote]
-[h1] 16/09/2022 [/h1]
+[h1] 21/09/2022 [/h1]
 
 - Cathar female rulers can become defender of the faith.
+- Adminstrative ideas devastation modifier is now a proper modifier
 - Localisation fixes.
 - Minor fixes.
 
