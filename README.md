@@ -19,17 +19,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.34.2
+Version: 1.34.3
 Checksum: -
 [quote]
-[h1] 21/09/2022 [/h1]
+[h1] 22/09/2022 [/h1]
 
-- Cathar female rulers can become defender of the faith.
-- Adminstrative ideas devastation modifier is now a proper modifier
-- Fixed republics not paying their dues.
-- AI will no longer have an insatiable desire for provinces to form the Roman Empire
-- Localisation fixes.
-- Minor fixes.
+- 1.34.3 Update.
 
 [/quote]
 
