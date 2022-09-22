@@ -19,12 +19,17 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.34.2
+Version: 1.34.3
 Checksum: -
 [quote]
-[h1] 21/09/2022 [/h1]
+[h1] ?/09/2022 [/h1]
 
+- Centralize state governing cost reduction increased to -25% > -33%.
+- Expand Infrastructure development cost reduction increased -5%>-15%.
+- Nationalism governing_capacity privilege is now slightly reduced but is no longer limited by other governing_capacity privileges.
+- Centralizing state reform_progress cost reduced 50>10.
 - Cathedral of Riga stays with you if you are a republic with 80% clergy loyalty.
+- Nationalist estate privileges regarding forcelimit and manpower reduced.
 - Minor fixes.
 
 [/quote]
