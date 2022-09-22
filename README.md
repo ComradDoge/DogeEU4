@@ -30,6 +30,7 @@ Checksum: -
 - Centralizing state reform_progress cost reduced 50>10.
 - Cathedral of Riga stays with you if you are a republic with 80% clergy loyalty.
 - Nationalist estate privileges regarding forcelimit and manpower reduced.
+- Governing cost increase from latent good buildings removed.
 - Minor fixes.
 
 [/quote]
