@@ -31,6 +31,8 @@ Checksum: -
 - Cathedral of Riga stays with you if you are a republic with 80% clergy loyalty.
 - Nationalist estate privileges regarding forcelimit and manpower reduced.
 - Governing cost increase from latent good buildings removed.
+- Seizing land from estates now follows 5% land = -10% loyalty.
+- Minor estate tweaks in the happy/neutral/angry section.
 - Minor fixes.
 
 [/quote]
