@@ -22,9 +22,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.3
 Checksum: -
 [quote]
-[h1] 22/09/2022 [/h1]
+[h1] 25/09/2022 [/h1]
 
-- 1.34.3 Update.
+- Mercenaries fixed and are proper size.
+- Latent good buildings no longer cost local_governing_cost.
+- Prussian republic religion trigger fix.
+- Iceland can be formed by having the required provinces and primary culture.
+- Marine shock modifier fixed.
+- Terrain files are up to date.
+- Society idea -1 unrest is now -2 unrest to follow along other ideas.
 
 [/quote]
 
