@@ -30,6 +30,7 @@ Checksum: -
 - Iceland can be formed by having the required provinces and primary culture.
 - Marine shock modifier fixed.
 - Terrain files are up to date.
+- Maguindanao can now also form Lusong.
 - Society idea -1 unrest is now -2 unrest to follow along other ideas.
 
 [/quote]
