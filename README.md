@@ -34,8 +34,9 @@ Checksum: -
 - Seizing land from estates now follows 5% land = -10% loyalty.
 - Minor estate tweaks in the happy/neutral/angry section.
 - AI won't be taking the Admiral privilege when it has no port.
+- Republic election costs tweaked.
 - Karma mechanic modifiers buffed.
-- Minor fixes.
+- Great Project fixes.
 
 [/quote]
 
