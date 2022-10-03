@@ -26,7 +26,7 @@ Checksum: -
 
 - Centralize state governing cost reduction increased to -25% > -33%.
 - Expand Infrastructure development cost reduction increased -5%>-25%.
-- Nationalism governing_capacity privilege is now slightly reduced but is no longer limited by other governing_capacity privileges.
+- Nationalism governing_capacity privilege is now reduced but is no longer limited by other governing_capacity privileges.
 - Nationalist estate privileges regarding forcelimit and manpower reduced.
 - Centralizing state reform_progress cost reduced 50>15.
 - Centralized reform that refunds centralization costs only refunds reform_progress.
