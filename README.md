@@ -28,9 +28,9 @@ Checksum: -
 - Expand Infrastructure development cost reduction increased -5%>-25%.
 - Nationalism governing_capacity privilege is now slightly reduced but is no longer limited by other governing_capacity privileges.
 - Nationalist estate privileges regarding forcelimit and manpower reduced.
-- Centralizing state reform_progress cost reduced 50>10.
+- Centralizing state reform_progress cost reduced 50>15.
+- Centralized reform that refunds centralization costs only refunds reform_progress.
 - Cathedral of Riga stays with you if you are a republic with 80% clergy loyalty.
-- Governing cost increase from latent good buildings removed.
 - Seizing land from estates now follows 5% land = -10% loyalty.
 - Minor estate tweaks in the happy/neutral/angry section.
 - AI won't be taking the Admiral privilege when it has no port.
