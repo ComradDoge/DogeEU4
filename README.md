@@ -28,6 +28,7 @@ Checksum: -
 - China wonder modifier fix.
 - Jerusalem mission fix.
 - Persia mission culture fix.
+- Siena mission trigger fix.
 
 [/quote]
 
