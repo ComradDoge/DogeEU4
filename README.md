@@ -35,6 +35,7 @@ Checksum: -
 - Minor estate tweaks in the happy/neutral/angry section.
 - AI won't be taking the Admiral privilege when it has no port.
 - Crownland higher tiers now give reform_progress_growth.
+- Brought back the cursed local_goods_produced into prosperity to stimulate the economy.
 - Republic election costs tweaked.
 - Karma mechanic modifiers buffed.
 - Great Project fixes.
