@@ -24,14 +24,10 @@ Checksum: -
 [quote]
 [h1] 25/09/2022 [/h1]
 
-- Mercenaries fixed and are proper size.
-- Latent good buildings no longer cost local_governing_cost.
-- Prussian republic religion trigger fix.
-- Iceland can be formed by having the required provinces and primary culture.
-- Marine shock modifier fixed.
-- Terrain files are up to date.
-- Maguindanao can now also form Lusong.
-- Society idea -1 unrest is now -2 unrest to follow along other ideas.
+- Prussia reform trigger fix.
+- China wonder modifier fix.
+- Jerusalem mission fix.
+- Persia mission culture fix.
 
 [/quote]
 
