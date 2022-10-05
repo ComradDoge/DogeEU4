@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.3
 Checksum: -
 [quote]
-[h1] 25/09/2022 [/h1]
+[h1] 05/10/2022 [/h1]
 
 - Prussia reform trigger fix.
 - China wonder modifier fix.
