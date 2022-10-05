@@ -38,6 +38,7 @@ Checksum: -
 - Brought back the cursed local_goods_produced into prosperity to stimulate the economy.
 - Republic election costs tweaked.
 - Karma mechanic modifiers buffed.
+- Karma religion screen changed due to increased modifiers.
 - Great Project fixes.
 
 [/quote]
