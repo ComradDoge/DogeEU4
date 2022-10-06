@@ -1,0 +1,458 @@
+# Source: Dei Gratia
+
+namespace = dse_buddhism_flavour
+
+####################
+# Relics and Omens # 10s
+####################
+
+#11 - White Elephant captured
+#12 - The White Elephant 
+#13 - A messenger from $FROMCOUNTRY$ arrives in $CAPITAL_CITY$
+#14 - White Elephant War
+#15 - White Elephant arrives in $CAPITAL_CITY$
+#16 - Elephant dies in transit
+#17* - A home for the Buddha's tooth
+#18* - Buddha's tooth captured
+#19* - The Buddha's tooth (smuggling)
+
+####################
+# Relics and Omens # 10s
+####################
+
+country_event = { #11 - White Elephant captured
+
+id = dse_buddhism_flavour.011
+title = dse_buddhism_flavour.011.t
+desc = dse_buddhism_flavour.011.d
+picture = BUDDHIST_WHITE_ELEPHANT_eventPicture
+
+trigger = {
+	religion_group = eastern
+	NOT = { religion = shinto }
+	is_at_war = no
+	any_owned_province = { 
+		OR = { 
+			region = west_india_region
+			region = coromandel_region
+			region = deccan_region
+			region = rajputana_region
+			region = hindusthan_region
+			region = bengal_region
+			region = indonesia_region
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2000
+	}
+	
+	option = {
+	name = dse_buddhism_flavour.011.a #Bring it to the palace
+	if = { 
+		limit = { 
+			DIP = 6 
+		}
+		add_legitimacy = 6	
+		add_republican_tradition = 0.06
+		add_prestige = 6
+		add_country_modifier = { name = morale_boost duration = 600 }
+	}
+	if = { 
+		limit = { 
+			DIP = 5 
+			NOT = { AND = { DIP = 6  } } 
+		}
+
+		add_legitimacy = 5
+		add_republican_tradition = 0.05
+		add_prestige = 5
+		add_country_modifier = { name = morale_boost duration = 500 }
+	}
+	if = { 
+		limit = { 
+			DIP = 4
+			NOT = { AND = { DIP = 5  } } 
+		}
+
+		add_legitimacy = 4
+		add_republican_tradition = 0.04
+		add_prestige = 4
+		add_country_modifier = { name = morale_boost duration = 400 }
+	}
+	if = { 
+		limit = { 
+			DIP = 3
+			NOT = { AND = { DIP = 4  } } 
+		}
+		add_legitimacy = 3
+		add_republican_tradition = 0.03
+		add_prestige = 3
+		add_country_modifier = { name = morale_boost duration = 300 }
+	}
+	if = { 
+		limit = { 
+			DIP = 2 
+			NOT = { AND = { DIP = 3  } } 
+		}
+		add_legitimacy = 2
+		add_republican_tradition = 0.02
+		add_prestige = 2
+		add_country_modifier = { name = morale_boost duration = 200 }
+	}
+	if = { 
+		limit = { 
+			NOT = { DIP = 2 } 
+		}
+		add_legitimacy = 1
+		add_republican_tradition = 0.01
+		add_prestige = 1
+		add_country_modifier = { name = morale_boost duration = 100 }
+	}
+
+
+	hidden_effect = { 
+		every_neighbor_country = { 
+			limit = { religion_group = ROOT  is_subject = no }
+			country_event = { id = dse_buddhism_flavour.012 days = 30 }
+			}
+		}
+	set_country_flag = white_elephant
+
+	}
+	option = {
+	name = dse_buddhism_flavour.011.b #Give it as a gift
+	ai_chance = { factor = 30 }
+	trigger = { any_neighbor_country = { religion_group = ROOT is_subject = no } }
+		random_neighbor_country = { 
+			limit = { religion_group = ROOT is_subject = no }
+			set_country_flag = white_elephant_gift
+			country_event = { id = dse_buddhism_flavour.015 days = 60 }
+		}
+	}
+
+
+}
+
+country_event = { #12 - The White Elephant
+
+id = dse_buddhism_flavour.012
+title = dse_buddhism_flavour.012.t
+desc = dse_buddhism_flavour.012.d
+picture = BUDDHIST_WHITE_ELEPHANT_eventPicture
+
+is_triggered_only = yes
+
+option = {
+	name = dse_buddhism_flavour.012.a #How nice for them
+	ai_chance = { 
+		factor = 80 
+		modifier = { 
+			NOT = { legitimacy = 90 }
+			factor = 0.7
+			}
+		modifier = { 
+			NOT = { legitimacy = 70 }
+			factor = 0.7
+			}
+		modifier = { 
+			NOT = { legitimacy = 50 }
+			factor = 0.7
+			}
+		}
+	}
+option = {
+	name = dse_buddhism_flavour.012.b #Offer to buy it from them
+	ai_chance = { factor = 10 }
+	add_dip_power = -10
+	set_country_flag = white_elephant_offer
+	FROM = { country_event = { id = dse_buddhism_flavour.013 days = 30 } }
+	}
+option = {
+	name = dse_buddhism_flavour.012.c #Demand that they give it to us
+	ai_chance = { factor = 10 }
+	add_mil_power = -10
+	FROM = { country_event = { id = dse_buddhism_flavour.013 days = 30 } }
+	}
+
+}
+
+country_event = { #13 - Messengers from $FROMCOUNTRY$ arrive in $CAPITAL_CITY$
+
+id = dse_buddhism_flavour.013
+title = dse_buddhism_flavour.013.t
+desc = dse_buddhism_flavour.013.d
+picture = buddhist_messenger_saffron
+
+is_triggered_only = yes
+
+immediate = {
+	if = {
+		limit = { FROM = { has_country_flag = white_elephant_offer } }
+		custom_tooltip = white_elephant_offer
+		}
+	if = {
+		limit = { FROM = { NOT = { has_country_flag = white_elephant_offer } } }
+		custom_tooltip = white_elephant_demand
+		}
+	}
+
+option = {
+	name = dse_buddhism_flavour.013.a #Keep the elephant
+	ai_chance = { factor = 50 }
+	trigger = { has_country_flag = white_elephant }
+	FROM = { country_event = { id = dse_buddhism_flavour.014 days = 30 } }
+	}
+option = {
+	name = dse_buddhism_flavour.013.b #Send them the elephant
+	ai_chance = { 
+		factor = 25 
+		modifier = { 
+			FROM = { has_country_flag = white_elephant_offer }
+			factor = 1.4
+			}
+		modifier = { 
+			FROM = { is_rival = ROOT }
+			factor = 0.7
+			}
+		modifier = { 
+			FROM = { is_enemy = ROOT }
+			factor = 0.7
+			}
+		modifier = { 
+			FROM = { army_size = ROOT }
+			factor = 1.4
+			}
+		modifier = { 
+			FROM = { truce_with = ROOT }
+			factor = 0.7
+			}
+		modifier = { 
+			FROM = { alliance_with = ROOT }
+			factor = 1.4
+			}
+		modifier = { 
+			FROM = { marriage_with = ROOT }
+			factor = 1.4
+			}
+		}
+	trigger = { has_country_flag = white_elephant }
+	remove_country_modifier = morale_boost
+	add_prestige = -1
+	if = { 
+		limit = { FROM = { has_country_flag = white_elephant_offer } }
+		add_treasury = 10
+		}
+	clr_country_flag = white_elephant
+	FROM = { 
+		random_list = {
+			70 = { country_event = { id = dse_buddhism_flavour.015 days = 60 } }
+			30 = { country_event = { id = dse_buddhism_flavour.016 days = 40 } }
+			}
+		}
+	}
+option = {
+	name = dse_buddhism_flavour.013.c #We no longer have an elephant
+	ai_chance = { factor = 25 }
+	trigger = { NOT = { has_country_flag = white_elephant } }
+	FROM = { country_event = { id = dse_buddhism_flavour.014 days = 30 } }
+	}
+	
+}
+
+country_event = { #14 - The White Elephant War
+
+id = dse_buddhism_flavour.014
+title = dse_buddhism_flavour.014.t
+desc = dse_buddhism_flavour.014.d
+picture = buddhist_messenger_saffron
+
+is_triggered_only = yes
+
+option = {
+	name = dse_buddhism_flavour.014.a #This is a slap in the face! 
+	if = { 
+		limit = { has_country_flag = white_elephant_offer }
+		add_prestige = -2
+		add_casus_belli = { target = FROM type = cb_insult months = 3 }
+		}
+	if = { 
+		limit = { NOT = { has_country_flag = white_elephant_offer } }
+		add_prestige = -4
+		add_casus_belli = { target = FROM type = cb_insult months = 12 }
+		}
+	clr_country_flag = white_elephant_offer
+	}
+
+}
+
+country_event = { #15 - White Elephant arrives in $CAPITAL_CITY$
+
+id = dse_buddhism_flavour.015
+title = dse_buddhism_flavour.015.t
+desc = dse_buddhism_flavour.015.d
+picture = BUDDHIST_WHITE_ELEPHANT_eventPicture
+
+is_triggered_only = yes
+	
+option = {
+	name = dse_buddhism_flavour.015.a #Bring it to the palace
+	if = { 
+		limit = { has_country_flag = white_elephant_offer }
+		add_treasury = -100
+		}
+	if = {
+		limit = { has_country_flag = white_elephant_gift }
+		#add_opinion_modifier = { who = FROM modifier = ??? }
+		}
+	clr_country_flag = white_elephant_offer
+	clr_country_flag = white_elephant_gift
+	if = { 
+		limit = { 
+			DIP = 6 
+			
+			}
+		add_legitimacy = 6	
+		add_republican_tradition = 0.06
+		add_prestige = 6
+		add_country_modifier = { name = morale_boost duration = 600 }
+		}
+	if = { 
+		limit = { 
+			DIP = 5 
+			
+			NOT = { AND = { DIP = 6  } } 
+			}
+		add_legitimacy = 5
+		add_republican_tradition = 0.05
+		add_prestige = 5
+		add_country_modifier = { name = morale_boost duration = 500 }
+		}
+	if = { 
+		limit = { 
+			DIP = 4
+			
+			NOT = { AND = { DIP = 5  } } 
+			}
+		add_legitimacy = 4
+		add_republican_tradition = 0.04
+		add_prestige = 4
+		add_country_modifier = { name = morale_boost duration = 400 }
+		}
+	if = { 
+		limit = { 
+			DIP = 3
+			
+			NOT = { AND = { DIP = 4  } } 
+			}
+		add_legitimacy = 3
+		add_republican_tradition = 0.03
+		add_prestige = 3
+		add_country_modifier = { name = morale_boost duration = 300 }
+		}
+	if = { 
+		limit = { 
+			DIP = 2 
+			NOT = { AND = { DIP = 3  } } 
+			}
+		add_legitimacy = 2
+		add_republican_tradition = 0.02
+		add_prestige = 2
+		add_country_modifier = { name = morale_boost duration = 200 }
+		}
+	if = { 
+		limit = { 
+			NOT = { DIP = 2 } 
+			}
+		add_legitimacy = 1
+		add_republican_tradition = 0.01
+		add_prestige = 1
+		add_country_modifier = { name = morale_boost duration = 100 }
+		}
+	}
+}
+
+country_event = { #16 - Elephant dies in transit
+
+id = dse_buddhism_flavour.016
+title = dse_buddhism_flavour.016.t
+desc = dse_buddhism_flavour.016.d
+picture = BUDDHIST_DEAD_ELEPHANT_eventPicture
+
+is_triggered_only = yes
+
+option = {
+	name = dse_buddhism_flavour.016.a #An unlucky omen
+	if = { 
+		limit = {  }
+		add_prestige = -4
+		add_legitimacy = -4
+		add_republican_tradition = -0.04
+		if = { 
+			limit = { is_at_war = yes }
+			add_country_modifier = { name = decreased_morale duration = 400 }
+			}
+		if = { 
+			limit = { is_at_war = no }
+			add_country_modifier = { name = religious_controversy duration = 400 }
+			}
+
+		}
+	if = { 
+		limit = { 
+			
+			NOT = {  }
+			}
+		add_prestige = -3
+		add_legitimacy = -3
+		add_republican_tradition = -0.03
+		if = { 
+			limit = { is_at_war = yes }
+			add_country_modifier = { name = decreased_morale duration = 300 }
+			}
+		if = { 
+			limit = { is_at_war = no }
+			add_country_modifier = { name = religious_controversy duration = 300 }
+			}
+
+		}
+	if = { 
+		limit = { 
+			
+			NOT = {  }
+			}
+		add_prestige = -2
+		add_legitimacy = -2
+		add_republican_tradition = -0.02
+		if = { 
+			limit = { is_at_war = yes }
+			add_country_modifier = { name = decreased_morale duration = 200 }
+			}
+		if = { 
+			limit = { is_at_war = no }
+			add_country_modifier = { name = religious_controversy duration = 200 }
+			}
+
+		}
+	if = { 
+		limit = { 
+			
+			NOT = {  }
+			}
+		add_prestige = -1
+		add_legitimacy = -1
+		add_republican_tradition = -0.01
+		if = { 
+			limit = { is_at_war = yes }
+			add_country_modifier = { name = decreased_morale duration = 100 }
+			}
+		if = { 
+			limit = { is_at_war = no }
+			add_country_modifier = { name = religious_controversy duration = 100 }
+			}
+		}
+	}
+
+}
+
