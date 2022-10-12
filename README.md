@@ -36,6 +36,7 @@ Checksum: -
 - AI won't be taking the Admiral privilege when it has no port.
 - Crownland higher tiers now give reform_progress_growth.
 - Brought back the cursed local_goods_produced into prosperity to stimulate the economy.
+- Added Great Conqueror option from Anbennar to spice up the game.
 - Republic election costs tweaked.
 - Karma mechanic modifiers buffed.
 - Execute estate leaders tweaked
