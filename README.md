@@ -40,10 +40,14 @@ Checksum: -
 - Republic election costs tweaked.
 - Karma mechanic modifiers buffed.
 - Execute estate leaders tweaked
-- Government reform tweaks and cleanup
-- Hidden reforms now can be seen as QoL
+- Government reform tweaks and cleanup.
+- Hidden reforms now can be seen as QoL.
 - Karma religion screen changed due to increased modifiers.
 - Great Project fixes.
+- Build prices tweaked.
+-- Grand Shipyard 500>400
+-- Counting House 500>300
+-- Temple 100>150
 
 [/quote]
 
