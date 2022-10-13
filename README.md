@@ -28,8 +28,7 @@ Checksum: -
 - Expand Infrastructure development cost reduction increased -5%>-25%.
 - Nationalism governing_capacity privilege is now reduced but is no longer limited by other governing_capacity privileges.
 - Nationalist estate privileges regarding forcelimit and manpower reduced.
-- Centralizing state reform_progress cost reduced 50>15.
-- Centralized reform that refunds centralization costs only refunds reform_progress.
+- Centralizing state reform_progress cost reduced 50>30.
 - Cathedral of Riga stays with you if you are a republic with 80% clergy loyalty.
 - Seizing land from estates now follows 5% land = -10% loyalty.
 - Minor estate tweaks in the happy/neutral/angry section.
