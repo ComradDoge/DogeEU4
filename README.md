@@ -47,6 +47,7 @@ Checksum: -
 -- Grand Shipyard 500>400
 -- Counting House 500>300
 -- Temple 100>150
+- Waldensian slightly buffed.
 
 [/quote]
 
