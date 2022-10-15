@@ -40,6 +40,7 @@ Checksum: -
 - Karma mechanic modifiers buffed and tweaked the UI.
 - Execute estate leaders tweaked.
 - Government reform tweaks and cleanup.
+- Nerfed the amount of money you get from selling land.
 - Hidden reforms now can be seen as QoL.
 - Karma religion screen changed due to increased modifiers.
 - Tweaked Druidism, Waldensian, Suomenusko and Romuva.
