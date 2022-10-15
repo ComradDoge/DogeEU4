@@ -45,11 +45,8 @@ Checksum: -
 - Karma religion screen changed due to increased modifiers.
 - Tweaked Druidism, Waldensian, Suomenusko and Romuva.
 - Great Project fixes.
-- Build prices tweaked.
--- Grand Shipyard 500>400
--- Counting House 500>300
--- Temple 100>150
-- Legitimacy policies now also give meritocracy
+- Build prices tweaked. Grand Shipyard 500>400, Counting House 500>300, Temple 100>150.
+- Legitimacy policies now also give meritocracy.
 
 [/quote]
 
