@@ -27,18 +27,18 @@ Checksum: -
 - Centralize state governing cost reduction increased to -25% > -33%.
 - Expand Infrastructure development cost reduction increased -5%>-25%.
 - Nationalism governing_capacity privilege is now reduced but is no longer limited by other governing_capacity privileges.
-- Nationalist estate privileges regarding forcelimit and manpower reduced.
+- Nationalist estate and privileges tweaked.
 - Centralizing state reform_progress cost reduced 50>30.
 - Cathedral of Riga stays with you if you are a republic with 80% clergy loyalty.
 - Seizing land from estates now follows 5% land = -10% loyalty.
-- Minor estate tweaks in the happy/neutral/angry section.
+- Estate tweaks in the happy/neutral/angry section.
 - AI won't be taking the Admiral privilege when it has no port.
 - Crownland higher tiers now give reform_progress_growth.
 - Brought back the cursed local_goods_produced into prosperity to stimulate the economy.
 - Added Great Conqueror option from Anbennar to spice up the game.
 - Republic election costs tweaked.
-- Karma mechanic modifiers buffed.
-- Execute estate leaders tweaked
+- Karma mechanic modifiers buffed and tweaked the UI.
+- Execute estate leaders tweaked.
 - Government reform tweaks and cleanup.
 - Hidden reforms now can be seen as QoL.
 - Karma religion screen changed due to increased modifiers.
