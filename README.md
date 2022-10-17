@@ -47,6 +47,7 @@ Checksum: -
 - Great Project fixes.
 - Build prices tweaked. Grand Shipyard 500>400, Counting House 500>300, Temple 100>150.
 - Legitimacy policies now also give meritocracy.
+- Development Cost icon fix in technology view.
 
 [/quote]
 
