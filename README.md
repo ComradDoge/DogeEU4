@@ -41,15 +41,16 @@ Checksum: -
 - Execute estate leaders tweaked.
 - Government reform tweaks and cleanup.
 - Nerfed the amount of money you get from selling land.
-- Hidden reforms now can be seen as QoL.
+- Hidden reforms now can be seen from the start as quality of life.
 - Karma religion screen changed due to increased modifiers.
 - Tweaked Druidism, Waldensian, Suomenusko and Romuva.
-- Great Project fixes.
+- Great Project modifier and image fixes. 
 - Build prices tweaked. Grand Shipyard 500>400, Counting House 500>300, Temple 100>150.
 - Legitimacy policies now also give meritocracy.
 - Development Cost icon fix in technology view.
-- Reduction in idea_cost values.
+- Reduction in idea_cost values. (Mercury is kept 10% to entice you to drink it)
 - Tweaked a few nation colours.
+- Wine province unrest bonus increased and trading bonus changed into diplomatic_reputation.
 
 [/quote]
 
