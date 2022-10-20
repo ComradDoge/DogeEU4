@@ -33,20 +33,20 @@ Checksum: -
 - Seizing land from estates now follows 5% land = -10% loyalty.
 - Estate tweaks in the happy/neutral/angry section.
 - AI won't be taking the Admiral privilege when it has no port.
-- Crownland higher tiers now give reform_progress_growth.
+- Crownland higher tiers now give reform_progress_growth 25/50/75/100/200
 - Brought back the cursed local_goods_produced into prosperity to stimulate the economy.
 - Added Great Conqueror option from Anbennar to spice up the game.
-- Republic election costs tweaked.
-- Karma mechanic modifiers buffed and tweaked the UI.
+- Republic election costs tweaked and internal file cleanup.
+- Karma mechanic modifiers buffed and is now a viable option.
+- Karma religion screen changed due to increased modifiers.
 - Execute estate leaders tweaked.
-- Government reform tweaks and cleanup.
+- Government reform tweaks, cleanup and fixes.
 - Nerfed the amount of money you get from selling land.
 - Hidden reforms now can be seen from the start as quality of life.
-- Karma religion screen changed due to increased modifiers.
 - Tweaked Druidism, Waldensian, Suomenusko and Romuva.
 - Great Project modifier and image fixes. 
 - Build prices tweaked. Grand Shipyard 500>400, Counting House 500>300, Temple 100>150.
-- Legitimacy policies now also give meritocracy.
+- Legitimacy related policies now also give meritocracy.
 - Development Cost icon fix in technology view.
 - Reduction in idea_cost values. (Mercury is kept 10% to entice you to drink it)
 - Tweaked a few nation colours.
