@@ -50,6 +50,8 @@ Checksum: -
 - Development Cost icon fix in technology view.
 - Reduction in idea_cost values. (Mercury is kept 10% to entice you to drink it)
 - Tweaked a few nation colours.
+- Development cost reduction increased to -10% in technology.
+- Centralism slightly tweaked.
 - Sources of governing capacities and absolutism modifiers tweaked.
 - ADM Tech 8 Governing Capacity 100>150.
 - Wine province unrest bonus increased and trading bonus changed into diplomatic_reputation.
