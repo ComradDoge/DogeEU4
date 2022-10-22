@@ -33,7 +33,7 @@ Checksum: -
 - Seizing land from estates now follows 5% land = -10% loyalty.
 - Estate tweaks in the happy/neutral/angry section.
 - AI won't be taking the Admiral privilege when it has no port.
-- Crownland higher tiers now give reform_progress_growth 25/50/75/100/200
+- Crownland higher tiers now give reform_progress_growth 25/50/75/100/200.
 - Brought back the cursed local_goods_produced into prosperity to stimulate the economy.
 - Added Great Conqueror option from Anbennar to spice up the game.
 - Republic election costs tweaked and internal file cleanup.
@@ -51,7 +51,7 @@ Checksum: -
 - Reduction in idea_cost values. (Mercury is kept 10% to entice you to drink it)
 - Tweaked a few nation colours.
 - Development cost reduction increased to -10% in technology.
-- Centralism slightly tweaked.
+- Centralism slightly tweaked and gives dev_cost reduction but governing_capacity penalty slightly increased.
 - Sources of governing capacities and absolutism modifiers tweaked.
 - ADM Tech 8 Governing Capacity 100>150.
 - Wine province unrest bonus increased and trading bonus changed into diplomatic_reputation.
