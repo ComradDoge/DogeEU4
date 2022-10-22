@@ -48,12 +48,12 @@ Checksum: -
 - Build prices tweaked. Grand Shipyard 500>400, Counting House 500>300, Temple 100>150.
 - Legitimacy related policies now also give meritocracy.
 - Development Cost icon fix in technology view.
-- Reduction in idea_cost values. (Mercury is kept 10% to entice you to drink it)
+- Reduction in idea_cost values. Mercury is kept 10% to entice you to drink it.
 - Tweaked a few nation colours.
 - Development cost reduction increased to -10% in technology.
 - Centralism slightly tweaked and gives dev_cost reduction but governing_capacity penalty slightly increased.
 - Sources of governing capacities and absolutism modifiers tweaked.
-- ADM Tech 8 Governing Capacity 100>150.
+- Adminstrative Tech 8 Governing Capacity bonus increased 100>150 to be the same as others.
 - Wine province unrest bonus increased and trading bonus changed into diplomatic_reputation.
 - Estate lower crownland liberty_desire_from_subject_development lowered to a maximum of -25%.
 - American natives will no longer create 21st century cities. Development map is also nicer now.
