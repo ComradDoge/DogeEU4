@@ -56,6 +56,7 @@ Checksum: -
 - ADM Tech 8 Governing Capacity 100>150.
 - Wine province unrest bonus increased and trading bonus changed into diplomatic_reputation.
 - American natives will no longer create cities with development equivalent to a continent.
+- Colonial Empire Ideas: liberty_desire_reduction from dev lowered -50%>33%.
 
 [/quote]
 
