@@ -59,6 +59,8 @@ Checksum: -
 - American natives will no longer create 21st century cities. Development map is also nicer now.
 - Colonial Empire Ideas: liberty_desire_from_subject_development from dev lowered -50%>-33%.
 - Colonial forcelimit/manpower contributions have been slightly lowered.
+- Fixed Deux canal not showing up, when canals were completed they did not start at the highest level and slightly buffed the country modifier.
+- Lowered the cost of closing/opening the canals 200>100 admin points.
 
 [/quote]
 
