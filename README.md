@@ -61,6 +61,7 @@ Checksum: -
 - Colonial forcelimit/manpower contributions have been slightly lowered.
 - Fixed Deux canal not showing up, when canals were completed they did not start at the highest level and slightly buffed the country modifier.
 - Lowered the cost of closing/opening the canals 200>100 admin points.
+- New monuments in Poland and Germany.
 
 [/quote]
 
