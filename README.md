@@ -65,6 +65,7 @@ Checksum: -
 - Lowered the cost of closing/opening the canals 200>100 admin points.
 - New monuments in Poland and Germany.
 - Lotharingia formable decision now follows the usual format.
+- Advisor one-time events have an option to not take it so you can wait for the modifier another time before it's locked from you.
 
 [/quote]
 
