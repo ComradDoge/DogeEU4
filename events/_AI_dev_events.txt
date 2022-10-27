@@ -32,6 +32,7 @@ country_event = {
 	}
 	
 	immediate = {
+		log = "========= dev_events.3 Immediate Effects"
 		hidden_effect = {
 			clr_country_flag = admClick
 			set_country_flag = admClick
@@ -123,6 +124,7 @@ country_event = {
 	}
 	
 	immediate = {
+		log = "========= dev_events.4 Immediate Effects"
 		hidden_effect = {
 			clr_country_flag = dipClick
 			set_country_flag = dipClick
@@ -204,6 +206,7 @@ country_event = {
 	}
 	
 	immediate = {
+		log = "========= dev_events.5 Immediate Effects"
 		hidden_effect = {
 			clr_country_flag = milClick
 			set_country_flag = milClick
@@ -300,6 +303,7 @@ country_event = {
 	}
 	
 	immediate = {
+		log = "========= dev_events.6 Immediate Effects"
 		random_owned_province = {
 			limit = {
 				is_state_core = ROOT
@@ -373,122 +377,9 @@ country_event = {
 	}
 }
 
-province_event = {
-	# dev cap
-	id = dev_events.7
-	title = dev_events.7.t
-	desc = dev_events.7.d
-	picture = CITY_VIEW_eventPicture
-	goto = ROOT
-	
-	mean_time_to_happen = {
-		months = 2
-	}
-	
-	trigger = {
-		always = no 
-		OR = {
-			AND = {
-				development = 50
-				NOT = { development = 60 }
-				NOT = { has_province_modifier = regiopolis_city }
-			}
-			AND = {
-				development = 60
-				NOT = { development = 70 }
-				NOT = { has_province_modifier = metropolis_city }
-			}
-			AND = {
-				development = 70
-				NOT = { has_province_modifier = world_city }
-			}
-		}
-	}
-	
-	option = {
-		name = dev_events.7.a
-		
-		if = {
-			limit = {
-				development = 50
-				NOT = { development = 60 }
-				NOT = { has_province_modifier = regiopolis_city }
-			}
-			remove_province_modifier = metropolis_city
-			remove_province_modifier = world_city
-			add_province_modifier = {
-				name = regiopolis_city
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				development = 60
-				NOT = { development = 70 }
-				NOT = { has_province_modifier = metropolis_city }
-			}
-			remove_province_modifier = regiopolis_city
-			remove_province_modifier = world_city
-			add_province_modifier = {
-				name = metropolis_city
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				development = 70
-				NOT = { has_province_modifier = world_city }
-			}
-			remove_province_modifier = regiopolis_city
-			remove_province_modifier = metropolis_city
-			add_province_modifier = {
-				name = world_city
-				duration = -1
-			}
-		}
-	}
-}
 
-province_event = {
-	# dev cap
-	id = dev_events.8
-	title = dev_events.8.t
-	desc = dev_events.8.d
-	picture = CITY_VIEW_eventPicture
-	hidden = yes
-	
-	mean_time_to_happen = {
-		months = 2
-	}
-	
-	trigger = {
-		always = no 
-		OR = {
-			has_province_modifier = regiopolis_city
-			has_province_modifier = metropolis_city
-			has_province_modifier = world_city
-		}
-		NOT = { development = 50 }
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				NOT = { development = 50 }
-			}
-			remove_province_modifier = regiopolis_city
-			remove_province_modifier = metropolis_city
-			remove_province_modifier = world_city
-		}
-	}
-	
-	option = {
-		#hidden
-	}
-}
-
+# AI Expand Infrastructure
 country_event = {
-	# expand infrastructure
 	id = dev_events.50
 	title = dev_events.50.t
 	desc = dev_events.50.d
@@ -533,6 +424,7 @@ country_event = {
 	}
 	
 	immediate = {
+		log = "========= dev_events.50 Immediate Effects"
 		add_adm_power = -50
 		random_owned_province = {
 			limit = {
@@ -610,6 +502,47 @@ country_event = {
 					duration = -1
 				}
 				remove_province_modifier = infrastructure_30
+			}
+		}
+	}
+	option = {
+	}
+}
+
+# AI Expand Infrastructure MP removal
+country_event = {
+	id = dev_events.51
+	title = dev_events.51.t
+	desc = dev_events.51.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+
+	trigger = {
+		#always = no
+		ai = no
+		any_owned_province = {
+			OR = { 
+				has_province_modifier = infrastructure_15
+				has_province_modifier = infrastructure_30
+				has_province_modifier = infrastructure_45
+			}
+		}
+	}
+	
+	immediate = {
+		log = "========= dev_events.51 Immediate Effects"
+		random_owned_province = {
+			if = {
+				limit = {
+					OR = { 
+						has_province_modifier = infrastructure_15
+						has_province_modifier = infrastructure_30
+						has_province_modifier = infrastructure_45
+					}
+				}
+				remove_province_modifier = infrastructure_15
+				remove_province_modifier = infrastructure_30
+				remove_province_modifier = infrastructure_45
 			}
 		}
 	}
