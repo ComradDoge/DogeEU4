@@ -6,7 +6,7 @@
 update_goods = {
 	set_variable = { which = $GOODS$ value = 0.00 }          	
 	set_variable = { which = $GOODS$_total value = 0.00 }
-	
+
 	every_owned_province = { 
 		limit = { 
 			trade_goods = $GOODS$ 
@@ -22,26 +22,22 @@ update_goods = {
 			value = modifier:trade_goods_size_modifier                        
 		}
 		
-		##set_variable = {            
-		##	which = $GOODS$_modifier 
-		##	which = $GOODS$
-		##}
-		##
-		##multiply_variable = {
-		##	which = $GOODS$_modifier 
-		##	which = tradegood_modifier
-		##}
-		##
-		##change_variable = {            
-		##	which = $GOODS$ 
-		##	which = $GOODS$_modifier  
-		##}
+		export_to_variable = {
+			variable_name = tradegood_modifier_glob    
+			value = modifier:global_trade_goods_size_modifier 
+			who = owner 
+		}
 		
+		change_variable = {            
+			which = tradegood_modifier 
+			which = tradegood_modifier_glob  
+		}
+
 		multiply_variable = {
 			which = tradegood_modifier
 			which = $GOODS$ 
 		}
-		
+
 		change_variable = {            
 			which = $GOODS$ 
 			which = tradegood_modifier 
@@ -54,17 +50,229 @@ update_goods = {
 			}
 		}
 	}
-			
-	change_variable = {            
-		which = $GOODS$_total 
-		which = $GOODS$  
+
+	## NEW TEST STUFF
+	if = {
+		limit = { is_subject = no }
+		change_variable = {            
+			which = $GOODS$
+			which = from_subjects_$GOODS$  
+		}
+		
+		change_variable = {            
+			which = $GOODS$_total 
+			which = $GOODS$  
+		}
 	}
-	
+	else = {
+		change_variable = {            
+			which = $GOODS$_total 
+			which = $GOODS$  
+		}
+		
+		subtract_variable = {            
+			which = $GOODS$
+			which = from_subjects_$GOODS$  
+		}	
+	}
+	##
+
 	subtract_variable = {            
 		which = $GOODS$
 		which = $GOODS$_used
 	}
 
+}
+
+update_goods_subjects = {	
+	owner = {
+		overlord = { 
+			set_variable = { which = from_subjects_$GOODS$ value = 0.00 } 
+			every_subject_country = { 
+				set_variable = { which = from_subjects_$GOODS$ value = 0.00 }
+				every_owned_province = { 
+					limit = { 
+						trade_goods = $GOODS$ 
+						has_province_modifier = import_from_subjects_modifier
+					}	
+					owner = {
+						set_variable = {            
+							which = import_$GOODS$ 
+							value = 0
+						}
+					}
+					ROOT = {
+						export_to_variable = {
+							variable_name = $GOODS$      
+							value = modifier:trade_goods_size                         
+						}	
+						
+						export_to_variable = {
+							variable_name = tradegood_modifier     
+							value = modifier:trade_goods_size_modifier                        
+						}
+
+						multiply_variable = {
+							which = tradegood_modifier
+							which = $GOODS$ 
+						}
+		
+						change_variable = {            
+							which = $GOODS$ 
+							which = tradegood_modifier 
+						}	
+						
+						set_variable = {            
+							which = import_$GOODS$
+							which = $GOODS$ 
+						}
+					}
+					owner = {
+						change_variable = {            
+							which = import_$GOODS$  
+							which = PREV
+						}
+						
+						change_variable = {            
+							which = from_subjects_$GOODS$ 
+							which = import_$GOODS$  
+						}		
+						overlord = {
+							change_variable = {            
+								which = from_subjects_$GOODS$ 
+								which = PREV  
+							}
+						}	
+					}	
+				}
+			}
+		}
+	}
+}
+
+update_goods_subjects_monthly = {	
+	FROM = {
+		set_variable = { which = from_subjects_$GOODS$ value = 0.00 } 
+		every_subject_country = { 
+			set_variable = { which = from_subjects_$GOODS$ value = 0.00 }
+			every_owned_province = { 
+				limit = { 
+					trade_goods = $GOODS$ 
+					has_province_modifier = import_from_subjects_modifier
+				}	
+				owner = {
+					set_variable = {            
+						which = import_$GOODS$ 
+						value = 0
+					}
+				}
+				ROOT = {
+					export_to_variable = {
+						variable_name = $GOODS$      
+						value = modifier:trade_goods_size                         
+					}	
+					
+					export_to_variable = {
+						variable_name = tradegood_modifier     
+						value = modifier:trade_goods_size_modifier                        
+					}
+					
+					multiply_variable = {
+						which = tradegood_modifier
+						which = $GOODS$ 
+					}
+		
+					change_variable = {            
+						which = $GOODS$ 
+						which = tradegood_modifier 
+					}	
+					
+					set_variable = {            
+						which = import_$GOODS$
+						which = $GOODS$ 
+					}
+				}
+				owner = {
+					change_variable = {            
+						which = import_$GOODS$  
+						which = PREV
+					}
+					
+					change_variable = {            
+						which = from_subjects_$GOODS$ 
+						which = import_$GOODS$  
+					}		
+					overlord = {
+						change_variable = {            
+							which = from_subjects_$GOODS$ 
+							which = PREV  
+						}
+					}	
+				}	
+			}
+		}
+	}
+}
+
+
+
+update_goods_subjects_province = {	
+	set_variable = {            
+		which = import_$GOODS$ 
+		value = 0
+	}
+	every_owned_province = {
+		limit = {
+			trade_goods = $GOODS$ 
+			has_province_modifier = import_from_subjects_modifier
+		}
+		export_to_variable = {
+			variable_name = $GOODS$      
+			value = modifier:trade_goods_size                         
+		}	
+		
+		export_to_variable = {
+			variable_name = tradegood_modifier     
+			value = modifier:trade_goods_size_modifier                        
+		}
+		
+		set_variable = {            
+			which = import_$GOODS$ 
+			value = 0
+		}
+		
+		set_variable = {            
+			which = $GOODS$_modifier 
+			which = $GOODS$
+		}
+		
+		multiply_variable = {
+			which = $GOODS$_modifier 
+			which = tradegood_modifier
+		}
+		
+		change_variable = {            
+			which = $GOODS$ 
+			which = $GOODS$_modifier  
+		}	
+		
+		change_variable = {            
+			which = import_$GOODS$
+			which = $GOODS$ 
+		}
+	
+		owner = {
+			change_variable = {            
+				which = import_$GOODS$  
+				which = PREV
+			}
+			
+			subtract_variable = {            
+				which = from_subjects_$GOODS$ 
+				which = import_$GOODS$ 
+			}		
+		}	
+	}
 }
 
 goods_save = {

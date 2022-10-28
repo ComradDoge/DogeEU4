@@ -67,6 +67,7 @@ Checksum: -
 - Lotharingia formable decision now follows the usual format.
 - Advisor one-time events have an option to not take it so you can wait for the modifier another time before it's locked from you.
 - Theocracy election event localisation cleaned up so it's more readable.
+- You are now able to import resources from your subjects for trade goods.
 
 [/quote]
 
