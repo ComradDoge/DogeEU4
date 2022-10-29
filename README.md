@@ -52,7 +52,7 @@ Checksum: -
 - Tweaked a few nation colours.
 - Development cost reduction increased to -10% in technology.
 - Humanist ideas modifiers were lowered.
-- Development and Economic inflation related modifiers tweaked and added some gold related modifiers.
+- Development and Economic ideas inflation related modifiers tweaked and added some gold related modifiers.
 - Centralism slightly tweaked and gives dev_cost reduction but governing_capacity penalty slightly increased.
 - Sources of governing capacities and absolutism modifiers tweaked.
 - Adminstrative Tech 8 Governing Capacity bonus increased 100>150 to be the same as others.
