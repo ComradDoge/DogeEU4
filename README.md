@@ -27,7 +27,7 @@ Checksum: -
 - Centralize state governing cost reduction increased to -25% > -33%.
 - Expand Infrastructure development cost reduction increased -5%>-25%.
 - Nationalism governing_capacity privilege is now reduced but is no longer limited by other governing_capacity privileges.
-- Nationalist estate and privileges tweaked.
+- Nationalist estate and privileges have been reworked, generally a nerf.
 - Centralizing state reform_progress cost reduced 50>30.
 - Cathedral of Riga stays with you if you are a republic with 80% clergy loyalty.
 - Seizing land from estates now follows 5% land = -10% loyalty.
@@ -40,34 +40,35 @@ Checksum: -
 - Karma mechanic modifiers buffed and is now a viable option.
 - Karma religion screen changed due to increased modifiers.
 - Execute estate leaders tweaked.
-- Government reform tweaks, cleanup and fixes.
+- Government reforms have been generally tweaked, fixed or added. More reforms are now viable.
 - Nerfed the amount of money you get from selling land.
 - Hidden reforms now can be seen from the start as quality of life.
 - Tweaked Druidism, Waldensian, Suomenusko and Romuva.
-- Great Project modifier and image fixes. 
 - Build prices tweaked. Grand Shipyard 500>400, Counting House 500>300, Temple 100>150.
 - Legitimacy related policies now also give meritocracy.
 - Development Cost icon fix in technology view.
-- Reduction in idea_cost values. Mercury is kept 10% to entice you to drink it.
+- Reduction in idea_cost values, generally 5% is the new maximum. Mercury is now 7.5% to entice you to drink it.
 - Tweaked a few nation colours.
-- Development cost reduction increased to -10% in technology.
-- Humanist ideas modifiers were lowered.
-- Development and Economic ideas inflation related modifiers tweaked and added some gold related modifiers.
-- Centralism slightly tweaked and gives dev_cost reduction but governing_capacity penalty slightly increased.
+- Development cost reduction increased to -10% from -5% in technology.
+- Humanist Ideas: modifiers were lowered.
+- Development and Economic Ideas: inflation related modifiers tweaked and added some gold related modifiers.
+- Centralism Ideas: gives dev_cost reduction but governing_capacity penalty slightly increased.
 - Sources of governing capacities and absolutism modifiers tweaked.
 - Adminstrative Tech 8 Governing Capacity bonus increased 100>150 to be the same as others.
 - Wine province unrest bonus increased and trading bonus changed into diplomatic_reputation.
 - Estate lower crownland liberty_desire_from_subject_development lowered to a maximum of -25%.
 - American natives will no longer create 21st century cities. Development map is also nicer now.
 - Colonial Empire Ideas: liberty_desire_from_subject_development from dev lowered -50%>-33%.
-- Colonial forcelimit/manpower contributions have been slightly lowered.
+- Colonial forcelimit/manpower contributions have been lowered.
 - Fixed Deux canal not showing up, when canals were completed they did not start at the highest level and slightly buffed the country modifier.
 - Lowered the cost of closing/opening the canals 200>100 admin points.
-- New monuments in Poland and Germany.
+- New monuments in Poland and Germany and a cleanup of Italian monuments.
 - Lotharingia formable decision now follows the usual format.
 - Advisor one-time events have an option to not take it so you can wait for the modifier another time before it's locked from you.
 - Theocracy election event localisation cleaned up so it's more readable.
-- You are now able to import resources from your subjects for trade goods.
+- You are now able to import resources from your subjects for trade goods though special buildings under the `Import` category.
+- AI is now able to use Expand Infrastructure.
+- Latent goods screen has some visual updates.
 
 [/quote]
 
