@@ -19,7 +19,7 @@ NDefines.NGovernment.RUSSIAN_ABILITY_STRELTSY_SPAWN_SIZE = 0.1 -- Default 0.2
 
 --1.31 
 -- Centralize State
-NDefines.NGovernment.GOVERNMENT_REFORM_COST_CENTRALIZE_STATE = 50.0 --Default 50
+NDefines.NGovernment.GOVERNMENT_REFORM_COST_CENTRALIZE_STATE = 30.0 --Default 50
 -- Concentrate Development DISABLED FOR NOW TO SEE 1.32 effect instead
 --NDefines.NGovernment.CONCENTRATE_DEVELOPMENT_CAPITAL_PROPORTION = 0.2 --Default 0.5
 -- NDefines.NGovernment.CONCENTRATE_DEVELOPMENT_OTHER_STATE_PROVINCES_PROPORTION = 0.6 --Default 0.3

@@ -1,488 +1,551 @@
 namespace = dev_events
 
-country_event = {
-	# adm_click
-	id = dev_events.3
-	title = dev_events.3.t
-	desc = dev_events.3.d
-	picture = INVENTION_eventPicture
-	hidden = yes
-	
-	trigger = {
-		OR = {
-			AND = {
-				ai = yes
-				#has_global_flag = ai_dev_click
-			}
-			AND = {
-				NOT = { ai = yes }
-				has_country_flag = dev_click
-			}
-		}
-		
-		OR = {
-			had_country_flag = { flag = admClick	days = 31 }
-			NOT = { has_country_flag = admClick }
-		}
-		
-		power_tech = {
-			power = adm
-			value = 980
-		}
-	}
-	
-	immediate = {
-		hidden_effect = {
-			clr_country_flag = admClick
-			set_country_flag = admClick
-			
-			set_base_target = {
-				which = base_target
-				base = adm
-			}
-			if = {
-				limit = {
-					OR = {
-						is_migratory_tribe = yes
-						check_variable = {
-							which = baseCost
-							value = 999
-						}
-					}
-				}
-				if = {
-					limit = {
-						NOT = { stability = 3 }
-					}
-					stab_cost = yes
-					add_stability = 1
-					log = "[This.GetName] raises stability**"
-				}
-				else = {
-					adm_power_cost = 75
-					add_inflation = -2
-					log = "[This.GetName] reduces inflation**"
-				}
-			}
-			else = {
-				event_target:base_target = {
-					add_power0 = {
-						power = adm
-					}
-					add_next_institution_embracement_scaled = 5
-					add_base_tax = 1
-					add_devastation_reduction = yes
-					log = dev_info.1
-				}
-				change_estate_land_share = {
-					estate = all
-					share = -0.1
-				}
-				change_variable = {
-					which = admClicks
-					value = 1
-				}
-			}
-		}
-	}
-	
-	option = {
-		#hidden
-	}
-}
+#country_event = {
+#	# adm_click
+#	id = dev_events.3
+#	title = dev_events.3.t
+#	desc = dev_events.3.d
+#	picture = INVENTION_eventPicture
+#	hidden = yes
+#	
+#	trigger = {
+#		OR = {
+#			AND = {
+#				ai = yes
+#				#has_global_flag = ai_dev_click
+#			}
+#			AND = {
+#				NOT = { ai = yes }
+#				has_country_flag = dev_click
+#			}
+#		}
+#		
+#		OR = {
+#			had_country_flag = { flag = admClick	days = 31 }
+#			NOT = { has_country_flag = admClick }
+#		}
+#		
+#		power_tech = {
+#			power = adm
+#			value = 980
+#		}
+#	}
+#	
+#	immediate = {
+#		log = "========= dev_events.3 Immediate Effects"
+#		hidden_effect = {
+#			clr_country_flag = admClick
+#			set_country_flag = admClick
+#			
+#			set_base_target = {
+#				which = base_target
+#				base = adm
+#			}
+#			if = {
+#				limit = {
+#					OR = {
+#						is_migratory_tribe = yes
+#						check_variable = {
+#							which = baseCost
+#							value = 999
+#						}
+#					}
+#				}
+#				if = {
+#					limit = {
+#						NOT = { stability = 3 }
+#					}
+#					stab_cost = yes
+#					add_stability = 1
+#					log = "[This.GetName] raises stability**"
+#				}
+#				else = {
+#					adm_power_cost = 75
+#					add_inflation = -2
+#					log = "[This.GetName] reduces inflation**"
+#				}
+#			}
+#			else = {
+#				event_target:base_target = {
+#					add_power0 = {
+#						power = adm
+#					}
+#					add_next_institution_embracement_scaled = 5
+#					add_base_tax = 1
+#					add_devastation_reduction = yes
+#					log = dev_info.1
+#				}
+#				change_estate_land_share = {
+#					estate = all
+#					share = -0.1
+#				}
+#				change_variable = {
+#					which = admClicks
+#					value = 1
+#				}
+#			}
+#		}
+#	}
+#	
+#	option = {
+#		#hidden
+#	}
+#}
+#
+#country_event = {
+#	# dip_click
+#	id = dev_events.4
+#	title = dev_events.4.t
+#	desc = dev_events.4.d
+#	picture = INVENTION_eventPicture
+#	hidden = yes
+#	
+#	trigger = {
+#		OR = {
+#			AND = {
+#				ai = yes
+#				#has_global_flag = ai_dev_click
+#			}
+#			AND = {
+#				NOT = { ai = yes }
+#				has_country_flag = dev_click
+#			}
+#		}
+#		
+#		OR = {
+#			had_country_flag = { flag = dipClick	days = 31 }
+#			NOT = { has_country_flag = dipClick }
+#		}
+#		
+#		power_tech = {
+#			power = dip
+#			value = 980
+#		}
+#	}
+#	
+#	immediate = {
+#		log = "========= dev_events.4 Immediate Effects"
+#		hidden_effect = {
+#			clr_country_flag = dipClick
+#			set_country_flag = dipClick
+#			
+#			set_base_target = {
+#				which = base_target
+#				base = dip
+#			}
+#			if = {
+#				limit = {
+#					OR = {
+#						is_migratory_tribe = yes
+#						check_variable = {
+#							which = baseCost
+#							value = 999
+#						}
+#					}
+#				}
+#				dip_power_cost = 100
+#				add_mercantilism = 1
+#				log = "[This.GetName] promotes mercantilism**"
+#			}
+#			else = {
+#				event_target:base_target = {
+#					add_power0 = {
+#						power = dip
+#					}
+#					add_next_institution_embracement_scaled = 5
+#					add_base_production = 1
+#					add_devastation_reduction = yes
+#					log = dev_info.2
+#				}
+#				change_estate_land_share = {
+#					estate = all
+#					share = -0.1
+#				}
+#				change_variable = {
+#					which = dipClicks
+#					value = 1
+#				}
+#			}
+#		}
+#	}
+#	
+#	option = {
+#		#hidden
+#	}
+#}
+#
+#country_event = {
+#	# mil_click
+#	id = dev_events.5
+#	title = dev_events.5.t
+#	desc = dev_events.5.d
+#	picture = INVENTION_eventPicture
+#	hidden = yes
+#	
+#	trigger = {
+#		OR = {
+#			AND = {
+#				ai = yes
+#				#has_global_flag = ai_dev_click
+#			}
+#			AND = {
+#				NOT = { ai = yes }
+#				has_country_flag = dev_click
+#			}
+#		}
+#		
+#		OR = {
+#			had_country_flag = { flag = milClick	days = 31 }
+#			NOT = { has_country_flag = milClick }
+#		}
+#		
+#		power_tech = {
+#			power = mil
+#			value = 980
+#		}
+#	}
+#	
+#	immediate = {
+#		log = "========= dev_events.5 Immediate Effects"
+#		hidden_effect = {
+#			clr_country_flag = milClick
+#			set_country_flag = milClick
+#			
+#			set_base_target = {
+#				which = base_target
+#				base = mil
+#			}
+#			if = {
+#				limit = {
+#					OR = {
+#						is_migratory_tribe = yes
+#						check_variable = {
+#							which = baseCost
+#							value = 999
+#						}
+#					}
+#				}
+#				if = {
+#					limit = {
+#						NOT = { legitimacy_equivalent = 95 }
+#					}
+#					mil_power_cost = 100
+#					
+#					add_legitimacy = 10
+#					add_horde_unity = 10
+#					add_meritocracy = 10
+#					add_devotion = 10
+#					add_republican_tradition = 3
+#					
+#					add_absolutism = 2
+#					
+#					log = "[This.GetName] strengthens government**"
+#				}
+#				else = {
+#					general_cost = yes
+#					
+#					create_general_var = yes
+#					
+#					add_army_professionalism = 0.01
+#					
+#					log = "[This.GetName] recruits army leader**"
+#				}
+#			}
+#			else = {
+#				event_target:base_target = {
+#					add_power0 = {
+#						power = mil
+#					}
+#					add_next_institution_embracement_scaled = 5
+#					add_base_manpower = 1
+#					add_devastation_reduction = yes
+#					log = dev_info.3
+#				}
+#				change_estate_land_share = {
+#					estate = all
+#					share = -0.1
+#				}
+#				change_variable = {
+#					which = milClicks
+#					value = 1
+#				}
+#			}
+#		}
+#	}
+#	
+#	option = {
+#		#hidden
+#	}
+#}
 
-country_event = {
-	# dip_click
-	id = dev_events.4
-	title = dev_events.4.t
-	desc = dev_events.4.d
-	picture = INVENTION_eventPicture
-	hidden = yes
-	
-	trigger = {
-		OR = {
-			AND = {
-				ai = yes
-				#has_global_flag = ai_dev_click
-			}
-			AND = {
-				NOT = { ai = yes }
-				has_country_flag = dev_click
-			}
-		}
-		
-		OR = {
-			had_country_flag = { flag = dipClick	days = 31 }
-			NOT = { has_country_flag = dipClick }
-		}
-		
-		power_tech = {
-			power = dip
-			value = 980
-		}
-	}
-	
-	immediate = {
-		hidden_effect = {
-			clr_country_flag = dipClick
-			set_country_flag = dipClick
-			
-			set_base_target = {
-				which = base_target
-				base = dip
-			}
-			if = {
-				limit = {
-					OR = {
-						is_migratory_tribe = yes
-						check_variable = {
-							which = baseCost
-							value = 999
-						}
-					}
-				}
-				dip_power_cost = 100
-				add_mercantilism = 1
-				log = "[This.GetName] promotes mercantilism**"
-			}
-			else = {
-				event_target:base_target = {
-					add_power0 = {
-						power = dip
-					}
-					add_next_institution_embracement_scaled = 5
-					add_base_production = 1
-					add_devastation_reduction = yes
-					log = dev_info.2
-				}
-				change_estate_land_share = {
-					estate = all
-					share = -0.1
-				}
-				change_variable = {
-					which = dipClicks
-					value = 1
-				}
-			}
-		}
-	}
-	
-	option = {
-		#hidden
-	}
-}
+#country_event = {
+#	#gold dev
+#	id = dev_events.6
+#	title = dev_events.6.t
+#	desc = dev_events.6.d
+#	picture = INVENTION_eventPicture
+#	hidden = yes
+#	
+#	mean_time_to_happen = {
+#		months = 2
+#	}
+#	
+#	trigger = {
+#		ai = yes
+#		is_at_war = no
+#		primitives = no
+#		dip_power = 100
+#		any_owned_province = {
+#			is_state_core = ROOT
+#			trade_goods = gold
+#			NOT = { base_production = 8 }
+#		}
+#	}
+#	
+#	immediate = {
+#		log = "========= dev_events.6 Immediate Effects"
+#		random_owned_province = {
+#			limit = {
+#				is_state_core = ROOT
+#				trade_goods = gold
+#				NOT = { base_production = 8 }
+#			}
+#			set_base_value0 = {
+#				which = baseCost
+#			}
+#			
+#			export_to_variable = { which = bTax 	value = base_tax }
+#			export_to_variable = { which = bPro 	value = base_production }
+#			export_to_variable = { which = bMan 	value = base_manpower }
+#			
+#			set_variable 	= { which = notPro 	which = bMan }
+#			change_variable = { which = notPro 	which = bTax }
+#			
+#			export_to_variable = { which = admPower 	value = trigger_value:adm_power 	who = PREV }
+#			export_to_variable = { which = milPower 	value = trigger_value:mil_power 	who = PREV }
+#			
+#			add_next_institution_embracement_scaled = 5
+#			
+#			if = {
+#				limit = {
+#					check_variable = {
+#						which = notPro
+#						which = bPro
+#					}
+#				}
+#				add_power0 = {
+#					power = dip
+#				}
+#				add_base_production = 1
+#				log = dev_info.2
+#			}
+#			else = {
+#				if = {
+#					limit = {
+#						check_variable = {
+#							which = admPower
+#							which = milPower
+#						}
+#					}
+#					add_power0 = {
+#						power = adm
+#					}
+#					add_base_tax = 1
+#					log = dev_info.1
+#				}
+#				else = {
+#					add_power0 = {
+#						power = mil
+#					}
+#					add_base_manpower = 1
+#					log = dev_info.3
+#				}
+#			}
+#			
+#			add_devastation_reduction = yes
+#			owner = {
+#				change_estate_land_share = {
+#					estate = all
+#					share = -0.1
+#				}
+#			}
+#		}
+#	}
+#	
+#	option = {
+#		#hidden
+#	}
+#}
 
-country_event = {
-	# mil_click
-	id = dev_events.5
-	title = dev_events.5.t
-	desc = dev_events.5.d
-	picture = INVENTION_eventPicture
-	hidden = yes
-	
-	trigger = {
-		OR = {
-			AND = {
-				ai = yes
-				#has_global_flag = ai_dev_click
-			}
-			AND = {
-				NOT = { ai = yes }
-				has_country_flag = dev_click
-			}
-		}
-		
-		OR = {
-			had_country_flag = { flag = milClick	days = 31 }
-			NOT = { has_country_flag = milClick }
-		}
-		
-		power_tech = {
-			power = mil
-			value = 980
-		}
-	}
-	
-	immediate = {
-		hidden_effect = {
-			clr_country_flag = milClick
-			set_country_flag = milClick
-			
-			set_base_target = {
-				which = base_target
-				base = mil
-			}
-			if = {
-				limit = {
-					OR = {
-						is_migratory_tribe = yes
-						check_variable = {
-							which = baseCost
-							value = 999
-						}
-					}
-				}
-				if = {
-					limit = {
-						NOT = { legitimacy_equivalent = 95 }
-					}
-					mil_power_cost = 100
-					
-					add_legitimacy = 10
-					add_horde_unity = 10
-					add_meritocracy = 10
-					add_devotion = 10
-					add_republican_tradition = 3
-					
-					add_absolutism = 2
-					
-					log = "[This.GetName] strengthens government**"
-				}
-				else = {
-					general_cost = yes
-					
-					create_general_var = yes
-					
-					add_army_professionalism = 0.01
-					
-					log = "[This.GetName] recruits army leader**"
-				}
-			}
-			else = {
-				event_target:base_target = {
-					add_power0 = {
-						power = mil
-					}
-					add_next_institution_embracement_scaled = 5
-					add_base_manpower = 1
-					add_devastation_reduction = yes
-					log = dev_info.3
-				}
-				change_estate_land_share = {
-					estate = all
-					share = -0.1
-				}
-				change_variable = {
-					which = milClicks
-					value = 1
-				}
-			}
-		}
-	}
-	
-	option = {
-		#hidden
-	}
-}
 
+# AI Expand Infrastructure
 country_event = {
-	#gold dev
-	id = dev_events.6
-	title = dev_events.6.t
-	desc = dev_events.6.d
+	id = dev_events.50
+	title = dev_events.50.t
+	desc = dev_events.50.d
 	picture = INVENTION_eventPicture
 	hidden = yes
-	
-	mean_time_to_happen = {
-		months = 2
-	}
-	
+
 	trigger = {
+		#always = no
 		ai = yes
-		is_at_war = no
 		primitives = no
-		dip_power = 100
+		is_at_war = no
+		adm_power = 600
+		NOT = { governing_capacity_percentage = 1 }
+		#num_of_cities = 3
+		
 		any_owned_province = {
 			is_state_core = ROOT
-			trade_goods = gold
-			NOT = { base_production = 8 }
+			OR = {
+				province_has_center_of_trade_of_level = 3
+				area_for_scope_province = {
+					is_capital_of = ROOT
+				}
+			}
+			OR = {
+				AND = {
+					development = 15
+					NOT = { has_province_modifier = infrastructure_15 }
+					NOT = { has_province_modifier = infrastructure_30 }
+					NOT = { has_province_modifier = infrastructure_45 }
+				}
+				AND = {
+					development = 30
+					NOT = { has_province_modifier = infrastructure_30 }
+					NOT = { has_province_modifier = infrastructure_45 }
+				}
+				AND = {
+					development = 45
+					NOT = { has_province_modifier = infrastructure_45 }
+				}
+			}
 		}
 	}
 	
 	immediate = {
+		log = "========= dev_events.50 Immediate Effects"
+		add_adm_power = -50
 		random_owned_province = {
 			limit = {
 				is_state_core = ROOT
-				trade_goods = gold
-				NOT = { base_production = 8 }
+				OR = {
+					province_has_center_of_trade_of_level = 3
+					area_for_scope_province = {
+						is_capital_of = ROOT
+					}
+				}
+				OR = {
+					AND = {
+						development = 15
+						NOT = { has_province_modifier = infrastructure_15 }
+						NOT = { has_province_modifier = infrastructure_30 }
+						NOT = { has_province_modifier = infrastructure_45 }
+					}
+					AND = {
+						development = 30
+						NOT = { has_province_modifier = infrastructure_30 }
+						NOT = { has_province_modifier = infrastructure_45 }
+					}
+					AND = {
+						development = 45
+						NOT = { has_province_modifier = infrastructure_45 }
+					}
+				}
 			}
-			set_base_value0 = {
-				which = baseCost
+			PREV = {
+				export_to_variable = {
+					which = var_governing_capacity
+					value = modifier:governing_capacity
+				}
+				export_to_variable = {
+					which = var_governing_capacity_percentage 
+					value = trigger_value:governing_capacity_percentage 
+				}
+				set_variable = {
+					which = var_remaining_capacity
+					value = 1
+				}
+				subtract_variable = {
+					which = var_remaining_capacity
+					which = var_governing_capacity_percentage
+				}
+				multiply_variable = {
+					which = var_remaining_capacity
+					which = var_governing_capacity
+				}
+				log = "on_expanded_infrastructure	[This.GetName]	[Prev.GetName]	[This.var_remaining_capacity.GetValue]"
 			}
-			
-			export_to_variable = { which = bTax 	value = base_tax }
-			export_to_variable = { which = bPro 	value = base_production }
-			export_to_variable = { which = bMan 	value = base_manpower }
-			
-			set_variable 	= { which = notPro 	which = bMan }
-			change_variable = { which = notPro 	which = bTax }
-			
-			export_to_variable = { which = admPower 	value = trigger_value:adm_power 	who = PREV }
-			export_to_variable = { which = milPower 	value = trigger_value:mil_power 	who = PREV }
-			
-			add_next_institution_embracement_scaled = 5
-			
 			if = {
 				limit = {
-					check_variable = {
-						which = notPro
-						which = bPro
-					}
+					NOT = { has_province_modifier = infrastructure_15 }
+					NOT = { has_province_modifier = infrastructure_30 }
 				}
-				add_power0 = {
-					power = dip
+				add_province_modifier = {
+					name = infrastructure_15
+					duration = -1
 				}
-				add_base_production = 1
-				log = dev_info.2
+			}
+			else_if = {
+				limit = {
+					NOT = { has_province_modifier = infrastructure_30 }
+				}
+				add_province_modifier = {
+					name = infrastructure_30
+					duration = -1
+				}
+				remove_province_modifier = infrastructure_15
 			}
 			else = {
-				if = {
-					limit = {
-						check_variable = {
-							which = admPower
-							which = milPower
-						}
-					}
-					add_power0 = {
-						power = adm
-					}
-					add_base_tax = 1
-					log = dev_info.1
+				add_province_modifier = {
+					name = infrastructure_45
+					duration = -1
 				}
-				else = {
-					add_power0 = {
-						power = mil
-					}
-					add_base_manpower = 1
-					log = dev_info.3
-				}
-			}
-			
-			add_devastation_reduction = yes
-			owner = {
-				change_estate_land_share = {
-					estate = all
-					share = -0.1
-				}
+				remove_province_modifier = infrastructure_30
 			}
 		}
 	}
-	
 	option = {
-		#hidden
 	}
 }
 
-province_event = {
-	# dev cap
-	id = dev_events.7
-	title = dev_events.7.t
-	desc = dev_events.7.d
-	picture = CITY_VIEW_eventPicture
-	goto = ROOT
-	
-	mean_time_to_happen = {
-		months = 2
-	}
-	
-	trigger = {
-		always = no 
-		OR = {
-			AND = {
-				development = 50
-				NOT = { development = 60 }
-				NOT = { has_province_modifier = regiopolis_city }
-			}
-			AND = {
-				development = 60
-				NOT = { development = 70 }
-				NOT = { has_province_modifier = metropolis_city }
-			}
-			AND = {
-				development = 70
-				NOT = { has_province_modifier = world_city }
-			}
-		}
-	}
-	
-	option = {
-		name = dev_events.7.a
-		
-		if = {
-			limit = {
-				development = 50
-				NOT = { development = 60 }
-				NOT = { has_province_modifier = regiopolis_city }
-			}
-			remove_province_modifier = metropolis_city
-			remove_province_modifier = world_city
-			add_province_modifier = {
-				name = regiopolis_city
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				development = 60
-				NOT = { development = 70 }
-				NOT = { has_province_modifier = metropolis_city }
-			}
-			remove_province_modifier = regiopolis_city
-			remove_province_modifier = world_city
-			add_province_modifier = {
-				name = metropolis_city
-				duration = -1
-			}
-		}
-		else_if = {
-			limit = {
-				development = 70
-				NOT = { has_province_modifier = world_city }
-			}
-			remove_province_modifier = regiopolis_city
-			remove_province_modifier = metropolis_city
-			add_province_modifier = {
-				name = world_city
-				duration = -1
-			}
-		}
-	}
-}
-
-province_event = {
-	# dev cap
-	id = dev_events.8
-	title = dev_events.8.t
-	desc = dev_events.8.d
-	picture = CITY_VIEW_eventPicture
+# AI Expand Infrastructure MP removal
+country_event = {
+	id = dev_events.51
+	title = dev_events.51.t
+	desc = dev_events.51.d
+	picture = INVENTION_eventPicture
 	hidden = yes
-	
-	mean_time_to_happen = {
-		months = 2
-	}
-	
+
 	trigger = {
-		always = no 
-		OR = {
-			has_province_modifier = regiopolis_city
-			has_province_modifier = metropolis_city
-			has_province_modifier = world_city
+		#always = no
+		ai = no
+		any_owned_province = {
+			OR = { 
+				has_province_modifier = infrastructure_15
+				has_province_modifier = infrastructure_30
+				has_province_modifier = infrastructure_45
+			}
 		}
-		NOT = { development = 50 }
 	}
 	
 	immediate = {
-		if = {
-			limit = {
-				NOT = { development = 50 }
+		log = "========= dev_events.51 Immediate Effects"
+		random_owned_province = {
+			if = {
+				limit = {
+					OR = { 
+						has_province_modifier = infrastructure_15
+						has_province_modifier = infrastructure_30
+						has_province_modifier = infrastructure_45
+					}
+				}
+				remove_province_modifier = infrastructure_15
+				remove_province_modifier = infrastructure_30
+				remove_province_modifier = infrastructure_45
 			}
-			remove_province_modifier = regiopolis_city
-			remove_province_modifier = metropolis_city
-			remove_province_modifier = world_city
 		}
 	}
-	
 	option = {
-		#hidden
 	}
 }
