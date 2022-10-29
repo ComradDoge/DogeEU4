@@ -19,7 +19,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.34.3
+Version: 1.34.4
 Checksum: -
 [quote]
 [h1] ?/09/2022 [/h1]
