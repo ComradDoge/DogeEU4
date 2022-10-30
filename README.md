@@ -22,10 +22,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] ?/09/2022 [/h1]
+[h1] 29/10/2022 [/h1]
 
 - Alcheringa ideas policy fix.
 - Development Ideas: no longer has inflation reduction.
+- Sculpture trading-in bonuses -15%>-25%
 
 [/quote]
 
