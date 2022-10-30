@@ -27,6 +27,7 @@ Checksum: -
 - Alcheringa ideas policy fix.
 - Development Ideas: no longer has inflation reduction.
 - Sculpture trading-in bonuses -15%>-25%
+- Added straits in Indonesia and Argentina.
 
 [/quote]
 
