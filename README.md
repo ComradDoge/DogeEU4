@@ -28,6 +28,10 @@ Checksum: -
 - Development Ideas: no longer has inflation reduction.
 - Sculpture trading-in bonuses -15%>-25%
 - Added straits in Indonesia and Argentina.
+- Added Lollard religious ideas.
+- Added Waldensian religious ideas.
+- Israel can now be formed by the whole jewish religious group.
+
 
 [/quote]
 
