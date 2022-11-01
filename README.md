@@ -32,7 +32,7 @@ Checksum: -
 - Added Waldensian religious ideas.
 - Israel can now be formed by the whole jewish religious group.
 - Irish Tanistry reform election event buffed.
-
+- Disinherit and Abdicate costs reduced.
 
 [/quote]
 
