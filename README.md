@@ -31,8 +31,10 @@ Checksum: -
 - Added Lollard religious ideas.
 - Added Waldensian religious ideas.
 - Israel can now be formed by the whole jewish religious group.
-- Irish Tanistry reform election event buffed.
+- Irish Tanistry reform election event tweaked.
 - Disinherit and Abdicate costs reduced.
+- Monarchy Ideas revamped.
+- Innovativeness ideas: innovativeness_gain 15%>33%
 
 [/quote]
 
