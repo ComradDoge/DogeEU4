@@ -1086,12 +1086,14 @@ sculpture_workshop = {
 	
 	build_trigger = {
 		ROOT = {
-			trade_goods = marble
+			OR = {
+				trade_goods = marble
+				trade_goods = jade
+			}
 			development = 15
 			NOT = { has_province_flag = has_latent_good }
 		}
 		
-		has_dlc = "Leviathan"
 		
 		FROM = {
 			adm_tech = 10
@@ -1107,10 +1109,21 @@ sculpture_workshop = {
 
 	on_built = {
 		hidden_effect = { 
-			ROOT = { 
-				goods_save = yes
-				change_trade_goods = marble_sculpture 
-				set_province_flag = has_latent_good
+			if = {
+				limit = { trade_goods = marble }
+				ROOT = { 
+					goods_save = yes
+					change_trade_goods = marble_sculpture 
+					set_province_flag = has_latent_good
+				}
+			}
+			else_if = {
+				limit = { trade_goods = jade }
+				ROOT = { 
+					goods_save = yes
+					change_trade_goods = jade_sculptures 
+					set_province_flag = has_latent_good
+				}
 			}
 		}
 	}
@@ -1124,16 +1137,11 @@ sculpture_workshop = {
 
 	modifier = {
 		allowed_num_of_buildings = 1
-		#local_governing_cost = 0.2
+		#local_governing_cost = 0.15
 	}	
 	
 	ai_will_do = {
-		factor = 1
-		
-		modifier = {	
-			factor = 0
-			NOT = { has_dlc = "Leviathan" }
-		}
+		factor = 100
 		
 	}
 }

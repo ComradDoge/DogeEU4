@@ -26,7 +26,7 @@ Checksum: -
 
 - Alcheringa ideas policy fix.
 - Development Ideas: no longer has inflation reduction.
-- Sculpture trading-in bonuses -15%>-25%
+- Sculpture trading-in bonus great_project_upgrade_cost -15%>-25%
 - Added straits in Indonesia and Argentina.
 - Added Lollard religious ideas.
 - Added Waldensian religious ideas.
@@ -34,7 +34,9 @@ Checksum: -
 - Irish Tanistry reform election event tweaked.
 - Disinherit and Abdicate costs reduced.
 - Monarchy Ideas revamped.
+- Theocracy Ideas: replaced the double devotion modifier with manpower_in_true_faith.
 - Innovativeness ideas: innovativeness_gain 15%>33%
+- Alongside marble sculptures, jade sculputres added.
 
 [/quote]
 
