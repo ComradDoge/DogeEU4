@@ -31,6 +31,7 @@ Checksum: -
 - Added Lollard religious ideas.
 - Added Waldensian religious ideas.
 - Israel can now be formed by the whole jewish religious group.
+- Irish Tanistry reform election event buffed.
 
 
 [/quote]
