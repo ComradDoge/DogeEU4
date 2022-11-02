@@ -39,6 +39,8 @@ Checksum: -
 - Alongside marble sculptures, jade sculptures added.
 - Waldensian provinces are 2% MS more difficult to convert.
 - Waldensian and Lollard religion setup changed.
+- Sortition reform no longer gives +1 point to rulers.
+- Fixed some reforms not enabling or disabling government related ideas.
 - Slightly tweaked absolutism modifier.
 
 [/quote]
