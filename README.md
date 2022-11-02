@@ -34,12 +34,11 @@ Checksum: -
 - Irish Tanistry reform election event tweaked.
 - Disinherit and Abdicate costs reduced.
 - Monarchy Ideas revamped.
-- Theocracy Ideas: replaced the double devotion modifier with manpower_in_true_faith.
+- Theocracy Ideas: replaced the double devotion modifier with manpower_in_true_faith and blessed the cannons.
 - Innovativeness ideas: innovativeness_gain 15%>33%
 - Alongside marble sculptures, jade sculputres added.
 - Waldensian provinces are 2% MS more difficult to convert.
-- Waldensian religion setup slightly shuffled.
-- Lollard religion setup shuffled.
+- Waldensian and Lollard religion setup changed.
 
 [/quote]
 
