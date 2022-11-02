@@ -35,7 +35,7 @@ Checksum: -
 - Disinherit and Abdicate costs reduced.
 - Monarchy Ideas revamped.
 - Theocracy Ideas: replaced the double devotion modifier with manpower_in_true_faith and blessed the cannons.
-- Innovativeness ideas: innovativeness_gain 15%>33%
+- Innovativeness ideas: innovativeness_gain 15%>50%
 - Alongside marble sculptures, jade sculputres added.
 - Waldensian provinces are 2% MS more difficult to convert.
 - Waldensian and Lollard religion setup changed.
