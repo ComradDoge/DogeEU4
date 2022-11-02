@@ -1,5 +1,12 @@
 ----- DOGE NDefines.NDiplomacy -----
 
+
+--Government
+NDefines.NCountry.ABDICATE_AGE_THRESHOLD = 50
+NDefines.NCountry.ABDICATE_LEGITIMACY_HIT = -10
+NDefines.NCountry.ABDICATE_PRESTIGE_HIT = -15
+NDefines.NCountry.DISINHERIT_PRESTIGE_HIT = -15
+
 --Cores
 NDefines.NCountry.ABANDON_CORE_PRESTIGE = -1 -- Default -10
 NDefines.NCountry.CORE_LOSE_PRESTIGE = -1 -- Default -10
