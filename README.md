@@ -25,6 +25,8 @@ Checksum: -
 [h1] 02/11/2022 [/h1]
 
 - Decentralization and Centralization tweaked.
+- State Affairs modifiers slightly nerfed.
+- Dynastic Theocracies T1 reform internals cleaned up.
 
 [/quote]
 
