@@ -31,7 +31,8 @@ Checksum: -
 - Antioch, The Knights Templar and Jerusalem now have western units.
 - Monarchy Ideas revamped, again. Now with it's own mechanic.
 - Dynastic Theocracies T1 reform internals cleaned up.
-- Lusitanian Empires buffed and decision to form it fixed.
+- Lusitanian Empire formable buffed and decision to form it fixed.
+- Disinherit increased from 15>30 prestige cost.
 
 [/quote]
 
