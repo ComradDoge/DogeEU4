@@ -24,24 +24,15 @@ Checksum: -
 [quote]
 [h1] 02/11/2022 [/h1]
 
-- Alcheringa ideas policy fix.
-- Development Ideas: no longer has inflation reduction.
-- Sculpture trading-in bonus great_project_upgrade_cost -15%>-25%
-- Added straits in Indonesia and Argentina.
-- Added Lollard religious ideas.
-- Added Waldensian religious ideas.
-- Israel can now be formed by the whole jewish religious group.
-- Irish Tanistry reform election event tweaked.
-- Disinherit and Abdicate costs reduced.
-- Monarchy Ideas revamped.
-- Theocracy Ideas: replaced the double devotion modifier with manpower_in_true_faith, artillery cost changed to power.
-- Innovativeness ideas: innovativeness_gain 15%>50%
-- Alongside marble sculptures, jade sculptures added.
-- Waldensian provinces are 2% MS more difficult to convert.
-- Waldensian and Lollard religion setup changed.
-- Sortition reform no longer gives +1 point to rulers.
-- Fixed some reforms not enabling or disabling government related ideas.
-- Slightly tweaked absolutism modifier.
+- Decentralization and Centralization tweaked.
+- State Affairs modifiers slightly nerfed.
+- State affairs equilibrium fixed to work for all estates that you might have.
+- Invite Lanfang decision will have them become a vassal instead of being independent.
+- Antioch, The Knights Templar and Jerusalem now have western units.
+- Monarchy Ideas revamped, again. Now with it's own mechanic.
+- Dynastic Theocracies T1 reform internals cleaned up.
+- Lusitanian Empire formable buffed and decision to form it fixed.
+- Disinherit increased from 15>30 prestige cost.
 
 [/quote]
 
