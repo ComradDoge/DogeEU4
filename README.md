@@ -26,9 +26,12 @@ Checksum: -
 
 - Decentralization and Centralization tweaked.
 - State Affairs modifiers slightly nerfed.
+- State affairs equilibrium fixed to work for all estates that you might have.
+- Invite Lanfang decision will have them become a vassal instead of being independent.
+- Antioch, The Knights Templar and Jerusalem now have western units.
 - Monarchy Ideas revamped, again. Now with it's own mechanic.
 - Dynastic Theocracies T1 reform internals cleaned up.
-- 
+- Lusitanian Empires buffed and decision to form it fixed.
 
 [/quote]
 
