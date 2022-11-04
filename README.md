@@ -26,7 +26,9 @@ Checksum: -
 
 - Decentralization and Centralization tweaked.
 - State Affairs modifiers slightly nerfed.
+- Monarchy Ideas revamped, again. Now with it's own mechanic.
 - Dynastic Theocracies T1 reform internals cleaned up.
+- 
 
 [/quote]
 

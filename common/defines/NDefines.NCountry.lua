@@ -3,9 +3,9 @@
 
 --Government
 NDefines.NCountry.ABDICATE_AGE_THRESHOLD = 50
-NDefines.NCountry.ABDICATE_LEGITIMACY_HIT = -10
-NDefines.NCountry.ABDICATE_PRESTIGE_HIT = -15
-NDefines.NCountry.DISINHERIT_PRESTIGE_HIT = -15
+NDefines.NCountry.ABDICATE_LEGITIMACY_HIT = -20
+NDefines.NCountry.ABDICATE_PRESTIGE_HIT = -50
+NDefines.NCountry.DISINHERIT_PRESTIGE_HIT = -30
 
 --Cores
 NDefines.NCountry.ABANDON_CORE_PRESTIGE = -1 -- Default -10
