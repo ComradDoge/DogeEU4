@@ -22,17 +22,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] 02/11/2022 [/h1]
+[h1] xx/11/2022 [/h1]
 
-- Decentralization and Centralization tweaked.
-- State Affairs modifiers slightly nerfed.
-- State affairs equilibrium fixed to work for all estates that you might have.
-- Invite Lanfang decision will have them become a vassal instead of being independent.
-- Antioch, The Knights Templar and Jerusalem now have western units.
-- Monarchy Ideas revamped, again. Now with it's own mechanic.
-- Dynastic Theocracies T1 reform internals cleaned up.
-- Lusitanian Empire formable buffed and decision to form it fixed.
-- Disinherit increased from 15>30 prestige cost.
+- Trade Company naming scheme is more neat by Gindisi.
+- Italian dynamic province naming vastly expanded by Riccardo Radici.
+- Consorts are able to assist you if you are a bit slow on matters of the state.
+- Iberian monuments cleanup.
 
 [/quote]
 
