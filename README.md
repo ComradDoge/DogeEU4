@@ -27,6 +27,7 @@ Checksum: -
 - Trade Company naming scheme is more neat by Gindisi.
 - Italian dynamic province naming vastly expanded by Riccardo Radici.
 - Consorts are able to assist you if you are a bit slow on matters of the state.
+- Iberian monuments cleanup.
 
 [/quote]
 
