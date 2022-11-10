@@ -30,7 +30,7 @@ Checksum: -
 - AI is back to vanilla values of it's frequency to give out mercenaries.
 - Centralization ideas: no longer has governing_capacity negative modifier.
 - Centralization territory_autonomy_minimum swapped with Decentralization state_governing_cost.
-- Trade Management ideas: gets a mercantilism reduction cost.
+- Trade Management ideas: gets 10% mercantilism reduction cost.
 
 [/quote]
 
