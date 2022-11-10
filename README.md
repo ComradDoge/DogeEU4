@@ -28,6 +28,8 @@ Checksum: -
 - Empowered Knights reform buffed.
 - Disinherit costs -30>-25 prestige.
 - AI is back to vanilla values of it's frequency to give out mercenaries.
+- Centralization ideas: no longer has governing_capacity negative modifier.
+- Centralization territory_autonomy_minimum swapped with Decentralization state_governing_cost
 
 [/quote]
 
