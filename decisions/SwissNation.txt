@@ -4,7 +4,15 @@ country_decisions = {
 		potential = {
 			normal_or_historical_nations = yes
 			was_never_end_game_tag_trigger = yes
-			NOT = { tag = SWI }
+			NOT = { 
+				OR = { 
+					tag = SWI
+					tag = ALP
+					tag = SGF
+					tag = HLR
+					was_tag = SWI
+				}
+			}
 			NOT = { has_country_flag = formed_switzerland_flag }
 			OR = {
 				ai = no
@@ -60,28 +68,33 @@ country_decisions = {
 			}
 		}
 		effect = {
+			# General
+            custom_tooltip = tooltip_line_seperate_general
 			change_tag = SWI
 			swap_non_generic_missions = yes
-			# add swiss government reform if you don't already have it
-			switzerland_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = SWI
-			}
-			romandie_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = SWI
-			}
-			add_prestige = 25
+			#restore_country_name_effect = yes
+			add_prestige_or_monarch_power = { amount = 15 }
+
+
+            # Flags Hidden
+			set_country_flag = formed_switzerland_flag
+
+
+            # Other
+            #custom_tooltip = tooltip_line_seperate_other
+
+            # Government
+            custom_tooltip = tooltip_line_seperate_government
 			if = {
 				limit = {
-					has_custom_ideas = no
+					NOT = { government_rank = 2 }
 				}
-				country_event = { id = ideagroups.1 } #Swap Ideas
+				set_government_rank = 2
 			}
+
+
+            #### Gov Reform
+            custom_tooltip = tooltip_line_seperate_gov_gap
 			if = {
 				limit = {
 					OR = {
@@ -100,8 +113,44 @@ country_decisions = {
 					add_government_reform = united_cantons_reform
 				}
 			}
-			set_country_flag = formed_switzerland_flag
+
+			# Culture
+			#custom_tooltip = tooltip_line_seperate_culture
+
+
+			# Claims
+			custom_tooltip = tooltip_line_seperate_claims
+			switzerland_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = SWI
+			}
+			romandie_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = SWI
+			}
+
+			# Events
+			custom_tooltip = tooltip_line_seperate_events
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+
+
+			# Modifiers
+			custom_tooltip = tooltip_line_seperate_modifiers
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+
+            # Hidden Effects
 		}
+
 		ai_will_do = {
 			factor = 1
 		}
