@@ -25,7 +25,6 @@ Checksum: -
 [h1] xx/11/2022 [/h1]
 
 - Abandon Legal Ways and Return to Legal Way decisions fixed.
-- Empowered Knights reform buffed.
 - Disinherit costs -30>-25 prestige.
 - AI is back to vanilla values of it's frequency to give out mercenaries.
 - Centralization ideas: no longer has governing_capacity negative modifier.
