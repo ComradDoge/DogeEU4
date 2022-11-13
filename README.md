@@ -31,6 +31,7 @@ Checksum: -
 - Centralization territory_autonomy_minimum swapped with Decentralization state_governing_cost.
 - Trade Management ideas: gets 10% mercantilism reduction cost.
 - Alpland reworked. Ideas are more defensive focused and now has a T1 government reform to give mountain towns. More or less acts as an end-tag.
+- Hoisting the Black Flag decision enabled again but only for players.
 
 [/quote]
 
