@@ -24,15 +24,7 @@ Checksum: -
 [quote]
 [h1] xx/11/2022 [/h1]
 
-- Abandon Legal Ways and Return to Legal Way decisions fixed.
-- Disinherit costs -30>-25 prestige.
-- AI is back to vanilla values of it's frequency to give out mercenaries.
-- Centralization ideas: no longer has governing_capacity negative modifier.
-- Centralization territory_autonomy_minimum swapped with Decentralization state_governing_cost.
-- Trade Management ideas: gets 10% mercantilism reduction cost.
-- Alpland reworked. Ideas are more defensive focused and now has a T1 government reform to give mountain towns. More or less acts as an end-tag.
-- Hoisting the Black Flag decision enabled again but only for players.
-- Added a decision that stays for a short while to remove natives from the game....for performance reasons. Aztec and Inca areas still persist.
+- Renamed Slavic to Rodnovery
 
 [/quote]
 
