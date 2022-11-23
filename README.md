@@ -25,8 +25,7 @@ Checksum: -
 [h1] xx/11/2022 [/h1]
 
 - Renamed Slavic to Rodnovery
-- Colonies not giving merchants fixed.
-- Colonies manpower/sailor to overlord slightly nerfed.
+-
 
 [/quote]
 
