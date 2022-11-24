@@ -1,0 +1,110 @@
+namespace = dse_britain_devolution
+
+country_event = {
+	id = dse_britain_devolution.1
+	title = dse_britain_devolution.1.t
+	desc = dse_britain_devolution.1.d
+	picture = BRITISH_FLAG_ANIMATED_eventPicture
+	
+	major = yes
+	is_triggered_only = yes
+	
+	option = { # Federation of Britain
+		name = dse_britain_devolution.1.o1
+		override_country_name = britain_devolved_name_1
+	}
+	option = { # United States of Britain
+		name = dse_britain_devolution.1.o2
+		override_country_name = britain_devolved_name_2
+	}
+	option = { # United Kingdom of Great Britain and Ireland
+		name = dse_britain_devolution.1.o3
+		override_country_name = britain_devolved_name_3
+	}
+}
+
+country_event = {
+	id = dse_britain_devolution.2
+	title = dse_britain_devolution.2.t
+	desc = dse_britain_devolution.2.d
+	picture = COURT_eventPicture
+
+	trigger = {
+		has_country_flag = british_devolution_enacted_country_flag
+		tag = GBR
+		OR = { 
+			NOT = { exists = WLS }
+			NOT = { exists = CRN }
+		}
+	}	
+	
+	mean_time_to_happen = {
+		days = 15
+	}
+	
+	option = { # Release Wales and Cornwall
+		name = dse_britain_devolution.2.o1
+		hidden_effect = {
+			british_isles_region = {
+				remove_core = WLS
+				remove_core = CRN
+			}
+			wales_area = {
+				add_core = WLS
+				remove_core = GBR
+			}
+			wessex_area = {
+				add_core = CRN
+				remove_core = GBR
+			}
+		}
+		release = WLS
+		create_subject = {
+			subject_type = britain_devolution_wales
+			subject = WLS
+		}
+		release = CRN
+		create_subject = {
+			subject_type = britain_devolution_cornwall
+			subject = CRN
+		}
+	}
+	option = { # Only Wales
+		name = dse_britain_devolution.2.o2
+		hidden_effect = {
+			british_isles_region = {
+				remove_core = WLS
+			}
+			wales_area = {
+				add_core = WLS
+				remove_core = GBR
+			}
+		}
+		release = WLS
+		create_subject = {
+			subject_type = britain_devolution_wales
+			subject = WLS
+		}
+	}
+	option = { # Only Cornwall
+		name = dse_britain_devolution.2.o3
+		hidden_effect = {
+			british_isles_region = {
+				remove_core = CRN
+			}
+			wessex_area = {
+				add_core = CRN
+				remove_core = GBR
+			}
+		}
+		release = CRN
+		create_subject = {
+			subject_type = britain_devolution_cornwall
+			subject = CRN
+		}
+	}
+	option = { # None
+		name = dse_britain_devolution.2.o4
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+}
