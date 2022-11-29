@@ -26,6 +26,7 @@ Checksum: -
 
 - Renamed Slavic to Rodnovery
 - Nationalism Estate Privilege: global_manpower_modifier = 0.5 > manpower_in_culture_group_provinces = 0.75
+- Added a `devolution` setup decision for Great Britain.
 
 [/quote]
 
