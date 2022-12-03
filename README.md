@@ -33,6 +33,7 @@ Checksum: -
 - Reduced the cost of Supply Depots 25>10 to increase their use.
 - Monarchy Ideas: tweaked the modifiers.
 - Economic Ideas: interest 0.5>1 to increase idea and thematic value.
+- Adminstrative Ideas: increased CCR 15%>25% to increase idea value.
 
 [/quote]
 
