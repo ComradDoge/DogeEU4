@@ -27,6 +27,11 @@ Checksum: -
 - Renamed Slavic to Rodnovery
 - Nationalism Estate Privilege: global_manpower_modifier = 0.5 > manpower_in_culture_group_provinces = 0.75
 - Added a `devolution` setup decision for Great Britain.
+- Increased the inflation from gold, this primarily to negate the early game advantage since you don't have many or any modifiers to reduce it.
+- Trade good price change events values increased to make them more relevant.
+- The eruption and cold age events actually increase the goods price but heavily decrease the production efficiency of the mentioned goods.
+- Reduced the cost of Supply Depots 25>10 to increase their use.
+- Monarchy Ideas: tweaked the modifiers.
 
 [/quote]
 
