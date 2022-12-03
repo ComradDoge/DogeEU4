@@ -2,10 +2,10 @@
 ----- DOGE NDefines.NMilitary -----
 
 --Army
-NDefines.NMilitary.SUPPLY_DEPOT_MIL_COST = 25	                          -- Default 20, Mil power cost to build a supply depot in an area.
+NDefines.NMilitary.SUPPLY_DEPOT_MIL_COST = 10	                          -- Default 20, Mil power cost to build a supply depot in an area.
 NDefines.NMilitary.SUPPLY_DEPOT_DURATION_MONTHS = 120                     -- Default 60
 
-NDefines.NMilitary.SUPPLYLIMIT_BASE_MULTIPLIER = 8.0
+NDefines.NMilitary.SUPPLYLIMIT_BASE_MULTIPLIER = 10.0
 NDefines.NMilitary.BANNER_REINFORCE_SPEED = -0.25
 NDefines.NMilitary.NOMAD_PLAINS_SHOCK_BONUS = 0.15	
 NDefines.NMilitary.NOMAD_NON_PLAINS_SHOCK_PENALTY =	-0.25
