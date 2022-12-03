@@ -32,6 +32,7 @@ Checksum: -
 - The eruption and cold age events actually increase the goods price but heavily decrease the production efficiency of the mentioned goods.
 - Reduced the cost of Supply Depots 25>10 to increase their use.
 - Monarchy Ideas: tweaked the modifiers.
+- Economic Ideas: interest 0.5>1 to increase idea and thematic value.
 
 [/quote]
 
