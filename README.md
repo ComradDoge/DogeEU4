@@ -35,7 +35,9 @@ Checksum: -
 - Economic Ideas: interest 0.5>1 to increase idea and thematic value.
 - Adminstrative Ideas: increased CCR 15%>25% to increase idea value.
 - Persia and Himalaya cavalry_shock replaced with cavalry_combat_ability to complete their removal from ideas.
-- Breakthrough for cavalry against cannons increased 40%>50% to make them more viable late game. 
+- Breakthrough for cavalry against cannons increased 40%>50% to make them more viable late game.
+- Development scaling is back to vanilla, 0.4>0.3.
+- Naval and Land forcelimit buildings are much more dependent on development.
 
 [/quote]
 
