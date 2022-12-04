@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] xx/11/2022 [/h1]
+[h1] 05/12/2022 [/h1]
 
 - Renamed Slavic to Rodnovery
 - Nationalism Estate Privilege: global_manpower_modifier = 0.5 > manpower_in_culture_group_provinces = 0.75
