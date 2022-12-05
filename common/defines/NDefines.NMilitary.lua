@@ -2,10 +2,10 @@
 ----- DOGE NDefines.NMilitary -----
 
 --Army
-NDefines.NMilitary.SUPPLY_DEPOT_MIL_COST = 25	                          -- Default 20, Mil power cost to build a supply depot in an area.
+NDefines.NMilitary.SUPPLY_DEPOT_MIL_COST = 10	                          -- Default 20, Mil power cost to build a supply depot in an area.
 NDefines.NMilitary.SUPPLY_DEPOT_DURATION_MONTHS = 120                     -- Default 60
 
-NDefines.NMilitary.SUPPLYLIMIT_BASE_MULTIPLIER = 8.0
+NDefines.NMilitary.SUPPLYLIMIT_BASE_MULTIPLIER = 10.0
 NDefines.NMilitary.BANNER_REINFORCE_SPEED = -0.25
 NDefines.NMilitary.NOMAD_PLAINS_SHOCK_BONUS = 0.15	
 NDefines.NMilitary.NOMAD_NON_PLAINS_SHOCK_PENALTY =	-0.25
@@ -32,7 +32,7 @@ NDefines.NMilitary.GALLEY_COMBAT_WIDTH = 1
 -- Breakthrough: An experimental feature that when you defeat an enemy regiment with artillery behind it,
 -- there's a chance that you pull their artillery into the front row.
 NDefines.NMilitary.INFANTRY_BREAKTHROUGH = 0.0				-- Between 0 and 1
-NDefines.NMilitary.CAVALRY_BREAKTHROUGH = 0.4			    -- Between 0 and 1
+NDefines.NMilitary.CAVALRY_BREAKTHROUGH = 0.5			    -- Between 0 and 1
 
 -- Mercenaries
 

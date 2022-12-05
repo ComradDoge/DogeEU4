@@ -22,17 +22,22 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] xx/11/2022 [/h1]
+[h1] 05/12/2022 [/h1]
 
-- Abandon Legal Ways and Return to Legal Way decisions fixed.
-- Disinherit costs -30>-25 prestige.
-- AI is back to vanilla values of it's frequency to give out mercenaries.
-- Centralization ideas: no longer has governing_capacity negative modifier.
-- Centralization territory_autonomy_minimum swapped with Decentralization state_governing_cost.
-- Trade Management ideas: gets 10% mercantilism reduction cost.
-- Alpland reworked. Ideas are more defensive focused and now has a T1 government reform to give mountain towns. More or less acts as an end-tag.
-- Hoisting the Black Flag decision enabled again but only for players.
-- Added a decision that stays for a short while to remove natives from the game....for performance reasons. Aztec and Inca areas still persist.
+- Renamed Slavic to Rodnovery
+- Nationalism Estate Privilege: global_manpower_modifier = 0.5 > manpower_in_culture_group_provinces = 0.75
+- Added a `devolution` setup decision for Great Britain.
+- Increased the inflation from gold, this primarily to negate the early game advantage since you don't have many or any modifiers to reduce it.
+- Trade good price change events values increased to make them more relevant.
+- The eruption and cold age events actually increase the goods price but heavily decrease the production efficiency of the mentioned goods.
+- Reduced the cost of Supply Depots 25>10 to increase their use.
+- Monarchy Ideas: tweaked the modifiers.
+- Economic Ideas: interest 0.5>1 to increase idea and thematic value.
+- Adminstrative Ideas: increased CCR 15%>25% to increase idea value.
+- Persia and Himalaya cavalry_shock replaced with cavalry_combat_ability to complete their removal from ideas.
+- Breakthrough for cavalry against cannons increased 0.4>0.5 to make them more viable late game.
+- Development scaling is back to vanilla, 0.4>0.3.
+- Naval and Land forcelimit buildings are much more dependent on development.
 
 [/quote]
 
