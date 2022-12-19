@@ -25,6 +25,7 @@ Checksum: -
 [h1] 01/01/2023 [/h1]
 
 
+- FE: Tamazagh and Celtic Empire (now Tir na Celtigh) has missions.
 
 [/quote]
 

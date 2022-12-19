@@ -1,0 +1,2378 @@
+## NOTE: All missions will be marked with "celtigh_[insert name here]" so as to indicate that ##
+## these missions are for strictly Songhai only ##
+
+celtigh_column_a = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = CEE
+	}
+	has_country_shield = yes
+		
+	celtigh_irish_terms_and_conditions = {
+		icon = prosperity_for_all
+		required_missions = {  }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				area = munster_area
+				area = connacht_area
+				area = leinster_area
+				area = ulster_area
+			}
+		}
+		trigger = {
+			NOT = { average_unrest = 2 }
+			munster_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 10 }
+			}
+			connacht_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 10 }
+			}
+			leinster_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 10 }
+			}
+			ulster_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 10 }
+			}
+		}
+		effect = {
+			define_advisor = {
+				name = "Patrick O'Connor"
+				type = diplomat
+				culture = irish
+				religion = catholic
+				skill = 3
+				discount = yes
+			}
+		}
+	}
+	celtigh_irish_court_systems = {
+		icon = mission_early_game_buildings
+		required_missions = { celtigh_irish_terms_and_conditions }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = munster_area
+				area = connacht_area
+				area = leinster_area
+				area = ulster_area
+			}
+		}
+		trigger = {
+			NOT = { average_unrest = 2 }
+			NOT = { corruption = 0.02 }
+			num_of_owned_provinces_with = {
+				OR = {
+					area = munster_area
+					area = connacht_area
+					area = leinster_area
+					area = ulster_area
+				}
+				value = 6
+                OR = {
+                    has_building = courthouse
+                    has_building = town_hall
+                }
+            }
+		}
+		effect = {
+			munster_area = {
+                add_province_modifier = {
+                    name = "celtigh_irish_courts"
+                    duration = -1
+                }
+            }
+			connacht_area = {
+                add_province_modifier = {
+                    name = "celtigh_irish_courts"
+                    duration = -1
+                }
+            }
+			leinster_area = {
+                add_province_modifier = {
+                    name = "celtigh_irish_courts"
+                    duration = -1
+                }
+            }
+			ulster_area = {
+                add_province_modifier = {
+                    name = "celtigh_irish_courts"
+                    duration = -1
+                }
+            }
+		}
+	}
+	celtigh_how_big_of_an_irish_sector = {
+		icon = the_holy_league
+		required_missions = { celtigh_irish_court_systems celtigh_recruitment_centers }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			NOT = { corruption = 0.02 }
+			army_tradition = 50
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.25
+			}
+			else = {
+				army_size_percentage = 0.90
+			}
+			has_completed_idea_group_of_category = {
+				mil_ideas = yes
+			}
+		}
+		effect = {
+			add_mil_power = 50
+			country_event = { id = FE_Celtigh_Events.1 }
+		}
+	}
+	celtigh_the_warm_gulf = {
+		icon = mission_colonize_the_caribbean
+		required_missions = { celtigh_scottish_clan_meetings }
+		position = 7
+		provinces_to_highlight = {
+			colonial_region = colonial_the_carribean
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			employed_advisor = {
+				category = DIP
+			}
+			if = {
+				limit = {
+					is_random_new_world = no
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 2
+					colonial_region = colonial_the_carribean
+					is_city = yes
+				}
+			}
+		}
+		effect = {
+			define_advisor = {
+				name = "Raghnall Lamont"
+				type = colonial_governor
+				culture = highland_scottish
+				religion = protestant
+				skill = 3
+				discount = yes
+			}
+		}
+	}
+	celtigh_gulf_operations = {
+		icon = mission_caribbean_cn
+		required_missions = { celtigh_the_warm_gulf }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					is_random_new_world = no
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 10
+					colonial_region = colonial_the_carribean
+					is_city = yes
+				}
+			}
+			has_completed_idea_group_of_category = {
+				dip_ideas = yes
+			}
+		}
+		effect = {
+			add_dip_power = 50
+			add_country_modifier = {
+				name = "celtigh_caribbean_colony_upstarts"
+				duration = 7300 #20 Years
+			}
+		}
+	}
+	celtigh_welcome_to_the_jungle_north = {
+		icon = mission_end_arakan_piracy
+		required_missions = { celtigh_gulf_operations }
+		position = 10
+		provinces_to_highlight = {
+			colonial_region = colonial_mexico
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			if = {
+				limit = {
+					is_random_new_world = no
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 3
+					colonial_region = colonial_mexico
+					is_city = yes
+				}
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_country_modifier = {
+				name = "celtigh_central_american_expeditions"
+				duration = 9125 #25 Years
+			}
+		}
+	}
+	#celtigh_move_southward = {  #Removed due to Scottish colonial branch idea
+	#	icon = mission_conquer_50_development
+	#	required_missions = { celtigh_scottish_clan_meetings }
+	#	position = 7
+	#	provinces_to_highlight = {
+	#		OR = {
+	#			province_id = 247
+	#			province_id = 246
+	#		}
+	#	}
+	#	trigger = {
+	#		247 = {
+	#			culture = scottish
+	#		}
+	#		246 = {
+	#			culture = scottish
+	#		}
+	#		scottish_marches_area = {
+	#			type = all
+	#			country_or_non_sovereign_subject_holds = ROOT
+	#			NOT = { local_autonomy = 25 }
+	#		}
+	#		yorkshire_area = {
+	#			type = all
+	#			country_or_non_sovereign_subject_holds = ROOT
+	#			NOT = { local_autonomy = 25 }
+	#		}
+	#	}
+	#	effect = {
+	#		add_country_modifier = {
+	#			name = "celtigh_scottish_clan_movements"
+	#			duration = 7300 #20 Years
+	#		}
+	#	}
+	#}
+	#celtigh_prosperous_clans = {  #Removed due to Scottish colonial branch idea
+	#	icon = mission_colonial
+	#	required_missions = { celtigh_move_southward }
+	#	position = 9
+	#	provinces_to_highlight = {
+	#		OR = {
+	#			province_id = 247
+	#			province_id = 246
+	#		}
+	#	}
+	#	trigger = {
+	#		scottish_marches_area = {
+	#			culture = scottish
+	#		}
+	#		yorkshire_area = {
+	#			culture = scottish
+	#		}
+	#		scottish_marches_area = {
+	#			type = all
+	#			country_or_non_sovereign_subject_holds = ROOT
+	#			NOT = { local_autonomy = 25 }
+	#		}
+	#		yorkshire_area = {
+	#			type = all
+	#			country_or_non_sovereign_subject_holds = ROOT
+	#			NOT = { local_autonomy = 25 }
+	#		}
+	#	}
+	#	effect = {
+	#		add_yearly_manpower = 1.0
+	#		scottish_marches_area = {
+    #            add_province_modifier = {
+    #                name = "celtigh_grateful_clans"
+    #                duration = -1
+    #            }
+    #        }
+	#		yorkshire_area = {
+    #            add_province_modifier = {
+    #                name = "celtigh_grateful_clans"
+    #                duration = -1
+    #            }
+    #        }
+	#		custom_tooltip = CELTIGH_ENGLISH_RIOTS_DUE_TO_EXPULSION
+	#		hidden_effect = {
+	#			british_isles_region = {
+	#				limit = {
+	#					owned_by = CEE
+	#					culture = english
+	#				}
+	#				add_unrest = 5
+	#			}
+	#		}
+	#	}
+	#}
+	celtigh_revive_cornwall = {
+		icon = mission_build_up_to_force_limit
+		required_missions = { }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			233 = {
+				culture = cornish
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+			4373 = {
+				culture = cornish
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = grand_captain
+				name = "Edern Carmarthen"
+				culture = cornish
+				religion = catholic
+				skill = 2
+			}
+			define_advisor = {
+				type = treasurer
+				name = "Arthyen Evans"
+				culture = cornish
+				religion = catholic
+				skill = 2
+			}
+		}
+	}
+	celtigh_ports_down_south = {
+		icon = mission_launch_a_flagship
+		required_missions = { celtigh_revive_cornwall }
+		position = 13
+		provinces_to_highlight = {
+		}
+		trigger = {
+			wharf = 2
+			233 = {
+				development = 15
+				OR = {
+					has_building = shipyard
+					has_building = grand_shipyard
+                }
+			}
+			4373 = {
+				development = 15
+				OR = {
+					has_building = shipyard
+					has_building = grand_shipyard
+                }
+			}
+		}
+		effect = {
+			233 = {
+				add_province_modifier = {
+					name = "celtigh_cornish_shipyards"
+					duration = -1
+				}
+			}
+			4373 = {
+				add_province_modifier = {
+					name = "celtigh_cornish_shipyards"
+					duration = -1
+				}
+			}
+		}
+	}
+	celtigh_upcoming_industry = {
+		icon = mission_iron_and_copper
+		required_missions = { celtigh_ports_down_south }
+		position = 15
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_adm_advisor_3 = yes
+			233 = {
+				development = 30
+				OR = {
+                    has_building = workshop
+                    has_building = counting_house
+                }
+			}
+			4373 = {
+				development = 30
+				OR = {
+                    has_building = workshop
+                    has_building = counting_house
+                }
+			}
+		}
+		effect = {
+			233 = {
+				add_province_modifier = {
+					name = "celtigh_cornish_industries"
+					duration = -1
+				}
+			}
+			4373 = {
+				add_province_modifier = {
+					name = "celtigh_cornish_industries"
+					duration = -1
+				}
+			}
+			4373 = {
+                change_trade_goods = iron
+            }
+		}
+	}
+	celtigh_a_source_for_european_markets = {
+		icon = mission_rb_conquer_wales
+		required_missions = { celtigh_knowledge_to_the_welsh }
+		position = 17
+		provinces_to_highlight = {
+		}
+		trigger = {
+			trading_bonus = {
+				trade_goods = naval_supplies
+				value = yes
+			}
+			trading_bonus = {
+				trade_goods = wool
+				value = yes
+			}
+			trading_bonus = {
+				trade_goods = fish
+				value = yes
+			}
+		}
+		effect = {
+			add_mercantilism = 5
+			add_years_of_income = 0.5
+		}
+	}
+	celtigh_leading_european_markets = {
+		icon = mission_rb_monopolize_the_channel
+		required_missions = { celtigh_a_source_for_european_markets }
+		position = 18
+		provinces_to_highlight = {
+		}
+		trigger = {
+			wharf = 4
+			textile = 2
+			OR = {
+				production_leader = {
+					trade_goods = naval_supplies
+				}
+				production_leader = {
+					trade_goods = wool
+				}
+				production_leader = {
+					trade_goods = fish
+				}
+			}
+		}
+		effect = {
+			add_dip_power = 100
+			define_advisor = {
+				type = trader
+				name = "Gwyn Gwarthaf"
+				culture = welsh
+				religion = reformed
+				skill = 3
+				discount = yes
+			}
+		}
+	}
+	celtigh_age_of_coal = {
+		icon = mission_rb_build_furnaces
+		required_missions = { celtigh_leading_european_markets }
+		position = 20
+		provinces_to_highlight = {
+		}
+		trigger = {
+			total_development = 1000
+			furnace = 2
+			has_institution = enlightenment
+		}
+		effect = {
+			add_years_of_income = 1
+			add_country_modifier = {
+				name = "celtigh_power_of_coal"
+				duration = -1
+			}
+		}
+	}
+	celtigh_pious_bretons = {
+		icon = catholic_confraternity
+		required_missions = { }
+		position = 21
+		provinces_to_highlight = {
+			OR = {
+				area = brittany_area
+			}
+		}
+		trigger = {
+			religious_unity = 1.0
+			num_of_owned_provinces_with = {
+                value = 3
+				OR = {
+					area = brittany_area
+				}
+                OR = {
+                    has_building = temple
+                    has_building = cathedral
+                }
+            }
+		}
+		effect = {
+			capital_scope = {
+				area = {
+					limit = { owned_by = ROOT }
+					add_province_modifier = {
+						name = "celtigh_piety_enshrined"
+						duration = 9125 #25 years
+					}
+				}
+			}
+		}
+	}
+	celtigh_conquer_normandy = {
+		icon = mission_raid_on_venice
+		required_missions = { celtigh_bretons_at_arms }
+		position = 23
+		provinces_to_highlight = {
+			OR = {
+				area = normandy_area
+			}
+		}
+		trigger = {
+			normandy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_mercantilism = 3
+			ile_de_france_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	celtigh_the_blue_crown = {
+		icon = mission_the_french_menace
+		required_missions = { celtigh_conquer_normandy }
+		position = 24
+		provinces_to_highlight = {
+			OR = {
+				area = ile_de_france_area
+			}
+		}
+		trigger = {
+			ile_de_france_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			picardy_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			champagne_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			country_event = { id = FE_Celtigh_Events.8 }
+		}
+	}
+	celtigh_conquer_the_last_nobles = {
+		icon = boh_humiliate_austria
+		required_missions = { celtigh_the_blue_crown }
+		position = 25
+		provinces_to_highlight = {
+			OR = {
+				area = picardy_area
+				area = champagne_area
+			}
+		}
+		trigger = {
+			picardy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			champagne_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_adm_power = 100
+			add_country_modifier = {
+				name = "celtigh_northern_france_under_lock"
+				duration = 18250 #50 Years
+			}
+		}
+	}
+}
+celtigh_column_b = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = CEE
+	}
+	has_country_shield = yes
+	
+	celtigh_recruitment_centers = {
+		icon = mission_rb_unite_the_clans
+		required_missions = { celtigh_professional_foundations }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = munster_area
+				area = connacht_area
+				area = leinster_area
+				area = ulster_area
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = munster_area
+					area = connacht_area
+					area = leinster_area
+					area = ulster_area
+				}
+				value = 6
+                OR = {
+                    has_building = barracks
+                    has_building = training_fields
+					has_building = conscription_center
+					has_building = regimental_camp
+                }
+            }
+		}
+		effect = {
+			add_yearly_manpower = 1
+			add_army_tradition = 20
+		}
+	}
+	celtigh_warmer_lands = {
+		icon = mission_rb_the_thirteen_colonies
+		required_missions = { celtigh_east_north_america_settlers }
+		position = 4
+		provinces_to_highlight = {
+			colonial_region = colonial_eastern_america
+			OR = {
+				is_city = no
+				NOT = { owned_by = ROOT }
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_light_ship = 25
+			if = {
+				limit = {
+					is_random_new_world = no
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 10
+					colonial_region = colonial_eastern_america
+					is_city = yes
+				}
+			}
+		}
+		effect = {
+			add_prestige = 15
+			add_country_modifier = {
+				name = "celtigh_rush_to_new_lands"
+				duration = 9125 #25 Years
+			}
+		}
+	}
+	celtigh_scottish_clan_meetings = {
+		icon = mission_alliances
+		required_missions = {  }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = kingdom_of_the_isles_area
+				area = highlands_area
+				area = lowlands_area
+			}
+		}
+		trigger = {
+			manpower_percentage = 0.75
+			army_size_percentage = 0.75
+			num_of_owned_provinces_with = {
+				OR = {
+					area = kingdom_of_the_isles_area
+					area = highlands_area
+					area = lowlands_area
+				}
+				value = 4
+                OR = {
+                    has_building = courthouse
+                    has_building = town_hall
+                }
+            }
+			custom_trigger_tooltip = {
+				tooltip = CELTIGH_SCOTTISH_MERCENARIES_GATHER
+            }
+		}
+		effect = {
+			add_yearly_manpower = 0.75
+			set_country_flag = celtigh_scottish_mercenaries
+		}
+	}
+	celtigh_light_or_heavy_infantry = {
+		icon = mission_rb_conquer_the_highlands
+		required_missions = { celtigh_scottish_clan_meetings }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+			manpower_percentage = 0.95
+			army_size = 100
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.30
+			}
+			else = {
+				army_tradition = 30
+			}
+		}
+		effect = {
+			country_event = { id = FE_Celtigh_Events.2 }
+		}
+	}
+	celtigh_welcome_to_the_jungle_south = {
+		icon = mission_new_kingdom_of_granada
+		required_missions = { celtigh_gulf_operations }
+		position = 10
+		provinces_to_highlight = {
+			colonial_region = colonial_colombia
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			if = {
+				limit = {
+					is_random_new_world = no
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 3
+					colonial_region = colonial_colombia
+					is_city = yes
+				}
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_country_modifier = {
+				name = "celtigh_south_american_expeditions"
+				duration = 9125 #25 Years
+			}
+		}
+	}
+	celtigh_prepare_to_pirate = {
+		icon = mission_pirate_havens
+		required_missions = { celtigh_revive_cornwall }
+		position = 12
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_heavy_ship = 5
+			num_of_light_ship = 20
+			num_of_admirals = 2
+		}
+		effect = {
+			add_country_modifier = {
+				name = "celtigh_beginner_pirates"
+				duration = 7300 #20 Years
+			}
+		}
+	}
+	celtigh_pirates_of_cornwall = {
+		icon = mission_sponsor_piracy
+		required_missions = { celtigh_prepare_to_pirate }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1276
+				province_id = 1293
+			}
+		}
+		trigger = {
+			OR = {
+				1276 = {  #Bordeaux Node
+					privateer_power = {
+						country = ROOT
+						share = 30
+					}
+				}
+				1293 = {  #Sevilla Node
+					privateer_power = {
+						country = ROOT
+						share = 20
+					}
+				}
+			}
+		}
+		effect = {
+			macaronesia_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "celtigh_intermediate_pirates"
+				duration = 7300 #20 Years
+			}
+		}
+	}
+	celtigh_knowledge_to_the_welsh = {
+		icon = found_the_vatican_library
+		required_missions = { }
+		position = 16
+		provinces_to_highlight = {
+			OR = {
+				province_id = 242
+				province_id = 4366
+				province_id = 4369
+				province_id = 241
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+                value = 2
+				OR = {
+					area = wales_area
+				}
+                OR = {
+                    has_building = courthouse
+                    has_building = town_hall
+                }
+            }
+			employed_advisor = {
+				category = ADM
+			}
+			employed_advisor = {
+				category = DIP
+			}
+			employed_advisor = {
+				category = MIL
+			}
+		}
+		effect = {
+			wales_area = {
+                add_province_modifier = {
+                    name = "celtigh_welsh_town_plans"
+                    duration = -1
+                }
+            }
+			242 = {
+                if = {
+                    limit = {
+                        NOT = { has_building = cathedral }
+                    }
+                    add_building_construction = {
+                        building = cathedral
+                        speed = 1
+                        cost = 0
+                    }
+                }
+                else = {
+                    add_base_production = 3
+                }
+            }
+			4366 = {
+                if = {
+                    limit = {
+                        NOT = { has_building = cathedral }
+                    }
+                    add_building_construction = {
+                        building = cathedral
+                        speed = 1
+                        cost = 0
+                    }
+                }
+                else = {
+                    add_base_production = 3
+                }
+            }
+			4369 = {
+                if = {
+                    limit = {
+                        NOT = { has_building = cathedral }
+                    }
+                    add_building_construction = {
+                        building = cathedral
+                        speed = 1
+                        cost = 0
+                    }
+                }
+                else = {
+                    add_base_production = 3
+                }
+            }
+			241 = {
+                if = {
+                    limit = {
+                        NOT = { has_building = cathedral }
+                    }
+                    add_building_construction = {
+                        building = cathedral
+                        speed = 1
+                        cost = 0
+                    }
+                }
+                else = {
+                    add_base_production = 3
+                }
+            }
+		}
+	}
+	celtigh_beyond_the_dyke = {
+		icon = mission_rb_invade_england
+		required_missions = { celtigh_knowledge_to_the_welsh }
+		position = 18
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4375
+				province_id = 240
+				province_id = 239
+			}
+		}
+		trigger = {
+			4375 = {
+				culture = welsh
+			}
+			240 = {
+				culture = welsh
+			}
+			239 = {
+				culture = welsh
+			}
+		}
+		effect = {
+			add_mil_power = 50
+			4375 = {
+                add_province_modifier = {
+                    name = "celtigh_triumphant_families"
+                    duration = 9125 #25 Years
+                }
+            }
+			240 = {
+                add_province_modifier = {
+                    name = "celtigh_triumphant_families"
+                    duration = 9125 #25 Years
+                }
+            }
+			239 = {
+                add_province_modifier = {
+                    name = "celtigh_triumphant_families"
+                    duration = 9125 #25 Years
+                }
+            }
+		}
+	}
+	celtigh_breton_musketeers = {
+		icon = army_reforms
+		required_missions = { celtigh_the_blue_crown celtigh_conquer_orleans }
+		position = 25
+		provinces_to_highlight = {
+		}
+		trigger = {
+			monthly_mil = 10
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.50
+			}
+			else = {
+				army_tradition = 60
+			}
+			has_completed_idea_group_of_category = {
+				mil_ideas = yes
+			}
+		}
+		effect = {
+			country_event = { id = FE_Celtigh_Events.9 }
+		}
+	}
+}
+celtigh_column_c = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = CEE
+	}
+	has_country_shield = yes
+	
+	celtigh_professional_foundations = {
+		icon = mission_rb_the_education_acts
+		required_missions = {  }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			army_tradition = 50
+			navy_tradition = 25
+			employed_advisor = {
+				category = DIP
+			}
+			employed_advisor = {
+				category = MIL
+			}
+		}
+		effect = {
+			create_explorer = {
+				tradition = 50
+			}
+			define_general = {
+				name = "Rathach 'Ironfist' Cathasaigh"
+				shock = 5
+				fire = 2
+				manuever = 5
+				siege = 2
+				trait = hardy_warrior_personality
+			}
+		}
+	}
+	celtigh_east_north_america_settlers = {
+		icon = mission_rb_irish_america
+		required_missions = { celtigh_recruitment_centers celtigh_boat_building }
+		position = 3
+		provinces_to_highlight = {
+			colonial_region = colonial_canada
+			OR = {
+				is_city = no
+				NOT = { owned_by = ROOT }
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_explorers = 1
+			if = {
+				limit = {
+					is_random_new_world = no
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 5
+					colonial_region = colonial_canada
+					is_city = yes
+				}
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_country_modifier = {
+				name = "celtigh_colonial_first_steps"
+				duration = 9125 #25 Years
+			}
+		}
+	}
+	celtigh_bringing_crops_back = {
+		icon = mission_rb_import_potatoes
+		required_missions = { celtigh_east_north_america_settlers }
+		position = 5
+		provinces_to_highlight = {
+			colonial_region = colonial_canada
+			OR = {
+				is_city = no
+				NOT = { owned_by = ROOT }
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			stability = 1
+			farm_estate = 3
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				OR = {
+					continent = new_world
+					continent = north_america
+				}
+			}
+		}
+		effect = {
+			add_prestige = 20
+			add_country_modifier = {
+				name = "celtigh_potato_influx"
+				duration = -1
+			}
+			random_owned_province = {
+					limit = {
+						is_core = CEE
+					}
+				add_base_production = 3
+			}
+			random_owned_province = {
+					limit = {
+						is_core = CEE
+					}
+				add_base_production = 3
+			}
+			random_owned_province = {
+					limit = {
+						is_core = CEE
+					}
+				add_base_manpower = 3
+			}
+			random_owned_province = {
+					limit = {
+						is_core = CEE
+					}
+				add_base_manpower = 3
+			}
+		}
+	}
+	celtigh_answer_the_reformation = {
+		icon = mission_rb_control_state_religion
+		required_missions = { celtigh_scottish_clan_meetings }
+		position = 7
+		provinces_to_highlight = {
+		}
+		trigger = {
+			stability = 1
+			legitimacy_equivalent = 90
+			religious_unity = 0.70
+		}
+		effect = {
+			add_country_modifier = {
+				name = "celtigh_reformation_tensions_at_ease"
+				duration = 7300 #20 Years
+			}
+		}
+	}
+	celtigh_solidify_the_right_to_rule = {
+		icon = show_piety
+		required_missions = { celtigh_answer_the_reformation }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+			stability = 2
+			religious_unity = 0.85
+			OR = {
+				religion = protestant
+				religion = reformed	
+				AND = {
+					num_of_cardinals = 3
+					PAP = {
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "celtigh_firm_religious_footing"
+				duration = 12775 #35 Years
+			}
+		}
+	}
+	celtigh_lead_the_pious_folks = {
+		icon = shield_of_christendom
+		required_missions = { celtigh_solidify_the_right_to_rule }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			stability = 3
+			religious_unity = 1.0
+			OR = {
+				has_idea_group = humanist_ideas
+				has_idea_group = religious_ideas
+			}
+			OR = {
+				inquisitor = 3
+				theologian = 3
+			}
+		}
+		effect = {
+			country_event = { id = FE_Celtigh_Events.3 }
+		}
+	}
+	celtigh_the_atlantic_is_ours = {
+		icon = mission_claim_the_canaries
+		required_missions = { celtigh_pirates_of_cornwall celtigh_exports_to_western_europe }
+		position = 15
+		provinces_to_highlight = {
+			province_id = 366
+			province_id = 4565
+			province_id = 368
+			province_id = 367
+		}
+		trigger = {
+			num_of_light_ship = 50
+			num_of_heavy_ship = 25
+			macaronesia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_dip_power = 100
+			add_country_modifier = {
+				name = "celtigh_atlantic_domination"
+				duration = -1
+			}
+		}
+	}
+	celtigh_demographics_in_wales = {
+		icon = balance_the_estates
+		required_missions = { celtigh_knowledge_to_the_welsh }
+		position = 17
+		provinces_to_highlight = {
+			OR = {
+				province_id = 242
+				province_id = 4366
+				province_id = 4369
+				province_id = 241
+			}
+		}
+		trigger = {
+			monthly_adm = 10
+			242 = {
+				development = 10
+				NOT = { devastation = 1 }
+			}
+			4366 = {
+				development = 10
+				NOT = { devastation = 1 }
+			}
+			4369 = {
+				development = 10
+				NOT = { devastation = 1 }
+			}
+			241 = {
+				development = 10
+				NOT = { devastation = 1 }
+			}
+		}
+		effect = {
+			country_event = { id = FE_Celtigh_Events.5 }
+		}
+	}
+	celtigh_bretons_at_arms = {
+		icon = mission_assemble_an_army
+		required_missions = { celtigh_united_breton_labor celtigh_pious_bretons }
+		position = 22
+		provinces_to_highlight = {
+			OR = {
+				area = brittany_area
+			}
+		}
+		trigger = {
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.05
+				extra_shortcut = yes
+			}
+			num_of_owned_provinces_with = {
+                value = 2
+				OR = {
+					area = brittany_area
+				}
+                OR = {
+                    has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+                }
+            }
+		}
+		effect = {
+			define_general = {
+				name = "Evrard 'the Sword of Breizh' Kerouac"
+				shock = 5
+				fire = 1
+				manuever = 3
+				siege = 3
+				trait = master_of_arms_personality
+			}
+			normandy_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			loire_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			poitou_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	celtigh_conquer_the_valley = {
+		icon = mission_bengal_campaign
+		required_missions = { celtigh_bretons_at_arms }
+		position = 23
+		provinces_to_highlight = {
+			OR = {
+				area = loire_area
+			}
+		}
+		trigger = {
+			loire_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			loire_area = {
+                add_province_modifier = {
+                    name = "celtigh_rebuilding_along_the_river"
+                    duration = 9125 #25 Years
+                }
+            }
+			orleans_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	celtigh_conquer_orleans = {
+		icon = mission_fortify_mandu
+		required_missions = { celtigh_conquer_the_valley }
+		position = 24
+		provinces_to_highlight = {
+			OR = {
+				area = orleans_area
+			}
+		}
+		trigger = {
+			orleans_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			orleans_area = {
+                add_province_modifier = {
+                    name = "celtigh_rebuilding_along_the_river"
+                    duration = 9125 #25 Years
+                }
+            }
+			massif_central_area = {  #Auvergne Area
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			west_burgundy_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	celtigh_conquer_the_last_of_the_river = {
+		icon = mission_invade_island
+		required_missions = { celtigh_conquer_orleans }
+		position = 25
+		provinces_to_highlight = {
+			OR = {
+				area = massif_central_area
+				area = west_burgundy_area
+			}
+		}
+		trigger = {
+			massif_central_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			west_burgundy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_dip_power = 100
+			add_country_modifier = {
+				name = "celtigh_central_france_under_lock"
+				duration = 18250 #50 Years
+			}
+		}
+	}
+}
+celtigh_column_d = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = CEE
+	}
+	has_country_shield = yes
+		
+	celtigh_boat_building = {
+		icon = mission_galleys_in_port
+		required_missions = { celtigh_professional_foundations }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = munster_area
+				area = connacht_area
+				area = leinster_area
+				area = ulster_area
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = munster_area
+					area = connacht_area
+					area = leinster_area
+					area = ulster_area
+				}
+				value = 6
+                OR = {
+                    has_building = dock
+                    has_building = drydock
+					has_building = shipyard
+					has_building = grand_shipyard
+                }
+            }
+		}
+		effect = {
+			add_yearly_sailors = 2
+			add_navy_tradition = 20
+		}
+	}
+	celtigh_domination_over_the_cold_lands = {
+		icon = mission_corsairs_of_the_north_sea
+		required_missions = { celtigh_east_north_america_settlers }
+		position = 4
+		provinces_to_highlight = {
+			colonial_region = colonial_canada
+			OR = {
+				is_city = no
+				NOT = { owned_by = ROOT }
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			num_of_light_ship = 25
+			if = {
+				limit = {
+					is_random_new_world = no
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 15
+					colonial_region = colonial_canada
+					is_city = yes
+				}
+			}
+		}
+		effect = {
+			add_prestige = 15
+			add_country_modifier = {
+				name = "celtigh_north_atlantic_trade"
+				duration = 9125 #25 Years
+			}
+		}
+	}
+	celtigh_reach_the_ice_barrier = {
+		icon = mission_rb_colonise_canada
+		required_missions = { celtigh_the_north_sea_conquests }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				province_id = 370
+				province_id = 371
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			owns_core_province = 370
+			owns_core_province = 371
+		}
+		effect = {
+			subarctic_islands_area = {
+                add_province_modifier = {
+                    name = "celtigh_one_nation_north_sea"
+                    duration = -1
+                }
+            }
+		}
+	}
+	celtigh_exports_to_western_europe = {
+		icon = mission_high_income
+		required_missions = { celtigh_trade_center_man }
+		position = 14
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				1276 = {
+					trade_share = {
+						country = ROOT
+						share = 30
+					}
+				}
+				1293 = {
+					trade_share = {
+						country = ROOT
+						share = 20
+					}
+				}
+			}
+		}
+		effect = {  #All centers of trade in the Isles alongside Nantes gaining profits
+			add_mercantilism = 5
+			4118 = { add_base_production = 2 }  #Desmond
+			239 = { add_base_production = 2 }  #Gloucester
+			236 = { add_base_production = 3 }  #London
+			172 = { add_base_production = 3 }  #Nantes
+			243 = { add_base_production = 2 }  #Lincolnshire
+			249 = { add_base_production = 2 }  #Ayrshire
+			248 = { add_base_production = 2 }  #Lothian
+		}
+	}
+	celtigh_stand_up_and_fight = {
+		icon = the_italian_league
+		required_missions = { }
+		position = 16
+		provinces_to_highlight = {
+		}
+		trigger = {
+			army_tradition = 25
+			army_size = 50
+			has_mil_advisor_3 = yes
+			NOT = { num_of_mercenaries = 1 }
+		}
+		effect = {
+			define_general = {
+				name = "Alwyn 'Shieldbreaker' Glyndwr"
+				shock = 5
+				fire = 5
+				manuever = 2
+				siege = 1
+				trait = goal_oriented_personality
+			}
+		}
+	}
+	celtigh_dealing_with_the_english = {
+		icon = mission_settlers_north_america
+		required_missions = { celtigh_stand_up_and_fight }
+		position = 17
+		provinces_to_highlight = {
+		}
+		trigger = {
+			accepted_culture = english
+			NOT = { average_unrest = 2 }
+			wessex_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 25 }
+			}
+			west_midlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 25 }
+			}
+			east_midlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 25 }
+			}
+			home_counties_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 25 }
+			}
+			east_anglia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 25 }
+			}
+		}
+		effect = {
+			define_advisor = {
+				name = "Edmund Tudor"
+				type = statesman
+				culture = english
+				religion = protestant
+				skill = 3
+			}
+			define_advisor = {
+				name = "Andrew Stratford"
+				type = natural_scientist
+				culture = english
+				religion = anglican
+				skill = 3
+			}
+		}
+	}
+	celtigh_rulings_on_the_english = {
+		icon = return_visby_to_the_league
+		required_missions = { celtigh_dealing_with_the_english celtigh_beyond_the_dyke }
+		position = 19
+		provinces_to_highlight = {
+		}
+		trigger = {
+			accepted_culture = english
+			development_in_provinces = {
+				value = 300
+				culture = english
+			}
+			num_of_owned_provinces_with = {
+				value = 3
+				culture = english
+				has_manufactory_trigger = yes
+			}
+		}
+		effect = {
+			country_event = { id = FE_Celtigh_Events.6 }
+		}
+	}
+	celtigh_status_of_archery = {
+		icon = all_bases_covered
+		required_missions = { celtigh_men_at_arms celtigh_rulings_on_the_english }
+		position = 20
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_infantry = 100
+			army_tradition = 50
+			development_in_provinces = {
+				value = 100
+				culture = welsh
+			}
+		}
+		effect = {
+			country_event = { id = FE_Celtigh_Events.7 }
+		}
+	}
+	celtigh_fortify_the_loire = {
+		icon = mission_secure_the_malabar_coast
+		required_missions = { celtigh_conquer_orleans celtigh_conquer_guyenne }
+		position = 25
+		provinces_to_highlight = {
+			OR = {
+				province_id = 172
+				province_id = 178
+				province_id = 177
+				province_id = 4389
+				province_id = 179
+				province_id = 184
+				province_id = 4776
+				province_id = 191
+				province_id = 190
+				province_id = 199
+				province_id = 4777
+			}
+			NOT = {
+				OR = {
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = WALLS_OF_THE_LOIRE_TRIGGER
+				172 = {
+                	development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				178 = {
+                	development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+							has_building = fort_18th
+					}
+        		}
+				177 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				4389 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				179 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				184 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				4776 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				190 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				191 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				199 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}	
+				4777 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				172 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				178 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				177 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				4389 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				179 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				184 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				4776 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				190 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				191 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				199 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+				4777 = {
+            	    development = 20
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+            	}
+			}
+		}
+		effect = {
+			custom_tooltip = WALLS_OF_THE_LOIRE
+			hidden_effect = {
+				172 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				177 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				178 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				4389 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				179 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				184 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				4776 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				190 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				191 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				199 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+				4777 = {
+					add_province_modifier = {
+						name = "celtigh_chained_loire_forts"
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+celtigh_column_e = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = CEE
+	}
+	has_country_shield = yes
+		
+	celtigh_atlantic_fleet = {
+		icon = mission_rb_grow_the_channel
+		required_missions = { celtigh_boat_building }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			navy_tradition = 30
+			num_of_heavy_ship = 30
+			has_dip_advisor_3 = yes
+		}
+		effect = {
+			define_advisor = {
+				name = "Duncan O'Ruairc"
+				type = naval_reformer
+				culture = irish
+				religion = catholic
+				skill = 3
+				discount = yes
+			}
+			add_country_modifier = {
+				name = "celtigh_show_of_force"
+				duration = 10950 #30 Years
+			}
+		}
+	}
+	celtigh_channel_domination = {
+		icon = mission_rb_rule_britannia_irish_version
+		required_missions = { celtigh_atlantic_fleet }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			wharf = 5
+			num_of_owned_provinces_with = {
+                value = 5
+                OR = {
+                    has_building = marketplace
+                    has_building = trade_depot
+					has_building = stock_exchange
+                }
+            }
+			1269 = {
+				is_strongest_trade_power = ROOT
+			}
+		}
+		effect = {
+			add_dip_power = 100
+			add_navy_tradition = 25
+			add_years_of_income = 1
+		}
+	}
+	celtigh_legacy_of_the_lordship = {
+		icon = mission_rb_conquer_the_isles
+		required_missions = {  }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1978
+				province_id = 1979
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			owns_core_province = 1978
+			owns_core_province = 1979
+		}
+		effect = {
+			eastern_norway = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			western_norway = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	celtigh_the_north_sea_conquests = {
+		icon = mission_disrupt_portuguese_trade
+		required_missions = { celtigh_legacy_of_the_lordship }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				province_id = 17
+				province_id = 23
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				NOT = { exists = NOR }
+				AND = {
+					owns_core_province = 17
+					owns_core_province = 23
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "celtigh_north_sea_keeper"
+				duration = 9125 #25 Years
+			}
+		}
+	}
+	celtigh_monopoly_over_the_north_sea = {
+		icon = mission_look_west
+		required_missions = { celtigh_the_north_sea_conquests }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			calc_true_if = {
+				desc = build_manufactories_mission_tooltip
+				all_owned_province = {
+					OR = {
+						has_building = mills
+						has_building = farm_estate
+						has_building = tradecompany
+						has_building = plantations
+						has_building = textile
+						has_building = weapons
+						has_building = wharf
+						has_building = furnace
+					}
+				}
+				amount = 10
+			}
+			1975 = {
+				is_strongest_trade_power = ROOT
+			}
+		}
+		effect = {
+			add_mercantilism = 5
+			add_country_modifier = {
+				name = "celtigh_north_sea_economics"
+				duration = 18250 #50 Years
+			}
+		}
+	}
+	celtigh_revive_the_manx = {
+		icon = mission_marienburg
+		required_missions = { }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			4365 = {
+				development = 15
+				OR = {
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				OR = {
+					has_building = shipyard
+					has_building = grand_shipyard
+                }
+			}
+		}
+		effect = {
+			add_treasury = 250
+			define_admiral = {
+				shock = 2
+				fire = 2
+				manuever = 5
+				siege = 2
+			}
+		}
+	}
+	celtigh_trade_center_man = {
+		icon = mission_heart_of_the_hansa
+		required_missions = { celtigh_revive_the_manx }
+		position = 13
+		provinces_to_highlight = {
+		}
+		trigger = {
+			4118 = { #Cork
+				province_has_center_of_trade_of_level = 2
+			}
+			249 = { #Ayrshire
+				province_has_center_of_trade_of_level = 2
+			}
+			4365 = {
+				development = 20
+				OR = {
+					has_building = marketplace
+                    has_building = trade_depot
+					has_building = stock_exchange
+				}
+			}
+		}
+		effect = {
+			4365 = {
+				center_of_trade_level = 2
+			}
+			4365 = {
+				add_province_modifier = {
+					name = "celtigh_well_to_do_manx_folk"
+					duration = -1
+				}
+			}
+		}
+	}
+	celtigh_beyond_fishing = {
+		icon = mission_rb_trinity_college_dublin
+		required_missions = { celtigh_trade_center_man }
+		position = 15
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_adm_advisor_3 = yes
+			4365 = {
+				development = 25
+				OR = {
+					has_building = university
+				}
+			}
+		}
+		effect = {
+			add_treasury = 500
+			country_event = { id = FE_Celtigh_Events.4 }
+		}
+	}
+	celtigh_men_at_arms = {
+		icon = neapolitan_govenance
+		required_missions = { }
+		position = 19
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_infantry = 50
+			manpower_percentage = 0.90
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.25
+			}
+			else = {
+				army_tradition = 33
+			}
+		}
+		effect = {
+			add_army_tradition = 10
+			add_yearly_manpower = 0.5
+		}
+	}
+	celtigh_united_breton_labor = {
+		icon = mission_great_trading_houses
+		required_missions = { }
+		position = 21
+		provinces_to_highlight = {
+			OR = {
+				area = brittany_area
+			}
+		}
+		trigger = {
+			brittany_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 10 }
+			}
+			num_of_owned_provinces_with = {
+                value = 2
+				OR = {
+					area = brittany_area
+				}
+                OR = {
+                    has_building = courthouse
+                    has_building = town_hall
+                }
+            }
+		}
+		effect = {
+			capital_scope = {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+				area = {
+					limit = { owned_by = ROOT }
+					add_province_modifier = {
+						name = "celtigh_support_of_the_bretons"
+						duration = 9125 #25 years
+					}
+				}
+			}
+		}
+	}
+	celtigh_conquer_poitou = {
+		icon = the_hundred_years_war
+		required_missions = { celtigh_bretons_at_arms }
+		position = 23
+		provinces_to_highlight = {
+			OR = {
+				area = poitou_area
+			}
+		}
+		trigger = {
+			poitou_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_army_tradition = 10
+			guyenne_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	celtigh_conquer_guyenne = {
+		icon = mission_northumberland_coast
+		required_missions = { celtigh_conquer_poitou }
+		position = 24
+		provinces_to_highlight = {
+			OR = {
+				area = guyenne_area
+			}
+		}
+		trigger = {
+			guyenne_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_army_tradition = 10
+			pyrenees_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			languedoc_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	celtigh_conquer_occitania = {
+		icon = the_seven_provinces
+		required_missions = { celtigh_conquer_guyenne }
+		position = 25
+		provinces_to_highlight = {
+			OR = {
+				area = pyrenees_area
+				area = languedoc_area
+			}
+		}
+		trigger = {
+			pyrenees_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			languedoc_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_mil_power = 100
+			add_country_modifier = {
+				name = "celtigh_southern_france_under_lock"
+				duration = 18250 #50 Years
+			}
+		}
+	}
+}
+
