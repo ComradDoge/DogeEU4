@@ -26,6 +26,7 @@ Checksum: -
 
 
 - FE: Tamazagh and Celtic Empire (now Tir na Celtigh) has missions.
+- Added some descriptions to monuments.
 
 [/quote]
 
