@@ -25,9 +25,11 @@ Checksum: -
 [h1] 01/01/2023 [/h1]
 
 
-- FE: Tamazagh and Celtic Empire (now Tir na Celtigh) has missions.
 - Added some descriptions to monuments.
-- Assyria is no longer Yazidi, as it factually does not make sense. Yazidi will receive hellenic treatment and reworked in some manner.
+- FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
+- Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
+- Nestorian is now in the game and use the Patriarchal system with their own icons.
+- Yazidi and Bogolimist are no longer on the map, but will come back after a rework of some manner.
 
 [/quote]
 
