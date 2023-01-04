@@ -27,6 +27,7 @@ Checksum: -
 
 - FE: Tamazagh and Celtic Empire (now Tir na Celtigh) has missions.
 - Added some descriptions to monuments.
+- Assyria is no longer Yazidi, as it factually does not make sense. Yazidi will receive hellenic treatment and reworked in some manner.
 
 [/quote]
 
