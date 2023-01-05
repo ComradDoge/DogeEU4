@@ -1,4 +1,170 @@
+ALEXANDRIA_missions_column_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = ALX
+    }
+	has_country_shield = yes
 
+	# Ante Bellum
+	ALX_delta_production = {
+		icon = mission_dominate_persian_gulf
+		required_missions = { }
+		position = 1
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 363
+				province_id = 362
+				province_id = 2316
+				province_id = 4316
+			}
+		}
+		
+		trigger = {
+			owns = 363
+			owns = 4316
+			owns = 362
+			owns = 2316
+			363 = {
+				base_production = 10
+			}
+			4316 = {
+				base_production = 10
+			}
+			362 = {
+				base_production = 10
+			}
+			2316 = {
+				base_production = 10
+			}
+		}
+		
+		effect = {
+			bahari_area = {
+				add_prosperity = 100
+			}
+			delta_area = {
+				add_prosperity = 100
+			}
+			2316 = {
+				add_province_modifier = {
+					name = "ALX_delta_modifier"
+					duration = -1
+				}
+			}
+			362 = {
+				add_province_modifier = {
+					name = "ALX_delta_modifier"
+					duration = -1
+				}
+			}
+			4316 = {
+				add_province_modifier = {
+					name = "ALX_delta_modifier"
+					duration = -1
+				}
+			}
+			363 = {
+				add_province_modifier = {
+					name = "ALX_delta_modifier"
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ALX_silk_industry = {
+		icon = mission_gujarati_textiles
+		required_missions = { ALX_delta_production }
+		position = 3
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			province_id = 361
+		}
+		
+		trigger = {
+			361 = {
+				development = 30
+			}
+		}
+		
+		effect = {
+			361 = {
+				change_trade_goods = silk
+				add_base_production = 3
+			}
+			add_country_modifier = {
+				name = ALX_silk_industry_modifier
+				duration = 7300
+			}
+		}
+	}
+		
+	ALX_manufactories = {
+		icon = industrialized_rhineland
+		required_missions = { ALX_silk_industry }
+		position = 5
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+					has_building = mills
+					has_building = farm_estate
+					has_building = tradecompany
+					has_building = plantations
+					has_building = textile
+					has_building = weapons
+					has_building = wharf
+					has_building = furnace
+				}
+			}
+		}
+		
+		trigger = {
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						has_building = mills
+						has_building = farm_estate
+						has_building = tradecompany
+						has_building = plantations
+						has_building = textile
+						has_building = weapons
+						has_building = wharf
+						has_building = furnace
+					}
+				}
+				amount = 25
+			}
+		}
+		
+		effect = {
+			custom_tooltip = alexandria_manufactory_development_tooltip
+			hidden_effect = {		
+                for = {
+                    amount = 15
+                    effect = "
+                        random_owned_province = {
+							limit = {
+								has_manufactory_trigger = yes
+							}
+							add_base_production = 1
+                        }
+                    "
+                }
+			}
+			add_country_modifier = {
+				name = ALX_industry_modifer
+				duration = 5475
+			}
+		}
+	}
+
+}
 
 ALEXANDRIA_missions_column_2 = {
 	slot = 2
@@ -30,8 +196,11 @@ ALEXANDRIA_missions_column_2 = {
 
 		}
 		effect = {
-            add_prestige = 10
-
+            add_prestige_or_monarch_power = { amount = 15 }
+			add_country_modifier = {
+				name = ALX_promising_start_modifier
+				duration = 5475
+			}
 		}
 	}
 
@@ -61,6 +230,56 @@ ALEXANDRIA_missions_column_2 = {
 			add_country_modifier = {
 				name = ALX_development_improvement
 				duration = 10950
+			}
+		}
+	}
+
+	ALX_expand_capital = {
+	    icon = mission_conquer_alexandria
+		required_missions = { }
+		position = 6
+		
+		trigger = {
+			owns = 358
+			358 = {
+				owned_by = ROOT 
+				development = 30
+			}
+			358 = {
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 358
+			}
+		}
+		
+		effect = {
+			358 = {
+				add_province_modifier = {
+					name = "ALX_expand_capital_modifier"
+					duration = -1
+				}
+			}
+			358 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
 			}
 		}
 	}
@@ -115,7 +334,7 @@ ALEXANDRIA_missions_column_3 = {
 				add_permanent_claim = ROOT
 			}
 			add_country_modifier = {
-				name = nap_military_campaign
+				name = ALX_military_campaign
 				duration = 9125
 			}
 		}
@@ -141,8 +360,11 @@ ALEXANDRIA_missions_column_3 = {
 
 		}
 		effect = {
-            add_prestige = 10
-
+            add_prestige_or_monarch_power = { amount = 15 }
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 15
+			}
 		}
 	}
 
@@ -165,12 +387,31 @@ ALEXANDRIA_missions_column_3 = {
 
 		}
 		effect = {
+			custom_tooltip = alexandria_final_push_response_tooltip
+			add_country_modifier = {
+				name = ALX_final_push_modifier
+				duration = 5475
+			}
 			egypt_region = {
 				limit = {
 					NOT = { owned_by = ROOT }
 					NOT = { is_core = ROOT }
 				}
 				add_permanent_claim = ROOT
+			}
+
+			hidden_effect = {
+                for = {
+                    amount = 75
+                    effect = "
+                        every_neighbor_country = {
+							add_opinion = {
+								who = ROOT
+								modifier = aggressive_expansion
+							}
+                        }
+                    "
+                }
 			}
 		}
 	}
@@ -184,7 +425,7 @@ ALEXANDRIA_missions_column_3 = {
 		position = 4
 
 		provinces_to_highlight = {
-			owned_by = root
+			owned_by = ROOT
 			has_tax_building_trigger = no
             has_production_building_trigger = no
 		}
@@ -241,7 +482,7 @@ ALEXANDRIA_missions_column_3 = {
 			custom_tooltip = alexandria_nile_states_defined.tooltip
 			custom_tooltip = alexandria_non_nile_construction_cost_tooltip
 			custom_tooltip = alexandria_nile_development_cost_tooltip
-            custom_tooltip = alexandria_state_prosperity_tooltip
+            #custom_tooltip = alexandria_state_prosperity_tooltip
             
             hidden_effect = {
 				every_owned_province = {
@@ -278,31 +519,63 @@ ALEXANDRIA_missions_column_3 = {
 					}
 				}
 
-                # NILE STATES
-                delta_area = {
-                    add_prosperity = 75
-                }
-                bahari_area = {
-                    add_prosperity = 75
-                }
-                vostani_area = {
-                    add_prosperity = 75
-                }
-                said_area = {
-                    add_prosperity = 75
-                }
+                ## NILE STATES
+                #delta_area = {
+                #    add_prosperity = 75
+                #}
+                #bahari_area = {
+                #    add_prosperity = 75
+                #}
+                #vostani_area = {
+                #    add_prosperity = 75
+                #}
+                #said_area = {
+                #    add_prosperity = 75
+                #}
 
-                #NON NILE STATES
-                cyrenaica_area = {
-                    add_prosperity = 25
-                }
-				al_wahat_area = {
-					add_prosperity = 25
-				}
-				gulf_of_arabia_area = {
-					add_prosperity = 25
-				}
+                ##NON NILE STATES
+                #cyrenaica_area = {
+                #    add_prosperity = 25
+                #}
+				#al_wahat_area = {
+				#	add_prosperity = 25
+				#}
+				#gulf_of_arabia_area = {
+				#	add_prosperity = 25
+				#}
             }
+		}
+	}
+
+	
+	ALX_library = {
+		icon = found_the_vatican_library
+		required_missions = { ALX_expand_capital ALX_court_advisors }
+		position = 7
+		
+		provinces_to_highlight = {
+			province_id = 358
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { renaissance = 100 }
+			}
+		}
+		
+		trigger = {
+			treasury = 1000
+			owns = 358
+			358 = {
+				renaissance = 100
+			}
+		}
+		effect = {
+			add_treasury = -1000
+			358 = {
+				add_province_modifier = {
+					name = "ALX_library_modifier"
+					duration = -1
+				}
+			}
 		}
 	}
 
@@ -338,7 +611,11 @@ ALEXANDRIA_missions_column_4 = {
 
 		}
 		effect = {
-            add_prestige = 10
+            add_prestige_or_monarch_power = { amount = 15 }
+			add_country_modifier = {
+				name = ALX_dominant_power_modifier
+				duration = 5475
+			}
 		}
 	}
 
@@ -365,11 +642,176 @@ ALEXANDRIA_missions_column_4 = {
 
 		}
 		effect = {
-			every_owned_province = {
-				limit = {
-					region = egypt_region
+			custom_tooltip = alexandria_autonomy_reduction_tooltip
+			add_country_modifier = {
+				name = ALX_security_modifier
+				duration = 5475
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = egypt_region
+					}
+					add_local_autonomy = -15
+				}				
+			}
+		}
+	}
+
+	ALX_court_advisors = {
+		icon = mission_deccanis
+		required_missions = {  }
+		position = 6
+		
+		trigger = {
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_mil_advisor_3 = yes
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ALX_court_advisors_modifier"
+				duration = -1
+			}
+		}
+	}
+
+}
+
+ALEXANDRIA_missions_column_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = ALX
+    }
+	has_country_shield = yes
+
+	# Ante Bellum
+	ALX_trade = {
+	    icon = mission_african_gold
+		required_missions = {  }
+		position = 1
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 358
+				province_id = 377
+			}
+		}
+		
+		trigger = {
+			358 = {
+				trade_share = {
+					country = ROOT
+					share = 50
 				}
-				add_local_autonomy = -15
+			}
+		}
+		effect = {
+			add_mercantilism = 5
+			define_advisor = {
+				type = trader
+				skill = 2
+				culture = al_misr_arabic
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+
+	ALX_dockyard = {
+	    icon = mission_shipyards_of_gujarat
+		required_missions = { ALX_trade }
+		position = 3
+		
+		trigger = {
+			owns = 358
+			358 = {
+				development = 20
+				has_shipyard_building_trigger = yes
+				has_dock_building_trigger = yes
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 358
+			}
+		}
+		
+		effect = {
+			add_yearly_sailors = 3
+			358 = {
+				add_province_modifier = {
+					name = "ALX_dockyard_modifier"
+					duration = -1
+				}
+				if = {
+					limit = {
+						NOT = { has_building = grand_shipyard }
+					}
+					remove_building = shipyard
+					add_building = grand_shipyard
+				}
+				else = {
+					add_scaled_local_dip_power = 10
+				}
+				if = {
+					limit = {
+						NOT = { has_building = coastal_defence }
+						NOT = { has_building = naval_battery }
+					}
+					add_building = naval_battery
+				}
+				else = {
+					add_scaled_local_dip_power = 10
+				}
+			}
+			custom_tooltip = "?"
+			define_advisor = {
+				type = naval_reformer
+				skill = 3
+				culture = al_misr_arabic
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+	
+	ALX_piracy_age = {
+	    icon = mission_raid_christian_trade
+		required_missions = { ALX_dockyard }
+		position = 5
+		
+		trigger = {
+			num_ships_privateering = 20
+			112 = {
+				privateer_power = {
+					country = FROM
+					share = 25
+				}
+			}
+			101 = {
+				privateer_power = {
+					country = FROM
+					share = 25
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 220
+				province_id = 101
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ALX_piracy_age_modifier"
+				duration = 36500
 			}
 		}
 	}

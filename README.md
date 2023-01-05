@@ -27,6 +27,8 @@ Checksum: -
 
 - Added some descriptions to monuments.
 - FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
+- Updated the Alexandrian mission tree.
+- Lower Nubia is no longer part of Egypt region.
 - Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
 - Nestorian is now in the game and use the Patriarchal system with their own icons.
 - Yazidi and Bogolimist are no longer on the map, but will come back after a rework of some manner.
