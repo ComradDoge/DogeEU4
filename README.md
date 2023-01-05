@@ -26,9 +26,10 @@ Checksum: -
 
 
 - Added some descriptions to monuments.
-- FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
 - Updated the Alexandrian mission tree.
-- Lower Nubia is no longer part of Egypt region.
+- Added Saffron event for Orleanais at ADM 10.
+- FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
+- Lower Nubia is no longer part of Egypt region and moved to Ethiopia trade node.
 - Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
 - Nestorian is now in the game and use the Patriarchal system with their own icons.
 - Yazidi and Bogolimist are no longer on the map, but will come back after a rework of some manner.
