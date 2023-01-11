@@ -34,7 +34,8 @@ Checksum: -
 - Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
 - Nestorian is now in the game and use the Patriarchal system with their own icons.
 - Yazidi and Bogolimist are no longer on the map, but will come back after a rework of some manner.
-- AB: Added an edited mission tree for Trieste from Ante Bellum, a mod that I recommend you to check out.
+- AB: Added an edited mission tree for Trieste and Wallachia/Moldavia from Ante Bellum, a mod that I recommend you to check out.
+- Tweaked the Morroco area by shuffling the development around and making Sale (Pirate Republic) appear at start. Allah help us all.
 
 [/quote]
 
