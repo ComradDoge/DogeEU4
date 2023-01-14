@@ -28,12 +28,14 @@ Checksum: -
 - Added some descriptions to monuments.
 - Updated the Alexandrian mission tree.
 - Added a few more price changing events.
+- Trade company buildings slightly nerfed.
 - Added Saffron event for Orleanais at ADM 10.
 - Governing capacity from technology increased 150>200.
 - FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
 - Lower Nubia is no longer part of Egypt region and moved to Ethiopia trade node.
 - Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
 - Nestorian is now in the game and use the Patriarchal system with their own icons.
+- Provincial increase from developing production lowered 0.2>0.1 to nerf trade value build up.
 - Yazidi and Bogolimist are no longer on the map, but will come back after a rework of some manner.
 - AB: Added an edited mission tree for Trieste and Wallachia/Moldavia from Ante Bellum, a mod that I recommend you to check out.
 - Tweaked the Morroco area by shuffling the development around and making Sale (Pirate Republic) appear at start. Allah help us all.
