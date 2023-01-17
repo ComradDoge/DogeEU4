@@ -1,0 +1,206 @@
+namespace = dse_flavour_tradegoods
+
+country_event = {
+	id = dse_flavour_tradegoods.1
+	title = dse_flavour_tradegoods.1.t
+	desc = dse_flavour_tradegoods.1.d
+	picture = TRADEGOODS_eventPicture
+
+	
+
+	trigger = {
+		marble = 1
+		NOT = { has_country_modifier = dse_marble_monopoly_mod }
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "dse_flavour_tradegoods.1.o1"
+        every_neighbor_country = {
+            limit = {
+                marble = 1
+            }
+            add_opinion = { who = ROOT modifier = opinion_marble_monopoly }
+        }
+		add_country_modifier = {
+			name = "dse_marble_monopoly_mod"
+			duration = 730
+		}
+	}
+	option = {
+		name = "dse_flavour_tradegoods.1.o2"
+		add_treasury = -100
+		add_prestige_or_monarch_power = { amount = 10 }
+		add_country_modifier = {
+			name = "dse_grand_statues_mod"
+			duration = 730
+		}
+		
+	}
+
+}
+
+
+country_event = {
+	id = dse_flavour_tradegoods.2
+	title = dse_flavour_tradegoods.2.t
+	desc = dse_flavour_tradegoods.2.d
+	picture = TRADEGOODS_eventPicture
+	goto = someato_province
+
+	trigger = {
+		any_owned_province = {
+			OR = { 
+				trade_goods = potato
+				trade_goods = tomato
+			}
+			NOT = { has_province_modifier = harvest_fails }
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					OR = { 
+						trade_goods = potato
+						trade_goods = tomato
+					}
+					NOT = { has_province_modifier = harvest_fails }
+				}
+				save_event_target_as = someato_province
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "dse_flavour_tradegoods.2.o1"
+		
+		event_target:someato_province = {
+			add_province_modifier = {
+				name = "harvest_fails"
+				duration = 730
+			}			
+		}		
+	}
+
+}
+
+country_event = {
+	id = dse_flavour_tradegoods.3
+	title = dse_flavour_tradegoods.3.t
+	desc = dse_flavour_tradegoods.3.d
+	picture = TRADEGOODS_eventPicture
+	goto = apiculture_province
+
+	trigger = {
+		any_owned_province = {
+			trade_goods = apiculture
+			NOT = { has_province_modifier = dse_apiculture_production_mod }
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					trade_goods = apiculture
+					NOT = { has_province_modifier = dse_apiculture_production_mod }
+				}
+				save_event_target_as = apiculture_province
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "dse_flavour_tradegoods.3.o1"
+		
+		event_target:apiculture_province = {
+			add_province_modifier = {
+				name = "dse_apiculture_production_mod"
+				duration = 730
+			}			
+		}		
+	}
+
+}
+
+
+
+# Vanilla Extension
+country_event = {
+	id = dse_flavour_tradegoods.1000
+	title = "EVTNAME5026"
+	desc = "EVTDESC5026"
+	picture = PLAGUE_eventPicture
+	goto = plague_province
+
+	trigger = {
+		rice = 1
+		num_of_cities = 2
+		any_owned_province = {
+			trade_goods = rice
+			is_capital = no
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					trade_goods = rice
+					is_capital = no
+				}
+				save_event_target_as = plague_province
+			}
+		}
+	}
+
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "EVTOPTA5026"		# We have to do something!
+		ai_chance = {
+			factor = 55
+			modifier = {
+				factor = 0.5
+				NOT = { years_of_income = 0.2 }
+			}
+		}
+		add_years_of_income = -0.10
+	}
+	option = {
+		name = "EVTOPTB5026"		# There is nothing we can do.
+		ai_chance = {
+			factor = 45
+		}
+		event_target:plague_province = {
+			add_local_autonomy = 25
+			add_province_modifier = {
+				name = "plague"
+				duration = 1095
+			}
+		}				
+	}
+}
