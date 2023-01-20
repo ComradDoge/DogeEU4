@@ -305,6 +305,11 @@ temple = {
 		local_tax_modifier = 0.5
 		local_missionary_strength = 0.005
 	}
+	build_trigger = {
+		NOT = { 
+			religion = bogomilist
+		}
+	}
 	on_built = {
 		on_province_tax_building_built_estate_privileges_effect = yes
 		add_development_from_building = {
@@ -1138,6 +1143,11 @@ cathedral = {
 		local_missionary_strength = 0.03
 		local_tax_modifier = 1
 	}
+	build_trigger = {
+		NOT = { 
+			religion = bogomilist
+		}
+	}
 	on_built = {
 		on_province_tax_building_built_estate_privileges_effect = yes
 		add_development_from_upgrading_or_building = {
@@ -1338,6 +1348,16 @@ university = {
 			type = tax
 			value = 2
 		}
+		if = {
+			limit = {
+				FROM = { religion = bogomilist }
+				religion = bogomilist
+			}
+			add_province_modifier = {
+				name = bogomilist_school_bonus_modifier
+				duration = -1
+			}
+		}
 	}
 	on_destroyed = {
 		remove_development_from_building = {
@@ -1345,13 +1365,19 @@ university = {
 			type = tax
 			value = 2
 		}
+		if = {
+			limit = {
+				has_province_modifier = bogomilist_school_bonus_modifier
+			}
+			remove_province_modifier = bogomilist_school_bonus_modifier
+		}
 	}
 	on_obsolete = {
 	}
 
 	ai_will_do = {
 		factor = 10.0
-				#LIMIT
+		#LIMIT
 		modifier = {
 			factor = 0
 			FROM = { num_of_loans = 3 }

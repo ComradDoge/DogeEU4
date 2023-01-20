@@ -1,6 +1,7 @@
 # Yoinked from Voltaire's Nightmare
 
 namespace = dse_bogomilist_religious_events
+namespace = dse_bogomilist_mechanics_events
 
 country_event = {
 	id = dse_bogomilist_religious_events.1
@@ -188,5 +189,128 @@ country_event = {
             name = incompetent_clergy
             duration = 1825
         }
+	}
+}
+
+
+# Religion Mechanics
+
+country_event = {
+	id = dse_bogomilist_mechanics_events.1
+	title = dse_bogomilist_mechanics_events.1.t
+	desc = dse_bogomilist_mechanics_events.1.d
+	picture = WESTERNISATION_eventPicture
+	hidden = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				any_owned_province = {
+					OR = {
+						AND = {
+							has_building = university
+							NOT = { has_province_modifier = bogomilist_school_bonus_modifier }
+						}
+						AND = {
+							NOT = { 
+								has_building = university
+							}
+							has_province_modifier = bogomilist_school_bonus_modifier
+						}
+					}
+				}
+			}
+			AND = {
+				NOT = { religion = bogomilist }
+				any_owned_province = {
+					has_province_modifier = bogomilist_school_bonus_modifier
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 5
+	}
+	
+	option = {
+		name = dse_bogomilist_mechanics_events.1.o1
+		
+		every_owned_province = {
+			limit = {
+				has_building = university
+				NOT = { has_province_modifier = bogomilist_school_bonus_modifier }
+			}
+			add_province_modifier = {
+				name = bogomilist_school_bonus_modifier
+				duration = -1
+			}
+		}
+		every_owned_province = {
+			limit = {
+				NOT = { 
+					has_building = university
+				}
+				has_province_modifier = bogomilist_school_bonus_modifier
+			}
+			remove_province_modifier = bogomilist_school_bonus_modifier
+		}
+		if = {
+			limit = {
+				NOT = { religion = bogomilist }
+			}
+			every_owned_province = {
+				remove_province_modifier = bogomilist_school_bonus_modifier
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = dse_bogomilist_mechanics_events.2
+	title = dse_bogomilist_mechanics_events.2.t
+	desc = dse_bogomilist_mechanics_events.2.d
+	picture = WESTERNISATION_eventPicture
+	hidden = yes
+
+	trigger = {
+		OR = { 
+			any_owned_province = {
+				AND = { 
+					has_building = temple
+					religion = bogomilist				
+				}
+			}
+			any_owned_province = {
+				AND = { 
+					has_building = cathedral
+					religion = bogomilist				
+				}
+			}		
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 5
+	}
+	
+	option = {
+		name = dse_bogomilist_mechanics_events.2.o1
+		
+		every_owned_province = {
+			limit = {
+				has_building = temple
+				religion = bogomilist
+			}
+			remove_building = temple
+		}
+		every_owned_province = {
+			limit = {
+				has_building = cathedral
+				religion = bogomilist
+			}
+			remove_building = cathedral
+		}
 	}
 }
