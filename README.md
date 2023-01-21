@@ -33,6 +33,7 @@ Checksum: -
 - Added Saffron event for Orleanais at ADM 10.
 - Governing capacity from technology increased 150>200.
 - FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
+- Envoy travel time added in diplomatic tech, credit to Königsente for idea.
 - Lower Nubia is no longer part of Egypt region and moved to Ethiopia trade node.
 - Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
 - Nestorian is now in the game and use the Patriarchal system with their own icons.
