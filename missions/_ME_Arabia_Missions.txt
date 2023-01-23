@@ -1,0 +1,2971 @@
+ARB_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_morocco = {
+		icon = mission_new_world_power
+		required_missions = { ARB_tunis }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = sus_area
+				area = tafilalt_area
+				area = southern_morocco_area
+				area = western_morocco_area
+				area = northern_morocco_area
+				area = marrekesh_area
+				area = algiers_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = sus_area
+					area = tafilalt_area
+					area = southern_morocco_area
+					area = western_morocco_area
+					area = northern_morocco_area
+					area = marrekesh_area
+					area = algiers_area
+				}
+				value = 20
+			}
+		}
+		effect = {
+			ME_give_claims = { region = iberia_region }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = GRA_cb_on_fetishists
+			set_country_flag = GRA_cb_on_fetishists_flag
+			
+			# country_event = { id = ME_Arabia_Events.4 }
+			
+			# custom_tooltip = " "
+			
+			custom_tooltip = " "
+			
+			
+			custom_tooltip = ARB_upgrade_western_conquest_1_2
+			hidden_effect = {
+				remove_country_modifier = ARB_western_conquest_1
+				add_country_modifier = {
+					name = ARB_western_conquest_2
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			1127 = {
+				if = {
+					limit = {
+						is_empty = yes
+					}
+					add_siberian_construction = 200
+				}
+			}
+		}
+	}
+	
+	ARB_subsaharan_africa = {
+		icon = mission_invade_mali
+		required_missions = { ARB_morocco }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				region = sahel_region
+				region = niger_region
+			}
+			NOT = { 
+				owner = {
+					religion_group = muslim
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				sahel_region = {
+					type = all
+					owner = {
+						religion_group = muslim
+					}
+				}
+				niger_region = {
+					type = all
+					owner = {
+						religion_group = muslim
+					}
+				}
+				amount = 30
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+		}
+		effect = {
+			#for as long as x amount of provinces there are owned by muslim powers, gain a buff ;)) probably tolerance own or something.
+			custom_tooltip = ARB_for_as_long_as_we_can_keep_it_up
+			set_country_flag = ARB_buff_for_subsaharan_africa
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ARB_for_every_muslim_country
+			hidden_effect = {
+				if = {
+					limit = {
+						calc_true_if = {
+							all_country = {
+								capital_scope = {
+									OR = {
+										region = sahel_region
+										region = niger_region
+									}
+								}
+								religion_group = muslim
+							}
+							amount = 20
+						}
+					}
+					add_adm_power = 100
+				}
+				else = {
+					every_country = {
+						limit = {
+							capital_scope = {
+								OR = {
+									region = sahel_region
+									region = niger_region
+								}
+							}
+							religion_group = muslim
+						}
+						ROOT = { add_adm_power = 5 }
+					}
+				}
+			}
+		}
+	}
+}
+
+ARB_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_tunis = {
+		icon = mission_patronize_art_and_religion
+		required_missions = { }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = tripolitania_area
+				area = djerba_area
+				area = tunisia_area
+				area = kabylia_area
+				area = fezzan_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = tripolitania_area
+					area = djerba_area
+					area = tunisia_area
+					area = kabylia_area
+					area = fezzan_area
+				}
+				value = 10
+			}
+			owns_or_non_sovereign_subject_of = 4566 #muslim established capital of ifriqiya
+			
+			#besides that, buff to an evolving modifier about being caliphs and stuff
+		}
+		effect = {
+			ME_give_claims = { area = maghreb_region }
+			ME_give_claims = { area = sicily_area }
+			ME_give_claims = { area = western_sicily_area }
+			
+			custom_tooltip = " "
+			
+			4566 = {
+				add_or_upgrade_tax_building = yes
+				custom_tooltip = " "
+				
+				if = {
+					limit = {
+						has_dlc = "Leviathan"
+					}
+					
+					custom_tooltip = ARB_if_kairouan_holy_city
+					hidden_effect = {
+						while = {
+							limit = {
+								NOT = {
+									has_great_project = {
+										type = holy_city_kairouan 
+										tier = 2
+									}
+								}
+							}
+							add_great_project_tier = {
+								type = holy_city_kairouan 
+								tier = 1
+							}
+						}
+					}
+				}
+					
+				add_province_modifier = {
+					name = ARB_mosque_of_kairouan
+					duration = -1
+				}
+			}
+			
+			add_country_modifier = {
+				name = ARB_western_conquest_1
+				duration = -1
+			}
+		}
+	}
+	
+	ARB_sicily = {
+		icon = mission_break_sicily
+		required_missions = { ARB_tunis }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = sicily_area
+				area = western_sicily_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			sicily_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			western_sicily_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			country_event = { id = ME_Arabia_Events.3 }
+			
+			add_legitimacy_equivalent = { amount = 20 republican_tradition = 5 }
+		}
+	}
+	
+	ARB_andalusia = {
+		icon = mission_al_andalus
+		required_missions = { ARB_morocco }
+		position = 4
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = iberia_region
+				value = 40
+			}
+			225 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			ME_give_claims = { area = languedoc_area }
+			ME_give_claims = { area = provence_area }
+			ME_give_claims = { area = savoy_dauphine_area }
+			ME_give_claims = { area = massif_central_area }
+			ME_give_claims = { area = poitou_area }
+			ME_give_claims = { area = guyenne_area }
+			ME_give_claims = { area = pyrenees_area }
+			
+			custom_tooltip = " "
+			
+			225 = {
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 2
+			}
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				change_innovativeness = 5
+				custom_tooltip = " "
+			}
+			
+			custom_tooltip = ARB_upgrade_western_conquest_2_3
+			hidden_effect = {
+				remove_country_modifier = ARB_western_conquest_2
+				add_country_modifier = {
+					name = ARB_western_conquest_3
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ARB_tours = {
+		icon = mission_the_french_menace
+		required_missions = { ARB_andalusia }
+		position = 6
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = FRA
+				}
+				owned_by = FRA
+			}
+			else = {
+				region = france_region
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = FRA
+				}
+				OR = {
+					has_won_war_against = { who = FRA }
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						region = france_region
+						value = 10
+					}
+				}
+			}
+			else = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					region = france_region
+					value = 10
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_second_tours
+				duration = 7300
+			}
+			
+			create_general_with_pips = { tradition = 100 add_shock = 3 add_siege = 1 }
+			
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Arabia_Events.4 }
+		}
+	}
+}
+
+ARB_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_north_syria = {
+		icon = mission_protect_granada
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				area = dulkadir_area
+				area = cukurova_area
+				area = north_kurdistan_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = dulkadir_area
+					area = cukurova_area
+					area = north_kurdistan_area
+				}
+				value = 10
+			}
+			4295 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			4295 = {
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 1
+			}
+			
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Arabia_Events.22 }
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { region = anatolia_region }
+			ME_give_claims = { area = samtskhe_area }
+			ME_give_claims = { area = kartli_kakheti_area }
+			ME_give_claims = { area = imereti_area }
+			ME_give_claims = { area = circassia_area }
+		}
+	}
+	
+	ARB_ottomans = {
+		icon = mission_ottoman_diplomacy
+		required_missions = { ARB_north_syria }
+		position = 2
+		provinces_to_highlight = {
+			region = anatolia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = anatolia_region
+				value = 40
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_caliphal_claimant_defeated
+				duration = 10950
+			}
+			
+			add_power_projection = {
+				type = MAM_perma_ottoman_pp
+				amount = 10
+			}
+			custom_tooltip = MAM_permanent_PP
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { region = balkan_region }
+		}
+	}
+	
+	ARB_balkans = {
+		icon = take_constantinople
+		required_missions = { ARB_ottomans }
+		position = 4
+		provinces_to_highlight = {
+			region = balkan_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = {
+				balkan_region = {
+					type = all
+					owner = {
+						religion_group = ROOT
+					}
+				}
+				amount = 25
+			}
+			
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = balkan_region
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_conversion_of_balkans
+				duration = 10950
+			}
+			
+			add_army_tradition_or_mil_power = { amount = 10 }
+		}
+	}
+	
+	ARB_western_golden_age = {
+		icon = bibliotheca_corviana
+		required_missions = { ARB_andalusia }
+		position = 5
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			225 = { 
+				num_of_buildings_in_province = 5
+				development = 40
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			225 = {
+				add_province_triggered_modifier = ARB_legacy_of_andalusia
+				
+				add_or_upgrade_university_building = yes
+			}
+			
+			custom_tooltip = " "
+		}
+	}
+	
+	ARB_indian_contacts = {
+		icon = mission_prosperity_in_bengal
+		required_missions = { ARB_build_up_navy }
+		position = 6
+		provinces_to_highlight = {
+			superregion = india_superregion
+			trade_goods = spices
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					trade_goods = spices
+					has_production_building_trigger = yes
+					superregion = india_superregion
+					value = 5
+				}
+				
+				any_ally = {
+					capital_scope = {
+						superregion = india_superregion
+					}
+					religion_group = ROOT
+					spices = 1
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ARB_done_via_alliance
+			tooltip = {
+				504 = {
+					add_trade_modifier = {
+						who = ROOT
+						duration = 14600
+						power = 50
+						key = ARB_indian_trade
+					}
+				}
+				1340 = {
+					add_trade_modifier = {
+						who = ROOT
+						duration = 14600
+						power = 50
+						key = ARB_indian_trade
+					}
+				}
+				
+				custom_tooltip = " "
+				
+				ME_add_years_of_trade_income = { years = 5 }
+			}
+			custom_tooltip = ARB_done_via_conquest
+			tooltip = {
+				add_years_of_owned_provinces_production_income = {
+					years = 20
+					trigger = {
+						trade_goods = spices
+					}
+					custom_tooltip = ARB_prod_from_spices
+				}
+				
+				custom_tooltip = " "
+				
+				if = {
+					limit = {
+						has_estate = estate_burghers
+					}
+					add_estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 10
+					}
+				}
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						num_of_owned_provinces_with = {
+							trade_goods = spices
+							has_production_building_trigger = yes
+							superregion = india_superregion
+							value = 5
+						}
+					}
+					add_years_of_owned_provinces_production_income = {
+						years = 20
+						trigger = {
+							trade_goods = spices
+						}
+						custom_tooltip = ARB_prod_from_spices
+					}
+					
+					custom_tooltip = " "
+					
+					if = {
+						limit = {
+							has_estate = estate_burghers
+						}
+						add_estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 10
+						}
+					}
+				}
+				else = {
+					504 = {
+						add_trade_modifier = {
+							who = ROOT
+							duration = 14600
+							power = 50
+							key = ARB_indian_trade
+						}
+					}
+					1340 = {
+						add_trade_modifier = {
+							who = ROOT
+							duration = 14600
+							power = 50
+							key = ARB_indian_trade
+						}
+					}
+					
+					custom_tooltip = " "
+					
+					ME_add_years_of_trade_income = { years = 5 }
+				}
+			}
+		}
+	}
+	
+	ARB_contact_with_malaya = {
+		icon = mission_recover_konkan_ports
+		required_missions = { ARB_indian_contacts }
+		position = 8
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					has_global_flag = MSA_muslim_center_flag
+				}
+				owner = {
+					owns = event_target:ME_MSA_muslim_center_target
+				}
+			}
+			else = {
+				is_capital = yes
+				owner = {
+					religion_group = muslim
+					NOT = {
+						has_opinion = {
+							who = ROOT
+							value = 125
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_global_flag = MSA_muslim_center_flag
+					event_target:ME_MSA_muslim_center_target = {
+						religion_group = muslim
+					}
+				}
+				OR = {
+					event_target:ME_MSA_muslim_center_target = {
+						owner = {
+							has_opinion = {
+								who = ROOT
+								value = 125
+							}
+						}
+					}
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						OR = {
+							region = malaya_region
+							region = indonesia_region
+						}
+						value = 13
+					}
+				}
+			}
+			else = {
+				OR = { 
+					any_country = {
+						religion_group = muslim
+						has_opinion = {
+							who = ROOT
+							value = 125
+						}
+						capital_scope = {
+							OR = {
+								region = indonesia_region
+								region = malaya_region
+							}
+						}
+					}
+					
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						OR = {
+							region = malaya_region
+							region = indonesia_region
+						}
+						value = 13
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ARB_done_via_opinion
+			tooltip = {
+				country_event = { id = ME_Arabia_Events.10 }
+				
+				custom_tooltip = " "
+				
+				add_positive_or_negative_piety = { amount = 0.1 }
+			}
+			custom_tooltip = ARB_done_via_conquest
+			tooltip = {
+				create_admiral = { tradition = 40 }
+				
+				custom_tooltip = " "
+				
+				add_country_modifier = {
+					name = ARB_malayan_trade_eff
+					duration = 7300
+				}
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+							OR = {
+								region = malaya_region
+								region = indonesia_region
+							}
+							value = 13
+						}
+					}
+					create_admiral = { tradition = 40 }
+				
+					add_country_modifier = {
+						name = ARB_malayan_trade_eff
+						duration = 7300
+					}
+				}
+				else = {
+					country_event = { id = ME_Arabia_Events.10 }
+				
+					custom_tooltip = " "
+					
+					add_positive_or_negative_piety = { amount = 0.1 }
+				}
+			}
+		}
+	}
+}
+
+ARB_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_caucasia = {
+		icon = alpine_fortifications
+		required_missions = { ARB_into_persia ARB_north_syria }
+		position = 2
+		provinces_to_highlight = {
+			region = caucasia_region
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { religion = ROOT }
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = caucasia_region
+				religion = ROOT
+				value = 15
+			}
+		}
+		effect = {			
+			add_country_modifier = {
+				name = ARB_linking_the_world
+				duration = 7300
+			}
+			
+			define_advisor = { #referring to the mamluks of circassia here
+				type = grand_captain 
+				skill = 3
+				culture = circassian
+				religion = sunni
+				cost_multiplier = 0.25
+			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { region = crimea_region }
+		}
+	}
+	
+	ARB_nomads = {
+		icon = mission_steppe_warriors
+		required_missions = { ARB_caucasia ARB_subdue_iran }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				region = crimea_region
+				region = central_asia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = crimea_region
+					region = central_asia_region
+				}
+				value = 30
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_nomadic_spoils_of_war
+				duration = -1
+			}
+			
+			add_years_of_income = 1
+		}
+	}
+	
+	ARB_build_up_navy = {
+		icon = mission_aragonese_navy
+		required_missions = { }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				navy_size_percentage = 0.5
+				navy_size = 60
+			}
+			
+			num_of_admirals = 1
+		}
+		effect = {
+			ME_give_claims = { area = red_sea_coast_area }
+			ME_give_claims = { area = aussa_area }
+			ME_give_claims = { area = ifat_area }
+			ME_give_claims = { area = somaliland_area }
+			ME_give_claims = { area = majarteen_area }
+			ME_give_claims = { area = mogadishu_area }
+			ME_give_claims = { area = ajuuran_area }
+			
+			custom_tooltip = " "
+			
+			ME_add_years_of_trade_income = { years = 3 }
+		}
+	}
+	
+	ARB_secure_the_horn = {
+		icon = mission_mal_jihad_upon_own_population
+		required_missions = { ARB_build_up_navy }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = red_sea_coast_area
+				area = aussa_area
+				area = ifat_area
+				area = somaliland_area
+				area = majarteen_area
+				area = mogadishu_area
+				area = ajuuran_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = red_sea_coast_area
+					area = aussa_area
+					area = ifat_area
+					area = somaliland_area
+					area = majarteen_area
+					area = mogadishu_area
+					area = ajuuran_area
+				}
+				value = 20
+			}
+		}
+		effect = {
+			#Fill inner africa
+			ME_give_claims = { area = tigray_area }
+			ME_give_claims = { area = central_ethiopia_area }
+			ME_give_claims = { area = damot_area }
+			ME_give_claims = { area = southern_ethiopia_area }
+			ME_give_claims = { area = hadiya_area }
+			ME_give_claims = { area = shewa_area }
+			ME_give_claims = { area = ogaden_area }
+			ME_give_claims = { area = sennar_area }
+			ME_give_claims = { area = lower_nubia_area }
+			ME_give_claims = { area = upper_nubia_area }
+			
+			#To Zanzibar
+			ME_give_claims = { area = quelimane_area }
+			ME_give_claims = { area = mombasa_area }
+			ME_give_claims = { area = central_swahili_coast_area }
+			ME_give_claims = { area = northern_swahili_coast_area }
+			ME_give_claims = { area = mogadishu_area }
+			ME_give_claims = { area = mozambique_area }
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = somali }
+			
+			custom_tooltip = " "
+			
+			add_adm_power = 50
+		}
+	}
+	
+	ARB_defeat_aksum = {
+		icon = befriend_ethiopia
+		required_missions = { ARB_secure_the_horn }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				owned_by = ETH
+				owned_by = AKS
+				province_id = 1224
+			}
+		}
+		trigger = {
+			NOT = { exists = ETH }
+			NOT = { exists = AKS }
+			owns_core_province = 1224
+			
+			num_of_owned_provinces_with = {
+				region = horn_of_africa_region
+				religion = ROOT
+				value = 25
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_convert_the_amhara
+				duration = 10950
+			}
+			
+			ME_add_power_projection = { amount = 20 }
+		}
+	}
+}
+
+ARB_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_into_persia = {
+		icon = mission_into_persia_1
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				area = shahrizor_area
+				area = khuzestan_area
+				area = luristan_area
+				area = tabriz_area
+				area = azerbaijan_area
+				area = tabarestan_area
+				area = iraq_e_ajam_area
+				area = persian_gulf_coast
+				area = isfahan_area
+				area = farsistan_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = shahrizor_area
+					area = khuzestan_area
+					area = luristan_area
+					area = tabriz_area
+					area = azerbaijan_area
+					area = tabarestan_area
+					area = iraq_e_ajam_area
+					area = persian_gulf_coast
+					area = isfahan_area
+					area = farsistan_area
+				}
+				value = 20
+			}	
+		}
+		effect = {
+			ME_give_claims = { area = persia_region }
+			ME_give_claims = { area = khorasan_region }
+			ME_give_claims = { area = armenia_area }
+			ME_give_claims = { area = shirvan_area }
+			ME_give_claims = { area = dagestan_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = ARB_second_conquest_of_persia
+				duration = 9125
+			}
+			
+			if = {
+				limit = {
+					OR = {
+						religion = sunni
+						religion = shia
+					}
+				}
+				custom_tooltip = ARB_our_subjects_of_heresy_might_convert
+				every_subject_country = {
+					limit = {
+						OR = {
+							religion = sunni
+							religion = shia
+						}
+						NOT = { 
+							religion = ROOT
+						}
+					}
+					country_event = { id = ME_Arabia_Events.7 }
+				}
+			}
+		}
+	}
+	
+	ARB_subdue_iran = {
+		icon = mission_into_persia_2
+		required_missions = { ARB_into_persia }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				region = persia_region
+				region = khorasan_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+				}
+				value = 40
+			}
+			
+			
+			owns_core_province = 577
+			owns_core_province = 578
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_iran
+				duration = -1
+			}
+			
+			country_event = { id = ME_Arabia_Events.1 }
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { region = central_asia_region }
+		}
+	}
+	
+	ARB_arabia_sea_trade_routes = {
+		icon = mission_occupy_alexandria
+		required_missions = { ARB_build_up_navy ARB_subdue_iran }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1334
+				province_id = 1335
+			}
+			NOT = { 
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+		}
+		trigger = {
+			1334 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+			1335 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+			OR = {
+				1335 = {
+					trade_node_value = 30
+				}
+				1335 = {
+					trade_share = {
+						country = ROOT
+						share = 80
+					}
+				}
+			}
+		}
+		effect = {
+			add_mercantilism = 5
+			
+			custom_tooltip = " "
+			
+			504 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 15
+					key = ARB_gulf_trade
+				}
+			}
+			507 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 15
+					key = ARB_gulf_trade
+				}
+			}
+			1340 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 15
+					key = ARB_gulf_trade
+				}
+			}
+			1335 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 15
+					key = ARB_gulf_trade
+				}
+			}
+			1334 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 15
+					key = ARB_gulf_trade
+				}
+			}
+		}
+	}
+	
+	ARB_new_silk_road = {
+		icon = mission_valencian_silk
+		required_missions = { ARB_arabia_sea_trade_routes }
+		position = 7
+		provinces_to_highlight = {
+			trade_goods = silk
+		}
+		trigger = {
+			silk = 10
+			trading_part = {
+				trade_goods = silk
+				value = 0.2
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			
+			num_of_owned_provinces_with = {
+				trade_goods = silk
+				has_production_building_trigger = yes
+				development = 20
+				value = 5
+			}
+		}
+		effect = {
+			country_event = { id = ME_Arabia_Events.2 }
+			
+			custom_tooltip = " "
+			
+			set_country_flag = ARB_china_trade_flag
+			custom_tooltip = ARB_relations_with_china
+		}
+	}
+	
+	ARB_kilwa = {
+		icon = mission_son_own_develop_clothes_and_salt
+		required_missions = { ARB_secure_the_horn }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = quelimane_area
+				area = mombasa_area
+				area = central_swahili_coast_area
+				area = northern_swahili_coast_area
+				area = mogadishu_area
+				area = mozambique_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = quelimane_area
+					area = mombasa_area
+					area = central_swahili_coast_area
+					area = northern_swahili_coast_area
+					area = mogadishu_area
+					area = mozambique_area
+				}
+				value = 20
+			}
+		}
+		effect = {
+			country_event = { id = ME_Arabia_Events.8 }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = ARB_zanzibar
+				duration = -1
+			}
+		}
+	}
+}
+
+ARB_missions_1_2 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_mosques = {
+		icon = mission_mosque
+		required_missions = { }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = ROOT
+			base_tax = 10
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				base_tax = 10
+				value = 10
+			}
+		}
+		effect = {
+			custom_tooltip = ARB_most_developed_provinces
+			tooltip = {
+				add_or_upgrade_university_building = yes
+				add_or_upgrade_tax_building = yes 
+			}
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes 
+					event_target_name = "Arabia_Target"
+					scope = every_owned_province
+					scale = higher_development_than
+					global_trigger = " has_tax_building_trigger = yes base_tax = 10 "
+				}
+				event_target:Arabia_Target_1 = {
+					add_or_upgrade_university_building = yes
+					add_or_upgrade_tax_building = yes 
+				}
+				event_target:Arabia_Target_2 = {
+					add_or_upgrade_university_building = yes
+					add_or_upgrade_tax_building = yes 
+				}
+				event_target:Arabia_Target_3 = {
+					add_or_upgrade_university_building = yes
+					add_or_upgrade_tax_building = yes 
+				}
+			}
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Arabia_Events.18 }
+			
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				custom_tooltip = " "
+			
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 10
+				}
+			}
+		}
+	}
+	
+	ARB_loyal_ulema = {
+		icon = mission_ahmadabad_paper
+		required_missions = { ARB_second_heresy ARB_mosques }
+		position = 10
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				OR = {
+					num_of_estate_agendas_completed = {
+						estate = estate_church
+						value = 5
+					}
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 80
+					}
+				}
+			}
+			
+			OR = {
+				theologian = 2
+				inquisitor = 2
+				has_adm_advisor_3 = yes
+			}
+			stability = 3
+		}
+		effect = {
+			custom_tooltip = MZB_piety_events_will_give_double_the_piety
+			set_country_flag = ME_piety_events_double
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ME_upgrade_the_clerical_advisory_council_estate_privilege
+			set_country_flag = ARB_no_penalty_from_clerical_advisory_council
+			
+			custom_tooltip = " "
+			
+			add_positive_or_negative_piety = { amount = 0.25 }
+		}
+	}
+	
+	ARB_fatwa = {
+		icon = mission_vedic_education
+		required_missions = { ARB_a_new_caliphate ARB_loyal_ulema }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				piety = 0.9
+				NOT = { piety = -0.9 }
+			}
+
+			ME_has_religious_scholars_trigger = yes
+			religious_unity = 0.9
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 70
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ARB_enable_two_piety_interactions
+			set_country_flag = ARB_two_special_piety_interactions
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ARB_buff_the_invite_scholars_diplomatic_action_tt
+			set_country_flag = ARB_caliphal_invite_scholars_diplomatic_action
+			
+			# SCRAPPED due to too much randomness, maybe do it in a review
+			# custom_tooltip = ARB_every_country_of_root_religion
+			# tooltip = {
+				# country_event = { id = ME_Arabia_Events.19 }
+			# }
+			# custom_tooltip = ARB_favorable
+			
+			# hidden_effect = {
+				# country_event = { id = ME_Arabia_Events.21 } #the Arabian Fatwa
+			# }
+		}
+	}
+	
+	ARB_breadbasket = {
+		icon = mission_rb_colonise_spice_islands
+		required_missions = { }
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2316
+				province_id = 4316
+				province_id = 363
+				province_id = 362
+			}
+			OR = { 
+				NOT = { owned_by = ROOT }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+		trigger = {
+			2316 = {
+				has_production_building_trigger = yes
+				owned_by = ROOT
+			}
+			4316 = {
+				has_production_building_trigger = yes
+				owned_by = ROOT
+			}
+			363 = {
+				has_production_building_trigger = yes
+				owned_by = ROOT
+			}
+			362 = {
+				has_production_building_trigger = yes
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			2316 = { add_or_upgrade_production_building = yes }
+			4316 = { add_or_upgrade_production_building = yes }
+			363 = { add_or_upgrade_production_building = yes }
+			362 = { add_or_upgrade_production_building = yes }
+		}
+	}
+	
+	ARB_develop_the_delta = {
+		icon = mission_a_million_rice_fields
+		required_missions = { ARB_breadbasket }
+		position = 15 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2316
+				province_id = 4316
+				province_id = 363
+				province_id = 362
+			}
+			OR = { 
+				NOT = { owned_by = ROOT }
+				NOT = { development = 16 }
+			}
+		}
+		trigger = {
+			2316 = {
+				development = 16
+				owned_by = ROOT
+			}
+			4316 = {
+				development = 16
+				owned_by = ROOT
+			}
+			363 = {
+				development = 16
+				owned_by = ROOT
+			}
+			362 = {
+				development = 16
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_upgrade
+			hidden_effect = {
+				2316 = {
+					remove_province_modifier = granary_of_the_mediterranean
+					add_permanent_province_modifier = {
+						name = MAM_upgraded_granary
+						duration = -1
+					}
+				}
+				4316 = {
+					remove_province_modifier = granary_of_the_mediterranean
+					add_permanent_province_modifier = {
+						name = MAM_upgraded_granary
+						duration = -1
+					}
+				}
+				363 = {
+					remove_province_modifier = granary_of_the_mediterranean
+					add_permanent_province_modifier = {
+						name = MAM_upgraded_granary
+						duration = -1
+					}
+				}
+				362 = {
+					remove_province_modifier = granary_of_the_mediterranean
+					add_permanent_province_modifier = {
+						name = MAM_upgraded_granary
+						duration = -1
+					}
+				}
+			}
+			add_mercantilism = 2
+		}
+	}
+	
+	ARB_egyptian_recruitment = {
+		icon = mission_egyptian_mamluk_soldier
+		required_missions = { ARB_develop_the_delta ARB_military }
+		position = 17
+		provinces_to_highlight = {
+			culture = al_misr_arabic 
+			owned_by = ROOT
+			NOT = { has_forcelimit_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_forcelimit_building_trigger = yes
+				culture = al_misr_arabic 
+				value = 5
+			}
+			361 = {
+				has_forcelimit_building_trigger = yes
+				base_manpower = 10 
+			}
+		}
+		effect = {
+			361 = {
+				add_or_upgrade_forcelimit_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = recruitmaster
+				skill = 3
+				culture = al_misr_arabic
+				religion = ROOT
+				cost_multiplier = 0.33
+			}
+		}
+	}
+	
+	ARB_furusiyya = {
+		icon = mission_conquer_maharashtra
+		required_missions = { ARB_egyptian_recruitment }
+		position = 18
+		provinces_to_highlight = {
+		}
+		trigger = {
+			army_tradition = 50
+			army_size = 160
+			custom_trigger_tooltip = {
+				tooltip = ANY_MILITARY_IDEA_TT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_furusiyya_modifier
+				duration = -1
+			}
+			
+			country_event = { id = ME_Arabia_Events.15 }
+		}
+	}
+}
+
+ARB_missions_2_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_uniting_the_arabs = {
+		icon = mission_bedouins
+		required_missions = { }
+		position = 7
+		provinces_to_highlight = {
+			region = arabia_region
+			OR = {
+				NOT = { religion = ROOT }
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			arabia_region = {
+				type = all
+				religion = ROOT
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_tribes_reunited
+				duration = -1
+			}
+			
+			define_advisor = {
+				type = theologian
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.33
+			}
+		}
+	}
+	
+	ARB_second_heresy = {
+		icon = mission_turning_the_tables
+		required_missions = { ARB_uniting_the_arabs }
+		position = 9
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { religion = ROOT }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = obj_force_converted_tooltip
+				has_country_flag = force_converted
+			}
+			custom_trigger_tooltip = {
+				tooltip = ARB_converted_50_provinces
+				check_variable = { which = num_converted_religion value = 50 }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_converting_the_masses
+				duration = 14600
+			}
+			set_defender_of_the_faith_effect = yes
+			
+			custom_tooltip = " "
+			
+			add_adm_power = 50
+		}
+	}
+	
+	ARB_a_new_caliphate = {
+		icon = mission_fatimid_caliphate
+		required_missions = { }
+		position = 10
+		provinces_to_highlight = {
+			ME_abbasid_caliph_pth = yes
+		}
+		trigger = {
+			ME_abbasid_caliph_mission_trigger = yes
+			ME_can_become_caliphate_gov = yes
+		}
+		effect = {
+			set_country_flag = ME_arabian_caliphate
+			
+			country_event = { id = ME_Arabia_Events.6 } #Become Caliphate
+			
+			custom_tooltip = " "
+			custom_tooltip = ARB_every_muslim_not_of_root_religion
+			
+			hidden_effect = { 
+				every_country = {
+					limit = {
+						religion_group = muslim
+						NOT = { religion = ROOT }
+					}
+					country_event = { id = ME_Arabia_Events.16 days = 30 random = 150 }
+				}
+			}
+		}
+	}
+	
+	ARB_unify_islam = {
+		icon = mission_restore_caliphate_of_cordoba
+		required_missions = { ARB_a_new_caliphate }
+		position = 12
+		provinces_to_highlight = {
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ARB_has_unified_islam
+				has_country_flag = unified_islam
+			}
+			total_development = 2500
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_islam_is_whole_again
+				duration = -1
+			}
+			
+			#Import malay stuff
+			
+			change_national_focus_effect = yes
+		}
+	}
+	
+	ARB_extend_routes = {
+		icon = mission_traverse_the_sahara
+		required_missions = { ARB_hajj_routes ARB_breadbasket }
+		position = 14
+		provinces_to_highlight = {
+			ARB_is_in_extended_pilgrim_route = yes
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = HED_highlighted_area_is_owned_by_us_subject_or_overlord_and_has_road_network
+				ARB_pilgrim_route_extended_trigger = {
+					trigger = "
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								overlord_of = ROOT
+							}
+						}
+						if = {
+							limit = {
+								is_expanded_mod_active = { mod = trade_goods }
+							}
+							OR = {
+								has_building = early_road
+								has_building = gravel_road
+								has_building = royal_road
+								has_building = macadam_road
+								has_building =railroad
+							}
+						}
+						else = {
+							num_of_times_improved = 3
+						}
+					"
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ARB_the_highlighted_area
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = HED_road
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				ARB_pilgrim_route_extended_effect = {
+					effect = "
+						add_permanent_province_modifier = {
+							name = HED_road
+							duration = -1
+						}
+					"
+				}
+			}
+			
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+	
+	ARB_military = {
+		icon = mission_deccanis
+		required_missions = { }
+		position = 16
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 80
+				army_size_percentage = 0.9
+			}
+			num_of_generals = 4
+			has_mil_advisor_2 = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_army_reforms
+				duration = 7300
+			}
+			
+			add_mil_power = 100
+		}
+	}
+	
+	ARB_amsar = {
+		icon = mission_arabian_fort
+		required_missions = { ARB_military }
+		position = 17
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				fort_level = 2
+				base_manpower = 5
+				has_manpower_building_trigger = yes
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_frontier_forts
+				duration = -1
+			}
+			
+			custom_tooltip = ARB_every_province_fulfilling_the_requirements
+			tooltip = {
+				add_province_modifier = {
+					name = ARB_misr
+					duration = 9125
+				}
+			}
+			
+			custom_tooltip = ARB_most_developed_provinces
+			tooltip = {
+				add_or_upgrade_manpower_building = yes 
+				add_province_modifier = {
+					name = ARB_growing_into_a_city
+					duration = -1
+				}
+				add_base_manpower = 1
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						fort_level = 2
+						base_manpower = 5
+						has_manpower_building_trigger = yes
+					}
+					add_province_modifier = {
+						name = ARB_misr
+						duration = 9125
+					}
+				}
+				pick_best_provinces = {
+					3 = yes 
+					scale = higher_development_than
+					scope = every_owned_province
+					global_trigger = "
+						fort_level = 2
+						base_manpower = 5
+						has_manpower_building_trigger = yes
+					"
+					event_target_name = "Arabia_Target"
+				}
+				event_target:Arabia_Target_1 = {
+					add_or_upgrade_manpower_building = yes 
+					add_province_modifier = {
+						name = ARB_growing_into_a_city
+						duration = -1
+					}
+					add_base_manpower = 1
+				}
+				event_target:Arabia_Target_2 = {
+					add_or_upgrade_manpower_building = yes 
+					add_province_modifier = {
+						name = ARB_growing_into_a_city
+						duration = -1
+					}
+					add_base_manpower = 1
+				}
+				event_target:Arabia_Target_3 = {
+					add_or_upgrade_manpower_building = yes 
+					add_province_modifier = {
+						name = ARB_growing_into_a_city
+						duration = -1
+					}
+					add_base_manpower = 1
+				}
+			}
+		}
+	}
+	
+	ARB_modernize = {
+		icon = mission_gunpowder_warfare
+		required_missions = { ARB_arabian_horses }
+		position = 18
+		provinces_to_highlight = {
+			is_expanded_mod_active = { mod = trade_goods }
+			trade_goods = gunpowder
+		}
+		trigger = {
+			num_of_artillery = 40
+			has_leader_with = {
+				fire = 4
+				general = yes
+			}
+			if = {
+				limit = {
+					is_expanded_mod_active = { mod = trade_goods }
+				}
+				any_owned_province = {
+					trade_goods = gunpowder
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					is_expanded_mod_active = { mod = trade_goods }
+				}
+				custom_tooltip = ARB_most_developed_gunpowder_province
+				tooltip = {
+					add_province_modifier = {
+						name = ARB_gunpowder_province
+						duration = -1
+					}
+				}
+				hidden_effect = {
+					pick_best_provinces = {
+						1 = yes
+						scale = higher_development_than
+						scope = every_owned_province
+						event_target_name = "Arabia_Target"
+						global_trigger = " trade_goods = gunpowder "
+					}
+					event_target:Arabia_Target_1 = {
+						add_province_modifier = {
+							name = ARB_gunpowder_province
+							duration = -1
+						}
+					}
+				}
+			}
+			add_country_modifier = {
+				name = ARB_rise_of_a_gunpowder_empire
+				duration = 10950
+			}
+			
+			add_army_tradition_or_mil_power = { amount = 15 }
+		}
+	}
+}
+
+ARB_missions_3_2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_jihad = {
+		icon = me_mission_muslim_priest
+		required_missions = { }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			at_war_with_religious_enemy = yes
+		}
+		effect = {
+			add_yearly_manpower = 1
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = ARB_calling_all_to_war
+				duration = 5475
+			}
+		}
+	}
+	
+	ARB_enforce_sharia = {
+		icon = me_mission_muslim_family
+		required_missions = { ARB_a_new_caliphate ARB_jihad }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_courthouse_building_trigger = yes
+				value = 25
+			}
+			custom_trigger_tooltip = {
+				tooltip = TEU_ttf_tooltip
+				has_global_modifier_value = {
+					which = tolerance_own
+					value = 6 #this thing works but always shows up as +600.0% Tolerance of true faith
+				}
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+		}
+		effect = {
+			country_event = { id = ME_Arabia_Events.24 }
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				custom_tooltip = ARB_upgrade_a_privilege
+				set_country_flag = ARB_fiqh_privilege_upgrade
+			}
+			
+		}
+	}
+	
+	ARB_jizyah = {
+		icon = dominant_economy
+		required_missions = { ARB_enforce_sharia }
+		position = 12
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				num_of_estate_privileges = {
+					estate = estate_dhimmi
+					value = 3 
+				}
+				estate_loyalty = {
+					estate = estate_dhimmi
+					loyalty = 60
+				}
+			}
+			has_global_modifier_value = {
+				which = tolerance_heathen
+				value = 0
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_jizya_enforced
+				duration = -1
+			}
+			
+			country_event = { id = ME_Arabia_Events.20 }
+		}
+	}
+	
+	ARB_hajj_routes = {
+		icon = mission_saharan_route
+		required_missions = { ARB_new_capital }
+		position = 13
+		provinces_to_highlight = {
+			ARB_is_in_pilgrim_route = yes
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = HED_highlighted_area_is_owned_by_us_subject_or_overlord_and_has_road_network
+				ARB_pilgrim_route_trigger = {
+					trigger = "
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								overlord_of = ROOT
+							}
+						}
+						if = {
+							limit = {
+								is_expanded_mod_active = { mod = trade_goods }
+							}
+							OR = {
+								has_building = early_road
+								has_building = gravel_road
+								has_building = royal_road
+								has_building = macadam_road
+								has_building =railroad
+							}
+						}
+						else = {
+							num_of_times_improved = 3
+						}
+					"
+				}
+			}
+		}
+		effect = {
+			384 = {
+				remove_province_modifier = HED_pilgrims_arriving_en_masse
+				add_permanent_province_modifier = {
+					name = HED_pilgrims_arriving_en_masse_2
+					duration = -1
+				}
+			}
+			385 = {
+				remove_province_modifier = HED_pilgrims_arriving_en_masse
+				add_permanent_province_modifier = {
+					name = HED_pilgrims_arriving_en_masse_2
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ARB_holy_cities = {
+		icon = mission_conquer_rewakantha
+		required_missions = { ARB_hajj_routes }
+		position = 15
+		provinces_to_highlight = {
+			OR = {
+				province_id = 384
+				province_id = 385
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_building = cathedral }
+				NOT = { development = 35 }
+			}
+		}
+		trigger = {
+			384 = {
+				owned_by = ROOT
+				has_building = cathedral
+				development = 35
+			}
+			
+			385 = {
+				owned_by = ROOT
+				has_building = cathedral
+				development = 35
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				set_country_flag = ARB_buff_kaaba
+				custom_tooltip = ARB_buff_kaaba_tt
+				
+				custom_tooltip = " "
+			}
+			else = {
+				add_country_modifier = {
+					name = ARB_no_leviathan
+					duration = 10950
+				}
+			}
+			
+			set_global_flag = mimar_sinan_flag
+			
+			custom_tooltip = " "
+			
+			add_splendor = 400
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+	
+	ARB_arabian_horses = {
+		icon = mission_marwari_horses
+		required_missions = { ARB_military }
+		position = 17
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				num_of_cavalry = 20
+				cavalry_fraction = 0.1
+			}
+		}
+		effect = {
+			# Fursan -  Mobile Guard (Tulay'a mutaharikkah) - 
+			add_country_modifier = {
+				name = ARB_fursan
+				duration = 9125
+			}
+			set_country_flag = ARB_arabian_horses_flag
+			
+			custom_tooltip = ARB_tulaya_mutahar
+		}
+	}
+	
+	ARB_champions = {
+		icon = mission_conquer_sindh_mer
+		required_missions = { ARB_arabian_horses }
+		position = 19
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.25
+			}
+			else = {
+				army_tradition = 60
+				
+			}
+			has_mil_advisor_3 = yes
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				monthly_mil = 12
+			}
+			else = {
+				monthly_mil = 10
+			}
+		}
+		effect = {
+			# Mubarizun - champions, fought against each other at the beginning of each battle 
+			# Asawira - Rashidun/Ummayad, based on sassanian unit. disbanded early
+			# Haras - personal bodyguard of the caliphs
+			# Ushrusaniyya - abbasid, come from transoxiana
+			# Maghariba - abbasid, of north african origin
+			# Shakiriyya - abbasid, of iranian origin
+			# Ishtakhaniyya - abbasid of transoxianan origin AGAIN
+			# Faraghina from Ferghana and transoxiana
+			
+			set_country_flag = ARB_company
+			custom_tooltip = ARB_enable_the_mubarizun_company
+			
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Arabia_Events.17 }
+		}
+	} 
+}
+
+ARB_missions_4_2 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_arabian_coffee = {
+		icon = mission_consume_the_baghels
+		required_missions = { ARB_finest_goods_of_arabia }
+		position = 10
+		provinces_to_highlight = {
+			trade_goods = coffee
+			owned_by = ROOT
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = coffee
+				amount = 5
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			
+			num_of_owned_provinces_with = {
+				trade_goods = coffee
+				has_production_building_trigger = yes
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_coffee_entrepot
+				duration = 10950
+			}
+			
+			country_event = { id = ME_Arabia_Events.12 } #National Drink?
+		}
+	}
+	
+	ARB_production_income = {
+		icon = mission_industria_sedera
+		required_missions = { ARB_pearls_of_the_east ARB_arabian_coffee }
+		position = 11
+		provinces_to_highlight = {
+			owned_by = ROOT
+			development = 15
+			NOT = { has_manufactory_trigger = yes }
+			NOT = { trade_goods = gold }
+		}
+		trigger = {
+			if = {
+				limit = {
+					production_income_percentage = 0.01
+				}
+				custom_trigger_tooltip = {
+					tooltip = ARB_at_least_60_production_income
+					variable_arithmetic_trigger = {
+						export_to_variable = {
+							which = current_production_income
+							value = monthly_income
+						}
+						export_to_variable = {
+							which = production_income_share
+							value = trigger_value:production_income_percentage
+						}
+						multiply_variable = { which = current_production_income which = production_income_share }
+						check_variable = { which = current_production_income value = 60 }
+					}
+				}
+				#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			}
+			
+			num_of_owned_provinces_with = {
+				has_manufactory_trigger = yes
+				development = 15
+				value = 20
+			}
+		}
+		effect = {
+			add_years_of_income = 0.75
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 3
+		
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = ARB_some_income_boost
+				duration = 7300
+			}
+		}
+	}
+	
+	ARB_new_capital = {
+		icon = mission_develop_cordoba
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				province_id = 361
+				province_id = 410
+				province_id = 385
+				province_id = 382
+			}
+			NOT = { ARB_new_capital_mission_trigger = yes }
+		}
+		trigger = {
+			361 = { #cairo
+				ARB_new_capital_mission_trigger = yes
+			}
+			410 = { #bagdad
+				ARB_new_capital_mission_trigger = yes
+			}
+			385 = { #mekka
+				ARB_new_capital_mission_trigger = yes
+			}
+			382 = { #dimashq
+				ARB_new_capital_mission_trigger = yes 
+			}
+			if = {
+				limit = {
+					was_tag = NAJ
+				}
+				392 = { #al arid (riyadh)
+					ARB_new_capital_mission_trigger = yes
+				}
+			} #might add more in the future
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_prosperity_in_the_cities
+				duration = 10950
+			}
+			
+			country_event = { id = ME_Arabia_Events.14 } # A New Capital
+			
+			custom_tooltip = " "
+			
+			set_country_flag = estate_burghers_desert_development_upgrade_flag
+			custom_tooltip = ARB_upgrade_desert_development_priv
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_province_modifier = estate_burghers_desert
+					}
+					remove_province_modifier = estate_burghers_desert
+					remove_province_modifier = estate_burghers_desert_upgraded
+				}
+				every_owned_province = {
+					limit = {
+						OR = {
+							has_terrain = desert
+							has_terrain = coastal_desert
+						}
+					}
+					add_province_modifier = {
+						name = estate_burghers_desert_upgraded
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+	
+	ARB_arabia = {
+		icon = mission_conquer_algiers
+		required_missions = { ARB_new_capital }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				region = arabia_region
+				region = egypt_region
+				region = mashriq_region
+			}
+		}
+		trigger = {
+			arabia_region = {
+				type = all
+				owned_by = ROOT
+			}
+			egypt_region = {
+				type = all
+				owned_by = ROOT
+			}
+			mashriq_region = {
+				type = all
+				owned_by = ROOT
+			}
+			development_in_provinces = {
+				OR = {
+					region = arabia_region
+					region = egypt_region
+					region = mashriq_region
+				}
+				value = 1200
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+		}
+		effect = {
+			egypt_region = {
+				add_province_modifier = {
+					name = ARB_the_core
+					duration = -1
+				}
+			}
+			mashriq_region = {
+				add_province_modifier = {
+					name = ARB_the_core
+					duration = -1
+				}
+			}
+			arabia_region = {
+				add_province_modifier = {
+					name = ARB_the_core
+					duration = -1
+				}
+			}
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+	
+	ARB_barid = {
+		icon = mission_war_chest
+		required_missions = { ARB_bait_ul_maal }
+		position = 17
+		provinces_to_highlight = {
+			NOT = {
+				is_expanded_mod_active = { mod = trade_goods }
+			}
+			num_of_times_improved = 5
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				num_of_times_improved = 5
+				custom_trigger_tooltip = { always = yes tooltip = ARB_provinces_highlighted }
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_barid_routes_reestablished
+				duration = 9125
+			}
+			
+			add_country_modifier = {
+				name = ARB_barid
+				duration = -1
+			}
+		}
+	}
+}
+
+ARB_missions_5_2 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = ARB
+	}
+	has_country_shield = yes
+	
+	ARB_finest_goods_of_arabia = {
+		icon = mission_dominate_persian_gulf
+		required_missions = { }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_production_building_trigger = yes
+				value = 20
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_famous_goods_of_arabia
+				duration = 7300
+			}
+			
+			custom_tooltip = ARB_distribute_15_base_tax_among_production_buildings
+			hidden_effect = {
+				for = {
+					amount = 15
+					effect = "
+						random_owned_province = {
+							limit = {
+								has_production_building_trigger = yes
+							}
+							add_base_tax = 1
+						}
+					"
+				}
+				if = {
+					limit = {
+						estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 60
+						}
+					}
+					for = {
+						amount = 5
+						effect = "
+							random_owned_province = {
+								limit = {
+									has_production_building_trigger = yes
+								}
+								add_base_production = 1
+							}
+						"
+					}
+				}
+			}
+		}
+	}
+	
+	ARB_pearls_of_the_east = {
+		icon = mission_portuguese_oman
+		required_missions = { ARB_finest_goods_of_arabia }
+		position = 10
+		provinces_to_highlight = {
+			# if = {
+				# limit = {
+					# is_expanded_mod_active = { mod = trade_goods }
+				# }
+				# trade_goods = pearls
+				# owned_by = ROOT
+			# }
+			# else = {
+				trade_goods = gems
+				owned_by = ROOT
+			# }
+		}
+		trigger = {
+			# if = {
+				# limit = {
+					# is_expanded_mod_active = { mod = trade_goods }
+				# }
+				# trade_goods_produced_amount = {
+					# trade_goods = pearls
+					# amount = 5
+				# }
+			# }
+			# else = {
+				trade_goods_produced_amount = {
+					trade_goods = gems
+					amount = 4
+				}
+			# }
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			
+			400 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
+			}
+			2999 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
+			}
+			395 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
+			}
+			396 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			400 = {
+				add_permanent_province_modifier = {
+					name = ARB_gems_province_modifier
+					duration = -1
+				}
+			}
+			2999 = {
+				add_permanent_province_modifier = {
+					name = ARB_gems_province_modifier
+					duration = -1
+				}
+			}
+			395 = {
+				add_permanent_province_modifier = {
+					name = ARB_gems_province_modifier
+					duration = -1
+				}
+			}
+			396 = {
+				add_permanent_province_modifier = {
+					name = ARB_gems_province_modifier
+					duration = -1
+				}
+			}
+			
+			country_event = { id = ME_Arabia_Events.23 }
+			
+			custom_tooltip = " "
+			
+			add_years_of_owned_provinces_production_income = {
+				years = 20
+				trigger = {
+					trade_goods = gems
+				}
+				custom_tooltip = ARB_prod_from_gems
+			}
+		}
+	}
+	
+	ARB_revitalize_sciences = {
+		icon = mission_friends_or_enemies
+		required_missions = { }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				piety = 0.75
+				NOT = { piety = -0.74 }
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = natural_scientist
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			
+			custom_tooltip = " "
+
+			custom_tooltip = ARB_gain_25_mana_for_each_level
+
+			hidden_effect = {
+				if = {
+					limit = {
+						has_adm_advisor = yes
+					}
+					add_adm_power = 25
+					if = {
+						limit = {
+							has_adm_advisor_2 = yes
+						}
+						add_adm_power = 25
+						if = {
+							limit = {
+								has_adm_advisor_3 = yes
+							}
+							add_adm_power = 25
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_dip_advisor = yes
+					}
+					add_dip_power = 25
+					if = {
+						limit = {
+							has_dip_advisor_2 = yes
+						}
+						add_dip_power = 25
+						if = {
+							limit = {
+								has_dip_advisor_3 = yes
+							}
+							add_dip_power = 25
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_mil_advisor = yes
+					}
+					add_mil_power = 25
+					if = {
+						limit = {
+							has_mil_advisor_2 = yes
+						}
+						add_mil_power = 25
+						if = {
+							limit = {
+								has_mil_advisor_3 = yes
+							}
+							add_mil_power = 25
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	ARB_house_of_wisdom = {
+		icon = mission_develop_alhambra
+		required_missions = { ARB_new_capital ARB_revitalize_sciences }
+		position = 13
+		provinces_to_highlight = {
+			province_id = 410
+		}
+		trigger = {
+			410 = {
+				owned_by = ROOT
+				development = 40
+				has_tax_building_trigger = yes
+			}
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_mil_advisor_3 = yes 
+		
+			years_of_income = 1
+		}
+		effect = {
+			410 = {
+				add_or_upgrade_university_building = yes
+				
+				add_province_triggered_modifier = ARB_house_of_wisdom_modifier
+			}
+			
+			#custom_tooltip = " "
+			
+			set_country_flag = ARB_assemble_the_scholars_flag
+			custom_tooltip = ARB_assemble_the_scholars_flag_tt
+			
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Arabia_Events.13 } #House of Wisdom
+		}
+	}
+	
+	ARB_second_islamic_golden_age = {
+		icon = mission_golden_century
+		required_missions = { ARB_house_of_wisdom }
+		position = 15
+		provinces_to_highlight = {
+		}
+		trigger = {
+			university = 15
+			any_owned_province = {
+				development = 60
+				num_of_buildings_in_province = 6
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				OR = {
+					has_had_golden_age = yes
+					in_golden_age = yes
+				}
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				OR = {
+					has_idea_group = innovativeness_ideas
+					innovativeness = 60
+				}
+			}
+			else = {
+				monthly_adm = 12
+				monthly_dip = 12
+				monthly_mil = 12
+			}
+		}
+		effect = {
+			410 = {
+				add_institution_embracement = {
+					which = enlightenment
+					value = 100
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = GRA_polymath_tt
+			set_country_flag = GRA_polymath
+			
+			#custom_tooltip = " "
+			
+			ME_add_or_reset_golden_age = yes
+		}
+	}
+	
+	ARB_bait_ul_maal = {
+		icon = mission_jawal_silver_mine
+		required_missions = { }
+		position = 16
+		provinces_to_highlight = {
+		}
+		trigger = {
+			#eco or trade ideas make it easier?
+			treasury = 1500
+			NOT = { inflation = 0.5 }
+			NOT = { num_of_loans = 1 }
+			monthly_income = 100
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_house_of_taxes
+				duration = -1
+			}
+			
+			add_years_of_income = 1
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ARB_everytime_we_develop
+			set_country_flag = ARB_extra_base_tax
+		}
+	}
+	
+	ARB_collect_zakat = {
+		icon = mission_establish_mint_towns
+		required_missions = { ARB_bait_ul_maal }
+		position = 18
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 50
+			}
+			if = {
+				limit = {
+					tax_income_percentage = 0.01
+				}
+				custom_trigger_tooltip = {
+					tooltip = ARB_at_least_60_tax_income
+					variable_arithmetic_trigger = {
+						export_to_variable = {
+							which = current_tax_income
+							value = monthly_income
+						}
+						export_to_variable = {
+							which = tax_income_share
+							value = trigger_value:tax_income_percentage
+						}
+						multiply_variable = { which = current_tax_income which = tax_income_share }
+						check_variable = { which = current_tax_income value = 60 }
+					}
+				}
+			}
+			has_adm_advisor = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_zakat_collected
+				duration = -1
+			}
+			
+			country_event = { id = ME_Arabia_Events.11 }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ARB_interaction_to_ask_for_zakat
+			set_country_flag = ARB_can_ask_for_zakat
+		}
+	}
+	
+	ARB_market_inspectors = {
+		icon = mission_entrepot_of_india
+		required_missions = { ARB_collect_zakat }
+		position = 19
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					tax_income_percentage = 0.01
+				}
+				custom_trigger_tooltip = {
+					tooltip = ARB_at_least_250_tax_income
+					variable_arithmetic_trigger = {
+						export_to_variable = {
+							which = current_tax_income
+							value = monthly_income
+						}
+						export_to_variable = {
+							which = tax_income_share
+							value = trigger_value:tax_income_percentage
+						}
+						multiply_variable = { which = current_tax_income which = tax_income_share }
+						check_variable = { which = current_tax_income value = 250 }
+					}
+				}
+			}
+			
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				value = 25
+			}
+			
+			has_global_modifier_value = {
+				which = global_tax_modifier
+				value = 1
+			}
+			##ME_pt_feedback_requested = yes
+		}
+		effect = {
+			set_country_flag = ARB_treasurer_now_gives_3_tax
+			custom_tooltip = ARB_treasurer_now_gives_3_tax_tt
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ARB_unlock_muhtasib_privilege_and_add_tax
+			set_country_flag = ARB_muhtasib_flag
+		}
+	}
+}

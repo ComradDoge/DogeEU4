@@ -1,0 +1,355 @@
+IRQ_SYR_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = SYR
+			tag = IRQ
+		}
+		has_country_flag = SYR_subject_missions
+	}
+	has_country_shield = yes
+
+	SYR_greater_root = { #usings syrian namespace
+		icon = mission_restore_faith_in_the_throne
+		required_missions = { SYR_restore_the_borders }
+		position = 2
+		provinces_to_highlight = {
+			is_core = ROOT
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						overlord_of = ROOT 
+					}
+				}
+			}
+		}
+		trigger = {
+			all_core_province = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						overlord_of = ROOT 
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = SYR_expansion
+				duration = -1 
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_army_tradition_or_mil_power = { amount = 15 }
+					
+					add_adm_power = 50
+					add_dip_power = 50 
+				"
+			}
+		}
+	}
+}
+
+IRQ_SYR_missions_1_2 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = SYR
+			tag = IRQ
+		}
+		has_country_flag = SYR_subject_missions
+		NOT = {
+			OR = {
+				has_country_flag = SYR_we_are_free
+				has_country_flag = IRQ_we_are_free
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	SYR_growing_integration = {
+		icon = mission_restore_caliphate_of_cordoba
+		required_missions = { SYR_centralized_subject }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = ROOT
+		}
+		trigger = {
+			NOT = {
+				liberty_desire = 5
+			}
+			
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				overlord = {
+					has_dip_advisor_2 = yes
+					reverse_has_opinion = {
+						who = PREV
+						value = 200
+					}
+				}
+			}
+		}
+		effect = {
+			disable_annex_penalty = yes
+			
+			custom_tooltip = SYR_exclusive_with_permanent
+			hidden_effect = {
+				swap_non_generic_missions = yes
+			}
+		}
+	}
+}
+
+IRQ_SYR_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = SYR
+			tag = IRQ
+		}
+		has_country_flag = SYR_subject_missions
+	}
+	has_country_shield = yes
+
+	SYR_restore_the_borders = {
+		icon = mission_abu_saids_dream
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_core = ROOT
+			NOT = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						overlord_of = ROOT 
+					}
+				}
+			}
+		}
+		trigger = {
+			all_core_province = {
+				OR = {
+					owned_by = ROOT
+					owner = {
+						overlord_of = ROOT 
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { tag = SYR }
+				palestine_area = { add_core = ROOT }
+				trans_jordan_area = { add_core = ROOT }
+			}
+			else = {
+				basra_area = { add_core = ROOT }
+				2314 = { add_core = ROOT }
+				407 = { add_core = ROOT }
+				4292 = { add_core = ROOT }
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					tooltip = {
+						create_general_with_pips = {
+							tradition = 60
+							add_shock = 1
+						}
+					}
+					country_event = { id = ME_Syria_Events.4 } #Gain the general
+				"
+			}
+		}
+	}
+	
+	SYR_centralized_subject = {
+		icon = mission_retake_ceuta
+		required_missions = { SYR_restore_the_borders }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				is_permanent_claim = ROOT
+				is_core = ROOT
+				is_claim = ROOT
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			total_development = 100
+		}
+		effect = {
+			add_country_modifier = {
+				name = SYR_combat_readiness
+				duration = 9125
+			}
+			
+			add_adm_power = 100
+		
+			ME_overlord_effect = {
+				effect = "
+					change_government_reform_progress = 50
+					
+					add_adm_power = 100
+				"
+			}
+		}
+	}
+}
+
+IRQ_SYR_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = SYR
+			tag = IRQ
+		}
+		has_country_flag = SYR_subject_missions
+	}
+	has_country_shield = yes
+
+	SYR_develop_capital = {
+		icon = mission_develop_cordoba
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			capital_scope = {
+				num_of_times_improved = 7
+				num_of_buildings_in_province = 2
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = SYR_developed_capital
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					capital_scope = {
+						add_base_tax = 2
+						add_base_production = 2
+						add_base_manpower = 1
+					}
+					
+					add_stability_or_adm_power = yes
+				"
+			}
+		}
+	}
+	
+	SYR_march = {
+		icon = mission_conquer_mewar
+		required_missions = { SYR_develop_capital SYR_restore_the_borders }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_manpower_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_manpower_building_trigger = yes
+				value = 3
+			}
+		}
+		effect = {
+			custom_tooltip = SYR_distribute_15_manpower
+			hidden_effect = {
+				for = {
+					amount = 15
+					effect = "
+						random_owned_province = {
+							add_base_manpower = 1
+						}
+					"
+				}
+			}
+		
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = SYR_conscripts_from_the_march
+						duration = 5475
+					}
+				"
+			}
+		}
+	}
+}
+
+
+IRQ_SYR_missions_3_2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = SYR
+			tag = IRQ
+		}
+		has_country_flag = SYR_subject_missions
+		NOT = { has_country_flag = ME_causes_no_annexation_penalty }
+	}
+	has_country_shield = yes
+	
+	SYR_permanent_subject = {
+		icon = mission_fatimid_caliphate
+		required_missions = { SYR_centralized_subject }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				is_march = yes
+				NOT = {
+					liberty_desire = 5
+				}
+			}
+			
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				overlord = {
+					diplomatic_reputation = 3
+					monthly_dip = 10
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = SYR_overlordship_will_no_longer_cost_diplo_slot
+			if = {
+				limit = {
+					tag = IRQ
+				}
+				set_global_flag = IRQ_someone_got_free_slot
+				set_country_flag = IRQ_we_are_free
+			}
+			else = {
+				set_global_flag = SYR_someone_got_free_slot
+				set_country_flag = SYR_we_are_free
+			}
+			
+			custom_tooltip = SYR_exclusive_with_integration
+			hidden_effect = {
+				swap_non_generic_missions = yes
+			}
+		}
+	}
+}

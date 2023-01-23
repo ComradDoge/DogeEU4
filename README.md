@@ -39,6 +39,7 @@ Checksum: -
 - Nestorian is now in the game and use the Patriarchal system with their own icons.
 - Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
 - Provincial increase from developing production lowered 0.2>0.1 to nerf trade value build up.
+- ME: added a bunch of middle east missions from Europa Expanded. Mention any weird gameplay quirks.
 - Religion screens like aspect windows (like protestant or anglican) and orthodox windows extended so it's no longer cramped.
 - AB: Added an edited mission tree for Trieste and Wallachia/Moldavia from Ante Bellum, a mod that I recommend you to check out.
 - Tweaked the Morroco area by shuffling the development around and making Sale (Pirate Republic) appear at start. God help us all.

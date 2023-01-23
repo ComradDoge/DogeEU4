@@ -1,0 +1,475 @@
+#Localisation for this file is contained within Arabia Files
+
+ARB_generic_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_arabian_missions = yes
+		NOT = { has_country_flag = SYR_subject_missions }
+	}
+	has_country_shield = yes
+	
+	ARBG_unite_the_tribes = {
+		icon = mission_reclaim_morocco
+		required_missions = { ARBG_kindle_the_flames_of_war }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			stability = 2
+			religious_unity = 0.8
+		}
+		effect = {
+			add_legitimacy_equivalent = {
+				amount = 20
+				republican_tradition = 5
+			}
+			
+			custom_tooltip = " "
+			
+			add_tribal_allegiance = 20
+			
+			custom_tooltip = " "
+			
+			add_yearly_manpower = 1
+		}
+	}
+	
+	ARBG_unity = {
+		icon = mission_saharan_route
+		required_missions = { ARBG_unite_the_tribes ARBG_expand }
+		position = 4
+		provinces_to_highlight = {
+			culture_group = turko_semitic
+			NOT = { 
+				ROOT = {
+					accepted_culture = PREV
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				accepted_culture = turkish
+				accepted_culture = al_misr_arabic
+				accepted_culture = al_suryah_arabic
+				accepted_culture = al_iraqiya_arabic
+				accepted_culture = gulf_arabic
+				accepted_culture = bedouin_arabic
+				accepted_culture = mahri_culture
+				accepted_culture = hejazi_culture
+				accepted_culture = omani_culture
+				accepted_culture = yemeni_culture
+				amount = 3
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = ARB_tribal_unity
+				duration = 18250
+				age = age_of_reformation
+			}
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+}
+
+ARB_generic_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_arabian_missions = yes
+		NOT = { has_country_flag = SYR_subject_missions }
+	}
+	has_country_shield = yes
+	
+	ARBG_kindle_the_flames_of_war = {
+		icon = mission_levantine_restoration
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				is_at_war = yes
+				army_size_percentage = 0.85
+				army_size = 8
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARBG_flames_of_war
+				duration = 7300
+			}
+			
+			ARB_claims_capital = yes
+		}
+	}
+	
+	ARBG_expand = {
+		icon = mission_afghan_frontier
+		required_missions = { ARBG_kindle_the_flames_of_war }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				is_claim = ROOT
+				is_core = ROOT
+				is_permanent_claim = ROOT
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_cities = 8
+		}
+		effect = {
+			ARB_claims_next = yes
+		}
+	}
+	
+	ARBG_expand_2 = { #sorry kekw
+		icon = mission_reconquer_ceuta
+		required_missions = { ARBG_expand }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				is_claim = ROOT
+				is_core = ROOT
+				is_permanent_claim = ROOT
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_cities = 25
+			army_tradition = 40 
+		}
+		effect = {
+			ARB_claims_arabia = yes
+			
+			custom_tooltip = " "
+			
+			create_general_with_pips = {
+				tradition = 75
+				add_fire = 1
+				add_shock = 1 
+			}
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 100 
+		}
+	}
+}
+
+ARB_generic_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_arabian_missions = yes
+		NOT = { has_country_flag = SYR_subject_missions }
+	}
+	has_country_shield = yes
+	
+	ARBG_arabian_trade_center = {
+		icon = mission_arabian_ports
+		required_missions = { ARBG_kindle_the_flames_of_war }
+		position = 2
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					ROOT = {
+						any_owned_province = { province_has_center_of_trade_of_level = 1 }
+					}
+				}
+				owned_by = ROOT
+				province_has_center_of_trade_of_level = 1
+			}
+			else = {
+				province_has_center_of_trade_of_level = 1
+				NOT = { owned_by = ROOT }
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				province_has_center_of_trade_of_level = 1
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			add_mercantilism = 3
+			
+			custom_tooltip = " "
+			
+			home_trade_node_effect_scope = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 15
+					key = ARBG_supporting_trade
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ARBG_most_deved
+			tooltip = {
+				add_or_upgrade_trade_building = yes
+			}
+			hidden_effect = {
+				pick_best_provinces = {
+					1 = yes
+					scope = every_owned_province
+					scale = higher_development_than
+					event_target_name = "Arabia_Target"
+					global_trigger = "
+						province_has_center_of_trade_of_level = 1
+						has_trade_building_trigger = yes
+					"
+				}
+				event_target:Arabia_Target = {
+					add_or_upgrade_trade_building = yes
+				}
+			}
+		}
+	}
+	
+	ARBG_trading_in_dates = {
+		icon = mission_valencian_silk
+		required_missions = { ARBG_arabian_trade_center }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					is_expanded_mod_active = { mod = trade_goods }
+					trade_goods = dates
+				}
+				AND = {
+					NOT = { is_expanded_mod_active = { mod = trade_goods } }
+					owned_by = ROOT
+					OR = {
+						NOT = { has_trade_building_trigger = yes }
+						NOT = { has_production_building_trigger = yes }
+					}
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					is_expanded_mod_active = { mod = trade_goods }
+				}
+				trading_part = {
+					trade_goods = dates
+					value = 0.1
+				}
+				#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			}
+			else = {
+				num_of_owned_provinces_with = {
+					has_production_building_trigger = yes
+					has_trade_building_trigger = yes
+					value = 3
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					is_expanded_mod_active = { mod = trade_goods }
+				}
+				ME_add_years_of_trade_income = { years = 3 }
+				
+				custom_tooltip = " "
+				
+				custom_tooltip = ARB_every_province_producing_dates
+				tooltip = {
+					add_province_modifier = {
+						name = ARB_date_production
+						duration = 10950 
+					}
+				}
+				
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							trade_goods = dates
+						}
+						add_province_modifier = {
+							name = ARB_date_production
+							duration = 10950 
+						}
+					}
+				}
+			}
+			else = {
+				ME_add_years_of_trade_income = { years = 3 }
+				
+				custom_tooltip = " "
+				
+				add_mercantilism = 10
+			}
+		}
+	}
+	
+	ARBG_arabian_ambition = {
+		icon = mission_unite_home_region
+		required_missions = { ARBG_expand_2 }
+		position = 5
+		provinces_to_highlight = {
+			ARB_is_in_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_arabia = yes
+				value = 100
+			}
+		}
+		effect = {
+			ARB_reward_arabia = yes
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+}
+
+ARB_generic_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_arabian_missions = yes
+	}
+	has_country_shield = yes
+	
+	ARBG_paving_new_roads = {
+		icon = mission_imperial_cities
+		required_missions = { ARBG_construct_new_mosques }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 60
+				}
+			}
+			
+			monthly_adm = 10
+			has_adm_advisor = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARBG_infrastructure_development
+				duration = -1
+			}
+			
+			add_adm_power = 100
+		}
+	}
+	
+	ARBG_shelter = {
+		icon = mission_traverse_the_sahara
+		required_missions = { ARBG_paving_new_roads }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+				trade_node_value = 10
+			}
+		}
+		effect = {
+			add_estate_loyalty_modifier = {
+				estate = estate_burghers
+				desc = ARB_shelters
+				loyalty = 10
+				duration = -1
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = ARB_shelters
+				duration = 9125
+			}
+		}
+	}
+}
+
+ARB_generic_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_arabian_missions = yes
+	}
+	has_country_shield = yes
+	
+	ARBG_construct_new_mosques = {
+		icon = mission_conquer_rewakantha
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 2
+			}
+			capital_scope = {
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = muscovy_architect
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
+			
+			custom_tooltip = " "
+			
+			capital_scope = {
+				add_or_upgrade_tax_building = yes
+			}
+		}
+	}
+	
+	ARBG_new_settlements = {
+		icon = mission_arabian_fort
+		required_missions = { ARBG_construct_new_mosques }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				num_of_times_improved = 5
+				value = 3
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = ARB_founding_new_settlements
+				age = age_of_reformation
+				duration = -1
+			}
+			
+			add_years_of_income = 0.5
+		}
+	}
+}

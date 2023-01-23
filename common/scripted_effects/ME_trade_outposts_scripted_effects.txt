@@ -68,6 +68,92 @@ destroy_hanseatic_outpost = {
 	clr_province_flag = HNS_activated
 }
 
+########## Hormuz Outpost #########
+create_hormuz_outpost = {
+	custom_tooltip = ORM_make_an_outpost
+	hidden_effect = {
+		add_province_triggered_modifier = ORM_outpost
+		add_permanent_province_modifier = {
+			name = ORM_icon_gray
+			duration = -1
+			hidden = yes
+		}
+		if = {
+			limit = {
+				event_target:target_ORM = {
+					has_estate_privilege = ME_estate_burghers_ORM_improve_relations
+				}
+			}
+			owner = {
+				add_opinion = {
+					who = event_target:target_ORM
+					modifier = ORM_opinion_priv
+				}
+			}
+		}
+		clr_province_flag = ORM_activated
+		set_province_flag = ORM_deactivated
+	}
+	
+}
+
+upgrade_hormuz_outpost = {
+	custom_tooltip = HNS_upgrade_kontor
+	hidden_effect = {
+		set_province_flag = ORM_upgraded
+		if = {
+			limit = {
+				has_trade_modifier = {
+					who = event_target:target_ORM
+					key = ORM_ties
+				}
+			}
+			remove_trade_modifier = {
+				who = event_target:target_ORM
+				key = ORM_ties
+			}
+			add_trade_modifier = {
+				who = event_target:target_ORM
+				duration = -1
+				power = 30
+				key = ORM_ties
+			}
+		}
+	}
+}
+
+remove_hormuz_outpost = {
+	custom_tooltip = HNS_benefits_of_outpost
+	hidden_effect = {
+		remove_province_triggered_modifier = ORM_outpost
+		remove_province_modifier = ORM_icon_gray
+		remove_province_modifier = ORM_icon
+	}
+}
+
+destroy_hormuz_outpost = {
+	remove_province_triggered_modifier = ORM_outpost
+	remove_province_modifier = ORM_icon_gray
+	remove_province_modifier = ORM_icon
+	if = {
+		limit = {
+			has_trade_modifier = {
+				who = event_target:target_ORM
+				key = ORM_ties
+			}
+		}
+		remove_trade_modifier = {
+			who = event_target:target_ORM
+			key = ORM_ties
+		}
+	}
+	clr_province_flag = ORM_upgraded
+	clr_province_flag = ORM_deactivated
+	clr_province_flag = ORM_activated
+}
+
+
+
 ##########	Silk Route	#########
 create_silk_route_outpost = {
 	custom_tooltip = silk_route_make_a_kontor

@@ -1,0 +1,75 @@
+country_decisions = {
+	YEM_plantation_decision = {
+		potential = {
+			has_country_flag = YEM_plantation_decision_flag
+			any_owned_province = {
+				trade_goods = coffee
+				NOT = {	has_building = plantations }
+				NOT = { has_construction = missionary }
+				NOT = { has_construction = culture }
+				NOT = { has_construction = core }
+				NOT = { has_construction = building }
+			}
+		}
+		allow = {
+			treasury = 500
+		}
+		effect = {
+			random_owned_province = {
+				limit = {
+					trade_goods = coffee
+					NOT = { has_building = plantations }
+					NOT = { has_construction = missionary }
+					NOT = { has_construction = culture }
+					NOT = { has_construction = core }
+					NOT = { has_construction = building }
+				}
+				add_building_construction = {
+					building = plantations
+					speed = 2
+					cost = 1
+				}
+			}
+			
+			custom_tooltip = YEM_accounts_for_construction_cost
+		}
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				NOT = { treasury = 700 }
+			}
+		}
+	}
+	
+	YEM_coffee_provinces = {
+		potential = {
+			has_country_flag = YEM_choose_provinces_flag
+			any_owned_province = {
+				NOT = { trade_goods = coffee }
+			}
+		}
+		allow = {
+			check_variable = {
+				which = YEM_coffee_provinces_var
+				value = 1
+			}
+			custom_trigger_tooltip = {
+				tooltip = YEM_dialogue_is_closed
+				NOT = { has_country_flag = YEM_event_dialogue }
+			}
+		}
+		effect = {
+			country_event = { id = ME_Yemen_Events.20 }
+			
+			change_variable = {
+				which = YEM_coffee_provinces_var
+				value = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

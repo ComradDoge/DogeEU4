@@ -1,0 +1,2642 @@
+#RSL - Rasulids
+#YEMG - Yemen Generic Tags
+# rest - self explanatory
+
+RSL_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RSL
+			AND = {
+				tag = YEM
+				was_tag = RSL
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMR_reintegrate_abu_arish = {
+		icon = mission_conquer_algiers
+		required_missions = { YEMR_mobilize_remaining_troops }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 2346
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			2346 = { owned_by = ROOT }
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 15 }
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 50
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = bedouin_arabic }
+		}
+	}
+}
+
+RSL_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RSL
+			AND = {
+				tag = YEM
+				was_tag = RSL
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMR_mobilize_remaining_troops = {
+		icon = mission_levantine_restoration
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 11
+				army_size_percentage = 0.9
+			}
+		}
+		effect = {
+			create_general = { tradition = 20 }
+			
+			add_country_modifier = {
+				name = RSL_a_loyalist_retinue
+				duration = 7300
+			}
+		}
+	}
+	
+	YEMR_defeat_imams = {
+		icon = mission_eliminate_pretenders
+		required_missions = { YEMR_mobilize_remaining_troops }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 390
+				province_id = 4282
+				province_id = 2344
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 390
+			owns_core_province = 2344
+			owns_core_province = 4282
+		}
+		effect = {
+			add_war_exhaustion = -2
+			
+			custom_tooltip = " "
+			
+			390 = {
+				add_unrest = -5
+			}
+			2344 = {
+				add_unrest = -5
+			}
+			4282 = {
+				add_unrest = -5
+			}
+			
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 10
+				}
+			}
+		}
+	}
+}
+
+RSL_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RSL
+			AND = {
+				tag = YEM
+				was_tag = RSL
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMR_reintegrate_aden = {
+		icon = mission_arabian_ports
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				province_id = 388
+				province_id = 4281
+				province_id = 2345
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 388
+			owns_core_province = 4281
+			owns_core_province = 2345
+		}
+		effect = {
+			388 = {
+				set_center_level_2_center_of_trade = yes
+				
+				custom_tooltip = " "
+				
+				light_ship = ROOT
+				light_ship = ROOT
+			}
+			
+			custom_tooltip = " "
+			
+			add_war_exhaustion = -2
+			add_yearly_manpower = 0.5
+			
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				custom_tooltip = " "
+				add_estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 10
+				}
+			}
+		}
+	}
+	
+	YEMR_defeat_fakes = {
+		icon = mission_friends_or_enemies
+		required_missions = { YEMR_reintegrate_aden YEMR_defeat_imams }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				owned_by = ADE
+				owned_by = RAS
+			}
+		}
+		trigger = {
+			NOT = { exists = ADE }
+			NOT = { exists = RAS }
+		}
+		effect = {
+			YEM_eliminate_pretenders_effect = yes
+			
+			if = {
+				limit = { has_ruler_flag = YEM_extra_power }
+				custom_tooltip = " "
+				change_adm = 2
+				change_dip = 2
+				change_mil = 2 
+			}
+			if = {
+				limit = { has_heir_flag = YEM_extra_power }
+				custom_tooltip = " "
+				change_heir_adm = 2
+				change_heir_dip = 2
+				change_heir_mil = 2
+			}
+		}
+	}
+}
+
+RSL_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RSL
+			AND = {
+				tag = YEM
+				was_tag = RSL
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMR_enforce_religion = {
+		icon = me_mission_muslim_priest
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 55
+				}
+				OR = {
+					num_of_estate_privileges = {
+						estate = estate_church
+						value = 3
+					}
+					has_adm_advisor = yes
+				}
+			}
+			else = {
+				has_adm_advisor = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = YEM_convert_the_shias
+				duration = 10950
+			}
+			
+			if = {
+				limit = {
+					piety = 0
+				}
+				add_piety = 0.1 #only push towards positive piety if you are going for piety
+			}
+		}
+	}
+	
+	YEMR_unify_the_yemeni = {
+		icon = mission_fatimid_caliphate
+		required_missions = { YEMR_enforce_religion }
+		position = 3
+		provinces_to_highlight = {
+			region = arabia_region
+			culture = yemeni_culture
+			OR = {
+				NOT = { religion = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = YEM_all_yemeni_culture_provinces_in_arabia_are_our_religion
+				arabia_region = {
+					type = all
+					OR = {
+						NOT = { culture = yemeni_culture }
+						AND = {
+							religion = ROOT
+							owned_by = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = theologian
+				skill = 2
+				culture = yemeni_culture
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			
+			custom_tooltip = " "
+			
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = YEM_unified_yemen
+				duration = -1
+				age = age_of_discovery
+			}
+		}
+	}
+}
+
+RSL_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RSL
+			AND = {
+				tag = YEM
+				was_tag = RSL
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMR_construct_a_mosque = {
+		icon = mission_mosque
+		required_missions = { YEMR_enforce_religion }
+		position = 2
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			capital_scope = {
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			YEM_madrasah_effect = yes
+		}
+	}
+}
+
+YEMG_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			has_generic_yemeni_missions = yes
+			AND = {
+				tag = YEM
+				NOT = {
+					OR = {
+						was_tag = RAS
+						was_tag = ADE
+						was_tag = RSL
+					}
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMG_secure_our_rule = {
+		icon = mission_conquer_algiers
+		required_missions = { YEMG_uneasy_times }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				local_autonomy = 25
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				NOT = { local_autonomy = 25 }
+				is_core = ROOT
+				value = 5
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = YEMG_rule_secured
+				duration = -1
+				age = age_of_discovery
+				else = "
+					add_mil_power = 100
+				"
+			}
+		}
+	}
+}
+
+YEMG_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			has_generic_yemeni_missions = yes
+			AND = {
+				tag = YEM
+				NOT = {
+					OR = {
+						was_tag = RAS
+						was_tag = ADE
+						was_tag = RSL
+					}
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMG_uneasy_times = {
+		icon = mission_eliminate_pretenders
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 9
+				army_size_percentage = 0.9
+			}
+		}
+		effect = {
+			create_general = { tradition = 25 }
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = asir_area }
+			ME_give_claims = { area = yemen_area }
+			ME_give_claims = { area = upper_yemen_area }
+			ME_give_claims = { area = tihama_al_yemen_area }
+			ME_give_claims = { area = hadramut_area }
+			ME_give_claims = { area = mahra_area }
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = recruitmaster
+				skill = 1
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+	
+	YEMG_intervene_in_the_conflict = {
+		icon = mission_found_havana
+		required_missions = { YEMG_uneasy_times }
+		position = 2
+		provinces_to_highlight = {
+			culture = yemeni_culture 
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = yemeni_culture
+				value = 4
+			}
+		}
+		effect = {
+			change_government_reform_progress = 50
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = YEMG_a_new_player
+				duration = 7300 
+			}
+		}
+	}
+}
+
+YEMG_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			has_generic_yemeni_missions = yes
+			AND = {
+				tag = YEM
+				NOT = {
+					OR = {
+						was_tag = RAS
+						was_tag = ADE
+						was_tag = RSL
+					}
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMG_eliminate_pretenders = {
+		icon = mission_levantine_restoration
+		required_missions = { YEMG_intervene_in_the_conflict }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				owned_by = ADE
+				owned_by = RSL
+				owned_by = RAS
+			}
+		}
+		trigger = {
+			NOT = { exists = ADE }
+			NOT = { exists = RSL }
+			NOT = { exists = RAS }
+		}
+		effect = {
+			YEM_eliminate_pretenders_effect = yes
+		}
+	}
+}
+
+YEMG_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			has_generic_yemeni_missions = yes
+			AND = {
+				tag = YEM
+				NOT = {
+					OR = {
+						was_tag = RAS
+						was_tag = ADE
+						was_tag = RSL
+					}
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMG_religious_matters = {
+		icon = me_mission_muslim_priest
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			NOT = { religion = ROOT }
+			OR = {
+				owned_by = ROOT
+				any_neighbor_province = {
+					owned_by = ROOT
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				OR = {
+					religious_unity = 0.5
+					has_adm_advisor = yes
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 55
+					}
+					any_owned_province = {
+						has_missionary = yes
+					}
+				}
+			}
+			else = {
+				OR = {
+					religious_unity = 0.5
+					has_adm_advisor = yes
+					any_owned_province = {
+						has_missionary = yes
+					}
+				}
+			}
+			
+			num_of_cities = 5
+		}
+		effect = {
+			add_adm_power = 75
+			
+			set_country_flag = ORM_enforced_dialogue_for_heretic_flag
+			tooltip = {
+				custom_tooltip = ORM_empower_the_enforced_dialogue_privilege
+			}
+		}
+	}
+	
+	YEMG_bridge_the_divide = {
+		icon = mission_fatimid_caliphate
+		required_missions = { YEMG_religious_matters }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				is_claim = ROOT
+				is_core = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				religious_unity = 0.9
+				theologian = 2
+			}
+			num_of_cities = 10
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = YEM_unified_yemen
+				duration = -1
+				age = age_of_discovery
+			}
+		}
+	}
+}
+
+YEMG_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			has_generic_yemeni_missions = yes
+			AND = {
+				tag = YEM
+				NOT = {
+					OR = {
+						was_tag = RAS
+						was_tag = ADE
+						was_tag = RSL
+					}
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	YEMG_constrct_a_madrasah = {
+		icon = mission_mosque
+		required_missions = { YEMG_religious_matters }
+		position = 2
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			capital_scope = {
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			YEM_madrasah_effect = yes
+		}
+	}
+}
+
+ADE_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADE
+			AND = {
+				tag = YEM
+				was_tag = ADE
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	ADE_build_up_our_forces = {
+		icon = mission_control_surat
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 9
+				army_size_percentage = 0.9
+			}
+		}
+		effect = {
+			create_general = { tradition = 20 }
+			ME_give_claims = { area = hadramut_area }
+		}
+	}
+	
+	ADE_kathirids = {
+		icon = mission_sponsor_piracy
+		required_missions = { ADE_build_up_our_forces }
+		position = 3
+		provinces_to_highlight = {
+			area = hadramut_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			hadramut_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_adm_power = 50
+			
+			add_country_modifier = {
+				name = ADE_kathirids_modifier
+				duration = 5475
+			}
+			ME_give_claims = { area = mahra_area }
+			ME_give_claims = { area = dhofar_area }
+		}
+	}
+}
+
+ADE_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADE
+			AND = {
+				tag = YEM
+				was_tag = ADE
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	ADE_deal_with_the_rassids = {
+		icon = mission_conquer_algiers
+		required_missions = { ADE_build_up_our_forces }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 390
+				province_id = 4282
+				province_id = 2344
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 390
+			owns_core_province = 2344
+			owns_core_province = 4282
+		}
+		effect = {
+			add_war_exhaustion = -2
+			
+			390 = {
+				add_unrest = -5
+				infantry = ROOT
+				infantry = ROOT
+			}
+			2344 = {
+				add_unrest = -5
+			}
+			4282 = {
+				add_unrest = -5
+			}
+			
+		}
+	}
+}
+
+ADE_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADE
+			AND = {
+				tag = YEM
+				was_tag = ADE
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	ADE_march_on_taiz = {
+		icon = mission_el_badi_palace
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4279
+				province_id = 4280
+				province_id = 387
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			owns_core_province = 4279
+			owns_core_province = 4280
+			owns_core_province = 387
+		}
+		effect = {
+			4280 = { set_local_autonomy = 0 }
+			country_event = { id = ME_Yemen_Events.3 } #taiz capital
+			
+			custom_tooltip = " "
+			
+			add_legitimacy = 25
+			add_prestige_or_monarch_power = { amount = 20 }
+		}
+	}
+	
+	ADE_eliminate_pretenders = {
+		icon = mission_eliminate_pretenders
+		required_missions = { ADE_deal_with_the_rassids ADE_march_on_taiz }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				owned_by = RAS
+				owned_by = RSL
+			}
+		}
+		trigger = {
+			NOT = { exists = RAS }
+			NOT = { exists = RSL }
+		}
+		effect = {
+			YEM_eliminate_pretenders_effect = yes
+		}
+	}
+}
+
+ADE_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADE
+			AND = {
+				tag = YEM
+				was_tag = ADE
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	ADE_religious_matters = {
+		icon = me_mission_muslim_priest
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			NOT = { religion = ROOT }
+			OR = {
+				owned_by = ROOT
+				any_neighbor_province = {
+					owned_by = ROOT
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				OR = {
+					religious_unity = 0.5
+					has_adm_advisor = yes
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 55
+					}
+					any_owned_province = {
+						has_missionary = yes
+					}
+				}
+			}
+			else = {
+				OR = {
+					religious_unity = 0.5
+					has_adm_advisor = yes
+					any_owned_province = {
+						has_missionary = yes
+					}
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Yemen_Events.4 }
+			
+			set_country_flag = ORM_enforced_dialogue_for_heretic_flag
+			tooltip = {
+				custom_tooltip = ORM_empower_the_enforced_dialogue_privilege
+			}
+		}
+	}
+	
+	ADE_bridge_the_divide = {
+		icon = mission_fatimid_caliphate
+		required_missions = { ADE_religious_matters }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				is_claim = ROOT
+				is_core = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				religious_unity = 0.9
+				theologian = 2
+			}
+			num_of_cities = 10
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = YEM_unified_yemen
+				duration = -1
+				age = age_of_discovery
+			}
+		}
+	}
+}
+
+ADE_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADE
+			AND = {
+				tag = YEM
+				was_tag = ADE
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	ADE_madrasah = {
+		icon = mission_mosque
+		required_missions = { ADE_religious_matters }
+		position = 2
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			capital_scope = {
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			YEM_madrasah_effect = yes
+		}
+	}
+}
+
+RAS_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RAS
+			AND = {
+				tag = YEM
+				was_tag = RAS
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	RAS_religious_ruling = {
+		icon = me_mission_muslim_priest
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			legitimacy = 90
+			NOT = { num_of_rebel_armies = 1 }
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				OR = {
+					has_adm_advisor = yes
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 60
+					}
+					num_of_estate_privileges = {
+						estate = estate_church
+						value = 3
+					}
+				}
+			}
+			else = {
+				has_adm_advisor = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = RAS_the_faithful_flock_to_arms
+				duration = 9125
+			}
+			
+			add_legitimacy = 10
+		}
+	}
+	
+	RAS_persuade_the_ismaili = {
+		icon = mission_reconquer_ceuta
+		required_missions = { RAS_religious_ruling }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 391
+				province_id = 2346
+				owned_by = MFL
+				owned_by = NJR
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = {
+				owner = {
+					has_opinion = {
+						who = ROOT
+						value = 125
+					}
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {	
+					reverse_has_opinion = {
+						who = MFL
+						value = 125
+					}
+					reverse_has_opinion = {
+						who = NJR
+						value = 125
+					}
+				}
+				AND = {
+					owns_core_province = 391
+					owns_core_province = 2346
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = RAS_alliance
+			tooltip = {
+				NJR = {
+					country_event = { id = ME_Yemen_Events.18 }
+				}
+				MFL = {
+					country_event = { id = ME_Yemen_Events.18 }
+				}
+				custom_tooltip = RAS_najran_and_mikhlaf_are_very_likely_to_convert
+				
+				custom_tooltip = " "
+			}
+			custom_tooltip = RAS_conquest
+			tooltip = {
+				add_country_modifier = {
+					name = RAS_subjugation_of_the_ismaili
+					duration = 10950 
+				}
+				
+				add_adm_power = 100
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						reverse_has_opinion = {
+							who = MFL
+							value = 125
+						}
+						reverse_has_opinion = {
+							who = NJR
+							value = 125
+						}
+					}
+					save_event_target_as = Yem_rassids
+					NJR = {
+						country_event = { id = ME_Yemen_Events.18 }
+					}
+					MFL = {
+						country_event = { id = ME_Yemen_Events.18 }
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = RAS_subjugation_of_the_ismaili
+						duration = 10950 
+					}
+					
+					add_adm_power = 100
+				}
+			}
+		}
+	}
+}
+
+RAS_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RAS
+			AND = {
+				tag = YEM
+				was_tag = RAS
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	RAS_crush_the_tahirids = {
+		icon = mission_dharma_mission_arabian_trade
+		required_missions = { RAS_deal_with_the_pretenders }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4281
+				province_id = 2345
+				province_id = 388
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			4281 = { owned_by = ROOT }
+			2345 = { owned_by = ROOT }
+			388 = { owned_by = ROOT }
+		}
+		effect = {
+			388 = {
+				add_unit_construction = {
+					type = galley
+					amount = 4
+					speed = 0.1
+					cost = 0
+				}
+				add_unit_construction = {
+					type = light_ship
+					amount = 4
+					speed = 0.1
+					cost = 0
+				}
+				
+				custom_tooltip = " "
+				
+				set_center_level_2_center_of_trade = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_dip_power = 75
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = RAS_walk_into_aden
+				duration = 3650
+			}
+		}
+	}
+}
+
+RAS_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RAS
+			AND = {
+				tag = YEM
+				was_tag = RAS
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	RAS_deal_with_the_pretenders = {
+		icon = mission_friends_or_enemies
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 8
+				army_size_percentage = 0.9
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = RAS_religious_fervor
+				duration = 9125
+			}
+			
+			create_general = {
+				tradition = 40
+			}
+		}
+	}
+	
+	RAS_march_on_taiz = {
+		icon = mission_levantine_restoration
+		required_missions = { RAS_deal_with_the_pretenders }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4279
+				province_id = 4280
+				province_id = 387
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			4279 = { owned_by = ROOT }
+			4280 = { owned_by = ROOT }
+			387 = { owned_by = ROOT }
+		}
+		effect = {
+			add_country_modifier = {
+				name = RAS_fall_of_rasulids
+				duration = 9125
+			}
+			
+			add_dip_power = 100 
+		}
+	}
+	
+	RAS_eliminate_pretenders = {
+		icon = mission_eliminate_pretenders
+		required_missions = { RAS_crush_the_tahirids RAS_march_on_taiz }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				owned_by = ADE
+				owned_by = RSL
+			}
+		}
+		trigger = {
+			NOT = { exists = ADE }
+			NOT = { exists = RSL }
+		}
+		effect = {
+			YEM_eliminate_pretenders_effect = yes
+		}
+	}
+}
+
+RAS_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RAS
+			AND = {
+				tag = YEM
+				was_tag = RAS
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	RAS_enforce_zaidi = {
+		icon = mission_fatimid_caliphate
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			NOT = { religion = ROOT }
+			OR = {
+				owned_by = ROOT 
+				any_neighbor_province = {
+					owned_by = ROOT 
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = obj_force_converted_tooltip
+					has_country_flag = force_converted
+				}
+				custom_trigger_tooltip = {
+					tooltip = YEM_converted_one_province
+					check_variable = { which = num_converted_religion value = 1 }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = RAS_zaidi_superiority
+				duration = -1
+			}
+			
+			change_national_focus_effect = yes
+		}
+	}
+	
+	RAS_unify_the_yemeni = {
+		icon = mission_unite_home_region
+		required_missions = { RAS_enforce_zaidi }
+		position = 3
+		provinces_to_highlight = {
+			region = arabia_region
+			culture = yemeni_culture
+			OR = {
+				NOT = { religion = ROOT }
+				NOT = { owned_by = ROOT }
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = YEM_all_yemeni_culture_provinces_in_arabia_are_our_religion
+				arabia_region = {
+					type = all
+					OR = {
+						NOT = { culture = yemeni_culture }
+						AND = {
+							religion = ROOT
+							owned_by = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = theologian
+				skill = 2
+				culture = yemeni_culture
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			
+			custom_tooltip = " "
+			
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = YEM_unified_yemen
+				duration = -1
+				age = age_of_discovery
+			}
+		}
+	}
+}
+
+RAS_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = RAS
+			AND = {
+				tag = YEM
+				was_tag = RAS
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	RAS_madrasah = {
+		icon = mission_conquer_gujarat_bah
+		required_missions = { RAS_enforce_zaidi }
+		position = 2
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			capital_scope = {
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			YEM_madrasah_effect = yes
+		}
+	}
+}
+
+YEM_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = YEM
+			tag = RAS
+			tag = RSL
+			tag = ADE
+			has_generic_yemeni_missions = yes
+		}
+	}
+	has_country_shield = yes
+	
+	YEM_mukha = {
+		icon = mission_arabian_ports
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 387
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_times_improved = 2 }
+				NOT = { has_trade_building_trigger = yes }
+			}
+		}
+		trigger = {
+			YEM_is_yemen = yes
+			387 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				num_of_times_improved = 2 
+			}
+		}
+		effect = {
+			387 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+				add_permanent_province_modifier = {
+					name = YEM_mukha_modifier
+					duration = -1
+				}
+			}
+			
+			add_dip_power = 100
+		}
+	}
+	
+	YEM_expand_plantations = {
+		icon = mission_consume_the_baghels
+		required_missions = { YEM_mukha }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 387
+				province_id = 4280
+				province_id = 4279 
+				province_id = 4282
+				province_id = 386
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 12 }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+		trigger = {
+			387 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				development = 12
+			}
+			4280 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				development = 12
+			}
+			4279 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				development = 12
+			}
+			4282 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				development = 12
+			}
+			386 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				development = 12
+			}
+		}
+		effect = {
+			custom_tooltip = YEM_enable_early_plantation_decision
+			set_country_flag = YEM_plantation_decision_flag
+			
+			custom_tooltip = " "
+			
+			387 = { add_or_upgrade_production_building = yes }
+			386 = { add_or_upgrade_production_building = yes }
+			4282 = { add_or_upgrade_production_building = yes }
+			4279 = { add_or_upgrade_production_building = yes }
+			4280 = { add_or_upgrade_production_building = yes }
+		}
+	}
+	
+	YEM_build_plantations = {
+		icon = mission_conquer_cuttack
+		required_missions = { YEM_expand_plantations }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = coffee
+				trade_goods = cotton
+				trade_goods = sugar
+				trade_goods = tobacco
+				trade_goods = tea
+				trade_goods = cocoa
+			}
+			owned_by = ROOT 
+			NOT = { has_building = plantations }
+		}
+		trigger = {
+			plantations = 5
+			owns_core_province = 387
+		}
+		effect = {
+			387 = {
+				custom_tooltip = YEM_replace_and_append_to_coffea_arabica
+				hidden_effect = {
+					remove_province_modifier = coffea_arabica_modifier
+					remove_province_modifier = YEM_mukha_modifier
+					add_permanent_province_modifier = {
+						name = YEM_coffea_arabica
+						duration = -1 
+					}
+				}
+			}
+			
+			add_years_of_owned_provinces_production_income = {
+				years = 5
+				trigger = {
+					trade_goods = coffee
+				}
+				custom_tooltip = YEM_prod_from_coffee
+			}
+		}
+	}
+	
+	YEM_protect_the_secret = {
+		icon = mission_dominate_persian_gulf
+		required_missions = { YEM_promote_coffee_houses }
+		position = 9
+		provinces_to_highlight = {
+			trade_goods = coffee
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = coffee
+				value = 0.35
+			}
+			
+			if = {
+				limit = {
+					production_income_percentage = 0.01
+				}
+				custom_trigger_tooltip = {
+					tooltip = YEM_at_least_30_production_income
+					variable_arithmetic_trigger = {
+						export_to_variable = {
+							which = current_production_income
+							value = monthly_income
+						}
+						export_to_variable = {
+							which = production_income_share
+							value = trigger_value:production_income_percentage
+						}
+						multiply_variable = { which = current_production_income which = production_income_share }
+						check_variable = { which = current_production_income value = 30 }
+					}
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Yemen_Events.12 }
+		
+			custom_tooltip = " "
+			
+			custom_tooltip = YEM_coffee_priv_boosted
+			set_country_flag = YEM_coffee_priv_boosted
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 3 #Mercantilism mechanic?
+		}
+	}
+}
+
+YEM_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = YEM
+			tag = RAS
+			tag = RSL
+			tag = ADE
+			has_generic_yemeni_missions = yes
+		}
+	}
+	has_country_shield = yes
+	
+	YEM_oman = {
+		icon = me_mission_oman_flag
+		required_missions = { YEMG_eliminate_pretenders ADE_eliminate_pretenders RAS_eliminate_pretenders YEMR_defeat_fakes }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = dhofar_area
+				area = mascat_area
+				area = oman_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			YEM_is_yemen = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = dhofar_area
+					area = mascat_area
+					area = oman_area
+				}
+				value = 7
+			}
+			owns_core_province = 388
+		}
+		effect = {
+			388 = {
+				add_province_modifier = {
+					name = YEM_benefitting_from_oman
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 3
+			
+			custom_tooltip = " "
+			
+			set_defender_of_the_faith_effect = yes
+		}
+	}
+	
+	YEM_ethiopia = {
+		icon = befriend_ethiopia
+		required_missions = { YEM_control_strait }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = tigray_area
+				area = shewa_area
+				area = hadiya_area
+				area = central_ethiopia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = tigray_area
+					area = shewa_area
+					area = hadiya_area
+					area = central_ethiopia_area
+				}
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = YEM_conquest_of_aksum
+				duration = -1
+			}
+			
+			#custom_tooltip = " " no need
+		
+			ME_give_claims = { area = damot_area }
+			ME_give_claims = { area = southern_ethiopia_area }
+		}
+	}
+	
+	YEM_ethiopian_coffee = {
+		icon = mission_establish_mint_towns
+		required_missions = { YEM_expand_plantations YEM_ethiopia }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = tigray_area
+				area = shewa_area
+				area = hadiya_area
+				area = central_ethiopia_area
+				area = aussa_area
+				area = ifat_area
+			}
+			trade_goods = coffee
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_production_building_trigger = yes }
+				NOT = { development = 10 }
+			}
+		}
+		trigger = { #todo: probably scripted trigger this
+			custom_trigger_tooltip = {
+				tooltip = YEM_highlighted_provinces_have_workshop_and_development
+				tigray_area = {
+					type = all
+					OR = {
+						NOT = { trade_goods = coffee }
+						AND = {
+							owned_by = ROOT
+							has_production_building_trigger = yes
+							development = 10
+						}
+					}
+				}
+				shewa_area = {
+					type = all
+					OR = {
+						NOT = { trade_goods = coffee }
+						AND = {
+							owned_by = ROOT
+							has_production_building_trigger = yes
+							development = 10
+						}
+					}
+				}
+				hadiya_area = {
+					type = all
+					OR = {
+						NOT = { trade_goods = coffee }
+						AND = {
+							owned_by = ROOT
+							has_production_building_trigger = yes
+							development = 10
+						}
+					}
+				}
+				central_ethiopia_area = {
+					type = all
+					OR = {
+						NOT = { trade_goods = coffee }
+						AND = {
+							owned_by = ROOT
+							has_production_building_trigger = yes
+							development = 10
+						}
+					}
+				}
+				aussa_area = {
+					type = all
+					OR = {
+						NOT = { trade_goods = coffee }
+						AND = {
+							owned_by = ROOT
+							has_production_building_trigger = yes
+							development = 10
+						}
+					}
+				}
+				ifat_area = {
+					type = all
+					OR = {
+						NOT = { trade_goods = coffee }
+						AND = {
+							owned_by = ROOT
+							has_production_building_trigger = yes
+							development = 10
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = YEM_choose_provinces
+			hidden_effect = {
+				set_country_flag = YEM_choose_provinces_flag
+				set_variable = {
+					which = YEM_coffee_provinces_var #imported mechanic from malaya
+					value = 5
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 5
+		}
+	}
+	
+	YEM_promote_coffee_houses = {
+		icon = mission_conquer_tunisia
+		required_missions = { YEM_ethiopian_coffee YEM_build_plantations }
+		position = 8
+		provinces_to_highlight = {
+			trade_goods = coffee
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = coffee
+				value = 0.25
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			
+			num_of_allies = 3
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 65
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = YEM_coffee_priv
+			set_country_flag = YEM_coffee_priv
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = YEM_coffee_houses
+				duration = -1
+			}
+		}
+	}
+}
+
+YEM_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = YEM
+			tag = RAS
+			tag = RSL
+			tag = ADE
+			has_generic_yemeni_missions = yes
+		}
+	}
+	has_country_shield = yes
+	
+	YEM_control_strait = {
+		icon = mission_aragonese_navy
+		required_missions = { YEMG_eliminate_pretenders ADE_eliminate_pretenders RAS_eliminate_pretenders YEMR_defeat_fakes }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = ifat_area
+				area = aussa_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			YEM_is_yemen = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = ifat_area
+					area = aussa_area
+				}
+				value = 6
+			}
+			
+			owns_or_non_sovereign_subject_of = 1212
+		}
+		effect = {
+			ME_give_claims = { area = tigray_area }
+			ME_give_claims = { area = shewa_area }
+			ME_give_claims = { area = hadiya_area }
+			ME_give_claims = { area = central_ethiopia_area }
+			ME_give_claims = { area = red_sea_coast_area }
+			ME_give_claims = { area = somaliland_area }
+			ME_give_claims = { area = majarteen_area }
+			ME_give_claims = { area = ogaden_area }
+			
+			custom_tooltip = " "
+			
+			1212 = {
+				set_center_level_2_center_of_trade = yes
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1 
+			}
+			
+			custom_tooltip = " "
+			
+			ME_add_years_of_trade_income = { years = 1 }
+		}
+	}
+	
+	YEM_somalia = {
+		icon = mission_subjugate_saurashtra
+		required_missions = { YEM_control_strait }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = somaliland_area
+				area = majarteen_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = somaliland_area
+					area = majarteen_area
+				}
+				value = 8
+			}
+		}
+		effect = { #Frankincense
+			custom_tooltip = YEM_give_modifier_on_somaliland_and_majerteen
+			tooltip = {
+				add_province_modifier = {
+					name = YEM_frankincense
+					duration = 14600
+				}
+			}
+			hidden_effect = {
+				somaliland_area = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+						trade_goods = incense
+					}
+					add_province_modifier = {
+						name = YEM_frankincense
+						duration = 14600
+					}
+				}
+				majarteen_area = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+						trade_goods = incense
+					}
+					add_province_modifier = {
+						name = YEM_frankincense
+						duration = 14600
+					}
+				}
+			}
+			
+			ME_give_claims = { area = ajuuran_area }
+			ME_give_claims = { area = mogadishu_area }
+			ME_give_claims = { id = 2777 }
+		}
+	}
+	
+	YEM_ajuuraan = {
+		icon = mission_defeat_jaunpur
+		required_missions = { YEM_somalia }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = mogadishu_area
+				area = ajuuran_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = mogadishu_area
+					area = ajuuran_area
+				}
+				value = 7
+			}
+		}
+		effect = {
+			1205 = {
+				set_center_level_2_center_of_trade = yes
+				
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 25
+					key = YEM_ajuuraan_trade
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			ME_add_years_of_trade_income = { years = 2 }
+		
+			custom_tooltip = " "
+			
+			add_mercantilism = 3
+		}
+	}
+	
+	YEM_obscene_wealth = {
+		icon = mission_african_gold
+		required_missions = { YEM_promote_coffee_houses YEM_gulf_of_aden }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					trade_income_percentage = 0.01
+				}
+				custom_trigger_tooltip = {
+					tooltip = YEM_at_least_50_trade_income
+					variable_arithmetic_trigger = {
+						export_to_variable = {
+							which = current_trade_income
+							value = monthly_income
+						}
+						export_to_variable = {
+							which = trade_income_share
+							value = trigger_value:trade_income_percentage
+						}
+						multiply_variable = { which = current_trade_income which = trade_income_share }
+						check_variable = { which = current_trade_income value = 60 }
+					}
+				}
+			}
+			monthly_income = 100
+		}
+		effect = {
+			custom_tooltip = YEM_trader_gives_trade_eff
+			set_country_flag = YEM_trader_gives_trade_eff_flag
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = YEM_felicitous_arabia
+				duration = -1
+				age = age_of_reformation
+				else = "
+					add_dip_power = 100
+				"
+			}
+		}
+	}
+}
+
+YEM_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = YEM
+			tag = RAS
+			tag = RSL
+			tag = ADE
+			has_generic_yemeni_missions = yes
+		}
+	}
+	has_country_shield = yes
+	
+	YEM_holy_cities = {
+		icon = mission_into_arabia
+		required_missions = { YEMG_eliminate_pretenders ADE_eliminate_pretenders RAS_eliminate_pretenders YEMR_defeat_fakes }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 384
+				province_id = 385
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			YEM_is_yemen = yes
+			384 = { country_or_non_sovereign_subject_holds = ROOT }
+			385 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			ARB_reward_west_arabia = yes
+		}
+	}
+	
+	YEM_scholars = {
+		icon = mission_vedic_education
+		required_missions = { YEM_religion }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			ME_has_religious_scholars_trigger = yes
+			
+			OR = {
+				has_adm_advisor_3 = yes
+				theologian = 2
+				sufi_scholar_advisor = 2
+				inquisitor = 2
+			}
+			
+			OR = {
+				piety = 0.8
+				NOT = { piety = -0.79 }
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				custom_tooltip = YEM_double_bonus_of_current_scholar
+				hidden_effect = {
+					if = {
+						limit = {
+							has_country_modifier = jafari_scholar_modifier
+						}
+						add_country_modifier = {
+							name = YEM_jafari_scholar_modifier
+							duration = 9125
+						}
+					}
+					if = {
+						limit = {
+							has_country_modifier = hanbali_scholar_modifier
+						}
+						add_country_modifier = {
+							name = YEM_hanbali_scholar_modifier
+							duration = 9125
+						}
+					}
+					if = {
+						limit = {
+							has_country_modifier = ismaili_scholar_modifier
+						}
+						add_country_modifier = {
+							name = YEM_ismaili_scholar_modifier
+							duration = 9125
+						}
+					}
+					if = {
+						limit = {
+							has_country_modifier = zaidi_scholar_modifier
+						}
+						add_country_modifier = {
+							name = YEM_zaidi_scholar_modifier
+							duration = 9125
+						}
+					}
+					if = {
+						limit = {
+							has_country_modifier = shafii_scholar_modifier
+						}
+						add_country_modifier = {
+							name = YEM_shafii_scholar_modifier
+							duration = 9125
+						}
+					}
+					if = {
+						limit = {
+							has_country_modifier = maliki_scholar_modifier
+						}
+						add_country_modifier = {
+							name = YEM_maliki_scholar_modifier
+							duration = 9125
+						}
+					}
+					if = {
+						limit = {
+							has_country_modifier = hanafi_scholar_modifier
+						}
+						add_country_modifier = {
+							name = YEM_hanafi_scholar_modifier
+							duration = 9125
+						}
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = YEM_religious_advisors
+					duration = 10950
+				}
+			}
+		}
+	}
+	
+	YEM_SEA = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { YEM_navy }
+		position = 7
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					has_global_flag = MSA_muslim_center_flag
+					event_target:ME_MSA_muslim_center_target = {
+						religion_group = muslim
+					}
+				}
+				OR = {
+					owner = {
+						owns = event_target:ME_MSA_muslim_center_target
+					}
+					province_id = 1361
+				}
+			}
+			else = {
+				OR = {
+					owner = {
+						culture_group = malay
+					}
+					province_id = 1361
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_global_flag = MSA_muslim_center_flag
+					event_target:ME_MSA_muslim_center_target = {
+						religion_group = muslim
+					}
+				}
+				OR = {
+					event_target:ME_MSA_muslim_center_target = {
+						owner = {
+							has_opinion = {
+								who = ROOT
+								value = 75
+							}
+						}
+					}
+					1361 = {
+						trade_share = {
+							country = ROOT
+							share = 3
+						}
+					}
+					malaya_region = {
+						owned_by = ROOT
+					}
+				}
+			}
+			else = {
+				OR = {
+					any_ally = {
+						culture_group = malay
+					}
+					1361 = {
+						trade_share = {
+							country = ROOT
+							share = 3
+						}
+					}
+					malaya_region = {
+						owned_by = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Yemen_Events.9 }
+			
+			custom_tooltip = " "
+			
+			add_dip_power = 50
+		}
+	}
+	
+	YEM_gulf_of_aden = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { }
+		position = 8
+		provinces_to_highlight = {
+			province_id = 388
+		}
+		trigger = {
+			YEM_is_yemen = yes
+			388 = {
+				has_most_province_trade_power = ROOT
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+				#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			}
+			
+			388 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			388 = {
+				add_or_upgrade_trade_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_dlc = "Emperor"
+				}
+				custom_tooltip = YEM_upgrade_private_trade_fleets
+			}
+			set_country_flag = YEM_upgrade_private_trade_fleets_flag
+		}
+	}
+	
+	YEM_valued_node = {
+		icon = mission_entrepot_of_india
+		required_missions = { YEM_gulf_of_aden }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 388
+		}
+		trigger = {
+			388 = {
+				highest_value_trade_node = yes
+				trade_node_value = 20
+				trade_share = {
+					country = ROOT
+					share = 90 
+				}
+			}
+		}
+		effect = {
+			ME_add_years_of_trade_income = { years = 5 }
+			
+			custom_tooltip = " " #nothing permanent because it is a very lategame mission, I expect yemen to be arabia by this point
+			
+			define_advisor = {
+				type = trader
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.2
+			}
+		}
+	}
+}
+
+YEM_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = YEM
+			tag = RAS
+			tag = RSL
+			tag = ADE
+			has_generic_yemeni_missions = yes
+		}
+	}
+	has_country_shield = yes
+	
+	YEM_marib_dam = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { YEMG_constrct_a_madrasah RAS_madrasah ADE_madrasah YEMR_construct_a_mosque }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 2344
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_buildings_in_province = 2 }
+			}
+		}
+		trigger = {
+			YEM_is_yemen = yes
+			grown_by_development = 150
+			2344 = {
+				owned_by = ROOT
+				num_of_buildings_in_province = 2
+			}
+		}
+		effect = {
+			country_event = { id = ME_Yemen_Events.19 }
+		}
+	}
+	
+	YEM_religion = { #zzz
+		icon = mission_friends_or_enemies
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			YEM_is_yemen = yes
+			OR = {
+				NOT = { piety = -0.5 }
+				theologian = 1
+				inquisitor = 1
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			custom_tooltip = " "
+			custom_tooltip = YEM_if_low_piety
+			tooltip = {
+				define_advisor = {
+					type = sufi_scholar_advisor
+					skill = 2
+					culture = ROOT
+					religion = ROOT
+					cost_multiplier = 0.33
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = YEM_if_theologian
+			tooltip = {
+				add_country_modifier = {
+					name = YEM_theologian_modifier
+					duration = 7300
+				}
+			}
+			custom_tooltip = YEM_if_inquisitor
+			tooltip = {
+				add_country_modifier = {
+					name = YEM_inquisitor_modifier
+					duration = 7300
+				}
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { piety = -0.5 }
+					}
+					define_advisor = {
+						type = sufi_scholar_advisor
+						skill = 2
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.33
+					}
+				}
+				else_if  = {
+					limit = {
+						theologian = 1 
+					}
+					add_country_modifier = {
+						name = YEM_theologian_modifier
+						duration = 7300
+					}
+				}
+				else_if = {
+					limit = {
+						inquisitor = 1
+					}
+					add_country_modifier = {
+						name = YEM_inquisitor_modifier
+						duration = 7300
+					}
+				}
+				else = { }
+			}
+		}
+	}
+	
+	YEM_jihad = {
+		icon = me_mission_great_mosque
+		required_missions = { YEM_religion }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { religion = ROOT }
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = obj_force_converted_tooltip
+				has_country_flag = force_converted
+			}
+			custom_trigger_tooltip = {
+				tooltip = obj_convert_10_provinces_tooltip
+				check_variable = { which = num_converted_religion value = 10 }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = YEM_incursion_into_ethiopia
+				duration = 10950
+			}
+			
+			define_advisor = {
+				type = inquisitor
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.45
+			}
+		}
+	}
+	
+	YEM_navy = {
+		icon = mission_recover_konkan_ports
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			province_id = 388
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_dock_building_trigger = yes }
+			}
+		}
+		trigger = {
+			YEM_is_yemen = yes
+			OR = {
+				navy_size = 30
+				navy_size_percentage = 0.9
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			
+			if = {
+				limit = {
+					ai = no
+				}
+				388 = {
+					owned_by = ROOT
+					has_dock_building_trigger = yes
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = YEM_growing_the_fleet
+				duration = 10950
+			}
+		
+			ME_give_claims = { area = malabar_area }
+			ME_give_claims = { area = madura_area }
+			ME_give_claims = { area = lanka_area }
+			ME_give_claims = { area = south_lanka_area }
+		}
+	}
+	
+	YEM_coromandel = {
+		icon = mission_konkani_pirates
+		required_missions = { YEM_navy }
+		position = 7
+		provinces_to_highlight = {
+			province_id = 1340
+		}
+		trigger = {
+			1340 = {
+				trade_share = {
+					country = ROOT
+					share = 20
+				}
+				#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = YEM_steering
+				duration = -1
+			}
+			
+			#custom_tooltip = " "
+			
+			define_advisor = {
+				type = travelling_merchant
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.33
+			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = kanara_area }
+			ME_give_claims = { area = tanjore_area }
+		}
+	}
+	
+	YEM_frankincense = {
+		icon = mission_jawal_silver_mine
+		required_missions = { YEM_gulf_of_aden }
+		position = 9
+		provinces_to_highlight = {
+			trade_goods = incense
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = incense
+				value = 0.25
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+		}
+		effect = {
+			country_event = { id = ME_Yemen_Events.17 } #single market for frankincense
+			
+			custom_tooltip = " "
+			
+			add_years_of_owned_provinces_production_income = {
+				years = 10
+				trigger = {
+					trade_goods = incense
+				}
+				custom_tooltip = YEM_prod_from_incense
+			}
+		}
+	}
+}

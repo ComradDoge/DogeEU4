@@ -1,0 +1,889 @@
+estate_berbers_build_tax_building = {
+	can_select = {
+		any_owned_province = {
+			is_state_core = root
+			culture = berber
+			NOT = { has_building = cathedral }
+			OR = {
+				AND = {
+					NOT = { has_building = temple }
+					num_free_building_slots = 1
+				}
+				AND = {
+					ROOT = { adm_tech = 19 }
+					OR = {
+						has_building = temple
+						num_free_building_slots = 1
+					}
+				}
+			}
+		}
+		ROOT = { adm_tech = 4 }
+	}
+	selection_weight = {
+		factor = 1
+		modifier = {
+			factor = 0.65
+			NOT = {
+				any_owned_province = {
+					is_state_core = root
+					culture = berber
+					base_tax = 4
+					NOT = { has_building = cathedral }
+					OR = {
+						AND = {
+							NOT = { has_building = temple }
+							num_free_building_slots = 1
+						}
+						AND = {
+							ROOT = { adm_tech = 19 }
+							OR = {
+								has_building = temple
+								num_free_building_slots = 1
+							}
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				crown_land_share = 15
+			}
+		}
+	}
+	pre_effect = {
+		set_country_flag = estate_berbers_recent_agenda
+		set_variable = {
+			which = estate_burghers_build_production_building_in_y_var
+			value = 0
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				culture = berber
+				NOT = { has_building = cathedral }
+				OR = {
+					AND = {
+						NOT = { has_building = temple }
+						num_free_building_slots = 1
+					}
+					AND = {
+						ROOT = { adm_tech = 19 }
+						OR = {
+							has_building = temple
+							num_free_building_slots = 1
+						}
+					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				culture = berber
+				base_tax = 4
+				NOT = { has_building = cathedral }
+				OR = {
+					AND = {
+						NOT = { has_building = temple }
+						num_free_building_slots = 1
+					}
+					AND = {
+						ROOT = { adm_tech = 19 }
+						OR = {
+							has_building = temple
+							num_free_building_slots = 1
+						}
+					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					has_building = temple
+				}
+				ROOT = {
+					set_variable = {
+						which = estate_berbers_build_tax_building_in_y_var
+						value = 2
+					}
+				}
+			}
+			else = {
+				ROOT = {
+					set_variable = {
+						which = estate_berbers_build_tax_building_in_y_var
+						value = 1
+					}
+				}
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+	task_requirements = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_berbers_build_tax_building_in_y_var
+					value = 2
+				}
+			}
+			event_target:agenda_province = {
+				has_building = cathedral
+			}
+		}
+		else = {
+			event_target:agenda_province = {
+				has_tax_building_trigger = yes
+			}
+		}
+	}
+	task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_berbers
+			loyalty = 10
+		}
+		event_target:agenda_province = {
+			add_base_tax = 1
+		}
+	}
+	failing_effect = {
+		add_estate_loyalty_modifier = {
+			estate = estate_berbers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+		}
+	}
+}
+
+estate_berbers_accept_culture = {
+	can_select = {
+		NOT = { accepted_culture = berber }
+		development_in_provinces = {
+			is_state_core = root
+			culture = berber
+			value = 20
+		}
+		
+		NOT = { 
+			OR = { #closeby diwan countries
+				has_reform = ME_caliphate_reform_sunni 
+				has_reform = ME_caliphate_reform_sunni_andalusia 
+				has_reform = ME_caliphate_reform_sunni_arabian 
+				has_reform = ME_caliphate_reform_shia_ibadi
+			}
+		}
+	}
+	selection_weight = {
+		factor = 3 #very likely, please keep your berber culture accepted!
+		modifier = {
+			factor = 5
+			development_in_provinces = {
+				is_state_core = root
+				culture = berber
+				value = 50
+			}
+		}
+	}
+	pre_effect = {
+		set_country_flag = estate_berbers_recent_agenda
+	}
+	provinces_to_highlight = {
+		owned_by = ROOT
+		culture = berber
+	}
+	fail_if = {
+		NOT = {
+			development_in_provinces = {
+				is_state_core = root
+				culture = berber
+				value = 20
+			}
+		}
+	}
+	task_requirements = {
+		accepted_culture = berber
+	}
+	task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_berbers
+			loyalty = 10
+		}
+		add_dip_power = 25
+	}
+	failing_effect = {
+		add_estate_loyalty_modifier = {
+			estate = estate_berbers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+		}
+	}
+}
+
+estate_berbers_develop = {
+	can_select = {
+		any_owned_province = {
+			is_state_core = ROOT
+			culture = berber
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		set_country_flag = estate_berbers_recent_agenda
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				NOT = { development = 20 }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				NOT = { development = 15 }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				NOT = { development = 10 }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				NOT = { development = 7 }
+			}
+			save_event_target_as = agenda_province
+		}
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					check_variable = {
+						which = province_dev_var
+						value = 1
+					}
+				}
+				set_variable = {
+					which = province_dev_var
+					value = 0
+				}
+			}
+			export_to_variable = {
+				which = province_dev_var
+				value = trigger_value:base_tax
+			}
+			change_variable = {
+				which = province_dev_var
+				value = 2
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+	task_requirements = {
+		event_target:agenda_province = {
+			base_tax = "province_dev_var"
+		}
+	}
+	task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_berbers
+			loyalty = 10
+		}
+		add_years_of_income = 0.25
+	}
+	failing_effect = {
+		add_estate_loyalty_modifier = {
+			estate = estate_berbers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+		}
+	}
+}
+
+estate_berbers_expand_tribal_land = {
+	can_select = {
+		any_owned_province = {
+			is_state_core = ROOT
+			culture = berber
+			any_neighbor_province = {
+				owned_by = ROOT
+				NOT = { culture = berber }
+			}
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		set_country_flag = estate_berbers_recent_agenda
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				any_neighbor_province = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				any_neighbor_province = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+					NOT = { development = 20 }
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				any_neighbor_province = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+					NOT = { development = 15 }
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				any_neighbor_province = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+					NOT = { development = 10 }
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				culture = berber
+				any_neighbor_province = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					owned_by = ROOT
+					NOT = { culture = berber }
+					NOT = { development = 7 }
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					check_variable = {
+						which = province_dev_var
+						value = 1
+					}
+				}
+				set_variable = {
+					which = province_dev_var
+					value = 0
+				}
+			}
+			export_to_variable = {
+				which = province_dev_var
+				value = trigger_value:base_tax
+			}
+			change_variable = {
+				which = province_dev_var
+				value = 3
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+	task_requirements = {
+		event_target:agenda_province = {
+			base_tax = "province_dev_var"
+		}
+	}
+	task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_berbers
+			loyalty = 15
+		}
+		event_target:agenda_province = {
+			change_culture = berber
+		}
+	}
+	failing_effect = {
+		add_estate_loyalty_modifier = {
+			estate = estate_berbers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+		}
+	}
+}
+
+estate_berbers_build_manpower_building = {
+	can_select = {
+		any_owned_province = {
+			is_state_core = root
+			culture = berber
+			NOT = { has_building = training_fields  }
+			OR = {
+				AND = {
+					NOT = { has_building = barracks }
+					num_free_building_slots = 1
+				}
+				AND = {
+					ROOT = { mil_tech = 16 }
+					OR = {
+						has_building = barracks
+						num_free_building_slots = 1
+					}
+				}
+			}
+		}
+		ROOT = { mil_tech = 6 }
+	}
+	selection_weight = {
+		factor = 1
+		modifier = {
+			factor = 0.65
+			NOT = {
+				any_owned_province = {
+					is_state_core = root
+					culture = berber
+					base_manpower = 4
+					NOT = { has_building = training_fields  }
+					OR = {
+						AND = {
+							NOT = { has_building = barracks }
+							num_free_building_slots = 1
+						}
+						AND = {
+							ROOT = { mil_tech = 16 }
+							OR = {
+								has_building = barracks
+								num_free_building_slots = 1
+							}
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				crown_land_share = 15
+			}
+		}
+	}
+	pre_effect = {
+		set_country_flag = estate_berbers_recent_agenda
+		set_variable = {
+			which = estate_burghers_build_production_building_in_y_var
+			value = 0
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				culture = berber
+				NOT = { has_building = training_fields  }
+				OR = {
+					AND = {
+						NOT = { has_building = barracks }
+						num_free_building_slots = 1
+					}
+					AND = {
+						ROOT = { mil_tech = 16 }
+						OR = {
+							has_building = barracks
+							num_free_building_slots = 1
+						}
+					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				culture = berber
+				base_manpower = 4
+				NOT = { has_building = training_fields  }
+				OR = {
+					AND = {
+						NOT = { has_building = barracks }
+						num_free_building_slots = 1
+					}
+					AND = {
+						ROOT = { mil_tech = 16 }
+						OR = {
+							has_building = barracks
+							num_free_building_slots = 1
+						}
+					}
+				}
+			}
+			save_event_target_as = agenda_province
+		}
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					has_building = barracks
+				}
+				ROOT = {
+					set_variable = {
+						which = estate_berbers_build_manpower_building_in_y_var
+						value = 2
+					}
+				}
+			}
+			else = {
+				ROOT = {
+					set_variable = {
+						which = estate_berbers_build_manpower_building_in_y_var
+						value = 1
+					}
+				}
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+	task_requirements = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_berbers_build_manpower_building_in_y_var
+					value = 2
+				}
+			}
+			event_target:agenda_province = {
+				has_building = training_fields
+			}
+		}
+		else = {
+			event_target:agenda_province = {
+				has_manpower_building_trigger = yes
+			}
+		}
+	}
+	task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_berbers
+			loyalty = 10
+		}
+		event_target:agenda_province = {
+			add_base_manpower = 1
+		}
+	}
+	failing_effect = {
+		add_estate_loyalty_modifier = {
+			estate = estate_berbers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+		}
+	}
+}
+
+estate_berbers_increase_autonomy = {
+	can_select = {
+		any_owned_province = {
+			is_state_core = root
+			NOT = { local_autonomy = 75 }
+			culture = berber
+			is_capital = no
+			NOT = { has_province_modifier = autonomy_increased }
+			NOT = { has_province_modifier = autonomy_decreased }
+		}
+	}
+	selection_weight = {
+		factor = 0.25
+	}
+	pre_effect = {
+		set_country_flag = estate_berbers_recent_agenda
+		set_variable = {
+			which = estate_dhimmi_increase_autonomy_in_province_x_var
+			value = 0
+		}
+		random_owned_province = {
+			limit = {
+				is_state_core = root
+				NOT = { local_autonomy = 75 }
+				culture = berber
+				is_capital = no
+				NOT = { has_province_modifier = autonomy_increased }
+				NOT = { has_province_modifier = autonomy_decreased }
+			}
+			save_event_target_as = agenda_province
+		}
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					local_autonomy = 60
+				}
+				root = {
+					set_variable = {
+						which = estate_dhimmi_increase_autonomy_in_province_x_var
+						value = 5
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					local_autonomy = 45
+				}
+				root = {
+					set_variable = {
+						which = estate_dhimmi_increase_autonomy_in_province_x_var
+						value = 4
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					local_autonomy = 30
+				}
+				root = {
+					set_variable = {
+						which = estate_dhimmi_increase_autonomy_in_province_x_var
+						value = 3
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					local_autonomy = 15
+				}
+				root = {
+					set_variable = {
+						which = estate_dhimmi_increase_autonomy_in_province_x_var
+						value = 2
+					}
+				}
+			}
+			else = {
+				root = {
+					set_variable = {
+						which = estate_dhimmi_increase_autonomy_in_province_x_var
+						value = 1
+					}
+				}
+			}
+		}
+	}
+	on_invalid = {
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		OR = {
+			event_target:agenda_province = {
+				NOT = { owned_by = root }
+			}
+			custom_trigger_tooltip = {
+				tooltip = estate_dhimmi_increase_autonomy_in_province_x_tooltip
+				hidden_trigger = {
+					if = {
+						limit = {
+							check_variable = {
+								which = estate_dhimmi_increase_autonomy_in_province_x_var
+								value = 5
+							}
+						}
+						event_target:agenda_province = {
+							NOT = { local_autonomy = 50 }
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = {
+								which = estate_dhimmi_increase_autonomy_in_province_x_var
+								value = 4
+							}
+						}
+						event_target:agenda_province = {
+							NOT = { local_autonomy = 35 }
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = {
+								which = estate_dhimmi_increase_autonomy_in_province_x_var
+								value = 3
+							}
+						}
+						event_target:agenda_province = {
+							NOT = { local_autonomy = 20 }
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = {
+								which = estate_dhimmi_increase_autonomy_in_province_x_var
+								value = 2
+							}
+						}
+						event_target:agenda_province = {
+							NOT = { local_autonomy = 5 }
+						}
+					}
+					else = {
+						hidden_trigger = {
+							always = no
+						}
+					}
+				}
+			}	
+		}
+	}
+	task_requirements = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_dhimmi_increase_autonomy_in_province_x_var
+					value = 5
+				}
+			}
+			event_target:agenda_province = {
+				local_autonomy = 75
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_dhimmi_increase_autonomy_in_province_x_var
+					value = 4
+				}
+			}
+			event_target:agenda_province = {
+				local_autonomy = 60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_dhimmi_increase_autonomy_in_province_x_var
+					value = 3
+				}
+			}
+			event_target:agenda_province = {
+				local_autonomy = 45
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = estate_dhimmi_increase_autonomy_in_province_x_var
+					value = 2
+				}
+			}
+			event_target:agenda_province = {
+				local_autonomy = 30
+			}
+		}
+		else = {
+			event_target:agenda_province = {
+				local_autonomy = 15
+			}
+		}
+	}
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = estate_berbers
+			loyalty = 15
+		}
+    }
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_berbers
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+    }
+}

@@ -1,0 +1,601 @@
+#Sharifate missions - independent, but also overlord oriented missions for Hejaz, Medina and Mecca.
+
+HED_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = HED
+			tag = MDA
+			tag = MCC
+		}
+	}
+	has_country_shield = yes
+	
+	HED_develop_holy_cities = {
+		icon = mission_assert_control_over_delhi
+		required_missions = { HED_custodians_of_the_holy_cities }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 384
+				province_id = 385
+			}
+			OR  = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 15 }
+			}
+		}
+		trigger = {
+			384 = {
+				development = 15
+				owned_by = ROOT
+			}
+			385 = {
+				development = 15
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			384 = {
+				add_permanent_province_modifier = {
+					name = HED_goods
+					duration = -1
+				}
+			}
+			385 = {
+				add_permanent_province_modifier = {
+					name = HED_goods
+					duration = -1
+				}
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+			ME_overlord_effect = {
+				effect = "
+					add_estate_loyalty = {
+						estate = estate_church
+						loyalty = 10
+					}
+					add_prestige_or_monarch_power = { amount = 20 }
+				"
+			}
+		}
+	}
+	
+	HED_monument = {
+		icon = mission_conquer_gujarat_bah
+		required_missions = { HED_develop_holy_cities }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					has_dlc = "Leviathan"
+					province_id = 385
+				}
+				AND = {
+					NOT = { has_dlc = "Leviathan" }
+					OR = {
+						province_id = 384
+						province_id = 385
+					}
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 25 }
+					}
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				385 = {
+					has_great_project = {
+						type = kaaba 
+						tier = 3 
+					}
+				}
+			}
+			else = {
+				384 = {
+					development = 25
+					owned_by = ROOT
+				}
+				385 = {
+					development = 25
+					owned_by = ROOT
+				}
+			}
+		}
+		effect = {
+			384 = {
+				add_permanent_province_modifier = {
+					name = HED_sponsors_of_the_holy_cities
+					duration = -1
+				}
+			}
+			
+			385 = {
+				add_permanent_province_modifier = {
+					name = HED_sponsors_of_the_holy_cities
+					duration = -1
+				}
+			}
+			
+			add_estate_loyalty_modifier = {
+				estate = estate_church
+				desc = HED_supporter_of_the_holy_cities
+				loyalty = 15
+				duration = -1
+			}
+
+			ME_overlord_effect = {
+				effect = "
+					add_stability_or_adm_power = yes
+					add_estate_loyalty_modifier = {
+						estate = estate_church
+						desc = HED_supporter_of_the_holy_cities
+						loyalty = 15
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+}
+
+HED_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = HED
+			tag = MDA
+			tag = MCC
+		}
+	}
+	has_country_shield = yes
+	
+	HED_custodians_of_the_holy_cities = {
+		icon = mission_into_arabia
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				province_id = 384
+				province_id = 385
+			}
+			OR  = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+		trigger = {
+			384 = {
+				has_tax_building_trigger = yes
+				owned_by = ROOT
+			}
+			385 = {
+				has_tax_building_trigger = yes
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			384 = { add_or_upgrade_tax_building = yes }
+			385 = { add_or_upgrade_tax_building = yes }
+			
+			custom_tooltip = " "
+			
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = HED_custodians
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+	
+	HED_pilgrim_caravans = {
+		icon = mission_conquer_andhra_bah
+		required_missions = { HED_secure_pilgrim_routes }
+		position = 3
+		provinces_to_highlight = {
+			ARB_is_in_pilgrim_route = yes
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = HED_highlighted_area_is_owned_by_us_subject_or_overlord_and_has_road_network
+				ARB_pilgrim_route_trigger = {
+					trigger = "
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								overlord_of = ROOT
+							}
+						}
+						if = {
+							limit = {
+								is_expanded_mod_active = { mod = trade_goods }
+							}
+							OR = {
+								has_building = early_road
+								has_building = gravel_road
+								has_building = royal_road
+								has_building = macadam_road
+								has_building =railroad
+							}
+						}
+						else = {
+							num_of_times_improved = 3
+						}
+					"
+				}
+			}
+		}
+		effect = {
+			384 = {
+				remove_province_modifier = HED_pilgrims_arriving_en_masse
+				add_permanent_province_modifier = {
+					name = HED_pilgrims_arriving_en_masse_2
+					duration = -1
+				}
+			}
+			385 = {
+				remove_province_modifier = HED_pilgrims_arriving_en_masse
+				add_permanent_province_modifier = {
+					name = HED_pilgrims_arriving_en_masse_2
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	HED_pilgrim_caravans_2 = {
+		icon = mission_bedouins
+		required_missions = { HED_extend_the_routes HED_pilgrim_caravans HED_monument }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 384
+				province_id = 385
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_buildings_in_province = 3 }
+				NOT = { development = 25 }
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 7
+			}
+			
+			384 = {
+				owned_by = ROOT
+				num_of_buildings_in_province = 3
+				development = 25
+			}
+			
+			385 = {
+				owned_by = ROOT
+				num_of_buildings_in_province = 3
+				development = 25
+			}
+		}
+		effect = {
+			set_global_flag = HED_pilgrim_caravans_2_mission_global_flag
+			add_country_modifier = {
+				name = HED_development_cost
+				duration = -1
+			}
+			custom_tooltip = HED_overlord_tt
+			#custom_tooltip = HED_also_receive_dev_cost
+		}
+	}
+}
+
+HED_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = HED
+			tag = MDA
+			tag = MCC
+		}
+	}
+	has_country_shield = yes
+	
+	HED_secure_pilgrim_routes = {
+		icon = mission_traverse_the_sahara
+		required_missions = { HED_protectors_of_the_holy_cities HED_custodians_of_the_holy_cities }
+		position = 2
+		provinces_to_highlight = {
+			ARB_is_in_pilgrim_route = yes
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = HED_highlighted_area_is_owned_by_us_subject_or_overlord
+				ARB_pilgrim_route_trigger = {
+					trigger = "
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								overlord_of = ROOT
+							}
+						}
+					"
+				}
+			}
+		}
+		effect = {
+			384 = {
+				add_permanent_province_modifier = {
+					name = HED_pilgrims_arriving_en_masse
+					duration = -1
+				}
+			}
+			385 = {
+				add_permanent_province_modifier = {
+					name = HED_pilgrims_arriving_en_masse
+					duration = -1
+				}
+			}
+			ARB_claims_levant = yes
+			ARB_claims_egypt = yes
+		}
+	}
+	
+	HED_egypt = {
+		icon = mission_egyptian_mamluk_soldier
+		required_missions = { HED_secure_pilgrim_routes }
+		position = 3
+		provinces_to_highlight = {
+			ARB_is_in_egypt = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_egypt = yes
+				value = 20
+			}
+		}
+		effect = {
+			ARB_reward_egypt = yes
+		}
+	}
+	
+	HED_extend_the_routes = {
+		icon = mission_saharan_route
+		required_missions = { HED_pilgrim_caravans }
+		position = 4
+		provinces_to_highlight = {
+			ARB_is_in_extended_pilgrim_route = yes
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = HED_highlighted_area_is_owned_by_us_subject_or_overlord_and_has_road_network
+				ARB_pilgrim_route_extended_trigger = {
+					trigger = "
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+								overlord_of = ROOT
+							}
+						}
+						if = {
+							limit = {
+								is_expanded_mod_active = { mod = trade_goods }
+							}
+							OR = {
+								has_building = early_road
+								has_building = gravel_road
+								has_building = royal_road
+								has_building = macadam_road
+								has_building =railroad
+							}
+						}
+						else = {
+							num_of_times_improved = 3
+						}
+					"
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ARB_the_highlighted_area
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = HED_road
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				ARB_pilgrim_route_extended_effect = {
+					effect = "
+						add_permanent_province_modifier = {
+							name = HED_road
+							duration = -1
+						}
+					"
+				}
+			}
+		}
+	}
+}
+
+HED_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = HED
+			tag = MDA
+			tag = MCC
+		}
+	}
+	has_country_shield = yes
+	
+	HED_protectors_of_the_holy_cities = {
+		icon = mission_reclaim_morocco
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					NOT = { is_year = 1455 }
+					overlord = { ai = yes }
+					ai = yes
+				}
+				capital_scope = {
+					base_manpower = 5
+				}
+			}
+			else = {
+				OR = {
+					capital_scope = {
+						base_manpower = 5
+					}
+					army_size_percentage = 0.85 
+				}
+			}
+		}
+		effect = {
+			ARB_claims_west_arabia = yes 
+			ARB_claims_central_arabia = yes
+			ARB_claims_yemen = yes
+		}
+	}
+	
+	HED_inner_tribes = {
+		icon = mission_arabian_fort
+		required_missions = { HED_protectors_of_the_holy_cities }
+		position = 2
+		provinces_to_highlight = {
+			ARB_is_in_central_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_central_arabia = yes
+				value = 7
+			}
+		}
+		effect = {
+			ARB_reward_central_arabia = yes
+			ARB_claims_east_arabia = yes
+		}
+	}
+	
+	HED_levant = {
+		icon = mission_eliminate_pretenders
+		required_missions = { HED_secure_pilgrim_routes }
+		position = 3
+		provinces_to_highlight = {
+			ARB_is_in_levant = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_levant = yes
+				value = 13
+			}
+		}
+		effect = {
+			ARB_reward_levant = yes
+			ARB_claims_iraq = yes 
+		}
+	}
+	
+	HED_house_of_wisdom = {
+		icon = mission_imperial_cities
+		required_missions = { HED_levant HED_eastern_coast }
+		position = 4
+		provinces_to_highlight = {
+			ARB_is_in_iraq = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_iraq = yes
+				value = 8
+			}
+		}
+		effect = {
+			ARB_reward_iraq = yes
+		}
+	}
+}
+
+HED_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = HED
+			tag = MDA
+			tag = MCC
+		}
+	}
+	has_country_shield = yes
+	
+	HED_down_to_yemen = {
+		icon = mission_conquer_tunisia
+		required_missions = { HED_protectors_of_the_holy_cities }
+		position = 2
+		provinces_to_highlight = {
+			ARB_is_in_yemen = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_yemen = yes
+				value = 12
+			}
+		}
+		effect = {
+			ARB_reward_yemen = yes
+		}
+	}
+	
+	HED_eastern_coast = {
+		icon = mission_conquer_algiers
+		required_missions = { HED_inner_tribes HED_down_to_yemen }
+		position = 3
+		provinces_to_highlight = {
+			ARB_is_in_east_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_east_arabia = yes
+				value = 12
+			}
+		}
+		effect = {
+			ARB_reward_east_arabia = yes
+			ARB_claims_iraq = yes
+		}
+	}
+}

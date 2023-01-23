@@ -1,0 +1,765 @@
+NAJ_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = NAJ
+			tag = DAW
+		}
+	}
+	has_country_shield = yes
+	
+	NAJ_struggle_for_unity = {
+		icon = mission_deccanis
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_generals = 1
+			OR = {
+				army_size = 10
+				army_size_percentage = 0.9
+			}
+		}
+		effect = {
+			ARB_claims_central_arabia = yes
+			
+			add_tribal_allegiance = 30
+		}
+	}
+	
+	NAJ_the_gulf = {
+		icon = mission_dharma_mission_arabian_trade
+		required_missions = { NAJ_the_central_tribes }
+		position = 3
+		provinces_to_highlight = {
+			ARB_is_in_east_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_east_arabia = yes
+				value = 12
+			}
+		}
+		effect = {
+			ARB_reward_east_arabia = yes
+			ARB_claims_iraq = yes
+		}
+	}
+	
+	NAJ_iraq = {
+		icon = mission_into_persia_1
+		required_missions = { NAJ_the_gulf }
+		position = 5
+		provinces_to_highlight = {
+			ARB_is_in_iraq = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_iraq = yes
+				value = 8
+			}
+		}
+		effect = {
+			ARB_reward_iraq = yes
+		}
+	}
+}
+
+NAJ_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = NAJ
+			tag = DAW
+		}
+	}
+	has_country_shield = yes
+
+	NAJ_the_central_tribes = {
+		icon = mission_traverse_the_sahara
+		required_missions = { NAJ_struggle_for_unity }
+		position = 2
+		provinces_to_highlight = {
+			ARB_is_in_central_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_central_arabia = yes
+				value = 7
+			}
+		}
+		effect = {
+			ARB_reward_central_arabia = yes
+			ARB_claims_east_arabia = yes
+			ARB_claims_west_arabia = yes
+			ARB_claims_yemen = yes
+			capital_scope = { 
+				add_institution_embracement = {
+					which = feudalism
+					value = 100
+				}
+			}
+			if = {
+				limit = {
+					has_ruler_flag = NAJ_eligible_for_stat_upgrade
+				}
+				change_adm = 2
+				change_dip = 2 
+				change_mil = 2
+			}
+			if = {
+				limit = {
+					has_heir_flag = NAJ_eligible_for_stat_upgrade
+				}
+				change_heir_adm = 2
+				change_heir_dip = 2 
+				change_heir_mil = 2
+			}
+		}
+	}
+	
+	NAJ_yemen = {
+		icon = mission_restore_trade_superiority
+		required_missions = { NAJ_the_central_tribes }
+		position = 3
+		provinces_to_highlight = {
+			ARB_is_in_yemen = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_yemen = yes
+				value = 12
+			}
+		}
+		effect = {
+			ARB_reward_yemen = yes
+		}
+	}
+	
+	NAJ_egypt = {
+		icon = mission_reclaim_morocco
+		required_missions = { NAJ_the_holy_cities }
+		position = 4
+		provinces_to_highlight = {
+			ARB_is_in_egypt = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_egypt = yes
+				value = 10
+			}
+		}
+		effect = {
+			ARB_reward_egypt = yes
+		}
+	}
+	
+	NAJ_arabian_ambition = {
+		icon = mission_restore_caliphate_of_cordoba
+		required_missions = { NAJ_iraq NAJ_egypt NAJ_levant }
+		position = 6
+		provinces_to_highlight = {
+			ARB_is_in_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_arabia = yes
+				value = 100
+			}
+		}
+		effect = {
+			ARB_reward_arabia = yes
+			add_stability_or_adm_power = yes
+			override_country_name = NAJ_saudi_arabia
+		}
+	}
+	
+	NAJ_rashidun_companions = {
+		icon = mission_levantine_restoration
+		required_missions = { NAJ_holier_than_thou }
+		position = 7
+		provinces_to_highlight = {
+		}
+		trigger = {
+			army_tradition = 30
+			army_size = 16
+			army_size_percentage = 0.75
+			
+			num_of_battles_won = { value = 10 }
+		}
+		effect = {
+			create_general_with_pips = {
+				tradition = 80
+				add_manuever = 2
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = NAJ_warriors_of_the_sands
+				duration = 7300
+			}
+		}
+	}
+	
+	NAJ_arabian_horses = {
+		icon = mission_reconquer_ceuta
+		required_missions = { NAJ_rashidun_companions }
+		position = 9
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { num_of_times_improved = 5 }
+		}
+		trigger = {
+			num_of_cavalry = 10
+			
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 55
+				}
+			}
+			
+			num_of_owned_provinces_with = {
+				trade_goods = livestock
+				num_of_times_improved = 5
+				value = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = NAJ_horses
+				duration = 9125
+			}
+			
+			add_army_tradition_or_mil_power = { amount = 10 }
+		}
+	}
+}
+
+NAJ_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = NAJ
+			tag = DAW
+		}
+	}
+	has_country_shield = yes
+	
+	NAJ_the_holy_cities = {
+		icon = mission_into_arabia
+		required_missions = { NAJ_the_central_tribes }
+		position = 3
+		provinces_to_highlight = {
+			ARB_is_in_west_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_west_arabia = yes
+				value = 7
+			}
+		}
+		effect = {
+			ARB_reward_west_arabia = yes
+			ARB_claims_levant = yes
+			ARB_claims_egypt = yes
+		}
+	}
+	
+	NAJ_levant = {
+		icon = mission_pacify_punjab
+		required_missions = { NAJ_the_holy_cities }
+		position = 5
+		provinces_to_highlight = {
+			ARB_is_in_levant = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_levant = yes
+				value = 13
+			}
+		}
+		effect = {
+			ARB_reward_levant = yes
+		}
+	}
+	
+	NAJ_holier_than_thou = {
+		icon = me_mission_great_mosque
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 60 
+				}
+			}
+			stability = 1
+		}
+		effect = {
+			set_country_flag = NAJ_special_cb
+			custom_tooltip = NAJ_special_cb
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = NAJ_morale
+				duration = 7300
+			}
+		}
+	}
+	
+	NAJ_authorative_fatwas = {
+		icon = mission_mosque
+		required_missions = { NAJ_holier_than_thou }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				has_adm_advisor = yes
+				monthly_adm = 10
+			}
+			diplomatic_reputation = 1
+			has_institution = feudalism
+			if = {
+				limit = { has_estate = estate_church }
+				OR = {
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 70
+					}
+					estate_influence = {
+						estate = estate_church
+						influence = 70 
+					}
+				}
+			}
+		}
+		effect = {
+			add_adm_power = 100
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = NAJ_we_may_become_feudal_theocracy
+			country_event = { id = ME_Najd_Events.1 }
+			
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_tooltip = " "
+			
+				custom_tooltip = NAJ_empower_the_clerical_ministers_privilege
+			}
+			set_country_flag = NAJ_clerical_ministers_buff
+		}
+	}
+}
+
+NAJ_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = NAJ
+			tag = DAW
+		}
+	}
+	has_country_shield = yes
+
+	NAJ_convince_other_tribes = {
+		icon = mission_cope_with_refugees
+		required_missions = { NAJ_found_diriyah }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT
+			culture = ROOT
+		}
+		trigger = {
+			development_in_provinces = {
+				culture = ROOT #bedouin
+				num_of_times_improved = 3
+				value = 25
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = NAJ_support_of_tribes
+				duration = 10950
+			}
+			
+			add_manpower = 4.582
+		}
+	}
+	
+	NAJ_attract_pilgrims = {
+		icon = mission_saharan_route
+		required_missions = { NAJ_unite_the_settlements NAJ_the_holy_cities }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 384
+				province_id = 385
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+				NOT = { num_of_times_improved = 3 }
+			}
+		}
+		trigger = {
+			384 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				has_tax_building_trigger = yes
+				num_of_times_improved = 3
+			}
+			
+			385 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				has_tax_building_trigger = yes
+				num_of_times_improved = 3
+			}
+		}
+		effect = {
+			384 = { add_or_upgrade_tax_building = yes }
+			385 = { add_or_upgrade_tax_building = yes }
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 20
+				}
+				
+				custom_tooltip = " "
+			}
+			
+			add_dip_power = 100
+		}
+	}
+
+	NAJ_challenge_the_ummah = {
+		icon = me_mission_muslim_priest
+		required_missions = { NAJ_holier_than_thou NAJ_construct_a_madrasah }
+		position = 7
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					ROOT = {
+						ME_has_abbasid_caliph = yes
+					}
+				}
+				owner = {
+					religion = ROOT
+					NOT = {
+						religious_school = {
+							group = muslim
+							school = hanbali_school
+						}
+					}
+				}
+			}
+			else = {
+				ME_abbasid_caliph_pth = yes
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				if = {
+					limit = {
+						religious_school = {
+							group = muslim
+							school = hanbali_school
+						}
+					}
+					calc_true_if = {
+						all_country = {
+							religious_school = {
+								group = muslim
+								school = hanbali_school
+							}
+						}
+						amount = 3
+					}
+				}
+			}
+			ME_has_abbasid_caliph = yes
+		}
+		effect = {
+			set_country_flag = NAJ_eligible_for_triggered_modifier_flag
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				custom_tooltip = NAJ_eligible_for_triggered_modifier
+				custom_tooltip = " "
+			}
+			
+			add_country_modifier = {
+				name = NAJ_ummah_challenged
+				duration = 10950
+			}
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+	
+	NAJ_wahhabism = {
+		icon = mission_fatimid_caliphate
+		required_missions = { NAJ_challenge_the_ummah NAJ_authorative_fatwas }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_allies = 2 
+			num_of_battles_won = { value = 25 }
+			total_development = 300 
+			
+			has_adm_advisor_3 = yes
+			
+			has_global_modifier_value = {
+				which = global_missionary_strength 
+				value = 0.07
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+					NOT = { has_global_flag = wahabism_founded }
+				}
+				set_country_flag = NAJ_may_fire_wahabism
+				country_event = { id = muslim_school_events.22 }
+				
+				custom_tooltip = " "
+			}
+			
+			set_country_flag = NAJ_mutaween
+			custom_tooltip = NAJ_enable_the_mutaween_estate_privilege
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = ME_wahhabi_scholar
+				name = "Muhammad ibn Abd al-Wahhab"
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.2
+			}
+		}
+	}
+}
+
+NAJ_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = NAJ
+			tag = DAW
+		}
+	}
+	has_country_shield = yes
+
+	NAJ_found_diriyah = {
+		icon = mission_el_badi_palace
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 392 
+		}
+		trigger = {
+			392 = {
+				owned_by = ROOT
+				development = 6
+			}
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 45
+				}
+			}
+		}
+		effect = {
+			392 = {
+				change_province_name = "Diriyah"
+				add_province_modifier  = {
+					name = NAJ_diriyah
+					duration = -1
+				}
+			}
+			
+			add_stability_or_adm_power = yes
+			
+			ME_override_country_name = { string = NAJ_diriyah }
+		}
+	}
+
+	NAJ_unite_the_settlements = {
+		icon = mission_conquer_algiers
+		required_missions = { NAJ_found_diriyah }
+		position = 3
+		provinces_to_highlight = {
+			owned_by = ROOT
+		}
+		trigger = {
+			num_of_provinces_developed = { amount = 10 }
+		}
+		effect = {
+			set_country_flag = NAJ_may_move_capital_to_riyadh
+			custom_tooltip = NAJ_may_move_capital_to_riyadh
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = NAJ_building_a_great_future
+				duration = 9125
+			}
+		}
+	}
+	
+	NAJ_the_gardens = {
+		icon = mission_break_sicily
+		required_missions = { NAJ_unite_the_settlements }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 392
+		}
+		trigger = {
+			392 = {
+				development = 25
+				owned_by = ROOT
+				num_of_buildings_in_province = 3
+			}
+		}
+		effect = {
+			392 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = NAJ_the_gardens_modifier
+					duration = -1
+				}
+				province_event = { id = ME_Najd_Events.3 }
+			}
+		}
+	}
+	
+	NAJ_construct_a_madrasah = {
+		icon = mission_imperial_cities
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			NOT = { has_tax_building_trigger = yes }
+			NOT = { num_of_times_improved = 2 }
+		}
+		trigger = {
+			capital_scope = {
+				has_tax_building_trigger = yes 
+				num_of_times_improved = 2 
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_or_upgrade_tax_building = yes
+				
+				custom_tooltip = " "
+				
+				add_base_tax = 1
+				add_base_production = 1 
+				
+				add_province_modifier = {
+					name = NAJ_local_madrasah
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	NAJ_woes_of_the_riddah_wars = {
+		icon = mission_abu_saids_dream
+		required_missions = { NAJ_construct_a_madrasah }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = bahrain_area
+				area = nafud_area
+				area = yamamah_area
+				area = qasim_area
+				area = pirate_coast_area
+			}
+			NOT = { religion = ROOT }
+		}
+		trigger = {
+			bahrain_area = {
+				type = all
+				religion = ROOT
+			}
+			nafud_area = {
+				type = all
+				religion = ROOT
+			}
+			yamamah_area = {
+				type = all
+				religion = ROOT
+			}
+			qasim_area = {
+				type = all
+				religion = ROOT
+			}
+			pirate_coast_area = {
+				type = all
+				religion = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = NAJ_legacy_lives_on
+				duration = 10950
+			}
+			
+			add_army_tradition_or_mil_power = { amount = 20 }
+		}
+	}
+}

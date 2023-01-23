@@ -3,552 +3,444 @@ MAM_missions_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			tag = MAM
-			tag = EGY
-			tag = EGP
-		}	
+		tag = MAM
+		
+		NOT = { has_country_flag = MAM_ottoman_incident_tree }
 	}
 	has_country_shield = yes
-
-	mamluks_great_works_of_cairo = {
-		icon = mission_early_game_buildings
-		required_missions = { }
-		position = 1
+	
+	MAM_expand_kharaj = {
+		icon = mission_deccanis
+		required_missions = { MAM_revitalize_land_routes }
+		position = 2
 		provinces_to_highlight = {
-			province_id = 361
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { development = 30 }
-				AND = {
-					NOT = { has_building = workshop }
-					NOT = { has_building = counting_house }
-				}
-				AND = {
-					NOT = { has_building = temple }
-					NOT = { has_building = cathedral }
-				}
-			}
 		}
 		trigger = {
-			owns = 361
-			361 = {
-				development = 30
-				OR = {
-					has_building = workshop
-					has_building = counting_house
-				}
-				OR = {
-					has_building = temple
-					has_building = cathedral
+			OR = {
+				treasurer = 1
+				has_adm_advisor_2 = yes
+			}
+		
+			custom_trigger_tooltip = {
+				tooltip = MAM_developed_tax_at_least_25_times
+				check_variable = {
+					which = num_of_adm_clicks
+					value = 25
 				}
 			}
 		}
 		effect = {
-			if = {
-				limit = {
-					361 = {
-						NOT = { province_has_center_of_trade_of_level = 3 }
-					}
-				}
-				361 = {
-					if = {
-						limit = {
-							NOT = { province_has_center_of_trade_of_level = 1 }
-						}
-						center_of_trade = 3
-					}
-					else_if = {
-						limit = {
-							NOT = { province_has_center_of_trade_of_level = 3 }
-						}
-						add_center_of_trade_level = 2
-					}
-				}
+			change_estate_land_share = {
+				estate = all
+				share = -5
 			}
-			else = {
-				add_country_modifier = {
-					name = mamluks_great_works_of_cairo_modifier
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = MAM_selling_crownland_gives_more_money
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MAM_selling_kharaj_to_iqta_holders
+				duration = 9125
+			}
+		}
+	}
+	
+	MAM_trading_in_coffee = {
+		icon = mission_dharma_mission_arabian_trade
+		required_missions = { MAM_red_sea_trade }
+		position = 4
+		provinces_to_highlight = {
+			trade_goods = coffee
+			has_discovered = ROOT
+		}
+		trigger = {
+			trading_part = {
+				trade_goods = coffee
+				value = 0.5
+			}
+		}
+		effect = {
+			ME_add_years_of_trade_income = { years = 3 }
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 3
+			
+			custom_tooltip = " "
+			
+			tooltip = {
+				change_price = {
+					trade_goods = coffee
+					key = MAM_protector_of_the_secret
+					value = 0.25
 					duration = 9125
 				}
 			}
+			country_event = { id = ME_Mamluks_Events.25 }
 		}
 	}
 	
-	mamluks_develop_the_delta = {
-		icon = mission_mosque
-		required_missions = { mamluks_great_works_of_cairo }
-		position = 2
+	MAM_coffea_arabica = {
+		icon = mission_african_gold
+		required_missions = { MAM_trading_in_coffee }
+		position = 5
 		provinces_to_highlight = {
-			area = delta_area
 			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { development = 15 }
-				AND = {
-					NOT = { has_building = workshop }
-					NOT = { has_building = counting_house }
-				}
+				province_id = 387
+				province_id = 386
+				province_id = 4280
+				province_id = 4279
+				province_id = 4282
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { has_production_building_trigger = yes }
 			}
 		}
 		trigger = {
-			delta_area = {
-				type = all
-				owned_by = ROOT
-				development = 15
-				OR = {
-					has_building = workshop
-					has_building = counting_house
-				}
+			387 = {
+				has_production_building_trigger = yes
+				country_or_non_sovereign_subject_holds = ROOT
 			}
-			if = {
-				limit = {
-					has_dlc = "Dharma"
-				}
-				delta_area = {
-					province_has_center_of_trade_of_level = 2
-				}
+			386 = {
+				has_production_building_trigger = yes
+				country_or_non_sovereign_subject_holds = ROOT
 			}
-			else = {
-				358 = {
-					trade_share = {
-						country = ROOT
-						share = 75
-					}
-				}
+			4280 = {
+				has_production_building_trigger = yes
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			4279 = {
+				has_production_building_trigger = yes
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			4282 = {
+				has_production_building_trigger = yes
+				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
 		effect = {
-			add_years_of_income = 0.5
-			delta_area = {
-				add_province_modifier = {
-					name = mamluks_develop_the_delta_province_modifier
-					duration = 7300
-				}
-			}
+			387 = { add_or_upgrade_production_building = yes }
+			386 = { add_or_upgrade_production_building = yes }
+			4280 = { add_or_upgrade_production_building = yes }
+			4279 = { add_or_upgrade_production_building = yes }
+			4282 = { add_or_upgrade_production_building = yes }
 		}
 	}
 	
-	mamluks_develop_the_nile = {
-		icon = mission_colonial
-		required_missions = { mamluks_develop_the_delta }
-		position = 3
-		provinces_to_highlight = {
-			OR = {
-				AND = {
-					region = egypt_region
-					NOT = { owned_by = ROOT }
-				}
-				AND = {
-					OR = {
-						area = said_area
-						area = vostani_area
-					}
-					NOT = { development = 10 }
-				}
-			}
-		}
-		trigger = {
-			egypt_region = {
-				type = all
-				owned_by = ROOT
-			}
-			said_area = {
-				type = all
-				development = 10
-			}
-			vostani_area = {
-				type = all
-				development = 10
-			}
-		}
-		effect = {
-			4320 = {
-				change_trade_goods = paper
-			}
-			said_area = {
-				add_province_modifier = {
-					name = mamluks_develop_the_nile_province_modifier
-					duration = 10950
-				}
-			}
-			vostani_area = {
-				add_province_modifier = {
-					name = mamluks_develop_the_nile_province_modifier
-					duration = 10950
-				}
-			}
-			dongola_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			upper_nubia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
-	mamluks_library_of_alexandria = {
+	MAM_citadel_of_qaitbey = {
 		icon = mission_occupy_alexandria
-		required_missions = { mamluks_develop_the_nile }
-		position = 4
+		required_missions = { }
+		position = 6
 		provinces_to_highlight = {
 			province_id = 358
 			OR = {
 				NOT = { owned_by = ROOT }
-				NOT = { renaissance = 100 }
+				NOT = { base_manpower = 6 }
+				NOT = { has_manpower_building_trigger = yes }
 			}
 		}
 		trigger = {
-			treasury = 1000
-			adm_power = 50
-			dip_power = 50
-			mil_power = 50
-			owns = 358
 			358 = {
-				renaissance = 100
+				owned_by = ROOT
+				base_manpower = 6
+				has_manpower_building_trigger = yes 
 			}
 		}
 		effect = {
-			add_treasury = -1000
-			add_adm_power = -50
-			add_dip_power = -50
-			add_mil_power = -50
-			add_country_modifier = {
-				name = mamluks_library_of_alexandria_modifier
-				duration = -1
-			}
 			358 = {
-				change_trade_goods = paper
-				if = {
-					limit = {
-						NOT = { has_building = university }
-					}
-					add_building = university
-				}
-				else = {
-					add_base_production = 1
+				add_or_upgrade_manpower_building = yes
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = MAM_citadel
+					duration = -1 
 				}
 			}
 		}
 	}
 	
-	mamluks_the_nile_breadbasket = {
-		icon = mission_clear_the_delta
-		required_missions = { mamluks_library_of_alexandria mamluks_lighthouse_of_alexandria }
-		position = 5
+	MAM_lighthouse_of_alexandria = {
+		icon = mission_conquer_alexandria
+		required_missions = { MAM_citadel_of_qaitbey MAM_cooperation }
+		position = 8
 		provinces_to_highlight = {
+			province_id = 358
 			OR = {
-				area = delta_area
-				area = bahari_area
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
 				AND = {
-					NOT = { has_building = wharf }
-					NOT = { has_building = weapons }
-					NOT = { has_building = textile }
-					NOT = { has_building = tradecompany }
-					NOT = { has_building = farm_estate }
-					NOT = { has_building = mills }
-					NOT = { has_building = plantations }
-					NOT = { has_building = furnace }
+					NOT = { has_dlc = "Leviathan" }
+					NOT = { development = 45 }
 				}
+				AND = {
+					has_dlc = "Leviathan"
+					NOT = {
+						has_great_project = {
+							type = fu_pharos_alexandria
+							tier = 1
+						}
+					}
+				}
+				NOT = { owned_by = ROOT }
 			}
 		}
 		trigger = {
-			production_leader = {
-				trade_goods = grain
-			}
-			delta_area = {
-				type = all
-				owned_by = ROOT
-				OR = {
-					has_building = wharf
-					has_building = weapons
-					has_building = textile
-					has_building = tradecompany
-					has_building = farm_estate
-					has_building = mills
-					has_building = plantations
-					has_building = furnace
-				}
-			}
-			bahari_area = {
-				type = all
-				owned_by = ROOT
-				OR = {
-					has_building = wharf
-					has_building = weapons
-					has_building = textile
-					has_building = tradecompany
-					has_building = farm_estate
-					has_building = mills
-					has_building = plantations
-					has_building = furnace
-				}
-			}
-		}
-		effect = {
-			delta_area = {
-				add_country_modifier = {
-					name = mamluks_the_nile_breadbasket_province_modifier
-					duration = -1
-				}
-			}
-			bahari_area = {
-				add_country_modifier = {
-					name = mamluks_the_nile_breadbasket_province_modifier
-					duration = -1
-				}
-			}
-		}
-	}
-	
-	mamluks_a_new_egyptian_golden_age = {
-		icon = mission_golden_century
-		required_missions = { mamluks_the_nile_breadbasket }
-		position = 6
-		trigger = {
-			has_institution = global_trade
-			prestige = 95
 			if = {
 				limit = {
-					has_dlc = "Common Sense"
+					has_dlc = "Leviathan"
 				}
-				government_rank = 3
+				358 = {
+					owned_by = ROOT
+					has_great_project = {
+						type = fu_pharos_alexandria
+						tier = 1
+					}
+				}
 			}
 			else = {
-				total_development = 1000
+				358 = {
+					owned_by = ROOT 
+					development = 45
+					num_of_buildings_in_province = 5
+				}
 			}
+		}
+		effect = {
+			set_country_flag = MAM_pharos_of_alexandria_buff
+			if = {
+				limit = {
+					# has_dlc = "Leviathan"
+				}
+				custom_tooltip = MAM_pharos_of_alexandria_level_3
+				#for Leviathan users, the thing will now grant a new conditional modifier!
+				
+				custom_tooltip = " "
+				
+				358 = {
+					add_province_modifier = {
+						name = MAM_pharos_of_alexandria
+						duration = -1
+					}
+				}
+			}
+			else = {
+				358 = {
+					add_province_modifier = {
+						name = MAM_lighthouse_of_alexandria_modifier
+						duration = -1
+					}
+				}
+			}
+			
 			if = {
 				limit = {
 					has_dlc = "Mandate of Heaven"
 				}
-				OR = {
-					in_golden_age = yes
-					AND = {
-						stability = 3
-						legitimacy_equivalent = 100
-						prestige = 50
-					}
-				}
+				add_splendor = 800
+				add_prestige_or_monarch_power = { amount = 30 }
 			}
 			else = {
-				OR = {
-					AND = {
-						ADM = 5
-						DIP = 5
-						MIL = 5
-					}
-					AND = {
-						stability = 3
-						legitimacy_equivalent = 100
-						prestige = 50
-					}
-				}
-			}
-		}
-		effect = {
-			add_absolutism = 25
-			add_country_modifier = {
-				name = mamluks_a_new_egyptian_golden_age_modifier
-				duration = 7300
+				add_prestige_or_monarch_power = { amount = 50 }
 			}
 		}
 	}
 	
-	mamluks_western_launching_point = {
-		icon = me_mission_carthage_expand_to_tunis
-		required_missions = { mamluks_the_mamluk_caliphate }
-		position = 8
-		provinces_to_highlight = {
-			OR = {
-				area = tunisia_area
-				area = djerba_area
-				area = tripolitania_area
-			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			navy_size = 200
-			tunisia_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			djerba_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			tripolitania_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
-			add_country_modifier = {
-				name = mamluks_western_launching_point_modifier
-				duration = 7300
-			}
-			northern_morocco_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			algiers_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			barbary_coast_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			kabylia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
-	mamluks_the_entrance_to_the_sea = {
-		icon = me_mission_carthage_expand_to_algiers
-		required_missions = { mamluks_western_launching_point }
+	MAM_furusiyya = {
+		icon = mission_invade_maharashtra
+		required_missions = { MAM_purchase_new_mamluks }
 		position = 9
 		provinces_to_highlight = {
-			OR = {
-				area = northern_morocco_area
-				area = algiers_area
-				area = barbary_coast_area
-				area = kabylia_area
-			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			navy_size = 250
-			northern_morocco_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			algiers_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			barbary_coast_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			kabylia_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+			army_tradition = 50
+			army_size = 50
 		}
 		effect = {
-			upper_andalucia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			lower_andalucia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			maghreb_region = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
-	mamluks_restore_cordoba_to_islam = {
-		icon = me_mission_carthage_expand_to_iberia
-		required_missions = { mamluks_the_entrance_to_the_sea }
-		position = 10
-		provinces_to_highlight = {
-			OR = {
-				area = upper_andalucia_area
-				area = lower_andalucia_area
-			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			upper_andalucia_area = {
-				type = all
-				religion = ROOT
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			lower_andalucia_area = {
-				type = all
-				religion = ROOT
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
+			create_general_with_pips = { tradition = 80 add_shock = 2 }
+			
+			custom_tooltip = " "
+			
 			add_country_modifier = {
-				name = mamluks_restore_cordoba_to_islam_modifier
-				duration = 18250
-			}
-			iberia_region = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+				name = MAM_furusiyya_modifier
+				duration = 9125
 			}
 		}
 	}
 	
-	mamluks_the_blood_must_flow = {
-		icon = mission_unite_home_region
-		required_missions = { mamluks_restore_cordoba_to_islam }
+	MAM_reform_the_military = {
+		icon = mission_new_army
+		required_missions = { MAM_military_caste MAM_furusiyya }
 		position = 11
 		provinces_to_highlight = {
-			region = iberia_region
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			army_size_percentage = 1
-			iberia_region = {
-				type = all
-				religion = ROOT
-				country_or_non_sovereign_subject_holds = ROOT
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.4
+			}
+			num_of_artillery = 10
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.1
+				extra_shortcut = yes
 			}
 		}
 		effect = {
 			add_country_modifier = {
-				name = mamluks_the_blood_must_flow_modifier
-				duration = -1
+				name = MAM_mamluk_infantry_reforms
+				duration = 14600
 			}
-			languedoc_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+			
+			add_mil_power = 50
+			
+			# custom_tooltip = " "
+			
+			# country_event = { id = ME_Mamluks_Events.23 } #Mamluk Governmental Influence?
+		}
+	}
+	
+	MAM_fate_of_the_holy_cities = {
+		icon = mission_into_arabia
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				owned_by = MDA
+				owned_by = HED
+				province_id = 384
+				province_id = 385 
+			}
+		}
+		trigger = {
+			OR = {
+				MDA = { is_subject_of = ROOT }
+				384 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			OR = {
+				HED = { is_subject_of = ROOT }
+				385 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mamluks_Events.1 }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MAM_piety_accelerator
+				duration = 9125
+			}
+			
+			ARB_claims_yemen = yes
+		}
+	}
+	
+	MAM_order_in_yemen = {
+		icon = mission_levantine_restoration
+		required_missions = { MAM_fate_of_the_holy_cities }
+		position = 13
+		provinces_to_highlight = {
+			ARB_is_in_yemen = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_yemen = yes
+				value = 12
+			}
+		}
+		effect = {
+			ARB_reward_yemen = yes
+	
+			custom_tooltip = " "
+			
+			ARB_claims_central_arabia = yes
+			ARB_claims_east_arabia = yes
+		}
+	}
+	
+	MAM_control_arabia = {
+		icon = mission_traverse_the_sahara
+		required_missions = { MAM_order_in_yemen }
+		position = 14
+		provinces_to_highlight = {
+			region = arabia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = arabia_region
+				value = 45
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_arabia_tamed
+				duration = 10950
+			}
+			
+			add_adm_power = 50
+			
+			custom_tooltip = " "
+			
+			ME_add_power_projection = { amount = 15 }
+		}
+	}
+	
+	MAM_subdue_cypriots = {
+		icon = the_latin_empire
+		required_missions = { }
+		position = 15
+		provinces_to_highlight = {
+			province_id = 321
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			321 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			ME_give_claims = { id = 320 }
+			add_country_modifier = {
+				name = MAM_cypriot_crusaders_bend_the_knee
+				duration = 14600
+			}
+		}
+	}
+	
+	MAM_avenge_1444 = {
+		icon = fortify_malta
+		required_missions = { MAM_subdue_cypriots }
+		position = 17
+		provinces_to_highlight = {
+			province_id = 320
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			320 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			country_event = { id = ME_Mamluks_Events.4 }
+			
+			custom_tooltip = " "
+			
+			tooltip = {
+				add_age_modifier = {
+					name = MAM_crusaders_repulsed
+					duration = -1
+					age = age_of_absolutism
 				}
-				add_permanent_claim = ROOT
+				custom_tooltip = " "
+				add_prestige_or_monarch_power = { amount = 40 }
+				custom_tooltip = " "
+				add_power_projection = {
+					type = mission_rewards_power_projection
+					amount = 20 
+				}
 			}
 		}
 	}
@@ -559,151 +451,584 @@ MAM_missions_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			tag = MAM
-			tag = EGY
-			tag = EGP
-		}		
+		tag = MAM
+		
+		NOT = { has_country_flag = MAM_ottoman_incident_tree }
 	}
 	has_country_shield = yes
 	
-	mamluks_yemeni_trade = {
-		icon = mission_arabian_sea_trade
-		required_missions = { mamluks_the_holy_cities }
-		position = 2
+	MAM_revitalize_land_routes = {
+		icon = mission_saharan_route
+		required_missions = { }
+		position = 1
 		provinces_to_highlight = {
 			OR = {
-				area = tihama_al_yemen_area
-				area = yemen_area
+				province_id = 2321
+				province_id = 360
+				province_id = 2315 
+				province_id = 361
+				province_id = 4316
 			}
-			NOT = { owned_by = ROOT }
+			OR = {
+				NOT = {
+					if = {
+						limit = {
+							is_expanded_mod_active = { mod = trade_goods }
+						}
+						OR = {
+							has_building = early_road
+							has_building = gravel_road
+							has_building = royal_road
+							has_building = macadam_road
+							has_building =railroad
+						}
+					}
+					else = {
+						num_of_times_improved = 3
+					}
+				}
+				NOT = { owned_by = ROOT }
+			}
+		}
+		trigger = {
+			2321 = {
+				owned_by = ROOT
+				if = {
+					limit = {
+						is_expanded_mod_active = { mod = trade_goods }
+					}
+					OR = {
+						has_building = early_road
+						has_building = gravel_road
+						has_building = royal_road
+						has_building = macadam_road
+						has_building =railroad
+					}
+				}
+				else = {
+					num_of_times_improved = 3
+				}
+			}
+			360 = {
+				owned_by = ROOT
+				if = {
+					limit = {
+						is_expanded_mod_active = { mod = trade_goods }
+					}
+					OR = {
+						has_building = early_road
+						has_building = gravel_road
+						has_building = royal_road
+						has_building = macadam_road
+						has_building =railroad
+					}
+				}
+				else = {
+					num_of_times_improved = 3
+				}
+			}
+			2315 = {
+				owned_by = ROOT
+				if = {
+					limit = {
+						is_expanded_mod_active = { mod = trade_goods }
+					}
+					OR = {
+						has_building = early_road
+						has_building = gravel_road
+						has_building = royal_road
+						has_building = macadam_road
+						has_building =railroad
+					}
+				}
+				else = {
+					num_of_times_improved = 3
+				}
+			}
+			361 = {
+				owned_by = ROOT
+				if = {
+					limit = {
+						is_expanded_mod_active = { mod = trade_goods }
+					}
+					OR = {
+						has_building = early_road
+						has_building = gravel_road
+						has_building = royal_road
+						has_building = macadam_road
+						has_building =railroad
+					}
+				}
+				else = {
+					num_of_times_improved = 3
+				}
+			}
+			4316 = {
+				owned_by = ROOT
+				if = {
+					limit = {
+						is_expanded_mod_active = { mod = trade_goods }
+					}
+					OR = {
+						has_building = early_road
+						has_building = gravel_road
+						has_building = royal_road
+						has_building = macadam_road
+						has_building =railroad
+					}
+				}
+				else = {
+					num_of_times_improved = 3
+				}
+			}
+		}
+		effect = {
+			2321 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+			
+			custom_tooltip = " "
+			
+			358 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 25
+					key = MAM_supporting_red_sea_trade
+				}
+			}
+			4346 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 25
+					key = MAM_supporting_red_sea_trade
+				}
+			}
+		}
+	}
+	
+	MAM_red_sea_trade = {
+		icon = mission_steer_trade_to_bengal
+		required_missions = { MAM_revitalize_land_routes }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4346
+				AND = {
+					province_id = 2315
+					NOT = { owned_by = ROOT }
+				}
+			}
 		}
 		trigger = {
 			4346 = {
-				is_strongest_trade_power = ROOT
+				trade_share = {
+					country = ROOT
+					share = 10 
+				}
 			}
-			tihama_al_yemen_area = {
-				type = all
-				owned_by = ROOT
-			}
-			yemen_area = {
-				type = all
-				owned_by = ROOT
-			}
+			owns = 2315
 		}
 		effect = {
-			add_country_modifier = {
-				name = mamluks_yemeni_trade_modifier
-				duration = 7300
+			2315 = {
+				light_ship = ROOT
+				light_ship = ROOT
+				light_ship = ROOT
+				light_ship = ROOT
+				light_ship = ROOT
+				light_ship = ROOT
 			}
-			ifat_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+			
+			custom_tooltip = " "
+			
+			add_years_of_income = 0.50
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = MAM_if_we_have_60_burgher_loyalty
+			tooltip = {
+				add_years_of_income = 0.5
 			}
-			aussa_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			somaliland_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			majarteen_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			mogadishu_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
-	mamluks_coffee_arabica = {
-		icon = mission_trade_company_region_abroad
-		required_missions = { mamluks_yemeni_trade }
-		position = 3
-		trigger = {
-			production_leader = {
-				trade_goods = coffee
-			}
-		}
-		effect = {
-			add_country_modifier = {
-				name = mamluks_coffee_arabica_modifier
-				duration = 9125
-			}
-		}
-	}
-	
-	mamluks_lighthouse_of_alexandria = {
-		icon = mission_conquer_alexandria
-		required_missions = { mamluks_develop_the_nile }
-		position = 4
-		provinces_to_highlight = {
-			province_id = 358
-			NOT = { owned_by = ROOT }
-		}
-		trigger = {
-			treasury = 500
-			dip_power = 100
-			num_of_light_ship = 50
-			owns = 358
-		}
-		effect = {
-			add_treasury = -500
-			add_dip_power = -100
-			add_country_modifier = {
-				name = mamluks_lighthouse_of_alexandria_modifier
-				duration = -1
-			}
-			358 = {
+			hidden_effect = {
 				if = {
 					limit = {
-						NOT = { province_has_center_of_trade_of_level = 1 }
+						estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 60
+						}
 					}
-					center_of_trade = 1
-				}
-				else_if = {
-					limit = {
-						NOT = { province_has_center_of_trade_of_level = 3 }
-					}
-					add_center_of_trade_level = 1
+					add_years_of_income = 0.5
 				}
 			}
 		}
 	}
-
-
 	
-	mamluks_the_gold_must_flow = {
-		icon = mission_african_gold
-		required_missions = { mamluks_trans_saharan_trade }
-		position = 11
+	MAM_partners_across_the_ocean = {
+		icon = mission_gujarati_diaspora
+		required_missions = { MAM_red_sea_trade }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4455
+				if = {
+					limit = {
+						exists = GUJ
+					}
+					owned_by = GUJ
+				}
+				else = {
+					owner = {
+						capital_scope = {
+							region = west_india_region
+						}
+					}
+				}
+			}
+		}
 		trigger = {
-			gold_income = 50
-			gold = 15
+			OR = {
+				owns = 4455
+				if = {
+					limit = {
+						exists = GUJ
+					}
+					GUJ = {
+						has_opinion = {
+							who = ROOT
+							value = 85
+						}
+					}
+				}
+				else = {
+					any_country = {
+						capital_scope = {
+							region = west_india_region
+						}
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			504 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 25
+					key = MAM_trade_with_india
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MAM_venturing_ships
+				duration = -1
+			}
+		}
+	}
+	
+	MAM_resist_the_portuguese = {
+		icon = mission_union_with_portugal
+		required_missions = { MAM_monopolize_the_red_sea_route MAM_partners_across_the_ocean }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = event_target:Mam_mission_target
+		}
+		trigger = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = MAM_event_target }
+				}
+				OR = {
+					is_year = 1600
+					custom_trigger_tooltip = {
+						tooltip = MAM_alternative_triggers_will_initialize_later
+						always = no
+					}
+				}
+			}
+			else = {
+				OR = {
+					custom_trigger_tooltip = {
+						tooltip = MAM_portugal_doesnt_exist
+						NOT = {
+							exists = event_target:Mam_mission_target
+						}
+					}
+					custom_trigger_tooltip = {
+						tooltip = MAM_has_won_war_against_portugal
+						has_won_war_against = { who = event_target:Mam_mission_target }
+					}
+				}
+			}
+		}
+		effect = {
+			4346 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 25
+					key = MAM_the_gulf_of_aden_secured
+				}
+			}
+			361 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 25
+					key = MAM_the_gulf_of_aden_secured
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = MAM_defeated_europeans
+				age = age_of_reformation
+				duration = -1
+				else = "
+					add_prestige_or_monarch_power = { amount = 25 }
+				"
+			}
+			
+			
+		}
+	}
+	
+	MAM_cooperation = {
+		icon = mission_guilds_of_barcelona
+		required_missions = { MAM_strategic_alliance }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = syria_area
+				area = aleppo_area
+				area = delta_area
+			}
+			NOT = {
+				area_for_scope_province = {
+					owned_by = ROOT
+					has_shipyard_building_trigger = yes 
+				}
+			}
+		}
+		trigger = {
+			syria_area = {
+				owned_by = ROOT
+				has_shipyard_building_trigger = yes
+			}
+			aleppo_area = {
+				owned_by = ROOT
+				has_shipyard_building_trigger = yes
+			}
+			delta_area = {
+				owned_by = ROOT
+				has_shipyard_building_trigger = yes
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = naval_reformer 
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = MAM_random_province_in_each
+			tooltip = { add_or_upgrade_shipyard_building = yes }
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						area = syria_area
+						has_shipyard_building_trigger = yes
+					}
+					add_or_upgrade_shipyard_building = yes 
+				}
+				random_owned_province = {
+					limit = {
+						area = aleppo_area
+						has_shipyard_building_trigger = yes
+					}
+					add_or_upgrade_shipyard_building = yes 
+				}
+				random_owned_province = {
+					limit = {
+						area = delta_area
+						has_shipyard_building_trigger = yes
+					}
+					add_or_upgrade_shipyard_building = yes 
+				}
+			}
+		}
+	}
+	
+	MAM_purchase_new_mamluks = {
+		icon = mission_egyptian_mamluk_soldier
+		required_missions = { }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = CIR
+		}
+		trigger = {
+			OR = {
+				reverse_has_opinion = {
+					who = CIR
+					value = 75
+				}
+				has_dip_advisor_2 = yes
+			}
+		}
+		effect = {
+			add_yearly_manpower = 1
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = MAM_new_mamluks
+				duration = 9125
+			}
+			set_country_flag = MAM_purchase_new_mamluks_flag
+			custom_tooltip = MAM_new_diplo_action
+		}
+	}
+	
+	MAM_military_caste = {
+		icon = mission_reconquer_ceuta
+		required_missions = { MAM_purchase_new_mamluks }
+		position = 10
+		provinces_to_highlight = {
+		}
+		trigger = {
+			monthly_mil = 10
+			land_forcelimit = 100
 		}
 		effect = {
 			add_country_modifier = {
-				name = mamluks_the_gold_must_flow_modifier
+				name = MAM_governing_military
+				duration = 10950
+			}
+			
+			if = {
+				limit = {
+					government = monarchy
+				}
+				add_legitimacy = 10
+				custom_tooltip = " "
+			}
+			
+			custom_tooltip = MAM_for_every_barrack
+			hidden_effect = {
+				if = {
+					limit = {
+						num_of_owned_provinces_with = {
+							has_manpower_building_trigger = yes
+							value = 20
+						}
+					}
+					change_government_reform_progress = 100
+				}
+				else = {
+					every_owned_province = {
+						limit = {
+							has_manpower_building_trigger = yes
+						}
+						ROOT = { change_government_reform_progress = 5 }
+					}
+				}
+			}
+		}
+	}
+	
+	MAM_curb_the_white_lamb = {
+		icon = mission_protect_granada
+		required_missions = { MAM_influence_the_levant }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				owned_by = AKK
+				province_id = 407
+				province_id = 418
+				province_id = 2308
+				province_id = 4292
+			}
+		}
+		trigger = {
+			owns = 407
+			OR = {
+				has_won_war_against = { who = AKK }
+				AND = {
+					418 = { country_or_non_sovereign_subject_holds = ROOT }
+					2308 = { country_or_non_sovereign_subject_holds = ROOT }
+					4292 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mamluks_Events.7 } #Spawn Iraq?
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 100
+			
+			custom_tooltip = " "
+			
+			ARB_claims_iraq = yes
+		}
+	}
+	
+	MAM_shear_the_black_sheep = {
+		icon = mission_restore_rule_over_multan
+		required_missions = { MAM_curb_the_white_lamb }
+		position = 14
+		provinces_to_highlight = {
+			ARB_is_in_iraq = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_iraq = yes
+				value = 10
+			}
+		}
+		effect = {
+			ARB_reward_iraq = yes
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 15 }
+		}
+	}
+	
+	MAM_caliphal_ambitions = {
+		icon = mission_restore_faith_in_the_throne
+		required_missions = { MAM_shear_the_black_sheep MAM_control_arabia }
+		position = 15
+		provinces_to_highlight = {
+			ARB_is_in_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_arabia = yes
+				value = 110
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARB_new_caliphate_rising
 				duration = -1
 			}
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			set_government_rank = 3
 		}
 	}
 }
@@ -713,380 +1038,655 @@ MAM_missions_3 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			tag = MAM
-			tag = EGY
-			tag = EGP
-		}		
+		tag = MAM
+		
+		NOT = { has_country_flag = MAM_ottoman_incident_tree }
 	}
 	has_country_shield = yes
 	
-	mamluks_the_holy_cities = {
-		icon = mission_into_arabia
+	MAM_cultivate_trade = {
+		icon = mission_arabian_ports
 		required_missions = { }
 		position = 1
 		provinces_to_highlight = {
 			OR = {
-				province_id = 384
-				province_id = 385
+				province_id = 361 #Cairo
+				province_id = 362 #Rashid
+				province_id = 358 #Alexandria
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_times_improved = 1 }
+				NOT = { has_trade_building_trigger = yes }
+			}
 		}
 		trigger = {
-			384 = {
-				country_or_non_sovereign_subject_holds = ROOT
+			361 = {
+				owned_by = ROOT
+				num_of_times_improved = 1
+				has_trade_building_trigger = yes 
 			}
-			385 = {
-				country_or_non_sovereign_subject_holds = ROOT
+			362 = {
+				owned_by = ROOT
+				num_of_times_improved = 1
+				has_trade_building_trigger = yes 
+			}
+			358 = {
+				owned_by = ROOT
+				num_of_times_improved = 1
+				has_trade_building_trigger = yes 
 			}
 		}
 		effect = {
-			country_event = { id = flavor_mam.23 }
-			tihama_al_yemen_area = {
+			361 = { add_or_upgrade_trade_building = yes }
+			362 = { add_or_upgrade_trade_building = yes }
+			358 = { add_or_upgrade_trade_building = yes }
+			
+			custom_tooltip = " "
+			
+			if = {
 				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+					capital_scope = {
+						NOT = { renaissance = 100 }
+					}
 				}
-				add_permanent_claim = ROOT
-			}
-			yemen_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+				capital_scope = {
+					add_institution_embracement = {
+						which = renaissance
+						value = 25
+					}
 				}
-				add_permanent_claim = ROOT
-			}
-			nafud_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			qasim_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			yamamah_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			tabuk_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
 			}
 		}
 	}
 	
-	mamluks_arabian_invasion = {
-		icon = mission_bedouins
-		required_missions = { mamluks_the_holy_cities }
+	MAM_support_urban_centers = {
+		icon = mission_develop_alhambra
+		required_missions = { MAM_cultivate_trade }
 		position = 2
 		provinces_to_highlight = {
 			OR = {
-				area = nafud_area
-				area = qasim_area
-				area = yamamah_area
+				region = egypt_region
+				area = trans_jordan_area
+				area = palestine_area
+				area = tabuk_area
+				area = medina_area
+				area = mecca_area
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { MAM_upgrade_cot_and_trade_building = yes }
 		}
 		trigger = {
-			nafud_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			qasim_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			yamamah_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			custom_trigger_tooltip = {
+				tooltip = MAM_highlighted_provinces_have_stuff
+				egypt_region = {
+					type = all
+					MAM_upgrade_cot_and_trade_building = yes
+				}
+				trans_jordan_area = {
+					type = all
+					MAM_upgrade_cot_and_trade_building = yes
+				}
+				palestine_area = {
+					type = all
+					MAM_upgrade_cot_and_trade_building = yes
+				}
+				tabuk_area = {
+					type = all
+					MAM_upgrade_cot_and_trade_building = yes
+				}
+				medina_area = {
+					type = all
+					MAM_upgrade_cot_and_trade_building = yes
+				}
+				mecca_area = {
+					type = all
+					MAM_upgrade_cot_and_trade_building = yes
+				}
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = mamluks_arabian_invasion_modifier
-				duration = 7300
-			}
-			arabia_region = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+			361 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 50
+					key = MAM_strict_control
 				}
-				add_permanent_claim = ROOT
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MAM_trade_modifier
+				duration = -1 
 			}
 		}
 	}
 	
-	mamluks_access_the_persian_gulf = {
-		icon = me_mission_ottomans_access_the_persian_gulf
-		required_missions = { mamluks_arabian_invasion }
+	MAM_muhtasib = {
+		icon = mission_entrepot_of_india
+		required_missions = { MAM_support_urban_centers }
 		position = 3
 		provinces_to_highlight = {
 			OR = {
-				area = bahrain_area
-				area = mascat_area
-				area = pirate_coast_area
+				province_id = 361
+				province_id = 358
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				NOT = { development = 25 }
+				NOT = { has_production_building_trigger = yes }
+				NOT = { has_trade_building_trigger = yes }
+			}
 		}
 		trigger = {
-			bahrain_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			361 = { #cairo and fustat :)
+				development = 25
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
 			}
-			mascat_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			
+			358 = { #alexandria
+				development = 25
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
 			}
-			pirate_coast_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+			
+			num_of_trading_bonuses = 1
 		}
 		effect = {
-			add_country_modifier = {
-				name = mamluks_access_the_persian_gulf_modifier
-				duration = 7300
+			set_country_flag = MAM_can_use_muhtasib_office
+			361 = {
+				add_province_triggered_modifier = MAM_muhtasib
 			}
-			mogostan_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+			358 = {
+				add_province_triggered_modifier = MAM_muhtasib
 			}
+			
+			custom_tooltip = " "
+			
+			set_country_flag = MAM_buff_to_strengthen_hisbah
+			custom_tooltip = MAM_buff_to_strengthen_hisbah_tt
+			
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Mamluks_Events.24 }
 		}
 	}
 	
-	mamluks_divert_the_gulf_trade = {
-		icon = mission_dominate_persian_gulf
-		required_missions = { mamluks_access_the_persian_gulf }
+	MAM_monopolize_the_red_sea_route = {
+		icon = mission_look_west
+		required_missions = { MAM_red_sea_trade }
 		position = 4
 		provinces_to_highlight = {
-			province_id = 2999
-			NOT = { owned_by = ROOT }
+			province_id = 4346
 		}
 		trigger = {
-			owns = 2999
-			2999 = {
-				trade_share = {
-					country = ROOT
-					share = 51
-				}
+			4346 = {
+				has_most_province_trade_power = ROOT
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = mamluks_divert_the_gulf_trade_modifier_1
-				duration = 7300
+			define_advisor = {
+				type = trader
+				skill = 3
+				culture = yemeni_culture
+				religion = ROOT
+				cost_multiplier = 0.33
 			}
-			add_country_modifier = {
-				name = mamluks_divert_the_gulf_trade_modifier_2
-				duration = 18250
+			custom_tooltip = " "
+			
+			capital_scope = {
+				add_institution_embracement = {
+					which = global_trade
+					value = 50
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			361 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 50
+					key = MAM_red_sea_controlled
+				}
 			}
 		}
 	}
 	
-	mamluks_no_alternate_paths = {
-		icon = mission_south_african_bases
-		required_missions = { mamluks_divert_the_gulf_trade }
-		position = 5
-		provinces_to_highlight = {
-			region = egypt_region
-			NOT = { owned_by = ROOT }
-		}
-		trigger = {
-			1460 = {
-				trade_share = {
-					country = ROOT
-					share = 51
-				}
-			}
-		}
-		effect = {
-			add_country_modifier = {
-				name = mamluks_no_alternate_paths_modifier_1
-				duration = 18250
-			}
-			add_country_modifier = {
-				name = mamluks_no_alternate_paths_modifier_2
-				duration = -1
-			}
-		}
-	}
-	
-	mamluks_the_mamluk_caliphate = {
-		icon = mission_fatimid_caliphate
+	MAM_strategic_alliance = {
+		icon = new_pilings
 		required_missions = { }
-		position = 7
-		trigger = {
-
-			egypt_region = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
-			add_country_modifier = {
-				name = mamluks_the_mamluk_caliphate_modifier
-				duration = -1
-			}
-			tripolitania_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			tunisia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			djerba_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			red_sea_coast_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			tigray_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			central_ethiopia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			upper_nubia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			lower_nubia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			aussa_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
-	mamluks_the_abyssinian_thorn = {
-		icon = mission_envoy_to_ethiopia
-		required_missions = { mamluks_the_mamluk_caliphate }
-		position = 8
+		position = 6
 		provinces_to_highlight = {
 			OR = {
-				area = aussa_area
-				area = central_ethiopia_area
+				province_id = 1308
+				province_id = 1298
+				if = {
+					limit = {
+						exists = GEN
+					}
+					owned_by = GEN
+				}
+				else = { always = no }
+				if = {
+					limit = {
+						exists = VEN
+					}
+					owned_by = VEN
+				}
+				else = { always = no }
+				if = {
+					limit = {
+						NOT = {
+							exists = VEN
+							exists = GEN
+						}
+					}
+					owner = {
+						OR = {
+							1298 = {
+								trade_share = {
+									country = PREV
+									share = 5 
+								}
+							}
+							1308 = {
+								trade_share = {
+									country = PREV
+									share = 5 
+								}
+							}
+						}
+					}
+				}
+				else = { always = no }
+			}
+		}
+		trigger = {
+			OR = {
+				1308 = {
+					trade_share = { 
+						country = ROOT
+						share = 10
+					}
+				}
+				1298 = {
+					trade_share = { 
+						country = ROOT
+						share = 10
+					}
+				}
+				if = {
+					limit = {
+						exists = GEN
+					}
+					reverse_has_opinion = {
+						who = GEN
+						value = 100
+					}
+				}
+				else = {
+					hidden_trigger = {
+						always = no 
+					}
+				}
+				if = {
+					limit = {
+						exists = VEN
+					}
+					reverse_has_opinion = {
+						who = VEN
+						value = 100
+					}
+				}
+				else = {
+					hidden_trigger = {
+						always = no 
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							exists = VEN
+							exists = GEN
+						}
+					}
+					custom_trigger_tooltip = {
+						tooltip = MAM_allied_alternative_to_VEN_or_GEN
+						any_country = {
+							OR = {
+								1308 = {
+									trade_share = {
+										country = PREV
+										share = 5 
+									}
+								}
+								1298 = {
+									trade_share = {
+										country = PREV
+										share = 5 
+									}
+								}
+							}
+						}
+					}
+				}
+				else = {
+					hidden_trigger = {
+						always = no 
+					}
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mamluks_Events.6 }
+			
+			custom_tooltip = " "
+			
+			set_country_flag = MAM_recurring_trade_deals
+			custom_tooltip = MAM_decision_is_enabled_for_the_deals
+			
+			custom_tooltip = " "
+			
+			capital_scope = {
+				add_institution_embracement = {
+					which = renaissance
+					value = 50
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			set_country_flag = MAM_can_use_venetian_quarters
+			358 = {
+				add_province_triggered_modifier = MAM_venetian_quarters
+			}
+		}
+	}
+	
+	MAM_against_threats = {
+		icon = mission_al-wadi_al-kabir
+		required_missions = { MAM_strategic_alliance }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_galley = 20
+			sailors_percentage = 0.5
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_naval_cooperation
+				duration = 7300
+			}
+			create_admiral = { tradition = 40 }
+			custom_tooltip = " "
+			custom_tooltip = MAM_we_may_gain_help
+			set_country_flag = MAM_we_may_gain_help
+			#enables an event for getting ships in suez after portugal :)
+		}
+	}
+	
+	MAM_recruit_from_the_bedouins = {
+		icon = mission_bedouins
+		required_missions = { MAM_purchase_new_mamluks }
+		position = 9
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = FAD
+				}
+				owned_by = FAD
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						syrian_desert_area = { 
+							type = all
+							owned_by = ROOT
+						}
+					}
+				}
+				area = syrian_desert_area
+			}
+			else = {
+				culture = bedouin_arabic
+			}
+		}
+		trigger = {
+			NOT = { exists = FAD }
+			syrian_desert_area = { 
+				type = all
+				owned_by = ROOT
+			}
+			
+			num_of_owned_provinces_with = {
+				has_forcelimit_building_trigger = yes
+				culture = bedouin_arabic 
+				value = 2 
+			}
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = bedouin_arabic }
+			
+			custom_tooltip = " "
+			#distribute 10 manpower
+			custom_tooltip = MAM_distribute_10_manpower_among_bedouin
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								culture = bedouin_arabic
+							}
+							add_base_manpower = 1
+						}
+					"
+				}
+			}
+			custom_tooltip = " "
+			add_yearly_manpower = 0.5
+		}
+	}
+	
+	MAM_influence_the_levant = {
+		icon = mission_develop_cordoba
+		required_missions = { }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 45
+				army_size_percentage = 0.85 
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mamluks_Events.5 } #influence beyliks or conquer
+			custom_tooltip = " "
+			#claims on lower half of white sheep
+			ME_give_claims = { id = 407 } #white sheep lands
+			ME_give_claims = { id = 418 }
+			ME_give_claims = { id = 4292 }
+			ME_give_claims = { id = 2308 }
+			ME_give_claims = { id = 2328 } #tabuk
+			ME_give_claims = { id = 321 } #cyprus
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MAM_ld_from_dev
+				duration = -1
+			}
+		}
+	}
+	
+	MAM_fortify_syria = {
+		icon = mission_arabian_fort
+		required_missions = { MAM_influence_the_levant }
+		position = 13
+		provinces_to_highlight = {
+			ARB_is_in_levant = yes
+			fort_level = 2
+			NOT = { base_manpower = 7 }
+			NOT = { has_manpower_building_trigger = yes }
+		}
+		trigger = {	
+			num_of_owned_provinces_with = {
+				ARB_is_in_levant = yes
+				fort_level = 2
+				OR = {
+					base_manpower = 7
+					has_manpower_building_trigger = yes
+				}
+				value = 2
+			}
+		}
+		effect = {
+			add_army_tradition_or_mil_power = { amount = 10 }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MAM_securing_the_flank
+				duration = 7300
+			}
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = fortification_expert 
+				skill = 2
+				culture = al_suryah_arabic 
+				religion = ROOT
+				cost_multiplier = 0.6
+			}
+		}
+	}
+	
+	MAM_dreams_of_an_empire = {
+		icon = mission_golden_century
+		required_missions = { }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				is_permanent_claim = ROOT
+				is_core = ROOT
+				is_claim = ROOT
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			NOT = { exists = ETH }
-			aussa_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			grown_by_development = 50
+		}
+		effect = {
+			ME_give_claims = { area = upper_nubia_area }
+			ME_give_claims = { area = dongola_area }
+			ME_give_claims = { area = lower_nubia_area }
+			ME_give_claims = { area = tripolitania_area }
+			ME_give_claims = { area = fezzan_area }
+			
+			custom_tooltip = " "
+			
+			set_country_flag = MAM_can_have_mamluk_iqta
+			custom_tooltip = MAM_enable_mamluk_iqta_decision
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = MAM_an_offer_to_beja
+			set_country_flag = MAM_offer_to_beja
+		}
+	}
+	
+	MAM_nubya = {
+		icon = mission_conquer_air
+		required_missions = { MAM_dreams_of_an_empire }
+		position = 16
+		provinces_to_highlight = {
+			OR = {
+				area = lower_nubia_area
+				area = upper_nubia_area
+				area = dongola_area
 			}
-			central_ethiopia_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = lower_nubia_area
+					area = upper_nubia_area
+					area = dongola_area
+				}
+				value = 7
 			}
 		}
 		effect = {
-			create_conquistador = { tradition = 60 }
-			sahel_region = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+			custom_tooltip = MAM_get_strong_triggered_modifier_africa
+			custom_tooltip = " " #space
+			custom_tooltip = MAM_get_special_cb_nubia
+			set_country_flag = MAM_nubia_flag
+			set_country_flag = MAM_nubia_decision
+			custom_tooltip = " " #space
+			custom_tooltip = MAM_if_completed_while_vassal_holds_at_least_7_of_the_provinces
+			hidden_effect = {
+				if = {
+					limit = {
+						calc_true_if = {
+							lower_nubia_area = {
+								type = all
+								owner = { is_subject_of = ROOT }
+							}
+							upper_nubia_area = {
+								type = all
+								owner = { is_subject_of = ROOT }
+							}
+							dongola_area = {
+								type = all
+								owner = { is_subject_of = ROOT }
+							}
+							amount = 7
+						}
+					}
+					add_dip_power = 50
+					add_mil_power = 50
+					add_adm_power = 50
 				}
-				add_permanent_claim = ROOT
 			}
 		}
 	}
 	
-	mamluks_trans_saharan_trade = {
-		icon = mission_saharan_route
-		required_missions = { mamluks_the_abyssinian_thorn }
-		position = 10
+	MAM_defeat_abyssinia = {
+		icon = mission_establish_the_black_guard
+		required_missions = { MAM_nubya }
+		position = 17
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1224
+				province_id = 1227
+				owned_by = ETH
+			}
+		}
 		trigger = {
-			1155 = {
-				trade_share = {
-					country = ROOT
-					share = 51
-				}
-			}
-			1448 = {
-				trade_share = {
-					country = ROOT
-					share = 51
-				}
-			}
-			2772 = {
-				trade_share = {
-					country = ROOT
-					share = 51
-				}
+			OR = {
+				has_won_war_against = { who = ETH }
+				owns = 1224
+				owns = 1227
 			}
 		}
 		effect = {
+			#something about copts no longer being unruly?
+			
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 20
+			}
+			
 			add_country_modifier = {
-				name = mamluks_trans_saharan_trade_modifier
+				name = MAM_aksum_defeated
 				duration = 9125
-			}
-		}
-	}
-	
-	mamluks_the_ivory_must_flow = {
-		icon = mission_african_trade_post
-		required_missions = { mamluks_trans_saharan_trade }
-		position = 11
-		trigger = {
-			production_leader = {
-				trade_goods = ivory
-			}
-		}
-		effect = {
-			add_country_modifier = {
-				name = mamluks_the_ivory_must_flow_modifier
-				duration = -1
 			}
 		}
 	}
@@ -1097,90 +1697,488 @@ MAM_missions_4 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			tag = MAM
-			tag = EGY
-			tag = EGP
-		}		
+		tag = MAM
+		
+		NOT = { has_country_flag = MAM_ottoman_incident_tree }
 	}
 	has_country_shield = yes
 	
-
-	mamluks_beyond_the_indus = {
-		icon = mission_indian_empire
-		required_missions = { mamluks_khorasani_legacy }
-		position = 10
+	MAM_mamluk_luxury_industry = {
+		icon = mission_valencian_silk
+		required_missions = { MAM_cultivate_trade MAM_renovating_cairo }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				num_of_times_improved = 10
+				value = 3 
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_three_most_developed_provinces
+			country_event = { id = ME_Mamluks_Events.3 }
+			
+			custom_tooltip = " "
+			
+			add_years_of_owned_provinces_production_income = {
+				years = 2
+				trigger = {
+					always = yes 
+				}
+				custom_tooltip = MAM_from_production
+			}
+		}
+	}
+	
+	MAM_diwan_al_khass = {
+		icon = mission_war_chest
+		required_missions = { MAM_mamluk_luxury_industry MAM_support_urban_centers }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 358
+		}
+		trigger = {
+			treasury = 1500
+			358 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+				trade_node_value = 15
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_trade_modifier_upgrade_1
+			hidden_effect = {
+				remove_country_modifier = MAM_trade_modifier
+				add_country_modifier = {
+					name = MAM_trade_modifier_2
+					duration = -1 
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = MAM_repaying_loans_gives_lower_inflation
+			set_country_flag = MAM_repaying_loans_gives_lower_inflation
+		}
+	}
+	
+	MAM_ace_of_all_trades = {
+		icon = mission_restore_trade_superiority
+		required_missions = { MAM_diwan_al_khass MAM_monopolize_the_red_sea_route }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 358
+		}
+		trigger = {
+			358 = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+				trade_node_value = 30
+			}
+			monthly_income = 100
+			num_of_centers_of_trade = 20
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+		}
+		effect = {
+			custom_tooltip = MAM_trade_modifier_upgrade_2
+			hidden_effect = {
+				remove_country_modifier = MAM_trade_modifier_2
+				add_country_modifier = {
+					name = MAM_trade_modifier_3
+					duration = -1 
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = MAM_distribute_10_10_10_dev_amongst_our_trade_centers
+			hidden_effect = {
+				for = {
+					amount = 10 
+					effect = "
+						random_owned_province = {
+							limit = {
+								province_has_center_of_trade_of_level = 1
+							}
+							add_base_tax = 1 
+						}
+					"
+				}
+				for = {
+					amount = 10 
+					effect = "
+						random_owned_province = {
+							limit = {
+								province_has_center_of_trade_of_level = 1
+							}
+							add_base_production = 1 
+						}
+					"
+				}
+				for = {
+					amount = 10 
+					effect = "
+						random_owned_province = {
+							limit = {
+								province_has_center_of_trade_of_level = 1
+							}
+							add_base_manpower = 1 
+						}
+					"
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = MSA_requirement_for_spreading
+			hidden_effect = {
+				set_country_flag = ME_lower_trade_share_propagate
+				#complete_mission = atj_porch_of_mecca
+			}
+		}
+	}
+	
+	MAM_process_the_grains = {
+		icon = mission_dominate_persian_gulf
+		required_missions = { }
+		position = 6
 		provinces_to_highlight = {
 			OR = {
-				area = northern_sindh_area
-				area = sindh_area
-				area = multan_area
+				province_id = 2316
+				province_id = 4316
+				province_id = 363
+				province_id = 362
+			}
+			OR = { 
+				NOT = { owned_by = ROOT }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+		trigger = {
+			2316 = {
+				has_production_building_trigger = yes
+				owned_by = ROOT
+			}
+			4316 = {
+				has_production_building_trigger = yes
+				owned_by = ROOT
+			}
+			363 = {
+				has_production_building_trigger = yes
+				owned_by = ROOT
+			}
+			362 = {
+				has_production_building_trigger = yes
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			2316 = { add_or_upgrade_production_building = yes }
+			4316 = { add_or_upgrade_production_building = yes }
+			363 = { add_or_upgrade_production_building = yes }
+			362 = { add_or_upgrade_production_building = yes }
+		}
+	}
+	
+	MAM_protectors_of_the_caliph = {
+		icon = me_mission_muslim_priest
+		required_missions = { }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+			ME_has_abbasid_caliph = yes
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 60
+				}
+			}
+			
+		}
+		effect = {
+			set_defender_of_the_faith_effect = yes
+			
+			add_country_modifier = {
+				name = MAM_protectors_of_the_caliph_modifier
+				duration = 7300
+			}
+		}
+	}
+	
+	MAM_four_maddhabs = {
+		icon = mission_restore_caliphate_of_cordoba
+		required_missions = { MAM_protectors_of_the_caliph }
+		position = 10
+		provinces_to_highlight = {
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MAM_5_totf
+				has_global_modifier_value = {
+					which = tolerance_own
+					value = 5
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				ME_has_religious_scholars_trigger = yes
+			}
+			has_adm_advisor_3 = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_four_maddhabs_modifier
+				duration = -1
+			}
+			
+			set_country_flag = AYY_establish_Religious_school_Buff
+			
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				custom_tooltip = AYY_establish_Religious_school_Buff
+				
+				custom_tooltip = " "
+				
+				custom_tooltip = AYY_if_we_have_invited_maliki
+				tooltip = {
+					add_country_modifier = {
+						name = AYY_maliki_scholar
+						duration = 14600
+					}
+				}
+				custom_tooltip = AYY_if_we_have_invited_hanbali
+				tooltip = {
+					add_country_modifier = {
+						name = AYY_hanbali_scholar
+						duration = 14600
+					}
+				}
+				custom_tooltip = AYY_if_we_have_invited_hanafi
+				tooltip = {
+					add_country_modifier = {
+						name = AYY_hanafi_scholar
+						duration = 14600
+					}
+				}
+				
+				hidden_effect = {
+					if = {
+						limit = {
+							has_country_modifier = hanafi_scholar_modifier
+						}
+						add_country_modifier = {
+							name = AYY_hanafi_scholar
+							duration = 14600
+						}
+					}
+					else_if = {
+						limit = {
+							has_country_modifier = hanbali_scholar_modifier
+						}
+						add_country_modifier = {
+							name = AYY_hanbali_scholar
+							duration = 14600
+						}
+					}
+					else_if = {
+						limit = {
+							has_country_modifier = maliki_scholar_modifier
+						}
+						add_country_modifier = {
+							name = AYY_maliki_scholar
+							duration = 14600
+						}
+					}
+					else = { }
+				}
+			}
+		}
+	}
+	
+	MAM_patronize_sufi_orders = { #this mission makes no sense
+		icon = mission_reclaim_morocco
+		required_missions = { MAM_four_maddhabs }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_provinces_developed = { amount = 25 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_found_zuwiyas
+				duration = 7300
+			}
+		}
+	}
+	
+	MAM_sway_the_beyliks = {
+		icon = mission_friends_or_enemies
+		required_missions = { MAM_influence_the_levant }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				owned_by = RAM
+				owned_by = DUL
+				province_id = 332
+				province_id = 327
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			northern_sindh_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			sindh_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			multan_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			OR = {
+				RAM = { is_subject_of = ROOT }
+				DUL = { is_subject_of = ROOT }
+				AND = {
+					332 = { country_or_non_sovereign_subject_holds = ROOT }
+					327 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = mamluks_beyond_the_indus_modifier
-				duration = 18250
-			}
-			lahore_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			sind_sagar_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			kashmir_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+			add_prestige_or_monarch_power = { amount = 10 }
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = MAM_mamluk_diplomacy
+				duration = -1
+				age = age_of_discovery
 			}
 		}
 	}
 	
-	mamluks_the_spice_must_flow = {
-		icon = mission_rb_colonise_spice_islands
-		required_missions = { mamluks_beyond_the_indus }
-		position = 11
+	MAM_defeat_turks = {
+		icon = mission_ottoman_diplomacy
+		required_missions = { MAM_karaman MAM_sway_the_beyliks }
+		position = 14
+		provinces_to_highlight = {
+			region = anatolia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
 		trigger = {
-			production_leader = {
-				trade_goods = spices
+			OR = {
+				NOT = { exists = TUR }
+				has_won_war_against = { who = TUR }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = anatolia_region
+				value = 15
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_pretender_to_ottomans_decision
+			set_country_flag = MAM_pretender_to_ottomans_decision
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MAM_the_levant_turnabout
+				duration = 7300
+			}
+		}
+	}
+	
+	MAM_fezzan = {
+		icon = mission_eliminate_pretenders
+		required_missions = { MAM_dreams_of_an_empire }
+		position = 15
+		provinces_to_highlight = {
+			OR = {
+				area = fezzan_area
+				area = tripolitania_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = fezzan_area
+					area = tripolitania_area
+				}
+				value = 4
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_get_strong_triggered_modifier_tripolitania
+			custom_tooltip = " " #space
+			custom_tooltip = MAM_get_special_cb_tripolitania
+			set_country_flag = MAM_maghreb_flag
+			custom_tooltip = " " #space
+			custom_tooltip = MAM_if_completed_while_vassal_holds_at_least_4_of_the_provinces
+			hidden_effect = {
+				if = {
+					limit = {
+						calc_true_if = {
+							fezzan_area = {
+								type = all
+								owner = { is_subject_of = ROOT }
+							}
+							tripolitania_area = {
+								type = all
+								owner = { is_subject_of = ROOT }
+							}
+							amount = 4
+						}
+					}
+					add_dip_power = 50
+					add_mil_power = 50
+					add_adm_power = 50
+				}
+			}
+		}
+	}
+	
+	MAM_ifriqiyya = {
+		icon = mission_conquer_tunis
+		required_missions = { MAM_fezzan }
+		position = 16
+		provinces_to_highlight = {
+			province_id = 341
+			NOT = { owned_by = ROOT }
+			owner = {
+				ROOT = {
+					NOT = { has_won_war_against = { who = PREV } }
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				owns = 341
+				341 = {
+					owner = {
+						custom_trigger_tooltip = {
+							tooltip = MAM_won_war_against_owner_of_341
+							ROOT = {
+								has_won_war_against = { who = PREV }
+							}
+						}
+					}
+				}
 			}
 		}
 		effect = {
 			add_country_modifier = {
-				name = mamluks_the_spice_must_flow_modifier
-				duration = -1
+				name = MAM_sphere_of_influence
+				duration = 10950
 			}
-			indonesia_region = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+			
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 20
 			}
 		}
 	}
@@ -1191,231 +2189,896 @@ MAM_missions_5 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			tag = MAM
-			tag = EGY
-			tag = EGP
-		}		
+		tag = MAM
+		
+		NOT = { has_country_flag = MAM_ottoman_incident_tree }
 	}
 	has_country_shield = yes
 	
-	#mamluks_prepare_the_mamluks_for_war = {
-	#	icon = mission_spoils_of_war
-	#	required_missions = { }
-	#	position = 1
-	#	trigger = {
-	#		mil_power = 50
-	#		army_size_percentage = 1
-	#	}
-	#	effect = {
-	#		add_mil_power = -50
-	#		if = {
-	#			limit = {
-	#				exists = TKT
-	#				is_neighbor_of = TKT
-	#				AKK = {
-	#					is_subject = no
-	#				}
-	#			}
-	#			add_casus_belli = {
-	#				target = TKT
-	#				type = cb_border_war
-	#			}
-	#		}
-	#		vostani_area = {
-	#			limit = {
-	#				NOT = { owned_by = ROOT }
-	#				NOT = { is_core = ROOT }
-	#			}
-	#			add_permanent_claim = ROOT
-	#		}
-	#	}
-	#}
+	MAM_renovating_cairo = {
+		icon = mission_pacify_the_berbers
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 361
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 30 }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+		trigger = {
+			361 = {
+				owned_by = ROOT 
+				development = 30 
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			country_event = { id = flavor_mam.2 }
+			361 = { 
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+		}
+	}
 	
-	mamluks_return_persia_to_the_fold = {
-		icon = mission_conquer_persia
-		required_missions = { mamluks_the_mamluk_caliphate }
+	MAM_al_azhar_university = {
+		icon = mission_conquer_algiers
+		required_missions = { MAM_renovating_cairo }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 361
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 45 }
+			}
+		}
+		trigger = {
+			361 = {
+				owned_by = ROOT 
+				development = 45 
+			}
+		}
+		effect = {
+			361 = {
+				add_or_upgrade_university_building = yes
+				custom_tooltip = " "
+				add_province_modifier = {
+					name = MAM_al_azhar_university_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				change_innovativeness = 3
+			}
+			else = {
+				add_adm_power = 50 
+			}
+		}
+	}
+	
+	MAM_cultivate_the_delta = {
+		icon = mission_consume_the_baghels
+		required_missions = { }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2316
+				province_id = 4316
+				province_id = 363
+				province_id = 362
+			}
+			OR = { 
+				NOT = { owned_by = ROOT }
+				NOT = { development = 16 }
+			}
+		}
+		trigger = {
+			2316 = {
+				development = 16
+				owned_by = ROOT
+			}
+			4316 = {
+				development = 16
+				owned_by = ROOT
+			}
+			363 = {
+				development = 16
+				owned_by = ROOT
+			}
+			362 = {
+				development = 16
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_upgrade
+			hidden_effect = {
+				2316 = {
+					remove_province_modifier = granary_of_the_mediterranean
+					add_permanent_province_modifier = {
+						name = MAM_upgraded_granary
+						duration = -1
+					}
+				}
+				4316 = {
+					remove_province_modifier = granary_of_the_mediterranean
+					add_permanent_province_modifier = {
+						name = MAM_upgraded_granary
+						duration = -1
+					}
+				}
+				363 = {
+					remove_province_modifier = granary_of_the_mediterranean
+					add_permanent_province_modifier = {
+						name = MAM_upgraded_granary
+						duration = -1
+					}
+				}
+				362 = {
+					remove_province_modifier = granary_of_the_mediterranean
+					add_permanent_province_modifier = {
+						name = MAM_upgraded_granary
+						duration = -1
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 3
+		}
+	}
+	
+	MAM_delta_manufactories = {
+		icon = mission_a_million_rice_fields
+		required_missions = { MAM_process_the_grains MAM_cultivate_the_delta }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2316
+				province_id = 4316
+				province_id = 363
+				province_id = 362
+			}
+			OR = { 
+				NOT = { owned_by = ROOT }
+				NOT = { development = 21 }
+				NOT = { has_manpower_building_trigger = yes }
+			}
+		}
+		trigger = {
+			2316 = {
+				development = 21
+				has_manufactory_trigger = yes
+				owned_by = ROOT
+			}
+			4316 = {
+				development = 21
+				has_manufactory_trigger = yes
+				owned_by = ROOT
+			}
+			363 = {
+				development = 21
+				has_manufactory_trigger = yes
+				owned_by = ROOT
+			}
+			362 = {
+				development = 21
+				has_manufactory_trigger = yes
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			2316 = {
+				add_province_modifier = {
+					name = MAM_breadbasket_of_egypt
+					duration = -1
+				}
+			}
+			4316 = {
+				add_province_modifier = {
+					name = MAM_breadbasket_of_egypt
+					duration = -1
+				}
+			}
+			363 = {
+				add_province_modifier = {
+					name = MAM_breadbasket_of_egypt
+					duration = -1
+				}
+			}
+			362 = {
+				add_province_modifier = {
+					name = MAM_breadbasket_of_egypt
+					duration = -1
+				}
+			}
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+	
+	MAM_arteries_of_the_state = {
+		icon = mission_defeat_jaunpur
+		required_missions = { MAM_delta_manufactories }
 		position = 8
 		provinces_to_highlight = {
 			OR = {
-				AND = {
-					OR = {
-						province_id = 428
-						province_id = 429
-						province_id = 2218
-						province_id = 416
-					}
-					NOT = { country_or_non_sovereign_subject_holds = ROOT }
-				}
-				AND = {
-					region = persia_region
-					NOT = { religion = ROOT }
-				}
+				area = said_area
+				area = vostani_area
+				area = delta_area
+				area = bahari_area
 			}
 		}
 		trigger = {
-			428 = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			429 = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			2218 = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			416 = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			persia_region = {
+			said_area = { 
 				type = all
-				religion = ROOT
+				owned_by = ROOT
+			}
+			vostani_area = { 
+				type = all
+				owned_by = ROOT
+			}
+			delta_area = { 
+				type = all
+				owned_by = ROOT
+			}
+			bahari_area = { 
+				type = all
+				owned_by = ROOT
+			}
+			development_in_provinces = {
+				OR = {
+					area = said_area
+					area = vostani_area
+					area = delta_area
+					area = bahari_area
+				}
+				value = 275
 			}
 		}
 		effect = {
-			khorasan_region = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+			custom_tooltip = MAM_highlighted_area
+			tooltip = {
+				add_province_modifier = {
+					name = MAM_heart_of_egypt
+					duration = -1
 				}
-				add_permanent_claim = ROOT
+			}
+			hidden_effect = {
+				said_area = {
+					add_province_modifier = {
+						name = MAM_heart_of_egypt
+						duration = -1
+					}
+				}
+				vostani_area = {
+					add_province_modifier = {
+						name = MAM_heart_of_egypt
+						duration = -1
+					}
+				}
+				bahari_area = {
+					add_province_modifier = {
+						name = MAM_heart_of_egypt
+						duration = -1
+					}
+				}
+				delta_area = {
+					add_province_modifier = {
+						name = MAM_heart_of_egypt
+						duration = -1
+					}
+				}
 			}
 		}
 	}
 	
-	mamluks_khorasani_legacy = {
-		icon = mission_into_persia_1
-		required_missions = { mamluks_return_persia_to_the_fold }
+	MAM_mamluk_architecture = {
+		icon = mission_el_badi_palace
+		required_missions = { MAM_protectors_of_the_caliph }
 		position = 9
 		provinces_to_highlight = {
-			region = khorasan_region
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			owned_by = ROOT
+			NOT = { has_tax_building_trigger = yes }
 		}
 		trigger = {
-			khorasan_region = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 10
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = mamluks_khorasani_legacy_modifier
-				duration = 18250
-			}
-			transoxiana_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+			add_positive_or_negative_piety = { amount = 0.1 }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = MAM_distribute_10_base_tax
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								has_tax_building_trigger = yes
+							}
+							add_base_tax = 1
+						}
+					"
 				}
-				add_permanent_claim = ROOT
 			}
-			khiva_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+			
+			custom_tooltip = " "
+			
+			ME_enable_estate_burghers_arid_development = yes
+		}
+	}
+	
+	MAM_mamluk_architecture_2 = {
+		icon = mission_conquer_tunisia
+		required_missions = { MAM_mamluk_architecture }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				num_of_buildings_in_province = 4
+				value = 10 
 			}
-			northern_sindh_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 20 }
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = muscovy_architect
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.25 
 			}
-			sindh_area = {
+			
+			custom_tooltip = " "
+			
+			set_country_flag = TUN_empower_madrasah_event_flag
+			if = {
 				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			multan_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+					has_dlc = "Cradle of Civilization"
+				}				
+				custom_tooltip = TUN_empower_madrasah_event
 			}
 		}
 	}
 	
-	mamluks_the_silk_road = {
-		icon = mission_indian_soldier_elephant
-		required_missions = { mamluks_khorasani_legacy }
-		position = 10
+	MAM_karaman = {
+		icon = mission_cope_with_refugees
+		required_missions = { MAM_sway_the_beyliks }
+		position = 13
 		provinces_to_highlight = {
 			OR = {
-				area = transoxiana_area
-				area = khiva_area
+				area = karaman_area
+				owned_by = KAR
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			454 = {
-				trade_share = {
-					country = ROOT
-					share = 51
+			OR = {
+				karaman_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
 				}
-			}
-			transoxiana_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			khiva_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+				AND = {
+					KAR = {
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+					}
+					any_subject_country = {
+						primary_culture = turkish
+						NOT = { tag = TUR }
+					}
+				}
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = mamluks_the_silk_road_modifier
-				duration = 18250
+			custom_tooltip = MAM_if_by_opinion
+			tooltip = {
+				KAR = { country_event = { id = ME_Mamluks_Events.10 } }
+				custom_tooltip = " "
+				add_dip_power = 50
+				
+				custom_tooltip = " "
 			}
-			termez_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
+			custom_tooltip = MAM_if_by_conquest
+			tooltip = {
+				add_mil_power = 50
+				custom_tooltip = " "
+				add_army_tradition_or_mil_power = { amount = 10 }
 			}
-			ferghana_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+			hidden_effect = {
+				if = {
+					limit = {
+						KAR = {
+							has_opinion = {
+								who = ROOT
+								value = 190
+							}
+						}
+						any_subject_country = {
+							primary_culture = turkish
+							NOT = { tag = TUR }
+						}
+					}
+					KAR = { country_event = { id = ME_Mamluks_Events.10 } }
+					add_dip_power = 50
 				}
-				add_permanent_claim = ROOT
-			}
-			kyzylkum_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
+				else = {
+					add_mil_power = 50
+					add_army_tradition_or_mil_power = { amount = 10 }
 				}
-				add_permanent_claim = ROOT
-			}
-			transcaspia_area = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_core = ROOT }
-				}
-				add_permanent_claim = ROOT
 			}
 		}
 	}
 	
-	mamluks_the_silk_must_flow = {
-		icon = mission_modernize_production
-		required_missions = { mamluks_the_silk_road }
-		position = 11
+	MAM_no_more_threat = {
+		icon = mission_non-western_soldiers
+		required_missions = { MAM_defeat_turks }
+		position = 15
+		provinces_to_highlight = {
+			OR = {
+				owned_by = TUR
+				region = anatolia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
 		trigger = {
-			production_leader = {
-				trade_goods = silk
+			NOT = { exists = TUR }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = anatolia_region
+				value = 40
+			}
+		}
+		effect = {
+			add_power_projection = {
+				type = MAM_perma_ottoman_pp
+				amount = 10
+			}
+			custom_tooltip = MAM_permanent_PP
+			
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = MAM_permanent_ae_impact
+				duration = -1
+			}
+		}
+	}
+}
+
+MAM_missions_1_ottoman_incident = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = MAM
+		has_country_flag = MAM_ottoman_incident_tree
+	}
+	has_country_shield = yes
+	
+	MAM_rally_the_capital = {
+		icon = mission_egyptian_mamluk_soldier
+		required_missions = { }
+		position = 2
+		provinces_to_highlight = {
+			province_id = event_target:Mamluks_war_capital
+		}
+		trigger = {
+			event_target:Mamluks_war_capital = {
+				custom_trigger_tooltip = {
+					tooltip = MAM_has_at_least_Mamluks_war_capital_manpower_dev
+					variable_arithmetic_trigger = {
+						export_to_variable = {
+							which = current_mil_dev
+							value = trigger_value:base_manpower
+						}
+						
+						check_variable = { which = current_mil_dev which = Mamluks_war_capital_manpower_dev }
+					}
+				}
+			}
+		}
+		effect = {
+			add_yearly_manpower = 1
+			add_country_modifier = {
+				name = MAM_war_reinforcements
+				duration = -1
+				desc = MAM_until_the_end_of_the_war_with_ottos
+			}
+		}
+	}
+	
+	MAM_forward = {
+		icon = mission_control_surat
+		required_missions = { MAM_military_advisory MAM_rally_the_capital }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					land_forcelimit = 50
+				}
+				num_of_generals = 3
+			}
+			else = {
+				num_of_generals = 2
 			}
 		}
 		effect = {
 			add_country_modifier = {
-				name = mamluks_the_silk_must_flow_modifier
+				name = MAM_general_staff
 				duration = -1
+				desc = MAM_until_the_end_of_the_war_with_ottos
 			}
+		}
+	}
+}
+
+MAM_missions_2_ottoman_incident = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = MAM
+		has_country_flag = MAM_ottoman_incident_tree
+	}
+	has_country_shield = yes
+	
+	MAM_storm_the_forts = {
+		icon = mission_conquer_mewar
+		required_missions = { MAM_to_war }
+		position = 2
+		provinces_to_highlight = {
+			has_province_flag = MAM_occupy_this_fort
+			owner = { war_with = ROOT }
+			controller = { war_with = ROOT }
+			fort_level = 2
+		}
+		trigger = {
+			#this trigger is painful but sadly eu4 has no arrays
+			custom_trigger_tooltip = {
+				tooltip = MAM_controls_highlighted_provinces
+				NOT = {
+					any_province = {
+						has_province_flag = MAM_occupy_this_fort
+						fort_level = 2
+						owner = { war_with = ROOT }
+						controller = { war_with = ROOT }
+					}
+				}
+			}
+		}
+		effect = {
+			add_spy_network_in = {
+				who = event_target:Mamluks_war_target
+				value = 25
+			}
+			
+			add_war_exhaustion = -1
+		}
+	}
+	
+	MAM_military_advisory = {
+		icon = mission_reconquer_ceuta
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_mil_advisor_3 = yes
+		}
+		effect = {
+			define_general = {
+				name = "Al Kansur"
+             	fire = 1
+				shock = 4
+				manuever = 5
+				siege = 0 
+			}
+			
+			add_mil_power = 25
+		}
+	}
+}
+
+MAM_missions_3_ottoman_incident = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = MAM
+		has_country_flag = MAM_ottoman_incident_tree
+	}
+	has_country_shield = yes
+	
+	MAM_to_war = {
+		icon = mission_levantine_restoration
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = { #freebie :)
+			event_target:Mamluks_war_target = {
+				war_with = ROOT
+			}
+		}
+		effect = {
+			add_mil_power = 10
+		}
+	}
+}
+
+MAM_missions_3_ottoman_incident_water = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = MAM
+		has_country_flag = MAM_ottoman_incident_tree
+		has_country_flag = MAM_ottoman_incident_tree_water
+	}
+	has_country_shield = yes
+	
+	MAM_amphibious_attack = {
+		icon = mission_dominate_the_mediterranean
+		required_missions = { MAM_to_war }
+		position = 2
+		provinces_to_highlight = {
+			province_is_on_an_island = yes
+			owned_by = event_target:Mamluks_war_target
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MAM_controls_highlighted_provinces
+				event_target:Mamluks_war_target = {
+					all_owned_province = {
+						OR = {
+							NOT = { province_is_on_an_island = yes }
+							NOT = { controlled_by = owner }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_mil_power = 100
+			add_yearly_sailors = 2 #lul
+		}
+	}
+}
+
+MAM_missions_3_ottoman_incident_2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = MAM
+		has_country_flag = MAM_ottoman_incident_tree
+	}
+	has_country_shield = yes
+	
+	MAM_occupy_anatolia = {
+		icon = anatolian_frontier
+		required_missions = { MAM_occupy_the_borderlands MAM_storm_the_forts }
+		position = 3
+		provinces_to_highlight = {
+			region = anatolia_region
+			owner = {
+				war_with = ROOT
+			}
+			controller = {
+				war_with = ROOT
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MAM_controls_highlighted_provinces
+				anatolia_region = {
+					type = all
+					NOT = {
+						AND = {
+							owner = {
+								war_with = ROOT
+							}
+							controller = {
+								war_with = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_mil_power = 50
+			add_war_exhaustion = -1
+		}
+	}
+	
+	MAM_occupy_ottoman_capital = {
+		icon = take_constantinople
+		required_missions = { MAM_occupy_anatolia }
+		position = 5
+		provinces_to_highlight = {
+			is_capital_of = event_target:Mamluks_war_target
+		}
+		trigger = {
+			event_target:Mamluks_war_target = {
+				capital_scope = {
+					controller = { war_with = event_target:Mamluks_war_target }
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_time_for_peace
+				duration = -1
+				desc = MAM_until_the_end_of_the_war_with_ottos
+			}
+		}
+	}
+}
+
+MAM_missions_4_ottoman_incident = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = MAM
+		has_country_flag = MAM_ottoman_incident_tree
+	}
+	has_country_shield = yes
+	
+	MAM_occupy_the_borderlands = {
+		icon = claim_the_borderlands
+		required_missions = { MAM_to_war }
+		position = 2
+		provinces_to_highlight = {
+			has_province_flag = MAM_quick_occupation_target
+			owner = { war_with = ROOT }
+			controller = { war_with = ROOT }
+		}
+		trigger = {
+			#this trigger is painful but sadly eu4 has no arrays
+			custom_trigger_tooltip = {
+				tooltip = MAM_controls_highlighted_provinces
+				NOT = {
+					any_province = {
+						has_province_flag = MAM_quick_occupation_target
+						owner = { war_with = ROOT }
+						controller = { war_with = ROOT }
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_looting
+				duration = -1
+				desc = MAM_until_the_end_of_the_war_with_ottos
+			}
+		}
+	}
+	
+	MAM_seek_support = {
+		icon = mission_noble_council
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			owner = {
+				OR = {
+					is_enemy = event_target:Mamluks_war_target
+					is_rival = event_target:Mamluks_war_target
+				}
+			}
+		}
+		trigger = {
+			event_target:Mamluks_war_target = {
+				if = {
+					limit = {
+						OR = {
+							any_enemy_country = { exists = yes }
+							any_rival_country = { exists = yes }
+						}
+					}
+					any_enemy_country = {
+						has_opinion = {
+							who = ROOT
+							value = 75 
+						}
+					}
+					any_rival_country = {
+						has_opinion = {
+							who = ROOT
+							value = 75 
+						}
+					}
+				}
+				else = {
+					has_dip_advisor_3 = yes
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_war_support
+				duration = -1
+				desc = MAM_until_the_end_of_the_war_with_ottos
+			}
+		}
+	}
+}
+
+MAM_missions_5_ottoman_incident = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = MAM
+		has_country_flag = MAM_ottoman_incident_tree
+	}
+	has_country_shield = yes
+	
+	MAM_cripple_the_enemy = {
+		icon = mission_non-western_soldiers
+		required_missions = { }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = event_target:Mamluks_war_target
+		}
+		trigger = {
+			event_target:Mamluks_war_target = {
+				NOT = { army_size_percentage = 0.4 }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_walk_in_the_park
+				duration = -1
+				desc = MAM_until_the_end_of_the_war_with_ottos
+			}
+		}
+	}
+	
+	MAM_isolate_the_enemy = {
+		icon = mission_eliminate_pretenders
+		required_missions = { MAM_seek_support MAM_cripple_the_enemy }
+		position = 5
+		provinces_to_highlight = {
+			owner = {
+				event_target:Mamluks_war_target = {
+					alliance_with = PREV
+				}
+				war_with = ROOT
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MAM_no_ottoman_ally_is_fighting_us
+				NOT = {
+					event_target:Mamluks_war_target = {	
+						any_ally = {
+							war_with = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_dip_power = 50
 		}
 	}
 }

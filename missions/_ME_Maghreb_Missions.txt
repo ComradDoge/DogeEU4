@@ -1,0 +1,599 @@
+# Generic Maghrebi Missions 
+# NOT = { has_country_flag = BRBR_mission_enabled }
+# Namespace chosen: Djerid's GHD
+
+GHD_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_maghrebi_missions = yes
+		NOT = { has_country_flag = BRBR_mission_enabled }
+		
+	}
+	has_country_shield = yes
+
+	GHD_berber_empires = {
+		icon = mission_gawans_madrasar
+		required_missions = { GHD_kindle_the_flames_of_war }
+		position = 2
+		provinces_to_highlight = {
+			culture = berber
+			NOT = {
+				ROOT = {
+					has_estate = berber 
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_berbers #djerid doesn't have them. *or didn't at the time of writing this*
+				}
+				estate_loyalty = {
+					estate = estate_berbers
+					loyalty = 60
+				}
+				num_of_estate_privileges = {	
+					estate = estate_berbers
+					value = 3
+				}
+			}
+			else = {
+				any_owned_province = {
+					culture = berber
+					num_of_times_improved = 5
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Maghreb_Events.1 } #Demand the oaths from Berbers: upgrade the general privilege or the cav combat privilege
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = army_reformer
+				skill = 1
+				culture = berber
+				religion = ROOT
+				cost_multiplier = 0.75
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = GHD_if_we_have_65_berber_loyalty
+			tooltip = {
+				add_yearly_manpower = 1.5
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						estate_loyalty = {
+							estate = estate_berbers
+							loyalty = 65
+						}
+					}
+					add_yearly_manpower = 1.5
+				}
+			}
+		}
+	}
+	
+	GHD_army = {
+		icon = mission_levantine_restoration
+		required_missions = { GHD_berber_empires GHD_fata_morgana }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				OR = {
+					army_professionalism = 0.1
+					army_tradition = 60
+				}
+			}
+			else = {
+				army_tradition = 60
+			}
+			has_mil_advisor_2 = yes
+		}
+		effect = {
+			add_age_modifier = {
+				name = GHD_army_buff
+				duration = -1 
+				age = age_of_reformation
+				else = "
+					create_general_with_pips = {
+						add_fire = 2
+						tradition = 80
+					}
+				"
+			}
+			
+			add_army_tradition_or_mil_power = { amount = 15 }
+			
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				custom_tooltip = " "
+				add_estate_loyalty = { 
+					estate = estate_nobles
+					loyalty = 10
+				}
+			}
+		}
+	}
+}
+
+GHD_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_maghrebi_missions = yes
+		NOT = { has_country_flag = BRBR_mission_enabled }
+		
+	}
+	has_country_shield = yes
+	
+	GHD_kindle_the_flames_of_war = {
+		icon = mission_protect_granada
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				if = {
+					limit = {
+						tag = FZA
+					}
+					army_size = 7
+					army_size_percentage = 0.9
+				}
+				else = {
+					army_size = 6
+					army_size_percentage = 0.8
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = GHD_a_tiny_community_with_an_ambition
+				duration = 10950
+			}
+			
+			# custom_tooltip = " "
+			
+			GHD_zones_claims = yes #this is a wall of text that distributes claims based on your capital location		
+		}
+	}
+	
+	GHD_fata_morgana = {
+		icon = mission_conquer_air
+		required_missions = { GHD_kindle_the_flames_of_war }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				is_core = ROOT
+				is_permanent_claim = ROOT
+				is_claim = ROOT
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_cities = 6
+			grown_by_development = 10
+			is_subject = no
+		}
+		effect = {
+			ME_give_claims = { region = maghreb_region }
+			
+			custom_tooltip = " "
+			
+			TUN_enable_expel_europeans_decision = yes
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = GHD_victory_is_all_but_a_mirage
+				duration = 9125
+			}
+			
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				set_government_rank = 2
+			}
+		}
+	}
+	
+	GHD_maghreb_empire = {
+		icon = mission_golden_century
+		required_missions = { GHD_fata_morgana }
+		position = 5
+		provinces_to_highlight = {
+			region = maghreb_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = maghreb_region
+				value = 25
+			}
+		}
+		effect = { #yeah, boring reward, but I do not want this mission to feel *necessary*
+			add_adm_power = 200
+			
+			custom_tooltip = " "
+			
+			ME_add_power_projection = { amount = 40 }
+			
+			custom_tooltip = " "
+			
+			set_government_rank = 3
+		}
+	}
+}
+
+GHD_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_maghrebi_missions = yes
+		NOT = { has_country_flag = BRBR_mission_enabled }
+		
+	}
+	has_country_shield = yes
+	
+	GHD_to_cross_the_sahara = {
+		icon = mission_traverse_the_sahara
+		required_missions = { GHD_kindle_the_flames_of_war }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = fezzan_area
+				area = tafilalt_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			OR = {
+				fezzan_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				tafilalt_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = FZA
+						tag = TFL
+					}
+				}
+				num_of_cities = 10
+			}
+		}
+		effect = {
+			TUN_enable_colonize_djado_decision = yes
+			TUN_enable_colonize_tuat_decision = yes
+			
+			custom_tooltip = " "
+			
+			GHD_grant_vision_on_west_africa = yes
+			
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = GHD_transsaharan_trade
+				duration = 7300 
+			}
+		}
+	}
+	
+	GHD_across_sahara = {
+		icon = mission_saharan_route
+		required_missions = { GHD_to_cross_the_sahara }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1149
+				province_id = 1132
+			}
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 10
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				1149 = {
+					trade_share = {
+						country = ROOT
+						share = 10
+					}
+				}
+				1132 = {
+					trade_share = {
+						country = ROOT
+						share = 10
+					}
+				}
+			}
+		}
+		effect = {
+			add_years_of_income = 1
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = GHD_markets_of_sahel
+				duration = -1
+				age = age_of_reformation
+			}
+			
+			add_mercantilism = 2
+		}
+	}
+	
+	GHD_salt_trade = {
+		icon = mission_conquer_timbuktu
+		required_missions = { GHD_across_sahara }
+		position = 5
+		provinces_to_highlight = {
+			trade_goods = salt
+			OR = {
+				region = maghreb_region 
+				area = upper_andalucia_area
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				trade_goods = salt
+				has_production_building_trigger = yes
+				num_of_times_improved = 7
+			}
+		}
+		effect = {
+			custom_tooltip = GHD_most_developed_salt_province
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = GHD_salt
+					duration = -1
+				}
+				
+				add_or_upgrade_production_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			hidden_effect = {
+				pick_best_provinces = {
+					1 = yes
+					event_target_name = "Djerid_Target"
+					global_trigger = "
+						trade_goods = salt
+						has_production_building_trigger = yes
+						num_of_times_improved = 7
+					"
+					scope = every_owned_province
+					scale = higher_development_than
+				}
+				event_target:Djerid_Target_1 = {
+					add_permanent_province_modifier = {
+						name = GHD_salt
+						duration = -1
+					}
+					add_or_upgrade_production_building = yes
+				}
+			}
+
+			1132 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 75 
+					key = GHD_the_salt_trade
+				}
+			}
+			
+			1149 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 75 
+					key = GHD_the_salt_trade
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 5
+		}
+	}
+}
+
+GHD_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_maghrebi_missions = yes
+		NOT = { has_country_flag = BRBR_mission_enabled }
+		
+	}
+	has_country_shield = yes
+	
+	GHD_proliferation_of_exchange = {
+		icon = mission_african_gold
+		required_missions = { GHD_oasis_between_the_sands }
+		position = 2
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 1
+			region = maghreb_region
+		}
+		trigger = {
+			num_of_centers_of_trade = 3
+			any_owned_province = {
+				province_has_center_of_trade_of_level = 1
+				province_trade_power = 10
+			}
+		}
+		effect = {
+			ME_add_years_of_trade_income = { years = 2 }
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = trader
+				skill = 1
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.33
+			}
+		}
+	}
+	
+	GHD_transsaharan_slave_trade = {
+		icon = mission_african_trade_post
+		required_missions = { GHD_across_sahara GHD_proliferation_of_exchange }
+		position = 4
+		provinces_to_highlight = {
+			owner = {
+				technology_group = sub_saharan 
+			}
+		}
+		trigger = {
+			any_ally = {
+				technology_group = sub_saharan 
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		effect = {
+			add_years_of_income = 0.5
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = GHD_nations_in_west_africa_fighting_wars_buff_us
+			set_country_flag = GHD_nations_in_west_africa_fighting_wars_buff_us
+			set_global_flag = GHD_some_nation_set_west_africa_on_fire
+		}
+	}
+}
+
+GHD_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		has_generic_maghrebi_missions = yes
+		NOT = { has_country_flag = BRBR_mission_enabled }
+		
+	}
+	has_country_shield = yes
+	
+	GHD_oasis_between_the_sands = {
+		icon = mission_arabian_fort
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			capital_scope = {
+				num_of_times_improved = 3
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_or_upgrade_tax_building = yes
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = GHD_peaceful_community
+					duration = -1
+				}
+			}
+		
+			ME_enable_estate_burghers_arid_development = yes
+		}
+	}
+	
+	GHD_serene_community = {
+		icon = mission_conquer_algiers
+		required_missions = { GHD_oasis_between_the_sands }
+		position = 3
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			capital_scope = {
+				has_trade_building_trigger = yes
+				has_production_building_trigger = yes
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_or_upgrade_production_building = yes
+				
+				custom_tooltip = " "
+				
+				add_or_upgrade_trade_building = yes
+				
+				custom_tooltip = " "
+				
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+		}
+	}
+	
+	GHD_rich = {
+		icon = mission_el_badi_palace
+		required_missions = { GHD_serene_community }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = maghreb_region
+					development = 18
+					NOT = { owned_by = ROOT }
+				}
+				AND = {
+					owned_by = ROOT
+					development = 15
+				}
+			}
+		}
+		trigger = {
+			monthly_income = 25
+			
+			num_of_owned_provinces_with = {
+				development = 18
+				value = 5 
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				age = age_of_reformation
+				name = GHD_rich_empire_maghreb
+				duration = -1
+			}
+			
+			
+		}
+	}
+}

@@ -1,0 +1,263 @@
+namespace = ME_Oman_Events
+
+country_event = {
+	id = ME_Oman_Events.1 
+	title = ME_Oman_Events.1.t #Loot Hormuz
+	desc = ME_Oman_Events.1.d
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					owns = 400 
+				}
+				400 = { save_event_target_as = Oman_target_province }
+			}
+			else = {
+				capital_scope = {
+					save_event_target_as = Oman_target_province
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Oman_Events.1.a
+		
+		ai_chance = { factor = 80 }
+		
+		2999 = {
+			add_base_tax = -2
+			add_base_production = -2
+			add_province_modifier = {
+				name = OMA_looted
+				duration = 9125
+			}
+		}
+		
+		event_target:Oman_target_province = {
+			add_base_tax = 2
+			add_base_production = 2
+			add_base_manpower = 2 
+		}
+		
+		add_mil_power = 50 
+	}
+	
+	option = {
+		name = ME_Oman_Events.1.b
+		
+		ai_chance = { factor = 20 }
+		
+		2999 = {
+			custom_tooltip = YEM_update_to_level_2_but_not_level_3
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							province_has_center_of_trade_of_level = 2
+						}
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			add_trade_modifier = {
+				who = ROOT
+				duration = 5475
+				power = 15
+				key = OMA_took_over_ormuz
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Oman_Events.2 
+	title = ME_Oman_Events.2.t #Sultan of Zanzibar
+	desc = ME_Oman_Events.2.d
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+		
+	option = {
+		name = ME_Oman_Events.2.a
+		
+		ai_chance = { factor = 80 }
+		
+		1201 = {
+			move_capital_effect = yes
+			add_province_modifier = {
+				name = OMA_new_residence
+				duration = -1
+			}
+		}
+		ME_override_country_name = { string = OMA_zanzibar }
+	}
+	
+	option = {
+		name = ME_Oman_Events.2.b
+		
+		ai_chance = { factor = 80 }
+		
+		ME_override_country_name = { string = OMA_zanzibar }
+		
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+	
+	option = {
+		name = ME_Oman_Events.2.c
+		
+		ai_chance = { factor = 0 }
+		
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+}
+
+country_event = {
+	id = ME_Oman_Events.3 
+	title = ME_Oman_Events.3.t #Our Influences in India
+	desc = ME_Oman_Events.3.d
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+	 
+	immediate = {
+		hidden_effect = {
+			pick_best_tags = {
+				scope = every_country
+				global_trigger = "
+					capital_scope = {
+						superregion = india_superregion
+					}
+					any_owned_province = {
+						has_port = yes
+					}
+					religion_group = muslim
+				"
+				3 = yes
+				scale = total_development
+				event_target_name = "Oman_target"
+			}
+		}
+		#after merge, do pick_worst_countries :)
+	}
+		
+	option = {
+		name = ME_Oman_Events.3.a
+		
+		ai_chance = { factor = 80 }
+		
+		add_dip_power = 100
+		
+		custom_tooltip = " "
+		
+		if = {
+			limit = {
+				event_target:Oman_target_3 = {
+					NOT = { province_id = 1 }
+				}
+			}
+			event_target:Oman_target_1 = {
+				country_event = { id = ME_Oman_Events.4 }
+			}
+		}
+		if = {
+			limit = {
+				event_target:Oman_target_2 = {
+					NOT = { province_id = 1 }
+				}
+			}
+			event_target:Oman_target_2 = {
+				country_event = { id = ME_Oman_Events.4 }
+			}
+		}
+		if = {
+			limit = {
+				event_target:Oman_target_3 = {
+					NOT = { province_id = 1 }
+				}
+			}
+			event_target:Oman_target_3 = {
+				country_event = { id = ME_Oman_Events.4 }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Oman_Events.4 
+	title = ME_Oman_Events.4.t #Oman influences in India
+	desc = ME_Oman_Events.4.d
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Oman_Events.4.a
+		
+		ai_chance = { factor = 80 }
+		
+		change_religion = FROM
+	}
+	
+	option = {
+		name = ME_Oman_Events.4.b
+		
+		ai_chance = { factor = 0 }
+		
+	}
+}
+
+country_event = {
+	id = ME_Oman_Events.5
+	title = ME_Oman_Events.5.t
+	desc = ME_Oman_Events.5.d
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Oman_Events.5.a
+		
+		ai_chance = { factor = 80 }
+		
+		400 = { move_capital_effect = yes }
+		add_prestige_or_monarch_power = { amount = 20 }
+	}
+	
+	option = {
+		name = ME_Oman_Events.5.b
+		
+		ai_chance = { factor = 0 }
+		
+	}
+}
+
+country_event = {
+	id = ME_Oman_Events.6
+	title = ME_Oman_Events.6.t
+	desc = ME_Oman_Events.6.d
+	picture = BATTLE_eventPicture
+	
+	fire_only_once = yes
+	trigger = {
+		tag = OMA
+		controls = 400
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	option = {
+		name = ME_Oman_Events.6.a
+		
+		ai_chance = { factor = 80 }
+		
+		add_yearly_manpower = 1
+		add_treasury = 50
+	}
+}

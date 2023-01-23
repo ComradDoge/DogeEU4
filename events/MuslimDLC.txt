@@ -3,6 +3,10 @@
 #
 # written by Sara Wendel-Örtqvist
 ########################################
+#
+# edited and modernized by Stiopa for Europa Expanded mod
+#
+########################################
 
 namespace = muslim_dlc
 
@@ -21,9 +25,6 @@ country_event = {
 		NOT = {
 			has_country_modifier = ignored_ramadan_timer
 		}
-		NOT = {
-			has_country_flag = ramadan_flag
-		}
 	}
 	
 	mean_time_to_happen = {
@@ -32,16 +33,38 @@ country_event = {
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA1"
-		add_legitimacy = 5
-		add_horde_unity = 5
-		add_republican_tradition = 2.5
-		add_devotion = 5
-		add_meritocracy_effect = yes
-		set_country_flag = ramadan_flag
+		
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10 
+			}
+		}
+		else = {
+			add_legitimacy = 5
+			add_horde_unity = 5
+			add_republican_tradition = 2.5
+			add_devotion = 5
+			add_meritocracy_effect = yes
+		}
+		
+		custom_tooltip = " "
+		
+		country_event = { id = muslim_dlc.2 days = 30 }
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB1"
-		add_prestige = 5
+		
+		add_prestige_or_monarch_power = { amount = 10 }
+		
+		custom_tooltip = " "
+		
+		add_piety = -0.1
+		
 		hidden_effect = {
 			add_country_modifier = { 
 				name = ignored_ramadan_timer
@@ -61,50 +84,50 @@ country_event = {
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
-		religion_group = muslim
-		had_country_flag = { flag = ramadan_flag days = 30 }
 	}
 	
-	mean_time_to_happen = {
-		months = 200
-	}
-	
-	immediate = {
-		clr_country_flag = ramadan_flag
-		hidden_effect = {
-			add_country_modifier = {
-				name = ramadan_timer
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
+	is_triggered_only = yes
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA2"
+		
+		add_piety = 0.2
+		
+		custom_tooltip = " "
+		
 		add_adm_power = 25
+		
+		custom_tooltip = " "
+		
 		add_years_of_income = -0.5
-		every_neighbor_country = {
-			limit = {
-				religion_group = muslim
-			}
-			tooltip = {
+		
+		custom_tooltip = ME_every_muslim_neighbor_country
+		tooltip = {
+			random_neighbor_country = {
 				add_opinion = {
 					who = ROOT
 					modifier = invited_eid_al_fitr
 					years = 5
 				}
 			}
-			hidden_effect = {
-				country_event = {
-					id = muslim_dlc.3
+		}
+		hidden_effect = {
+			every_neighbor_country = {
+				limit = {
+					religion_group = muslim
+				}
+				
+				hidden_effect = {
+					country_event = {
+						id = muslim_dlc.3
+					}
 				}
 			}
 		}
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB2"
-		add_piety = 0.2
+		add_piety = 0.1
 		add_years_of_income = -0.1
 	}
 	option = {
@@ -172,20 +195,26 @@ country_event = {
 	}
 	
 	immediate = {
-		hidden_effect = {
-			clr_country_flag = hajj_almost_completed
-		}
 	}
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA4"
-		add_legitimacy = 5
-		add_horde_unity = 5
-		add_republican_tradition = 2.5
-		add_devotion = 5
+		add_legitimacy = 10
+		add_horde_unity = 10
+		add_republican_tradition = 5
+		add_devotion = 10
 		add_meritocracy_effect = yes
+		
+		custom_tooltip = " "
+		
 		add_ruler_modifier = { name = muslim_hajj }
-		set_country_flag = hajj_flag
+		
+		custom_tooltip = " "
+		
+		country_event = { id = muslim_dlc.5 days = 30 random = 15 }
+		
+		custom_tooltip = " "
+		
 		add_years_of_income = -0.2
 	}
 	option = {
@@ -197,13 +226,14 @@ country_event = {
 				hidden = yes 
 			}
 		}
-		add_prestige = 10
-		if = {
-			limit = {
-				has_adopted_cult = islam_cult
-			}
-			add_prestige = -5
-		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		
+		# if = { senseless
+			# limit = {
+				# has_adopted_cult = islam_cult
+			# }
+			# add_prestige = -5
+		# }
 	}
 }
 
@@ -216,28 +246,27 @@ country_event = {
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
-		religion_group = muslim
 		has_ruler_modifier = muslim_hajj
-		had_country_flag = { flag = hajj_flag days = 30 }
-		NOT = {
-			has_country_flag = hajj_almost_completed
-		}
 	}
 	
-	mean_time_to_happen = {
-		months = 1
-	}
+	is_triggered_only = yes
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA5"
-		add_piety = 0.05
-		set_country_flag = hajj_almost_completed
+		
+		add_piety = 0.15
+		
+		custom_tooltip = " "
+		
 		if = {
 			limit = {
 				has_adopted_cult = islam_cult
 			}
-			add_prestige = 5
+			add_prestige_or_monarch_power = { amount = 5 }
+			custom_tooltip = " "
 		}
+		
+		country_event = { id = muslim_dlc.6 days = 30 random = 30 }
 	}
 }
 
@@ -248,20 +277,18 @@ country_event = {
 	desc = "muslim_dlc.EVTDESC6"
 	picture = HAJJ_eventPicture
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		has_dlc = "Star and Crescent"
-		religion_group = muslim
-		has_country_flag = hajj_flag
-		had_country_flag = { flag = hajj_almost_completed days = 30 }
-	}
-	
-	mean_time_to_happen = {
-		months = 200
+		has_ruler_modifier = muslim_hajj
 	}
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA6"
-		every_known_country = {
+		
+		custom_tooltip = ME_every_muslim_country
+		random_known_country = {
 			limit = { 
 				religion_group = muslim 
 			} 
@@ -271,9 +298,21 @@ country_event = {
 				years = 10
 			}
 		}
-		add_prestige = 10
-		clr_country_flag = hajj_almost_completed
-		clr_country_flag = hajj_flag
+		hidden_effect = {
+			every_known_country = {
+				limit = { 
+					religion_group = muslim 
+				} 
+				add_opinion = { 
+					who = ROOT
+					modifier = completed_hajj
+					years = 10
+				}
+			}
+		}
+		
+		custom_tooltip = " "
+		add_prestige_or_monarch_power = { amount = 10 }
 	}
 }
 
@@ -289,52 +328,83 @@ country_event = {
 	trigger = {
 		has_dlc = "Star and Crescent"
 		is_year = 1500
-		NOT = { is_year = 1600 }
+		#NOT = { is_year = 1600 } no reason for this
 		religion_group = muslim
-		treasury = 200
+		years_of_income = 0.5
 		owns = 385 # Mecca
 		NOT = { has_ruler_modifier = repaired_masjid_al_haram }
-		NOT = { is_advisor_employed = 1191 }
-		NOT = { has_country_flag = mimar_sinan_flag }
+		# NOT = { is_advisor_employed = 1191 } noone plays on later dates
+		# NOT = { has_country_flag = mimar_sinan_flag } no need
 	}
 	
 	mean_time_to_happen = {
 		months = 2000
 	}
 	
-	immediate = {
-		set_country_flag = mimar_sinan_flag
-	}
-	
 	option = {
 		name = "muslim_dlc.EVTOPTA7"
 		add_meritocracy_effect = yes
-		define_advisor = {
-			name = "Mimar Sinan"
-			discount = yes
-			type = artist
-			skill = 3
-			religion = sunni
-			culture = armenian
+		
+		if = {
+			limit = {
+				NOT = { has_global_flag = mimar_sinan_flag }
+			}
+			define_advisor = {
+				name = "Mimar Sinan"
+				discount = yes
+				type = muscovy_architect
+				skill = 3
+				religion = sunni
+				culture = armenian
+				cost_multiplier = 0.5
+			}
 		}
+		set_global_flag = mimar_sinan_flag
+		
+		custom_tooltip = " "
+		
 		add_years_of_income = -0.5
+		
+		custom_tooltip = " "
+		
 		add_ruler_modifier = { name = repaired_masjid_al_haram }
-		add_estate_loyalty = {
-			estate = estate_church
-			loyalty = 15
+		
+		custom_tooltip = " "
+		
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 15
+			}
 		}
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB7"
+		
 		add_years_of_income = -0.2
-		add_estate_loyalty = {
-			estate = estate_church
-			loyalty = 15
+		
+		custom_tooltip = " "
+		
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 15
+			}
 		}
+		
+		custom_tooltip = " "
+		
 		add_ruler_modifier = { name = repaired_masjid_al_haram }
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTC7"
+		
 		add_piety = -0.1
 	}
 }
@@ -346,7 +416,7 @@ country_event = {
 	desc = "muslim_dlc.EVTDESC8"
 	picture = RELIGION_eventPicture
 	
-	fire_only_once = yes
+	#fire_only_once clearly not intended
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
@@ -372,11 +442,25 @@ country_event = {
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA8"
+		
+		add_years_of_income = -0.1
+		
+		custom_tooltip = " "
+		
 		add_piety = -0.1
+		
+		custom_tooltip = " "
+		
+		add_adm_power = 10
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB8"
+		
 		add_piety = 0.1
+		
+		custom_tooltip = " "
+		
+		add_legitimacy = 5
 	}
 }
 
@@ -387,7 +471,7 @@ country_event = {
 	desc = "muslim_dlc.EVTDESC9"
 	picture = REFORM_eventPicture
 	
-	fire_only_once = yes
+	# fire_only_once = yes
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
@@ -593,7 +677,7 @@ country_event = {
 	desc = "muslim_dlc.EVTDESC10"
 	picture = REFORM_eventPicture
 	
-	fire_only_once = yes
+	# fire_only_once = yes
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
@@ -820,12 +904,8 @@ country_event = {
 	trigger = {
 		has_dlc = "Star and Crescent"
 		is_year = 1550
-		NOT = {
-			is_year = 1600
-		}
 		religion_group = muslim
 		NOT = { has_country_modifier = celestial_globe }
-		NOT = { has_country_modifier = tahtawi_timer }
 	}
 	
 	mean_time_to_happen = {
@@ -835,8 +915,16 @@ country_event = {
 	option = {
 		name = "muslim_dlc.EVTOPTA11"
 		add_country_modifier = {
-			name = celestial_globe
+			name = ME_celestial_globe
 			duration = 7300
+		}
+		
+		if = {
+			limit = {
+				has_dlc = "Rule Britannia"
+			}
+			custom_tooltip = " "
+			change_innovativeness = 5
 		}
 	}
 	option = {
@@ -844,17 +932,10 @@ country_event = {
 		add_meritocracy_effect = yes
 		define_advisor = {
 			name = "Muhammad Salih Tahtawi"
-			discount = yes
 			culture = sindhi
-			type = artist
+			type = GRA_astronomer
 			skill = 3
-		}
-		hidden_effect = { 
-			add_country_modifier = { 
-				name = tahtawi_timer 
-				duration = 3650
-				hidden = yes 
-			}
+			cost_multiplier = 0.33 
 		}
 	}
 }
@@ -871,9 +952,9 @@ country_event = {
 	trigger = {
 		has_dlc = "Star and Crescent"
 		is_year = 1575
-		NOT = {
-			is_year = 1635
-		}
+		# NOT = {
+			# is_year = 1635
+		# }
 		religion = sunni
 		owns = 507 # Punjab/Lahore
 	}
@@ -885,27 +966,44 @@ country_event = {
 	option = {
 		name = "muslim_dlc.EVTOPTA12"
 		add_years_of_income = -0.5
+		
+		custom_tooltip = " "
+		
 		add_meritocracy_effect = yes
 		define_advisor = {
 			name = "Mian Mir"
-			type = theologian
+			type = philosopher
 			religion = sunni
 			culture = panjabi
 			discount = yes
 			skill = 2
 			location = 507
 		}
+		
+		custom_tooltip = " "
+		
+		add_ruler_modifier = {
+			name = mian_mir
+		}
+		
+		add_piety = -0.15
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB12"
 		add_years_of_income = -0.25
+		
+		custom_tooltip = " "
+		
 		add_ruler_modifier = {
 			name = mian_mir
 		}
+		
+		add_piety = -0.05
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTC12"
-		add_prestige = 5
+		
+		add_prestige_or_monarch_power = { amount = 5 }
 	}
 }
 
@@ -921,9 +1019,9 @@ country_event = {
 	trigger = {
 		has_dlc = "Star and Crescent"
 		is_year = 1650
-		NOT = {
-			is_year = 1700
-		}
+		# NOT = {
+			# is_year = 1700
+		# }
 		religion_group = muslim
 		owns = 151 # Thrace/Constantinople/Istanbul
 	}
@@ -934,22 +1032,28 @@ country_event = {
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA13"
-		add_treasury = 100
+		
+		add_years_of_income = 0.25
 		add_corruption = 0.5
 		add_piety = -0.1
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB13"
+		
 		add_piety = 0.1
-		every_owned_province = {
-			limit = {
-				NOT = {
-					religion_group = muslim
+		
+		custom_tooltip = ME_every_province_not_muslim
+		tooltip = {
+			add_unrest = 5
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					NOT = {
+						religion_group = muslim
+					}
 				}
-			}
-			add_province_modifier = {
-				name = add_unrest_5_modifier
-				duration = 1825
+				add_unrest = 5
 			}
 		}
 	}
@@ -962,7 +1066,7 @@ country_event = {
 	desc = "muslim_dlc.EVTDESC14"
 	picture = RELIGION_eventPicture
 	
-	fire_only_once = yes
+	# fire_only_once = yes
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
@@ -988,12 +1092,25 @@ country_event = {
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA14"
-		add_piety = -0.15
-		add_years_of_income = -0.10
+		
+		add_years_of_income = -0.1
+		
+		custom_tooltip = " "
+		
+		add_piety = -0.1
+		
+		custom_tooltip = " "
+		
+		add_adm_power = 10
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB14"
-		add_piety = 0.15
+		
+		add_piety = 0.1
+		
+		custom_tooltip = " "
+		
+		add_legitimacy = 5
 	}
 }
 
@@ -1004,7 +1121,7 @@ country_event = {
 	desc = "muslim_dlc.EVTDESC15"
 	picture = RELIGION_eventPicture
 	
-	fire_only_once = yes
+	# fire_only_once = yes
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
@@ -1030,13 +1147,24 @@ country_event = {
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA15"
-		add_piety = -0.15
-		add_years_of_income = -0.10
+		add_years_of_income = -0.1
+		
+		custom_tooltip = " "
+		
+		add_piety = -0.1
+		
+		custom_tooltip = " "
+		
+		add_adm_power = 10
 	}
 	
 	option = {
 		name = "muslim_dlc.EVTOPTB15"
-		add_piety = 0.15
+		add_piety = 0.1
+		
+		custom_tooltip = " "
+		
+		add_legitimacy = 5
 	}
 }
 
@@ -1047,7 +1175,7 @@ country_event = {
 	desc = "muslim_dlc.EVTDESC16"
 	picture = RELIGION_eventPicture
 	
-	fire_only_once = yes
+	# fire_only_once = yes
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
@@ -1060,6 +1188,11 @@ country_event = {
 		OR = {
 			dominant_religion = sunni
 			dominant_religion = shiite
+		}
+		
+		num_of_owned_provinces_with = {
+			religion = ROOT
+			value = 2
 		}
 	}
 	
@@ -1074,15 +1207,15 @@ country_event = {
 					is_core = owner
 					religion = owner
 				}
-				set_province_flag = sharia_flag1
+				save_event_target_as = sharia_province1
 			}
 			random_owned_province = {
 				limit = {
 					is_core = owner
 					religion = owner
-					NOT = { has_province_flag = sharia_flag1 }
+					NOT = { province_id = event_target:sharia_province1 }
 				}
-				set_province_flag = sharia_flag2
+				save_event_target_as = sharia_province2
 			}
 		}
 	}
@@ -1100,14 +1233,20 @@ country_event = {
 				}
 			}
 		}
+		
 		add_dip_power = 20
 		add_mil_power = 20
 		add_adm_power = 20
+		
+		custom_tooltip = " "
+		
 		add_piety = 0.1
+		
 		if = {
 			limit = {
 				has_estate = estate_church
 			}
+			custom_tooltip = " "			
 			add_estate_influence_modifier = {
 				estate = estate_church
 				influence = 10
@@ -1115,21 +1254,13 @@ country_event = {
 				duration = 3650
 			}
 		}
-		random_owned_province = {
-			limit = {
-				has_province_flag = sharia_flag1
-			}
-			clr_province_flag = sharia_flag1
+		event_target:sharia_province1 = {
 			spawn_rebels = {
 				type = anti_tax_rebels
 				size = 2
 			}
 		}
-		random_owned_province = {
-			limit = {
-				has_province_flag = sharia_flag2
-			}
-			clr_province_flag = sharia_flag2
+		event_target:sharia_province2 = {
 			spawn_rebels = {
 				type = anti_tax_rebels
 				size = 2
@@ -1144,26 +1275,18 @@ country_event = {
 		add_dip_power = 10
 		add_mil_power = 10
 		add_adm_power = 10
+		
+		custom_tooltip = " "
+		
 		add_piety = -0.1
-		random_owned_province = {
-			limit = {
-				has_province_flag = sharia_flag1
-			}
-			clr_province_flag = sharia_flag1
-			add_province_modifier = {
-				name = add_unrest_5_modifier
-				duration = 1825
-			}
+		
+		custom_tooltip = " "
+		
+		event_target:sharia_province1 = {
+			add_unrest = 10
 		}
-		random_owned_province = {
-			limit = {
-				has_province_flag = sharia_flag2
-			}
-			clr_province_flag = sharia_flag2
-			add_province_modifier = {
-				name = add_unrest_5_modifier
-				duration = 1825
-			}
+		event_target:sharia_province2 = {
+			add_unrest = 10
 		}
 	}
 }
@@ -1183,9 +1306,7 @@ country_event = {
 		NOT = { has_country_modifier = ghulam_timer }
 		OR = {
 			is_at_war = yes
-			any_known_country = {
-				truce_with = ROOT
-			}
+			had_recent_war = 10
 		}
 	}
 	
@@ -1209,13 +1330,14 @@ country_event = {
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB17"
+		
 		add_army_tradition = 5
 		add_navy_tradition = 5
 		add_mil_power = 20
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTC17"
-		add_dip_power = 40
+		add_dip_power = 30 #small number twea
 	}
 }
 
@@ -1231,9 +1353,9 @@ country_event = {
 	trigger = {
 		has_dlc = "Star and Crescent"
 		is_year = 1585
-		NOT = { is_year = 1635 }
+		# NOT = { is_year = 1635 }
 		religion_group = muslim
-		NOT = { is_advisor_employed = 961 }
+		# NOT = { is_advisor_employed = 961 } 
 	}
 	
 	mean_time_to_happen = {
@@ -1243,18 +1365,28 @@ country_event = {
 	option = {
 		name = "muslim_dlc.EVTOPTA18"
 		add_years_of_income = -0.5
+		
+		custom_tooltip = " "
+		
 		define_advisor = {
 			name = "Reza Abbasi"
 			culture = persian
 			religion = shiite
-			discount = yes
+			cost_multiplier = 0.33
 			type = artist
 			skill = 2
 		}
+		
+		custom_tooltip = " "
+		
+		add_ruler_modifier = { 	name = reza_abbasi }
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB18"
 		add_years_of_income = -0.25
+		
+		custom_tooltip = " "
+		
 		add_ruler_modifier = { 	name = reza_abbasi }
 	}
 	option = {
@@ -1275,7 +1407,7 @@ country_event = {
 	trigger = {
 		has_dlc = "Star and Crescent"
 		is_year = 1570
-		NOT = { is_year = 1618 }
+		# NOT = { is_year = 1618 }
 		religion_group = muslim
 	}
 	
@@ -1287,19 +1419,32 @@ country_event = {
 		name = "muslim_dlc.EVTOPTA19"
 		add_years_of_income = -0.5
 		add_meritocracy_effect = yes
+		
+		custom_tooltip = " "
+		
 		add_piety = 0.10
+		
+		custom_tooltip = " "
+		
 		define_advisor = {
 			name = "Baha al-din al-Amili"
-			type = philosopher
-			discount = yes
+			type = GRA_mathematician
+			cost_multiplier = 0.5
 			religion = shiite
 			culture = persian
 			skill = 2
 		}
+		
+		custom_tooltip = " "
+		
+		add_ruler_modifier = { 	name = baha_al_din_al_amili }
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB19"
 		add_years_of_income = -0.25
+		
+		custom_tooltip = " "
+		
 		add_ruler_modifier = { 	name = baha_al_din_al_amili }
 	}
 	option = {
@@ -1337,10 +1482,17 @@ country_event = {
 			factor = 100
 		}
 		set_global_flag = hagia_sophia_now_mosque
+		
 		show_ambient_object = hagia_sophia_minarets
 		hide_ambient_object = hagia_sophia
+		
 		add_piety = 0.2
-		add_prestige = 20
+		
+		custom_tooltip = " "
+		
+		add_prestige_or_monarch_power = { amount = 20 }
+		
+		custom_tooltip = " "
 		if = {
 			limit = {
 				has_estate = estate_church
@@ -1349,6 +1501,7 @@ country_event = {
 				estate = estate_church
 				loyalty = 10
 			}
+			custom_tooltip = " "
 		}
 		if = {
 			limit = {
@@ -1359,6 +1512,7 @@ country_event = {
 					type = hagia_sophia
 				}
 			}
+			custom_tooltip = " "
 			add_years_of_income = -0.5
 		}
 		else = {
@@ -1372,6 +1526,9 @@ country_event = {
 			factor = 0
 		}
 		add_piety = -0.2
+		
+		custom_tooltip = " "
+		
 		if = {
 			limit = {
 				has_estate = estate_dhimmi
@@ -1402,6 +1559,12 @@ country_event = {
 				has_province_modifier = province_madrassa 
 			}
 		}
+		
+		num_of_owned_provinces_with = {
+			is_core = ROOT
+			religion_group = muslim
+			value = 3
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -1410,32 +1573,29 @@ country_event = {
 	
 	immediate = {
 		hidden_effect = {
-			set_country_flag = dev_madrassa_flag
 			random_owned_province = {
 				limit = {
-					is_core = owner
+					is_core = ROOT
 					religion_group = muslim
 				}
-				set_province_flag = madrassa_flag1
+				save_event_target_as = madrassa_target_1
 			}
 			random_owned_province = {
 				limit = {
-					NOT = {
-						has_province_flag = madrassa_flag1
-					}
+					is_core = ROOT
+					religion_group = muslim
+					NOT = { province_id = event_target:madrassa_target_1 }
 				}
-				set_province_flag = madrassa_flag2
+				save_event_target_as = madrassa_target_2
 			}
 			random_owned_province = {
 				limit = {
-					NOT = {
-						has_province_flag = madrassa_flag2
-					}
-					NOT = {
-						has_province_flag = madrassa_flag1
-					}
+					is_core = ROOT
+					religion_group = muslim
+					NOT = { province_id = event_target:madrassa_target_1 }
+					NOT = { province_id = event_target:madrassa_target_2 }
 				}
-				set_province_flag = madrassa_flag3
+				save_event_target_as = madrassa_target_3
 			}
 		}
 	}
@@ -1443,78 +1603,43 @@ country_event = {
 	option = {
 		name = "muslim_dlc.EVTOPTA21"
 		add_country_modifier = { 
-			name = muslim_madrassa 
+			name = ME_muslim_madrassa 
 			duration = 7300 
 		}
+		
 		add_years_of_income = -0.5
-		hidden_effect = {
-				random_owned_province = {
-				limit = {
-					has_province_flag = madrassa_flag1
-				}
-				clr_province_flag = madrassa_flag1
-			}
-			random_owned_province = {
-				limit = {
-					has_province_flag = madrassa_flag2
-				}
-				clr_province_flag = madrassa_flag2
-			}
-			random_owned_province = {
-				limit = {
-					has_province_flag = madrassa_flag3
-				}
-				clr_province_flag = madrassa_flag3
-			}
+		
+		custom_tooltip = " "
+		
+		event_target:madrassa_target_1 = {
+			add_province_modifier = { name = ME_province_madrassa duration = 7300 }
+		}
+		event_target:madrassa_target_2 = {
+			add_province_modifier = { name = ME_province_madrassa duration = 7300 }
+		}
+		event_target:madrassa_target_3 = {
+			add_province_modifier = { name = ME_province_madrassa duration = 7300 }
 		}
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB21"
 		add_years_of_income = -0.25
-		random_owned_province = {
-			limit = {
-				has_province_flag = madrassa_flag1
-			}
-			clr_province_flag = madrassa_flag1
-			add_province_modifier = { name = province_madrassa duration = 7300 }
+		
+		custom_tooltip = " "
+		
+		event_target:madrassa_target_1 = {
+			add_province_modifier = { name = ME_province_madrassa duration = 7300 }
 		}
-		random_owned_province = {
-			limit = {
-				has_province_flag = madrassa_flag2
-			}
-			clr_province_flag = madrassa_flag2
-			add_province_modifier = { name = province_madrassa duration = 7300 }
+		event_target:madrassa_target_2 = {
+			add_province_modifier = { name = ME_province_madrassa duration = 7300 }
 		}
-		random_owned_province = {
-			limit = {
-				has_province_flag = madrassa_flag3
-			}
-			clr_province_flag = madrassa_flag3
-			add_province_modifier = { name = province_madrassa duration = 7300 }
+		event_target:madrassa_target_3 = {
+			add_province_modifier = { name = ME_province_madrassa duration = 7300 }
 		}
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTC21"
-		hidden_effect = {
-				random_owned_province = {
-				limit = {
-					has_province_flag = madrassa_flag1
-				}
-				clr_province_flag = madrassa_flag1
-			}
-			random_owned_province = {
-				limit = {
-					has_province_flag = madrassa_flag2
-				}
-				clr_province_flag = madrassa_flag2
-			}
-			random_owned_province = {
-				limit = {
-					has_province_flag = madrassa_flag3
-				}
-				clr_province_flag = madrassa_flag3
-			}
-		}
+		
 	}
 }
 
@@ -1555,6 +1680,10 @@ country_event = {
 		name = "muslim_dlc.EVTOPTB22"
 		add_ruler_modifier = { name = darb_zubaidah }
 		add_years_of_income = -0.1
+		
+		custom_tooltip = " "
+		
+		add_piety = 0.2
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTC22"
@@ -1575,10 +1704,14 @@ country_event = {
 		has_dlc = "Star and Crescent"
 		NOT = { is_year = 1468 }
 		religion_group = muslim
+		capital_scope = {
+			superregion = near_east_superregion
+		}
+		total_development = 100
 	}
 	
 	mean_time_to_happen = {
-		months = 2000
+		months = 200
 	}
 	
 	option = {
@@ -1591,11 +1724,21 @@ country_event = {
 			discount = yes
 			skill = 2
 		}
+		
+		custom_tooltip = " "
+		
 		add_years_of_income = -0.5
+		
+		custom_tooltip = " "
+		
+		add_ruler_modifier = { 	name = serafeddin_sabuncuoglu }
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB23"
 		add_years_of_income = -0.25
+		
+		custom_tooltip = " "
+		
 		add_ruler_modifier = { 	name = serafeddin_sabuncuoglu }
 	}
 	option = {
@@ -1616,7 +1759,6 @@ country_event = {
 	trigger = {
 		has_dlc = "Star and Crescent"
 		is_year = 1470
-		NOT = { is_year = 1530 }
 		religion_group = muslim
 	}
 	
@@ -1630,14 +1772,25 @@ country_event = {
 		define_advisor = {
 			name = "Al-Birjandi"
 			culture = khorasani
-			type = artist
-			discount = yes
+			type = GRA_astronomer
+			cost_multiplier = 0.33
 			skill = 3
 		}
+		
+		custom_tooltip = " "
+		
+		add_years_of_income = -0.5 #this was missing? lmao
+		
+		custom_tooltip = " "
+		
+		add_ruler_modifier = { 	name = al_birjandi }
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB24"
 		add_years_of_income = -0.25
+		
+		custom_tooltip = " "
+		
 		add_ruler_modifier = { 	name = al_birjandi }
 	}
 	option = {
@@ -1693,10 +1846,16 @@ province_event = {
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB25"
+		
 		owner = {
 			add_piety = -0.2
-			add_prestige = 15
+			
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 15 }
 		}
+		
+		custom_tooltip = " "
+		
 		add_unrest = 2
 	}
 }
@@ -1732,12 +1891,22 @@ country_event = {
 	
 	option = {
 		name = "muslim_dlc.EVTOPTA26"
+		
 		add_ruler_modifier = { name = true_mahdi } 
+		
 		add_piety = -0.1
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB26"
+		
+		
 		add_piety = 0.1
+	}
+	
+	option = {
+		name = "ME_muslim_dlc.26.a"
+		
+		add_adm_power = -10
 	}
 }
 
@@ -1747,8 +1916,6 @@ country_event = {
 	title = "muslim_dlc.EVTNAME27"
 	desc = "muslim_dlc.EVTDESC27"
 	picture = RELIGION_eventPicture
-	
-	fire_only_once = yes
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
@@ -1763,10 +1930,13 @@ country_event = {
 			religion = sunni
 			is_state = yes
 		}
+		
+		NOT = { has_country_flag = ME_had_religious_turmoil_islam_flag }
 	}
 	
 	immediate = {
 		hidden_effect = {
+			set_country_flag = ME_had_religious_turmoil_islam_flag
 			random_owned_province = {
 				limit = {
 					religion = sunni
@@ -1791,26 +1961,15 @@ country_event = {
 	option = {
 		name = "muslim_dlc.EVTOPTA27"
 		event_target:sunni_province = {
-			area = {
-				limit = { owned_by = ROOT }
-				spawn_rebels = {
-					type = sunni_rebels
-					size = 1
-				}
+			spawn_rebels = {
+				type = sunni_rebels
+				size = 2
 			}
 		}
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB27"
-		event_target:shia_province = {
-			area = {
-				limit = { owned_by = ROOT }
-				add_province_modifier = {
-					name = add_unrest_5_modifier
-					duration = 1825
-				}
-			}
-		}
+		add_dip_power = -100
 	}
 }
 
@@ -1825,7 +1984,7 @@ country_event = {
 	
 	trigger = {
 		has_dlc = "Star and Crescent"
-		religion = shiite
+		religion = sunni
 		num_of_owned_provinces_with = {
 			value = 10
 			religion = shiite
@@ -1836,9 +1995,11 @@ country_event = {
 			religion = sunni
 			is_state = yes
 		}
+		NOT = { has_country_flag = ME_had_religious_turmoil_islam_flag }
 	}
 	
 	immediate = {
+		set_country_flag = ME_had_religious_turmoil_islam_flag
 		hidden_effect = {
 			random_owned_province = {
 				limit = {
@@ -1864,25 +2025,14 @@ country_event = {
 	option = {
 		name = "muslim_dlc.EVTOPTA27"
 		event_target:shia_province = {
-			area = {
-				limit = { owned_by = ROOT }
-				spawn_rebels = {
-					type = shiite_rebels
-					size = 1
-				}
+			spawn_rebels = {
+				type = shiite_rebels
+				size = 2
 			}
 		}
 	}
 	option = {
 		name = "muslim_dlc.EVTOPTB27"
-		event_target:sunni_province = {
-			area = {
-				limit = { owned_by = ROOT }
-				add_province_modifier = {
-					name = add_unrest_5_modifier
-					duration = 1825
-				}
-			}
-		}
+		add_dip_power = -100
 	}
 }

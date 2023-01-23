@@ -1,0 +1,279 @@
+namespace = ME_Tlemcen_Events
+
+country_event = {
+	id = ME_Tlemcen_Events.1
+	title = ME_Tlemcen_Events.1.t #Tafilalt Gold Mine
+	desc = ME_Tlemcen_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes 
+	
+	option = {
+		name = ME_Tlemcen_Events.1.a
+		
+		ai_chance = { factor = 25 }
+		
+		add_adm_power = -50
+		346 = {
+			add_base_tax = 1
+			add_base_production = 1
+			add_province_modifier = {
+				name = TLC_gold_mine_operation
+				duration = 7300
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Tlemcen_Events.1.b
+		
+		ai_chance = { factor = 75 }
+		
+		add_treasury = -50
+		346 = {
+			create_or_add_center_of_trade_level = { level = 1 }
+			change_province_name = "Sijilmasa"
+		}
+	}
+	
+	option = {
+		name = ME_Tlemcen_Events.1.c
+		
+		ai_chance = { factor = 0 }
+		
+		346 = {
+			add_local_autonomy = -50
+		}
+		add_adm_power = 50
+	}
+}
+
+country_event = {
+	id = ME_Tlemcen_Events.2
+	title = ME_Tlemcen_Events.2.t #Filling the Moroccan Void
+	desc = ME_Tlemcen_Events.2.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes 
+	immediate = {
+		343 = { add_core = FEZ }
+	}
+	
+	option = {
+		name = ME_Tlemcen_Events.2.a
+		
+		ai_chance = { factor = 100 }
+		
+		if = {
+			limit = {
+				343 = { owned_by = ROOT }
+			}
+			release = FEZ
+			vassalize = FEZ
+		}
+		else = {
+			343 = { cede_province = FEZ }
+			vassalize = FEZ
+		}
+		FEZ = {
+			every_core_province = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				cede_province = FEZ
+			}
+			change_religion = ROOT
+			change_culture = moroccan
+			define_ruler = {
+				dynasty = "Wattasid"
+				dip = 4
+				adm = 2
+				mil = 2
+				max_random_adm = 6
+				max_random_dip = 6
+				max_random_mil = 6
+			}
+			northern_morocco_area = {
+				add_core = PREV
+			}
+			western_morocco_area = {
+				add_core = PREV
+			}
+			marrekesh_area = {
+				add_core = PREV
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Tlemcen_Events.2.b
+		
+		ai_chance = { factor = 100 }
+		
+		add_adm_power = 200
+		
+		add_legitimacy = 20
+		add_prestige_or_monarch_power = { amount = 20 }
+	}
+}
+
+country_event = {
+	id = ME_Tlemcen_Events.3
+	title = ME_Tlemcen_Events.3.t #Arabicization
+	desc = ME_Tlemcen_Events.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes 
+	major = yes 
+	major_trigger = {
+		NOT = {
+			capital_distance = {
+				who = event_target:TLC_event_target
+				distance = 200
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = TLC_event_target
+			if = {
+				limit = {
+					num_of_owned_provinces_with = {
+						culture = berber
+						value = 3
+					}
+				}
+				set_country_flag = TLC_3_berber_provs
+				pick_best_provinces = {
+					3 = yes
+					scope = every_owned_province
+					global_trigger = " culture = berber "
+					scale = higher_development_than
+					event_target_name = "Tlemcen_Berber_Province"
+				}
+			}
+			else_if = {
+				limit = {
+					num_of_owned_provinces_with = {
+						culture = berber
+						value = 2
+					}
+				}
+				set_country_flag = TLC_2_berber_provs
+				pick_best_provinces = {
+					2 = yes
+					scope = every_owned_province
+					global_trigger = " culture = berber "
+					scale = higher_development_than
+					event_target_name = "Tlemcen_Berber_Province"
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_province = {
+						culture = berber
+					}
+				}
+				set_country_flag = TLC_1_berber_provs
+				random_owned_province = {
+					limit = {
+						culture = berber
+					}
+					save_event_target_as = Tlemcen_Berber_Province_1
+				}
+			}
+			else = { } #do nothing
+		}
+	}
+	option = {
+		name = ME_Tlemcen_Events.3.a
+		
+		ai_chance = { factor = 100 }
+		
+		change_primary_culture = algerian
+		
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = TLC_3_berber_provs
+					has_country_flag = TLC_2_berber_provs
+					has_country_flag = TLC_1_berber_provs
+				}
+			}
+			event_target:Tlemcen_Berber_Province_1 = {
+				change_culture = algerian
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = TLC_2_berber_provs
+					has_country_flag = TLC_3_berber_provs
+				}
+			}
+			event_target:Tlemcen_Berber_Province_2 = {
+				change_culture = algerian
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = TLC_3_berber_provs
+			}
+			event_target:Tlemcen_Berber_Province_3 = {
+				change_culture = algerian
+			}
+		}
+		
+		custom_tooltip = TLC_may_form_algiers
+		set_country_flag = TLC_may_form_algiers
+		
+		custom_tooltip = TLC_distribute_5_base_tax_amongst_algerian_provs
+		hidden_effect = {
+			for = {
+				amount = 5 
+				effect = "
+					random_owned_province = {
+						limit = {
+							culture = algerian
+						}
+						add_base_tax = 1
+					}
+				"
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Tlemcen_Events.3.b
+		
+		ai_chance = { factor = 100 }
+		
+		add_country_modifier = {
+			name = TLC_against_arabicization
+			duration = 7300
+		}
+		
+		custom_tooltip = TLC_distribute_5_base_tax_amongst_berber_provs
+		hidden_effect = {
+			for = {
+				amount = 5 
+				effect = "
+					random_owned_province = {
+						limit = {
+							culture = berber
+						}
+						add_base_tax = 1
+					}
+				"
+			}
+		}
+	}
+	
+	after = {
+		clr_country_flag = TLC_3_berber_provs
+		clr_country_flag = TLC_2_berber_provs
+		clr_country_flag = TLC_1_berber_provs
+	}
+}
+

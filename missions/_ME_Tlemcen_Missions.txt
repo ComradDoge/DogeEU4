@@ -1,0 +1,928 @@
+TLC_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = ALG
+			tag = TLC
+		}
+		NOT = { has_country_flag = BRBR_mission_enabled }
+	}
+	has_country_shield = yes
+	
+	TLC_depose_the_marinids = {
+		icon = mission_reclaim_morocco
+		required_missions = { TLC_morocco_start }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 343
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns_or_non_sovereign_subject_of = 343
+			NOT = { exists = FEZ }
+		}
+		effect = {
+			country_event = { id = ME_Tlemcen_Events.2 } #puppet in Fez
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 50
+		}
+	}
+	
+	TLC_morocco = {
+		icon = mission_new_world_power
+		required_missions = { TLC_tafilalt TLC_depose_the_marinids }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = marrekesh_area
+				area = southern_morocco_area
+				area = northern_morocco_area
+				area = western_morocco_area
+				area = sus_area
+				area = tafilalt_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = marrekesh_area
+					area = southern_morocco_area
+					area = northern_morocco_area
+					area = western_morocco_area
+					area = sus_area
+					area = tafilalt_area
+				}
+				value = 17
+			}
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = moroccan }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = TLC_sultans_of_morocco
+				duration = -1
+			}
+			
+			add_prestige_or_monarch_power = { amount = 25 }
+			
+			custom_tooltip = " "
+			
+			TUN_enable_expel_europeans_decision = yes
+		}
+	}
+	
+	TLC_arabicization = {
+		icon = mission_pacify_the_berbers
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+			culture = algerian
+			owned_by = ROOT
+		}
+		trigger = {
+			accepted_culture = algerian
+			has_dip_advisor = yes
+			any_owned_province = { culture = berber }
+		}
+		effect = {
+			country_event = { id = ME_Tlemcen_Events.3 } #become algerian or stay berber
+			
+			custom_tooltip = " "
+			
+			add_prestige_or_monarch_power = { amount = 10 }
+		}
+	}
+	
+	TLC_berbers = {
+		icon = mission_protect_granada
+		required_missions = { TLC_arabicization }
+		position = 8
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					any_owned_province = {
+						culture = berber
+						NOT = { has_manpower_building_trigger = yes }
+					}
+				}
+				owned_by = ROOT
+				culture = berber
+				NOT = { has_manpower_building_trigger = yes }
+			}
+			else = {
+				culture = berber
+				NOT = { owned_by = ROOT }
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = berber
+				has_manpower_building_trigger = yes
+				value = 3
+			}
+			
+			has_mil_advisor_2 = yes
+		}
+		effect = {
+			add_yearly_manpower = 1
+		
+			custom_tooltip = " "
+			
+			custom_tooltip = ARB_most_developed_provinces
+			tooltip = {
+				add_or_upgrade_manpower_building = yes 
+				add_province_modifier = {
+					name = TLC_berber_tribe_recruited
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes 
+					scale = higher_development_than
+					scope = every_owned_province
+					global_trigger = "
+						culture = berber
+						has_manpower_building_trigger = yes
+					"
+					event_target_name = "Tlemcen_Target"
+				}
+				event_target:Tlemcen_Target_1 = {
+					add_or_upgrade_manpower_building = yes 
+					add_province_modifier = {
+						name = TLC_berber_tribe_recruited
+						duration = -1
+					}
+				}
+				event_target:Tlemcen_Target_2 = {
+					add_or_upgrade_manpower_building = yes 
+					add_province_modifier = {
+						name = TLC_berber_tribe_recruited
+						duration = -1
+					}
+				}
+				event_target:Tlemcen_Target_3 = {
+					add_or_upgrade_manpower_building = yes 
+					add_province_modifier = {
+						name = TLC_berber_tribe_recruited
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+TLC_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = ALG
+			tag = TLC
+		}
+		NOT = { has_country_flag = BRBR_mission_enabled }
+	}
+	has_country_shield = yes
+	
+	TLC_morocco_start = {
+		icon = mission_develop_cordoba
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			owned_by = FEZ
+		}
+		trigger = {
+			OR = {
+				army_size = FEZ
+				army_size = 12
+			}
+		}
+		effect = {
+			ME_give_claims = { area = tafilalt_area }
+			ME_give_claims = { area = sus_area }
+			ME_give_claims = { area = southern_morocco_area }
+			ME_give_claims = { area = western_morocco_area }
+			ME_give_claims = { area = marrekesh_area }
+			ME_give_claims = { area = northern_morocco_area }
+			
+			custom_tooltip = " "
+			
+			create_general_with_pips = { tradition = 40 add_shock = 1 }
+			
+			custom_tooltip = " "
+			
+			capital_scope = {
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+			}
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = TLC_dont_get_partitioned
+				duration = 9125
+			}
+		}
+	}
+	
+	TLC_tafilalt = {
+		icon = mission_develop_alhambra
+		required_missions = { TLC_morocco_start }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 346
+				province_id = 2466
+				province_id = 1110 
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns_or_non_sovereign_subject_of = 346
+			owns_or_non_sovereign_subject_of = 2466
+			owns_or_non_sovereign_subject_of = 1110
+		}
+		effect = {
+			#do something about the trade center in 346, 2466, 1110
+			country_event = { id = ME_Tlemcen_Events.1 } #What to do about tafilalt gold mine?
+			
+			custom_tooltip = " "
+			
+			TUN_enable_colonize_tuat_decision = yes 
+			
+			custom_tooltip = " "
+			
+			GHD_grant_vision_on_west_africa = yes
+		}
+	}
+	
+	TLC_kick_out_europeans = {
+		icon = mission_retake_ceuta
+		required_missions = { TLC_tafilalt TLC_morocco TLC_unite_the_tribes }
+		position = 5
+		provinces_to_highlight = {
+			region = maghreb_region
+			owner = {
+				NOT = { religion_group = ROOT }
+			}
+			NOT = { area = macaronesia_area }
+		}
+		trigger = {
+			maghreb_region = {
+				type = all
+				OR = {
+					owner = {
+						religion_group = ROOT
+					}
+					area = macaronesia_area
+				}
+			}
+		}
+		effect = {
+			set_defender_of_the_faith_effect = yes
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = lower_andalucia_area }
+			ME_give_claims = { area = upper_andalucia_area }
+		}
+	}
+	
+	TLC_maghrebi_empire = {
+		icon = mission_fatimid_caliphate
+		required_missions = { TLC_kick_out_europeans }
+		position = 6
+		provinces_to_highlight = {
+			region = maghreb_region
+			NOT = { is_empty = yes }
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { area = macaronesia_area }
+		}
+		trigger = {
+			maghreb_region = {
+				type = all
+				OR = {
+					is_empty = yes
+					area = macaronesia_area
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		effect = {
+			set_government_rank = 3 
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = TLC_maghrebi_empire_modifier
+				duration = -1
+			}
+			
+			change_national_focus_effect = yes
+		}
+	}
+	
+	TLC_oran_fatwa = {
+		icon = mission_expel_the_moriscos
+		required_missions = { TLC_ulema TLC_arabicization }
+		position = 7
+		provinces_to_highlight = {
+			province_id = 337
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = TLC_oran_fatwa_issued
+				has_global_flag = TUN_oran_fatwa_issued
+			}
+			
+			337 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				OR = {
+					ME_has_religious_scholars_trigger = yes
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						estate_loyalty = {
+							estate = estate_church
+							loyalty = 70
+						}
+					}
+					else = {
+						hidden_trigger = { always = no }
+					}
+					OR = {
+						piety = 1
+						NOT = { piety = -0.99 }
+					}
+				}
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = theologian
+				name = "Ahmad ibn Abi Jum'ah"
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.2
+			}
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = TLC_oran_fatwa_modifier
+				duration = -1
+				age = age_of_reformation
+			}
+			
+			337 = { add_or_upgrade_tax_building = yes }
+		}
+	}
+}
+
+TLC_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = ALG
+			tag = TLC
+		}
+		NOT = { has_country_flag = BRBR_mission_enabled }
+	}
+	has_country_shield = yes
+	
+	TLC_fake_imams = {
+		icon = me_mission_muslim_priest
+		required_missions = { TLC_fc }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2457 
+				owned_by = MZB
+			}
+		}
+		trigger = {
+			NOT = { exists = MZB }
+			owns_or_non_sovereign_subject_of = 2457
+		}
+		effect = {
+			add_country_modifier = {
+				name = TLC_deposed_the_imam
+				duration = 10950
+			}
+			
+			add_dip_power = 50
+		}
+	}
+	
+	TLC_unite_the_tribes = {
+		icon = mission_break_sicily
+		required_missions = { TLC_hafsids TLC_fake_imams }
+		position = 4 
+		provinces_to_highlight = {
+			OR = {
+				area = north_saharan_area
+				province_id = 2448
+				province_id = 4567
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			north_saharan_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2448 = { country_or_non_sovereign_subject_holds = ROOT }
+			4567 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			TUN_enable_colonize_djado_decision = yes
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = TLC_united_tribes
+				duration = 9125
+			}
+		}
+	}
+	
+	TLC_ulema = {
+		icon = mission_restore_trade_superiority
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				piety = 0.5
+				NOT = { piety = -0.5 }
+			}
+			
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 55
+					}
+					num_of_estate_privileges = {
+						estate = estate_church
+						value = 3
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = TLC_depending_on_what_piety_we_are_leaning
+			if = {
+				limit = {
+					piety = 0.01
+				}
+				add_corruption = -2
+			}
+			else = {
+				add_yearly_manpower = 1
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = TLC_scholars
+				duration = 7300
+			}
+		}
+	}
+	
+	TLC_religion = {
+		icon = mission_patronize_art_and_religion
+		required_missions = { TLC_ulema }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_or_upgrade_university_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = TLC_madrasah
+				duration = 9125
+			}
+		
+			set_country_flag = TUN_empower_madrasah_event_flag
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}				
+				custom_tooltip = TUN_empower_madrasah_event
+			}
+		}
+	}
+}
+
+TLC_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = ALG
+			tag = TLC
+		}
+		NOT = { has_country_flag = BRBR_mission_enabled }
+	}
+	has_country_shield = yes
+	
+	TLC_fc = {
+		icon = mission_eliminate_pretenders
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			owned_by = ALG
+		}
+		trigger = {
+			OR = {
+				has_spy_network_in = {
+					who = ALG
+					value = 25
+				}
+				army_size = ALG
+				army_size_percentage = 0.9 
+			}
+		}
+		effect = {
+			ME_give_claims = { area = kabylia_area }
+			ME_give_claims = { area = tunisia_area }
+			ME_give_claims = { area = ouled_nail_area }
+			ME_give_claims = { area = north_saharan_area }
+			ME_give_claims = { area = barbary_coast_area }
+			ME_give_claims = { area = hautes_plaines_area }
+			
+			add_country_modifier = {
+				name = TLC_exploiting_weakness
+				duration = 9125
+			}
+		}
+	}
+	
+	TLC_hafsids = {
+		icon = mission_conquer_tunisia
+		required_missions = { TLC_kabylia }
+		position = 3 
+		provinces_to_highlight = {
+			OR = {
+				area = tunisia_area
+				area = kabylia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = tunisia_area
+					area = kabylia_area
+				}
+				value = 5
+			}
+			341 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			ME_give_claims = { area = tripolitania_area }
+			ME_give_claims = { area = djerba_area }
+			ME_give_claims = { area = fezzan_area }
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = tunisian }
+		
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = TLC_sultan_of_ifriqiyya
+				duration = -1
+			}
+			
+			# do something about trade node in 341
+		}
+	}
+	
+	TLC_wehran = {
+		icon = mission_control_the_barbary_coast
+		required_missions = { TLC_navy }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 337
+				province_id = 336
+			}
+		}
+		trigger = {
+			337 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				development = 15
+			}
+			owns_core_province = 336
+		}
+		effect = {
+			337 = {
+				add_or_upgrade_trade_building = yes 
+				add_or_upgrade_shipyard_building = yes
+				create_or_add_center_of_trade_level = { level = 1 }
+				add_province_modifier = {
+					name = TLC_primary_port
+					duration = -1
+				}
+			}
+			336 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+		}
+	}
+	
+	TLC_transsaharan = {
+		icon = mission_traverse_the_sahara
+		required_missions = { TLC_wehran }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1132
+				province_id = 1149
+			}
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 15
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				1132 = {
+					trade_share = {
+						country = ROOT
+						share = 15
+					}
+				}
+				1149 = {
+					trade_share = {
+						country = ROOT
+						share = 15
+					}
+				}
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = TLC_transsaharan_trade
+				duration = -1
+				age = age_of_reformation
+			}
+			
+			add_years_of_income = 1
+		}
+	}
+}
+
+TLC_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = ALG
+			tag = TLC
+		}
+		NOT = { has_country_flag = BRBR_mission_enabled }
+	}
+	has_country_shield = yes
+	
+	TLC_kabylia = {
+		icon = mission_el_badi_palace
+		required_missions = { TLC_fc }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = kabylia_area
+				province_id = 2458
+				province_id = 338
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			kabylia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2458 = { country_or_non_sovereign_subject_holds = ROOT }
+			338 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			add_army_tradition_or_mil_power = { amount = 20 }
+			add_adm_power = 100
+		}
+	}
+	
+	TLC_navy = {
+		icon = mission_control_venice
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_port = yes
+		}
+		trigger = {
+			OR = {
+				navy_size_percentage = 0.9
+				navy_size = 15
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = TLC_berber_piracy
+				duration = 10950
+			}
+			
+			add_yearly_sailors = 0.5
+		}
+	}
+	
+	TLC_raid_christians = {
+		icon = mission_raid_christian_trade
+		required_missions = { TLC_navy }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1298
+				province_id = 1293
+				province_id = 1295
+			}
+			NOT = {
+				if = {
+					limit = {
+						OR = {
+							has_dlc = "Wealth of Nations"
+							has_dlc = "Golden Century"
+							has_dlc = "Mare Nostrum"
+							has_dlc = "El Dorado"
+						}
+					}
+					OR = {
+						1298 = {
+							has_privateer_share_in_trade_node = {
+								who = ROOT
+								share = 0.1
+							}
+						}
+						1293 = {
+							has_privateer_share_in_trade_node = {
+								who = ROOT
+								share = 0.1
+							}
+						}
+						1295 = {
+							has_privateer_share_in_trade_node = {
+								who = ROOT
+								share = 0.1
+							}
+						}
+					}
+				}
+				else = {
+					OR = {
+						1298 = {
+							trade_share = {
+								country = ROOT
+								share = 10
+							}
+						}
+						1293 = {
+							trade_share = {
+								country = ROOT
+								share = 10
+							}
+						}
+						1295 = {
+							trade_share = {
+								country = ROOT
+								share = 10
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Wealth of Nations"
+						has_dlc = "Golden Century"
+						has_dlc = "Mare Nostrum"
+						has_dlc = "El Dorado"
+					}
+				}
+				OR = {
+					1298 = {
+						has_privateer_share_in_trade_node = {
+							who = ROOT
+							share = 0.1
+						}
+					}
+					1293 = {
+						has_privateer_share_in_trade_node = {
+							who = ROOT
+							share = 0.1
+						}
+					}
+					1295 = {
+						has_privateer_share_in_trade_node = {
+							who = ROOT
+							share = 0.1
+						}
+					}
+				}
+			}
+			else = {
+				OR = {
+					1298 = {
+						trade_share = {
+							country = ROOT
+							share = 10
+						}
+					}
+					1293 = {
+						trade_share = {
+							country = ROOT
+							share = 10
+						}
+					}
+					1295 = {
+						trade_share = {
+							country = ROOT
+							share = 10
+						}
+					}
+				}
+			}
+			if = { 
+				limit = {
+					OR = {
+						has_dlc = "Golden Century"
+						has_dlc = "Mare Nostrum"
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = TLC_provinces_raided
+					check_variable = {
+						which = NumOfRaidedCoasts
+						value = 60
+					}
+				}
+				#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = TLC_raiders_of_the_maghreb
+				duration = -1
+			}
+			
+			#custom_tooltip = " "
+			
+			add_years_of_income = 1
+		}
+	}
+}
