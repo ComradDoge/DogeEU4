@@ -1,0 +1,935 @@
+abbasid_denounce_actions = {
+	category = subsidies
+
+	require_acceptance = no
+
+	is_visible = {
+		ME_has_abbasid_caliph = yes
+		ME_can_benefit_from_abbasid_caliph = yes
+	}
+	
+	is_allowed = {
+		hidden_trigger = {
+			ME_has_abbasid_caliph = yes
+			# FROM = {
+				# is_enemy = ROOT
+				# religion = ROOT
+			# }
+		}
+		if = {
+			limit = {
+				NOT = {
+					ME_is_caliphate_trigger = yes
+				}
+			}
+			FROM = {
+				OR = {
+					is_enemy = ROOT
+					is_rival = ROOT
+				}
+			}
+			dip_power = 50
+		}
+		FROM = {
+			religion = ROOT
+		}
+		custom_trigger_tooltip = {
+			tooltip = Abbasid_has_not_denounced_in_10_years
+			OR = {
+				NOT = { has_country_flag = abbasid_recently_denounced }
+				had_country_flag = {
+					flag = abbasid_recently_denounced
+					days = 3650
+				}
+			}
+		}
+	}
+	
+	on_accept = {
+		if = {
+			limit = {
+				NOT = {
+					ME_is_caliphate_trigger = yes
+				}
+			}
+			add_dip_power = -50
+		}
+		FROM = {
+			add_country_modifier = {
+				name = Abbasid_got_denounced
+				duration = 3650
+			}
+			hidden_effect = { 
+				country_event = { id = ME_Abbasid_Events.5 } 
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = abbasid_denounced_us
+			}
+			every_neighbor_country = {
+				add_opinion = {
+					who = PREV
+					modifier = abbasid_got_denounced_by_caliph_opinion
+				}
+			}
+		}
+		add_power_projection = {
+			type = forced_to_denounce_rival
+			amount = 10
+		}
+		set_country_flag = abbasid_recently_denounced
+	}
+	
+	ai_will_do = {
+		always = yes
+	}
+}
+
+abbasid_call_jihad = {
+	category = subsidies
+
+	require_acceptance = no
+
+	is_visible = {
+		ME_has_abbasid_caliph = yes
+		ME_can_benefit_from_abbasid_caliph = yes
+		# FROM = {
+			# NOT = { religion_group = ROOT }
+		# }
+	}
+	
+	is_allowed = {
+		hidden_trigger = {
+			ME_has_abbasid_caliph = yes
+		}
+		FROM = {
+			NOT = { religion_group = ROOT }
+		}
+		if = {
+			limit = {
+				NOT = {
+					ME_is_caliphate_trigger = yes
+				}
+			}
+			dip_power = 100
+		}
+		custom_trigger_tooltip = {
+			tooltip = Abbasid_has_not_called_jihad_in_25_years
+			OR = {
+				NOT = { has_country_flag = abbasid_recently_called_jihad }
+				had_country_flag = {
+					flag = abbasid_recently_called_jihad
+					days = 9125
+				}
+			}
+		}
+	}
+	
+	on_accept = {
+		if = {
+			limit = {
+				NOT = {
+					ME_is_caliphate_trigger = yes
+				}
+			}
+			add_dip_power = -100
+		}
+		add_casus_belli = {
+			target = FROM
+			type = cb_abbasid_jihad
+			months = 60
+		}
+		FROM = {
+			add_opinion = {
+				who = ROOT
+				modifier = abbasid_called_jihad_on_us
+			}
+			country_event = { id = ME_Abbasid_Events.7 }
+		}
+		set_country_flag = abbasid_recently_called_jihad
+	}
+	
+	ai_will_do = {
+		FROM = { is_neighbor_of = ROOT }
+		OR = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_hostile
+			}
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_rivalry
+			}
+		}
+	}
+}
+
+abbasid_praise = {
+	category = subsidies
+
+	require_acceptance = no
+
+	is_visible = {
+		ME_has_abbasid_caliph = yes
+		ME_can_benefit_from_abbasid_caliph = yes
+	}
+	
+	is_allowed = {
+		hidden_trigger = {
+			ME_has_abbasid_caliph = yes
+			# FROM = {
+				# religion = ROOT
+			# }
+		}
+		FROM = {
+			religion = ROOT
+		}
+		custom_trigger_tooltip = {
+			tooltip = Abbasid_has_not_called_praised_in_5_years
+			OR = {
+				NOT = { has_country_flag = abbasid_recently_praised }
+				had_country_flag = {
+					flag = abbasid_recently_praised
+					days = 1825
+				}
+			}
+		}
+	}
+	
+	on_accept = {
+		FROM = {
+			hidden_effect = { 
+				country_event = { id = ME_Abbasid_Events.6 } 
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = abbasid_praised_us
+			}
+			
+		}
+		add_trust = {
+			who = FROM
+			value = 5
+			mutual = yes
+		}
+		set_country_flag = abbasid_recently_praised
+	}
+	
+	ai_will_do = {
+		FROM = {
+			alliance_with = ROOT
+		}
+	}
+}
+
+abbasid_invite_scholar = {
+	category = subsidies
+
+	require_acceptance = no
+
+	is_visible = {
+		ME_is_caliphate_trigger = yes
+	}
+	
+	is_allowed = {
+		hidden_trigger = {
+			ME_is_caliphate_trigger = yes
+		}
+		FROM = {
+			religion = ROOT
+		}
+		custom_trigger_tooltip = {
+			tooltip = Abbasid_has_not_invited_scholar_in_20_years
+			OR = {
+				NOT = { has_country_flag = abbasid_recently_invited_scholars }
+				had_country_flag = {
+					flag = abbasid_recently_invited_scholars
+					days = 7300
+				}
+			}
+		}
+	}
+	
+	on_accept = {
+		set_variable = {
+			which = invited_scholar_reduction
+			value = 0
+		}
+		if = {
+			limit = {
+				has_country_flag = ARB_caliphal_invite_scholars_diplomatic_action
+			}
+			change_variable = {
+				which = invited_scholar_reduction
+				value = 25
+			}
+		}
+		
+		if = {
+			limit = {
+				FROM = {
+					has_opinion = {
+						who = ROOT
+						value = 25
+					}
+				}
+			}
+			change_variable = {
+				which = invited_scholar_reduction
+				value = 5
+			}
+			if = {
+				limit = {
+					FROM = {
+						has_opinion = {
+							who = ROOT
+							value = 50
+						}
+					}
+				}
+				change_variable = {
+					which = invited_scholar_reduction
+					value = 5
+				}
+				if = {
+					limit = {
+						FROM = {
+							has_opinion = {
+								who = ROOT
+								value = 75
+							}
+						}
+					}
+					change_variable = {
+						which = invited_scholar_reduction
+						value = 5
+					}
+					if = {
+						limit = {
+							FROM = {
+								has_opinion = {
+									who = ROOT
+									value = 100
+								}
+							}
+						}
+						change_variable = {
+							which = invited_scholar_reduction
+							value = 5
+						}
+						if = {
+							limit = {
+								FROM = {
+									has_opinion = {
+										who = ROOT
+										value = 125
+									}
+								}
+							}
+							change_variable = {
+								which = invited_scholar_reduction
+								value = 5
+							}
+							if = {
+								limit = {
+									FROM = {
+										has_opinion = {
+											who = ROOT
+											value = 150
+										}
+									}
+								}
+								change_variable = {
+									which = invited_scholar_reduction
+									value = 5
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				FROM = {
+					innovativeness = 10
+				}
+			}
+			change_variable = {
+				which = invited_scholar_reduction
+				value = 5
+			}
+			if = {
+				limit = {
+					FROM = {
+						innovativeness = 20
+					}
+				}
+				change_variable = {
+					which = invited_scholar_reduction
+					value = 5
+				}
+				if = {
+					limit = {
+						FROM = {
+							innovativeness = 30
+						}
+					}
+					change_variable = {
+						which = invited_scholar_reduction
+						value = 5
+					}
+					if = {
+						limit = {
+							FROM = {
+								innovativeness = 40
+							}
+						}
+						change_variable = {
+							which = invited_scholar_reduction
+							value = 5
+						}
+						if = {
+							limit = {
+								FROM = {
+									innovativeness = 50
+								}
+							}
+							change_variable = {
+								which = invited_scholar_reduction
+								value = 5
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		set_country_flag = abbasid_recently_invited_scholars
+		
+		FROM = {
+			save_event_target_as = temp_aba_target
+		}
+		country_event = { id = ME_Abbasid_Events.30 }
+	}
+	
+	ai_will_do = {
+		OR = {
+			FROM = {
+				has_opinion = {
+					who = ROOT
+					value = 100
+				}
+				innovativeness = 25
+			}
+		}
+		# FROM = {
+			# alliance_with = ROOT
+		# }
+	}
+}
+
+abbasid_send_help = {
+	category = subsidies
+
+	require_acceptance = no
+
+	is_visible = {
+		ME_is_caliphate_trigger = yes
+	}
+	
+	is_allowed = {
+		hidden_trigger = {
+			ME_is_caliphate_trigger = yes
+		}
+		FROM = {
+			religion = ROOT
+			at_war_with_religious_enemy = yes
+		}
+		mil_power = 50
+		custom_trigger_tooltip = {
+			tooltip = Abbasid_has_not_sent_help_in_30_years
+			OR = {
+				NOT = { has_country_flag = abbasid_recently_sent_help }
+				had_country_flag = {
+					flag = abbasid_recently_sent_help
+					days = 10950
+				}
+			}
+		}
+	}
+	
+	on_accept = {
+		set_country_flag = abbasid_recently_sent_help
+		add_mil_power = -50
+		
+		save_event_target_as = temp_caliph
+		FROM = { 
+			country_event = { id = ME_Abbasid_Events.31 }
+		}
+	}
+	
+	ai_will_do = {
+		FROM = {
+			NOT = { is_rival = ROOT }
+		}
+		
+		mil_power = 500
+		# FROM = {
+			# alliance_with = ROOT
+		# }
+	}
+}
+
+abbasid_zakat = {
+	category = subsidies
+
+	require_acceptance = yes
+
+	is_visible = {
+		ME_is_caliphate_trigger = yes
+		has_country_flag = ARB_can_ask_for_zakat
+	}
+	
+	is_allowed = {
+		hidden_trigger = {
+			ME_is_caliphate_trigger = yes
+			has_country_flag = ARB_can_ask_for_zakat
+		}
+		FROM = {
+			religion = ROOT
+			years_of_income = 0.5
+		}
+		custom_trigger_tooltip = {
+			tooltip = Abbasid_has_not_asked_for_zakat_in_10_years
+			OR = {
+				NOT = { has_country_flag = abbasid_recently_asked_for_zakat }
+				had_country_flag = {
+					flag = abbasid_recently_asked_for_zakat
+					days = 3650
+				}
+			}
+		}
+	}
+	
+	on_accept = {
+		set_country_flag = abbasid_recently_asked_for_zakat
+		FROM = {
+			add_stability = 1
+		}
+		export_to_variable = {
+			which = ABA_Temp
+			value = years_of_income
+			who = FROM
+		}
+		multiply_variable = {
+			which = ABA_Temp
+			value = 0.5
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ABA_Temp
+					value = 10
+				}
+			}
+			ROOT = {
+				add_treasury = 10
+			}
+			FROM = {
+				add_treasury = -10
+			}
+			change_variable = {
+				which = ABA_Temp
+				value = -10
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ABA_Temp
+					value = 1
+				}
+			}
+			ROOT = {
+				add_treasury = 1
+			}
+			FROM = {
+				add_treasury = -1
+			}
+			change_variable = {
+				which = ABA_Temp
+				value = -1
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ABA_Temp
+					value = 0.1
+				}
+			}
+			ROOT = {
+				add_treasury = 0.1
+			}
+			FROM = {
+				add_treasury = -0.1
+			}
+			change_variable = {
+				which = ABA_Temp
+				value = -0.1
+			}
+		}
+		set_variable = {
+			which = ABA_Temp
+			value = 0
+		}
+	}
+	
+	ai_acceptance = { # This works similarly to variable_arithmetic_trigger, but does not support triggers generally. Instead, "limit" will be evaluated first and the rest ignored if it isn't passed.
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+		}
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = diplomatic_reputation
+			limit = { }
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 2
+			multiply_variable = {
+				which = ai_value
+				value = 2
+			}
+		}
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = {
+				variable_name = ai_value
+				value = stability
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = -25
+			}
+		}
+	}
+	
+	ai_will_do = {
+		FROM = {
+			NOT = { is_rival = ROOT }
+		}
+		
+		mil_power = 500
+		# FROM = {
+			# alliance_with = ROOT
+		# }
+	}
+}
+
+abbasid_ransom = {
+	category = subsidies
+
+	require_acceptance = yes
+
+	is_visible = {
+		ME_has_abbasid_caliph = yes
+		has_country_flag = ABA_ransom_abbasid
+	}
+	
+	is_allowed = {
+		hidden_trigger = {
+			ME_has_abbasid_caliph = yes
+			has_country_flag = ABA_ransom_abbasid
+		}
+		FROM = {
+			religion = sunni
+			is_at_war = no
+			is_subject = no
+		}
+	}
+	
+	on_accept = {
+		FROM = {
+			capital_scope = {
+				ME_set_abbasid_caliph_province = yes
+			}
+		}
+		export_to_variable = {
+			which = ABA_Temp
+			value = years_of_income
+			who = FROM
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ABA_Temp
+					value = 10
+				}
+			}
+			ROOT = {
+				add_treasury = 10
+			}
+			FROM = {
+				add_treasury = -10
+			}
+			change_variable = {
+				which = ABA_Temp
+				value = -10
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ABA_Temp
+					value = 1
+				}
+			}
+			ROOT = {
+				add_treasury = 1
+			}
+			FROM = {
+				add_treasury = -1
+			}
+			change_variable = {
+				which = ABA_Temp
+				value = -1
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ABA_Temp
+					value = 0.1
+				}
+			}
+			ROOT = {
+				add_treasury = 0.1
+			}
+			FROM = {
+				add_treasury = -0.1
+			}
+			change_variable = {
+				which = ABA_Temp
+				value = -0.1
+			}
+		}
+		set_variable = {
+			which = ABA_Temp
+			value = 0
+		}
+	}
+	
+	ai_acceptance = {
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value # Each "add_entry" must create one variable called "ai_value", the value of which will be extracted after executing all effects
+				value = trust
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = { which = ai_value value = 50 }
+			multiply_variable = { which = ai_value value = 2 }
+		}
+		
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			divide_variable = { which = ai_value value = 4 }
+		}
+		add_entry = {
+			name = ME_DOESNT_HAVE_ENOUGH_IN_BANK
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			
+			export_to_variable = {
+				variable_name = their_treasury
+				value = treasury
+				who = FROM
+			}
+			
+			export_to_variable = {
+				variable_name = their_years_of_income
+				value = years_of_income
+				who = FROM
+			}
+			
+			divide_variable = {
+				which = their_treasury
+				which = their_years_of_income
+			}
+			
+			change_variable = {
+				which = their_treasury
+				value = -1
+			}
+			
+			multiply_variable = {
+				which = their_treasury
+				value = 5
+			}
+			
+			change_variable = {
+				which = ai_value
+				which = their_treasury
+			}
+		}
+		
+		add_entry = {
+			name = ME_OUR_BALANCE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			
+			export_to_variable = {
+				variable_name = their_balance
+				value = trigger_value:current_income_balance
+				who = FROM
+			}
+			
+			export_to_variable = {
+				variable_name = their_monthly_income
+				value = trigger_value:monthly_income
+				who = FROM
+			}
+			
+			divide_variable = {
+				which = their_balance
+				which = their_monthly_income
+			}
+			
+			multiply_variable = {
+				which = their_balance
+				value = 10
+			}
+			
+			change_variable = {
+				which = their_balance
+				value = -10
+			}
+			
+			change_variable = {
+				which = ai_value
+				which = their_balance
+			}
+		}
+		
+		add_entry = {
+			name = ME_will_pay_any_price_for_caliph
+			limit = { 
+				FROM = {
+					OR = {
+						AND = {
+							OR = {
+								tag = ADU
+								tag = GRA
+							}
+							NOT = { mission_completed = GRA_the_fake_caliph }
+						}
+						AND = {
+							tag = TUN
+							NOT = { mission_completed = TUN_a_title_respected }
+						}
+						AND = {
+							OR = {
+								tag = MAM
+								tag = EGY 
+							}
+							NOT = { mission_completed = MAM_protectors_of_the_caliph }
+						}
+						AND = {
+							tag = NAJ
+							NOT = { mission_completed = NAJ_challenge_the_ummah }
+						}
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 100
+			}
+		}
+	}
+	
+	ai_will_do = {
+		FROM = {
+			OR = {
+				alliance_with = ROOT
+				AND = {
+					total_development = 300 
+					OR = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_friendly
+						}
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_neutral
+						}
+					}
+				}
+			}
+		}
+	}
+}
