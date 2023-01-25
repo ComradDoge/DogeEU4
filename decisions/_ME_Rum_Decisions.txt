@@ -377,4 +377,151 @@ country_decisions = {
 			}
 		}
 	}
+	
+	RUM_restore_roman_empire = {
+		major = yes
+		potential = {
+			NOT = { has_country_flag = restored_rome_flag }
+			NOT = { exists = ROM }
+			has_country_flag = RUM_enable_alternative_rome
+			religion_group = muslim
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = italy_region
+				region = france_region
+				region = iberia_region
+				region = balkan_region
+				region = anatolia_region
+				region = mashriq_region
+				province_id = 343 # Fez
+				province_id = 341 # Tunis
+				province_id = 361 # Cairo
+				province_id = 236 # London
+				province_id = 245 # Yorkshire
+				province_id = 96 # Zeeland
+				province_id = 134 # Vienna
+			}
+			NOT = { owned_by = ROOT }
+		}
+		allow = {
+			italy_region = {
+				type = all
+				owned_by = ROOT
+			}
+			france_region = {
+				type = all
+				owned_by = ROOT
+			}
+			iberia_region = {
+				type = all
+				owned_by = ROOT
+			}
+			balkan_region = {
+				type = all
+				owned_by = ROOT
+			}
+			anatolia_region = {
+				type = all
+				owned_by = ROOT
+			}
+			mashriq_region = {
+				type = all
+				owned_by = ROOT
+			}
+			owns = 343 # Fez
+			owns = 341 # Tunis
+			owns = 361 # Cairo
+			owns = 236 # London
+			owns = 245 # Yorkshire
+			owns = 96 # Zeeland
+			owns = 134 # Vienna
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			118 = {
+				is_state = yes
+			}
+		}
+		effect = {
+			restore_country_name_effect = yes
+			change_tag = ROM
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = roman_culture_provinces_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture_group = ROOT
+					}
+					change_culture = roman
+				}
+			}
+			change_primary_culture = roman
+			custom_tooltip = restore_roman_empire_tt
+			
+			custom_tooltip = " "
+			
+			set_government_rank = 3
+			add_prestige_or_monarch_power = { amount = 50 }
+			add_core = 118 # Rome
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			
+			151 = {
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 3
+			}
+			
+			set_country_flag = restored_rome_flag
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	RUM_silk_worm_mastery = {
+		potential = {
+			has_country_flag = RUM_silk_decision
+			any_owned_province = {
+				region = anatolia_region
+				OR = {
+					trade_goods = cloth
+					trade_goods = wool
+				}
+			}
+		}
+		provinces_to_highlight = {
+			region = anatolia_region
+			OR = {
+				trade_goods = cloth
+				trade_goods = wool
+			}
+		}
+		allow = {
+			check_variable = {
+				which = RUM_silk_provinces_var
+				value = 1
+			}
+			custom_trigger_tooltip = {
+				tooltip = YEM_dialogue_is_closed
+				NOT = { has_country_flag = RUM_event_dialogue }
+			}
+		}
+		effect = {
+			country_event = { id = ME_Rum_Events.112 }
+			
+			change_variable = {
+				which = RUM_silk_provinces_var
+				value = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }
