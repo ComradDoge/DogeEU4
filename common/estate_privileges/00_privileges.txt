@@ -2764,8 +2764,15 @@ estate_church_papal_emissary = {
 
 estate_church_clerical_ministers = {
 	icon = privilege_recruit_minister
-	max_absolutism = -10
+	max_absolutism = -5
 	influence = 0.10
+	is_valid = {
+	}
+	can_select = {
+		NOT = {
+			has_estate_privilege = ME_estate_church_tariqa 
+		}
+	}
 	conditional_modifier = {
 		trigger = {
 			if = {
@@ -2776,6 +2783,12 @@ estate_church_clerical_ministers = {
 				NOT = { religion = buddhism }
 				NOT = { religion = vajrayana }
 				NOT = { religion = mahayana }
+			}
+			if = {
+				limit = {
+					has_dlc = "Emperor"
+				}
+				NOT = { religion = hussite }
 			}
 			if = {
 				limit = {
@@ -2801,6 +2814,12 @@ estate_church_clerical_ministers = {
 				}
 				NOT = { religion = orthodox }
 			}
+			if = {
+				limit = {
+					has_dlc = "Origins"
+				}
+				NOT = { religion = jewish }
+			}
 			NOT = { religion = anglican }
 		}
 		modifier = {
@@ -2817,13 +2836,31 @@ estate_church_clerical_ministers = {
 			}
 		}
 		modifier = {
-			yearly_karma_decay = 0.005
+			yearly_karma_decay = 0.05
 		}
 	}
 	conditional_modifier = {
 		trigger = {
 			has_dlc = "Common Sense"
 			religion = protestant
+		}
+		modifier = {
+			church_power_modifier = 0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_dlc = "Emperor"
+			religion = hussite
+		}
+		modifier = {
+			church_power_modifier = 0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_dlc = "Origins"
+			religion = jewish
 		}
 		modifier = {
 			church_power_modifier = 0.1
@@ -2842,9 +2879,20 @@ estate_church_clerical_ministers = {
 		trigger = {
 			has_dlc = "Cradle of Civilization"
 			religion_group = muslim
+			NOT = { has_country_flag = NAJ_get_double_piety_from_clerical_ministers_priv_flag }
 		}
 		modifier = {
 			monthly_piety = 0.001
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_dlc = "Cradle of Civilization"
+			religion_group = muslim
+			has_country_flag = NAJ_get_double_piety_from_clerical_ministers_priv_flag
+		}
+		modifier = {
+			monthly_piety = 0.002
 		}
 	}
 	conditional_modifier = {
@@ -2881,6 +2929,24 @@ estate_church_clerical_ministers = {
 			technology_cost = -0.05
 		}
 	}
+	conditional_modifier = {
+		trigger = {
+			piety = 0.5
+			has_country_flag = NAJ_clerical_ministers_buff
+		}
+		modifier = {
+			global_prosperity_growth = 0.5
+		}
+	}
+	on_granted = {
+		if = {
+			limit = {
+				has_country_flag = NAJ_clerical_ministers_buff
+				has_dlc = "Mandate of Heaven"
+			}
+			custom_tooltip = NAJ_clerical_ministers_buff_tooltip
+		}
+	}
 	penalties = {
 	}
 	benefits = {
@@ -2899,6 +2965,11 @@ estate_church_clerical_ministers = {
 			}
 			religion = protestant
 			num_of_aspects = 3
+		}
+		modifier = {
+			factor = 10
+			religion = orthodox
+			has_dlc = "Third Rome"
 		}
 	}
 }
