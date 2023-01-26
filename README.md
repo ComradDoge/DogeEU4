@@ -43,6 +43,7 @@ Checksum: -
 - Provincial increase from developing production lowered 0.2>0.1 to nerf trade value build up.
 - ME: added a bunch of middle east missions from Europa Expanded. Mention any weird gameplay quirks.
 - AI Expand Infrastructure is only enabled after 1600 to prevent too much AI deving. Suffering from success.
+- Druze now also uses syncretic mechanic which has been reworked to allow use when other mechanics exist already.
 - Religion screens like aspect windows (like protestant or anglican) and orthodox windows extended so it's no longer cramped.
 - Tweaked the Morroco area by shuffling the development around and making Sale (Pirate Republic) appear at start. God help us all.
 - Bogomilist reworked. Uses anglican religion system with it's own aspects. Check the religion description for the special nuances.
