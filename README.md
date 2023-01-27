@@ -34,6 +34,7 @@ Checksum: -
 - Cathar faction icons changed and modifiers fixed.
 - Governing capacity from technology increased 150>200.
 - Added a more price changing events and tweaked existing ones.
+- Hellenics joined the party and also get Hagia Sophia bonuses.
 - FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
 - Lower Nubia is no longer part of Egypt region and moved to Ethiopia trade node.
 - Yazidi is no longer on the map, but will come back after a rework of some manner.
