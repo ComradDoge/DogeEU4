@@ -1,0 +1,751 @@
+#Special granada missions will be here until we have a real Granada tree
+
+CRDB_missions_1 = { #CRDB is the namespace for this
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADU
+			tag = GRA
+		}
+		has_country_flag = CRDB_mission_enabled
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	CRDB_north_africa = {
+		icon = mission_raid_christian_trade
+		required_missions = { CRDB_dar_jihad }
+		position = 2 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 334 #tangiers
+				province_id = 1751 #ceuta
+				province_id = 226 #jabal tariq
+			}
+			NOT = { ME_owned_by_subject_or_overlord = yes }
+		}
+		trigger = {
+			334 = { ME_owned_by_subject_or_overlord = yes }
+			1751 = { ME_owned_by_subject_or_overlord = yes }
+			226 = { ME_owned_by_subject_or_overlord = yes }
+		}
+		effect = {
+			1293 = {
+				change_province_name = "Straits of Jabal Tariq"
+			}
+			
+			add_years_of_income = 0.5
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = CRDB_asset_straits
+						duration = 7300
+					}
+				"
+			}
+		}
+	}
+	
+	CRDB_crush_portugal = {
+		icon = mission_union_with_portugal
+		required_missions = { CRDB_push_the_portuguese }
+		position = 3 
+		provinces_to_highlight = {
+			OR = {
+				area = beieras_area
+				area = alentejo_area
+				area = galicia_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = beieras_area
+					area = alentejo_area
+					area = galicia_area
+				}
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = CRDB_pushing_back_the_crusaders
+				duration = 9125
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_dip_power = 50
+				"
+			}
+		}
+	}
+	
+	CRDB_caliphate_of_cordoba = {
+		icon = mission_restore_caliphate_of_cordoba
+		required_missions = { CRDB_covadonga }
+		position = 5 
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = iberia_region
+				value = 50
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			custom_tooltip = CRDB_distribute_dev_among_andalusian_provinces
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								culture = andalusian
+							}
+							add_base_tax = 1
+						}
+					"
+				}
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								culture = andalusian
+							}
+							add_base_production = 1
+						}
+					"
+				}
+				for = {
+					amount = 5
+					effect = "
+						random_owned_province = {
+							limit = {
+								culture = andalusian
+							}
+							add_base_manpower = 1
+						}
+					"
+				}
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					country_event = { id = ME_Cordoba_Events.4 }
+				"
+			}
+		}
+	}
+}
+
+CRDB_missions_2 = { #CRDB is the namespace for this
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADU
+			tag = GRA
+		}
+		has_country_flag = CRDB_mission_enabled
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	CRDB_dar_jihad = {
+		icon = mission_al_andalus
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			OR = {
+				capital_scope = {
+					base_manpower = 5
+				}
+				is_march = yes
+				army_size_percentage = 0.85
+			}
+		}
+		effect = {
+			lower_andalucia_area = { add_core = ROOT }
+			upper_andalucia_area = { add_core = ROOT }
+			ME_give_claims = { area = alentejo_area }
+			ME_give_claims = { area = toledo_area }
+			ME_give_claims = { area = northern_morocco_area }
+			ME_give_claims = { area = valencia_area }
+			ME_give_claims = { area = extremadura_area }
+		}
+	}
+	
+	CRDB_push_the_portuguese = {
+		icon = mission_reclaim_morocco
+		required_missions = { CRDB_dar_jihad }
+		position = 2 
+		provinces_to_highlight = {
+			province_id = 227
+		}
+		trigger = {
+			owns = 227
+		}
+		effect = {
+			ME_give_claims = { area = galicia_area }
+			ME_give_claims = { area = beieras_area }
+			
+			add_country_modifier = {
+				name = CRDB_flagship
+				duration = 10950
+			}
+			add_yearly_sailors = 1
+				
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = CRDB_flagship
+						duration = 10950
+					}
+				"
+			}
+		}
+	}
+	
+	CRDB_covadonga = {
+		icon = mission_reclaim_andalucia
+		required_missions = { CRDB_to_north CRDB_crush_portugal }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 207
+				province_id = 1745
+				AND = {
+					region = iberia_region
+					OR = {
+						owned_by = CAS
+						owned_by = SPA
+						owned_by = ARA
+						owned_by = POR
+					}
+				}
+			}
+		}
+		trigger = {
+			owns = 207
+			owns = 1745
+			iberia_region = {
+				type = all
+				NOT = {	
+					OR = {
+						owned_by = CAS
+						owned_by = SPA
+						owned_by = ARA
+						owned_by = POR 
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = CRDB_defeated_the_infidels
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect =  "
+					add_country_modifier = {
+						name = CRDB_defeated_the_infidels
+						duration = 7300
+					}
+					add_army_tradition_or_mil_power = { amount = 20 }
+				"
+			}
+		}
+	}
+}
+
+CRDB_missions_3 = { #CRDB is the namespace for this
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADU
+			tag = GRA
+		}
+		has_country_flag = CRDB_mission_enabled
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	CRDB_tulaytulah = {
+		icon = mission_castillian_aggression
+		required_missions = { CRDB_dar_jihad }
+		position = 2 
+		provinces_to_highlight = {
+			OR = {
+				area = toledo_area
+				area = extremadura_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			owns = 219
+			num_of_owned_provinces_with = {
+				OR = {
+					area = toledo_area
+					area = extremadura_area
+				}
+				value = 5 
+			}
+		}
+		effect = {
+			ME_give_claims = { area = castille_area }
+			ME_give_claims = { area = leon_area }
+			ME_give_claims = { area = asturias_area }
+			ME_give_claims = { area = basque_country }
+			ME_give_claims = { area = catalonia_area }
+			ME_give_claims = { area = aragon_area }
+			
+			custom_tooltip = " "
+			
+			create_general = { tradition = 80 }
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_power_projection = {
+						type = mission_rewards_power_projection
+						amount = 10
+					}
+					
+					if = {
+						limit = {
+							ROOT = {
+								tag = GRA
+							}
+							NOT = { exists = ADU }
+						}
+						country_event = { id = ME_Cordoba_Events.5 }
+					}
+				"
+			}
+		}
+	}
+	
+	CRDB_to_north = {
+		icon = mission_pacify_the_berbers
+		required_missions = { CRDB_tulaytulah }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = basque_country
+				area = leon_area
+				area = castille_area
+				area = asturias_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = basque_country
+					area = leon_area
+					area = castille_area
+					area = asturias_area
+				}
+				value = 12
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			
+			add_country_modifier = {
+				name = CRDB_the_age_of_christianity_is_over
+				duration = 14600
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_mil_power = 100
+					add_yearly_manpower = 0.5
+				"
+			}
+		}
+	}
+	
+	CRDB_toulouse = {
+		icon = mission_the_french_menace
+		required_missions = { CRDB_to_north CRDB_covadonga }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2753
+				province_id = 200 
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			owns = 2753
+			owns = 200
+		}
+		effect = {
+			add_mil_power = 50
+			add_country_modifier = {
+				name = CRDB_to_france
+				duration = 9125
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_prestige_or_monarch_power = { amount = 25 }
+					add_country_modifier = {
+						name = CRDB_to_france
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+}
+
+CRDB_missions_4 = { #CRDB is the namespace for this
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADU
+			tag = GRA
+		}
+		has_country_flag = CRDB_mission_enabled
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	CRDB_muwashshah = {
+		icon = mission_vedic_education
+		required_missions = { CRDB_develop_cordoba }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+			custom_tooltip = CRDB_upgrade_best_tax_buildings
+			tooltip = {
+				add_or_upgrade_tax_building = yes
+			}
+		
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = CRDB_art_and_culture
+				duration = 9125
+			}
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes
+					scale = higher_development_than
+					global_trigger = "
+						has_tax_building_trigger = yes
+					"
+					scope = every_owned_province
+					event_target_name = "Cordoba_target"
+				}
+				
+				event_target:Cordoba_target_1 = {
+					add_or_upgrade_tax_building = yes
+				}
+				event_target:Cordoba_target_2 = {
+					add_or_upgrade_tax_building = yes
+				}
+				event_target:Cordoba_target_3 = {
+					add_or_upgrade_tax_building = yes
+				}
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					define_advisor = {
+						type = muscovy_architect
+						skill = 3
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.2
+					}
+				"
+			}
+		}
+	}
+	
+	CRDB_zaragoza = {
+		icon = mission_conquer_tunisia
+		required_missions = { CRDB_tulaytulah }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = valencia_area
+				area = aragon_area
+				area = catalonia_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = valencia_area
+					area = aragon_area
+					area = catalonia_area
+				}
+				value = 8
+			}
+		}
+		effect = {
+			add_war_exhaustion = -2
+			add_prestige_or_monarch_power = { amount = 10 }
+			custom_tooltip = " "
+			ME_give_claims = { area = languedoc_area }
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					214 = {
+						add_trade_modifier = {
+							who = overlord
+							duration = 5475
+							power = 25
+							key = CRDB_moorish_reconquests
+						}
+					}
+					add_prestige_or_monarch_power = { amount = 20 }
+				"
+			}
+		}
+	}
+	
+	CRDB_saqalibah = {
+		icon = mission_non-western_soldiers
+		required_missions = { CRDB_strengthen_military }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				NOT = { has_manpower_building_trigger = yes }
+				NOT = { base_manpower = 10 }
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_manpower_building_trigger = yes
+				base_manpower = 10
+				value = 4 
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = CRDB_saqalibah
+				duration = -1 
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					country_event = { id = ME_Cordoba_Events.2 } #A Rising Star from Cordoba
+				"
+			}
+		}
+	}
+}
+
+CRDB_missions_5 = { #CRDB is the namespace for this
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ADU
+			tag = GRA
+		}
+		has_country_flag = CRDB_mission_enabled
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	CRDB_develop_cordoba = {
+		icon = mission_develop_cordoba
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 225
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_buildings_in_province = 4 }
+			}
+		}
+		trigger = {
+			225 = {
+				owned_by = ROOT
+				development = 20
+				num_of_buildings_in_province = 4
+			}
+		}
+		effect = {
+			225 = {
+				add_or_upgrade_university_building = yes
+				province_event = { id = ME_Cordoba_Events.6 }
+			}
+			
+			custom_tooltip = " "
+			
+			change_innovativeness = 5
+			add_country_modifier = {
+				name = CRDB_wave_of_new_thought
+				duration = 9125
+			}
+				
+			ME_overlord_effect = {
+				effect = "
+					change_innovativeness = 5
+					add_country_modifier = {
+						name = CRDB_wave_of_new_thought
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+	
+	CRDB_centre_of_learning = {
+		icon = mission_golden_century
+		required_missions = { CRDB_develop_cordoba }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = lower_andalucia_area
+				area = upper_andalucia_area
+			}
+		}
+		trigger = {
+			development_in_provinces = {
+				OR = {
+					area = lower_andalucia_area
+					area = upper_andalucia_area
+				}
+				value = 110
+			}
+			NOT = { is_lacking_institutions = yes }
+			225 = {
+				owned_by = ROOT
+				development = 30
+				num_of_buildings_in_province = 6
+			}
+		}
+		effect = {
+			225 = {
+				add_permanent_province_modifier = {
+					name = CRDB_centre_of_learning
+					duration = -1 
+				}	
+			}
+			ME_overlord_effect = {
+				effect = "
+					change_innovativeness = 5
+					add_country_modifier = {
+						name = CRDB_golden_age_of_islam
+						duration = 9125
+					}
+					#country_event = { id = ME_Cordoba_Events.3 }
+				"
+			}
+		}
+	}
+	
+	CRDB_strengthen_military = {
+		icon = mission_protect_granada
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			army_size = 15 #have fun player making them build up LUL
+		}
+		effect = {
+			add_country_modifier = {
+				name = CRDB_strengthened_military
+				duration = 7300
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_mil_power = 50
+				"
+			}
+		}
+	}
+	
+	CRDB_berbers = {
+		icon = mission_reconquer_ceuta
+		required_missions = { CRDB_strengthen_military }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_forcelimit_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_forcelimit_building_trigger = yes 
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = CRDB_berber_recruitment
+				duration = -1
+			}
+			custom_tooltip = " "
+			custom_tooltip = CRDB_upgrade_best_forcelimit_buildings
+			tooltip = {
+				add_or_upgrade_forcelimit_building = yes
+			}
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes
+					scale = higher_development_than
+					scope = every_owned_province
+					event_target_name = "Cordoba_target"
+					global_trigger = "
+						has_forcelimit_building_trigger = yes
+					"
+				}
+				
+				event_target:Cordoba_target_1 = {
+					add_or_upgrade_forcelimit_building = yes
+				}
+				event_target:Cordoba_target_2 = {
+					add_or_upgrade_forcelimit_building = yes
+				}
+				event_target:Cordoba_target_3 = {
+					add_or_upgrade_forcelimit_building = yes
+				}
+			}
+		}
+	}
+}
