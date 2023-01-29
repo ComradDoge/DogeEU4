@@ -48,7 +48,7 @@ Checksum: -
 - Religion screens like aspect windows (like protestant or anglican) and orthodox windows extended so it's no longer cramped.
 - Tweaked the Morroco area by shuffling the development around and making Sale (Pirate Republic) appear at start. God help us all.
 - Bogomilist reworked. Uses anglican religion system with it's own aspects. Check the religion description for the special nuances.
-- AB: Edited mission tree for Trieste and Wallachia/Moldavia from Ante Bellum, a mod that I recommend you to check out which soon will have an update.
+- AB: Edited mission tree for Trieste and Wallachia/Moldavia from Ante Bellum, a mod that I recommend you to check out which recently had a Rus region update.
 
 [/quote]
 
