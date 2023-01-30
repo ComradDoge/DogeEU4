@@ -3839,6 +3839,78 @@ on_regiment_recruited = {
 
 # THIS = One province in the state
 on_add_pasha = {
+	hidden_effect = {
+		owner = {
+			save_event_target_as = province_owner
+		}
+	}
+	
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = RUM_pasha_empowerment
+			}
+		}
+		area = {
+			limit = {
+				owned_by = event_target:province_owner
+			}
+			add_province_modifier = {
+				name = RUM_pasha_modifier
+				duration = -1
+			}
+		}
+	}
+	
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = RUM_pasha_seljuk_flag
+			}
+		}
+		area = {
+			limit = {
+				owned_by = event_target:province_owner
+			}
+			add_province_modifier = {
+				name = RUM_pasha_seljuk_modifier
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			owner = {
+				has_country_flag = RUM_pasha_roman_flag
+			}
+		}
+		area = {
+			limit = {
+				owned_by = event_target:province_owner
+			}
+			add_province_modifier = {
+				name = RUM_pasha_roman_modifier
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			owner = {
+				has_country_flag = RUM_pasha_caliphate_modifier
+			}
+		}
+		area = {
+			limit = {
+				owned_by = event_target:province_owner
+			}
+			add_province_modifier = {
+				name = RUM_pasha_caliphate_flag 
+				duration = -1
+			}
+		}
+	}
+	else = { }
 }
 
 # THIS = One province in the state
@@ -3847,17 +3919,28 @@ on_remove_pasha = {
 		owner = {
 			save_event_target_as = province_owner
 		}
-		remove_province_modifier = pasha_removed_modifier
 	}
 
 	area = {
 		limit = { owned_by = event_target:province_owner }
 		add_or_extend_province_modifier_effect = { MODIFIER = pasha_removed_modifier DURATION = 3650 }
+		remove_province_modifier = RUM_pasha_modifier
+		remove_province_modifier = RUM_pasha_seljuk_modifier
+		remove_province_modifier = RUM_pasha_roman_modifier
+		remove_province_modifier = RUM_pasha_caliphate_modifier
 	}
 }
 
 # THIS = Province
 on_janissaries_raised = {
+	owner = {
+		if = {
+			limit = {
+				has_country_flag = RUM_cost_of_janissaries_decreased
+			}
+			add_mil_power = 6
+		}
+	}
 }
 
 on_cawa_raised = {
