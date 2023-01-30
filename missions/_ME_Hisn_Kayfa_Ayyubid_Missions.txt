@@ -10,10 +10,72 @@ HSN_AYY_missions_1 = {
 		
 	}
 	has_country_shield  = yes
-	
 
+	#AYY_a_giant_adherent = {
+	#	icon = mission_ottoman_diplomacy
+	#	required_missions = { }
+	#	position = 1
+	#	provinces_to_highlight = {
+	#		owned_by = TUR
+	#	}
+	#	trigger = {
+	#		if = {
+	#			limit = {
+	#				TUR = {
+	#					exists = yes
+	#					NOT = { is_rival = ROOT }
+	#					NOT = { is_enemy = ROOT }
+	#				}
+	#			}
+	#			reverse_has_opinion = {
+	#				who = TUR
+	#				value = 100
+	#			}
+	#		}
+	#		else = {
+	#			any_ally = {
+	#				total_development = 150
+	#			}
+	#		}
+	#	}
+	#	effect = {
+	#		add_age_modifier = {
+	#			name = AYY_support_of_a_major_power
+	#			duration = 9125
+	#			age = age_of_discovery
+	#			else = "
+	#				add_dip_power = 200 
+	#			"
+	#		}
+	#		
+	#		custom_tooltip = AYY_if_we_have_diplomat_or_statesman
+	#		
+	#		hidden_effect = {
+	#			if = {
+	#				limit = {
+	#					OR = {
+	#						statesman = 1
+	#						diplomat = 1
+	#					}
+	#				}
+	#				every_country = {
+	#					limit = {
+	#						has_opinion_modifier = {
+	#							who = ROOT
+	#							modifier = improved_relation 
+	#						}
+	#					}
+	#					add_opinion = {
+	#						who = ROOT
+	#						modifier = AYY_seeking_supporters 
+	#					}
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
 	AYY_get_rid_of_the_crusaders = {
-		icon = mission_teutonic_knights
+		icon = shield_of_christendom
 		required_missions = { AYY_conquer_syria }
 		position = 4
 		provinces_to_highlight = {
@@ -36,7 +98,13 @@ HSN_AYY_missions_1 = {
 		}
 		effect = {
 			country_event = { id = ME_Ayyubid_Events.15 }
-			add_prestige = 10
+			
+			custom_tooltip = " "
+			
+			add_prestige_or_monarch_power = { amount = 10 }
+			
+			custom_tooltip = " "
+			
 			tooltip = {
 				add_country_modifier = {
 					name = AYY_muslim_restoration
@@ -50,6 +118,7 @@ HSN_AYY_missions_1 = {
 		required_missions = { AYY_get_rid_of_the_crusaders }
 		position = 5
 		provinces_to_highlight = {
+			province_id = 358
 		}
 		trigger = {
 			358 = {
@@ -86,22 +155,38 @@ HSN_AYY_missions_1 = {
 		required_missions = { AYY_granary_of_the_east AYY_conquer_egypt }
 		position = 7
 		provinces_to_highlight = {
+			is_capital = yes
+			OR = {
+				region = france_region
+				region = maghreb_region
+				region = italy_region
+				region = balkan_region
+				region = iberia_region
+				region = egypt_region
+				region = anatolia_region
+			}
+			owner = {
+				navy_size = ROOT
+			}
 		}
 		trigger = {
-			NOT = {
-				any_country = {
-					capital_scope = {
-						OR = {
-							region = france_region
-							region = maghreb_region
-							region = italy_region
-							region = balkan_region
-							region = iberia_region
-							region = egypt_region
-							region = anatolia_region
+			custom_trigger_tooltip = {
+				tooltip = AYY_no_country_in_those_regions
+				NOT = {
+					any_country = {
+						capital_scope = {
+							OR = {
+								region = france_region
+								region = maghreb_region
+								region = italy_region
+								region = balkan_region
+								region = iberia_region
+								region = egypt_region
+								region = anatolia_region
+							}
 						}
+						navy_size = ROOT
 					}
-					navy_size = ROOT
 				}
 			}
 		}
@@ -110,8 +195,17 @@ HSN_AYY_missions_1 = {
 				name = AYY_undefeatable_navy
 				duration = -1
 			}
+			
+			define_advisor = {
+				type = naval_reformer 
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
 		}
 	}
+	
 	AYY_maghrebi_ambition = {
 		icon = mission_conquer_tunis
 		required_missions = { AYY_expedition_to_the_east }
@@ -127,30 +221,15 @@ HSN_AYY_missions_1 = {
 			}
 		}
 		effect = {
-			maghreb_region = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			lower_andalucia_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			upper_andalucia_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			country_event = { id = ME_Ayyubid_Events.24 } #Conquests in Maghreb
+		
+			ME_give_claims = { area = maghreb_region }
+			ME_give_claims = { area = lower_andalucia_area }
+			ME_give_claims = { area = upper_andalucia_area }
 		}
 	}
 }
+
 HSN_AYY_missions_2 = {
 	slot = 2
 	generic = no
@@ -163,10 +242,10 @@ HSN_AYY_missions_2 = {
 		
 	}
 	has_country_shield  = yes
-	
+
 	AYY_outward_expansion = {
 		icon = mission_pacify_the_berbers
-		required_missions = {  AYY_prepare_for_war }
+		required_missions = { AYY_prepare_for_war }
 		position = 2
 		provinces_to_highlight = {
 		}
@@ -175,29 +254,18 @@ HSN_AYY_missions_2 = {
 			num_of_cities = 4
 		}
 		effect = {
-			add_prestige = 25
+			add_prestige_or_monarch_power = { amount = 25 }
+			
+			custom_tooltip = " "
+			
 			change_mil = 1
-			aleppo_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			syria_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			syrian_desert_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = aleppo_area }
+			ME_give_claims = { area = syria_area }
+			ME_give_claims = { area = syrian_desert_area }
+			
 			set_country_flag = formed_mamluks
 			set_country_flag = formed_egypt_flag
 		}
@@ -225,22 +293,15 @@ HSN_AYY_missions_2 = {
 			}
 		}
 		effect = {
+			change_national_focus_effect = yes
+			
 			country_event = { id = ME_Ayyubid_Events.3 }
 			custom_tooltip = ME_Ayyubid_Tooltips.1
-			trans_jordan_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			palestine_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			
+			ME_give_claims = { area = trans_jordan_area }
+			ME_give_claims = { area = palestine_area }
+			
+			custom_tooltip = " "
 			tooltip = {
 				add_country_modifier = {
 					name = AYY_syria_reclaimed
@@ -271,34 +332,13 @@ HSN_AYY_missions_2 = {
 			}
 		}
 		effect = {
-			egypt_region = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			tabuk_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			medina_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			mecca_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			ME_give_claims = { area = egypt_region }
+			ME_give_claims = { area = tabuk_area }
+			ME_give_claims = { area = medina_area }
+			ME_give_claims = { area = mecca_area }
+			
+			custom_tooltip = " "
+			
 			country_event = { id = ME_Ayyubid_Events.4 }
 			tooltip = {
 				add_country_modifier = {
@@ -317,13 +357,16 @@ HSN_AYY_missions_2 = {
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			egypt_region = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = egypt_region
+				value = 24
 			}
 		}
 		effect = {
 			country_event = { id = ME_Ayyubid_Events.5 }
+			
+			custom_tooltip = " "
+			
 			custom_tooltip = ME_Ayyubid_Tooltips.5
 			tooltip = {
 				if = {
@@ -343,20 +386,8 @@ HSN_AYY_missions_2 = {
 					}
 				}
 			}
-			tripolitania_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			djerba_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			ME_give_claims = { area = tripolitania_area }
+			ME_give_claims = { area = djerba_area }
 		}
 	}
 	AYY_expedition_to_the_east = {
@@ -381,19 +412,19 @@ HSN_AYY_missions_2 = {
 			}
 		}
 		effect = {
-			sicily_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			ME_give_claims = { area = sicily_area }
+			ME_give_claims = { area = western_sicily_area }
 			maghreb_region = {
 				limit = {
 					NOT = { is_core = ROOT }
 					NOT = { is_claim = ROOT }
 				}
-				add_claim = ROOT
+				add_claim = ROOT #it's a claim :P
+			}
+			
+			add_country_modifier = {
+				name = AYY_conquest_of_tripolitania
+				duration = 10950
 			}
 		}
 	}
@@ -402,7 +433,10 @@ HSN_AYY_missions_2 = {
 		required_missions = { AYY_expedition_to_the_east }
 		position = 8
 		provinces_to_highlight = {
-			area = sicily_area
+			OR = {
+				area = sicily_area
+				area = western_sicily_area
+			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
@@ -410,17 +444,25 @@ HSN_AYY_missions_2 = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
+			western_sicily_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
 		}
 		effect = {
 			sicily_area = {
+				add_nationalism = -10
 				add_province_modifier = {
 					name = AYY_influx_of_muslims
 					duration = -1
 				}
-
 			}
-			sicily_area = {
+			western_sicily_area = {
 				add_nationalism = -10
+				add_province_modifier = {
+					name = AYY_influx_of_muslims
+					duration = -1
+				}
 			}
 			custom_tooltip = ME_Ayyubid_Tooltips.9
 		}
@@ -439,23 +481,29 @@ HSN_AYY_missions_2 = {
 			}
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				region = iberia_region
-				value = 10
+				value = 7
 			}
 		}
 		effect = {
 			225 = {
 				add_base_tax = 2
 				add_base_manpower = 2
+				add_base_manpower = 2
 			}
+			
+			custom_tooltip = " "
+			
 			add_country_modifier = {
 				name = AYY_rereconquista
 				duration = -1
 			}
+			
+			country_event = { id = ME_Ayyubid_Events.26 } #Subject in Iberia
 		}
 	}
 	AYY_legacy_of_saladin = {
 		icon = mission_empire
-		required_missions = { AYY_ayyubid_peace AYY_sunnite_protector AYY_funder_of_madras AYY_restore_al_andalus }
+		required_missions = { AYY_ayyubid_peace AYY_restore_al_andalus }
 		position = 11
 		provinces_to_highlight = {
 			owned_by = ROOT
@@ -463,7 +511,6 @@ HSN_AYY_missions_2 = {
 		}
 		trigger = {
 			total_development = 1500
-			tag = AYY
 			num_of_owned_provinces_with = {
 				has_building = university
 				value = 25
@@ -473,11 +520,15 @@ HSN_AYY_missions_2 = {
 		effect = {
 			add_country_modifier = {
 				name = AYY_legacy_of_saladin_modifier
-				duration = 36500
+				duration = -1
 			}
+			
+			custom_tooltip = AYY_enable_decision_to_change_focus_whenever
+			set_country_flag = AYY_decision_to_change_focus
 		}
 	}
 }
+
 HSN_AYY_missions_3 = {
 	slot = 3
 	generic = no
@@ -496,8 +547,8 @@ HSN_AYY_missions_3 = {
 		required_missions = { }
 		position = 1
 		trigger = {
-			army_size_percentage = 1
-			manpower_percentage = 0.8
+			army_size_percentage = 0.85
+			#manpower_percentage = 0.8
 			if = {
 				limit = {
 					ai = no
@@ -511,20 +562,11 @@ HSN_AYY_missions_3 = {
 				name = "oma_buildforces_mod"
 				duration = 5475
 			}
-			al_jazira_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			north_kurdistan_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			ME_give_claims = { area = al_jazira_area }
+			ME_give_claims = { area = north_kurdistan_area }
+			ME_give_claims = { id = 2308 }
+			ME_give_claims = { id = 2305 }
+			ME_give_claims = { id = 331 }
 		}
 	}
 	AYY_northern_frontier = {
@@ -548,6 +590,19 @@ HSN_AYY_missions_3 = {
 					duration = -1
 				}
 			}
+			
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				custom_tooltip = AYY_if_we_have_land_acquisition
+				if = {
+					limit = {
+						has_country_modifier = land_acquisition_modifier 
+					}
+					add_adm_power = 50
+				}
+			}
 		}
 	}
 	AYY_restore_halab = {
@@ -558,10 +613,7 @@ HSN_AYY_missions_3 = {
 			province_id = 377
 			OR = {
 				NOT = { development = 30 }
-				AND = {
-					NOT = { has_building = temple }
-					NOT = { has_building = cathedral }
-				}
+				NOT = { has_tax_building_trigger = yes }
 				NOT = { owned_by = ROOT }
 			}
 		}
@@ -569,10 +621,7 @@ HSN_AYY_missions_3 = {
 			377 = {
 				owned_by = ROOT
 				development = 30
-				OR = {
-					has_building = temple
-					has_building = cathedral
-				}
+				has_tax_building_trigger = yes
 			}
 		}
 		effect = {
@@ -616,48 +665,15 @@ HSN_AYY_missions_3 = {
 		}
 		effect = {
 			country_event = { id = ME_Ayyubid_Events.6 }
-			asir_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			tihama_al_yemen_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			upper_yemen_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			yemen_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			hadramut_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			mahra_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = asir_area }
+			ME_give_claims = { area = tihama_al_yemen_area }
+			ME_give_claims = { area = upper_yemen_area }
+			ME_give_claims = { area = yemen_area }
+			ME_give_claims = { area = hadramut_area }
+			ME_give_claims = { area = mahra_area }
 		}
 	}
 	AYY_holy_cities = {
@@ -672,12 +688,7 @@ HSN_AYY_missions_3 = {
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { development = 20 }
-				NOT = {
-					AND = {
-						has_building = temple
-						has_building = cathedral
-					}
-				}
+				NOT = { has_tax_building_trigger = yes }
 			}
 		}
 		trigger = {
@@ -686,18 +697,12 @@ HSN_AYY_missions_3 = {
 					384 = {
 						owned_by = ROOT
 						development = 20
-						OR = {
-							has_building = temple
-							has_building = cathedral
-						}
+						has_tax_building_trigger = yes
 					}
 					385 = {
 						owned_by = ROOT
 						development = 20
-						OR = {
-							has_building = temple
-							has_building = cathedral
-						}
+						has_tax_building_trigger = yes
 					}
 				}
 				reverse_has_opinion = {
@@ -731,6 +736,9 @@ HSN_AYY_missions_3 = {
 		}
 		effect = {
 			custom_tooltip = ME_Ayyubid_Tooltips.8
+			
+			custom_tooltip = " "
+			
 			361 = {
 				add_province_modifier = {
 					name = AYY_the_last_bastion_modifier
@@ -744,8 +752,10 @@ HSN_AYY_missions_3 = {
 		required_missions = { AYY_restore_cairo }
 		position = 8
 		provinces_to_highlight = {
-			area = bahari_area
-			area = delta_area
+			OR = {
+				area = bahari_area
+				area = delta_area
+			}
 			OR = {
 				NOT = { province_id = 4317 }
 				NOT = { owned_by = ROOT }
@@ -770,6 +780,8 @@ HSN_AYY_missions_3 = {
 		}
 		effect = {
 			custom_tooltip = ME_Ayyubid_Tooltips.10
+			custom_tooltip = " "
+			set_country_flag = AYY_may_upgrade_suez
 			358 = {
 				add_trade_modifier = {
 					who = ROOT
@@ -778,6 +790,10 @@ HSN_AYY_missions_3 = {
 					key = AYY_blessing_of_the_nile
 				}
 			}
+			
+			custom_tooltip = " "
+			
+			
 			delta_area = {
 				add_province_modifier = {
 					name = AYY_blessing_of_the_nile
@@ -809,11 +825,24 @@ HSN_AYY_missions_3 = {
 		required_missions = { AYY_prosperity_of_the_mouth }
 		position = 9
 		provinces_to_highlight = {
+			province_id = 4316
 		}
 		trigger = {
 			4316 = {
-				has_great_project = { 
-					type = suez_canal 
+				owned_by = ROOT
+				OR = {
+					has_great_project = {
+						type = suez_canal
+						tier = 1
+					}
+					has_great_project = {
+						type = suez_canal
+						tier = 2
+					}
+					has_great_project = {
+						type = suez_canal
+						tier = 3
+					}
 				}
 			}
 		}
@@ -829,6 +858,14 @@ HSN_AYY_missions_3 = {
 					name = AYY_suez_tolls
 					duration = -1
 				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = AYY_the_canal_tolls
+				duration = -1
+				age = age_of_absolutism
 			}
 		}
 	}
@@ -872,9 +909,18 @@ HSN_AYY_missions_3 = {
 				name = AYY_pax_arabica
 				duration = -1
 			}
+			
+			set_country_flag = AYY_peace_flag
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_tooltip = AYY_peace
+			}
 		}
 	}
 }
+
 HSN_AYY_missions_4 = {
 	slot = 4
 	generic = no
@@ -889,7 +935,8 @@ HSN_AYY_missions_4 = {
 	has_country_shield  = yes
 
 	AYY_fortify_the_north = {
-		icon = me_mission_ayyubids_fortify_the_north
+		#icon = me_mission_ayyubids_fortify_the_north
+		icon = mission_fortify_rajputana
 		required_missions = { AYY_the_last_bastion }
 		position = 2
 		provinces_to_highlight = {
@@ -924,6 +971,16 @@ HSN_AYY_missions_4 = {
 		}
 		effect = {
 			country_event = { id = ME_Ayyubid_Events.10 }
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = fortification_expert 
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.4
+			}
 		}
 	}
 	AYY_governor_of_mosul = {
@@ -946,34 +1003,10 @@ HSN_AYY_missions_4 = {
 				name = AYY_the_governor_of_mosul
 				duration = 7300
 			}
-			shahrizor_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			iraq_arabi_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			basra_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			khuzestan_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
+			ME_give_claims = { area = shahrizor_area }
+			ME_give_claims = { area = iraq_arabi_area }
+			ME_give_claims = { area = basra_area }
+			ME_give_claims = { area = khuzestan_area }
 		}
 	}
 	AYY_succeeding_the_abbasids = {
@@ -1008,9 +1041,18 @@ HSN_AYY_missions_4 = {
 			}
 		}
 		effect = {
-			add_legitimacy = 20
+			add_legitimacy_equivalent = { amount = 20 republican_tradition = 10 }
+			
+			custom_tooltip = " "
+			
 			add_stability_or_adm_power = yes
-			add_prestige = 25
+			
+			custom_tooltip = " "
+			
+			add_prestige_or_monarch_power = { amount = 25 }
+			
+			custom_tooltip = " "
+			
 			custom_tooltip = ME_Ayyubid_Tooltips.3
 		}
 	}
@@ -1020,15 +1062,17 @@ HSN_AYY_missions_4 = {
 		position = 5
 		provinces_to_highlight = {
 			province_id = 382
-			NOT = { development = 30 }
-			NOT = { has_building = temple }
-			NOT = { owned_by = ROOT }
+			OR = {
+				NOT = { development = 30 }
+				NOT = { has_tax_building_trigger = yes }
+				NOT = { owned_by = ROOT }
+			}
 		}
 		trigger = {
 			382 = {
 				owned_by = ROOT
 				development = 30
-				has_building = temple
+				has_tax_building_trigger = yes
 			}
 		}
 		effect = {
@@ -1057,33 +1101,30 @@ HSN_AYY_missions_4 = {
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			mahra_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = mahra_area
+					area = tihama_al_yemen_area
+					area = yemen_area
+					area = upper_yemen_area
+					area = hadramut_area
+					area = asir_area
+				}
+				value = 14
 			}
-			tihama_al_yemen_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			yemen_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			upper_yemen_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			hadramut_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			asir_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+			
+			owns_core_province = 387
 		}
 		effect = {
 			country_event = { id = ME_Ayyubid_Events.16 }
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = AYY_the_trade_routes_to_india
+				age = age_of_reformation
+				duration = -1
+			}
 		}
 	}
 	AYY_yemeni_coffee = {
@@ -1098,46 +1139,30 @@ HSN_AYY_missions_4 = {
 				province_id = 4279
 				province_id = 4282
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 			OR = {
-				NOT = { has_building = workshop }
-				NOT = { has_building = counting_house }
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { has_production_building_trigger = yes }
 			}
 		}
 		trigger = {
 			387 = {
-				OR = {
-					has_building = workshop
-					has_building = counting_house
-				}
+				has_production_building_trigger = yes
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 			386 = {
-				OR = {
-					has_building = workshop
-					has_building = counting_house
-				}
+				has_production_building_trigger = yes
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 			4280 = {
-				OR = {
-					has_building = workshop
-					has_building = counting_house
-				}
+				has_production_building_trigger = yes
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 			4279 = {
-				OR = {
-					has_building = workshop
-					has_building = counting_house
-				}
+				has_production_building_trigger = yes
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 			4282 = {
-				OR = {
-					has_building = workshop
-					has_building = counting_house
-				}
+				has_production_building_trigger = yes
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
@@ -1147,32 +1172,41 @@ HSN_AYY_missions_4 = {
 					name = AYY_yemeni_coffee
 					duration = -1
 				}
+				
+				add_or_upgrade_production_building = yes
 			}
 			386 = {
 				add_province_modifier = {
 					name = AYY_yemeni_coffee
 					duration = -1
 				}
+				
+				add_or_upgrade_production_building = yes
 			}
 			4280 = {
 				add_province_modifier = {
 					name = AYY_yemeni_coffee
 					duration = -1
 				}
+				
+				add_or_upgrade_production_building = yes
 			}
 			4279 = {
 				add_province_modifier = {
 					name = AYY_yemeni_coffee
 					duration = -1
 				}
+				
+				add_or_upgrade_production_building = yes
 			}
 			4282 = {
 				add_province_modifier = {
 					name = AYY_yemeni_coffee
 					duration = -1
 				}
+				
+				add_or_upgrade_production_building = yes
 			}
-			add_prestige = 10
 		}
 	}
 	AYY_restore_alexandria = {
@@ -1193,18 +1227,8 @@ HSN_AYY_missions_4 = {
 			}
 		}
 		effect = {
-			if = {
-				limit = {
-					358 = {
-						province_has_center_of_trade_of_level = 3
-					}
-				}
-				add_treasury = 1000
-			}
-			else = {
-				358 = {
-					add_center_of_trade_level = 1
-				}
+			358 = {
+				create_or_add_center_of_trade_level = { level = 1 }
 			}
 			358 = {
 				add_province_modifier = {
@@ -1233,10 +1257,12 @@ HSN_AYY_missions_4 = {
 			358 = {
 				development = 35
 				has_building = university
+				owned_by = ROOT
 			}
 			410 = {
 				development = 35
 				has_building = university
+				owned_by = ROOT
 			}
 		}
 		effect = {
@@ -1247,22 +1273,8 @@ HSN_AYY_missions_4 = {
 			change_innovativeness = 5
 		}
 	}
-	AYY_sunnite_protector = {
-		icon = mission_protect_albania
-		required_missions = { AYY_virtues_of_a_ruler }
-		position = 10
-		trigger = {
-			is_defender_of_faith = yes
-			religious_unity = 0.8
-		}
-		effect = {
-			add_country_modifier = {
-				name = AYY_the_protector_of_sunnis
-				duration = 9125
-			}
-		}
-	}
 }
+
 HSN_AYY_missions_5 = {
 	slot = 5
 	generic = no
@@ -1277,20 +1289,23 @@ HSN_AYY_missions_5 = {
 	has_country_shield  = yes
 
 	AYY_the_last_bastion = {
-		icon = me_mission_ayyubids_the_last_bastion
+		#icon = me_mission_ayyubids_the_last_bastion
+		icon = mission_conquer_mewar
 		required_missions = { }
 		position = 1
 		provinces_to_highlight = {
 			province_id = 4295
 			OR = {
 				NOT = { development = 15 }
-				NOT = { has_building = temple }
+				NOT = { has_tax_building_trigger = yes }
+				NOT = { owned_by = ROOT }
 			}
 		}
 		trigger = {
 			4295 = {
+				owned_by = ROOT
 				development = 15
-				has_building = temple
+				has_tax_building_trigger = yes
 			}
 		}
 		effect = {
@@ -1299,26 +1314,22 @@ HSN_AYY_missions_5 = {
 					name = AYY_the_last_bastion_modifier
 					duration = -1
 				}
+				
+				add_or_upgrade_tax_building = yes
 			}
 		}
 	}
 	AYY_construct_new_mosques = {
-		icon = mission_mosque
+		icon = mission_conquer_gujarat_bah
 		required_missions = { AYY_the_last_bastion }
 		position = 3
 		provinces_to_highlight = {
 			owned_by = ROOT
-			OR = {
-				NOT = { has_building = temple }
-				NOT = { has_building = cathedral }
-			}
+			NOT = { has_tax_building_trigger = yes }
 		}
 		trigger = {
 			num_of_owned_provinces_with = {
-				OR = {
-					has_building = temple
-					has_building = cathedral
-				}
+				has_tax_building_trigger = yes
 				value = 5
 			}
 		}
@@ -1329,6 +1340,15 @@ HSN_AYY_missions_5 = {
 				culture = ROOT
 				religion = ROOT
 				cost_multiplier = 0.2
+			}
+			
+			custom_tooltip = " "
+			
+			add_estate_loyalty_modifier = {
+				estate = estate_church
+				desc = AYY_new_mosques
+				loyalty = 10
+				duration = 7300
 			}
 		}
 	}
@@ -1341,16 +1361,16 @@ HSN_AYY_missions_5 = {
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { development = 30 }
-				NOT = { has_building = temple }
-				NOT = { has_building = marketplace }
+				NOT = { has_tax_building_trigger = yes }
+				NOT = { has_trade_building_trigger = yes }
 			}
 		}
 		trigger = {
 			410 = {
 				development = 30
-				has_building = temple
 				owned_by = ROOT
-				has_building = marketplace
+				has_tax_building_trigger = yes
+				has_trade_building_trigger = yes
 			}
 		}
 		effect = {
@@ -1367,18 +1387,7 @@ HSN_AYY_missions_5 = {
 					}
 					add_province_modifier = {
 						name = AYY_prosperity
-						duration = 9125
-					}
-					random_list = {
-						33 = {
-							add_base_tax = 1
-						}
-						33 = {
-							add_base_production = 1
-						}
-						33 = {
-							add_base_manpower = 1
-						}
+						duration = 10950
 					}
 				}
 			}
@@ -1386,24 +1395,13 @@ HSN_AYY_missions_5 = {
 			tooltip = {
 				add_province_modifier = {
 					name = AYY_prosperity
-					duration = 9125
-				}
-				random_list = {
-					33 = {
-						add_base_tax = 1
-					}
-					33 = {
-						add_base_production = 1
-					}
-					33 = {
-						add_base_manpower = 1
-					}
+					duration = 10950
 				}
 			}
 		}
 	}
 	AYY_cradle = {
-		icon = mission_mosque
+		icon = mission_growth_of_golcond
 		required_missions = { AYY_restore_baghdad }
 		position = 6
 		provinces_to_highlight = {
@@ -1414,53 +1412,108 @@ HSN_AYY_missions_5 = {
 				area = basra_area
 				area = khuzestan_area
 			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { development = 12 }
-			}
 		}
 		trigger = {
-			al_jazira_area = {
-				type = all
-				owned_by = ROOT
-				development = 12
+			custom_trigger_tooltip = {
+				tooltip = MSY_owns_highlighted
+				al_jazira_area = {
+					type = all
+					owned_by = ROOT
+				}
+				shahrizor_area = {
+					type = all
+					owned_by = ROOT
+				}
+				iraq_arabi_area = {
+					type = all
+					owned_by = ROOT
+				}
+				basra_area = {
+					type = all
+					owned_by = ROOT
+				}
+				khuzestan_area = {
+					type = all
+					owned_by = ROOT
+				}
 			}
-			shahrizor_area = {
-				type = all
-				owned_by = ROOT
-				development = 12
-			}
-			iraq_arabi_area = {
-				type = all
-				owned_by = ROOT
-				development = 12
-			}
-			basra_area = {
-				type = all
-				owned_by = ROOT
-				development = 12
-			}
-			khuzestan_area = {
-				type = all
-				owned_by = ROOT
-				development = 12
+			development_in_provinces = {
+				custom_trigger_tooltip = {
+					tooltip = MSY_highlighted
+					OR = {
+						area = al_jazira_area
+						area = shahrizor_area
+						area = iraq_arabi_area
+						area = basra_area
+						area = khuzestan_area
+					}
+				}
+				value = 240
 			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = AYY_bringing_the_golden_age_back
-				duration = 10950
+			# add_country_modifier = {
+				# name = AYY_bringing_the_golden_age_back
+				# duration = 10950
+			# }
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = MSY_the_highlighted_area
+			tooltip = {
+				add_province_modifier = {
+					name = AYY_pearl
+					duration = -1
+				}
 			}
+			
+			hidden_effect = {
+				al_jazira_area = {
+					add_province_modifier = {
+						name = AYY_pearl
+						duration = -1
+					}
+				}
+				shahrizor_area = {
+					add_province_modifier = {
+						name = AYY_pearl
+						duration = -1
+					}
+				}
+				iraq_arabi_area = {
+					add_province_modifier = {
+						name = AYY_pearl
+						duration = -1
+					}
+				}
+				basra_area = {
+					add_province_modifier = {
+						name = AYY_pearl
+						duration = -1
+					}
+				}
+				khuzestan_area = {
+					add_province_modifier = {
+						name = AYY_pearl
+						duration = -1
+					}
+				}
+			}
+			
+			country_event = { id = ME_Ayyubid_Events.23 }
 		}
 	}
 	AYY_fix_the_fakes = {
-		icon = mission_cannons_firing
+		icon = mission_abu_saids_dream
 		required_missions = { AYY_cradle }
 		position = 7
 		provinces_to_highlight = {
+			OR = {
+				owned_by = TUR
+				owned_by = MAM
+			}
 		}
 		trigger = {
-			NOT = { exists = OSM }
+			NOT = { exists = TUR }
 			NOT = { exists = MAM }
 		}
 		effect = {
@@ -1471,9 +1524,31 @@ HSN_AYY_missions_5 = {
 		}
 	}
 	AYY_rebirth_of_red_sea_trade = {
-		icon = mission_arabian_fort
+		icon = mission_arabian_ports
 		required_missions = { AYY_yemeni_coffee }
 		position = 8
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 358
+					NOT = {
+						trade_share = {
+							country = ROOT
+							share = 90
+						}
+					}
+				}
+				AND = {
+					province_id = 4346
+					NOT = {
+						trade_share = {
+							country = ROOT
+							share = 50
+						}
+					}
+				}
+			}
+		}
 		trigger = {
 			358 = {
 				trade_share = {
@@ -1487,52 +1562,138 @@ HSN_AYY_missions_5 = {
 					share = 50
 				}
 			}
+			
 		}
 		effect = {
 			add_mercantilism = 5
-			add_years_of_income = 1
+			
+			custom_tooltip = " "
+			
+			ME_add_years_of_trade_income = { value = 3 }
+			
+			custom_tooltip = " "
+			
 			add_country_modifier = {
 				name = AYY_rebirth_of_the_trade
 				duration = 9125
 			}
 		}
 	}
-	AYY_virtues_of_a_ruler = {
-		icon = me_mission_ayyubids_virtues
+}
+
+HSN_AYY_religious_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = AYY
+			tag = HSN
+		}
+		
+	}
+	has_country_shield  = yes
+	
+	AYY_four_maddhabs = {
+		icon = mission_fatimid_caliphate
 		required_missions = { }
-		position = 9
+		position = 10
 		provinces_to_highlight = {
 		}
 		trigger = {
-			OR = {
-				piety = 0.9
-				NOT = { piety = -0.9 }
+			custom_trigger_tooltip = {
+				tooltip = MAM_5_totf
+				has_global_modifier_value = {
+					which = tolerance_own
+					value = 5
+				}
 			}
 			if = {
 				limit = {
-					has_dlc = "Rights of Man"
+					has_dlc = "Cradle of Civilization"
 				}
-				OR = {
-					ruler_has_personality = just_personality
-					ruler_has_personality = righteous_personality
-					ruler_has_personality = kind_hearted_personality
-					ruler_has_personality = pious_personality
-					ruler_has_personality = calm_personality
-					ruler_has_personality = silver_tongue_personality
+				ME_has_religious_scholars_trigger = yes
+			}
+			has_adm_advisor_3 = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = MAM_four_maddhabs_modifier
+				duration = -1
+			}
+			
+			#custom_tooltip = " "
+			
+			set_country_flag = AYY_establish_Religious_school_Buff
+			
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				custom_tooltip = AYY_establish_Religious_school_Buff
+				
+				custom_tooltip = " "
+				
+				custom_tooltip = AYY_if_we_have_invited_maliki
+				tooltip = {
+					add_country_modifier = {
+						name = AYY_maliki_scholar
+						duration = 14600
+					}
+				}
+				custom_tooltip = AYY_if_we_have_invited_hanbali
+				tooltip = {
+					add_country_modifier = {
+						name = AYY_hanbali_scholar
+						duration = 14600
+					}
+				}
+				custom_tooltip = AYY_if_we_have_invited_hanafi
+				tooltip = {
+					add_country_modifier = {
+						name = AYY_hanafi_scholar
+						duration = 14600
+					}
+				}
+				
+				hidden_effect = {
+					if = {
+						limit = {
+							has_country_modifier = hanafi_scholar_modifier
+						}
+						add_country_modifier = {
+							name = AYY_hanafi_scholar
+							duration = 14600
+						}
+					}
+					else_if = {
+						limit = {
+							has_country_modifier = hanbali_scholar_modifier
+						}
+						add_country_modifier = {
+							name = AYY_hanbali_scholar
+							duration = 14600
+						}
+					}
+					else_if = {
+						limit = {
+							has_country_modifier = maliki_scholar_modifier
+						}
+						add_country_modifier = {
+							name = AYY_maliki_scholar
+							duration = 14600
+						}
+					}
+					else = { }
 				}
 			}
 		}
-		effect = {
-			add_adm_power = 50
-			add_dip_power = 50
-			add_mil_power = 50
-			add_legitimacy = 10
-		}
 	}
+	
 	AYY_funder_of_madras = {
-		icon = mission_claim_hispaniola
-		required_missions = { AYY_virtues_of_a_ruler }
-		position = 10
+		icon = mission_gawans_madrasar
+		required_missions = { AYY_four_maddhabs }
+		position = 12
 		provinces_to_highlight = {
 			owned_by = ROOT
 			NOT = { has_building = university }
@@ -1545,9 +1706,187 @@ HSN_AYY_missions_5 = {
 		}
 		effect = {
 			change_innovativeness = 5
-			add_ruler_modifier = {
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
 				name = AYY_supporter_of_scholarship
 				duration = -1
+				age = age_of_reformation
+			}
+			
+			set_country_flag = AYY_nerf_decision
+			custom_tooltip = AYY_decision_nerf
+		}
+	}
+}
+
+HSN_AYY_religious_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = AYY
+			tag = HSN
+		}
+		
+	}
+	has_country_shield  = yes
+	
+	# AYY_dervish = {
+		# icon = mission_claim_hispaniola
+		# required_missions = { AYY_four_maddhabs }
+		# position = 12
+		# provinces_to_highlight = {
+		# }
+		# trigger = {
+		# }
+		# effect = {
+		# }
+	# }
+}
+
+HSN_AYY_religious_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = AYY
+			tag = HSN
+		}
+		
+	}
+	has_country_shield  = yes
+	
+	AYY_arabic_poetry = {
+		icon = mission_court_education
+		required_missions = { AYY_virtues_of_a_ruler }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			calc_true_if = {
+				AND = {
+					has_estate_privilege = estate_burghers_patronage_of_the_arts
+					OR = { monthly_dip = 9 }
+					OR = { monthly_adm = 9 }
+					artist = 1
+				}
+				amount = 2
+			}
+			
+			has_adm_advisor_2 = yes
+			has_dip_advisor_2 = yes
+			has_mil_advisor_2 = yes
+		}
+		effect = {
+			custom_tooltip = AYY_buff_prestige_priv
+			set_country_flag = AYY_buff_prestige_priv
+			
+			
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = AYY_sultan_of_art
+				duration = 9125
+			}
+		}
+	}
+}
+
+HSN_AYY_religious_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = AYY
+			tag = HSN
+		}
+		
+	}
+	has_country_shield  = yes
+	
+	AYY_virtues_of_a_ruler = {
+		icon = mission_vedic_education
+		required_missions = { }
+		position = 10
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				piety = 0.9
+				NOT = { piety = -0.9 }
+			}
+			if = {
+				limit = {
+					government = monarchy
+				}
+				legitimacy = 90
+			}
+		}
+		effect = {
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+	
+			custom_tooltip = " "
+			
+			set_country_flag = AYY_increase_chance_of_good_traits_flag
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				custom_tooltip = AYY_increase_chance_of_good_traits
+			}
+		}
+	}
+	
+	# AYY_waqf = {
+		# icon = me_mission_muslim_family
+		# required_missions = { AYY_virtues_of_a_ruler }
+		# position = 11
+		# provinces_to_highlight = {
+		# }
+		# trigger = {
+		# }
+		# effect = {
+		# }
+	# }
+	
+	AYY_sunnite_protector = {
+		icon = mission_protect_albania
+		required_missions = { AYY_virtues_of_a_ruler }
+		position = 12
+		trigger = {
+			is_defender_of_faith = yes
+			religious_unity = 0.8
+			
+			has_global_modifier_value = {
+				which = land_morale
+				value = 0.25
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = AYY_the_protector_of_sunnis
+				duration = -1
+				age = age_of_reformation
+			}
+			
+			custom_tooltip = AYY_if_we_are_at_war_with
+			tooltip = {
+				add_yearly_manpower = 1
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						at_war_with_religious_enemy = yes
+					}
+					add_yearly_manpower = 1
+				}
 			}
 		}
 	}

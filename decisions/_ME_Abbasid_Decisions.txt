@@ -1,0 +1,209 @@
+country_decisions = {
+	Abbasid_put_in_baghdad = {
+		major = yes
+		potential = {
+			owns = 410
+			NOT = {
+				410 = {
+					has_province_modifier = Abbasid_Caliph_in_province
+				}
+			}
+			ME_has_abbasid_caliph = yes
+		}
+		provinces_to_highlight = {
+			OR = {
+				has_province_modifier = Abbasid_Caliph_in_province
+				province_id = 410
+			}
+		}
+		allow = {
+			410 = {
+				has_tax_building_trigger = yes
+				is_state_core = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = ME_abbasid_extra_bonus_in_baghdad
+			410 = {
+				ME_set_abbasid_caliph_province = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	Abbasid_flee = {
+		major = yes
+		potential = {
+			ME_has_abbasid_caliph = yes
+			is_at_war = yes
+			religion_group = muslim
+		}
+		provinces_to_highlight = {
+			has_province_modifier = Abbasid_Caliph_in_province
+		}
+		allow = {
+			NOT = { war_exhaustion = 2 }
+			event_target:Caliph_province = {
+				has_siege = yes
+			}
+			mil_power = 100 
+			any_owned_province = {
+				Abbasid_valid_escape_route = yes
+			}
+		}
+		effect = {
+			add_mil_power = -100
+			country_event = { id = ME_Abbasid_Events.4 }
+		}
+		
+		ai_will_do = { #if we have mil to spare, there is lots of enemies on province, and we don't have units there, flee!
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					mil_power = 500
+					event_target:Caliph_province = {
+						has_siege = yes
+						num_of_units_in_province = {
+							amount = 10
+						}
+						NOT = {
+							num_of_units_in_province = {
+								who = ROOT
+								amount = 1
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	Abbasid_put_in_capital = {
+		major = yes
+		potential = {
+			event_target:Caliph_province = {
+				owned_by = ROOT
+				NOT = { is_capital_of = ROOT }
+			}
+			NOT = { is_at_war = yes }
+			
+		}
+		provinces_to_highlight = {
+			OR = {
+				is_capital_of = ROOT
+				has_province_modifier = Abbasid_Caliph_in_province
+			}
+		}
+		allow = {
+			capital_scope = {
+				NOT = { has_siege = yes }
+				NOT = { unrest = 0 }
+			}
+			adm_power = 100
+		}
+		effect = {
+			add_adm_power = -100
+			capital_scope = {
+				ME_set_abbasid_caliph_province = yes
+			}
+		}
+		ai_will_do = { 
+			factor = 0 #Don't, it's more interesting this way :-)
+		}
+	}
+	
+	# Abbasid_mecca = {
+		# major = yes
+		# potential = {
+			# event_target:Caliph_province = {
+				# owned_by = ROOT
+				# NOT = { is_capital_of = ROOT }
+			# }
+			# NOT = { is_at_war = yes }
+			# always = no 
+		# }
+		# provinces_to_highlight = {
+			# OR = {
+				# is_capital_of = ROOT
+				# has_province_modifier = Abbasid_Caliph_in_province
+			# }
+		# }
+		# allow = {
+			# capital_scope = {
+				# NOT = { has_siege = yes }
+				# NOT = { unrest = 0 }
+			# }
+			# adm_power = 100
+		# }
+		# effect = {
+			# add_adm_power = -100
+			# capital_scope = {
+				# ME_set_abbasid_caliph_province = yes
+			# }
+		# }
+		# ai_will_do = { 
+			# factor = 0 #Don't, it's more interesting this way :-)
+		# }
+	# }
+	
+	Abbasid_restore_abbasid_caliphate = {
+		major = yes
+		potential = {
+			NOT = { ME_there_is_a_caliph = yes }
+			religion = sunni
+			is_year = 1450
+		}
+		provinces_to_highlight = {
+			owner = {
+				religion = sunni
+				total_development = ROOT
+			}
+		}
+		allow = {
+			adm_power_cost = 100
+			
+			custom_trigger_tooltip = {
+				tooltip = ABA_most_developed_muslim_tag
+				NOT = {
+					any_country = {
+						religion = sunni 
+						total_development = ROOT
+					}
+				}
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = ABA_has_not_executed_caliph_in_5_years
+				OR = {
+					NOT = { has_global_flag = ABA_executed_caliph }
+					had_global_flag = {
+						flag = ABA_executed_caliph
+						days = 3650
+					}
+				}
+			}
+			
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 70
+				}
+			}
+		}
+		effect = {
+			adm_power_cost = 100
+			capital_scope = {
+				ME_set_abbasid_caliph_province = yes
+			}
+		}
+		ai_will_do = { 
+			factor = 1
+		}
+	}
+}

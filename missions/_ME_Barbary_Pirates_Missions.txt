@@ -1,0 +1,695 @@
+#Barbary Pirates Vassal Oriented Mission tree
+
+BRBR_missions_1 = { #BRBR is the namespace for this
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = KBA
+			tag = ALG
+			tag = MOR
+			tag = SLE
+			tag = TET
+			tag = TUN
+			tag = TRP
+			tag = TLC
+		}
+		has_country_flag = BRBR_mission_enabled
+		
+	}
+	has_country_shield = yes
+
+	BRBR_haven_for_the_expelled = {
+		icon = mission_cope_with_refugees
+		required_missions = { }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			any_owned_province = {
+				development = 20
+				num_of_buildings_in_province = 2
+				num_of_times_improved = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BRBR_moorish_refugees
+				duration = 7300
+			}
+			add_yearly_sailors = 0.5
+			add_yearly_manpower = 0.5
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = BRBR_moorish_refugees_overlord
+						duration = 7300
+					}
+				"
+			}
+		}
+	}
+	
+	BRBR_popular_support = {
+		icon = mission_reclaim_morocco
+		required_missions = { BRBR_haven_for_the_expelled }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					ROOT = { is_subject = yes }
+					owner = {
+						overlord_of = ROOT
+					}
+				}
+				AND = {
+					ROOT = { 
+						NOT = { is_subject = yes }
+					}
+					owner = {
+						religion_group = muslim
+						NOT = { tag = ROOT }
+					}
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				OR = {
+					overlord = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					reverse_has_opinion = {
+						who = overlord
+						value = 150 
+					}
+				}
+			}
+			else = {
+				any_known_country = {
+					religion_group = muslim
+					OR = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+						reverse_has_opinion = {
+							who = ROOT
+							value = 150 
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			TUN_enable_raiding_half_money = yes
+		
+			ME_overlord_effect = {
+				effect = "
+					add_dip_power = 50
+					define_advisor = {
+						type = diplomat
+						skill = 3
+						culture = ROOT
+						religion = ROOT
+					}
+				"
+			}
+		}
+	}
+}
+
+BRBR_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = KBA
+			tag = ALG
+			tag = MOR
+			tag = SLE
+			tag = TET
+			tag = TUN
+			tag = TRP
+			tag = TLC
+		}
+		has_country_flag = BRBR_mission_enabled
+		
+	}
+	has_country_shield = yes
+
+	BRBR_the_coast = {
+		icon = mission_construct_a_corsair_fleet
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_ports = 4
+		}
+		effect = {
+			add_yearly_sailors = 2
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				add_unit_construction = {
+					type = galley
+					amount = 4
+					speed = 0.1
+					cost = 0
+				}
+			}
+		}
+	}
+	
+	BRBR_pirate_havens = {
+		icon = mission_control_venice
+		required_missions = { BRBR_the_coast BRBR_haven_for_the_expelled }
+		position = 3
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_port = yes
+			NOT = { has_shipyard_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_shipyard_building_trigger = yes
+				value = 3
+			}
+		}
+		effect = {
+			custom_tooltip = BRBR_3_most_developed_forts_be_like
+			tooltip = {
+				add_or_upgrade_shipyard_building = yes
+			}
+			
+			custom_tooltip = " "
+			 
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes
+					scale = higher_development_than
+					scope = every_owned_province
+					global_trigger = "
+						has_shipyard_building_trigger = yes
+					"
+					event_target_name = "Barbary_Pirates_Target"
+				}
+				event_target:Barbary_Pirates_Target_1 = {
+					add_or_upgrade_shipyard_building = yes
+				}
+				event_target:Barbary_Pirates_Target_2 = {
+					add_or_upgrade_shipyard_building = yes
+				}
+				event_target:Barbary_Pirates_Target_3 = {
+					add_or_upgrade_shipyard_building = yes
+				}
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_yearly_sailors = 1
+				"
+			}
+		}
+	}
+	
+	BRBR_dockyards = {
+		icon = mission_combat_barbary_piracy
+		required_missions = { BRBR_pirate_havens BRBR_large_navy }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_port = yes
+			NOT = { has_dock_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_dock_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BRBR_the_barbary_arsenal
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					tooltip = {
+						create_admiral = { tradition = 80 }
+					}
+					country_event = { id = ME_Barbary_Pirates_Events.2 }
+				"
+			}
+			
+			custom_tooltip = " "
+			
+			add_liberty_desire = -50 
+		}
+	}
+}
+
+BRBR_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = KBA
+			tag = ALG
+			tag = MOR
+			tag = SLE
+			tag = TET
+			tag = TUN
+			tag = TRP
+			tag = TLC
+		}
+		has_country_flag = BRBR_mission_enabled
+		
+	}
+	has_country_shield = yes
+
+	BRBR_barbary_navy = {
+		icon = mission_launch_a_flagship
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				navy_size = 15
+				navy_size_percentage = 0.9
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BRBR_berber_navy_1
+				duration = -1
+			}
+			
+			create_admiral = { tradition = 40 }
+		}
+	}
+	
+	BRBR_large_navy = {
+		icon = mission_corsairs_of_the_north_sea
+		required_missions = { BRBR_barbary_navy BRBR_pirate_havens }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			navy_size = 30
+		}
+		effect = {
+			remove_country_modifier = BRBR_berber_navy_1
+			add_country_modifier = {
+				name = BRBR_berber_navy_2
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					tooltip = {
+						define_advisor = {
+							type = naval_reformer
+							skill = 3
+							culture = ROOT
+							religion = ROOT
+							cost_multiplier = 0.2
+						}
+					}
+					country_event = { id = ME_Barbary_Pirates_Events.1 } #does the above but informs the player, felt it should have been done for player as they can't really make use if they don't notice it
+				"
+			}
+		}
+	}
+}
+
+BRBR_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = KBA
+			tag = ALG
+			tag = MOR
+			tag = SLE
+			tag = TET
+			tag = TUN
+			tag = TRP
+			tag = TLC
+		}
+		has_country_flag = BRBR_mission_enabled
+		
+	}
+	has_country_shield = yes
+
+	BRBR_boarding_parties = {
+		icon = mission_sponsor_piracy
+		required_missions = { BRBR_barbary_navy BRBR_training }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_manpower_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_manpower_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BRBR_marines
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_mil_power = 100
+					add_yearly_sailors = 0.5
+					add_yearly_manpower = 0.5
+				"
+			}
+		}
+	}
+	
+	BRBR_capture_islands = {
+		icon = mission_portuguese_malacca
+		required_missions = { BRBR_boarding_parties BRBR_begin_the_raids }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = baleares_area
+				area = corsica_sardinia_area
+				area = sicily_area
+				area = western_sicily_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = baleares_area
+					area = corsica_sardinia_area
+					area = sicily_area
+					area = western_sicily_area
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BRBR_capturing_christian_islands
+				duration = 9125
+			}
+			add_navy_tradition = 25
+				
+			ME_overlord_effect = {
+				effect = "
+					add_navy_tradition = 25
+					add_dip_power = 50
+				"
+			}
+		}
+	}
+	
+	BRBR_fortify_islands = {
+		icon = mission_occupy_alexandria
+		required_missions = { BRBR_capture_islands }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = baleares_area
+				area = corsica_sardinia_area
+				area = sicily_area
+				area = western_sicily_area
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { province_has_current_tech_fort_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = baleares_area
+					area = corsica_sardinia_area
+					area = sicily_area
+					area = western_sicily_area
+				}
+				province_has_current_tech_fort_trigger = yes
+				value = 3
+			}
+		}
+		effect = {
+			add_army_tradition_or_mil_power = { amount = 15 }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = BRBR_3_most_developed_forts_be_like
+			tooltip = {
+				add_or_upgrade_fort_building = yes
+			}
+			
+			custom_tooltip = " "
+			 
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes
+					scale = higher_development_than
+					scope = every_owned_province
+					global_trigger = "
+						OR = {
+							area = baleares_area
+							area = corsica_sardinia_area
+							area = sicily_area
+							area = western_sicily_area
+						}
+						province_has_current_tech_fort_trigger = yes
+					"
+					event_target_name = "Barbary_Pirates_Target"
+				}
+				event_target:Barbary_Pirates_Target_1 = {
+					add_or_upgrade_fort_building = yes
+				}
+				event_target:Barbary_Pirates_Target_2 = {
+					add_or_upgrade_fort_building = yes
+				}
+				event_target:Barbary_Pirates_Target_3 = {
+					add_or_upgrade_fort_building = yes
+				}
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_army_tradition_or_mil_power = { amount = 10 }
+					add_mil_power = 50 
+				"
+			}
+		}
+	}
+}
+
+BRBR_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = KBA
+			tag = ALG
+			tag = MOR
+			tag = SLE
+			tag = TET
+			tag = TUN
+			tag = TRP
+			tag = TLC
+		}
+		has_country_flag = BRBR_mission_enabled
+		
+	}
+	has_country_shield = yes
+
+	BRBR_training = {
+		icon = mission_control_surat
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 10
+				army_size_percentage = 0.9
+			}
+		}
+		effect = {
+			add_yearly_manpower = 0.5
+			
+			create_general_with_pips = { tradition = 60 add_manuever = 2 }
+			
+			ME_give_claims = { area = baleares_area }
+			ME_give_claims = { area = corsica_sardinia_area }
+			ME_give_claims = { area = sicily_area }
+			ME_give_claims = { area = western_sicily_area }
+		}
+	}
+	
+	BRBR_begin_the_raids = {
+		icon = mission_raid_on_venice
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Wealth of Nations"
+						has_dlc = "Golden Century"
+						has_dlc = "Mare Nostrum"
+						has_dlc = "El Dorado"
+					}
+				}
+				OR = {
+					1298 = {
+						has_privateer_share_in_trade_node = {
+							who = ROOT
+							share = 0.1
+						}
+					}
+					1293 = {
+						has_privateer_share_in_trade_node = {
+							who = ROOT
+							share = 0.1
+						}
+					}
+					1295 = {
+						has_privateer_share_in_trade_node = {
+							who = ROOT
+							share = 0.1
+						}
+					}
+				}
+			}
+			else = {
+				OR = {
+					1298 = {
+						trade_share = {
+							country = ROOT
+							share = 10
+						}
+					}
+					1293 = {
+						trade_share = {
+							country = ROOT
+							share = 10
+						}
+					}
+					1295 = {
+						trade_share = {
+							country = ROOT
+							share = 10
+						}
+					}
+				}
+			}
+			if = { 
+				limit = {
+					OR = {
+						has_dlc = "Golden Century"
+						has_dlc = "Mare Nostrum"
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = TLC_provinces_raided
+					check_variable = {
+						which = NumOfRaidedCoasts
+						value = 60
+					}
+				}
+				#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BRBR_relentless_vile_raids
+				duration = 10950
+			}
+			
+			set_country_flag = BRBR_slave_trade_nation
+			set_global_flag = BRBR_slave_trade
+			ME_overlord_effect = {
+				effect = "
+					custom_tooltip = BRBR_barbary_slave_trade
+				"
+			}
+		}
+	}
+	
+	BRBR_christians_fear_us = {
+		icon = mission_raid_christian_trade
+		required_missions = { BRBR_begin_the_raids }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = { 
+				limit = {
+					OR = {
+						has_dlc = "Golden Century"
+						has_dlc = "Mare Nostrum"
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = BRBR_provinces_raided_150
+					check_variable = {
+						which = NumOfRaidedCoasts
+						value = 300
+					}
+				}
+				#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+			}
+			else = {
+				calc_true_if = {
+					all_country = {
+						religion = christian
+						ROOT = {
+							has_won_war_against = { who = PREV max_years_since = 50 }
+						}
+					}
+					amount = 10
+				}
+			}
+		}
+		effect = {
+			TUN_enable_raiding_monarch_power = yes
+			
+			custom_tooltip = " "
+			
+			create_admiral = { tradition = 100 } #well deserved!
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_power_projection = {
+						type = mission_rewards_power_projection
+						amount = 10
+					}
+				"
+			}
+		}
+	}
+}

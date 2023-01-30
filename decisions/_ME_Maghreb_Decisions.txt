@@ -1,0 +1,213 @@
+# Some common utility decisions for maghrebi tags:
+# Decisions to colonize to Africa
+# Decision to Enact the Oran Fatwa
+# Decision to Expel Europeans
+
+# We will use the Tunis namespace
+country_decisions = {
+	TUN_anti_european_edict = {
+		major = yes
+		potential = {
+			has_country_flag = TUN_anti_european_edict_flag
+			maghreb_region = {
+				NOT = { area = macaronesia_area }
+				owner = {
+					religion_group = christian
+				}
+			}
+		}
+		provinces_to_highlight = {
+			region = maghreb_region
+			NOT = { area = macaronesia_area }
+			owner = { religion_group = christian }
+		}
+		allow = {
+			dip_power = 25
+		}
+		effect = {
+			add_dip_power = -25
+			#country_event = { id = ME_Tunis_Events.10 }
+			every_country = {
+				limit = {
+					religion_group = christian
+					maghreb_region = {
+						owned_by = PREV
+					}
+				}
+				reverse_add_casus_belli = {
+					target = ROOT
+					type = cb_maghreb_expel_europeans
+					months = 60
+				}
+				custom_tooltip = ME_cb_5
+				
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = TUN_anti_european_cb
+			clr_country_flag = TUN_anti_european_edict_flag
+		}
+	}
+	
+	TUN_colonize_tuat = {
+		major = yes
+		potential = {
+			has_country_flag = TUN_colonize_tuat_flag
+			1127 = { is_empty = yes }
+		}
+		provinces_to_highlight = {
+			province_id = 1127 
+		}
+		allow = {
+			OR = {
+				owns = 2460
+				owns = 2466
+			}
+			dip_power = 50
+			mil_power = 50
+		}
+		effect = {
+			add_dip_power = -50
+			add_mil_power = -50
+			1127 = {
+				add_siberian_construction = 100
+			}
+			sahel_region = {
+				discover_province = ROOT
+			}
+		}
+	}
+	
+	TUN_colonize_djado = {
+		major = yes
+		potential = {
+			has_country_flag = TUN_colonize_djado_flag
+			OR = {
+				2474 = { is_empty = yes }
+				2475 = { is_empty = yes }
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2474 
+				province_id = 2475 
+			}
+		}
+		allow = {
+			owns = 2448
+			dip_power = 50
+			mil_power = 50
+		}
+		effect = {
+			add_dip_power = -50
+			add_mil_power = -50
+			2474 = {
+				if = {
+					limit = {
+						is_empty = yes 
+					}
+					add_siberian_construction = 100
+				}
+			}
+			2475 = {
+				if = {
+					limit = {
+						is_empty = yes 
+					}
+					add_siberian_construction = 100
+				}
+			}
+		}
+	}
+
+	TUN_issue_the_oran_fatwa = {
+		major = yes
+		potential = {
+			capital_scope = {
+				region = maghreb_region
+			}
+			NOT = { has_global_flag = TUN_oran_fatwa_issued }
+			OR = {
+				NOT = { current_age = age_of_discovery }
+				upper_andalucia_area = {
+					type = all
+					owner = { religion_group = christian }
+				}
+			}
+		}
+		provinces_to_highlight = {
+			region = maghreb_region
+			is_capital = yes
+			owner = {
+				total_development = 100
+				prestige = ROOT
+			}
+		}
+		allow = {
+			total_development = 100
+			custom_trigger_tooltip = {
+				tooltip = TUN_most_prestige_out_of_big_tags
+				NOT = {
+					maghreb_region = {
+						is_capital = yes
+						NOT = { owned_by = ROOT }
+						owner = {
+							total_development = 100
+							prestige = ROOT
+						}
+					}
+				}
+			}
+			OR = {
+				NOT = { has_estate = estate_church } #this is going to give you weird looks
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 65
+				}
+			}
+		}
+		effect = {
+			set_global_flag = TUN_oran_fatwa_issued
+			country_event = { id = ME_Tunis_Events.2 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					AND = {
+						OR = {
+							NOT = { current_age = age_of_discovery }
+							upper_andalucia_area = {
+								type = all
+								owner = { religion_group = christian }
+							}
+						}
+						total_development = 100
+						custom_trigger_tooltip = {
+							tooltip = TUN_most_prestige_out_of_big_tags
+							NOT = {
+								maghreb_region = {
+									is_capital = yes
+									NOT = { owned_by = ROOT }
+									owner = {
+										total_development = 100
+										prestige = ROOT
+									}
+								}
+							}
+						}
+						OR = {
+							NOT = { has_estate = estate_church } #this is going to give you weird looks
+							estate_loyalty = {
+								estate = estate_church
+								loyalty = 65
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

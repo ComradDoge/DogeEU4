@@ -1,0 +1,275 @@
+country_decisions = {
+	MAM_one_beylik_to_rule_them_all = {
+		major = yes
+		potential = {
+			mission_completed = MAM_influence_the_levant
+			any_subject_country = {
+				primary_culture = turkish
+				NOT = { tag = TUR }
+			}
+		}
+		provinces_to_highlight = {
+			owner = {
+				primary_culture = turkish
+				is_subject_of = ROOT
+			}
+		}
+		allow = {
+			calc_true_if = {
+				all_subject_country = {
+					primary_culture = turkish
+					NOT = { tag = TUR }
+				}
+				amount = 2
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_our_strongest_vassal_2
+			hidden_effect = {
+				pick_best_tags = {
+					1 = yes
+					scale = total_development
+					event_target_name = "Mamluks_target"
+					global_trigger = "
+						primary_culture = turkish
+						NOT = { tag = TUR }
+					"
+					scope = every_subject_country
+				}
+				every_subject_country = {
+					limit = {
+						primary_culture = turkish
+						NOT = { tag = TUR }
+					}
+					event_target:Mamluks_target_1 = {
+						inherit = PREV
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	MAM_rum = {
+		major = yes
+		potential = {
+			has_country_flag = MAM_pretender_to_ottomans_decision
+		}
+		provinces_to_highlight = {
+			region = anatolia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			NOT = { exists = RUM }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = anatolia_region
+				value = 20
+			}
+			any_subject_country = {
+				primary_culture = turkish
+				NOT = { tag = TUR }
+				num_of_owned_provinces_with = {
+					region = anatolia_region
+					value = 10
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_our_strongest_vassal
+			hidden_effect = {
+				pick_best_tags = {
+					1 = yes
+					scale = total_development
+					event_target_name = "Mamluks_target"
+					global_trigger = "
+						primary_culture = turkish
+						NOT = { tag = TUR }
+					"
+					scope = every_subject_country
+				}
+				event_target:Mamluks_target_1 = {
+					change_tag = RUM
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	MAM_beja = {
+		major = yes
+		potential = {
+			has_country_flag = MAM_offer_to_beja
+			exists = BEJ
+		}
+		provinces_to_highlight = {
+			owned_by = BEJ
+		}
+		allow = {
+			BEJ = {
+				exists = yes
+				NOT = { is_subject = yes }
+			}
+			owns = 2324
+			owns = 1232
+		}
+		effect = {
+			custom_tooltip = MAM_we_will_offer_provinces_of_2324_and_1232
+			BEJ = {
+				country_event = { id = ME_Mamluks_Events.13 }
+			}
+			clr_country_flag = MAM_offer_to_beja
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	MAM_nubia = {
+		major = yes
+		potential = {
+			has_country_flag = MAM_nubia_decision
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = lower_nubia_area
+				area = upper_nubia_area
+				area = dongola_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			NOT = { exists = NBI }
+			any_subject_country = {
+				OR = {
+					primary_culture = nubian
+					primary_culture = beja
+				}
+				lower_nubia_area = {
+					type = all
+					owned_by = PREV
+				}
+				upper_nubia_area = {
+					type = all
+					owned_by = PREV
+				}
+				dongola_area = {
+					type = all
+					owned_by = PREV
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = MAM_our_nubian_vassal
+			hidden_effect = {
+				random_subject_country = {
+					limit = {
+						OR = {
+							primary_culture = nubian
+							primary_culture = beja
+						}
+						lower_nubia_area = {
+							type = all
+							owned_by = PREV
+						}
+						upper_nubia_area = {
+							type = all
+							owned_by = PREV
+						}
+						dongola_area = {
+							type = all
+							owned_by = PREV
+						}
+					}
+					change_tag = NBI
+				}
+			}
+			clr_country_flag = MAM_nubia_decision
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	MAM_deal_with_maritime_republics = {
+		major = yes
+		potential = {
+			has_country_flag = MAM_recurring_trade_deals
+			current_age = age_of_discovery
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = MAM_recurring_trade_deals_tt
+				had_country_flag = {
+					flag = MAM_recurring_trade_deals
+					days = 7300
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mamluks_Events.6 }
+			set_country_flag = MAM_recurring_trade_deals
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	#MAM_ottoman_incident_end = {
+	#	major = yes
+	#	potential = {
+	#		has_country_flag = MAM_ottoman_incident_tree
+	#	}
+	#	provinces_to_highlight = {
+	#	}
+	#	allow = {
+	#		always = yes
+	#	}
+	#	effect = {
+	#		custom_tooltip = MAM_end_ottoman_incident_tooltip
+	#		MAM_end_ottoman_incident = yes
+	#	}
+	#	ai_will_do = {
+	#		factor = 0 
+	#	}
+	#}
+	
+	MAM_mamluk_iqta = {
+		major = yes
+		potential = {
+			has_country_flag = MAM_can_have_mamluk_iqta
+		}
+		provinces_to_highlight = {
+			owner = {
+				is_subject_of = ROOT
+				OR = {
+					NOT = { total_development = 300 }
+					liberty_desire = 25
+				}
+			}
+		}
+		allow = {
+			calc_true_if = {
+				all_subject_country = {
+					total_development = 300
+					NOT = { liberty_desire = 25 }
+				}
+				amount = 3
+			}
+			has_estate_privilege = estate_nobles_better_integration 
+		}
+		effect = {
+			clr_country_flag = MAM_can_have_mamluk_iqta
+			set_country_flag = MAM_buff_to_amirs_integration_policy_flag
+			custom_tooltip = MAM_buff_to_amirs_integration_policy
+		}
+		ai_will_do = {
+			factor = 0 
+		}
+	}
+}

@@ -1,0 +1,1763 @@
+#Events Related to Abbasid Caliph content
+
+#This works very similarly to Emerald Buddha, as nations can capture the current caliph and move it around.
+#But, contrary to Emerald Buddha, this is much cooler :-)
+
+namespace = ME_Abbasid_Events
+
+#setup event. Put the caliph in Cairo.
+province_event = {
+	id = ME_Abbasid_Events.1
+	title = ME_Abbasid_Events.1.t
+	desc = ME_Abbasid_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	fire_only_once = yes
+	
+	major = yes
+	major_trigger = {
+		religion_group = muslim
+	}
+	
+	trigger = {
+		province_id = 361
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.1.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = ME_Abbasid_in_cairo_tt
+		
+		ME_set_abbasid_caliph_province = yes
+		
+		410 = {
+			add_province_triggered_modifier = ME_abbasid_baghdad_modifier
+		}
+		
+		hidden_effect = {
+			1 = {
+				add_province_triggered_modifier = ABA_do_bi_monthly_checks
+			}
+		}
+	}
+}
+
+# province_event = {
+	# id = ME_Abbasid_Events.2
+	# title = ME_Abbasid_Events.2.t
+	# desc = ME_Abbasid_Events.2.d
+	# picture = GOOD_WITH_MONARCH_eventPicture
+
+	# hidden = yes
+	# is_triggered_only = yes #replaced by a trig mod
+	
+	# mean_time_to_happen = {
+		# months = 1 #aint fun, but you gotta do what you gotta do.
+	# }
+	
+	# trigger = {
+		# has_province_modifier = Abbasid_Caliph_in_province
+		# NOT = { controlled_by = owner }
+		# controller = {
+			# religion_group = muslim
+			# OR = {
+				# NOT = { has_country_flag = Abbasid_refused_to_take_caliph }
+				# had_country_flag = {
+					# flag = Abbasid_refused_to_take_caliph
+					# days = 3650
+				# }
+			# }
+		# }
+	# }
+	
+	# option = {
+		# name = ME_Abbasid_Events.2.a
+		
+		# ai_chance = {
+			# factor = 1
+		# }
+		
+		# ME_fire_capture_event_effect = yes
+	# }
+# }
+
+country_event = {
+	id = ME_Abbasid_Events.3
+	title = ME_Abbasid_Events.3.t
+	desc = ME_Abbasid_Events.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	major = yes
+	major_trigger = {
+		religion_group = muslim
+	}
+	
+	is_triggered_only = yes
+
+	
+	option = {
+		name = ME_Abbasid_Events.3.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		capital_scope = {
+			ME_set_abbasid_caliph_province = yes
+		}
+		
+		if = {
+			limit = {
+				religion_group = muslim 
+				NOT = { religion = sunni }
+			}
+			custom_tooltip = ABA_while_we_may_not_benefit_from_controlling_the_sunni_caliph
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.3.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		set_country_flag = Abbasid_refused_to_take_caliph
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.4
+	title = ME_Abbasid_Events.4.t #Caliph flees the city!
+	desc = ME_Abbasid_Events.4.d
+	picture = BAD_WITH_MONARCH_eventPicture
+
+	major = yes
+	major_trigger = {
+		war_with = event_target:Holders_of_abbasid
+	}
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = { #pick 1-3 best provinces that could house the caliph
+			save_event_target_as = Holders_of_abbasid
+			if = {
+				limit = { #caller of the event already has at least one
+					num_of_owned_provinces_with = {
+						Abbasid_valid_escape_route = yes
+						value = 2
+					}
+				}
+				if = {
+					limit = {
+						num_of_owned_provinces_with = {
+							Abbasid_valid_escape_route = yes
+							value = 3
+						}
+					}
+					pick_best_provinces = {
+						global_trigger = "
+							Abbasid_valid_escape_route = yes
+						"
+						3 = yes
+						scale = higher_development_than
+						scope = every_owned_province
+						event_target_name = "Mamluks_target"
+					}
+					set_country_flag = MAM_province_2
+					set_country_flag = MAM_province_3
+				}
+				else = {
+					pick_best_provinces = {
+						global_trigger = "
+							Abbasid_valid_escape_route = yes
+						"
+						2 = yes
+						scale = higher_development_than
+						scope = every_owned_province
+						event_target_name = "Mamluks_target"
+					}
+					set_country_flag = MAM_province_2
+				}
+			}
+			else = {
+				pick_best_provinces = {
+					global_trigger = "
+						Abbasid_valid_escape_route = yes
+					"
+					1 = yes
+					scale = higher_development_than
+					scope = every_owned_province
+					event_target_name = "Mamluks_target"
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.4.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		event_target:Mamluks_target_1 = {
+			ME_set_abbasid_caliph_province = yes
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.4.b
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		trigger = {
+			has_country_flag = MAM_province_2
+		}
+	
+		event_target:Mamluks_target_2 = {
+			ME_set_abbasid_caliph_province = yes
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.4.c
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		trigger = {
+			has_country_flag = MAM_province_3
+		}
+		
+		event_target:Mamluks_target_3 = {
+			ME_set_abbasid_caliph_province = yes
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.4.e
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_mil_power = 100
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.5
+	title = ME_Abbasid_Events.5.t #Caliph flees the city!
+	desc = ME_Abbasid_Events.5.d
+	picture = BAD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.5.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		tooltip = {
+			add_country_modifier = {
+				name = Abbasid_got_denounced
+				duration = 3650
+			}
+			every_neighbor_country = {
+				limit = {
+					religion = ROOT
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = abbasid_got_denounced_by_caliph_opinion
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.6
+	title = ME_Abbasid_Events.6.t #Caliph praised (s)us
+	desc = ME_Abbasid_Events.6.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.6.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		tooltip = {
+			add_trust = {
+				who = FROM
+				value = 5
+				mutual = yes
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.7
+	title = ME_Abbasid_Events.7.t #Caliph called jihad on us
+	desc = ME_Abbasid_Events.7.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.7.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_mil_power = 10
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.8
+	title = ME_Abbasid_Events.8.t #New Caliph Puppetmaster
+	desc = ME_Abbasid_Events.8.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.8.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		custom_tooltip = Abbasid_new_diplomatic_options
+	}
+}
+
+province_event = {
+	id = ME_Abbasid_Events.9
+	title = ME_Abbasid_Events.9.t #Abbasid "Pulse"
+	desc = ME_Abbasid_Events.9.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	mean_time_to_happen = { months = 60 }
+	
+	hidden = yes
+	
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				90 = {
+					random_list = {
+						1 = {
+							trigger = {
+								NOT = {	has_country_modifier = Abbasid_totf }
+							}
+							owner = {
+								country_event = { id = ME_Abbasid_Events.10 } #caliph addresses the populace, totf
+							}
+						}
+						1 = {
+							trigger = {
+								NOT = { has_province_modifier = Abbasid_construction_cost }
+							}
+							province_event = { id = ME_Abbasid_Events.11 } 
+							#caliph funds stuff in province, some construction cost and prosperity :)
+						}
+						1 = {
+							trigger = {
+								NOT = {	has_country_modifier = Abbasid_patron_of_art }
+							}
+							owner = {
+								country_event = { id = ME_Abbasid_Events.12 }
+								#caliph patron of art :)
+							}
+						}
+						1 = {
+							trigger = {
+								NOT = {
+									owner = { legitimacy = 95 }
+								}
+							}
+							owner = {
+								country_event = { id = ME_Abbasid_Events.13 }
+								#caliph confirms legitimacy of ROOT if needed
+							}
+						}
+						1 = {
+							trigger = {
+							}
+							owner = {
+								country_event = { id = ME_Abbasid_Events.14 }
+								#surrounded by scholars :) cheap theologian!
+							}
+						}
+					}
+				}
+				10 = {
+					trigger = {
+						owner = {
+							NOT = { is_at_war = yes }
+							any_owned_province = {
+								development = 15
+								NOT = { has_province_modifier = Abbasid_Caliph_in_province }
+							}
+						}
+					}
+					
+					owner = {
+						country_event = { id = ME_Abbasid_Events.16 }
+					}
+				}
+			}
+		}
+		owner = { set_country_flag = Abbasid_recent_event }
+	}
+	
+	trigger = {
+		has_province_modifier = Abbasid_Caliph_in_province
+		owner = {
+			ME_can_benefit_from_abbasid_caliph = yes
+			OR = {
+				NOT = { has_country_flag = Abbasid_recent_event }
+				had_country_flag = {
+					flag = Abbasid_recent_event
+					days = 1825
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.9.a
+		
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.10
+	title = ME_Abbasid_Events.10.t #Speech of the Caliph
+	desc = ME_Abbasid_Events.10.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.10.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_country_modifier = {
+			name = Abbasid_totf
+			duration = 3650
+		}
+	}
+}
+
+province_event = {
+	id = ME_Abbasid_Events.11
+	title = ME_Abbasid_Events.11.t #Patron of [Root.GetName]
+	desc = ME_Abbasid_Events.11.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.11.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_prosperity = 25
+		add_province_modifier = {
+			name = Abbasid_construction_cost
+			duration = 3650
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.12
+	title = ME_Abbasid_Events.12.t #Patron of Art
+	desc = ME_Abbasid_Events.12.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.12.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_prestige_or_monarch_power = { amount = 10 }
+		add_country_modifier = {
+			name = Abbasid_patron_of_art
+			duration = 3650
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.13
+	title = ME_Abbasid_Events.13.t #Confirm our rule
+	desc = ME_Abbasid_Events.13.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.13.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_legitimacy = 10
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.14
+	title = ME_Abbasid_Events.14.t #Surrounded by theologians
+	desc = ME_Abbasid_Events.14.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.14.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		define_advisor = {
+			type = theologian
+			skill = 2
+			cost_multiplier = 0.5
+			culture = ROOT
+			religion = ROOT
+		}
+	}
+}
+
+province_event = {
+	id = ME_Abbasid_Events.15
+	title = ME_Abbasid_Events.15.t
+	desc = ME_Abbasid_Events.15.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	mean_time_to_happen = {
+		months = 12 #no need to be lower tbh
+	}
+	
+	major = yes
+	major_trigger = {
+		religion_group = muslim
+	}
+	
+	trigger = {
+		has_province_modifier = Abbasid_Caliph_in_province
+		owner = {
+			NOT = { religion_group = muslim }
+			had_global_flag = {
+				flag = ABA_heathen_took_caliph
+				days = 1825
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			pick_best_provinces = {
+				scale = higher_development_than
+				scope = every_province
+				global_trigger = "
+					religion_group = muslim
+					owner = {
+						religion_group = muslim
+					}
+				"
+				1 = yes
+				event_target_name = "Abbasid_target"
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.15.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		event_target:Abbasid_target_1 = {
+			ME_set_abbasid_caliph_province = yes
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.16
+	title = ME_Abbasid_Events.16.t
+	desc = ME_Abbasid_Events.16.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					development = 15
+					NOT = { has_province_modifier = Abbasid_Caliph_in_province }
+				}
+				save_event_target_as = "Abbasid_target"
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.16.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				event_target:Caliph_province = { #caliph is in baghdad. Do not let him move!
+					province_id = 410
+				}
+			}
+		}
+		
+		event_target:Abbasid_target = {
+			ME_set_abbasid_caliph_province = yes
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.16.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				event_target:Caliph_province = { #caliph is in baghdad. Do not let him move!
+					NOT = { province_id = 410 }
+				}
+			}
+		}
+		
+		add_dip_power = -50
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.17
+	title = ME_Abbasid_Events.17.t
+	desc = ME_Abbasid_Events.17.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	
+	goto = Abbasid_revolt_start_province
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				save_event_target_as = Abbasid_revolt_start_province
+
+			}
+			
+			random_owned_province = {
+				limit = {
+					development = 10
+				}
+				save_event_target_as = Abbasid_revolt_start_province
+			}
+			
+			random_owned_province = {
+				limit = {
+					development = 15
+				}
+				save_event_target_as = Abbasid_revolt_start_province
+			}
+			
+			410 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+					}
+					save_event_target_as = Abbasid_revolt_start_province
+				}
+			}
+			
+			event_target:Abbasid_revolt_start_province = {
+				spawn_rebels = {
+					type = abbasid_revolters
+					size = 3
+					win = yes
+				}
+				add_core = ABA
+			}
+			set_country_flag = ABA_abbasid_revolt_flag
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.17.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		tooltip = {
+			event_target:Abbasid_revolt_start_province = {
+				spawn_rebels = {
+					type = abbasid_revolters
+					size = 3
+					win = yes
+				}
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ABA_dont_let_them_get_too_strong
+		
+		custom_tooltip = " "
+		
+		add_disaster_modifier = {
+			name = ABA_emirs_flock_to_caliph
+			duration = -1
+			disaster = ABB_abbasid_caliph_revolt
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.18
+	title = ME_Abbasid_Events.18.t
+	desc = ME_Abbasid_Events.18.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	hidden = yes
+	
+	option = {
+		name = ME_Abbasid_Events.18.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		if = {
+			limit = {
+				NOT = { exists = ABA }
+			}
+			if = {
+				limit = {
+					calc_true_if = {
+						all_owned_province = {
+							is_core = ABA
+						}
+						amount = 20
+					}
+				}
+				country_event = { id = ME_Abbasid_Events.28 }
+			}
+			else = {
+				country_event = { id = ME_Abbasid_Events.29 }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.19
+	title = ME_Abbasid_Events.19.t
+	desc = ME_Abbasid_Events.19.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			# if = {
+				# limit = {
+					# while = {
+						# limit = {
+							# NOT = {
+								# calc_true_if = {
+									# all_owned_province = {
+										# is_core = ABA
+									# }
+									# amount = 20
+								# }
+							# }
+						# }
+						# random_owned_province = {
+							# limit = {
+								# is_core = ABA
+								# any_neighbor_province = {
+									# owned_by = ROOT 
+									# NOT = { is_core = ABA }
+								# }
+							# }
+							# random_neighbor_province = {
+								# limit = {
+									# owned_by = ROOT 
+									# NOT = { is_core = ABA }
+								# }
+								# area = {
+									# limit = {
+										# owned_by = ROOT
+									# }
+									# add_core = ABA
+								# }
+							# }
+						# }
+					# }
+				# }
+			# }
+			release = ABA
+			ABA = { 
+				country_event = { id = ME_Abbasid_Events.27 }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.19.a
+		
+		ai_chance = {
+			factor = 1
+		}
+	
+		custom_tooltip = ABA_we_failed_to_contain
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.20 # EVENT FOR CHECKS
+	title = ME_Abbasid_Events.19.t
+	desc = ME_Abbasid_Events.19.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			ME_abbasid_bimonthly_check_effect = yes 
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.19.a
+		
+		ai_chance = {
+			factor = 1
+		}
+	
+	}
+}
+
+# country_event = {
+	# id = ME_Abbasid_Events.21
+	# title = ME_Abbasid_Events.21.t #Execution of the Caliph
+	# desc = ME_Abbasid_Events.21.d
+	# picture = GOOD_WITH_MONARCH_eventPicture
+	
+	# is_triggered_only = yes
+	# major = yes
+	# major_trigger = {
+		# }
+	
+	# option = {
+		# name = ME_Abbasid_Events.21.a
+		
+		# ai_chance = {
+			# factor = 1
+		# }
+		
+		# add_power_projection = {
+			# amount = 20
+			# type = ABA_humiliation_of_sunni
+		# }
+		
+		# custom_tooltip = " "
+		
+		# add_prestige_or_monarch_power = { amount = 50 }
+		
+		# custom_tooltip = " "
+		
+		# custom_tooltip = ME_every_sunni_country_loses_100_opinion
+		# hidden_effect = {
+			# every_country = {
+				# limit = {
+					# religion = sunni
+				# }
+				# add_opinion = {
+					# who = ROOT
+					# modifier = abbasid_executed_caliph
+				# }
+			# }
+		# }
+	# }
+# }
+
+country_event = {
+	id = ME_Abbasid_Events.22
+	title = ME_Abbasid_Events.22.t #Non-sunni Capture of Caliph
+	desc = ME_Abbasid_Events.22.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	immediate = {
+		set_global_flag = ABA_heathen_took_caliph
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.22.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		ME_enable_abbasid_ransom = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.22.b #execute the caliph
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		# country_event = { id = ME_Abbasid_Events.21 } 
+		
+		# custom_tooltip = " "
+		
+		# tooltip = {
+			add_power_projection = {
+				amount = 20
+				type = ABA_humiliation_of_sunni
+			}
+			
+			custom_tooltip = " "
+			
+			add_prestige_or_monarch_power = { amount = 50 }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ME_every_sunni_country_loses_100_opinion
+			
+			custom_tooltip = " "
+			
+			ME_execute_caliph = yes
+			hidden_effect = {
+				every_country = {
+					limit = {
+						religion = sunni
+					}
+					add_opinion = {
+						who = ROOT
+						modifier = abbasid_executed_caliph
+					}
+				}
+			}
+		# }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.22.c
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_power_projection = {
+			amount = 10
+			type = ABA_humiliation_of_sunni
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ME_every_sunni_country_loses_50_opinion
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = sunni
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = abbasid_humiliated_caliph
+				}
+			}
+		}
+		custom_tooltip = " "
+		
+		ME_enable_abbasid_ransom = yes
+		
+		# custom_tooltip = " "
+		
+		# ME_execute_caliph = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.22.e
+		
+		ai_chance = {
+			factor = 3
+		}
+		
+		trigger = {
+			religion = shiite
+		}
+		
+		highlight = yes
+		
+		add_power_projection = {
+			amount = 5
+			type = ABA_humiliation_of_sunni
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ME_every_sunni_country_loses_50_opinion
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = sunni
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = abbasid_humiliated_caliph
+				}
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		add_country_modifier = {
+			name = ABA_shia_superiority
+			duration = 9125
+		}
+		
+		custom_tooltip = ME_every_shiite_country
+		tooltip = {
+			add_country_modifier = {
+				name = ABA_shiite_authority
+				duration = 14600
+			}
+		}
+		
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = shiite
+				}
+				add_country_modifier = {
+					name = ABA_shiite_authority
+					duration = 14600
+				}
+			}
+		}
+		
+		ME_execute_caliph = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.22.f
+		
+		ai_chance = {
+			factor = 18
+		}
+		
+		trigger = {
+			religion = ibadi
+		}
+		
+		highlight = yes
+		
+		add_power_projection = {
+			amount = 10
+			type = ABA_humiliation_of_sunni
+		}
+		
+		custom_tooltip = " "
+		
+		add_country_modifier = {
+			name = ABA_ibadi_power
+			duration = 14600
+		}
+		
+		custom_tooltip = ABA_convert_to_ibadi
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = sunni
+				}
+				country_event = { id = ME_Abbasid_Events.23 days = 365 random = 1460 }
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		ME_execute_caliph = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.22.g
+		
+		ai_chance = {
+			factor = 18000
+		}
+		
+		trigger = {
+			religion = catholic
+			PAP = {
+				exists = yes
+			}
+		}
+		
+		highlight = yes
+		
+		PAP = {
+			country_event = { id = ME_Abbasid_Events.25 days = 30 }
+			
+			capital_scope = {
+				ME_set_abbasid_caliph_province = yes
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.22.last
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		set_country_flag = Abbasid_refused_to_take_caliph
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.23
+	title = ME_Abbasid_Events.23.t #Ibadi Capture on Caliph
+	desc = ME_Abbasid_Events.23.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		religion = ibadi
+		event_target:ABA_ibadi_convert = {
+			has_country_flag = ABA_joined_ibadi
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = ABA_ibadi_convert
+			if = {
+				limit = {
+					total_development = 50
+				}
+				if = {
+					limit = {
+						total_development = 125
+					}
+					if = {
+						limit = {
+							total_development = 300
+						}
+						ABA_try_to_get_5_provs = yes
+					}
+					else = {
+						ABA_try_to_get_3_provs = yes
+					}
+				}
+				else = {
+					ABA_try_to_get_2_provs = yes
+				}
+			}
+			else = {
+				ABA_try_to_get_1_provs = yes
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.23.a
+		
+		ai_chance = {
+			factor = 60
+		}
+		
+		ABA_convert_provinces_to_ibadi = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.23.b
+		
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.5
+				development = 300
+			}
+			
+			modifier = {
+				factor = 3
+				has_opinion = {
+					who = FROM
+					value = 100
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				NOT = { religious_unity = 0.5 }
+			}
+			
+			modifier = {
+				factor = 3
+				NOT = { num_of_cities = 10 }
+			}
+		}
+		
+		ABA_convert_provinces_to_ibadi = yes
+		change_religion = ibadi
+		set_country_flag = ABA_joined_ibadi
+	}
+	
+	after = {
+		clr_country_flag = ABA_has_1_provs
+		clr_country_flag = ABA_has_2_provs
+		clr_country_flag = ABA_has_3_provs
+		clr_country_flag = ABA_has_4_provs
+		clr_country_flag = ABA_has_5_provs
+		every_owned_province = {
+			clr_province_flag = ABA_chosen
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.24
+	title = ME_Abbasid_Events.24.t #For Cradle of Civ users
+	desc = ME_Abbasid_Events.24.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.24.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_government_reform = ME_caliphate_iqta
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.24.b
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_government_reform = ME_caliphate_feudal_theocracy
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.24.c
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.25
+	title = ME_Abbasid_Events.25.t
+	desc = ME_Abbasid_Events.25.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	immediate = {
+		set_country_flag = ME_captured_caliph_at_one_point
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.25.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		ME_execute_caliph = yes
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ABA_every_catholic_country
+		tooltip = {
+			add_country_modifier = {
+				name = ABA_upperhand_over_muslims
+				duration = 14600
+			}
+		}
+		
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = catholic
+				}
+				add_country_modifier = {
+					name = ABA_upperhand_over_muslims
+					duration = 14600
+				}
+			}
+		}
+		
+		custom_tooltip = ME_every_sunni_country_loses_50_opinion
+		
+		custom_tooltip = " "
+		
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = sunni
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = abbasid_humiliated_caliph
+				}
+			}
+		}
+		
+		FROM = {
+			add_country_modifier = {
+				name = ABA_the_capturers_of_caliph
+				duration = 9125
+			}
+		}
+		
+		custom_tooltip = ABA_every_sunni_country
+		tooltip = {
+			add_country_modifier = {
+				name = ABA_humiliated_by_the_pope
+				duration = 9125
+			}
+		}
+		
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = sunni
+				}
+				add_country_modifier = {
+					name = ABA_humiliated_by_the_pope
+					duration = 9125
+				}
+			}
+		}
+		
+		custom_tooltip = ABA_this_might_lead_to_feuds
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.25.b
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		ME_enable_abbasid_ransom = yes
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.26
+	title = ME_Abbasid_Events.26.t
+	desc = ME_Abbasid_Events.26.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	goto = abbasid_revolters_here
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				save_event_target_as = abbasid_revolters_here
+			}
+			random_owned_province = {
+				limit = {
+					development = 15
+				}
+				save_event_target_as = abbasid_revolters_here
+			}
+			random_owned_province = {
+				limit = {
+					is_core = ABA
+				}
+				save_event_target_as = abbasid_revolters_here
+			}
+			random_owned_province = {
+				limit = {
+					is_core = ABA
+					any_neighbor_province = {
+						NOT = { is_core = ABA }
+						owned_by = ROOT
+					}
+				}
+				save_event_target_as = abbasid_revolters_here
+			}
+			
+			random_list = {
+				1 = { set_country_flag = abbasid_revolt_size_1 }
+				1 = { set_country_flag = abbasid_revolt_size_2 }
+				1 = { set_country_flag = abbasid_revolt_size_3 }
+			}
+			
+			event_target:abbasid_revolters_here = {
+				if = {
+					limit = {
+						ROOT = {
+							has_country_flag = abbasid_revolt_size_1
+						}
+					}
+					spawn_rebels = {
+						type = abbasid_revolters
+						size = 1
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							has_country_flag = abbasid_revolt_size_2
+						}
+					}
+					spawn_rebels = {
+						type = abbasid_revolters
+						size = 2
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							has_country_flag = abbasid_revolt_size_3
+						}
+					}
+					spawn_rebels = {
+						type = abbasid_revolters
+						size = 3
+					}
+				}
+				else = {
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			num_of_cities = 80
+		}
+		modifier = {
+			factor = 2
+			num_of_cities = 150
+		}
+		modifier = {
+			factor = 2
+			num_of_cities = 300
+		}
+	}
+	option = {
+		name = ME_Abbasid_Events.26.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		tooltip = {
+			event_target:abbasid_revolters_here = {
+				if = {
+					limit = {
+						ROOT = {
+							has_country_flag = abbasid_revolt_size_1
+						}
+					}
+					spawn_rebels = {
+						type = abbasid_revolters
+						size = 1
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							has_country_flag = abbasid_revolt_size_2
+						}
+					}
+					spawn_rebels = {
+						type = abbasid_revolters
+						size = 2
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							has_country_flag = abbasid_revolt_size_3
+						}
+					}
+					spawn_rebels = {
+						type = abbasid_revolters
+						size = 3
+					}
+				}
+				else = {
+				}
+			}
+		}
+	}
+	after = {
+		clr_country_flag = abbasid_revolt_size_1
+		clr_country_flag = abbasid_revolt_size_2
+		clr_country_flag = abbasid_revolt_size_3
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.27
+	title = ME_Abbasid_Events.27.t
+	desc = ME_Abbasid_Events.27.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	immediate = {
+		hidden_effect = {
+			change_religion = sunni
+			set_dynasty = "Abbasid"
+			add_treasury = 234.23
+			add_manpower = 19.324
+			
+			capital_scope = {
+				build_to_forcelimit = {
+					infantry = 0.9
+				}
+				for = {
+					amount = 20
+					effect = "
+						infantry = ROOT
+					"
+				}
+			}
+		}
+	}
+	option = {
+		name = ME_Abbasid_Events.27.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		define_ruler = {
+			min_age = 25 #typically older
+			max_age = 40 
+			change_adm = 3
+			change_dip = 3
+			change_mil = 3
+			dynasty = "Abbasid"
+		}
+		
+		ME_become_caliphate_effect = yes
+		
+		add_country_modifier = {
+			name = ABA_strong_modifiers
+			duration = 14600
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.28
+	title = ME_Abbasid_Events.28.t
+	desc = ME_Abbasid_Events.28.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.28.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		country_event = { id = ME_Abbasid_Events.19 }
+		
+		custom_tooltip = ABA_we_lose_lands_and_caliphate
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.28.b
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_country_modifier = {
+			name = ABA_perma_penalty
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.29
+	title = ME_Abbasid_Events.29.t
+	desc = ME_Abbasid_Events.29.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	option = {
+		name = ME_Abbasid_Events.29.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_stability_or_adm_power = yes
+		
+		custom_tooltip = " "
+		
+		add_country_modifier = {
+			name = ABA_supremacy_over_the_caliph
+			duration = 9125
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.30
+	title = ME_Abbasid_Events.30.t
+	desc = ME_Abbasid_Events.30.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.30.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		ABA_pick_advisor = { type = GRA_muslim_scholar }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.30.b
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		ABA_pick_advisor = { type = GRA_translator }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.30.c
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		ABA_pick_advisor = { type = GRA_military_writer }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.30.e
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		custom_tooltip = ABA_reset_cooldown
+		clr_country_flag = abbasid_recently_invited_scholars
+	}
+	
+	after = {
+		set_variable = {
+			which = invited_scholar_reduction
+			value = 0
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.31
+	title = ME_Abbasid_Events.31.t
+	desc = ME_Abbasid_Events.31.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Abbasid_Events.31.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		add_country_modifier = {
+			name = ABA_help_from_caliph
+			duration = 5475
+		}
+		
+		add_opinion = {
+			who = event_target:temp_caliph
+			modifier = ABA_supported_us
+		}
+	}
+}

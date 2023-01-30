@@ -1,0 +1,807 @@
+OMA_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = OMA
+		
+	}
+	has_country_shield = yes
+	
+	OMA_capture_hormuz = {
+		icon = mission_control_the_barbary_coast
+		required_missions = { OMA_defeat_hormuz }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 2999
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			owns = 2999
+		}
+		effect = {
+			country_event = { id = ME_Oman_Events.1 } #Loot Hormuz, transfer to muscat or capital
+		}
+	}
+	
+	OMA_mahra = {
+		icon = mission_invade_mali
+		required_missions = { OMA_oman_reunited }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = dhofar_area
+				area = mahra_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = dhofar_area
+					area = mahra_area
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = mahri_culture }
+			add_country_modifier = {
+				name = OMA_mahri_culture
+				duration = -1 
+			}
+			
+			ARB_claims_yemen = yes
+		}
+	}
+	
+	OMA_suqutra = {
+		icon = mission_colonize_the_west
+		required_missions = { OMA_mahra }
+		position = 6
+		provinces_to_highlight = {
+			province_id = 1099
+			OR = { 
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_times_improved = 10 }
+			}
+		}
+		trigger = {
+			1099 = {
+				num_of_times_improved = 10
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			1099 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 15
+					key = OMA_suqutra_modifier
+				}
+			}
+		}
+	}
+}
+
+OMA_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = OMA
+		
+	}
+	has_country_shield = yes
+	
+	OMA_defeat_hormuz = {
+		icon = mission_control_surat
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			owned_by = ORM
+		}
+		trigger = {
+			OR = {
+				army_size = ORM
+				war_with = ORM
+			}
+		}
+		effect = {
+			add_spy_network_in = {
+				who = ORM
+				value = 25
+			}
+			create_general = { tradition = 40 }
+			
+			pirate_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			399 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}			
+			2999 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			
+			#Bayah received
+			add_country_modifier = {
+				name = OMA_bayah_received
+				duration = 7300
+			}
+		}
+	}
+	
+	OMA_oman_reunited = {
+		icon = mission_deccanis
+		required_missions = { OMA_defeat_hormuz }
+		position = 3
+		provinces_to_highlight = {
+			is_core = ROOT
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				is_core = ROOT
+				value = 7
+			}
+		}
+		effect = {
+			bahrain_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			mahra_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			dhofar_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			add_war_exhaustion = -2
+			add_country_modifier = {
+				name = OMA_oman_reunited
+				duration = -1
+			}
+			
+			country_event = { id = ME_Oman_Events.5 } #move capital to musqat
+			#country_event = { id = ME_Oman_Events.6 } happens during war, gives manpower for capturing musqat
+		}
+	}
+	
+	OMA_yemen = {
+		icon = mission_conquer_algiers
+		required_missions = { OMA_mahra }
+		position = 5
+		provinces_to_highlight = {
+			ARB_is_in_yemen = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_yemen = yes
+				value = 12
+			}
+		}
+		effect = {
+			ARB_reward_yemen = yes
+			ARB_claims_west_arabia = yes
+		}
+	}
+	
+	OMA_levant = {
+		icon = mission_levantine_restoration
+		required_missions = { OMA_west }
+		position = 7
+		provinces_to_highlight = {
+			ARB_is_in_levant = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_levant = yes
+				value = 13
+			}
+		}
+		effect = {
+			ARB_reward_levant = yes
+		}
+	}
+}
+
+OMA_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = OMA
+		
+	}
+	has_country_shield = yes
+	
+	OMA_city_of_pearls = {
+		icon = mission_develop_cordoba
+		required_missions = { OMA_defeat_hormuz }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 400
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { base_production = 8 }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+		trigger = {
+			400 = {
+				base_production = 8
+				owned_by = ROOT
+				has_production_building_trigger = yes
+			}
+		}
+		effect = {
+			400 = {
+				add_province_modifier = {
+					name = OMA_pearls_of_muscat
+					duration = -1
+				}
+				add_or_upgrade_production_building = yes
+			}
+		}
+	}
+	
+	OMA_mosque_of_samail = {
+		icon = mission_mosque
+		required_missions = { OMA_city_of_pearls }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 400
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { base_tax = 8 }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+		trigger = {
+			400 = {
+				has_tax_building_trigger = yes
+				owned_by = ROOT
+				base_tax = 8
+			}
+		}
+		effect = {
+			400 = {
+				add_province_modifier = {
+					name = OMA_mosque_of_samail
+					duration = -1
+				}
+				add_or_upgrade_tax_building = yes 
+			}
+		}
+	}
+	
+	OMA_north = {
+		icon = mission_look_west
+		required_missions = { OMA_oman_reunited }
+		position = 4
+		provinces_to_highlight = {
+			area = bahrain_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			bahrain_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = gulf_arabic }
+			ARB_claims_central_arabia = yes
+			ARB_claims_iraq = yes
+		}
+	}
+	
+	OMA_central = {
+		icon = mission_conquer_air
+		required_missions = { OMA_north }
+		position = 5
+		provinces_to_highlight = {
+			ARB_is_in_central_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_central_arabia = yes
+				value = 7
+			}
+		}
+		effect = {
+			ARB_reward_central_arabia = yes
+			ARB_claims_west_arabia = yes
+		}
+	}
+	
+	OMA_west = {
+		icon = mission_into_arabia
+		required_missions = { OMA_central OMA_yemen }
+		position = 6
+		provinces_to_highlight = {
+			ARB_is_in_west_arabia = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_west_arabia = yes
+				value = 7
+			}
+		}
+		effect = {
+			ARB_reward_west_arabia = yes
+			ARB_claims_levant = yes
+			ARB_claims_egypt = yes
+		}
+	}
+	
+	OMA_egypt = {
+		icon = mission_egyptian_mamluk_soldier
+		required_missions = { OMA_west }
+		position = 7
+		provinces_to_highlight = {
+			ARB_is_in_egypt = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_egypt = yes
+				value = 20
+			}
+		}
+		effect = {
+			ARB_reward_egypt = yes
+		}
+	}
+}
+
+OMA_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = OMA
+		
+	}
+	has_country_shield = yes
+	
+	OMA_revitalize_trade = {
+		icon = mission_cope_with_refugees
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 1334
+					NOT = {
+						trade_share = {
+							country = ROOT
+							share = 20 
+						}
+					}
+				}
+				AND = {
+					province_id = 400
+					NOT = { owned_by = ROOT }
+				}
+			}
+		}
+		trigger = {
+			1334 = {
+				trade_share = {
+					country = ROOT
+					share = 20
+				}
+			}
+			owns = 400
+		}
+		effect = {
+			1334 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 25
+					key = OMA_new_merchants
+				}
+			}
+			400 = {
+				custom_tooltip = YEM_update_to_level_2_but_not_level_3
+				hidden_effect = {
+					if = {
+						limit = {
+							NOT = {
+								province_has_center_of_trade_of_level = 2
+							}
+						}
+						add_center_of_trade_level = 1
+					}
+				}
+				add_province_modifier = {
+					name = OMA_center_of_trade
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	OMA_crossroads = {
+		icon = mission_deccanis
+		required_missions = { OMA_revitalize_trade }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1334
+				province_id = 1335
+			}
+			NOT = { 
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+		}
+		trigger = {
+			1334 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+			1335 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+			400 = {
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			400 = {
+				add_or_upgrade_trade_building = yes
+			}
+			
+			add_years_of_income = 1
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+			define_advisor = {
+				type = trader
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
+		}
+	}
+	
+	OMA_fort = {
+		icon = mission_portuguese_oman
+		required_missions = { OMA_city_of_pearls }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 400
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { base_manpower = 8 }
+				NOT = { has_manpower_building_trigger = yes }
+			}
+		}
+		trigger = {
+			400 = {
+				has_manpower_building_trigger = yes
+				owned_by = ROOT
+				base_manpower = 8
+			}
+		}
+		effect = {
+			400 = {
+				add_province_modifier = {
+					name = OMA_nakhal_fort
+					duration = -1
+				}
+				add_or_upgrade_manpower_building = yes 
+			}
+		}
+	}
+	
+	OMA_iraq = {
+		icon = mission_reclaim_morocco
+		required_missions = { OMA_north }
+		position = 5
+		provinces_to_highlight = {
+			ARB_is_in_iraq = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				ARB_is_in_iraq = yes
+				value = 8
+			}
+		}
+		effect = {
+			ARB_reward_iraq = yes
+		}
+	}
+	
+	OMA_gwadar = {
+		icon = mission_occupy_alexandria
+		required_missions = { OMA_overseas_ambitions }
+		position = 6
+		provinces_to_highlight = {
+			province_id = 575
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_shipyard_building_trigger = yes }
+			}
+		}
+		trigger = {
+			575 = {
+				owned_by = ROOT
+				is_core = ROOT
+				has_shipyard_building_trigger = yes 
+			}
+		}
+		effect = {
+			575 = {
+				add_or_upgrade_shipyard_building = yes 
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+			
+			ME_give_claims = { id = 2231 }
+			ME_give_claims = { id = 2233 }
+			ME_give_claims = { id = 504 }
+			ME_give_claims = { id = 503 }
+			ME_give_claims = { id = 537 }
+			ME_give_claims = { id = 4410 }
+			ME_give_claims = { id = 2101 }
+			ME_give_claims = { id = 1248 }
+			ME_give_claims = { area = ahmedabad_area }
+			ME_give_claims = { area = saurashtra_area }
+		}
+	}
+}
+
+OMA_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = OMA
+		
+	}
+	has_country_shield = yes
+	
+	OMA_navy = {
+		icon = mission_launch_a_flagship
+		required_missions = { OMA_revitalize_trade }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				navy_size_percentage = 0.8
+				navy_size = 15 
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = OMA_colonial_empire
+				duration = -1
+			}
+			mombasa_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			central_swahili_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			northern_swahili_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			country_event = { id = ME_Oman_Events.3 } #convert indians to ibadi
+		}
+	}
+	
+	OMA_overseas_ambitions = {
+		icon = mission_el_badi_palace
+		required_missions = { OMA_navy }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = mombasa_area
+				area = central_swahili_coast_area
+				area = northern_swahili_coast_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			OR = {
+				navy_size = 20
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					OR = {
+						area = mombasa_area
+						area = central_swahili_coast_area
+						area = northern_swahili_coast_area
+					}
+					value = 5
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = OMA_marine_buff
+				duration = -1
+			}
+			mozambique_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			mogadishu_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			575 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	OMA_zanzibar = {
+		icon = mission_son_own_develop_clothes_and_salt
+		required_missions = { OMA_overseas_ambitions }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = mombasa_area
+				area = central_swahili_coast_area
+				area = northern_swahili_coast_area
+				area = mogadishu_area
+				area = mozambique_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = mombasa_area
+					area = central_swahili_coast_area
+					area = northern_swahili_coast_area
+					area = mogadishu_area
+					area = mozambique_area
+				}
+				value = 12
+			}
+			owns = 1201
+		}
+		effect = {
+			country_event = { id = ME_Oman_Events.2 } #become zanzibar
+			ME_give_claims = { area = sakalava_area }
+			ME_give_claims = { area = quelimane_area }
+			ME_give_claims = { area = majarteen_area }
+			ME_give_claims = { area = somaliland_area }
+			ME_give_claims = { id = 4021 }
+			ME_give_claims = { id = 4020 }
+		}
+	}
+	
+	OMA_establish_extra_outposts = {
+		icon = mission_imperial_cities
+		required_missions = { OMA_zanzibar OMA_gwadar }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = sakalava_area
+				area = quelimane_area
+				area = majarteen_area
+				area = somaliland_area
+				province_id = 4021
+				province_id = 4020
+				province_id = 2231
+				province_id = 2233
+				province_id = 504
+				province_id = 503
+				province_id = 537
+				province_id = 4410
+				province_id = 2101
+				province_id = 1248
+				area = ahmedabad_area
+				area = saurashtra_area
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				custom_trigger_tooltip = {
+					tooltip = OMA_highlighted
+					OR = {
+						area = sakalava_area
+						area = quelimane_area
+						area = majarteen_area
+						area = somaliland_area
+						province_id = 4021
+						province_id = 4020
+						province_id = 2231
+						province_id = 2233
+						province_id = 504
+						province_id = 503
+						province_id = 537
+						province_id = 4410
+						province_id = 2101
+						province_id = 1248
+						area = ahmedabad_area
+						area = saurashtra_area
+					}
+				}
+				value = 15
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = OMA_control_over_the_western_indian_ocean
+				duration = -1
+			}
+			
+			ME_add_years_of_trade_income = { years = 5 }
+		}
+	}
+}

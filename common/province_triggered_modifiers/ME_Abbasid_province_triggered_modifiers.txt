@@ -1,0 +1,148 @@
+ME_abbasid_baghdad_modifier = {
+	potential = {
+		always = yes
+	}
+
+	trigger = {
+		OR = {
+			has_province_modifier = Abbasid_Caliph_in_province
+			owner = {
+				ME_is_caliphate_trigger = yes
+				ME_can_benefit_from_abbasid_caliph = yes
+			}
+		}
+		owner = {
+			religion = sunni
+		}
+	}
+
+	unjustified_demands = -0.2
+	accept_vassalization_reasons = 5
+	
+	#Province scope
+	on_activation = {
+		
+	}
+	
+	on_deactivation = {
+	
+	}
+	
+}
+
+ABA_check_if_occupied_by_muslim = {
+	potential = {
+		always = yes
+	}
+
+	hidden = yes 
+	
+	trigger = {
+		OR = {
+			NOT = { has_province_flag = ME_just_fired }
+			had_province_flag = {
+				flag = ME_just_fired
+				days = 180
+			}
+		}
+		NOT = { controlled_by = owner }
+		controller = {
+			#religion_group = muslim
+			OR = {
+				NOT = { has_country_flag = Abbasid_refused_to_take_caliph }
+				had_country_flag = {
+					flag = Abbasid_refused_to_take_caliph
+					days = 3650
+				}
+			}
+			capital_scope = {
+				controlled_by = owner
+				NOT = { has_siege = yes }
+			}
+		}
+	}
+	
+	#Province scope
+	on_activation = {
+		clr_province_flag = ME_just_fired
+		set_province_flag = ME_just_fired
+		controller = {
+			if = {
+				limit = {
+					religion = sunni
+				}
+				country_event = { id = ME_Abbasid_Events.3 }
+			}	
+			else = {
+				country_event = { id = ME_Abbasid_Events.22 }
+			}
+		}
+	}
+	
+	on_deactivation = {
+	
+	}
+}
+
+ABA_grant_modifier_if_sunni = {
+	potential = {
+		always = yes
+	}
+
+	hidden = yes 
+	
+	trigger = {
+		owner = {
+			NOT = {
+				ME_can_benefit_from_abbasid_caliph = yes
+			}
+		}
+	}
+	
+	#Province scope
+	on_activation = {
+		remove_province_modifier = Abbasid_Caliph_in_province
+		add_permanent_province_modifier = {
+			name = Abbasid_Caliph_in_province_disabled
+			duration = -1
+		}
+	}
+	
+	on_deactivation = {
+		remove_province_modifier = Abbasid_Caliph_in_province_disabled
+		add_permanent_province_modifier = {
+			name = Abbasid_Caliph_in_province
+			duration = -1
+		}
+	}
+}
+
+ABA_do_bi_monthly_checks = {
+	potential = {
+		always = yes
+	}
+
+	hidden = yes 
+	
+	trigger = {
+		OR = {
+			NOT = { has_global_flag = ME_abbasid_bimonthly }
+			had_global_flag = {
+				flag = ME_abbasid_bimonthly
+				days = 61
+			}
+		}
+	}
+	
+	#Province scope
+	on_activation = {
+		REB = { country_event = { id = ME_Abbasid_Events.20 } }
+		clr_global_flag = ME_abbasid_bimonthly
+		set_global_flag = ME_abbasid_bimonthly 
+	}
+	
+	on_deactivation = {
+		
+	}
+
+}

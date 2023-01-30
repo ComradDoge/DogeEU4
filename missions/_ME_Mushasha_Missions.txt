@@ -1,0 +1,1119 @@
+MSY_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = MSY
+	}
+	has_country_shield = yes
+	
+	MSY_samawat = {
+		icon = mission_patronize_art_and_religion
+		required_missions = { MSY_mahdis_will }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2312
+				province_id = 2311
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			basra_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mushasha_Events.2 } #Capture of Holiest Place in Shi'a Islam. Historically desecrated by Mushasha because it refused to believe in the dude
+			
+			custom_tooltip = " "
+			
+			2312 = {
+				add_province_modifier = {
+					name = MSY_conversion_zeal
+					duration = 7300
+				}
+			}
+			if = {
+				limit = {
+					4288 = {
+						owned_by = ROOT
+						NOT = { religion = ROOT }
+					}
+				}
+				4288 = {
+					add_province_modifier = {
+						name = MSY_conversion_zeal
+						duration = 7300
+					}
+				}
+			}
+		}
+	}
+	
+	MSY_the_cities = {
+		icon = mission_el_badi_palace
+		required_missions = { MSY_samawat }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 409
+				province_id = 2311
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+				NOT = { is_state_core = ROOT }
+			}
+		}
+		trigger = {
+			409 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+				is_state_core = ROOT
+			}
+			2311 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+				is_state_core = ROOT
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mushasha_Events.3 } #holy sites
+			
+			custom_tooltip = " "
+			
+			2311 = {
+				add_or_upgrade_tax_building = yes
+			}
+			409 = {
+				add_or_upgrade_tax_building = yes
+			}
+		}
+	}
+	
+	MSY_proselytize_the_mahdi = {
+		icon = mission_mosque
+		required_missions = { MSY_the_cities MSY_expel_the_qoyunlu }
+		position = 4
+		provinces_to_highlight = {
+			religion = ROOT
+			OR = {
+				AND = {
+					culture = azerbaijani
+					NOT = {
+						ROOT = {
+							any_owned_province = {
+								culture = azerbaijani
+								religion = ROOT
+								has_tax_building_trigger = yes
+							}
+						}
+					}
+				}
+				AND = {
+					culture = turkish
+					NOT = {
+						ROOT = {
+							any_owned_province = {
+								culture = azerbaijani
+								religion = ROOT
+								has_tax_building_trigger = yes
+							}
+						}
+					}
+				}
+				AND = {
+					culture = al_suryah_arabic
+					NOT = {
+						ROOT = {
+							any_owned_province = {
+								culture = azerbaijani
+								religion = ROOT
+								has_tax_building_trigger = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				culture = azerbaijani
+				religion = ROOT
+				has_tax_building_trigger = yes
+			}
+			
+			any_owned_province = {
+				culture =  al_suryah_arabic
+				religion = ROOT
+				has_tax_building_trigger = yes
+			}
+			
+			any_owned_province = {
+				culture = turkish
+				religion = ROOT
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = MSY_shiite_followers
+				duration = -1
+			}
+			
+			create_general_with_pips = { tradition = 80 add_shock = 3 }
+		}
+	}
+	
+	MSY_canals = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4288
+				province_id = 408
+				province_id = 412
+				province_id = 4290
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 13 }
+			}
+		}
+		trigger = {
+			4288 = {
+				owned_by = ROOT
+				development = 13
+			}
+			408 = {
+				owned_by = ROOT
+				development = 13
+			}
+			412 = {
+				owned_by = ROOT
+				development = 13
+			}
+			4290 = {
+				owned_by = ROOT
+				development = 13
+			}
+		}
+		effect = {
+			4288 = {
+				add_province_modifier = {
+					name = MSY_delta
+					duration = -1
+				}
+			}
+			4290 = {
+				add_province_modifier = {
+					name = MSY_delta
+					duration = -1
+				}
+			}
+			408 = {
+				add_province_modifier = {
+					name = MSY_delta
+					duration = -1
+				}
+			}
+			412 = {
+				add_province_modifier = {
+					name = MSY_delta
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_adm_power = 100
+		}
+	}
+	
+	MSY_plantations_expanded = {
+		icon = mission_a_million_rice_fields
+		required_missions = { MSY_canals MSY_expand_sugar_fields }
+		position = 6
+		provinces_to_highlight = {
+			trade_goods = sugar
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_manufactory_trigger = yes
+				development = 20
+				value = 3
+			}
+			
+			trading_part = {
+				trade_goods = sugar
+				value = 0.15
+			}
+			#custom_trigger_tooltip = { tooltip = ARB_playtester_note }
+		}
+		effect = {
+			custom_tooltip = MSY_distribute_5_tax_5_production
+			hidden_effect = {
+				for = {
+					amount = 5
+					effect = "
+						random_owned_province = {
+							limit = { has_manufactory_trigger = yes }
+							add_base_tax = 1
+						}
+					"
+				}
+				for = {
+					amount = 5
+					effect = "
+						random_owned_province = {
+							limit = { has_manufactory_trigger = yes }
+							add_base_production = 1
+						}
+					"
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Mushasha_Events.10 } #SUGAR 
+		}
+	}
+	
+	MSY_pearl_of_mesopotamia = {
+		icon = mission_golden_century
+		required_missions = { MSY_plantations_expanded }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = iraq_arabi_area
+				area = basra_area
+				province_id = 4290
+				province_id = 412
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MSY_owns_highlighted
+				iraq_arabi_area = {
+					type = all
+					owned_by = ROOT
+				}
+				basra_area = {
+					type = all
+					owned_by = ROOT
+				}
+				4290 = { owned_by = ROOT }
+				412 = { owned_by = ROOT }
+			}
+			development_in_provinces = {
+				custom_trigger_tooltip = {
+					tooltip = MSY_highlighted
+					OR = {
+						area = iraq_arabi_area
+						area = basra_area
+						province_id = 4290
+						province_id = 412
+					}
+				}
+				value = 150
+			}
+		}
+		effect = {
+			custom_tooltip = MSY_the_highlighted_area
+			tooltip = {
+				add_province_modifier = {
+					name = MSY_pearl
+					duration = -1
+				}
+			}
+			
+			hidden_effect = {
+				iraq_arabi_area = {
+					add_province_modifier = {
+						name = MSY_pearl
+						duration = -1
+					}
+				}
+				basra_area = {
+					add_province_modifier = {
+						name = MSY_pearl
+						duration = -1
+					}
+				}
+				4290 = {
+					add_province_modifier = {
+						name = MSY_pearl
+						duration = -1
+					}
+				}
+				412 = {
+					add_province_modifier = {
+						name = MSY_pearl
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+MSY_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = MSY
+	}
+	has_country_shield = yes
+	
+	MSY_mahdis_will = {
+		icon = mission_fatimid_caliphate
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 10
+				army_size_percentage = 0.85
+			}
+			legitimacy = 90
+		}
+		effect = {
+			4342 = { add_core = ROOT }
+			2217 = { add_core = ROOT }
+			ME_give_claims = { area = iraq_arabi_area }
+			ME_give_claims = { area = luristan_area }
+			
+			create_general = { tradition = 40 }
+		}
+	}
+	
+	MSY_arabistan = {
+		icon = mission_control_surat
+		required_missions = { MSY_mahdis_will }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			total_development = 300
+			army_size = 100
+			is_great_power = yes
+		}
+		effect = {
+			override_country_name = MSY_ARABISTAN
+			
+			add_country_modifier = {
+				name = MSY_arabistan_modifier
+				duration = -1
+			}
+			
+			add_splendor = 400
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+	
+	MSY_expel_the_qoyunlu = {
+		icon = mission_al-wadi_al-kabir
+		required_missions = { MSY_samawat }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = iraq_arabi_area
+				area = al_jazira_area
+				area = shahrizor_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = iraq_arabi_area
+					area = al_jazira_area
+					area = shahrizor_area
+				}
+				value = 8
+			}
+		}
+		effect = {
+			add_yearly_manpower = 1
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = MSY_flock_to_standard
+				duration = -1
+				age = age_of_discovery
+			}
+		}
+	}
+	
+	MSY_expand_sugar_fields = {
+		icon = mission_clear_the_delta
+		required_missions = { }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4290
+				province_id = 4288
+				province_id = 408
+				province_id = 2312
+				province_id = 412
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_production_building_trigger = yes }
+				NOT = { num_of_times_improved = 3 }
+			}
+		}
+		trigger = {
+			4290 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				num_of_times_improved = 3
+			}
+			4288 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				num_of_times_improved = 3
+			}
+			408 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				num_of_times_improved = 3
+			}
+			2312 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				num_of_times_improved = 3
+			}
+			412 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				num_of_times_improved = 3
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mushasha_Events.9 } #Sugar everywhere
+			
+			412 = { 
+				add_province_modifier = {
+					name = MSY_sugar
+					duration = -1
+				}
+				add_or_upgrade_production_building = yes
+			}
+		}
+	}
+	
+	MSY_port = {
+		icon = mission_dominate_genoa
+		required_missions = { }
+		position = 7
+		provinces_to_highlight = {
+			province_id = 408
+			OR = {
+				NOT = { MAM_upgrade_cot_and_trade_building = yes }
+				NOT = { has_shipyard_building_trigger = yes }
+				NOT = { owned_by = ROOT }
+			}
+		}
+		trigger = {
+			408 = {
+				owned_by = ROOT
+				has_shipyard_building_trigger = yes
+				MAM_upgrade_cot_and_trade_building = yes
+			}
+		}
+		effect = {
+			408 = {
+				add_or_upgrade_shipyard_building = yes
+				
+				custom_tooltip = " "
+				
+				add_center_of_trade_level = 1
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = MSY_port_of_arabistan
+					duration = -1
+				}
+			}
+			
+			#if burgher loyalty, get years of trade income?
+		}
+	}
+	
+	MSY_raiders_or_traders = {
+		icon = mission_raid_on_iceland
+		required_missions = { MSY_port }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Wealth of Nations"
+						has_dlc = "Golden Century"
+						has_dlc = "Mare Nostrum"
+						has_dlc = "El Dorado"
+					}
+				}
+				OR = {
+					AND = {
+						home_trade_node = {
+							trade_node_value = 20
+							trade_share = {
+								country = ROOT
+								share = 67
+							}
+						}
+					}
+					504 = {
+						has_privateer_share_in_trade_node = {
+							who = ROOT
+							share = 0.2
+						}
+					}
+				}
+			}
+			else = {
+				OR = {
+					AND = {
+						home_trade_node = {
+							trade_node_value = 20
+							trade_share = {
+								country = ROOT
+								share = 67
+							}
+						}
+					}
+					504 = {
+						trade_share = {
+							country = ROOT
+							share = 25
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = MSY_if_trader
+			tooltip = {
+				add_country_modifier = {
+					name = MSY_doubling_down_on_trade
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = MSY_if_pirate
+			tooltip = {
+				add_country_modifier = {
+					name = MSY_mushashan_raiding
+					duration = -1
+				}
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						home_trade_node = {
+							trade_node_value = 20
+							trade_share = {
+								country = ROOT
+								share = 67
+							}
+						}
+					}
+					add_country_modifier = {
+						name = MSY_doubling_down_on_trade
+						duration = -1
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = MSY_mushashan_raiding
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+MSY_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = MSY
+	}
+	has_country_shield = yes
+	
+	MSY_luristan = {
+		icon = alpine_fortifications
+		required_missions = { MSY_mahdis_will }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 413
+				province_id = 4342
+				province_id = 2217
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			413 = { country_or_non_sovereign_subject_holds = ROOT }
+			4342 = { country_or_non_sovereign_subject_holds = ROOT }
+			2217 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			country_event = { id = ME_Mushasha_Events.4 } #where do you want luri fort? 
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = luri }
+			
+			custom_tooltip = " "
+			
+			4289 = { change_culture = ROOT }
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = persian_gulf_coast }
+			ME_give_claims = { area = farsistan_area }
+			ME_give_claims = { area = azerbaijan_area }
+			ME_give_claims = { area = isfahan_area }
+			ME_give_claims = { area = iraq_e_ajam_area }
+		}
+	}
+	
+	MSY_persia = {
+		icon = mission_into_persia_2
+		required_missions = { MSY_expel_the_qoyunlu MSY_luristan }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = isfahan_area
+				area = iraq_e_ajam_area
+				area = azerbaijan_area
+				province_id = 414
+				owned_by = PER
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = isfahan_area
+					area = iraq_e_ajam_area
+					area = azerbaijan_area
+					province_id = 414
+				}
+				value = 8
+			}
+			OR = {
+				NOT = { exists = PER }
+				PER = { is_subject_of = ROOT }
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mushasha_Events.5 } #Persia subject
+			
+			custom_tooltip = " "
+			
+			set_defender_of_the_faith_effect = yes
+			
+			custom_tooltip = " "
+			
+			add_power_projection = {
+				type = MSY_perma_persia_pp
+				amount = 10
+			}
+			custom_tooltip = MAM_permanent_PP
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = tabarestan_area }
+		}
+	}
+	
+	MSY_fervent_milleniarism = {
+		icon = mission_protect_albania
+		required_missions = { }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MSY_fix_mis_str_tooltip
+				has_global_modifier_value = {
+					which = global_missionary_strength 
+					value = 0.075
+				}
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+					ai = no
+				}
+				capital_scope = {
+					has_province_modifier = invite_minorities_modifier 
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Golden Century"
+				}
+				custom_tooltip = MSY_enable_the_mushasha_holy_order
+			}
+			set_country_flag = MSY_mushasha
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MSY_cb
+				duration = -1
+			}
+		}
+	}
+	
+	MSY_spread_the_news = {
+		icon = me_mission_muslim_priest
+		required_missions = { MSY_fervent_milleniarism MSY_kalam_mahdi }
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 10
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = obj_force_converted_tooltip
+				has_country_flag = force_converted
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				country_event = { id = ME_Mushasha_Events.7 } #higher chance for zealot personality
+				custom_tooltip = " "
+			}
+			add_country_modifier = {
+				name = MSY_spreading_the_word
+				duration = -1
+			}
+			
+			custom_tooltip = MSY_low_piety_benefits
+			set_country_flag = MSY_low_piety_benefits_flag
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = sufi_scholar_advisor
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
+		}
+	}
+}
+
+MSY_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = MSY
+	}
+	has_country_shield = yes
+	
+	MSY_fars = {
+		icon = mission_into_persia_1
+		required_missions = { MSY_luristan }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = farsistan_area
+				area = persian_gulf_coast
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = farsistan_area
+					area = persian_gulf_coast
+				}
+				value = 5
+			}
+			owns_core_province = 430
+		}
+		effect = {
+			430 = {
+				add_base_manpower = 2
+				add_base_tax = 1
+				add_base_production = 1
+			}
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 15 }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = MSY_conquest_of_fars
+				duration = 9125
+			}
+		}
+	}
+	
+	MSY_kalam_mahdi = {
+		icon = mission_court_education
+		required_missions = { }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_institution = renaissance
+			OR = {
+				piety = 0.9
+				NOT = { piety = -0.9 }
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = MSY_words_of_the_mahdi
+				duration = -1
+				age = age_of_reformation
+			}
+			
+			#custom_tooltip = " " No need
+			
+			# country_event = { id = ME_Mushasha_Events.6 } #What to do with the words
+			custom_tooltip = ORM_empower_the_enforced_unity_of_faith
+			set_country_flag = ORM_empower_the_enforced_unity_of_faith_flag
+		}
+	}
+	
+	MSY_zealotry = {
+		icon = mission_restore_caliphate_of_cordoba
+		required_missions = { MSY_spread_the_news MSY_passing_of_the_mahdi }
+		position = 7
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				has_country_modifier = seize_clerical_holdings_modifier 
+			}
+		
+			is_defender_of_faith = yes
+			
+			custom_trigger_tooltip = {
+				tooltip = MSY_won_war_against_at_least_50_heathens_heretics
+				check_variable = {
+					which = ME_num_of_heathen_heretic_wars_won
+					value = 50
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = MSY_zealotry_modifier
+				duration = -1
+			}
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+}
+
+MSY_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = MSY
+	}
+	has_country_shield = yes
+	
+	MSY_the_coast = {
+		icon = mission_arabian_ports
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				navy_size_percentage = 0.25
+				navy_size = 5 #mushasha starts with no ships swaghuh
+				national_focus = mil
+			}
+		}
+		effect = {
+			ME_give_claims = { area = pirate_coast_area }
+			ME_give_claims = { area = bahrain_area }
+			ME_give_claims = { id = 2999 }
+			
+			custom_tooltip = " "
+			
+			add_manpower = 3.141 #pi
+			add_sailors = 1618 #golden ratio
+		}
+	}
+	
+	MSY_intervene_in_haasa = {
+		icon = mission_levantine_restoration
+		required_missions = { MSY_the_coast }
+		position = 2
+		provinces_to_highlight = {
+			area = bahrain_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			bahrain_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			change_national_focus_effect = yes
+			
+			custom_tooltip = " "
+			
+			bahrain_area = {
+				add_local_autonomy = -25
+				add_nationalism = -10
+			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = mascat_area }
+			ME_give_claims = { area = oman_area }
+			ARB_claims_central_arabia = yes
+		}
+	}
+	
+	MSY_persian_gulf = {
+		icon = mission_retake_ceuta
+		required_missions = { MSY_fars MSY_intervene_in_haasa }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = pirate_coast_area
+				area = oman_area
+				area = mascat_area
+				province_id = 2999
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = pirate_coast_area
+					area = oman_area
+					area = mascat_area
+				}
+				value = 7
+			}
+			
+			owns_core_province = 2999
+		}
+		effect = {
+			1335 = {
+				change_province_name = "Gulf of Arabistan"
+				custom_tooltip = " "
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 25
+					key = MSY_persian_gulf_trade_modifier
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			1334 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 25
+					key = MSY_persian_gulf_trade_modifier
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			2999 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = gulf_arabic }
+		}
+	}
+	
+	MSY_passing_of_the_mahdi = {
+		icon = mission_reclaim_morocco
+		required_missions = { MSY_kalam_mahdi }
+		position = 6
+		provinces_to_highlight = {
+			province_id = 4290
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { religion = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MSY_ibn_falah_alive_tt
+				NOT = { has_ruler_flag = MSY_ibn_falah_alive }
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = MSA_converted_3_provinces
+				check_variable = { which = num_converted_religion value = 3 }
+			}
+			
+			4290 = {
+				owned_by = ROOT 
+				religion = ROOT
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			country_event = { id = ME_Mushasha_Events.8 }
+			
+			custom_tooltip = " "
+			
+			4290 = {
+				hidden_effect = {
+					add_province_triggered_modifier = religious_center
+				}
+				custom_tooltip = MSY_gets_religious_center
+				
+				custom_tooltip = " "
+				add_or_upgrade_tax_building = yes
+			}
+		}
+	}
+}

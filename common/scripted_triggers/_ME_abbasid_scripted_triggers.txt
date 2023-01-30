@@ -1,0 +1,126 @@
+ME_caliph_tag_trigger = {
+	event_target:Caliph_province = {
+		owner = {
+			$trigger$
+		}
+	}
+}
+
+ME_is_caliphate_trigger = {
+	OR = {
+		has_reform = ME_caliphate_reform_sunni 
+		has_reform = ME_caliphate_reform_sunni_andalusia 
+		has_reform = ME_caliphate_reform_sunni_arabian 
+		has_reform = ME_caliphate_reform_shia_ibadi
+	}
+}
+
+#alias for cases where the condition has to be this
+ME_has_caliphate_reform_trigger = {
+	OR = {
+		has_reform = ME_caliphate_reform_sunni 
+		has_reform = ME_caliphate_reform_sunni_andalusia 
+		has_reform = ME_caliphate_reform_sunni_arabian 
+		has_reform = ME_caliphate_reform_shia_ibadi
+	}
+}
+
+ME_can_benefit_from_abbasid_caliph = {
+	religion = sunni
+	NOT = { has_disaster = ABB_abbasid_caliph_revolt }
+}
+
+# ME_caliphate_is_active
+# ME_abbasid_caliph_exists
+
+# The requirement for all decisions/missions that would fire an event/give the caliphate reform.
+
+ME_there_is_a_caliph = {
+	OR = {
+		has_global_flag = ME_caliphate_is_active
+		has_global_flag = ME_abbasid_caliph_exists
+	}
+}
+
+ME_has_abbasid_caliph = {
+	if = {
+		limit = {
+			has_global_flag = ME_caliphate_is_active
+		}
+		custom_trigger_tooltip = {
+			tooltip = ME_caliphate_is_already_taken_trigger
+			ME_is_caliphate_trigger = yes
+		}
+	}
+	else_if = {
+		limit = {
+			has_global_flag = ME_abbasid_caliph_exists
+		}
+		custom_trigger_tooltip = {
+			tooltip = ME_has_abbasid_caliph
+			event_target:Caliph_province = {
+				owned_by = PREV
+			}
+		}
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = ME_use_decision
+			always = no 
+		}
+	}
+}
+
+Abbasid_valid_escape_route = {
+	NOT = { has_siege = yes }
+	fort_level = 2
+	controlled_by = ROOT
+	NOT = { province_id = event_target:Caliph_province }
+}
+
+ME_abbasid_caliph_mission_trigger = {
+	if = {
+		limit = {
+			religion = sunni
+		}
+		ME_has_abbasid_caliph = yes
+	}
+	else = {
+		ME_captured_caliph = yes
+	}
+}
+
+ME_captured_caliph = {
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = ME_abbasid_caliph_exists
+				has_country_flag = ME_captured_caliph_at_one_point
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = ABA_captured_caliph
+			has_country_flag = ME_captured_caliph_at_one_point
+		}
+	}
+	else = {
+		is_defender_of_faith = yes
+	}
+}
+
+########
+# ME_can_become_caliphate_gov 
+# A scripted trigger for sunni countries to check
+# whether a caliphate government can be given to them
+#
+########
+ME_can_become_caliphate_gov = {
+	hidden_trigger = {
+		always = yes
+	}
+}
+
+ME_abbasid_caliph_pth = {
+	province_id = event_target:Caliph_province
+	NOT = { owned_by = ROOT }
+}

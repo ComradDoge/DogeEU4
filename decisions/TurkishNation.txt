@@ -18,6 +18,7 @@ country_decisions = {
 			NOT = { tag = RUS }
 			NOT = { tag = PRU }
 			NOT = { tag = ENG }
+			NOT = { tag = AKK }
 			is_emperor_of_china = no
 			OR = { 
 				primary_culture = turkish
@@ -55,7 +56,12 @@ country_decisions = {
 			is_at_war = no
 			is_subject = no #Cannot even be a tributary
 			is_nomad = no
-			religion_group = muslim
+			if = {
+				limit = {
+					NOT = { has_country_flag = RUM_may_form_rum_irrespective_of_religion }
+				}
+				religion_group = muslim
+			}
 			NOT = { exists = RUM }
 			NOT = { exists = TUR }
 			NOT = { exists = BYZ }
@@ -87,21 +93,28 @@ country_decisions = {
 
             # Government
             custom_tooltip = tooltip_line_seperate_government
-			if = {
+			random_country = {
 				limit = {
-					NOT = {
-						government = monarchy
-						}
-					}
-				change_government = monarchy
-			}
-			if = {
-				limit = {
-					NOT = { government_rank = 2 }
+					tag = RUM
 				}
-				set_government_rank = 2
+				if = {
+					limit = {
+						NOT = { government = monarchy }
+						is_revolutionary = no
+					}
+					change_government_to_monarchy = yes
+				}
+				if = {
+					limit = {
+						religion_group = muslim 
+						is_revolutionary = no
+					}
+					add_government_reform = ottoman_government
+				}
+				else = {
+					add_government_reform = ME_ottoman_government
+				}
 			}
-
 
             #### Gov Reform
             custom_tooltip = tooltip_line_seperate_gov_gap

@@ -167,6 +167,149 @@ on_war_won = {
 			id = flavor_swe.121
 		}
 	}
+
+
+	# Missions Expanded
+	
+	if = {
+		limit = {
+			tag = TUN
+			FROM = {
+				has_country_flag = TUN_abu_l_hasan
+				ai = yes 
+			}
+		}
+		add_yearly_manpower = 1.5
+		FROM = {
+			every_owned_province = {
+				random_core_country = {
+					every_core_province = {
+						limit = {
+							owned_by = FROM
+						}
+						cede_province = PREV
+					}
+				}
+			}
+			random_neighbor_country = {
+				limit = {
+					ai = yes
+				}
+				save_event_target_as = TUN_annex_us
+			}
+			if = {
+				limit = {
+					has_saved_event_target = TUN_annex_us
+				}
+				every_owned_province = {
+					add_core = ROOT
+					cede_province = event_target:TUN_annex_us
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = TUN_abu_l_hasan
+			FROM = {
+				tag = TUN
+				ai = yes 
+			}
+		}
+		if = {
+			limit = {
+				NOT = { exists = TRP }
+			}
+			FROM = { change_tag = TRP }
+		}
+		remove_country_modifier = TUN_abu_l_hasans_rebellion_modifier
+	}
+	else = { }
+	
+	if = {
+		limit = {
+			has_global_flag = GHD_some_nation_set_west_africa_on_fire
+			technology_group = sub_saharan 
+			FROM = {
+				technology_group = sub_saharan 
+			}
+		}
+		every_country = {
+			# every_trade_node_member_country = {
+			limit = {
+				has_country_flag = GHD_nations_in_west_africa_fighting_wars_buff_us
+				NOT = { tag = FROM }
+				NOT = { tag = ROOT }
+				OR = {
+					1132 = {
+						has_merchant = PREV
+					}
+					1149 = {
+						has_merchant = PREV
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ROOT_dev
+				value = total_development
+				who = ROOT
+			}
+			export_to_variable = {
+				variable_name = PREV_dev
+				value = total_development
+				who = PREV
+			}
+			change_variable = {
+				which = ROOT_dev
+				which = PREV_dev
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = ROOT_dev
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = ROOT_dev
+					value = 1
+				}
+				add_treasury = 1
+				add_manpower = 0.025
+			}
+			set_variable = {
+				which = ROOT_dev
+				value = 0
+			}
+			set_variable = {
+				which = PREV_dev
+				value = 0
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = YEM_relationship
+			tag = event_target:YEM_target
+		}
+		event_target:YEM_beneficiary = {
+			add_dip_power = 50
+			add_mil_power = 50
+		}
+	}
+	
+	if = {
+		limit = {
+			has_country_modifier = MSY_the_end_is_nigh
+			FROM = { 
+				NOT = { religion = ROOT }
+			}
+		}
+		add_disaster_progress = {
+			disaster = ME_the_end_of_times
+			value = -2.5
+		}
+	}
 }
 
 # country
@@ -1431,6 +1574,14 @@ on_bi_yearly_pulse = {
 		100 = 6433
 		100 = 6434
 
+		# Trade Good Flavour Events
+		100 = dse_flavour_tradegoods.1
+		100 = dse_flavour_tradegoods.2
+		100 = dse_flavour_tradegoods.3
+
+		
+		100 = dse_flavour_tradegoods.1000
+
 		# Refoms, when having parliaments.
 		100 = reforms.1
 		100 = reforms.2
@@ -1790,6 +1941,105 @@ on_bi_yearly_pulse_4 = {
 		1000 = estate_privileges_and_agendas_events.5
 
 		2000 = 0
+
+		# Catholic Heretic Religious Events
+		100 = dse_catholic_heretic_religious_events.1
+		100 = dse_catholic_heretic_religious_events.2
+		100 = dse_catholic_heretic_religious_events.3
+		100 = dse_catholic_heretic_religious_events.4
+		100 = dse_catholic_heretic_religious_events.5
+		100 = dse_catholic_heretic_religious_events.6
+		100 = dse_catholic_heretic_religious_events.7
+		100 = dse_catholic_heretic_religious_events.8
+		100 = dse_catholic_heretic_religious_events.9
+		100 = dse_catholic_heretic_religious_events.10
+
+		# Bogomilist
+		100 = dse_bogomilist_religious_events.1
+		100 = dse_bogomilist_religious_events.2
+		100 = dse_bogomilist_religious_events.3
+		100 = dse_bogomilist_religious_events.4
+		100 = dse_bogomilist_religious_events.5
+		100 = dse_bogomilist_religious_events.6
+
+		# Rodnovery
+		100 = dse_rodnovery_religious_events.1
+		100 = dse_rodnovery_religious_events.2
+		100 = dse_rodnovery_religious_events.3
+		100 = dse_rodnovery_religious_events.4
+		100 = dse_rodnovery_religious_events.5
+		100 = dse_rodnovery_religious_events.6
+		100 = dse_rodnovery_religious_events.7
+		100 = dse_rodnovery_religious_events.8
+		100 = dse_rodnovery_religious_events.9
+		100 = dse_rodnovery_religious_events.10
+
+		# Kemetism
+		100 = dse_kemetism_religious_events.1
+		100 = dse_kemetism_religious_events.2
+		100 = dse_kemetism_religious_events.3
+		100 = dse_kemetism_religious_events.4
+		100 = dse_kemetism_religious_events.5
+		100 = dse_kemetism_religious_events.6
+		100 = dse_kemetism_religious_events.7
+		100 = dse_kemetism_religious_events.8
+		100 = dse_kemetism_religious_events.9
+		100 = dse_kemetism_religious_events.10
+
+		# Gnostic (Yazidi, Druze)
+		100 = dse_gnostic_religious_events.1
+		100 = dse_gnostic_religious_events.2
+		100 = dse_gnostic_religious_events.3
+		100 = dse_gnostic_religious_events.4
+		100 = dse_gnostic_religious_events.5
+		100 = dse_gnostic_religious_events.6
+		100 = dse_gnostic_religious_events.7
+		100 = dse_gnostic_religious_events.8
+		100 = dse_gnostic_religious_events.9
+		100 = dse_gnostic_religious_events.10
+	
+		# Romuva
+		100 = dse_romuva_religious_events.1
+		100 = dse_romuva_religious_events.2
+		100 = dse_romuva_religious_events.3
+		100 = dse_romuva_religious_events.4
+
+		# Suomenusko
+		100 = dse_suomenusko_religious_events.1
+		100 = dse_suomenusko_religious_events.2
+		100 = dse_suomenusko_religious_events.3
+		100 = dse_suomenusko_religious_events.4
+		100 = dse_suomenusko_religious_events.5
+		100 = dse_suomenusko_religious_events.6
+		100 = dse_suomenusko_religious_events.7
+		100 = dse_suomenusko_religious_events.8
+		100 = dse_suomenusko_religious_events.9
+		100 = dse_suomenusko_religious_events.10
+
+		# Norse
+		100 = dse_norse_religious_events.1
+		100 = dse_norse_religious_events.2
+		100 = dse_norse_religious_events.3
+		100 = dse_norse_religious_events.4
+		100 = dse_norse_religious_events.5
+		100 = dse_norse_religious_events.6
+		100 = dse_norse_religious_events.7
+		100 = dse_norse_religious_events.8
+		100 = dse_norse_religious_events.9
+		100 = dse_norse_religious_events.10
+
+		# Zoroastrian
+		100 = dse_zoroastrian_religious_events.1
+		100 = dse_zoroastrian_religious_events.2
+		100 = dse_zoroastrian_religious_events.3
+		100 = dse_zoroastrian_religious_events.4
+		100 = dse_zoroastrian_religious_events.5
+		100 = dse_zoroastrian_religious_events.6
+		100 = dse_zoroastrian_religious_events.7
+		100 = dse_zoroastrian_religious_events.8
+		100 = dse_zoroastrian_religious_events.9
+		100 = dse_zoroastrian_religious_events.10
+		
 	}
 }
 
@@ -1819,6 +2069,17 @@ on_bi_yearly_pulse_5 = {
 		100 = hussite.5
 		100 = hussite.6
 		100 = hussite.7
+
+		100 = dse_hussite_religious_events.1
+		100 = dse_hussite_religious_events.2
+		100 = dse_hussite_religious_events.3
+		100 = dse_hussite_religious_events.4
+		100 = dse_hussite_religious_events.5
+		100 = dse_hussite_religious_events.6
+		100 = dse_hussite_religious_events.7
+		100 = dse_hussite_religious_events.8
+		100 = dse_hussite_religious_events.9
+		100 = dse_hussite_religious_events.10
 
 
 		#Mamluk Events
@@ -3348,6 +3609,108 @@ on_province_religion_converted = {
 		remove_province_modifier = son_fetishism_as_secondary_religion_province
 	}
 	judaism_on_province_change_religion_or_change_owner_effect = yes
+
+
+	# Missions Expanded
+	
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = ME_muslim_enforced_religion
+			}
+			# religion_group = owner 
+			# NOT = { religion = owner }
+		}
+		export_to_variable = {
+			which = ME_temp_religion_enforced
+			value = trigger_value:development
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ME_temp_religion_enforced
+					value = 1
+				}
+			}
+			owner = {
+				add_piety = 0.02
+			}
+			change_variable = {
+				which = ME_temp_religion_enforced
+				value = -1
+			}
+		}
+	}
+	
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = MSY_the_end_is_nigh
+			}
+		}
+		export_to_variable = {
+			which = MSY_temp
+			value = trigger_value:development
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = MSY_temp
+					value = 1
+				}
+			}
+			owner = {
+				add_disaster_progress = {
+					disaster = ME_the_end_of_times
+					value = -0.2
+				}
+			}
+			change_variable = {
+				which = MSY_temp
+				value = -1
+			}
+		}
+	}
+	
+	# if = {
+		# limit = {
+			# owner = {
+				# has_country_flag = RUM_piety_from_conversion
+			# }
+		# }
+		# export_to_variable = {
+			# which = MSY_temp
+			# value = trigger_value:development
+		# }
+		# while = {
+			# limit = {
+				# check_variable = {
+					# which = MSY_temp
+					# value = 1
+				# }
+			# }
+			# owner = {
+				# add_positive_or_negative_piety = { amount = 0.2 }
+			# }
+			# change_variable = {
+				# which = MSY_temp
+				# value = -1
+			# }
+		# }
+	# }
+
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = me_tim_reduced_conversion_on_razing
+			}
+		}
+		remove_province_modifier = religious_zeal_at_conv
+		add_province_modifier = {
+			name = me_tim_harsh_conversions
+			duration = 7300
+		}
+	}
 }
 
 
@@ -3476,6 +3839,78 @@ on_regiment_recruited = {
 
 # THIS = One province in the state
 on_add_pasha = {
+	hidden_effect = {
+		owner = {
+			save_event_target_as = province_owner
+		}
+	}
+	
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = RUM_pasha_empowerment
+			}
+		}
+		area = {
+			limit = {
+				owned_by = event_target:province_owner
+			}
+			add_province_modifier = {
+				name = RUM_pasha_modifier
+				duration = -1
+			}
+		}
+	}
+	
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = RUM_pasha_seljuk_flag
+			}
+		}
+		area = {
+			limit = {
+				owned_by = event_target:province_owner
+			}
+			add_province_modifier = {
+				name = RUM_pasha_seljuk_modifier
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			owner = {
+				has_country_flag = RUM_pasha_roman_flag
+			}
+		}
+		area = {
+			limit = {
+				owned_by = event_target:province_owner
+			}
+			add_province_modifier = {
+				name = RUM_pasha_roman_modifier
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			owner = {
+				has_country_flag = RUM_pasha_caliphate_flag
+			}
+		}
+		area = {
+			limit = {
+				owned_by = event_target:province_owner
+			}
+			add_province_modifier = {
+				name = RUM_pasha_caliphate_modifier 
+				duration = -1
+			}
+		}
+	}
+	else = { }
 }
 
 # THIS = One province in the state
@@ -3484,17 +3919,28 @@ on_remove_pasha = {
 		owner = {
 			save_event_target_as = province_owner
 		}
-		remove_province_modifier = pasha_removed_modifier
 	}
 
 	area = {
 		limit = { owned_by = event_target:province_owner }
 		add_or_extend_province_modifier_effect = { MODIFIER = pasha_removed_modifier DURATION = 3650 }
+		remove_province_modifier = RUM_pasha_modifier
+		remove_province_modifier = RUM_pasha_seljuk_modifier
+		remove_province_modifier = RUM_pasha_roman_modifier
+		remove_province_modifier = RUM_pasha_caliphate_modifier
 	}
 }
 
 # THIS = Province
 on_janissaries_raised = {
+	owner = {
+		if = {
+			limit = {
+				has_country_flag = RUM_cost_of_janissaries_decreased
+			}
+			add_mil_power = 6
+		}
+	}
 }
 
 on_cawa_raised = {
@@ -3653,6 +4099,27 @@ on_raid_coast = {
 			value = 1
 		}
 	}
+
+	# Missions Expanded
+	if = { 
+		limit = { has_country_flag = nss_raid_for_pp_flag } 
+		add_power_projection = {
+			type = mission_rewards_power_projection
+			amount = 1
+		}
+	}
+	save_event_target_as = Temp_THIS
+	ME_on_raid_coast_sea_effect = yes
+	FROM = {
+		every_neighbor_province = {
+			limit = {
+				NOT = { is_sea = yes }
+			}
+			event_target:Temp_THIS = { 
+				ME_on_raid_coast_province_effect = yes
+			}
+		}
+	}
 }
 
 # ROOT = Tag that captured the flagship, FROM = Tag that lost the flagship
@@ -3784,6 +4251,21 @@ on_golden_bull_enacted = {
 on_conquest = {
 	remove_named_unrest = estate_land_seized
 	clr_province_flag = has_estate_unrest_flag
+
+	# Missions Expanded
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = MSY_the_end_is_nigh
+			}
+		}
+		owner = {
+			add_disaster_progress = {
+				disaster = ME_the_end_of_times
+				value = -0.3
+			}
+		}
+	}
 }
 
 on_country_creation = {
@@ -4078,6 +4560,34 @@ on_force_conversion = {
 			add_papal_influence = 25
 		}
 	}
+	
+	# Missions Expanded
+	if = {
+		limit = {
+			FROM = {
+				has_country_modifier = MSY_the_end_is_nigh
+			}
+		}
+		FROM = {
+			add_disaster_progress = {
+				disaster = ME_the_end_of_times
+				value = -2.5
+			}
+		}
+	}
+	
+	if = {
+		limit = {
+			technology_group = western
+			FROM = {
+				has_country_flag = ARB_islamization_of_europe_cb
+			}
+		}
+		add_power_projection = {
+			type = ARB_islamization_of_europe
+			amount = 5
+		}
+	}
 }
 
 
@@ -4214,6 +4724,7 @@ on_new_age = {
 
 #ROOT = province
 on_adm_exploited = {
+	ME_on_exploit_development = yes
 	if = {
 		limit = { owner = { has_government_attribute = may_not_reduce_tax_on_exploitation } }
 		random = {
@@ -4237,8 +4748,10 @@ on_adm_exploited = {
 	}
 }
 on_dip_exploited = {
+	ME_on_exploit_development = yes
 }
 on_mil_exploited = {
+	ME_on_exploit_development = yes
 }
 on_raze = {
 }

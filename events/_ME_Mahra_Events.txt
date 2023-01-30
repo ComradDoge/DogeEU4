@@ -1,0 +1,323 @@
+namespace = ME_Mahra_Events
+
+#A Few Mahra events because I found them slighlty interesting :)
+
+country_event = {
+	id = ME_Mahra_Events.1
+	title = ME_Mahra_Events.1.t
+	desc = ME_Mahra_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	fire_only_once = yes
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		tag = MHR
+		owns = 1099
+		controls = 1099
+	}
+	major = yes
+	major_trigger = {
+		is_neighbor_of = MHR
+	}
+	
+	option = {
+		name = ME_Mahra_Events.1.a
+		
+		ai_chance = { factor = 100 }
+		
+		custom_tooltip = MHR_as_long_as_the_modifier_lands
+		1099 = {
+			add_province_modifier = {
+				name = MHR_weak_island_control
+				duration = 19250
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Mahra_Events.2
+	title = ME_Mahra_Events.2.t
+	desc = ME_Mahra_Events.2.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	trigger = {
+		tag = MHR
+		1099 = {
+			owned_by = ROOT
+			has_province_modifier = MHR_weak_island_control
+			controlled_by = ROOT
+			OR = {
+				NOT = { has_province_flag = MHR_delay }
+				had_province_flag = {
+					flag = MHR_delay
+					days = 365
+				}
+			}
+		}
+		capital_scope = {
+			controller = {
+				NOT = {
+					tag = ROOT 
+				}
+			}
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			capital_scope = {
+				save_event_target_as = MHR_capital
+			}
+		}
+	}
+	major = yes
+	major_trigger = {
+		event_target:MHR_capital = {
+			controlled_by = PREV
+		}
+	}
+	
+	option = {
+		name = ME_Mahra_Events.2.a
+		
+		ai_chance = { factor = 100 }
+		
+		capital_scope = {
+			controller = {
+				1099 = {
+					kill_units = {
+						who = owner
+					}
+					change_controller = PREV
+					set_province_flag = MHR_delay
+				}
+			}
+		}
+	}
+}
+
+# country_event = {
+	# id = ME_Mahra_Events.3
+	# title = ME_Mahra_Events.3.t
+	# desc = ME_Mahra_Events.3.d
+	# picture = GOOD_WITH_MONARCH_eventPicture
+	
+	# fire_only_once = yes
+	# mean_time_to_happen = {
+		# months = 1
+	# }
+	# trigger = {
+		# tag = MHR
+		# capital_scope = {
+			# province_id = 402
+			# controller = {
+				# NOT = {
+					# tag = ROOT 
+				# }
+				# PREV = {
+					# any_neighbor_province = {
+						# owned_by = PREV
+					# }
+				# }
+			# }
+		# }
+	# }
+	
+	# option = {
+		# name = ME_Mahra_Events.3.a
+		
+		# ai_chance = { factor = 100 }
+		
+		# capital_scope = {
+			# controller = {
+				# country_event = { id = ME_Mahra_Events.4 }
+			# }
+		# }
+	# }
+	
+	# option = {
+		# name = ME_Mahra_Events.3.b
+		
+		# ai_chance = { factor = 0 }
+		
+		
+	# }
+# }
+
+# country_event = {
+	# id = ME_Mahra_Events.4
+	# title = ME_Mahra_Events.4.t
+	# desc = ME_Mahra_Events.4.d
+	# picture = GOOD_WITH_MONARCH_eventPicture
+	
+	# is_triggered_only = yes
+	
+	# option = {
+		# name = ME_Mahra_Events.4.a
+		
+		# ai_chance = { factor = 100 }
+		
+		# FROM = {
+			# capital_scope = {
+				# if = {
+					# limit = {
+						# controlled_by = ROOT
+					# }
+					# cede_province = ROOT
+					# add_core = ROOT
+				# }
+			# }
+		# }
+		# white_peace = FROM
+	# }
+	
+	# option = {
+		# name = ME_Mahra_Events.4.b
+		
+		# ai_chance = { factor = 0 }
+	
+		# add_prestige = 5
+	# }
+# }
+
+province_event = {
+	id = ME_Mahra_Events.5
+	title = ME_Mahra_Events.5.t
+	desc = ME_Mahra_Events.5.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	fire_only_once = yes
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	trigger = {
+		province_id = 1099
+		has_dlc = "Golden Century"
+		owner = { ai = yes } #maybe change later
+		OR = {
+			owner = {
+				AND = {
+					ai = yes
+					NOT = { num_of_cities = 2 }
+				}
+			}
+			owner = {
+				AND = {
+					unrest = 2
+					OR = {
+						capital_scope = {
+							region = horn_of_africa_region
+						}
+						capital_scope = {
+							region = arabia_region
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	major = yes
+	major_trigger = {
+		OR = {
+			capital_scope = {
+				region = horn_of_africa_region
+			}
+			capital_scope = {
+				region = arabia_region
+			}
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			1099 = {
+				discover_country = SUQ
+				add_core = SUQ
+			}
+			owner = {
+				save_event_target_as = SUQ_player
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mahra_Events.5.a
+		
+		ai_chance = { factor = 100 }
+		
+		1099 = {
+			owner = {
+				release = SUQ
+			}
+		}
+		SUQ = {
+			change_government = republic
+			add_government_reform = pirate_republic_reform
+			adopt_reform_progress = ROOT
+			add_republican_tradition = 50
+			change_religion = coptic
+			change_primary_culture = mahri_culture
+			discover_provinces = ROOT
+			capital_scope = {
+				build_to_forcelimit = {
+					infantry = 0.8
+					artillery = 0.2
+					heavy_ship = 0.3
+					light_ship = 0.3
+					transport = 0.3
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mahra_Events.5.b
+		
+		ai_chance = { factor = 0 }
+		
+		trigger = { 
+			owner = { ai = no }
+		}
+		
+		1099 = {
+			owner = {
+				release = SUQ
+			}
+		}
+		
+		SUQ = {
+			change_government = republic
+			add_government_reform = pirate_republic_reform
+			adopt_reform_progress = ROOT
+			add_republican_tradition = 50
+			change_religion = coptic
+			change_primary_culture = mahri_culture
+			discover_provinces = ROOT
+			capital_scope = {
+				build_to_forcelimit = {
+					infantry = 0.8
+					artillery = 0.2
+					heavy_ship = 0.05
+					galley = 0.25
+					light_ship = 0.3
+					transport = 0.3
+				}
+			}
+			set_country_flag = SUQ_flag
+		}
+		event_target:SUQ_player = { 
+			switch_tag = SUQ
+		}
+	}
+	
+	after = {
+		swap_free_idea_group = yes
+		swap_non_generic_missions = yes
+	}
+}

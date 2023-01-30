@@ -1,0 +1,168 @@
+country_decisions = {
+	NAJ_move_capital_to_riyadh = {
+		major = yes
+		potential = {
+			has_country_flag = NAJ_may_move_capital_to_riyadh
+		}
+		provinces_to_highlight = {
+			province_id = 392
+		}
+		allow = {
+			392 = {
+				owned_by = ROOT
+				is_state_core = ROOT
+				development = 15
+			}
+		}
+		effect = {
+			clr_country_flag = NAJ_may_move_capital_to_riyadh
+			392 = {
+				rename_capital = "Riyadh"
+				change_province_name = "Riyadh"
+				add_province_modifier = {
+					name = NAJ_an_oasis_in_the_sandy_sea
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { capital = 392 }
+				}
+				392 = {
+					move_capital_effect = yes
+				}
+			}
+			set_government_rank = 2
+			
+			ME_override_country_name = { string = NAJ_riyadh }
+		}
+	}
+	
+	ARB_assemble_the_scholars = {
+		major = yes
+		potential = {
+			has_country_flag = ARB_assemble_the_scholars_flag
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			custom_tooltip = ARB_onetime_decision
+			clr_country_flag = ARB_assemble_the_scholars_flag
+			add_country_modifier = {
+				name = ARB_assemble_the_scholars_modifier
+				duration = 5475 
+			}
+		}
+	}
+	
+	ARB_call_on_scholars = {
+		major = yes
+		potential = {
+			has_country_flag = ARB_two_special_piety_interactions
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			piety = 0.75
+			custom_trigger_tooltip = {
+				tooltip = ARB_call_on_scholars_tt
+				OR = {
+					NOT = { has_country_flag = ARB_call_on_scholars_cd }
+					had_country_flag = {
+						flag = ARB_call_on_scholars_cd
+						days = 1825
+					}
+				}
+			}
+		}
+		effect = {
+			add_piety = -0.5
+			
+			custom_tooltip = " "
+			set_country_flag = ARB_call_on_scholars_cd
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				change_innovativeness = 2.5
+			}
+			else = {
+				change_government_reform_progress = 10
+			}
+		}
+	}
+	
+	ARB_incorporate_local_religions = {
+		major = yes
+		potential = {
+			has_country_flag = ARB_two_special_piety_interactions
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			NOT = { piety = -0.74 }
+			custom_trigger_tooltip = {
+				tooltip = ARB_incorporate_local_religions_tt
+				OR = {
+					NOT = { has_country_flag = ARB_incorporate_local_religions_cd }
+					had_country_flag = {
+						flag = ARB_incorporate_local_religions_cd
+						days = 1825
+					}
+				}
+			}
+		}
+		effect = {
+			add_piety = 0.5
+			
+			custom_tooltip = " "
+			set_country_flag = ARB_incorporate_local_religions_cd
+			
+			add_country_modifier = {
+				name = ARB_local_religions_incorporated
+				duration = 1825
+			}
+			
+			random_owned_province = {
+				limit = {
+					NOT = { religion = ROOT }
+				}
+				change_religion = ROOT
+			}
+		}
+	}
+	
+	ARB_arabia_focus = {
+		major = yes
+		potential = {
+			NOT = { has_country_flag = ARB_arabia_focus_flag }
+			OR = {
+				tag = YEM
+				tag = ORM
+				tag = MSY
+			}
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			total_development = 400
+			power_projection = 50
+			army_size = 50
+			dip_power_cost = 100
+		}
+		effect = {
+			dip_power_cost = 100
+			
+			custom_tooltip = " "
+		
+			ME_give_claims = { region = arabia_region }
+			ME_give_claims = { region = mashriq_region }
+			ME_give_claims = { region = egypt_region }
+			
+			set_country_flag = ARB_arabia_focus_flag
+		}
+	}
+}

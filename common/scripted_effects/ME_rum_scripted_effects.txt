@@ -1,0 +1,443 @@
+RUM_pick_event_target_for_beylik = {
+	hidden_effect = {
+		random_owned_province = {
+			limit = {
+				is_core = $tag$
+				likely_rebels = nationalist_rebels
+			}
+			save_event_target_as = Rum_target
+		}
+	}
+}
+
+RUM_event_option_for_beylik = {
+	custom_tooltip = RUM_release_$tag$
+	hidden_effect = {
+		release = $tag$
+		if = {
+			limit = {
+				$tag$ = {
+					is_subject_of = ROOT
+				}
+			}
+			$tag$ = { grant_independence = yes }
+		}
+	}
+}
+
+RUM_decrease_illegitimacy = {
+	custom_tooltip = RUM_decrease_illegitimacy_tt
+	hidden_effect = {
+		if = {
+			limit = { has_country_modifier = RUM_illegitimacy_1 }
+			add_country_modifier = { name = RUM_illegitimacy_2 duration = -1 }
+			remove_country_modifier = RUM_illegitimacy_1
+		}
+		else_if = {
+			limit = { has_country_modifier = RUM_illegitimacy_2 }
+			add_country_modifier = { name = RUM_illegitimacy_3 duration = -1 }
+			remove_country_modifier = RUM_illegitimacy_2
+		}
+		else = {
+			remove_country_modifier = RUM_illegitimacy_3
+		}
+	}
+}
+
+RUM_pick_destiny = {
+	custom_tooltip = RUM_begin_preview_of_$destiny$
+	
+	clr_country_flag = RUM_byzantium_chosen
+	clr_country_flag = RUM_seljuk_chosen
+	clr_country_flag = RUM_religion_chosen
+	set_country_flag = RUM_chosen_tree
+	set_country_flag = RUM_preview
+	
+	RUM_pick_$destiny$ = yes
+	
+	swap_non_generic_missions = yes
+}
+
+RUM_pick_roman = {
+	set_country_flag = RUM_byzantium_chosen
+}
+
+RUM_pick_seljuk = {
+	set_country_flag = RUM_seljuk_chosen
+}
+
+RUM_pick_caliphate = {
+	set_country_flag = RUM_religion_chosen
+}
+
+ME_anatolia_control_on_progress = {
+	if = {
+		limit = {
+			NOT = { has_country_flag = RUM_disaster_event_1 }
+			has_disaster_progress = {
+				disaster = RUM_anatolia_control
+				value = 0
+			}
+		}
+		set_country_flag = RUM_disaster_event_1
+		country_event = { id = ME_Rum_Events.8 }
+		every_country = {
+			limit = {
+				OR = {
+					is_neighbor_of = ROOT
+					primary_culture = turkish
+					NOT = { tag = TUR }
+					NOT = { tag = AKK }
+				}
+			}
+			country_event = { id = ME_Rum_Events.4 }
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = RUM_disaster_event_2 }
+			has_disaster_progress = {
+				disaster = RUM_anatolia_control
+				value = 25
+			}
+		}
+		set_country_flag = RUM_disaster_event_2
+		every_country = {
+			limit = {
+				OR = {
+					is_neighbor_of = ROOT
+					primary_culture = turkish
+					NOT = { tag = TUR }
+					NOT = { tag = AKK }
+				}
+			}
+			country_event = { id = ME_Rum_Events.5 }
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = RUM_disaster_event_2
+			NOT = {
+				has_disaster_progress = {
+					disaster = RUM_anatolia_control
+					value = 15
+				}
+			}
+		}
+		clr_country_flag = RUM_disaster_event_2
+	}
+	else = { }
+	
+	if = {
+		limit = {
+			NOT = { has_country_flag = RUM_disaster_event_3 }
+			has_disaster_progress = {
+				disaster = RUM_anatolia_control
+				value = 50
+			}
+		}
+
+		set_country_flag = RUM_disaster_event_3
+		every_country = {
+			limit = {
+				OR = {
+					is_neighbor_of = ROOT
+					primary_culture = turkish
+					NOT = { tag = TUR }
+					NOT = { tag = AKK }
+				}
+			}
+			country_event = { id = ME_Rum_Events.6 }
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = RUM_disaster_event_3
+			NOT = {
+				has_disaster_progress = {
+					disaster = RUM_anatolia_control
+					value = 40
+				}
+			}
+		}
+		clr_country_flag = RUM_disaster_event_3
+	}
+	else = { }
+	
+	if = {
+		limit = {
+			NOT = { has_country_flag = RUM_disaster_event_4 }
+			has_disaster_progress = {
+				disaster = RUM_anatolia_control
+				value = 75
+			}
+		}
+		set_country_flag = RUM_disaster_event_4
+		every_country = {
+			limit = {
+				OR = {
+					is_neighbor_of = ROOT
+					primary_culture = turkish
+					NOT = { tag = TUR }
+					NOT = { tag = AKK }
+				}
+			}
+			country_event = { id = ME_Rum_Events.7 }
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = RUM_disaster_event_4
+			NOT = {
+				has_disaster_progress = {
+					disaster = RUM_anatolia_control
+					value = 65
+				}
+			}
+		}
+		clr_country_flag = RUM_disaster_event_4
+	}
+	else = { }
+	
+	if = {
+		limit = {
+			326 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				controller = {
+					primary_culture = turkish
+					NOT = { is_subject_of = ROOT }
+					NOT = { tag = ROOT }
+				}
+				NOT = { has_province_flag = got_anatolia_control_event }
+			}
+		}
+		326 = {
+			set_province_flag = got_anatolia_control_event
+			controller = {
+				country_event = { id = ME_Rum_Events.9 }
+			}
+		}
+	}
+	
+	if = {
+		limit = {
+			316 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				controller = {
+					primary_culture = turkish
+					NOT = { is_subject_of = ROOT }
+					NOT = { tag = ROOT }
+				}
+				NOT = { has_province_flag = got_anatolia_control_event }
+			}
+		}
+		316 = {
+			set_province_flag = got_anatolia_control_event
+			controller = {
+				country_event = { id = ME_Rum_Events.10 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			318 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				controller = {
+					primary_culture = turkish
+					NOT = { is_subject_of = ROOT }
+					NOT = { tag = ROOT }
+				}
+				NOT = { has_province_flag = got_anatolia_control_event }
+			}
+		}
+		318 = {
+			set_province_flag = got_anatolia_control_event
+			controller = {
+				country_event = { id = ME_Rum_Events.11 }
+			}
+		}
+	}
+}
+
+RUM_collapse_ottomans = {
+	#Preprocessor
+	2299 = { add_core = CND }
+	4312 = { add_core = GRM }
+	############
+	# Release Beyliks
+	# 
+	# Start with smaller beyliks
+	
+	RUM_release_and_buff = { tag = SRU }
+	RUM_release_and_buff = { tag = RAM }
+	RUM_release_and_buff = { tag = AYD }
+	RUM_release_and_buff = { tag = MEN }
+	RUM_release_and_buff = { tag = DUL }
+	RUM_release_and_buff = { tag = CND }
+	RUM_release_and_buff = { tag = GRM }
+	RUM_release_and_buff = { tag = ERE }
+	RUM_release_and_buff = { tag = KAR }
+	
+	############
+	# Do cleanup
+	
+	anatolia_region = {
+		limit = {
+			owned_by = ROOT
+		}
+		random_core_country = {
+			every_core_province = {
+				limit = {
+					owned_by = ROOT
+					region = anatolia_region
+				}
+				cede_province = PREV
+				set_local_autonomy = 0
+			}
+		}
+	}
+	
+	every_country = {
+		limit = {
+			RUM_is_beylik = yes
+			has_country_flag = RUM_just_spawned
+		}
+		clr_country_flag = RUM_just_spawned
+		every_neighbor_country = {
+			add_truce_with = PREV
+			PREV = { add_truce_with = ROOT }
+		}
+		save_event_target_as = Rum_prev_prev
+		anatolia_region = {
+			limit = {
+				is_capital = yes
+				owner = {
+					RUM_is_beylik = yes
+				}
+			}
+			owner = {
+				add_truce_with = event_target:Rum_prev_prev
+				event_target:Rum_prev_prev = {
+					add_truce_with = ROOT
+				}
+			}
+		}
+	}
+}
+
+RUM_release_and_buff = {
+	if = {
+		limit = {
+			any_country = {
+				ai = no
+				RUM_is_beylik = yes
+				total_development = 200
+			}
+		}
+		set_global_flag = RUM_strong_player_beylik
+	}
+	
+	$tag$ = {
+		if = {
+			limit = {
+				exists = no
+			}
+			every_core_province = {
+				limit = {
+					region = anatolia_region
+					owned_by = ROOT
+				}
+				cede_province = PREV
+				set_local_autonomy = 0
+			}
+			
+			set_country_flag = RUM_just_spawned
+			if = {
+				limit = {
+					has_global_flag = RUM_strong_player_beylik
+				}
+				add_age_modifier = {
+					name = RUM_beylik_buff
+					duration = -1
+					age = age_of_discovery
+				}
+				
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.8
+						cavalry = 0.1
+					}
+				}
+			}
+		}
+		else = {
+			every_core_province = {
+				limit = {
+					region = anatolia_region
+					owned_by = ROOT
+				}
+				cede_province = PREV
+				set_local_autonomy = 0
+			}
+			
+			if = {
+				limit = {
+					NOT = { total_development = 50 }
+					ai = yes
+					has_global_flag = RUM_strong_player_beylik
+				}
+				add_age_modifier = {
+					name = RUM_beylik_buff
+					duration = -1
+					age = age_of_discovery
+				}
+				
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.8
+						cavalry = 0.1
+					}
+				}
+			}
+		}
+	}
+	
+	clr_global_flag = RUM_strong_player_beylik
+}
+
+RUM_fire_rebels_anatolia = {
+	custom_tooltip = RUM_disaster_will_end_after_rebels_are_dealt_with
+	set_country_flag = RUM_disaster_can_end
+	
+	custom_tooltip = " "
+	
+	add_age_modifier = {
+		name = RUM_weakness_in_anatolia
+		duration = -1
+		age = age_of_discovery 
+	}
+	
+	custom_tooltip = RUM_rebels_will_fire_in_all_of_anatolia
+	tooltip = {
+		326 = {
+			spawn_rebels = {
+				size = 2
+				type = nationalist_rebels
+			}
+		}
+	}
+	hidden_effect = {
+		anatolia_region = {
+			limit = {
+				owned_by = ROOT
+				any_core_country = {
+					NOT = { tag = TUR }
+				}
+			}
+			spawn_rebels = {
+				size = 2
+				type = nationalist_rebels
+			}
+		}
+	}
+}

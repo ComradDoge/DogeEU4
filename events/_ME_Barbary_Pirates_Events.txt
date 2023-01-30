@@ -1,0 +1,130 @@
+namespace = ME_Barbary_Pirates_Events
+
+country_event = {
+	id = ME_Barbary_Pirates_Events.1
+	title = ME_Barbary_Pirates_Events.1.t
+	desc = ME_Barbary_Pirates_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Barbary_Pirates_Events.1.a
+		
+		ai_chance = { factor = 100 }
+		
+		define_advisor = {
+			type = naval_reformer
+			skill = 3
+			culture = FROM
+			religion = FROM
+			cost_multiplier = 0.2
+		}
+	}
+}
+
+country_event = {
+	id = ME_Barbary_Pirates_Events.2
+	title = ME_Barbary_Pirates_Events.2.t
+	desc = ME_Barbary_Pirates_Events.2.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Barbary_Pirates_Events.2.a
+		
+		ai_chance = { factor = 100 }
+		
+		create_admiral = { tradition = 80 }
+	}
+}
+
+country_event = {
+	id = ME_Barbary_Pirates_Events.3
+	title = ME_Barbary_Pirates_Events.3.t #MTTH to make a vassal into subject oriented barbary pirate
+	desc = ME_Barbary_Pirates_Events.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	trigger = {
+		OR = {
+			tag = KBA
+			tag = ALG
+			tag = MOR
+			tag = SLE
+			tag = TET
+			tag = TUN
+			tag = TRP
+			tag = TLC
+		}
+		is_subject = yes
+		overlord = {
+			religion_group = muslim
+			capital_scope = {
+				NOT = { region = maghreb_region }
+			}
+		}
+		OR = {
+			NOT = { has_country_flag = BRBR_overlord_decided }
+			NOT = {
+				overlord = {
+					has_country_flag = BRBR_decided
+				}
+			}
+		}
+	}
+	
+	hidden = yes
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	immediate = {
+		overlord = {
+			country_event = { id = ME_Barbary_Pirates_Events.4 }
+		}
+	}
+	
+	option = {
+		name = ME_Barbary_Pirates_Events.3.a
+		
+		ai_chance = { factor = 100 }
+		
+		
+	}
+}
+
+country_event = {
+	id = ME_Barbary_Pirates_Events.4
+	title = ME_Barbary_Pirates_Events.4.t #MTTH to make a vassal into subject oriented barbary pirate
+	desc = ME_Barbary_Pirates_Events.4.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_country_flag = BRBR_decided
+		FROM = {
+			set_country_flag = BRBR_overlord_decided
+		}
+	}
+	
+	option = {
+		name = ME_Barbary_Pirates_Events.4.a
+		
+		ai_chance = { factor = 100 }
+		
+		FROM = {
+			BRBR_enable_berber_pirate_missions = yes
+		}
+	}
+	
+	option = {
+		name = ME_Barbary_Pirates_Events.4.b
+		
+		ai_chance = { factor = 0 }
+		
+		custom_tooltip = "We will maintain the Status Quo."
+	}
+}

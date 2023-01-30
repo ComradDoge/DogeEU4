@@ -1,0 +1,85 @@
+#PREV - Province being raided, THIS - country raiding
+
+ME_on_raid_coast_province_effect = {
+	change_variable = { 
+		which = NumOfRaidedCoasts #used in triggers
+		value = 1
+	}
+	
+	if = {
+		limit = {
+			has_country_flag = ME_gain_half_of_money_from_raiding
+			is_subject = yes 
+		}
+		PREV = {
+			export_to_variable = {
+				which = ME_maghreb_dev
+				value = trigger_value:development
+			}
+			multiply_variable = {
+				which = ME_maghreb_dev
+				value = 0.5
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = ME_maghreb_dev
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = ME_maghreb_dev
+					value = 1
+				}
+				PREV = {
+					overlord = {
+						add_treasury = 1
+					}
+				}
+			}
+		}
+	}
+	
+	if = {
+		limit = {
+			has_country_flag = ME_gain_monarch_power_from_raids
+			PREV = {
+				religion_group = christian
+			}
+		}
+		change_variable = { 
+			which = RaidCoastManaCounter
+			value = 1
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = RaidCoastManaCounter
+					value = 20
+				}
+			}
+			add_adm_power = 10
+			add_dip_power = 10
+			add_mil_power = 10
+			country_event = { id = ME_Barbary_Pirates_Events.2 }
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				overlord = {
+					add_adm_power = 10
+					add_dip_power = 10
+					add_mil_power = 10
+					country_event = { id = ME_Barbary_Pirates_Events.1 }
+				}
+			}
+			change_variable = {
+				which = RaidCoastManaCounter
+				value = -20
+			}
+		}
+	}
+}
+
+ME_on_raid_coast_sea_effect = {
+}

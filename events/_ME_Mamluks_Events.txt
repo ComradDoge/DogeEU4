@@ -1,0 +1,2230 @@
+namespace = ME_Mamluks_Events
+namespace = mamluk_reforms_events
+namespace = mamluk_civil_war_events
+
+country_event = {
+	id = ME_Mamluks_Events.1
+	title = ME_Mamluks_Events.1.t #State of the Holy Cities
+	desc = ME_Mamluks_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		#We are picking the event target for who will be annexing whom. Priority is given to Hejaz, unless medina is a player.
+		hidden_effect = {
+			if = {
+				limit = {
+					HED = {
+						is_subject_of = ROOT
+					}
+				}
+				HED = { save_event_target_as = MAM_priority }
+			}
+			if = {
+				limit = {
+					MDA = { ai = no } 
+					MDA = { is_subject_of = ROOT }
+				}
+				MDA = { save_event_target_as = MAM_priority }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.1.a
+		
+		ai_chance = { factor = 100 }
+		
+		event_target:MAM_priority = {
+			if = {
+				limit = {
+					tag = HED
+					MDA = { is_subject_of = ROOT }
+				}
+				inherit = MDA
+			}
+			else_if = {
+				limit = {
+					tag = MDA
+					HED = {
+						is_subject_of = ROOT
+					}
+				}
+				inherit = HED
+			}
+			else = { }
+			change_tag = MCC
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.1.b
+		
+		ai_chance = { factor = 0 }
+	
+		add_prestige_or_monarch_power = { amount = 5 }
+	}
+}
+
+# country_event = {
+	# id = ME_Mamluks_Events.2
+	# title = ME_Mamluks_Events.2.t #Mamluk Julban Mutiny There was an event about Julban here, but the coup mechanic basically represents that.
+	# desc = ME_Mamluks_Events.2.d
+	# picture = GOOD_WITH_MONARCH_eventPicture
+	
+	# mean_time_to_happen = {
+		# months = 12
+	# }
+	
+	# fire_only_once = yes
+	
+	# trigger = {
+		# tag = MAM
+		# is_year = 1455
+	# }
+	
+	# option = {
+		# name = ME_Mamluks_Events.2.a
+		
+		# ai_chance = { factor = 100 }
+		
+		# capital_scope = {
+			# spawn_rebels = {
+				# type = pretender_rebels
+				# size = 2 
+			# }
+		# }
+	# }
+# }
+
+country_event = {
+	id = ME_Mamluks_Events.3
+	title = ME_Mamluks_Events.3.t #Replace bad trade goods
+	desc = ME_Mamluks_Events.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			pick_best_provinces = {
+				3 = yes
+				event_target_name = "Mamluks_target"
+				global_trigger = "
+					MAM_has_bad_goods = yes
+					NOT = {
+						OR = {
+							has_province_modifier = MAM_upgraded_granary
+							has_province_modifier = granary_of_the_mediterranean
+						}
+					}
+				"
+				scale = higher_development_than
+				scope = every_owned_province
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.3.a
+		
+		ai_chance = { factor = 100 }
+		
+		event_target:Mamluks_target_1 = {
+			change_trade_goods = paper
+		}
+		event_target:Mamluks_target_2 = {
+			change_trade_goods = glass
+		}
+		event_target:Mamluks_target_3 = {
+			change_trade_goods = cloth
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.3.b
+		
+		ai_chance = { factor = 0 }
+		
+		add_years_of_income = 1
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.4
+	title = ME_Mamluks_Events.4.t
+	desc = ME_Mamluks_Events.4.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	option = {
+		name = ME_Mamluks_Events.4.a
+		
+		ai_chance = { factor = 100 }
+		
+		
+		add_age_modifier = {
+			name = MAM_crusaders_repulsed
+			duration = -1
+			age = age_of_absolutism
+		}
+		custom_tooltip = " "
+		add_prestige_or_monarch_power = { amount = 40 }
+		custom_tooltip = " "
+		add_power_projection = {
+			type = mission_rewards_power_projection
+			amount = 20 
+		}
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.5
+	title = ME_Mamluks_Events.5.t #Conquer beyliks or vassalize them?
+	desc = ME_Mamluks_Events.5.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Mamluks_Events.5.a
+		
+		ai_chance = { factor = 100 }
+		
+		327 = {
+			if = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		4298 = {
+			if = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		2303 = {
+			if = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		332 = {
+			if = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		4310 = {
+			if = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.5.b
+		
+		ai_chance = { factor = 0 }
+		
+		add_country_modifier = {
+			name = MAM_help_vassalize_beyliks
+			duration = 7300
+		}
+		custom_tooltip = MAM_karaman_will_be_easier
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.6
+	title = ME_Mamluks_Events.6.t #Trade Deals
+	desc = ME_Mamluks_Events.6.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						area = syria_area
+						area = aleppo_area
+						area = delta_area
+					}
+					has_port = yes
+				}
+				save_event_target_as = Mamluks_target
+			}
+		}
+		random_list = {
+			50 = { set_country_flag = MAM_venetian }
+			50 = { set_country_flag = MAM_genoan }
+		}
+	}
+	option = {
+		name = ME_Mamluks_Events.6.a
+		
+		ai_chance = { factor = 20 }
+		
+		add_years_of_income = -0.5
+		add_mil_power = 10
+		
+		if = {
+			limit = {
+				has_country_flag = MAM_venetian
+			}
+			define_advisor = {
+				type = ME_mercenary_commander
+				skill = 3
+				culture = venetian
+				religion = catholic
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = MAM_genoan
+			}
+			define_advisor = {
+				type = ME_mercenary_commander
+				skill = 3
+				culture = ligurian
+				religion = catholic
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.6.b
+		
+		ai_chance = { factor = 20 }
+		
+		trigger = {
+			has_saved_event_target = Mamluks_target
+		}
+		
+		event_target:Mamluks_target = {
+			if = {
+				limit = {
+					owned_by = ROOT
+				}
+				add_unit_construction = {
+					type = light_ship
+					amount = 5
+					speed = 0.25
+					cost = 0
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.6.c
+		
+		ai_chance = { factor = 20 }
+		
+		home_trade_node_effect_scope = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = 7300
+				power = 40
+				key = MAM_strong
+			}
+		}
+	}
+	
+	after = {
+		clr_country_flag = MAM_genoan
+		clr_country_flag = MAM_venetian
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.7
+	title = ME_Mamluks_Events.7.t #Iraq
+	desc = ME_Mamluks_Events.7.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			IRQ = {
+				every_core_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					set_province_flag = IRQ_low_prio
+					if = {
+						limit = {
+							owned_by = ROOT
+						}
+						set_province_flag = IRQ_high_prio
+					}
+				}
+			}
+			407 = { #rakka
+				if = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					set_province_flag = IRQ_low_prio
+					if = {
+						limit = {
+							owned_by = ROOT
+						}
+						set_province_flag = IRQ_high_prio
+					}
+				}
+			}
+			4292 = { #mardin
+				if = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					set_province_flag = IRQ_low_prio
+					if = {
+						limit = {
+							owned_by = ROOT
+						}
+						set_province_flag = IRQ_high_prio
+					}
+				}
+			}
+			2314 = { #rahba
+				if = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					set_province_flag = IRQ_low_prio
+					if = {
+						limit = {
+							owned_by = ROOT
+						}
+						set_province_flag = IRQ_high_prio
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_province_flag = IRQ_low_prio
+				}
+				save_event_target_as = Mamluks_target
+			}
+			random_owned_province = {
+				limit = {
+					has_province_flag = IRQ_high_prio
+				}
+				save_event_target_as = Mamluks_target #this will become Iraq's capital
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.7.a
+		
+		ai_chance = { factor = 100 }
+		
+		goto = Mamluks_target
+		
+		trigger = {
+			NOT = { exists = IRQ }
+		}
+		
+		event_target:Mamluks_target = {
+			if = {
+				limit = {
+					owner = { is_subject = yes }
+				}
+				owner = { add_liberty_desire = 25 }
+			}
+			cede_province = IRQ
+			add_core = IRQ
+		}
+		every_owned_province = {
+			limit = {
+				has_province_flag = IRQ_low_prio
+			}
+			cede_province = IRQ
+			add_core = IRQ
+		}
+		
+		create_subject = {
+			subject = IRQ
+			subject_type = vassal
+		}
+		
+		hidden_effect = {
+			IRQ = {
+				change_religion = ROOT
+				change_primary_culture = al_iraqiya_arabic
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.7.b
+		
+		ai_chance = { factor = 0 }
+	
+		
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.8
+	title = ME_Mamluks_Events.8.t #European that discovers 
+	desc = ME_Mamluks_Events.8.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	mean_time_to_happen = { months = 60 }
+	fire_only_once = yes
+	trigger = {
+		exploration_ideas = 7 
+		has_discovered = 1177 #have we discovered route to india?
+		has_discovered = 2030 
+		capital_scope = { continent = europe }
+	}
+	major = yes
+	major_trigger = {
+		OR = { 
+			tag = MAM
+			tag = EGY
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = EGY
+				}
+				EGY = { save_event_target_as = mamluk_loc_target }
+			}
+			else = {
+				MAM = { save_event_target_as = mamluk_loc_target }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.8.a
+		
+		ai_chance = { factor = 100 }
+		
+		custom_tooltip = MAM_mamluks_are_rekt
+		
+		4346 = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = 7300
+				power = 30
+				key = MAM_disrupted_arab_trade
+			}
+		}
+		1340 = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = 7300
+				power = 30
+				key = MAM_disrupted_arab_trade
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = MAM
+				}
+				MAM = { 
+					country_event = { id = ME_Mamluks_Events.9 } 
+					set_country_flag = MAM_may_be_penalized_by_europeans
+				}
+			}
+			if = {
+				limit = {
+					exists = EGY
+				}
+				EGY = { 
+					country_event = { id = ME_Mamluks_Events.9 }
+					set_country_flag = MAM_may_be_penalized_by_europeans
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.9
+	title = ME_Mamluks_Events.9.t #European that discovers 
+	desc = ME_Mamluks_Events.9.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.9.a
+		
+		ai_chance = { factor = 100 }
+		
+		set_country_flag = MAM_event_target
+		custom_tooltip = MAM_we_are_screwed
+		hidden_effect = {
+			FROM = {
+				save_global_event_target_as = Mam_mission_target
+			}
+		}
+		
+		custom_tooltip = MAM_from_becomes_target
+		
+		add_casus_belli = {
+			target = FROM 
+			type = cb_trade_war 
+			months = 120
+		}
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.10
+	title = ME_Mamluks_Events.10.t #War with Ottomans
+	desc = ME_Mamluks_Events.10.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Mamluks_Events.10.a
+		
+		ai_chance = { factor = 100 }
+		
+		FROM = {
+			create_subject = {
+				subject = ROOT
+				subject_type = vassal
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.10.b
+		
+		ai_chance = { factor = 0 }
+		
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+}
+
+#country_event = {
+#	id = ME_Mamluks_Events.11
+#	title = ME_Mamluks_Events.11.t #War with Ottomans
+#	desc = ME_Mamluks_Events.11.d
+#	picture = GOOD_WITH_MONARCH_eventPicture
+#	
+#	trigger = {
+#		tag = MAM
+#		war_with = TUR
+#	}
+#
+#	fire_only_once = yes
+#
+#	mean_time_to_happen = { 
+#		months = 6 
+#	}
+#	
+#	immediate = {
+#		hidden_effect = {
+#			MAM_set_up_ottoman_incident = yes
+#		}
+#	}
+#	option = {
+#		name = ME_Mamluks_Events.11.a
+#		
+#		ai_chance = { factor = 100 }
+#		
+#		custom_tooltip = MAM_start_ottoman_incident_tooltip
+#		set_country_flag = MAM_ottoman_incident_tree
+#		swap_non_generic_missions = yes
+#	}
+#	
+#	option = {
+#		name = ME_Mamluks_Events.11.b
+#		
+#		ai_chance = { factor = 100 }
+#		
+#		hidden_effect = {
+#			MAM_end_ottoman_incident = yes
+#		}
+#	}
+#}
+
+#country_event = {
+#	id = ME_Mamluks_Events.12
+#	title = ME_Mamluks_Events.12.t #End of Above
+#	desc = ME_Mamluks_Events.12.d
+#	picture = GOOD_WITH_MONARCH_eventPicture
+#	
+#	trigger = {
+#		tag = MAM
+#		has_country_flag = MAM_ottoman_incident_tree
+#		NOT = {
+#			event_target:Mamluks_war_target = {
+#				war_with = ROOT
+#			}
+#		}
+#	}
+#	
+#	option = {
+#		name = ME_Mamluks_Events.12.a
+#		
+#		ai_chance = { factor = 100 }
+#		
+#		MAM_end_ottoman_incident = yes
+#	}
+#}
+
+country_event = {
+	id = ME_Mamluks_Events.13
+	title = ME_Mamluks_Events.13.t #offer from the FROM
+	desc = ME_Mamluks_Events.13.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	major_trigger = {
+		owns = 2324
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.13.a
+		
+		ai_chance = { factor = 50 }
+		
+		2324 = {
+			if = {
+				limit = {
+					country_or_non_sovereign_subject_holds = FROM
+				}
+				remove_core = owner
+				cede_province = ROOT
+				add_core = ROOT
+			}
+		}
+		
+		1232 = {
+			if = {
+				limit = {
+					country_or_non_sovereign_subject_holds = FROM
+				}
+				remove_core = owner
+				cede_province = ROOT
+				add_core = ROOT
+			}
+		}
+		
+		upper_nubia_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		dongola_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		lower_nubia_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		
+		FROM = {
+			create_subject = {
+				subject = ROOT
+				subject_type = vassal
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.13.b
+		
+		ai_chance = { 
+			factor = 50
+			modifier = {
+				factor = 0
+				FROM = { ai = no }
+			}
+		}
+		
+		add_prestige_or_monarch_power = { amount = 5 }
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.15
+	title = ME_Mamluks_Events.15.t
+	desc = ME_Mamluks_Events.15.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	mean_time_to_happen = {
+		months = 24
+	}
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = MAM_we_may_gain_help
+		any_owned_province = {
+			has_port = yes #facepalm, I know
+		}
+		any_country = {
+			exploration_ideas = 1
+			war_with = ROOT
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				save_event_target_as = Mamluks_target
+			}
+			
+			1328 = {
+				random_neighbor_province = {
+					limit = {
+						owned_by = ROOT
+					}
+					save_event_target_as = Mamluks_target
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.15.a
+		
+		ai_chance = { factor = 100 }
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MAM_we_may_gain_help_tt
+				has_country_flag = MAM_we_may_gain_help
+			}
+		}
+		
+		1328 = {
+			random_neighbor_province = {
+				limit = {
+					owned_by = ROOT
+				}
+				event_target:Mamluks_target = {
+					add_unit_construction = {
+						type = heavy_ship
+						amount = 5
+						speed = 0.1
+						cost = 0
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.16
+	title = ME_Mamluks_Events.16.t
+	desc = ME_Mamluks_Events.16.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	mean_time_to_happen = {
+		months = 24
+	}
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = MAM_we_may_gain_help
+		war_with = TUR
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.16.a
+		
+		ai_chance = { factor = 100 }
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = MAM_we_may_gain_help_tt
+				has_country_flag = MAM_we_may_gain_help
+			}
+		}
+		
+		add_years_of_income = 1
+		add_yearly_sailors = 0.5
+	}
+}
+
+#Mamluk Reforms events below
+
+# country_event = { not used anymore
+	# id = ME_Mamluks_Events.17
+	# title = ME_Mamluks_Events.15.t
+	# desc = ME_Mamluks_Events.15.d
+	# picture = GOOD_WITH_MONARCH_eventPicture
+	
+	# mean_time_to_happen = {
+		# months = 24
+	# }
+	
+	# hidden = yes 
+	
+	# trigger = {
+		# NOT = {
+			# OR = {
+				# current_age = age_of_discovery
+				# current_age = age_of_reformation
+			# }
+		# }
+		# has_country_modifier = MAM_status_quo_modifier
+		# has_country_modifier = MAM_reform_modifier
+		# has_country_modifier = MAM_crusaders_repulsed
+	# }
+	
+	# immediate = {
+		# remove_country_modifier = MAM_reform_modifier
+		# remove_country_modifier = MAM_status_quo_modifier
+		# remove_country_modifier = MAM_crusaders_repulsed
+	# }
+	
+	# option = {
+		# name = ME_Mamluks_Events.15.a
+		
+		# ai_chance = { factor = 100 }
+		
+	# }
+# }
+
+country_event = {
+	id = ME_Mamluks_Events.18
+	title = ME_Mamluks_Events.18.t
+	desc = ME_Mamluks_Events.18.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	fire_only_once = yes
+	
+	trigger = {
+		tag = MAM
+		ai = yes
+		NOT = { is_year = 1450 }
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.18.a
+		
+		ai_chance = { factor = 100 }
+		
+		add_historical_friend = MDA
+		MDA = {
+			add_historical_friend = MAM
+		}
+		
+		hidden_effect = {
+			country_event = { id = ME_Mamluks_Events.28 days = 3 random = 6 }
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.18.b
+		
+		ai_chance = { factor = 0 }
+		
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.19
+	title = ME_Mamluks_Events.19.t #developer easter egg - Stiopa
+	desc = ME_Mamluks_Events.19.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		event_target:MAM_new_mamluk_target = {
+			exists = yes
+			culture = polish
+		}
+		has_leader = "Missions"
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.19.a
+		
+		ai_chance = { factor = 0 }
+		
+		define_ruler = {
+			name = "Stiopa"
+			dynasty = "Missionid"
+			hide_skills = yes
+			age = 20
+			claim = 95
+			culture = polish
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.19.b
+		
+		ai_chance = { factor = 1 }
+		
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.20
+	title = ME_Mamluks_Events.19.t #developer easter egg - LordVarangian
+	desc = ME_Mamluks_Events.19.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		event_target:MAM_new_mamluk_target = {
+			exists = yes
+			culture = greek
+		}
+		has_leader = "Missions"
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.19.a
+		
+		ai_chance = { factor = 0 }
+		
+		define_ruler = {
+			name = "LordVarangian"
+			dynasty = "Missionid"
+			hide_skills = yes
+			age = 20
+			claim = 95
+			culture = greek
+		}
+		if = {
+			limit = {
+				has_dlc = "Rights of Man"
+			}
+			add_ruler_personality = careful_personality 
+			add_ruler_personality = craven_personality
+			add_ruler_personality = babbling_buffoon_personality
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.20.b
+		
+		ai_chance = { factor = 1 }
+		
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.21
+	title = ME_Mamluks_Events.19.t #fire event for coup in a few months
+	desc = ME_Mamluks_Events.19.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		MAM_will_fire_coup_trigger = yes
+	}
+	
+	mean_time_to_happen = {
+		factor = 1
+	}
+	
+	hidden = yes
+	
+	option = {
+		name = ME_Mamluks_Events.19.a
+		
+		ai_chance = { factor = 1 }
+		
+		country_event = { id = ME_Mamluks_Events.22 days = 30 random = 150 }
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.22
+	title = ME_Mamluks_Events.22.t #coup 
+	desc = ME_Mamluks_Events.22.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			ruler_has_personality = righteous_personality
+		}
+		NOT = { has_ruler_flag = MAM_coup_ruler }
+	}
+	
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = MAM_no_more_stab }
+				}
+								if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_10 
+					}
+					#it's bad enough as it is. lol
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_9 
+					}
+					remove_country_modifier = MAM_worsening_stability_9
+					add_country_modifier = {
+						name = MAM_worsening_stability_10
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_8 
+					}
+					remove_country_modifier = MAM_worsening_stability_8
+					add_country_modifier = {
+						name = MAM_worsening_stability_9
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_7 
+					}
+					remove_country_modifier = MAM_worsening_stability_7
+					add_country_modifier = {
+						name = MAM_worsening_stability_8
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_6 
+					}
+					remove_country_modifier = MAM_worsening_stability_6
+					add_country_modifier = {
+						name = MAM_worsening_stability_7
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_5 
+					}
+					remove_country_modifier = MAM_worsening_stability_5
+					add_country_modifier = {
+						name = MAM_worsening_stability_6
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_4 
+					}
+					remove_country_modifier = MAM_worsening_stability_4
+					add_country_modifier = {
+						name = MAM_worsening_stability_5
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_3 
+					}
+					remove_country_modifier = MAM_worsening_stability_3
+					add_country_modifier = {
+						name = MAM_worsening_stability_4
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_2 
+					}
+					remove_country_modifier = MAM_worsening_stability_2
+					add_country_modifier = {
+						name = MAM_worsening_stability_3
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = MAM_worsening_stability_1 
+					}
+					remove_country_modifier = MAM_worsening_stability_1
+					add_country_modifier = {
+						name = MAM_worsening_stability_2
+						duration = -1
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = MAM_worsening_stability_1
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+	
+	major = yes 
+	major_trigger = {
+		is_neighbor_of = ROOT
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_in_capital_area = yes
+					development = 15
+					is_state = yes
+				}
+				save_event_target_as = Mamluk_coup_revolt
+			}
+			random_owned_province = {
+				limit = {
+					is_in_capital_area = yes
+					development = 20
+					is_state = yes
+				}
+				save_event_target_as = Mamluk_coup_revolt
+			}
+			random_owned_province = {
+				limit = {
+					is_in_capital_area = yes
+					development = 25
+
+					is_state = yes
+				}
+				save_event_target_as = Mamluk_coup_revolt
+			}
+			random_owned_province = {
+				limit = {
+					is_in_capital_area = yes
+					development = 30
+					is_state = yes
+				}
+				save_event_target_as = Mamluk_coup_revolt
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.22.a
+		
+		ai_chance = { factor = 1 }
+		
+		if = {
+			limit = {
+				has_saved_event_target = Mamluk_coup_revolt
+			}
+			event_target:Mamluk_coup_revolt = {
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 2 
+				}
+			}
+		}
+		else = {
+			capital_scope = { #fallback.
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 2 
+				}
+			}
+		}
+		add_stability = -1
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.22.b
+		
+		ai_chance = { factor = 1 }
+		
+		add_stability = -2
+		define_ruler = {
+			change_adm = -3
+			change_dip = -2
+			change_mil = -2
+			# adm = 0
+			# dip = 2 #convinced others to support them
+			# mil = 2 #usurper got popular
+			age = 45
+			claim = 70 #usurper's legitimacy won't be that good, but nevertheless ok.
+		}
+		set_ruler_flag = MAM_coup_ruler
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.22.bc
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			has_estate = estate_nobles
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_nobles
+			desc = MAM_gave_nobles_rights
+			influence = 15
+			duration = 10950
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.22.c
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			ruler_has_personality = well_connected_personality
+		}
+		highlight = yes
+		
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 5
+			}
+		}
+		add_dip_power = -100
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.22.e
+		
+		ai_chance = { factor = 1 }
+		highlight = yes
+		trigger = {
+			ruler_has_personality = intricate_web_weaver_personality
+		}
+		
+		add_mil_power = -100
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.22.f
+		
+		ai_chance = { factor = 1 }
+		highlight = yes
+		trigger = {
+			OR = {
+				ruler_has_personality = charismatic_negotiator_personality
+				ruler_has_personality = silver_tongue_personality
+			}
+		}
+		
+		add_dip_power = -50
+		add_yearly_manpower = 1
+		if = {
+			limit = {
+				has_saved_event_target = Mamluk_coup_revolt
+			}
+			event_target:Mamluk_coup_revolt = {
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 1 
+				}
+			}
+		}
+		else = {
+			capital_scope = { #fallback.
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 1 
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.22.g
+		highlight = yes
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			ruler_has_personality = bold_fighter_personality
+		}
+		
+		add_mil_power = 100
+		add_yearly_manpower = 0.1
+		
+		if = {
+			limit = {
+				has_saved_event_target = Mamluk_coup_revolt
+			}
+			event_target:Mamluk_coup_revolt = {
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 2 
+				}
+			}
+		}
+		else = {
+			capital_scope = { #fallback.
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 2 
+				}
+			}
+		}
+		
+		add_stability = -1
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.23
+	title = ME_Mamluks_Events.23.t #fire event for coup in a few months
+	desc = ME_Mamluks_Events.23.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Mamluks_Events.23.a
+		
+		ai_chance = { factor = 1 }
+	
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.24
+	title = ME_Mamluks_Events.24.t #fire event for coup in a few months
+	desc = ME_Mamluks_Events.24.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Mamluks_Events.24.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = { 
+				factor = 0
+				years_of_income = 1
+			}
+		}
+	
+		add_estate_influence_modifier = {
+			estate = estate_nobles
+			desc = MAM_muhtasib_position_sold
+			influence = 15
+			duration = 9125
+		}
+		
+		custom_tooltip = " "
+		
+		add_estate_loyalty = {
+			estate = estate_nobles 
+			loyalty = 10
+		}
+		
+		custom_tooltip = " "
+		
+		add_years_of_income = 1.5
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.24.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = { 
+				factor = 0
+				NOT = { years_of_income = 1 }
+			}
+		}
+	
+		add_corruption = -0.5
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.25
+	title = ME_Mamluks_Events.25.t #fire event for coup in a few months
+	desc = ME_Mamluks_Events.25.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	
+	option = {
+		name = ME_Mamluks_Events.25.a
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		change_price = {
+			trade_goods = coffee
+			key = MAM_protector_of_the_secret
+			value = 0.25
+			duration = 9125
+		}
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.26
+	title = ME_Mamluks_Events.26.t #fate of the copts
+	desc = ME_Mamluks_Events.26.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Mamluks_Events.26.a
+		
+		ai_chance = { factor = 1 }
+	
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.27
+	title = ME_Mamluks_Events.27.t # Replace mamluk cores with egyptian
+	desc = ME_Mamluks_Events.27.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	fire_only_once = yes
+	
+	trigger = {
+		NOT = { exists = MAM }
+		NOT = { exists = EGY }
+		361 = { owned_by = ROOT }
+	}
+	
+	immediate = {
+		hidden_effect = {
+			MAM = {
+				every_core_province = {
+					remove_core = MAM
+					if = {
+						limit = {
+							OR = {
+								region = egypt_region
+								culture = al_misr_arabic 
+							}
+						}
+						add_core = EGY
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.27.a
+		
+		ai_chance = { factor = 1 }
+	
+		custom_tooltip = MAM_replace_mamluk_cores_with_egyptian_cores
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.28
+	title = ME_Mamluks_Events.28.t #another AI event
+	desc = ME_Mamluks_Events.28.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		HSN = {
+			ai = yes
+		}
+		MAM = {
+			ai = yes
+		}
+	}
+	
+	immediate = {
+		random_list = {
+			10 = {
+				trigger = {
+					NOT = {
+						OR = {
+							AKK = { ai = no }
+							QAR = { ai = no }
+						}
+					}
+				}
+				
+				#nothing
+			}
+			90 = {
+				add_historical_rival = HSN
+				HSN = {
+					add_historical_rival = MAM
+				}
+			}
+		}
+		
+		random_list = {
+			50 = {
+				set_country_flag = MAM_will_accept_copts
+			}
+			50 = {
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.27.a
+		
+		ai_chance = { factor = 1 }
+	
+	}
+}
+
+country_event = {
+	id = ME_Mamluks_Events.29
+	title = ME_Mamluks_Events.29.t #another AI event
+	desc = ME_Mamluks_Events.29.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	goto = Mam_29
+	
+	trigger = {
+		has_estate_privilege = ME_estate_dhimmi_MAM_protect_churches
+		OR = {
+			AND = {
+				any_owned_province = {
+					has_province_modifier = MAM_coptic_minority
+					NOT = { religion = coptic }
+				}
+				NOT = {
+					num_of_owned_provinces_with = { 
+						has_province_modifier = MAM_coptic_minority
+						religion = coptic
+						value = 2
+					}
+				}
+			}
+			AND = {
+				NOT = {
+					num_of_owned_provinces_with = { 
+						has_province_modifier = MAM_coptic_minority
+						value = 6
+					}
+				}
+				OR = {
+					vostani_area = {
+						owned_by = ROOT
+						NOT = { has_province_modifier = MAM_coptic_minority }
+					}
+					said_area = {
+						owned_by = ROOT
+						NOT = { has_province_modifier = MAM_coptic_minority }
+					}
+					bahari_area = {
+						owned_by = ROOT
+						NOT = { has_province_modifier = MAM_coptic_minority }
+					}
+					delta_area = {
+						owned_by = ROOT
+						NOT = { has_province_modifier = MAM_coptic_minority }
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				40 = {
+					trigger = {
+						AND = {
+							any_owned_province = {
+								has_province_modifier = MAM_coptic_minority
+								NOT = { religion = coptic }
+							}
+							NOT = {
+								num_of_owned_provinces_with = { 
+									has_province_modifier = MAM_coptic_minority
+									religion = coptic
+									value = 2
+								}
+							}
+						}
+					}
+					random_owned_province = {
+						limit = {
+							NOT = { religion = coptic }
+							has_province_modifier = MAM_coptic_minority
+						}
+						save_event_target_as = Mam_29_coptic_prov
+						save_event_target_as = Mam_29
+					}
+				}
+				60 = {
+					trigger = {
+						NOT = {
+							num_of_owned_provinces_with = { 
+								has_province_modifier = MAM_coptic_minority
+								value = 6
+							}
+						}
+						OR = {
+							vostani_area = {
+								owned_by = ROOT
+								NOT = { has_province_modifier = MAM_coptic_minority }
+							}
+							said_area = {
+								owned_by = ROOT
+								NOT = { has_province_modifier = MAM_coptic_minority }
+							}
+							bahari_area = {
+								owned_by = ROOT
+								NOT = { has_province_modifier = MAM_coptic_minority }
+							}
+							delta_area = {
+								owned_by = ROOT
+								NOT = { has_province_modifier = MAM_coptic_minority }
+							}
+						}
+					}
+					
+					random_owned_province = {
+						limit = {
+							NOT = { has_province_modifier =  MAM_coptic_minority }
+							OR = {
+								area = vostani_area
+								area = said_area
+								area = bahari_area
+								area = delta_area
+							}
+						}
+						save_event_target_as = Mam_29_coptic_minority_prov
+						save_event_target_as = Mam_29
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.29.a
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			has_saved_event_target = Mam_29_coptic_minority_prov
+		}
+		event_target:Mam_29_coptic_minority_prov = {
+			add_province_modifier = {
+				name = MAM_coptic_minority
+				duration = -1
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Mamluks_Events.29.b
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			has_saved_event_target = Mam_29_coptic_prov
+		}
+		event_target:Mam_29_coptic_prov = {
+			change_religion = coptic
+			add_base_tax = 2
+		}
+	}
+}
+
+
+country_event = {
+	id = mamluk_reforms_events.1
+	title = mamluk_reforms_events.1.t #Attempted Coup
+	desc = mamluk_reforms_events.1.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	fire_only_once = yes
+	
+	option = {
+		name = mamluk_reforms_events.1.a
+		
+		ai_chance = { factor = 1 }
+		
+		custom_tooltip = MAM_quick_speed_tt
+		set_country_flag = MAM_quick_speed
+		custom_tooltip = MAM_furthermore_10_recovery_speed
+	}
+	
+	option = {
+		name = mamluk_reforms_events.1.b
+		
+		ai_chance = { factor = 1 }
+	
+		custom_tooltip = MAM_slow_speed_tt
+		set_country_flag = MAM_slow_speed
+	}
+	
+	after = {
+		set_country_flag = MAM_pick_speed
+	}
+}
+
+country_event = {
+	id = mamluk_reforms_events.2
+	title = mamluk_reforms_events.2.t #A Faction of Reforms emerges
+	desc = mamluk_reforms_events.2.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	
+	option = {
+		name = mamluk_reforms_events.2.a
+		
+		ai_chance = { factor = 33 }
+		
+		change_tag = EGY
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = MAM_benefits_of_egy
+		tooltip = {
+			remove_estate_privilege = ME_estate_nobles_MAM_oligarchy
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				age = age_of_reformation
+				name = MAM_reformist
+				duration = -1
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		if = {
+			limit = {
+				has_country_flag = MAM_quick_speed
+			}
+			add_disaster_modifier = {
+				name = MAM_disaster_help
+				duration = -1
+				disaster = mamluk_reforms
+			}
+		}
+	}
+	
+	option = {
+		name = mamluk_reforms_events.2.b
+		
+		ai_chance = { factor = 33 }
+	
+		custom_tooltip = MAM_benefits_of_mam
+		tooltip = {
+			custom_tooltip = MAM_oligarchy_privilege
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				age = age_of_reformation
+				name = MAM_conservative
+				duration = -1
+			}
+		}
+		
+		if = {
+			limit = {
+				has_country_flag = MAM_quick_speed
+			}
+			add_disaster_modifier = {
+				name = MAM_disaster_help
+				duration = -1
+				disaster = mamluk_reforms
+			}
+		}
+	}
+	
+	after = {
+		country_event = {
+			id = mamluk_reforms_events.3 
+			days = 30
+		}
+		
+		country_event = {
+			id = mamluk_reforms_events.4 
+			days = 60
+		}
+		
+		country_event = {
+			id = mamluk_reforms_events.5
+			days = 90
+			random = 90
+		}
+		
+		country_event = {
+			id = mamluk_reforms_events.6 
+			days = 90
+			random = 90
+		}
+	}
+	
+}
+
+country_event = {
+	id = mamluk_reforms_events.3
+	title = mamluk_reforms_events.3.t
+	desc = mamluk_reforms_events.3.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					stability = 0
+				}
+				add_stability = -6
+				add_stability = 2 
+				#set stability to -1
+				set_country_flag = MAM_show_tooltip
+			}
+			add_corruption = 4
+		}
+	}
+	
+	option = {
+		name = mamluk_reforms_events.3.a
+		
+		ai_chance = { factor = 33 }
+		
+		if = {
+			limit = {
+				has_country_flag = MAM_show_tooltip
+			}
+			custom_tooltip = MAM_stab_was_reduced_to_minus_1
+			clr_country_flag = MAM_show_tooltip
+			
+			custom_tooltip = " "
+		}
+		
+		tooltip = {
+			add_corruption = 4
+			custom_tooltip = " "
+		}
+		
+		custom_tooltip = MAM_if_we_want_to_finish_the_disaster
+		
+		add_disaster_modifier = {
+			name = MAM_weak_military
+			duration = -1
+			disaster = mamluk_reforms
+		}
+	}
+}
+
+country_event = {
+	id = mamluk_reforms_events.4
+	title = mamluk_reforms_events.4.t
+	desc = mamluk_reforms_events.4.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	
+	option = {
+		name = mamluk_reforms_events.4.a
+		
+		ai_chance = { factor = 33 }
+		
+		every_subject_country = {
+			add_liberty_desire = 30
+		}
+		
+		custom_tooltip = MAM_if_we_want_to_finish_the_disaster_2
+	}
+}
+
+country_event = {
+	id = mamluk_reforms_events.5
+	title = mamluk_reforms_events.5.t
+	desc = mamluk_reforms_events.5.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	
+	option = {
+		name = mamluk_reforms_events.5.a
+		
+		ai_chance = { factor = 33 }
+		
+		capital_scope = {
+			spawn_rebels = {
+				type = mam_opposition_rebels
+				size = 3
+			}
+		}
+		
+		custom_tooltip = MAM_we_have_to_defeat_two_waves_of_rebels
+		
+		set_country_flag = MAM_2_2_wave
+	}
+}
+
+country_event = {
+	id = mamluk_reforms_events.6
+	title = mamluk_reforms_events.6.t
+	desc = mamluk_reforms_events.6.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	
+	immediate = {
+		pick_random_provinces = {
+			3 = yes
+			global_trigger = "
+				NOT = { is_capital = yes }
+			"
+			scope = random_owned_province
+			event_target_name = Mam_targets
+		}
+	}
+	option = {
+		name = mamluk_reforms_events.6.a
+		
+		ai_chance = { factor = 33 }
+		
+		event_target:Mam_targets_1 = {
+			spawn_rebels = {
+				type = mam_opposition_rebels
+				size = 2
+			}
+		}
+		
+		event_target:Mam_targets_2 = {
+			spawn_rebels = {
+				type = mam_opposition_rebels
+				size = 2
+			}
+		}
+		
+		event_target:Mam_targets_3 = {
+			spawn_rebels = {
+				type = mam_opposition_rebels
+				size = 2
+			}
+		}
+		
+		custom_tooltip = MAM_we_have_to_defeat_two_waves_of_rebels
+		
+		set_country_flag = MAM_1_2_wave
+	}
+}
+
+country_event = {
+	id = mamluk_reforms_events.7
+	title = mamluk_reforms_events.7.t
+	desc = mamluk_reforms_events.7.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	trigger = {
+		has_country_flag = MAM_1_2_wave
+		has_country_flag = MAM_2_2_wave
+		NOT = { num_of_rebel_armies = 1 }
+	}
+	
+	immediate = {
+		clr_country_flag = MAM_1_2_wave
+		clr_country_flag = MAM_2_2_wave
+	}
+	
+	option = {
+		name = mamluk_reforms_events.7.a
+		
+		ai_chance = { factor = 33 }
+		
+		custom_tooltip = MAM_second_wave_soon
+	}
+	
+	after = {
+		country_event = { id = mamluk_reforms_events.8 days = 90 random = 180 }
+	}
+}
+
+country_event = {
+	id = mamluk_reforms_events.8
+	title = mamluk_reforms_events.8.t
+	desc = mamluk_reforms_events.8.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	
+	immediate = {
+		hidden_effect = {
+			pick_random_provinces = {
+				3 = yes
+				global_trigger = "
+					NOT = { is_capital = yes }
+				"
+				scope = random_owned_province
+				event_target_name = Mam_targets
+			}
+		}
+	}
+	
+	option = {
+		name = mamluk_reforms_events.8.a
+		
+		ai_chance = { factor = 33 }
+		
+		set_country_flag = MAM_final_wave
+		capital_scope = {
+			spawn_rebels = {
+				type = mam_opposition_rebels
+				size = 3
+			}
+		}
+		
+		event_target:Mam_targets_1 = {
+			spawn_rebels = {
+				type = mam_opposition_rebels
+				size = 3
+			}
+		}
+		
+		event_target:Mam_targets_2 = {
+			spawn_rebels = {
+				type = mam_opposition_rebels
+				size = 3
+			}
+		}
+		
+		event_target:Mam_targets_3 = {
+			spawn_rebels = {
+				type = mam_opposition_rebels
+				size = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = mamluk_reforms_events.9
+	title = mamluk_reforms_events.9.t
+	desc = mamluk_reforms_events.9.d
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes 
+	
+	immediate = {
+		set_country_flag = MAM_concluded_reforms
+	}
+	
+	option = {
+		name = mamluk_reforms_events.9.a
+		
+		ai_chance = { factor = 33 }
+		
+		if = {
+			limit = {
+				tag = EGY 
+			}
+			remove_estate_privilege = ME_estate_nobles_MAM_oligarchy
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				age = age_of_reformation
+				name = MAM_reformist
+				duration = -1
+			}
+		}
+		else = {
+			add_age_modifier = {
+				age = age_of_reformation
+				name = MAM_conservative
+				duration = -1
+			}
+			
+			set_country_flag = MAM_no_more_stab
+			hidden_effect = {
+				remove_country_modifier = MAM_worsening_stability_1
+				remove_country_modifier = MAM_worsening_stability_2
+				remove_country_modifier = MAM_worsening_stability_3
+				remove_country_modifier = MAM_worsening_stability_4
+				remove_country_modifier = MAM_worsening_stability_5
+				remove_country_modifier = MAM_worsening_stability_6
+				remove_country_modifier = MAM_worsening_stability_7
+				remove_country_modifier = MAM_worsening_stability_8
+				remove_country_modifier = MAM_worsening_stability_9
+				remove_country_modifier = MAM_worsening_stability_10
+			}
+		}
+	}
+}

@@ -1,0 +1,715 @@
+# Yoinked from Voltaire's Nightmare
+
+namespace = dse_bogomilist_religious_events
+namespace = dse_bogomilist_mechanics_events
+namespace = dse_bogomilist_flavour_events
+
+country_event = {
+	id = dse_bogomilist_religious_events.1
+	title = "dse_bogomilist_religious_events.1.t"
+	desc = "dse_bogomilist_religious_events.1.d"
+	picture = BIG_BOOK_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		religion = bogomilist
+    }
+    mean_time_to_happen = { days = 1 }
+
+	option = {
+		name = "dse_bogomilist_religious_events.1.a"
+		add_church_power = 10
+		add_stability_or_adm_power = yes
+	}
+}
+
+country_event = {
+	id = dse_bogomilist_religious_events.2
+	title = "dse_bogomilist_religious_events.2.t"
+	desc = "dse_bogomilist_religious_events.2.d"
+	picture = RELIGIOUS_TURMOIL_eventPicture
+    goto = draguvitian_province
+	
+	is_triggered_only = yes
+	trigger = {
+		religion = bogomilist
+		any_owned_province = {
+            is_capital = no
+            religion = bogomilist
+            controlled_by = ROOT
+        }
+    }
+    mean_time_to_happen = { days = 1 }
+
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = {
+                    is_capital = no
+                    religion = bogomilist
+                    controlled_by = ROOT
+                }
+                save_event_target_as = draguvitian_province
+            }
+        }
+    }
+	
+	option = {
+		name = "dse_bogomilist_religious_events.2.a"
+        ai_chance = { factor = 2 }
+        add_church_power = 10
+        event_target:draguvitian_province = {
+            heretic_rebels = 1
+        }
+	}
+	option = {
+		name = "dse_bogomilist_religious_events.2.b"
+        ai_chance = { factor = 8 }
+		add_church_power = -10
+        event_target:draguvitian_province = {
+            add_province_modifier = {
+                name = religious_violence
+                duration = 1825
+            }
+        }
+	}
+}
+
+country_event = {
+	id = dse_bogomilist_religious_events.3
+	title = "dse_bogomilist_religious_events.3.t"
+	desc = "dse_bogomilist_religious_events.3.d"
+	picture = CITY_VIEW_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		religion = bogomilist
+    }
+    mean_time_to_happen = { days = 1 }
+	
+	option = {
+		name = "dse_bogomilist_religious_events.3.a"
+        ai_chance = { factor = 2 }
+        add_church_power = -10
+        add_prestige = 10
+	}
+	option = {
+		name = "dse_bogomilist_religious_events.3.b"
+        ai_chance = { factor = 8 }
+		add_church_power = 10
+        add_prestige = -10
+	}
+}
+
+country_event = {
+	id = dse_bogomilist_religious_events.4
+	title = "dse_bogomilist_religious_events.4.t"
+	desc = "dse_bogomilist_religious_events.4.d"
+	picture = ACCUSATION_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		religion = bogomilist
+        has_estate = estate_nobles
+    }
+    mean_time_to_happen = { days = 1 }
+	
+	option = {
+		name = "dse_bogomilist_religious_events.4.a"
+        ai_chance = { factor = 2 }
+        add_church_power = 10
+        add_estate_loyalty = {
+            estate = estate_nobles
+            loyalty = -10
+        }
+	}
+	option = {
+		name = "dse_bogomilist_religious_events.4.b"
+        ai_chance = { factor = 8 }
+        add_church_power = -10
+        add_estate_loyalty = {
+            estate = estate_nobles
+            loyalty = 10
+        }
+	}
+}
+
+country_event = {
+    id = dse_bogomilist_religious_events.5
+	title = "dse_bogomilist_religious_events.5.t"
+	desc = "dse_bogomilist_religious_events.5.d"
+    picture = ARTWORK_eventPicture
+
+    is_triggered_only = yes
+	trigger = {
+		religion = bogomilist
+    }
+    mean_time_to_happen = { days = 1 }
+	
+	option = {
+		name = "dse_bogomilist_religious_events.5.a"
+        ai_chance = { factor = 8 }
+        add_church_power = 10
+        add_years_of_income = -0.5
+        add_republican_tradition = 5
+		add_legitimacy = 5
+		add_devotion = 5
+		define_advisor = {
+            type = artist
+            skill = 2
+            discount = yes
+        }
+	}
+	option = {
+		name = "dse_bogomilist_religious_events.5.b"
+        ai_chance = { factor = 2 }
+        add_church_power = -10
+		add_republican_tradition = -5
+		add_legitimacy = -5
+		add_devotion = -5
+	}
+}
+
+country_event = {
+	id = dse_bogomilist_religious_events.6
+	title = "dse_bogomilist_religious_events.6.t"
+	desc = "dse_bogomilist_religious_events.6.d"
+	picture = OVEREXTENSION_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		religion = bogomilist
+        NOT = { has_country_modifier = incompetent_clergy }
+    }
+    mean_time_to_happen = { days = 1 }
+	
+	option = {
+		name = "dse_bogomilist_religious_events.6.a"
+		add_church_power = -10
+		add_country_modifier = {
+            name = incompetent_clergy
+            duration = 1825
+        }
+	}
+}
+
+
+# Religion Mechanics
+
+country_event = {
+	id = dse_bogomilist_mechanics_events.1
+	title = dse_bogomilist_mechanics_events.1.t
+	desc = dse_bogomilist_mechanics_events.1.d
+	picture = WESTERNISATION_eventPicture
+	hidden = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				any_owned_province = {
+					OR = {
+						AND = {
+							has_building = university
+							NOT = { has_province_modifier = bogomilist_school_bonus_modifier }
+						}
+						AND = {
+							NOT = { 
+								has_building = university
+							}
+							has_province_modifier = bogomilist_school_bonus_modifier
+						}
+					}
+				}
+			}
+			AND = {
+				NOT = { religion = bogomilist }
+				any_owned_province = {
+					has_province_modifier = bogomilist_school_bonus_modifier
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 5
+	}
+	
+	option = {
+		name = dse_bogomilist_mechanics_events.1.o1
+		
+		every_owned_province = {
+			limit = {
+				has_building = university
+				NOT = { has_province_modifier = bogomilist_school_bonus_modifier }
+			}
+			add_province_modifier = {
+				name = bogomilist_school_bonus_modifier
+				duration = -1
+			}
+		}
+		every_owned_province = {
+			limit = {
+				NOT = { 
+					has_building = university
+				}
+				has_province_modifier = bogomilist_school_bonus_modifier
+			}
+			remove_province_modifier = bogomilist_school_bonus_modifier
+		}
+		if = {
+			limit = {
+				NOT = { religion = bogomilist }
+			}
+			every_owned_province = {
+				remove_province_modifier = bogomilist_school_bonus_modifier
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = dse_bogomilist_mechanics_events.2
+	title = dse_bogomilist_mechanics_events.2.t
+	desc = dse_bogomilist_mechanics_events.2.d
+	picture = WESTERNISATION_eventPicture
+	hidden = yes
+
+	trigger = {
+		OR = { 
+			any_owned_province = {
+				AND = { 
+					has_building = temple
+					religion = bogomilist				
+				}
+			}
+			any_owned_province = {
+				AND = { 
+					has_building = cathedral
+					religion = bogomilist				
+				}
+			}		
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 5
+	}
+	
+	option = {
+		name = dse_bogomilist_mechanics_events.2.o1
+		
+		every_owned_province = {
+			limit = {
+				has_building = temple
+				religion = bogomilist
+			}
+			remove_building = temple
+		}
+		every_owned_province = {
+			limit = {
+				has_building = cathedral
+				religion = bogomilist
+			}
+			remove_building = cathedral
+		}
+	}
+}
+
+# Rome
+country_event = {
+	id = dse_bogomilist_flavour_events.1
+	title = "dse_bogomilist_flavour_events.1.t"
+	desc = "dse_bogomilist_flavour_events.1.d"
+
+	picture = VATICAN_CITY_eventPicture
+	goto = 118
+	
+	major = yes
+	fire_only_once = yes
+
+	trigger = {
+		religion = bogomilist
+		118 = {
+			NOT = { religion = bogomilist }
+			owned_by = ROOT
+		}
+    }
+
+    mean_time_to_happen = { days = 1 }
+
+	option = {
+		name = "dse_bogomilist_flavour_events.1.o1"
+		ai_chance = { factor = 5 }
+		add_loot_from_province_effect = yes
+		118 = {
+			add_devastation = 50
+			add_base_tax = -2
+			add_base_production = -2
+			add_base_manpower = -2
+
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+			add_reform_center = bogomilist
+		}
+
+		custom_tooltip = ""
+		add_country_modifier = {
+			name = bogomilist_rome_vatican_library_modifier
+			duration = -1
+		}
+
+		custom_tooltip = "§YCatholic§! nations will dislike this action (§R-50§!)"
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					religion = catholic
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_bogomilist_rome_tier_one
+				}
+			}
+		}
+	}
+	option = {
+		name = "dse_bogomilist_flavour_events.1.o2"
+		ai_chance = { factor = 1 }
+		118 = {
+			add_loot_from_rich_province_general_effect = {
+				LOOTER = owner
+			}
+			add_base_tax = -5
+			add_base_production = -5
+			add_base_manpower = -5
+
+			change_culture = ROOT
+
+
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+			add_reform_center = bogomilist
+		}
+
+		custom_tooltip = ""
+		118 = {
+			add_province_modifier = {
+				name = bogomilist_vatican_city_chastized_modifier
+				duration = -1
+			}
+		}
+		custom_tooltip = ""
+		add_country_modifier = {
+			name = bogomilist_rome_vatican_library_modifier
+			duration = -1
+		}
+		custom_tooltip = "§YCatholic§! nations will dislike this action (§R-100§!)"
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					religion = catholic
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_bogomilist_rome_tier_two
+				}
+			}
+		}
+	}
+	option = {
+		name = "dse_bogomilist_flavour_events.1.o3"
+		ai_chance = { factor = 10 }
+		118 = {
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+		}
+		118 = {
+			add_reform_center = bogomilist
+		}
+		add_country_modifier = {
+			name = bogomilist_rome_vatican_library_modifier
+			duration = -1
+		}
+	}
+
+}
+
+
+# Constantinople Orthodox
+country_event = {
+	id = dse_bogomilist_flavour_events.2
+	title = "dse_bogomilist_flavour_events.2.t"
+	desc = "dse_bogomilist_flavour_events.2.d"
+
+	picture = CONSTANTINOPLE_CITY_eventPicture
+	goto = 151
+	
+	major = yes
+	fire_only_once = yes
+
+	trigger = {
+		religion = bogomilist
+		151 = {
+			religion = orthodox
+			owned_by = ROOT
+		}
+    }
+
+    mean_time_to_happen = { days = 1 }
+
+	option = { # Suffering repayed
+		name = "dse_bogomilist_flavour_events.2.o1"
+		ai_chance = { factor = 5 }
+		add_loot_from_province_effect = yes
+		151 = {
+			add_devastation = 50
+
+			add_base_tax = -3
+			add_base_production = -3
+			add_base_manpower = -3
+
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+			add_reform_center = bogomilist
+		}
+
+		custom_tooltip = ""
+		add_country_modifier = {
+			name = bogomilist_constantinople_byzantine_fire_modifier
+			duration = -1
+		}
+
+		custom_tooltip = "§YOrthodox§! nations will dislike this action (§R-50§!)"
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					religion = orthodox
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_bogomilist_constantinople_tier_one
+				}
+			}
+		}
+	}
+	option = { # The suffering will never be repayed
+		name = "dse_bogomilist_flavour_events.2.o2"
+		ai_chance = { factor = 1 }
+		151 = {
+			add_loot_from_rich_province_general_effect = {
+				LOOTER = owner
+			}
+
+			add_base_tax = -5
+			add_base_production = -5
+			add_base_manpower = -5
+
+			change_culture = ROOT
+
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+			add_reform_center = bogomilist
+		}
+
+		custom_tooltip = ""
+		151 = {
+			add_province_modifier = {
+				name = bogomilist_constantinople_chastized_modifier
+				duration = -1
+			}
+		}	
+		custom_tooltip = ""
+		add_country_modifier = {
+			name = bogomilist_constantinople_byzantine_fire_modifier
+			duration = -1
+		}
+
+		custom_tooltip = "§YOrthodox§! nations will dislike this action (§R-100§!)"
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					religion = orthodox
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_bogomilist_constantinople_tier_two
+				}
+			}
+		}
+	}
+
+	option = { # We are better than this
+		name = "dse_bogomilist_flavour_events.2.o3"
+		ai_chance = { factor = 10 }
+		151 = {
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+			add_reform_center = bogomilist
+		}
+		custom_tooltip = ""
+		add_country_modifier = {
+			name = bogomilist_constantinople_byzantine_fire_modifier
+			duration = -1
+		}
+	}
+
+}
+
+
+# Constantinople Sunni
+country_event = {
+	id = dse_bogomilist_flavour_events.3
+	title = "dse_bogomilist_flavour_events.3.t"
+	desc = "dse_bogomilist_flavour_events.3.d"
+
+	picture = CONSTANTINOPLE_CITY_eventPicture
+	goto = 151
+	
+	major = yes
+	fire_only_once = yes
+
+	trigger = {
+		religion = bogomilist
+		151 = {
+			religion = sunni
+			owned_by = ROOT
+		}
+    }
+
+    mean_time_to_happen = { days = 1 }
+
+	option = { # Suffering repayed
+		name = "dse_bogomilist_flavour_events.3.o1"
+		ai_chance = { factor = 5 }
+		add_loot_from_province_effect = yes
+		151 = {
+			add_devastation = 50
+
+			add_base_tax = -3
+			add_base_production = -3
+			add_base_manpower = -3
+
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+			add_reform_center = bogomilist
+		}
+
+		custom_tooltip = ""
+		add_country_modifier = {
+			name = bogomilist_constantinople_byzantine_fire_modifier
+			duration = -1
+		}
+
+		custom_tooltip = "§YSunni§! nations will dislike this action (§R-50§!)"
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					religion = sunni
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_bogomilist_constantinople_tier_one
+				}
+			}
+		}
+	}
+
+	option = { # The suffering will never be repayed
+		name = "dse_bogomilist_flavour_events.3.o2"
+		ai_chance = { factor = 1 }
+
+		151 = {
+			add_loot_from_rich_province_general_effect = {
+				LOOTER = owner
+			}
+
+			add_base_tax = -5
+			add_base_production = -5
+			add_base_manpower = -5
+
+			change_culture = ROOT
+
+
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+			add_reform_center = bogomilist
+		}
+
+		custom_tooltip = ""
+		151 = {
+			add_province_modifier = {
+				name = bogomilist_constantinople_chastized_modifier
+				duration = -1
+			}
+		}
+		custom_tooltip = ""
+		add_country_modifier = {
+			name = bogomilist_constantinople_byzantine_fire_modifier
+			duration = -1
+		}
+
+		custom_tooltip = "§YSunni§! nations will dislike this action (§R-100§!)"
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					religion = sunni
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_bogomilist_constantinople_tier_two
+				}
+			}
+		}
+	}
+	option = { # We are better than this
+		name = "dse_bogomilist_flavour_events.3.o3"
+		ai_chance = { factor = 10 }
+		151 = {
+			if = {
+				limit = {
+					NOT = { religion = bogomilist }
+				}
+				change_religion = bogomilist
+			}
+			add_reform_center = bogomilist
+		}
+		custom_tooltip = ""
+		add_country_modifier = {
+			name = bogomilist_constantinople_byzantine_fire_modifier
+			duration = -1
+		}
+	}
+
+}

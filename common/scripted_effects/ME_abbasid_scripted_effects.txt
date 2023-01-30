@@ -1,0 +1,773 @@
+ME_set_abbasid_caliph_province = {
+	hidden_effect = {
+		set_global_flag = ME_abbasid_caliph_exists
+		event_target:Caliph_province = {
+			save_event_target_as = Old_caliph_province #should go out of scope because not global
+			ME_remove_abbasid_modifiers = yes
+		}
+		save_global_event_target_as = Caliph_province
+		
+		if = { #this if checks if the owner of the caliph changes
+			limit = {
+				NOT = {
+					event_target:Old_caliph_province = {
+						owner = {
+							ME_has_abbasid_caliph = yes
+						}
+					}
+				}
+				religion = sunni
+			}
+			owner = { 
+				remove_country_modifier = ME_khalifah
+				country_event = { id = ME_Abbasid_Events.8 }
+			}
+		}
+	}
+	
+	ME_add_abbasid_modifiers = yes
+}
+
+ME_caliph_tag_effect = { 
+	event_target:Caliph_province = {
+		owner = {
+			$effect$
+		}
+	}
+}
+
+ME_add_abbasid_modifiers = {
+	custom_tooltip = ABA_caliph_will_be_seated_here
+	hidden_effect = {
+		add_permanent_province_modifier = {
+			name = Abbasid_Caliph_in_province
+			duration = -1
+		}
+	}
+	hidden_effect = {
+		add_province_triggered_modifier = ABA_grant_modifier_if_sunni #enables when not owned by muslim and disables the above modifier
+		add_province_triggered_modifier = ABA_check_if_occupied_by_muslim #checks if it can fire the occupier event
+	}
+}
+
+ME_remove_abbasid_modifiers = {
+	remove_province_modifier = Abbasid_Caliph_in_province
+	remove_province_modifier = Abbasid_Caliph_in_province_disabled
+	remove_province_triggered_modifier = ABA_grant_modifier_if_sunni
+	remove_province_triggered_modifier = ABA_check_if_occupied_by_muslim
+}
+
+ME_become_caliphate_effect = {
+	if = {
+		limit = {
+			religion_group = muslim
+		}
+		change_government = monarchy #necessary condition
+		
+		if = {
+			limit = {
+				religion = sunni # the three sunni caliphate types
+			}
+			set_global_flag = ME_caliphate_is_active
+			if = {
+				limit = {
+					has_country_flag = ME_andalusian_caliphate
+				}
+				add_government_reform = ME_caliphate_reform_sunni_andalusia
+			}
+			else_if = {
+				limit = {
+					has_country_flag = ME_arabian_caliphate
+				}
+				add_government_reform = ME_caliphate_reform_sunni_arabian
+			}
+			else = {
+				add_government_reform = ME_caliphate_reform_sunni
+			}
+			hidden_effect = {
+				save_global_event_target_as = ME_caliphate_tag
+				
+				clr_global_flag = ME_abbasid_caliph_exists
+				event_target:Caliph_province = {
+					save_event_target_as = Old_caliph_province #should go out of scope because not global
+					ME_remove_abbasid_modifiers = yes
+				}
+				clear_global_event_target = Caliph_province
+			}
+		}
+		else = { #the shia caliphate
+			add_government_reform = ME_caliphate_reform_shia_ibadi
+		}
+		
+		custom_tooltip = ME_Ayyubid_Tooltips.12
+			
+		custom_tooltip = " "
+			
+		custom_tooltip = ME_caliphal_actions
+		
+		custom_tooltip = " "
+		
+		if = {
+			limit = {
+				has_dlc = "Cradle of Civilization"
+			}
+			country_event = { id = ME_Abbasid_Events.24 }
+		}
+	}		
+}
+
+
+### Execute caliph:
+# Executes abbasid caliph if possible, changing the status of the mechanic from
+# "Abbasid Caliph" to "absence of any caliphate"
+# This decision does not have any benefits or failsafes. It is the content designer's job to keep track!
+ME_execute_caliph = {
+	custom_tooltip = ABA_mechanic_will_be_disabled_for_5_years
+	
+	hidden_effect = {
+		set_global_flag = ABA_executed_caliph
+		clr_global_flag = ME_abbasid_caliph_exists
+		event_target:Caliph_province = {
+			save_event_target_as = Old_caliph_province #should go out of scope because not global
+			ME_remove_abbasid_modifiers = yes
+		}
+		clear_global_event_target = Caliph_province
+		
+		# country_event = { id = ME_Abbasid_Events.21 }
+	}
+}
+
+ME_abbasid_bimonthly_check_effect = {
+	if = {
+		limit = {
+			has_global_flag = ME_caliphate_is_active
+			event_target:ME_caliphate_tag = {
+				OR = {
+					NOT = { exists = yes }
+					NOT = { ME_has_caliphate_reform_trigger = yes }
+				}
+			}
+		}
+		clr_global_flag = ME_caliphate_is_active
+	}
+}
+
+# ME_fire_capture_event_effect = {
+	# controller = {
+		# if = {
+			# limit = {
+				# religion = sunni
+			# }
+			# country_event = { id = ME_Abbasid_Events.3 }
+		# }
+		# else_if = {
+			# limit = {
+				# religion = shiite
+			# }
+			# country_event = { id = ME_Abbasid_Events.22 }
+		# }
+		# else_if = {
+			# limit = {
+				# religion = ibadi
+			# }
+			# country_event = { id = ME_Abbasid_Events.23 }
+		# }
+		# else = {
+			# country_event = { id = ME_Abbasid_Events.24 }
+		# }
+	# }
+# }
+
+ME_enable_abbasid_ransom = {
+	custom_tooltip = ABA_enable_abbasid_ransom
+	
+	custom_tooltip = " "
+	
+	capital_scope = {
+		ME_set_abbasid_caliph_province = yes
+	}
+	set_country_flag = ABA_ransom_abbasid
+}
+
+ABA_try_to_get_5_provs = {
+	if = {
+		limit = {
+			num_of_owned_provinces_with = {
+				religion = sunni
+				value = 5
+			}
+		}
+		set_country_flag = ABA_has_5_provs
+		set_country_flag = ABA_has_4_provs
+		set_country_flag = ABA_has_3_provs
+		set_country_flag = ABA_has_2_provs
+		set_country_flag = ABA_has_1_provs
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_1
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_2
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_3
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_4
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_5
+			set_province_flag = ABA_chosen
+		}
+	}
+	else = {
+		ABA_try_to_get_4_provs = yes
+	}
+}
+
+ABA_try_to_get_4_provs = {
+	if = {
+		limit = {
+			num_of_owned_provinces_with = {
+				religion = sunni
+				value = 4
+			}
+		}
+		set_country_flag = ABA_has_4_provs
+		set_country_flag = ABA_has_3_provs
+		set_country_flag = ABA_has_2_provs
+		set_country_flag = ABA_has_1_provs
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_1
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_2
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_3
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_4
+			set_province_flag = ABA_chosen
+		}
+	}
+	else = {
+		ABA_try_to_get_3_provs = yes
+	}
+}
+
+ABA_try_to_get_3_provs = {
+	if = {
+		limit = {
+			num_of_owned_provinces_with = {
+				religion = sunni
+				value = 3
+			}
+		}
+		set_country_flag = ABA_has_3_provs
+		set_country_flag = ABA_has_2_provs
+		set_country_flag = ABA_has_1_provs
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_1
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_2
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_3
+			set_province_flag = ABA_chosen
+		}
+	}
+	else = {
+		ABA_try_to_get_2_provs = yes
+	}
+}
+
+ABA_try_to_get_2_provs = {
+	if = {
+		limit = {
+			num_of_owned_provinces_with = {
+				religion = sunni
+				value = 2
+			}
+		}
+		set_country_flag = ABA_has_2_provs
+		set_country_flag = ABA_has_1_provs
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_1
+			set_province_flag = ABA_chosen
+		}
+		random_owned_province = {
+			limit = {
+				religion = sunni
+				NOT = { has_province_flag = ABA_chosen }
+			}
+			save_event_target_as = Abbasid_ibadi_target_2
+			set_province_flag = ABA_chosen
+		}
+	}
+	else = {
+		ABA_try_to_get_1_provs = yes
+	}
+}
+
+ABA_try_to_get_1_provs = {
+	if = {
+		limit = {
+			any_owned_province = {
+				religion = sunni
+			}
+		}
+		set_country_flag = ABA_has_1_provs
+		random_owned_province = {
+			limit = {
+				religion = sunni
+			}
+			save_event_target_as = Abbasid_ibadi_target_1
+		}
+	}
+}
+
+ABA_convert_provinces_to_ibadi = {
+	if = {
+		limit = {
+			has_country_flag = ABA_has_1_provs
+		}
+		event_target:Abbasid_ibadi_target_1 = {
+			change_religion = ibadi
+		}
+	
+		if = {
+			limit = {
+				has_country_flag = ABA_has_2_provs
+			}
+			event_target:Abbasid_ibadi_target_2 = {
+				change_religion = ibadi
+			}
+		
+			if = {
+				limit = {
+					has_country_flag = ABA_has_3_provs
+				}
+				event_target:Abbasid_ibadi_target_3 = {
+					change_religion = ibadi
+				}
+			
+				if = {
+					limit = {
+						has_country_flag = ABA_has_4_provs
+					}
+					event_target:Abbasid_ibadi_target_4 = {
+						change_religion = ibadi
+					}
+				
+					if = {
+						limit = {
+							has_country_flag = ABA_has_5_provs
+						}
+						event_target:Abbasid_ibadi_target_5 = {
+							change_religion = ibadi
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+ABA_pick_advisor = {
+	if = {
+		limit = {
+			check_variable = {
+				which = invited_scholar_reduction
+				value = 5
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = invited_scholar_reduction
+					value = 10
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = invited_scholar_reduction
+						value = 15
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = invited_scholar_reduction
+							value = 20
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = invited_scholar_reduction
+								value = 25
+							}
+						}
+						if = {
+							limit = {
+								check_variable = {
+									which = invited_scholar_reduction
+									value = 30
+								}
+							}
+							if = {
+								limit = {
+									check_variable = {
+										which = invited_scholar_reduction
+										value = 35
+									}
+								}
+								if = {
+									limit = {
+										check_variable = {
+											which = invited_scholar_reduction
+											value = 40
+										}
+									}
+									if = {
+										limit = {
+											check_variable = {
+												which = invited_scholar_reduction
+												value = 45
+											}
+										}
+										if = {
+											limit = {
+												check_variable = {
+													which = invited_scholar_reduction
+													value = 50
+												}
+											}
+											if = {
+												limit = {
+													check_variable = {
+														which = invited_scholar_reduction
+														value = 55
+													}
+												}
+												if = {
+													limit = {
+														check_variable = {
+															which = invited_scholar_reduction
+															value = 60
+														}
+													}
+													if = {
+														limit = {
+															check_variable = {
+																which = invited_scholar_reduction
+																value = 65
+															}
+														}
+														if = {
+															limit = {
+																check_variable = {
+																	which = invited_scholar_reduction
+																	value = 70
+																}
+															}
+															if = {
+																limit = {
+																	check_variable = {
+																		which = invited_scholar_reduction
+																		value = 75
+																	}
+																}
+																if = {
+																	limit = {
+																		check_variable = {
+																			which = invited_scholar_reduction
+																			value = 80
+																		}
+																	}
+																	if = {
+																		limit = {
+																			check_variable = {
+																				which = invited_scholar_reduction
+																				value = 85
+																			}
+																		}
+																		ROOT = {
+																			define_advisor = {
+																				type = $type$
+																				skill = 3
+																				culture = FROM
+																				religion = ROOT
+																				cost_multiplier = 0.15
+																			}
+																		}
+																	}
+																	else = {
+																		ROOT = {
+																			define_advisor = {
+																				type = $type$
+																				skill = 3
+																				culture = FROM
+																				religion = ROOT
+																				cost_multiplier = 0.2
+																			}
+																		}
+																	}
+																}
+																else = {
+																	ROOT = {
+																		define_advisor = {
+																			type = $type$
+																			skill = 3
+																			culture = FROM
+																			religion = ROOT
+																			cost_multiplier = 0.25
+																		}
+																	}
+																}
+															}
+															else = {
+																ROOT = {
+																	define_advisor = {
+																		type = $type$
+																		skill = 3
+																		culture = FROM
+																		religion = ROOT
+																		cost_multiplier = 0.3
+																	}
+																}
+															}
+														}
+														else = {
+															ROOT = {
+																define_advisor = {
+																	type = $type$
+																	skill = 3
+																	culture = FROM
+																	religion = ROOT
+																	cost_multiplier = 0.35
+																}
+															}
+														}
+													}
+													else = {
+														ROOT = {
+															define_advisor = {
+																type = $type$
+																skill = 3
+																culture = FROM
+																religion = ROOT
+																cost_multiplier = 0.4
+															}
+														}
+													}
+												}
+												else = {
+													ROOT = {
+														define_advisor = {
+															type = $type$
+															skill = 3
+															culture = FROM
+															religion = ROOT
+															cost_multiplier = 0.45
+														}
+													}
+												}
+											}
+											else = {
+												ROOT = {
+													define_advisor = {
+														type = $type$
+														skill = 3
+														culture = FROM
+														religion = ROOT
+														cost_multiplier = 0.5
+													}
+												}
+											}
+										}
+										else = {
+											ROOT = {
+												define_advisor = {
+													type = $type$
+													skill = 3
+													culture = FROM
+													religion = ROOT
+													cost_multiplier = 0.55
+												}
+											}
+										}
+									}
+									else = {
+										ROOT = {
+											define_advisor = {
+												type = $type$
+												skill = 3
+												culture = FROM
+												religion = ROOT
+												cost_multiplier = 0.6
+											}
+										}
+									}
+								}
+								else = {
+									ROOT = {
+										define_advisor = {
+											type = $type$
+											skill = 3
+											culture = FROM
+											religion = ROOT
+											cost_multiplier = 0.65
+										}
+									}
+								}
+							}
+							else = {
+								ROOT = {
+									define_advisor = {
+										type = $type$
+										skill = 3
+										culture = FROM
+										religion = ROOT
+										cost_multiplier = 0.7
+									}
+								}
+							}
+						}
+						else = {
+							ROOT = {
+								define_advisor = {
+									type = $type$
+									skill = 3
+									culture = FROM
+									religion = ROOT
+									cost_multiplier = 0.75
+								}
+							}
+						}
+					}
+					else = {
+						ROOT = {
+							define_advisor = {
+								type = $type$
+								skill = 3
+								culture = FROM
+								religion = ROOT
+								cost_multiplier = 0.8
+							}
+						}
+					}
+				}
+				else = {
+					ROOT = {
+						define_advisor = {
+							type = $type$
+							skill = 3
+							culture = FROM
+							religion = ROOT
+							cost_multiplier = 0.85
+						}
+					}
+				}
+			}
+			else = {
+				ROOT = {
+					define_advisor = {
+						type = $type$
+						skill = 3
+						culture = FROM
+						religion = ROOT
+						cost_multiplier = 0.9
+					}
+				}
+			}
+		}
+		else = {
+			ROOT = {
+				define_advisor = {
+					type = $type$
+					skill = 3
+					culture = FROM
+					religion = ROOT
+					cost_multiplier = 0.95
+				}
+			}
+		}
+	}
+	else = {
+		ROOT = {
+			define_advisor = {
+				type = $type$
+				skill = 3
+				culture = FROM
+				religion = ROOT
+			}
+		}
+	}
+}

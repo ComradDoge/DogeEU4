@@ -10,18 +10,15 @@ country_decisions = {
 				ai = no
 				is_playing_custom_nation = no
 			}
-			NOT = { tag = YEM }
-			OR = {
-				ai = no
-				AND = {
-					NOT = { exists = YEM }
-					num_of_cities = 3 #Carnage
-				}
-			}
 			NOT = { tag = HLR }
 			NOT = { tag = PAP }
 			NOT = { tag = ARB }
-			primary_culture = yemeni_culture
+			NOT = { tag = YEM }
+			OR = {
+				tag = MHR
+				tag = MFL
+				primary_culture = yemeni_culture
+			}
 			is_colonial_nation = no
 			OR = {
 				is_former_colonial_nation = no
@@ -37,21 +34,6 @@ country_decisions = {
 				province_id = 388	# Aden
 				province_id = 390	# Sa'ana
 				province_id = 4280	# Taiz
-				AND = {
-					province_id = 389
-					ROOT = { NOT = { owns_core_province = 391 } }
-					ROOT = { NOT = { owns_core_province = 2346 } }
-				}
-				AND = {
-					province_id = 2346
-					ROOT = { NOT = { owns_core_province = 391 } }
-					ROOT = { NOT = { owns_core_province = 389 } }
-				}
-				AND = {
-					province_id = 391
-					ROOT = { NOT = { owns_core_province = 2346 } }
-					ROOT = { NOT = { owns_core_province = 389 } }
-				}
 			}
 			OR = {
 				NOT = { owned_by = ROOT }
@@ -59,19 +41,39 @@ country_decisions = {
 			}
 		}
 		allow = {
-			NOT = { exists = YEM }
 			is_at_war = no
 			is_free_or_tributary_trigger = yes
 			is_nomad = no		
+			if = {
+				limit = {
+					tag = RSL #Rasulids
+				}
+				NOT = { exists = ADE }
+				NOT = { exists = RAS }
+			}
+			else_if = {
+				limit = {
+					tag = ADE #Tahirids
+				}
+				NOT = { exists = YEM }
+				NOT = { exists = RAS }
+			}
+			else_if = {
+				limit = {
+					tag = RAS #Rassids
+				}
+				NOT = { exists = ADE }
+				NOT = { exists = YEM }
+			}
+			else = { #neither
+				NOT = { exists = ADE }
+				NOT = { exists = YEM }
+				NOT = { exists = RAS }
+			}
 			owns_core_province = 387	# Mocha
 			owns_core_province = 388	# Aden
 			owns_core_province = 390	# Sa'ana
 			owns_core_province = 4280	# Taiz
-			OR = {
-				owns_core_province = 389 #Mukalla
-				owns_core_province = 391 #Najran
-				owns_core_province = 2346 #Jazan
-			}
 		}
 		effect = {
 			# General
@@ -83,6 +85,7 @@ country_decisions = {
 
 
             # Flags Hidden
+			set_country_flag = YEM_formed_full_yemen
 			set_country_flag = formed_yemen_flag
 
 

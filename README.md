@@ -22,22 +22,33 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] 05/12/2022 [/h1]
+[h1] 30/01/2023 [/h1]
 
-- Renamed Slavic to Rodnovery
-- Nationalism Estate Privilege: global_manpower_modifier = 0.5 > manpower_in_culture_group_provinces = 0.75
-- Added a `devolution` setup decision for Great Britain.
-- Increased the inflation from gold, this primarily to negate the early game advantage since you don't have many or any modifiers to reduce it.
-- Trade good price change events values increased to make them more relevant.
-- The eruption and cold age events actually increase the goods price but heavily decrease the production efficiency of the mentioned goods.
-- Reduced the cost of Supply Depots 25>10 to increase their use.
-- Monarchy Ideas: tweaked the modifiers.
-- Economic Ideas: interest 0.5>1 to increase idea and thematic value.
-- Adminstrative Ideas: increased CCR 15%>25% to increase idea value.
-- Persia and Himalaya cavalry_shock replaced with cavalry_combat_ability to complete their removal from ideas.
-- Breakthrough for cavalry against cannons increased 0.4>0.5 to make them more viable late game.
-- Development scaling is back to vanilla, 0.4>0.3.
-- Naval and Land forcelimit buildings are much more dependent on development.
+
+- Added some descriptions to monuments.
+- Updated the Alexandrian mission tree.
+- Tatarstan province requirements reduced.
+- Trade company buildings slightly nerfed.
+- Sol Invictus aspects now have actual images.
+- Added Saffron event for Orleanais at ADM 10.
+- Cathar faction icons changed and modifiers fixed.
+- Governing capacity from technology increased 150>200.
+- Added a more price changing events and tweaked existing ones.
+- Hellenics joined the party and also get Hagia Sophia bonuses.
+- FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
+- Lower Nubia is no longer part of Egypt region and moved to Ethiopia trade node.
+- Yazidi is no longer on the map, but will come back after a rework of some manner.
+- Nestorian is now in the game and use the Patriarchal system with their own icons.
+- Added custom colonial names for kamchatka culture group. For those rare unicorns.
+- Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
+- Provincial increase from developing production lowered 0.2>0.1 to nerf trade value build up.
+- ME: added a bunch of middle east missions from Europa Expanded. Mention any weird gameplay quirks.
+- AI Expand Infrastructure is only enabled after 1600 to prevent too much AI deving. Suffering from success.
+- Druze now also uses syncretic mechanic which has been reworked to allow use when other mechanics exist already.
+- Religion screens like aspect windows (like protestant or anglican) and orthodox windows extended so it's no longer cramped.
+- Tweaked the Morroco area by shuffling the development around and making Sale (Pirate Republic) appear at start. God help us all.
+- Bogomilist reworked. Uses anglican religion system with it's own aspects. Check the religion description for the special nuances.
+- AB: Edited mission tree for Trieste and Wallachia/Moldavia from Ante Bellum, a mod that I recommend you to check out which recently had a Rus region update.
 
 [/quote]
 

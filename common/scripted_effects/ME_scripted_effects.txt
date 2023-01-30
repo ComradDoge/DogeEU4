@@ -935,6 +935,56 @@ add_army_tradition_or_mil_power = {
 	}
 }
 
+## adds legitimacy equivalent until 100 is reached and then adds the rest as a reform progress
+### add_legitimacy_or_reform_progress = { amount = <number> }
+add_legitimacy_or_reform_progress = {
+	[[amount]
+		tooltip = {
+			add_legitimacy_equivalent = { amount = $amount$ }
+		}
+		custom_tooltip = ME_ADD_LEGITIMACY_OR_REFORM_PROGRESS
+		hidden_effect = {
+			for = {
+				amount = $amount$
+				effect = "
+					if = {
+						limit = {
+							NOT = { legitimacy_equivalent = 100 }
+						}
+						add_legitimacy_equivalent = { amount = 1 }
+					}
+					else = {
+						change_government_reform_progress = 2
+					}
+				"
+			}
+		}
+	]
+	
+	[[value]
+		tooltip = {
+			add_legitimacy_equivalent = { amount = $value$ }
+		}
+		custom_tooltip = ME_ADD_LEGITIMACY_OR_REFORM_PROGRESS
+		hidden_effect = {
+			for = {
+				amount = $value$
+				effect = "
+					if = {
+						limit = {
+							NOT = { legitimacy_equivalent = 100 }
+						}
+						add_legitimacy_equivalent = { amount = 1 }
+					}
+					else = {
+						change_government_reform_progress = 2
+					}
+				"
+			}
+		}
+	]
+}
+
 ## breaks the alliance between current scope and who
 ### break_alliance_with = { who = <scope> }
 break_alliance_with = {
@@ -1822,10 +1872,10 @@ set_defender_of_the_faith_effect = {
 create_general_with_pips = {
 	create_general = {
 		tradition = $tradition$
-		add_fire = $add_fire$
-		add_shock = $add_shock$
-		add_manuever = $add_manuever$
-		add_siege = $add_siege$
+		[[add_fire] add_fire = $add_fire$ ]
+		[[add_shock] add_shock = $add_shock$ ]
+		[[add_manuever] add_manuever = $add_manuever$ ]
+		[[add_siege] add_siege = $add_siege$ ]
 		[[name] name = $name$ ]
 		[[culture] culture = $culture$ ]
 	}
@@ -1891,4 +1941,375 @@ add_positive_or_negative_piety = {
 }
 
 ME_technology_split_120_power = { #placeholder, I will put the implementation here later!
+	custom_tooltip = "ME_split_120_MP"
+	hidden_effect = {
+		export_to_variable = {
+			which = MSA_our_adm_tech
+			value = adm_tech
+		}
+		export_to_variable = {
+			which = MSA_our_dip_tech
+			value = dip_tech
+		}
+		export_to_variable = {
+			which = MSA_our_mil_tech
+			value = mil_tech
+		}
+		set_variable = {
+			which = MSA_our_lowest_tech
+			which = MSA_our_adm_tech
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = MSA_our_dip_tech
+						which = MSA_our_lowest_tech
+					}
+				}
+			}
+			set_variable = {
+				which = MSA_our_lowest_tech
+				which = MSA_our_dip_tech
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = MSA_our_mil_tech
+						which = MSA_our_lowest_tech
+					}
+				}
+			}
+			set_variable = {
+				which = MSA_our_lowest_tech
+				which = MSA_our_mil_tech
+			}
+		}
+		
+		subtract_variable = {
+			which = MSA_our_adm_tech
+			which = MSA_our_lowest_tech
+		}
+		subtract_variable = {
+			which = MSA_our_dip_tech
+			which = MSA_our_lowest_tech
+		}
+		subtract_variable = {
+			which = MSA_our_mil_tech
+			which = MSA_our_lowest_tech
+		}
+		
+		if = {
+			limit = {
+				is_variable_equal = {
+					which = MSA_our_adm_tech
+					value = 0
+				}
+			}
+			if = {
+				limit = {
+					is_variable_equal = {
+						which = MSA_our_dip_tech
+						value = 0
+					}
+				}
+				if = {
+					limit = {
+						is_variable_equal = {
+							which = MSA_our_mil_tech
+							value = 0
+						}
+					}
+					add_adm_power = 40
+					add_dip_power = 40
+					add_mil_power = 40
+				}
+				else = {
+					add_adm_power = 60
+					add_dip_power = 60
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						is_variable_equal = {
+							which = MSA_our_mil_tech
+							value = 0
+						}
+					}
+					add_adm_power = 60
+					add_mil_power = 60
+				}
+				else = {
+					add_adm_power = 120
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					is_variable_equal = {
+						which = MSA_our_dip_tech
+						value = 0
+					}
+				}
+				if = {
+					limit = {
+						is_variable_equal = {
+							which = MSA_our_mil_tech
+							value = 0
+						}
+					}
+					add_dip_power = 60
+					add_mil_power = 60
+				}
+				else = {
+					add_dip_power = 120
+				}
+			}
+			else = {
+				add_mil_power = 120
+			}
+		}
+		
+		#flush the vars
+		set_variable = {
+			which = MSA_our_adm_tech
+			value = 0
+		}
+		set_variable = {
+			which = MSA_our_dip_tech
+			value = 0
+		}
+		set_variable = {
+			which = MSA_our_mil_tech
+			value = 0
+		}
+		set_variable = {
+			which = MSA_our_lowest_tech
+			value = 0
+		}
+	}
+}
+
+ME_pt_feedback_requested = { #a program will look for instances of those
+	custom_tooltip = ME_playtester_feedback_requested
+}
+
+#tag = { ME_add_to_empire = yes }
+ME_add_to_empire = {
+	#custom_tooltip = ME_join_the_empire
+	if = {
+		limit = {
+			capital_scope = {
+				continent = europe #In case their capital is not in Europe
+			}
+		}
+		tooltip = {
+			set_in_empire = yes
+		}
+
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					continent = europe
+				}
+				set_in_empire = yes
+			}
+			set_country_flag = reined_in_for_shadow_kingdom #in case that happens
+		}
+	}
+}
+
+# ME_distribute_development = {
+#	type = x //The 3 development types. E.G. type = production
+#	amount = x //How many development to add. E.G amount = 10
+#	limit = " " OPTIONAL //takes actual triggers. E.G. limit = " NOT = { culture = ROOT } "
+#}
+ME_distribute_development = {
+	hidden_effect = {
+		set_variable = {
+			which = ME_$type$_loop
+			value = 0
+		}
+		while = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = ME_$type$_loop
+						value = $amount$
+					}
+				}
+			}
+			random_owned_province = {
+				[[limit]
+					limit = {
+						$limit$
+					} 
+				]
+				add_base_$type$ = 1
+			}
+			change_variable = {
+				which = ME_$type$_loop
+				value = 1
+			}
+		}
+	}
+	custom_tooltip = $type$_$amount$
+}
+
+# ME_remove_development_distributed = {
+#	type = x //The 3 development types. E.G. type = production
+#	amount = x //How many development to add. E.G amount = 10
+#	limit = " " OPTIONAL //takes actual triggers. E.G. limit = " NOT = { culture = ROOT } "
+#}
+ME_remove_development_distributed = {
+	hidden_effect = {
+		set_variable = {
+			which = ME_$type$_loop
+			value = 0
+		}
+		while = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = ME_$type$_loop
+						value = $amount$
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					[[limit] $limit$ ]
+					base_$type$ = 2 #In case the province has 1 development of that type
+				}
+				add_base_$type$ = -1
+			}
+			change_variable = {
+				which = ME_$type$_loop
+				value = 1
+			}
+		}
+	}
+	custom_tooltip = remove_$type$_$amount$
+}
+
+#ME_country_event_delay = { id = x }
+#Done for some small flavor
+#Will let Stiopa make the final verdict
+#ME_country_event_delay = {
+#	hidden_effect = {
+#		country_event = { id = $id$ days = 1 }
+#	}
+#	tooltip = {
+#		country_event = { id = $id$ }
+#	}
+#}
+
+disable_annex_penalty = {
+	custom_tooltip = ME_disble_annex_penalty_for_annexing_root
+	set_country_flag = ME_causes_no_annexation_penalty
+}
+
+ME_override_country_name = {
+	[[country_name] override_country_name = $country_name$ ]
+	[[name] override_country_name = $name$ ]
+	[[country] override_country_name = $country$ ]
+	[[value] override_country_name = $value$ ]
+	[[string] override_country_name = $string$ ]
+	hidden_effect = {
+		set_country_flag = ME_overrid_country_name
+	}
+}
+
+#ME_add_scaling_adm_advisor_bonuses = yes
+ME_add_scaling_adm_advisor_bonuses = {
+	custom_tooltip = me_mug_adm_advisors_give_scaling_bonuses
+	set_country_flag = me_mug_scaling_advisors
+}
+
+#ME_add_scaling_dip_advisor_bonuses = yes
+ME_add_scaling_dip_advisor_bonuses = {
+	custom_tooltip = me_mug_dip_advisors_give_scaling_bonuses
+	set_country_flag = me_mug_scaling_advisors_dip
+}
+
+#ME_add_scaling_mil_advisor_bonuses = yes
+ME_add_scaling_mil_advisor_bonuses = {
+	custom_tooltip = me_mug_mil_advisors_give_scaling_bonuses
+	set_country_flag = me_mug_scaling_advisors_mil
+}
+
+ME_add_power_projection = {
+	[[amount]
+		add_power_projection = {
+			type = mission_rewards_power_projection
+			amount = $amount$
+		}
+	]
+	[[value]
+		add_power_projection = {
+			type = mission_rewards_power_projection
+			amount = $value$
+		}
+	
+	]
+}
+
+ME_add_or_reset_golden_age = { # extremely powerful, use sparingly!
+	if = {					   # should be guarded by a check for golden age
+		limit = {
+			has_dlc = "Mandate of Heaven"
+		}
+		
+		custom_tooltip = ME_golden_age_renewal_tt
+		hidden_effect = {
+			if = {
+				limit = { has_had_golden_age = yes } 
+				reset_golden_age = yes 
+			}
+			else_if = {
+				limit = { in_golden_age = yes } 
+				extend_golden_age = 600
+			}
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = ME_mini_golden_age
+			duration = 18250
+		}
+	}
+}
+
+EE_change_variable = {
+	[[add]
+		change_variable = {
+			which = $which$
+			value = $add$
+		}
+	]
+
+	[[subtract]
+		subtract_variable = {
+			which = $which$
+			value = $subtract$
+		}
+	]
+
+	[[divide]
+		divide_variable = {
+			which = $which$
+			value = $divide$
+		}
+	]
+
+	[[multiply]
+		multiply_variable = {
+			which = $which$
+			value = $multiply$
+		}
+	]
 }
