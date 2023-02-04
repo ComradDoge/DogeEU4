@@ -22,33 +22,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] 30/01/2023 [/h1]
+[h1] 06/02/2023 [/h1]
 
 
-- Added some descriptions to monuments.
-- Updated the Alexandrian mission tree.
-- Tatarstan province requirements reduced.
-- Trade company buildings slightly nerfed.
-- Sol Invictus aspects now have actual images.
-- Added Saffron event for Orleanais at ADM 10.
-- Cathar faction icons changed and modifiers fixed.
-- Governing capacity from technology increased 150>200.
-- Added a more price changing events and tweaked existing ones.
-- Hellenics joined the party and also get Hagia Sophia bonuses.
-- FE: Tamazagh and Celtic Empire (now called Tir na Celtigh) has missions.
-- Lower Nubia is no longer part of Egypt region and moved to Ethiopia trade node.
-- Yazidi is no longer on the map, but will come back after a rework of some manner.
-- Nestorian is now in the game and use the Patriarchal system with their own icons.
-- Added custom colonial names for kamchatka culture group. For those rare unicorns.
-- Nestorian replaces Yazidi in Assyria as it factually does not make sense otherwise.
-- Provincial increase from developing production lowered 0.2>0.1 to nerf trade value build up.
-- ME: added a bunch of middle east missions from Europa Expanded. Mention any weird gameplay quirks.
-- AI Expand Infrastructure is only enabled after 1600 to prevent too much AI deving. Suffering from success.
-- Druze now also uses syncretic mechanic which has been reworked to allow use when other mechanics exist already.
-- Religion screens like aspect windows (like protestant or anglican) and orthodox windows extended so it's no longer cramped.
-- Tweaked the Morroco area by shuffling the development around and making Sale (Pirate Republic) appear at start. God help us all.
-- Bogomilist reworked. Uses anglican religion system with it's own aspects. Check the religion description for the special nuances.
-- AB: Edited mission tree for Trieste and Wallachia/Moldavia from Ante Bellum, a mod that I recommend you to check out which recently had a Rus region update.
+- Romanian mission CTD fix. 
+- Alexandria flavour event repeating forever.
+- Kongo formation decision fixed to give missions.
+- Added institution modifier to roads, makes sense.
 
 [/quote]
 
