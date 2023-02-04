@@ -29,6 +29,7 @@ Checksum: -
 - Alexandria flavour event repeating forever.
 - Kongo formation decision fixed to give missions.
 - Added institution modifier to roads, makes sense.
+- Production buildings buffed so that production is not screwed but still does not buff trade value.
 
 [/quote]
 
