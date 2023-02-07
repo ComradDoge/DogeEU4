@@ -25,12 +25,8 @@ Checksum: -
 [h1] 06/02/2023 [/h1]
 
 
-- Romanian mission CTD fix. 
-- Alexandria flavour event repeating forever.
-- Kongo formation decision fixed to give missions.
-- Added institution modifier to roads, makes sense.
-- Production buildings buffed so that production is not screwed but still does not buff trade value.
-- Bolu gets coal as a latent good due to the historical Zonguldak basin.
+- Tamazagha religion requirement extended to whole muslim group.
+- Added Nestorian religious idea group.
 
 [/quote]
 
