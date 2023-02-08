@@ -29,7 +29,7 @@ Checksum: -
 - Tamazagha religion requirement extended to whole muslim group.
 - The Shwaz modifier was replaced with a monument (not if you don't have Leviathan DLC). 
 - Finally removed the Dalaskogen modifier I was lazy to remove when the mine monument was added.
-- Added Kollur mine in Golconda.
+- Replaced Golconda Mines modifier with a monument.
 
 [/quote]
 
