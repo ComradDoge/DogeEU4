@@ -25,8 +25,11 @@ Checksum: -
 [h1] 06/02/2023 [/h1]
 
 
-- Tamazagha religion requirement extended to whole muslim group.
 - Added Nestorian religious idea group.
+- Tamazagha religion requirement extended to whole muslim group.
+- The Shwaz modifier was replaced with a monument (not if you don't have Leviathan DLC). 
+- Finally removed the Dalaskogen modifier I was lazy to remove when the mine monument was added.
+- Added Kollur mine in Golconda.
 
 [/quote]
 
