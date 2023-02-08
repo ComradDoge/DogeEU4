@@ -26,10 +26,10 @@ Checksum: -
 
 
 - Added Nestorian religious idea group.
-- Tamazagha religion requirement extended to whole muslim group.
-- The Shwaz modifier was replaced with a monument (not if you don't have Leviathan DLC). 
-- Finally removed the Dalaskogen modifier I was lazy to remove when the mine monument was added.
+- The Shwaz modifier was replaced with a monument. 
 - Replaced Golconda Mines modifier with a monument.
+- Tamazagha religion requirement extended to whole muslim group.
+- Finally removed the non-intended Dalaskogen modifier I was lazy to remove when the mine monument was added.
 
 [/quote]
 
