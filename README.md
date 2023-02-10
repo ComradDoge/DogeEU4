@@ -22,13 +22,17 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] 06/02/2023 [/h1]
+[h1] 10/02/2023 [/h1]
 
 
 - Added Nestorian religious idea group.
-- The Shwaz modifier was replaced with a monument. 
+- Age fixes for some countries in Anatolia.
+- The Schwaz modifier was replaced with a monument. 
 - Replaced Golconda Mines modifier with a monument.
 - Tamazagha religion requirement extended to whole muslim group.
+- Added an option for native removal event to keep the custom settlers.
+- Added some custom localisation for church/cathedral names in some religions.
+- Added a generic mission tree for some northern french minors. Will add finishing touches later.
 - Finally removed the non-intended Dalaskogen modifier I was lazy to remove when the mine monument was added.
 
 [/quote]
