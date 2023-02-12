@@ -25,8 +25,10 @@ Checksum: -
 [h1] 10/02/2023 [/h1]
 
 
-- Added Berber estates to the seize/sell event.
 - Nestorian ideas wrong finisher fixed.
+- Added Berber estates to the seize/sell event.
+- Reduced the cost of buildings due to reduced coin. (i.e. Latent buildings 2k > 1K, manufactories 1k > 500, etc)
+-- Please provide feedback if the game feels better or worse with new building prices.
 
 [/quote]
 
