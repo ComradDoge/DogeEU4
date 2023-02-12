@@ -27,6 +27,7 @@ Checksum: -
 
 - Nestorian ideas wrong finisher fixed.
 - Added Berber estates to the seize/sell event.
+- Norse Lost Culture moved to Scandinavian.
 - Reduced the cost of buildings due to reduced coin. (i.e. Latent buildings 2k > 1K, manufactories 1k > 500, etc)
 -- Please provide feedback if the game feels better or worse with new building prices.
 
