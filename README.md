@@ -26,6 +26,7 @@ Checksum: -
 
 
 - Added Berber estates to the seize/sell event.
+- Nestorian ideas wrong finisher fixed.
 
 [/quote]
 
