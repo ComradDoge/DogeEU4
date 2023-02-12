@@ -25,15 +25,7 @@ Checksum: -
 [h1] 10/02/2023 [/h1]
 
 
-- Added Nestorian religious idea group.
-- Age fixes for some countries in Anatolia.
-- The Schwaz modifier was replaced with a monument. 
-- Replaced Golconda Mines modifier with a monument.
-- Tamazagha religion requirement extended to whole muslim group.
-- Added an option for native removal event to keep the custom settlers.
-- Added some custom localisation for church/cathedral names in some religions.
-- Added a generic mission tree for some northern french minors. Will add finishing touches later.
-- Finally removed the non-intended Dalaskogen modifier I was lazy to remove when the mine monument was added.
+- Added Berber estates to the seize/sell event.
 
 [/quote]
 
