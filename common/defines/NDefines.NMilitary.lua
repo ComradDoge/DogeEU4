@@ -14,7 +14,7 @@ NDefines.NMilitary.LEADER_GAIN_PERSONALITY_BASE_CHANCE = 22.0             -- Bas
 NDefines.NMilitary.CAVALRY_COST = 20                                      -- Default 25, to offset the worthlessness of cavalry in most armies. Hordes are somewhat nerfed in the mod eitherway.
 
 --NDefines.NMilitary.COMBAT_DICE_SIDE = 12
-NDefines.NMilitary.CANNOT_RETREAT_DAYS = 7
+NDefines.NMilitary.CANNOT_RETREAT_DAYS = 12 -- 12
 
 NDefines.NMilitary.MAX_COMBAT_WIDTH = 40
 

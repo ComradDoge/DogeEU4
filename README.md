@@ -25,11 +25,7 @@ Checksum: -
 [h1] 10/02/2023 [/h1]
 
 
-- Nestorian ideas wrong finisher fixed.
-- Norse Lost Culture moved to Scandinavian.
-- Added Berber estates to the seize/sell event.
-- Reduced the cost of buildings due to reduced coin. (i.e. Latent buildings 2k > 1K, manufactories 1k > 500, etc)
--- Please provide feedback if the game feels better or worse with new building prices.
+- Reverted the amount of days before you can retreat to vanilla values since unit pips are also vanilla. (7 > 12)
 
 [/quote]
 
