@@ -26,6 +26,7 @@ Checksum: -
 
 
 - Reverted the amount of days before you can retreat to vanilla values since unit pips are also vanilla. (7 > 12)
+- The background code that deals with forcelimit buildings has been changed to increase performance.
 
 [/quote]
 

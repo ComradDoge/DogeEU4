@@ -442,7 +442,7 @@ country_event = {
 	}
 
 	immediate = {
-		log = " ==================== METALWORKING REMOVED ====================="
+		log = " ==================== METALWORKING REMOVED [Root.GetName] ====================="
         clr_country_flag = metalworking_here
         
         every_owned_province = {
@@ -469,38 +469,43 @@ country_event = {
 	hidden = yes
 	
 	trigger = {
+		NOT = { has_country_modifier = metalworking_refresher_timer }
         has_country_flag = metalworking_here
         trading_bonus = {
             trade_goods = metalworking
             value = yes
         }
 		any_owned_province = {
+			OR = {
+				has_building = workshop 
+				has_building = counting_house
+				has_building = steam_factory
+			}
 			NOT = { has_province_modifier = metalworking_modifier_leader_new }
 		}
 	}
 	
 	immediate = {
-        log = " ==================== METALWORKING REFRESHER ====================="
-
+        log = " ==================== METALWORKING REFRESHER [Root.GetName] ====================="
+        add_country_modifier = {
+            name = metalworking_refresher_timer
+            duration = 250
+            hidden = yes
+        }
         every_owned_province = {
-
-            if = {
-                limit = {
-                    AND = {
-                        OR = {
-                            has_building = workshop 
-                            has_building = counting_house
-                            has_building = steam_factory
-                        }
-                        NOT = { has_province_modifier = metalworking_modifier_leader_new }
-                    }
-                }
-                
-                add_province_modifier = { 
-                    name = metalworking_modifier_leader_new
-                    duration = -1
-                }
-            }
+			limit = {
+				OR = {
+					has_building = workshop 
+					has_building = counting_house
+					has_building = steam_factory
+				}
+				NOT = { has_province_modifier = metalworking_modifier_leader_new }
+			}
+			
+			add_province_modifier = { 
+				name = metalworking_modifier_leader_new
+				duration = -1
+			}
         }
 	}
 
