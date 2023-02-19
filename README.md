@@ -29,6 +29,7 @@ Checksum: -
 - The background code that deals with forcelimit buildings has been changed to increase performance.
 - Citrus increased bonus moved from Soldiers Household to Impressment Offices.
 - Fixed decisions not showing up for Tlemcen and Mushasha regarding forming nations.
+- Removed religion requirement for Maghreb nation.
 
 [/quote]
 
