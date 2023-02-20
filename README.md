@@ -25,11 +25,12 @@ Checksum: -
 [h1] 10/02/2023 [/h1]
 
 
-- Reverted the amount of days before you can retreat to vanilla values since unit pips are also vanilla. (7 > 12)
-- The background code that deals with forcelimit buildings has been changed to increase performance.
+- Removed religion requirement for Maghreb nation.
 - Citrus increased bonus moved from Soldiers Household to Impressment Offices.
 - Fixed decisions not showing up for Tlemcen and Mushasha regarding forming nations.
-- Removed religion requirement for Maghreb nation.
+- The background code that deals with forcelimit buildings has been changed to increase performance.
+- Reverted the amount of days before you can retreat to vanilla values since unit pips are also vanilla. (7 > 12)
+- Standing Army land_maintenance modifier penalty removed and instead increased the reinforce cost, drill_modifiers increased.
 
 [/quote]
 
