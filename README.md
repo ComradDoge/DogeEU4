@@ -26,6 +26,7 @@ Checksum: -
 
 
 - Removed religion requirement for Maghreb nation.
+- Reduced the cost of special mercenaries from mercenary ideas.
 - Fixed some events that repeated themselves, dragging down performance.
 - Citrus increased bonus moved from Soldiers Household to Impressment Offices.
 - Fixed decisions not showing up for Tlemcen and Mushasha regarding forming nations.
