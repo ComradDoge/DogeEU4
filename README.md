@@ -26,6 +26,7 @@ Checksum: -
 
 
 - Removed religion requirement for Maghreb nation.
+- Fixed some events that repeated themselves, dragging down performance.
 - Citrus increased bonus moved from Soldiers Household to Impressment Offices.
 - Fixed decisions not showing up for Tlemcen and Mushasha regarding forming nations.
 - The background code that deals with forcelimit buildings has been changed to increase performance.
