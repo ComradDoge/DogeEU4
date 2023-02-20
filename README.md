@@ -22,14 +22,18 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] 10/02/2023 [/h1]
+[h1] 20/02/2023 [/h1]
 
 
 - Removed religion requirement for Maghreb nation.
 - Reduced the cost of special mercenaries from mercenary ideas.
+- If Cumania goes back to horsey ways, name changes to Cuman Horde.
 - Fixed some events that repeated themselves, dragging down performance.
+- Enabled Socotra nation to happen to players as well instead of only just AI.
 - Citrus increased bonus moved from Soldiers Household to Impressment Offices.
 - Fixed decisions not showing up for Tlemcen and Mushasha regarding forming nations.
+- The Mushasha disaster slightly reworked and tweaked some localisation to be more clear.
+- As Sol Invictus, if you get a hand on hellenic religion provinces they will auto-convert to yours.
 - The background code that deals with forcelimit buildings has been changed to increase performance.
 - Reverted the amount of days before you can retreat to vanilla values since unit pips are also vanilla. (7 > 12)
 - Standing Army land_maintenance modifier penalty removed and instead increased the reinforce cost, drill_modifiers increased.
