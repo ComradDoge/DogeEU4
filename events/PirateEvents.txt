@@ -29,6 +29,119 @@ country_event = {
 	
 	is_triggered_only = yes
 	
+	immediate = {
+		hidden_effect = {
+			random_ruler = yes
+			
+			clr_country_flag = adm_flag
+			clr_country_flag = dip_flag
+			clr_country_flag = mil_flag
+			clr_country_flag = adm2_flag
+			clr_country_flag = dip2_flag
+			clr_country_flag = mil2_flag
+
+			random_list = {
+				1 = {
+					set_country_flag = adm_flag
+					random_list = {
+						1 = {
+							set_country_flag = dip2_flag
+						}
+						1 = {
+							set_country_flag = mil2_flag
+						}
+					}
+				}
+				1 = {
+					set_country_flag = dip_flag
+					random_list = {
+						1 = {
+							set_country_flag = adm2_flag
+						}
+						1 = {
+							set_country_flag = mil2_flag
+						}
+					}
+				}
+				1 = {
+					set_country_flag = mil_flag
+					random_list = {
+						1 = {
+							set_country_flag = adm2_flag
+						}
+						1 = {
+							set_country_flag = dip2_flag
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_government_attribute = enable_factional_elections
+				}
+				if = {
+					limit = { has_ruler_flag = adm_ruler }
+					random_list = {
+						30 = { set_ruler_flag = adm_2_dev }
+						30 = { set_ruler_flag = adm_2_tax }
+						30 = { set_ruler_flag = adm_2_pope }
+						10 = { set_ruler_flag = rul_2_stab }
+					}
+				}
+				if = {
+					limit = { has_ruler_flag = dip_ruler }
+					random_list = {
+						30 = { set_ruler_flag = dip_2_merc }
+						30 = { set_ruler_flag = dip_2_trade }
+						30 = { set_ruler_flag = dip_2_ship }
+						10 = { set_ruler_flag = rul_2_stab }
+					}
+				}
+				if = {
+					limit = { has_ruler_flag = mil_ruler }
+					random_list = {
+						30 = { set_ruler_flag = mil_2_army }
+						30 = { set_ruler_flag = mil_2_leader }
+						30 = { set_ruler_flag = mil_2_main }
+						10 = { set_ruler_flag = rul_2_stab }
+					}
+				}
+				random_list = {
+					33 = { set_country_flag = adm_advisor }
+					33 = { set_country_flag = adm_stabcost }
+					33 = { set_country_flag = adm_pope }
+				}
+				random_list = {
+					33 = { set_country_flag = dip_trade }
+					33 = { set_country_flag = dip_invest }
+					33 = { set_country_flag = dip_gold }
+				}
+				random_list = {
+					33 = { set_country_flag = mil_army }
+					33 = { set_country_flag = mil_republic }
+					33 = { set_country_flag = mil_infantry }
+				}
+				if = {
+					limit = {
+						NOT = {
+							OR = {
+								has_ruler_flag = adm_ruler
+								has_ruler_flag = dip_ruler
+								has_ruler_flag = mil_ruler
+							}
+						}
+					}
+					random_list = {
+						10 = { set_ruler_flag = adm_ruler }
+						10 = { set_ruler_flag = dip_ruler }
+						10 = { set_ruler_flag = mil_ruler }
+					}
+				}
+			}
+		}
+	}
+
 	trigger = {
 		has_government_attribute = is_pirate_republic_reform
 		if = {
@@ -45,23 +158,100 @@ country_event = {
 			NOT = { has_country_flag = pirate_death_election }
 		}
 		ai_chance = { 
-			factor = 60
+			factor = 200
 			modifier = {
 				factor = 0
-				NOT = { republican_tradition = 25 }
-			}	
-			modifier = {
-				factor = 0.5
 				NOT = { republican_tradition = 50 }
-			}				
+			}
 			modifier = {
-				factor = 0.5
-				NOT = { republican_tradition = 75 }
-			}	
+				factor = 0
+				variable_arithmetic_trigger = {
+					export_to_variable = {
+						which = admSkill
+						value = ADM
+					}
+					export_to_variable = {
+						which = dipSkill
+						value = DIP
+					}
+					export_to_variable = {
+						which = milSkill
+						value = MIL
+					}
+					change_variable = {
+						which = admSkill
+						which = dipSkill
+					}
+					change_variable = {
+						which = admSkill
+						which = milSkill
+					}
+					NOT = {
+						check_variable = {
+							which = admSkill
+							value = 9
+						}
+					}
+				}
+			}
 			modifier = {
-				factor = 2.0
-				republican_tradition = 90
-			}		
+				factor = 0
+				NOT = { has_ruler_flag = ruler_reelected }
+				OR = {
+					NOT = { republican_tradition = 100 }
+					NOT = {
+						has_global_modifier_value = {
+							which = republican_tradition
+							value = 0.5
+						}
+					}
+				}
+				OR = {
+					NOT = { republican_tradition = 90 }
+					NOT = {
+						has_global_modifier_value = {
+							which = republican_tradition
+							value = 1
+						}
+					}
+				}
+				OR = {
+					NOT = { republican_tradition = 80 }
+					NOT = {
+						has_global_modifier_value = {
+							which = republican_tradition
+							value = 1.5
+						}
+					}
+				}
+				OR = {
+					NOT = { republican_tradition = 70 }
+					NOT = {
+						has_global_modifier_value = {
+							which = republican_tradition
+							value = 2
+						}
+					}
+				}
+				OR = {
+					NOT = { republican_tradition = 60 }
+					NOT = {
+						has_global_modifier_value = {
+							which = republican_tradition
+							value = 2.5
+						}
+					}
+				}
+				OR = {
+					NOT = { republican_tradition = 50 }
+					NOT = {
+						has_global_modifier_value = {
+							which = republican_tradition
+							value = 3
+						}
+					}
+				}
+			}
 		}
 		custom_tooltip = remains_ruler
 		if = {
@@ -94,9 +284,91 @@ country_event = {
 				}
 			}
 		}
-		change_adm = 1
-		change_dip = 1
-		change_mil = 1
+		custom_tooltip = tooltip_line_seperate
+		if = {
+			limit = {
+				NOT = { adm = 6 }
+				has_country_flag = adm_flag
+			}
+			change_adm = 1
+			add_dip_power = 10
+			add_mil_power = 10
+		}
+		else_if = {
+			limit = {
+				NOT = { dip = 6 }
+				has_country_flag = dip_flag
+			}
+			change_dip = 1
+			add_adm_power = 10
+			add_mil_power = 10
+		}
+		else_if = {
+			limit = {
+				NOT = { mil = 6 }
+				has_country_flag = mil_flag
+			}
+			change_mil = 1
+			add_adm_power = 10
+			add_dip_power = 10
+		}
+		else_if = {
+			limit = {
+				NOT = { adm = 6 }
+				has_country_flag = adm2_flag
+			}
+			change_adm = 1
+			add_dip_power = 10
+			add_mil_power = 10
+		}
+		else_if = {
+			limit = {
+				NOT = { dip = 6 }
+				has_country_flag = dip2_flag
+			}
+			change_dip = 1
+			add_adm_power = 10
+			add_mil_power = 10
+		}
+		else_if = {
+			limit = {
+				NOT = { mil = 6 }
+				has_country_flag = mil2_flag
+			}
+			add_adm_power = 10
+			add_dip_power = 10
+			change_mil = 1
+		}
+		else_if = {
+			limit = {
+				NOT = { adm = 6 }
+			}
+			change_adm = 1
+			add_dip_power = 10
+			add_mil_power = 10
+		}
+		else_if = {
+			limit = {
+				NOT = { dip = 6 }
+			}
+			change_dip = 1
+			add_adm_power = 10
+			add_mil_power = 10
+		}
+		else_if = {
+			limit = {
+				NOT = { mil = 6 }
+			}
+			change_mil = 1
+			add_adm_power = 10
+			add_dip_power = 10
+		}
+		else = {
+			add_adm_power = 10
+			add_dip_power = 10
+			add_mil_power = 10
+		}
+		custom_tooltip = tooltip_line_seperate
 		if = {
 			limit = {
 				NOT = { has_ruler_flag = historical_pirate }
@@ -113,6 +385,7 @@ country_event = {
 				add_scaled_republican_tradition = -10
 			}
 		}
+		custom_tooltip = tooltip_line_seperate
 		if = {
 			limit = {
 				faction_in_power = pr_buccaneers 
@@ -122,17 +395,65 @@ country_event = {
 				influence = -10
 			}	
 		}
-		random_list = {
-			10 = {
-				add_adm_power = 50
+		custom_tooltip = tooltip_line_seperate
+		if = {
+			limit = { has_government_attribute = enable_factional_elections }
+			trigger_switch = {
+				on_trigger = has_ruler_flag
+				adm_2_dev = {
+					add_ruler_modifier = {
+						name = "Adm_2_Dev"
+						duration = 3650
+					}
+				}
+				adm_2_tax = {
+					add_ruler_modifier = {
+						name = "Adm_2_Tax"
+						duration = 3650
+					}
+				}
+				adm_2_pope = {
+					add_papal_influence = 10
+					add_church_power = 15
+					add_fervor = 20
+				}
+				dip_2_merc = {
+					add_mercantilism = 1
+				}
+				dip_2_trade = {
+					add_ruler_modifier = {
+						name = "Dip_2_Trade"
+						duration = 3650
+					}
+				}
+				dip_2_ship = {
+					add_ruler_modifier = {
+						name = "Dip_2_Ship"
+						duration = 3650
+					}
+				}
+				mil_2_army = {
+					add_army_tradition = 10
+				}
+				mil_2_main = {
+					add_ruler_modifier = {
+						name = "Mil_2_Main"
+						duration = 3650
+					}
+				}
+				mil_2_leader = {
+					add_ruler_modifier = {
+						name = "Mil_2_Leader"
+						duration = 3650
+					}
+				}
+				rul_2_stab = {
+					add_stability_or_adm_power = yes
+				}
 			}
-			10 = {
-				add_dip_power = 50
-			}
-			10 = {
-				add_mil_power = 50
-			}
+
 		}
+		custom_tooltip = tooltip_line_seperate
 		add_karma = -5
 	}
 	option = { # Buccaneer candidate
@@ -154,12 +475,39 @@ country_event = {
 				dip = 1					
 			}
 		}
+		custom_tooltip = tooltip_line_seperate
 		if = {
 			limit = { has_government_attribute = elections_increase_factions_influence }
 			add_influence_to_adm_faction = {
 				influence = 20
 			}
 		}
+		custom_tooltip = tooltip_line_seperate
+		if = {
+			limit = { has_government_attribute = enable_factional_elections }
+			trigger_switch = {
+				on_trigger = has_country_flag
+				adm_advisor = {
+					add_ruler_modifier = {
+						name = "Adm_Advisor"
+						duration = -1
+					}
+				}
+				adm_stabcost = {
+					add_ruler_modifier = {
+						name = "Adm_Stabcost"
+						duration = -1
+					}
+				}
+				adm_pope = {
+					add_papal_influence = 10
+					add_church_power = 15
+					add_fervor = 20
+				}
+			}
+			set_ruler_flag = adm_ruler
+		}
+		custom_tooltip = tooltip_line_seperate
 		add_karma = 10
 	}
 	option = { # Smugglers candidate
@@ -181,12 +529,36 @@ country_event = {
 				mil = 1					
 			}
 		}
+		custom_tooltip = tooltip_line_seperate
 		if = {
 			limit = { has_government_attribute = elections_increase_factions_influence }
 			add_influence_to_dip_faction = {
 				influence = 20
 			}
 		}
+		custom_tooltip = tooltip_line_seperate
+		if = {
+			limit = { has_government_attribute = enable_factional_elections }
+			trigger_switch = {
+				on_trigger = has_country_flag
+				dip_trade = {
+					add_ruler_modifier = {
+						name = "Dip_Trade"
+						duration = -1
+					}
+				}
+				dip_gold = {
+					add_years_of_income = 0.4
+				}
+				dip_invest = {
+					add_ruler_modifier = {
+						name = "Dip_Invest"
+						duration = -1
+					}
+				}
+			}
+		}
+		custom_tooltip = tooltip_line_seperate
 		add_karma = 10
 	}
 	option = { # Captains candidate
@@ -208,12 +580,36 @@ country_event = {
 				dip = 1					
 			}
 		}
+		custom_tooltip = tooltip_line_seperate
 		if = {
 			limit = { has_government_attribute = elections_increase_factions_influence }
 			add_influence_to_mil_faction = {
 				influence = 20
 			}
 		}
+		custom_tooltip = tooltip_line_seperate
+		if = {
+			limit = { has_government_attribute = enable_factional_elections }
+			trigger_switch = {
+				on_trigger = has_country_flag
+				mil_army = {
+					add_ruler_modifier = {
+						name = "Mil_Tradition"
+						duration = -1
+					}
+				}
+				mil_republic = {
+					add_republican_tradition = 3
+				}
+				mil_infantry = {
+					add_ruler_modifier = {
+						name = "Mil_Infantry"
+						duration = -1
+					}
+				}
+			}
+		}
+		custom_tooltip = tooltip_line_seperate
 		add_karma = 10
 	}
 	option = { # Blackbeard!
@@ -758,6 +1154,15 @@ country_event = {
 	after = {
 		clr_country_flag = pirate_death_election
 		clr_country_flag = pirate_mutineer_council
+
+		if = {
+			limit = {
+				has_government_attribute = bonus_stats_for_elected_ruler
+			}
+			change_adm = 1
+			change_dip = 1
+			change_mil = 1
+		}
 	}
 }
 
