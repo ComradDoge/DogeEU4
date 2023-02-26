@@ -27,6 +27,7 @@ Checksum: -
 
 - For Pirate Republics, fixed election event not having some of the election mechanics from government reforms.
 - Added a reinforce speed negative to Standing Army to balance out the army drill modifiers, also thematic.
+- Added Druze religious ideas.
 
 [/quote]
 
