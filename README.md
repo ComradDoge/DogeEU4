@@ -25,9 +25,11 @@ Checksum: -
 [h1] 20/02/2023 [/h1]
 
 
-- For Pirate Republics, fixed election event not having some of the election mechanics from government reforms.
-- Added a reinforce speed negative to Standing Army to balance out the army drill modifiers, also thematic.
 - Added Druze religious ideas.
+- Tunis mission idea upgrader fixed.
+- Name change of Arabistan to Al-Farsiya.
+- Added a reinforce speed negative to Standing Army to balance out the army drill modifiers, also thematic.
+- For Pirate Republics, fixed election event not having some of the election mechanics from government reforms.
 
 [/quote]
 
