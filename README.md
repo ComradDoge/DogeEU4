@@ -22,7 +22,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.34.4
 Checksum: -
 [quote]
-[h1] 20/02/2023 [/h1]
+[h1] 27/02/2023 [/h1]
 
 
 - Added Druze religious ideas.
