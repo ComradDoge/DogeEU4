@@ -27,6 +27,10 @@ Checksum: -
 
 - Great Britain is back to original colour.
 - Fixed a devolution event repeating itself forever.
+- 20%>10% of your provincial trade power is added to your upstream node.
+- Added the metalworking bonus that is given to surrounded provinces.
+- Added a few new icons to modifiers on the trade map.
+- Cheese building cost lowered 1k>500. Cheese.
 
 [/quote]
 

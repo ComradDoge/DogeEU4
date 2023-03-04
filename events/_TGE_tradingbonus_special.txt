@@ -469,7 +469,7 @@ country_event = {
 	hidden = yes
 	
 	trigger = {
-		NOT = { has_country_modifier = metalworking_refresher_timer }
+		#NOT = { has_country_modifier = metalworking_refresher_timer }
         has_country_flag = metalworking_here
         trading_bonus = {
             trade_goods = metalworking
@@ -487,11 +487,11 @@ country_event = {
 	
 	immediate = {
         log = " ==================== METALWORKING REFRESHER [Root.GetName] ====================="
-        add_country_modifier = {
-            name = metalworking_refresher_timer
-            duration = 250
-            hidden = yes
-        }
+        #add_country_modifier = {
+        #    name = metalworking_refresher_timer
+        #    duration = 250
+        #    hidden = yes
+        #}
         every_owned_province = {
 			limit = {
 				OR = {
@@ -507,6 +507,80 @@ country_event = {
 				duration = -1
 			}
         }
+	}
+
+	option = {
+		name = tge_tradingbonus_special.1.a
+		ai_chance = { factor = 100 }
+	}	
+}
+
+
+country_event = {
+	id = tge_tradingbonus_special.6
+	title = tge_tradingbonus_special.6.t
+	desc = tge_tradingbonus_special.6.d
+	picture = TRADE_GOODS_METALS_AND_MINING_EQUIPENT_eventPicture
+
+	hidden = yes
+	
+	trigger = {
+		OR = { 
+			any_owned_province = {
+				any_neighbor_province = { 
+					trade_goods = metalworking
+					owned_by = owner
+				}
+				NOT = { has_province_modifier = metalworking_modifier_new }			
+			}
+			any_owned_province = {
+				NOT = {
+					any_neighbor_province = { 
+						trade_goods = metalworking 
+						owned_by = owner
+					}
+				}
+				has_province_modifier = metalworking_modifier_new		
+			}
+		}
+	}
+	
+	immediate = {
+        log = " ==================== METALWORKING PROVINCE REFRESHER [Root.GetName] ====================="
+		every_owned_province = {
+			if = {
+				limit = {
+					any_neighbor_province = { 
+						trade_goods = metalworking
+						owned_by = owner
+					}
+					NOT = { has_province_modifier = metalworking_modifier_new }
+				}
+				add_province_modifier = { 
+					name = metalworking_modifier_new
+					duration = -1
+				}
+			
+			}
+			
+			
+			if = {
+				limit = {
+					AND = {
+						NOT = {
+							any_neighbor_province = { 
+								trade_goods = metalworking 
+								owned_by = owner
+							}
+						}
+						has_province_modifier = metalworking_modifier_new
+					}						
+				}
+				
+				remove_province_modifier = metalworking_modifier_new 
+				
+			}
+		}
 	}
 
 	option = {
