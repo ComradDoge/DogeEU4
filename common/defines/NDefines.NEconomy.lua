@@ -14,7 +14,8 @@ NDefines.NAIEconomy.LOAN_REPAYMENT_SAVINGS_PRIORITY = 1000.0
 --Trade
 NDefines.NEconomy.COT_DOWNGRADE_PRESTIGE_COST = -5 -- Default -10, QoL change. Cost in prestige to downgrade a Center of Trade.
 NDefines.NEconomy.PIRATES_MONOPOLY_BONUS = 0.5 -- #1
-NDefines.NEconomy.TRADE_ADDED_VALUE_MODIFER = 0.04 --#0.05
+NDefines.NEconomy.TRADE_ADDED_VALUE_MODIFER = 0.03 --#0.05
+NDefines.NEconomy.TRADE_PROPAGATE_DIVIDER = 10 -- 5=1/5=20%, 10=1/10=10%
 
 --Edicts
 NDefines.NEconomy.EDICTS_COST_INCREASE = 1		-- Default 2, % increase on state maintenance.  *reduced from 200% to 100% to allow more tactical usage of edicts.
