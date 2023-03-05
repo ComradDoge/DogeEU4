@@ -31,6 +31,7 @@ Checksum: -
 - Cheese building cost lowered 1k>500. Cheese.
 - Algarve good changed to salt due to history.
 - Fixed a devolution event repeating itself forever.
+- Lowered the amount of warscore that a monument adds.
 - Added a few new icons to modifiers on the trade map.
 - Added the metalworking bonus that is given to surrounded provinces.
 - 20%>10% of your provincial trade power is added to your upstream node.
