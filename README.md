@@ -33,6 +33,7 @@ Checksum: -
 - Fixed a devolution event repeating itself forever.
 - Lowered the amount of warscore that a monument adds.
 - Added a few new icons to modifiers on the trade map.
+- Estate legitimacy interaction, republican cost lowered to 5.
 - Added the metalworking bonus that is given to surrounded provinces.
 - 20%>10% of your provincial trade power is added to your upstream node.
 - Centralization 25 development mechanic caring about colony provinces fixed.
