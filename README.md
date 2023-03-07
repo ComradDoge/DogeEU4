@@ -25,19 +25,6 @@ Checksum: -
 [h1] 27/02/2023 [/h1]
 
 
-- Added more chernozem modifiers.
-- Added some centers of trade in siberia.
-- Great Britain is back to original colour.
-- Cheese building cost lowered 1k>500. Cheese.
-- Algarve good changed to salt due to history.
-- Fixed a devolution event repeating itself forever.
-- Lowered the amount of warscore that a monument adds.
-- Added a few new icons to modifiers on the trade map.
-- Estate legitimacy interaction, republican cost lowered to 5.
-- Added the metalworking bonus that is given to surrounded provinces.
-- 20%>10% of your provincial trade power is added to your upstream node.
-- Centralization 25 development mechanic caring about colony provinces fixed.
-- Canal decisions won't clutter the screen as much, limited the scope of who can see them to people who have provinces in the area or close by.
 
 [/quote]
 
