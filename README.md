@@ -26,6 +26,8 @@ Checksum: -
 
 - Implemented some Siberian fixes and added a bunch of Siberian and Jurchen nation ideas by macky527.
 -- https://forum.paradoxplaza.com/forum/threads/siberia-fixes.1566101/
+- Fixed Enlightenment 10 development objective checking for colonies.
+- Fixed some missions.
 
 [/quote]
 
