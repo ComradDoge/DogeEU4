@@ -24,10 +24,11 @@ Checksum: -
 [quote]
 [h1] 27/02/2023 [/h1]
 
+- Fixed some missions.
+- Fixed Enlightenment 10 development objective checking for colonies.
+- Ebony building bonus is now a normal country modifier instead of applying to every province.
 - Implemented some Siberian fixes and added a bunch of Siberian and Jurchen nation ideas by macky527.
 -- https://forum.paradoxplaza.com/forum/threads/siberia-fixes.1566101/
-- Fixed Enlightenment 10 development objective checking for colonies.
-- Fixed some missions.
 
 [/quote]
 
