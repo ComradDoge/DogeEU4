@@ -1,0 +1,656 @@
+#VASSALISE NEIGHBOURING COUNTRY
+xorme_ai_agenda_conquer_core_province = {
+	can_select = {
+		has_global_flag = xorme_ai_initialization_happened
+		ROOT = {
+			total_development = 200
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+		}
+
+		any_neighbor_country = {
+			is_free_or_tributary_trigger = yes
+			xorme_ai_is_valid_target = yes
+			#xorme_ai_in_or_out_hre_valid_target = yes
+			historical_rival_with = ROOT
+			any_owned_province = {
+				any_neighbor_province = {
+					owned_by = ROOT
+				}
+			}
+		}
+	}
+
+	selection_weight = {
+		factor = 10
+		modifier = {
+			factor = 2.5
+			ROOT = { personality = ai_militarist }
+		}
+	}
+
+	pre_effect = {
+		random_neighbor_country = {
+			limit = {
+				is_free_or_tributary_trigger = yes
+				xorme_ai_is_valid_target = yes
+				#xorme_ai_in_or_out_hre_valid_target = yes
+				historical_rival_with = ROOT
+
+				any_owned_province = {
+					any_neighbor_province = {
+						owned_by = ROOT
+					}
+				}
+			}
+			save_event_target_as = has_agenda_on_target
+			random_owned_province = {
+				limit = {
+					any_neighbor_province = {
+						owned_by = ROOT
+					}
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+	}
+
+	immediate_effect = {
+		ROOT = {
+			add_country_modifier = {
+				name = xorme_ai_war_is_near_high
+				duration = 3650
+			}
+		}
+		if = {
+			limit = {
+				event_target:agenda_province = {
+					NOT = { is_core = ROOT }
+				}
+			}
+			event_target:agenda_province = {
+				add_core = ROOT
+			}
+		}
+	}
+
+	on_invalid = {
+		if = {
+			limit = {
+				event_target:agenda_province = {
+					is_core = ROOT
+				}
+			}
+			event_target:agenda_province = {
+				remove_core = ROOT
+			}
+		}
+	}
+
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+
+	task_requirements = {
+		event_target:agenda_province = {
+			OR = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT
+			}
+		}
+	}
+
+	fail_if = {
+		OR = {
+			NOT = { has_estate = xorme_ai_estate }
+			event_target:agenda_province = {
+				NOT = { is_core = ROOT }
+				NOT = { 
+					OR = {
+						owned_by = ROOT 
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+	}
+
+	task_completed_effect = {
+		ROOT = {
+			random_owned_province = {
+				limit = { NOT = { development = 20 } }
+				random_list = {
+					33 = { add_base_tax = 1 }
+					33 = { add_base_production = 1 }
+					33 = { add_base_manpower = 1 }
+				}
+			}
+			add_army_professionalism = 0.025
+			add_estate_loyalty = {
+				estate = all
+				loyalty = 10
+			}
+		}
+	}
+
+    failing_effect = {
+        add_estate_loyalty = {
+            estate = all
+			loyalty = -10
+		}
+		if = {
+			limit = {
+				event_target:agenda_province = {
+					is_core = ROOT
+					NOT = { is_permanent_claim = ROOT }
+				}
+			}
+			event_target:agenda_province = {
+				remove_core = ROOT
+			}
+		}
+    }
+}
+
+#STAB COUNTRY
+xorme_ai_agenda_recover_stability_in_country = {
+	can_select = {
+		has_global_flag = xorme_ai_initialization_happened
+		ROOT = { NOT = { stability = 0 } }
+	}
+
+	selection_weight = {
+		factor = 2
+		modifier = {
+			factor = 1.5
+			ROOT = { NOT = { stability = -1 } }
+		}
+		modifier = {
+			factor = 4.0
+			ROOT = { NOT = { stability = -2 } }
+		}
+	}
+
+	fail_if = {
+		NOT = { has_estate = xorme_ai_estate }
+	}
+
+	task_requirements = {
+		ROOT = { stability = 1 }
+	}
+
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = all
+			loyalty = 5
+		}
+		add_prestige = 10
+    }
+
+    failing_effect = {
+		add_estate_loyalty = {
+			estate = all
+			loyalty = -10
+		}
+    }
+}
+
+#PREPARE TO WAR 
+xorme_ai_agenda_prepare_to_war_with_country = {
+	can_select = {
+		has_global_flag = xorme_ai_initialization_happened
+		ROOT = {
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			NOT = { army_size_percentage = 0.8 }
+		}
+
+		any_neighbor_country = {
+			is_free_or_tributary_trigger = yes
+			xorme_ai_is_valid_target = yes
+		}
+	}
+
+	selection_weight = {
+		factor = 2
+		modifier = {
+			factor = 2.5
+			ROOT = { personality = ai_militarist }
+		}
+		modifier = {
+			factor = 3.0
+			ROOT = { NOT = { manpower_percentage = 0.25 } }
+		}
+	}
+
+	fail_if = {
+		NOT = { has_estate = xorme_ai_estate }
+	}
+
+	immediate_effect = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = xorme_ai_prepare_to_war
+				duration = 7300
+			}
+		}
+	}
+
+	task_requirements = {
+		army_size_percentage = 0.9
+	}
+
+	invalid_trigger = {
+		NOT = {
+			has_country_modifier = xorme_ai_prepare_to_war
+		}
+	}
+
+    task_completed_effect = {
+		add_prestige = 5
+		add_mil_power = 25
+		add_estate_loyalty = {
+			estate = all
+			loyalty = 5
+		}
+    }
+
+    failing_effect = {
+		add_estate_loyalty = {
+			estate = all
+			loyalty = -10
+		}
+    }
+}
+
+#CONQUER 1 NEIGHBOURING PROVINCE FROM NEIGHBOURING COUNTRY
+xorme_ai_agenda_conquer_neighbouring_province = {
+	can_select = {
+		has_global_flag = xorme_ai_initialization_happened
+		ROOT = {
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+		}
+
+		any_neighbor_country = {
+			is_free_or_tributary_trigger = yes
+			xorme_ai_is_valid_target = yes
+			#xorme_ai_in_or_out_hre_valid_target = yes
+
+			any_owned_province = {
+				any_neighbor_province = {
+					owned_by = ROOT
+				}
+			}
+		}
+	}
+
+	selection_weight = {
+		factor = 2
+		modifier = {
+			factor = 2.5
+			ROOT = { personality = ai_militarist }
+		}
+	}
+
+	pre_effect = {
+		random_neighbor_country = {
+			limit = {
+				is_free_or_tributary_trigger = yes
+				xorme_ai_is_valid_target = yes
+				#xorme_ai_in_or_out_hre_valid_target = yes
+
+				any_owned_province = {
+					any_neighbor_province = {
+						owned_by = ROOT
+					}
+				}
+			}
+			save_event_target_as = has_agenda_on_target
+			random_owned_province = {
+				limit = {
+					any_neighbor_province = {
+						owned_by = ROOT
+					}
+				}
+				save_event_target_as = agenda_province
+			}
+		}
+	}
+
+	immediate_effect = {
+		ROOT = {
+			add_country_modifier = {
+				name = xorme_ai_war_is_near_low
+				duration = 3650
+			}
+		}
+		if = {
+			limit = {
+				event_target:agenda_province = {
+					NOT = { is_claim = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+			}
+			event_target:agenda_province = {
+				add_claim = ROOT
+			}
+		}
+	}
+
+	on_invalid = {
+		if = {
+			limit = {
+				event_target:agenda_province = {
+					is_claim = ROOT
+					NOT = { is_permanent_claim = ROOT }
+				}
+			}
+			event_target:agenda_province = {
+				remove_claim = ROOT
+			}
+		}
+	}
+
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+
+	task_requirements = {
+		event_target:agenda_province = {
+			OR = {
+				country_or_non_sovereign_subject_holds = ROOT
+				owned_by = ROOT
+			}
+		}
+	}
+
+	fail_if = {
+		OR = {
+			NOT = { has_estate = xorme_ai_estate }
+			event_target:agenda_province = {
+				NOT = { is_claim = ROOT }
+				NOT = { is_core = ROOT }
+				NOT = { 
+					OR = {
+						owned_by = ROOT 
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+	}
+
+	task_completed_effect = {
+		ROOT = {
+			random_owned_province = {
+				limit = { NOT = { development = 20 } }
+				random_list = {
+					33 = { add_base_tax = 1 }
+					33 = { add_base_production = 1 }
+					33 = { add_base_manpower = 1 }
+				}
+			}
+			add_army_professionalism = 0.025
+			add_estate_loyalty = {
+				estate = all
+				loyalty = 10
+			}
+		}
+	}
+
+    failing_effect = {
+        add_estate_loyalty = {
+            estate = all
+			loyalty = -10
+		}
+		if = {
+			limit = {
+				event_target:agenda_province = {
+					is_claim = ROOT
+					NOT = { is_permanent_claim = ROOT }
+				}
+			}
+			event_target:agenda_province = {
+				remove_claim = ROOT
+			}
+		}
+    }
+}
+
+#BUILD PRODUCTION BUILDING
+xorme_ai_agenda_build_production_building_in_province = {
+	can_select = {
+		has_global_flag = xorme_ai_initialization_happened
+		ROOT = { is_at_war = no }
+
+		any_owned_province = {
+			is_state_core = ROOT
+			base_production = 4
+			OR = {
+				AND = {
+					ROOT = { adm_tech = 6 }
+					can_build = workshop
+					NOT = { can_build = counting_house }
+				}
+				AND = {
+					ROOT = { adm_tech = 24 }
+					can_build = counting_house
+				}
+			}
+		}
+	}
+
+	selection_weight = {
+		factor = 1.75
+		modifier = {
+			factor = 1.5
+			ROOT = { personality = ai_balanced }
+		}
+		modifier = {
+			factor = 2.5
+			ROOT = { personality = ai_diplomat }
+		}
+		modifier = {
+			factor = 2.5
+			ROOT = { personality = ai_capitalist }
+		}
+	}
+
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				base_production = 4
+				OR = {
+					AND = {
+						ROOT = { adm_tech = 6 }
+						ROOT = { NOT = { adm_tech = 24 } }
+						can_build = workshop
+					}
+					AND = {
+						ROOT = { adm_tech = 24 }
+						can_build = counting_house
+					}
+				}
+			}
+			add_province_modifier = {
+				name = xorme_ai_agenda_building_spot
+				hidden = yes
+				duration = 7300
+			}
+			save_event_target_as = agenda_province
+		}
+	}
+
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+
+	fail_if = {
+		OR = {
+			NOT = { has_estate = xorme_ai_estate }
+			event_target:agenda_province = {
+				NOT = { owned_by = ROOT }
+			}
+		}
+	}
+
+	task_requirements = {
+		if = {
+			limit = {
+				ROOT = { adm_tech = 24 }
+			}
+			event_target:agenda_province = {
+				has_building = counting_house
+			}
+		}
+		else = {
+			event_target:agenda_province = {
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+			}
+		}
+    }
+
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = all
+			loyalty = 5
+		}
+		event_target:agenda_province = {
+			add_base_production = 1
+			remove_province_modifier = xorme_ai_agenda_building_spot
+		}
+    }
+
+	failing_effect = {
+		event_target:agenda_province = {
+			remove_province_modifier = xorme_ai_agenda_building_spot
+		}
+		add_estate_loyalty = {
+			estate = all
+			loyalty = -10
+		}
+    }
+}
+#BUILD TAX BUILDING
+xorme_ai_agenda_build_tax_building_in_province = {
+	can_select = {
+		has_global_flag = xorme_ai_initialization_happened
+		ROOT = { is_at_war = no }
+
+		any_owned_province = {
+			is_state_core = ROOT
+			base_tax = 4
+			OR = {
+				AND = {
+					ROOT = { adm_tech = 4 }
+					can_build = temple
+					NOT = { can_build = cathedral }
+				}
+				AND = {
+					ROOT = { adm_tech = 19 }
+					can_build = cathedral
+				}
+			}
+		}
+	}
+
+	selection_weight = {
+		factor = 1.5
+		modifier = {
+			factor = 1.5
+			ROOT = { personality = ai_balanced }
+		}
+		modifier = {
+			factor = 2.5
+			ROOT = { personality = ai_diplomat }
+		}
+		modifier = {
+			factor = 2.5
+			ROOT = { personality = ai_capitalist }
+		}
+	}
+
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				is_state_core = ROOT
+				base_tax = 4
+				OR = {
+					AND = {
+						ROOT = { adm_tech = 4 }
+						can_build = temple
+						NOT = { can_build = cathedral }
+					}
+					AND = {
+						ROOT = { adm_tech = 19 }
+						can_build = cathedral
+					}
+				}
+			}
+			add_province_modifier = {
+				name = xorme_ai_agenda_building_spot
+				hidden = yes
+				duration = 7300
+			}
+			save_event_target_as = agenda_province
+		}
+	}
+
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+
+	fail_if = {
+		OR = {
+			NOT = { has_estate = xorme_ai_estate }
+			event_target:agenda_province = {
+				NOT = { owned_by = ROOT }
+			}
+		}
+	}
+
+	task_requirements = {
+		if = {
+			limit = {
+				ROOT = { adm_tech = 19 }
+			}
+			event_target:agenda_province = {
+				has_building = cathedral
+			}
+		}
+		else = {
+			event_target:agenda_province = {
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+		}
+    }
+
+    task_completed_effect = {
+		add_estate_loyalty = {
+			estate = all
+			loyalty = 5
+		}
+		event_target:agenda_province = {
+			add_base_tax = 1
+			remove_province_modifier = xorme_ai_agenda_building_spot
+		}
+    }
+
+	failing_effect = {
+		event_target:agenda_province = {
+			remove_province_modifier = xorme_ai_agenda_building_spot
+		}
+		add_estate_loyalty = {
+			estate = all
+			loyalty = -10
+		}
+    }
+}

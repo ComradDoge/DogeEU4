@@ -1,0 +1,148 @@
+namespace = xorme_ai_colony_initialization
+namespace = xorme_ai_opm_killer
+namespace = xorme_ai_estates_and_agendas
+
+country_event = {
+	id = xorme_ai_colony_initialization.1
+	title = "NONE"
+	desc = "NONE"
+	picture = "NONE"
+
+	hidden = yes
+
+	trigger = {
+		NOT = { is_year = 1800 }
+		NOT = { has_country_flag = xorme_ai_colony }
+		ai = yes
+		is_colonial_nation = yes
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		add_treasury = 325
+		add_stability = 1
+
+		capital_scope = {
+			build_to_forcelimit = {
+				infantry = 0.7
+				cavalry = 0.1
+				artillery = 0.2
+			}
+		}
+
+		set_country_flag = xorme_ai_colony
+	}
+
+	option = {
+	}
+}
+
+
+
+country_event = {
+	id = xorme_ai_opm_killer.1
+	title = "NONE"
+	desc = "NONE"
+	picture = "NONE"
+
+	hidden = yes
+
+	trigger = {
+		OR = {
+			is_date = 1500.2.2	
+			is_date = 1550.2.2		
+			is_date = 1600.2.2
+			is_date = 1700.2.2
+		}
+		has_country_modifier = xorme_ai_great_power
+	}
+
+	mean_time_to_happen = {
+		months = 4
+	}
+
+	immediate = {
+		log = "OPM KILLER LOGGER [Root.GetName]"
+		if = {
+			limit = {
+				NOT = { is_year = 1550 }
+			}
+			every_neighbor_country = {
+				limit = {
+					ai = yes
+					NOT = { total_development = 105 }
+					NOT = { is_subject_of = ROOT }
+					NOT = { alliance_with = ROOT }
+					NOT = { historical_friend_with = ROOT }
+					NOT = { tag = PAP }
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = xorme_ai_conq_box
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = xorme_ai_conq_box
+				}
+			}
+		}
+		else = {
+			every_neighbor_country = {
+				limit = {
+					ai = yes
+					NOT = { total_development = 325 }
+					NOT = { is_subject_of = ROOT }
+					NOT = { historical_friend_with = ROOT }
+					NOT = { tag = PAP }
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = xorme_ai_conq_box
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = xorme_ai_conq_box
+				}
+			}
+		}
+	}
+
+	option = {
+	}
+}
+
+
+country_event = {
+	id = xorme_ai_estates_and_agendas.1
+	title = estate_privileges_and_agendas_events.3.name
+	desc = estate_privileges_and_agendas_events.3.desc
+	picture = NOBLE_ESTATE_DEMANDS_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			select_xorme_ai_estate = { flag = present_agenda estate_action = generate_estate_agenda }
+		}
+	}
+
+	after = {
+		clr_country_flag = xorme_ai_estate_agenda
+		clear_estate_agenda_cache = ROOT
+	}
+
+	option = {
+		name = xorme_ai_estates_and_agendas.1.a
+		trigger = { has_country_flag = xorme_ai_estate_agenda }
+		start_estate_agenda = xorme_ai_estate
+		ai_chance = { factor = 100 }
+	}
+	option = {
+		name = xorme_ai_estates_and_agendas.1.a
+		start_estate_agenda = xorme_ai_estate
+		ai_chance = { factor = 0 }
+	}
+}

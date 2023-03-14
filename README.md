@@ -25,6 +25,7 @@ Checksum: -
 [h1] 27/02/2023 [/h1]
 
 - Added more modifier icons.
+- Updated the Xorme integration within the mod.
 - Fixed some missions and tweaked some modifiers.
 - Fixed Enlightenment 10 development objective checking for colonies.
 - Ebony building bonus is now a normal country modifier instead of applying to every province.
