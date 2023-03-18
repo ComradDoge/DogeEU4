@@ -24,14 +24,11 @@ Checksum: -
 [quote]
 [h1] 27/02/2023 [/h1]
 
-- Added more modifier icons.
-- Updated the Xorme integration within the mod.
-- Fixed some missions and tweaked some modifiers.
-- Fixed Enlightenment 10 development objective checking for colonies.
-- Ebony building bonus is now a normal country modifier instead of applying to every province.
-- Fixed some repeating events that never stopped, never stopped, never stopped, never stopped...
-- Implemented some Siberian fixes and added a bunch of Siberian and Jurchen nation ideas by macky527.
--- https://forum.paradoxplaza.com/forum/threads/siberia-fixes.1566101/
+- Tweaked some modifiers.
+- Steam Factories provide 0.5 local_goods_produced.
+- Increased 18th century fort cost to tone down the spam.
+- Industrialization institution requires a few additional requirements.
+- Industrialization bonus changed to global_trade_goods_size_modifier = 0.15.
 
 [/quote]
 
