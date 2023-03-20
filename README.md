@@ -24,6 +24,7 @@ Checksum: -
 [quote]
 [h1] 27/02/2023 [/h1]
 
+- Added factions to Alpland.
 - Steam Factories provide 0.5 local_goods_produced.
 - Tweaked or removed some modifiers from various sources.
 - Increased 18th century fort cost to tone down the spam.
