@@ -24,15 +24,7 @@ Checksum: -
 [quote]
 [h1] 27/02/2023 [/h1]
 
-- Added factions to Alpland.
-- Steam Factories provide 0.5 local_goods_produced.
-- Tweaked or removed some modifiers from various sources.
-- Increased 18th century fort cost to tone down the spam.
-- Industrialization institution requires a few additional requirements.
-- Trade company production increase that comes from institutions decreased.
-- Industrialization bonus changed to global_trade_goods_size_modifier = 0.15.
-- Institution birthplace province modifiers buffed and now have an icon on trade map.
-- To reduce map clutter, metalworking country bonus is global, therefore requiring production buildings is no longer needed.
+- Each point of developing tax gives -1% Local Construction Time, +2% Institution Spread, -1% Local Great Project Upgrade Time, -2% Local Recruitment Time.
 
 [/quote]
 
