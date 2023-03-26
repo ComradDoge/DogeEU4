@@ -25,6 +25,7 @@ Checksum: -
 [h1] 27/02/2023 [/h1]
 
 - Each point of developing tax gives -1% Local Construction Time, +2% Institution Spread, -1% Local Great Project Upgrade Time, -2% Local Recruitment Time.
+- Buffed African gold mines to give them an economic advantage.
 
 [/quote]
 
