@@ -1,0 +1,337 @@
+corruption_mechanic = {
+	alert_icon_gfx = GFX_corruption_mechanic_alert_icon
+	alert_icon_index = 1
+	available = {
+		always = yes
+	}
+
+	powers = {
+		corruption_mechanic_power = {
+			gui = corruption_mechanic_power
+			min = 0
+			max = 100
+			default = 0
+			base_monthly_growth = -0.5
+			scaled_modifier = {
+				modifier = {
+					# Negate Corruption Effects
+					global_spy_defence = 0.25
+					spy_offence = 0.50
+					all_power_cost = -1.0
+					min_autonomy = -50
+					global_unrest = 17 # keep -3 from corruption at 100
+					imperial_mandate = 1
+					# Additional Modifiers
+					yearly_corruption = 12
+					development_cost = -0.1
+					republican_tradition = 0.5
+				}
+			}
+		}
+	}
+
+	interactions = {
+		corruption_mechanic_reassure_election_standards = {
+			gui = corruption_mechanic_interaction
+			center = no
+			icon = GFX_corruption_mechanic_reassure_election_standards
+			cooldown_years = 15
+			cooldown_token = corruption_mechanic
+			cooldown_desc = corruption_mechanic_cooldown_desc
+			trigger = {
+				corruption = 20
+				has_government_power = {
+					mechanic_type = corruption_mechanic
+					power_type = corruption_mechanic_power
+					value = 20
+				}
+			}
+			effect = {
+				add_corruption = -20
+				add_government_power = {
+					mechanic_type = corruption_mechanic
+					power_type = corruption_mechanic_power
+					value = -20
+				}
+				add_republican_tradition = 5
+				add_country_modifier = {
+					name = corruption_mechanic_reassure_election_standards_modifier
+					duration = 3650
+				}
+			}
+			ai_chance = {
+				factor = 10
+			}
+		}
+		corruption_mechanic_punish_corruption = {
+			gui = corruption_mechanic_interaction
+			center = no
+			icon = GFX_corruption_mechanic_punish_corruption
+			cooldown_years = 10
+			trigger = {
+				adm_power_cost = 50
+				has_government_power = {
+					mechanic_type = corruption_mechanic
+					power_type = corruption_mechanic_power
+					value = 10
+				}
+				custom_trigger_tooltip = {
+					tooltip = corruption_mechanic_punish_corruption_tt
+					OR = {
+						AND = {
+							NOT = { corruption = 10 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 10
+							}
+						}
+						AND = {
+							NOT = { corruption = 20 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 20
+							}
+						}
+						AND = {
+							NOT = { corruption = 30 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 30
+							}
+						}
+						AND = {
+							NOT = { corruption = 40 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 40
+							}
+						}
+						AND = {
+							NOT = { corruption = 50 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 50
+							}
+						}
+						AND = {
+							NOT = { corruption = 60 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 60
+							}
+						}
+						AND = {
+							NOT = { corruption = 70 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 70
+							}
+						}
+						AND = {
+							NOT = { corruption = 80 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 80
+							}
+						}
+						AND = {
+							NOT = { corruption = 90 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 90
+							}
+						}
+						AND = {
+							NOT = { corruption = 100 }
+							has_government_power = {
+								mechanic_type = corruption_mechanic
+								power_type = corruption_mechanic_power
+								value = 100
+							}
+						}
+					}
+				}
+			}
+			effect = {
+				adm_power_cost = -50
+				add_government_power = {
+					mechanic_type = corruption_mechanic
+					power_type = corruption_mechanic_power
+					value = -10
+				}
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+		corruption_mechanic_grant_political_favor = {
+			gui = corruption_mechanic_interaction
+			center = no
+			icon = GFX_corruption_mechanic_grant_political_favor
+			cooldown_years = 15
+			cooldown_token = corruption_mechanic
+			cooldown_desc = corruption_mechanic_cooldown_desc
+			trigger = {
+				NOT = { corruption = 100 }
+				NOT = {
+					has_government_power = {
+						mechanic_type = corruption_mechanic
+						power_type = corruption_mechanic_power
+						value = 100
+					}
+				}
+				OR = {
+					NOT = { has_country_modifier = corruption_mechanic_grant_political_favor_adm_modifier }
+					NOT = { has_country_modifier = corruption_mechanic_grant_political_favor_dip_modifier }
+					NOT = { has_country_modifier = corruption_mechanic_grant_political_favor_mil_modifier }
+				}
+			}
+			effect = {
+				add_corruption = 20
+				add_government_power = {
+					mechanic_type = corruption_mechanic
+					power_type = corruption_mechanic_power
+					value = 20
+				}
+				country_event = { id = corruption_mechanic_events.1 tooltip = corruption_mechanic_grant_political_favor_tt }
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+		corruption_mechanic_encourage_corruption = {
+			gui = corruption_mechanic_interaction_2
+			center = no
+			icon = GFX_corruption_mechanic_encourage_corruption
+			cooldown_years = 10
+			trigger = {
+				adm_power_cost = 50
+				custom_trigger_tooltip = {
+					tooltip = corruption_mechanic_encourage_corruption_tt
+					OR = {
+						AND = {
+							corruption = 10
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 10
+								}
+							}
+						}
+						AND = {
+							corruption = 20
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 20
+								}
+							}
+						}
+						AND = {
+							corruption = 30
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 30
+								}
+							}
+						}
+						AND = {
+							corruption = 40
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 40
+								}
+							}
+						}
+						AND = {
+							corruption = 50
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 50
+								}
+							}
+						}
+						AND = {
+							corruption = 60
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 60
+								}
+							}
+						}
+						AND = {
+							corruption = 70
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 70
+								}
+							}
+						}
+						AND = {
+							corruption = 80
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 80
+								}
+							}
+						}
+						AND = {
+							corruption = 90
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 90
+								}
+							}
+						}
+						AND = {
+							corruption = 100
+							NOT = {
+								has_government_power = {
+									mechanic_type = corruption_mechanic
+									power_type = corruption_mechanic_power
+									value = 100
+								}
+							}
+						}
+					}
+				}
+			}
+			effect = {
+				adm_power_cost = -50
+				add_government_power = {
+					mechanic_type = corruption_mechanic
+					power_type = corruption_mechanic_power
+					value = 10
+				}
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+	}
+}

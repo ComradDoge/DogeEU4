@@ -19,8 +19,7 @@ NDefines.NMilitary.CANNOT_RETREAT_DAYS = 12 -- 12
 NDefines.NMilitary.MAX_COMBAT_WIDTH = 40
 
 -- Professionalism
-NDefines.NMilitary.SLACKEN_AP_DROP = 0.10
-NDefines.NMilitary.SLACKEN_MANPOWER_INCREASE = 2.0
+NDefines.NMilitary.SLACKEN_AP_DROP = 0.01
 
 -- Naval
 --NDefines.NMilitary.MARINE_SHOCK_DAMAGE_TAKEN = 0.1

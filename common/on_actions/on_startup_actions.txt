@@ -30,7 +30,9 @@ on_startup = {
 	events = {
 		muslim_school_events.20 #Pick School
 		flavor_got.1 #Event for Gotland to select their mission tree
-
+		flavor_mng.42 #Event for the starting situation of the Ming 
+		#flavor_fra.15000 #Make the French Revolution happen if starting in 1789
+		flavor_mos.1 #Event regarding the Tatar Yoke
 
 		# Custom Events
 		new_goods.1 # New Tradegoods
@@ -81,6 +83,80 @@ on_startup = {
 		}
 		AYU = {
 			set_country_flag = ayu_monarch_flag
+		}
+	}
+	if = {
+		limit = { 
+			has_dlc = "Domination" 
+			tag = FRA 
+			NOT = { is_year = 1445 } 
+		}
+		country_event = { id = flavor_fra.206 }
+	}
+	if = {
+		limit = {
+			NOT = { has_global_flag = end_of_the_tatar_yoke }
+			owns = 466
+			is_year = 1480
+		}
+		set_global_flag = end_of_the_tatar_yoke
+	}
+	if = {
+		limit = {
+			OR = {
+				has_country_modifier = rise_of_the_ottomans
+				has_country_modifier = zenith_of_the_ottomans
+				has_country_modifier = twilight_of_the_ottomans
+				has_country_modifier = decline_of_the_ottomans
+			}
+		}
+		remove_country_modifier = rise_of_the_ottomans
+		remove_country_modifier = zenith_of_the_ottomans
+		remove_country_modifier = twilight_of_the_ottomans
+		remove_country_modifier = decline_of_the_ottomans
+	}
+	if = {
+		limit = {
+			has_government_mechanic = ottoman_decadence_mechanic
+			current_age = age_of_discovery
+		}
+		add_country_modifier = {
+			name = rise_of_the_ottomans
+			duration = -1
+			desc = until_end_of_age_desc
+		}
+	}
+	if = {
+		limit = {
+			has_government_mechanic = ottoman_decadence_mechanic
+			current_age = age_of_reformation
+		}
+		add_country_modifier = {
+			name = zenith_of_the_ottomans
+			duration = -1
+			desc = until_end_of_age_desc
+		}
+	}
+	if = {
+		limit = {
+			has_government_mechanic = ottoman_decadence_mechanic
+			current_age = age_of_absolutism
+		}
+		add_country_modifier = {
+			name = twilight_of_the_ottomans
+			duration = -1
+			desc = until_end_of_age_desc
+		}
+	}
+	if = {
+		limit = {
+			has_government_mechanic = ottoman_decadence_mechanic
+			current_age = age_of_revolutions
+		}
+		add_country_modifier = {
+			name = decline_of_the_ottomans
+			duration = -1
+			desc = until_end_of_age_desc
 		}
 	}
 	

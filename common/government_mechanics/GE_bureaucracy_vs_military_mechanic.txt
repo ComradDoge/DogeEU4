@@ -1,0 +1,158 @@
+bureaucracy_vs_military_mechanic = {
+	alert_icon_gfx = GFX_bureaucracy_vs_military_mechanic_alert_icon
+	alert_icon_index = 1
+	available = {
+		always = yes
+	}
+
+	powers = {
+		bureaucracy_vs_military_power = {
+			gui = bureaucracy_vs_military_mechanic_power
+			show_before_interactions = yes
+			min = -100
+			max = 100
+			default = 0
+			scaled_modifier = {
+				trigger = {
+					NOT = {
+						has_government_power = {
+							mechanic_type = bureaucracy_vs_military_mechanic
+							power_type = bureaucracy_vs_military_power
+							value = 0
+						}
+					}
+				}
+				modifier = {
+					administrative_efficiency = -0.05
+					global_unrest = 2
+					culture_conversion_time = 0.25
+					development_cost_in_primary_culture = 0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_government_power = {
+						mechanic_type = bureaucracy_vs_military_mechanic
+						power_type = bureaucracy_vs_military_power
+						value = 0
+					}
+				}
+				modifier = {
+					discipline = 0.05
+					army_tradition = 1
+					drill_gain_modifier = 0.2
+					manpower_in_own_culture_provinces = 0.15
+				}
+			}
+		}
+	}
+
+	interactions = {
+		bureaucracy_vs_military_bureaucratic_focus = {
+			gui = bureaucracy_vs_military_mechanic_interaction
+			cooldown_years = 20
+			cooldown_desc = bureaucracy_vs_military_mechanic_cooldown_desc
+			cooldown_token = bureaucracy_vs_military_mechanic
+			icon = GFX_bureaucracy_vs_military_mechanic_bureaucratic_focus_button
+			trigger = {
+				NOT = { has_country_modifier = bureaucracy_vs_military_bureaucratic_focus_modifier }
+			}
+			effect = {
+				add_corruption = -2
+				hidden_effect = {
+					remove_country_modifier = bureaucracy_vs_military_military_focus_modifier
+				}
+				add_country_modifier = {
+					name = bureaucracy_vs_military_bureaucratic_focus_modifier
+					duration = -1
+					desc = bureaucracy_vs_military_mechanic_interaction_duration
+				}
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					overextension_percentage = 0.5
+				}
+				modifier = {
+					factor = 10
+					corruption = 1
+				}
+				modifier = {
+					factor = 2
+					NOT = {
+						has_government_power = {
+							mechanic_type = bureaucracy_vs_military_mechanic
+							power_type = bureaucracy_vs_military_power
+							value = -33
+						}
+					}
+				}
+				modifier = {
+					factor = 0
+					has_country_modifier = bureaucracy_vs_military_military_focus_modifier
+					NOT = { overextension_percentage = 0.5 }
+					NOT = { corruption = 1 }
+					has_government_power = {
+						mechanic_type = bureaucracy_vs_military_mechanic
+						power_type = bureaucracy_vs_military_power
+						value = -33
+					}
+				}
+			}
+		}
+		bureaucracy_vs_military_military_focus = {
+			gui = bureaucracy_vs_military_mechanic_interaction
+			cooldown_years = 20
+			cooldown_desc = bureaucracy_vs_military_mechanic_cooldown_desc
+			cooldown_token = bureaucracy_vs_military_mechanic
+			icon = GFX_bureaucracy_vs_military_mechanic_military_focus_button
+			trigger = {
+				NOT = { has_country_modifier = bureaucracy_vs_military_military_focus_modifier }
+			}
+			effect = {
+				add_yearly_manpower = 1
+				hidden_effect = {
+					remove_country_modifier = bureaucracy_vs_military_bureaucratic_focus_modifier
+				}
+				add_country_modifier = {
+					name = bureaucracy_vs_military_military_focus_modifier
+					duration = -1
+					desc = bureaucracy_vs_military_mechanic_interaction_duration
+				}
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+				modifier = {
+					factor = 10
+					NOT = { manpower_percentage = 0.2 }
+				}
+				modifier = {
+					factor = 2
+					has_government_power = {
+						mechanic_type = bureaucracy_vs_military_mechanic
+						power_type = bureaucracy_vs_military_power
+						value = 33
+					}
+				}
+				modifier = {
+					factor = 0
+					has_country_modifier = bureaucracy_vs_military_bureaucratic_focus_modifier
+					is_at_war = no
+					manpower_percentage = 0.2
+					NOT = {
+						has_government_power = {
+							mechanic_type = bureaucracy_vs_military_mechanic
+							power_type = bureaucracy_vs_military_power
+							value = 33
+						}
+					}
+				}
+			}
+		}
+	}
+}

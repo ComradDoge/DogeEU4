@@ -13,7 +13,7 @@ NDefines.NDiplomacy.SUPPORT_REBELS_EFFECT = 20 -- Default 10
 NDefines.NDiplomacy.SUPPORT_REBELS_DURATION = 3 -- Default 5. Value in years
 
 --Rivals
-NDefines.NDiplomacy.CHANGE_RIVAL_YEARS = 10 --Defines 25
+NDefines.NDiplomacy.CHANGE_RIVAL_YEARS = 5 --Defines 5
 
 --Great Powers
 NDefines.NDiplomacy.NUM_OF_GREAT_POWERS = 12 -- Default 8
@@ -27,20 +27,20 @@ NDefines.NDiplomacy.DISHONORABLE_PEACE_MONTHS = 0 --Default 12. This is the thin
 NDefines.NDiplomacy.CALL_ALLY_DECLINE_PRESTIGE_PENALTY = -10 -- Default -25. Cost which you incur if you dont join an allies war.
 
 -- Celestial Empire
-NDefines.NDiplomacy.CELESTIAL_EMPIRE_DEFAULT_INFLUENCE = 60 -- 60, Starting value for Mandate value of a new Chinese Emperor.
+NDefines.NDiplomacy.CELESTIAL_EMPIRE_DEFAULT_INFLUENCE = 80 -- 80, Starting value for Mandate value of a new Chinese Emperor.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MODIFIER_THRESHOLD = 50 -- 50, Value of Mandate above which the positive Mandate Modifier is used instead of the negative one.
 
-NDefines.NDiplomacy.CELESTIAL_EMPIRE_REFORM_COST = 60 -- 70, Mandate cost of enacting a new reform for the Emperor of China.
+NDefines.NDiplomacy.CELESTIAL_EMPIRE_REFORM_COST = 80 -- 80, Mandate cost of enacting a new reform for the Emperor of China.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_REFORM_MIN_VALUE = 70 -- 80, Minimum value of Mandate above which new reforms can be enacted.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_REFORM_STABILITY_COST = 2 -- 1, Stability cost of enacting a new reform for the Emperor of China.
 
-NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_STABILITY = 	0.28 	-- 0.24, Yearly change of Mandate for each point of positive stability.
-NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_STATE_WITH_PROSPERITY = 	0.03 	--0.03, Yearly change of Mandate for each State with prosperity.
-NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_DEVASTATION = 	-10.0 	-- -10.0, Yearly change of Mandate for each hundred devastated development (scaled to devastation).
-NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_TRIBUTARY_DEV = 	0.2 	-- 0.15, Yearly change of Mandate for each hundred development tributary state.
+NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_STABILITY = 	0.4 	-- 0.4, Yearly change of Mandate for each point of positive stability.
+NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_STATE_WITH_PROSPERITY = 	0.04 	--0.04, Yearly change of Mandate for each State with prosperity.
+NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_DEVASTATION = 	-12.0 	-- -10.0, Yearly change of Mandate for each hundred devastated development (scaled to devastation).
+NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_TRIBUTARY_DEV = 	0.15 	-- 0.15, Yearly change of Mandate for each hundred development tributary state.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_HUNDRED_NONTRIBUTARY_DEV = 	0.0 	-- 0.0, Yearly change of Mandate for each hundred development of neighboring states that are not the Emperor's tributaries.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_FROM_DEFENDING = 	5 	-- 5, How much Mandate is gained when successfully defending the Emperor title.
-NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_5_LOANS =	-0.5 	-- -0.36, Yearly change of Mandate for every 5 loans.
+NDefines.NDiplomacy.CELESTIAL_EMPIRE_MANDATE_PER_5_LOANS =	-0.6 	-- -0.6, Yearly change of Mandate for every 5 loans.
 
 -- Holy Roman Empire
 NDefines.NDiplomacy.IMPERIAL_AUTHORITY_FROM_PRINCES = 0.06 --Defines 0.075 scales to threshold
