@@ -24,12 +24,10 @@ Checksum: -
 [quote]
 [h1] 27/04/2023 [/h1]
 
-- 1.35 Update
-- Might be unstable for the time being.
-
-- There are some issues that will be fixed, like graphical stuff, with upcoming updates, I am rather busy right now but tried to get out a working update out. If anything is gamebreaking please instantly report it.
-
-- Alongside there have been a bunch of other tweaks. With updates, everything will be tweaked again and tuned. If you find anything broken, not working or have some suggestion feel free to comment on the discord.
+- Fixed Saved Games not being accessible in main menu.
+- Fixed ages view having a double overlay.
+- Fixed ages missing pictures.
+- Fixed terrain missing pictures.
 
 [/quote]
 
