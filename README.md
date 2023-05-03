@@ -24,10 +24,12 @@ Checksum: -
 [quote]
 [h1] 27/04/2023 [/h1]
 
-- Fixed Saved Games not being accessible in main menu.
-- Fixed ages view having a double overlay.
-- Fixed ages missing pictures.
-- Fixed terrain missing pictures.
+- If vanilla bookmark is selected, the usual disasters will occur.
+- Fixed trade companies tab in macrobuilder.
+- Fixed graphical issue with Maghrebi Piracy icon in ages.
+- Cleaned up a bunch of missions, not only will they react to what DLCs you have, they will also react to your choice of bookmarks.
+- Elite Mercenaries reform fixed.
+- Monument fixes.
 
 [/quote]
 
