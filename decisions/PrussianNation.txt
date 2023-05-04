@@ -61,6 +61,7 @@ country_decisions = {
 			# General
             custom_tooltip = tooltip_line_seperate_general
 			change_tag = PRU
+			on_change_tag_effect = yes
 			restore_country_name_effect = yes
 			swap_non_generic_missions = yes
 			add_prestige_or_monarch_power = { amount = 15 }
@@ -320,7 +321,23 @@ country_decisions = {
 			}
 
             # Hidden Effects
-
+			hidden_effect = {
+				if = {
+					limit = {
+						has_dlc = "Lions of the North"
+						has_country_flag = teu_prussian_path
+					}
+					unlock_government_reform = {
+						government_reform = prussian_monarchy_base
+					}
+					unlock_government_reform = {
+						government_reform = prussian_republic_reform
+					}
+					unlock_government_reform = {
+						government_reform = prussian_theocratic_reform
+					}
+				}
+			}
 		}
 
 		ai_will_do = {
@@ -407,10 +424,11 @@ country_decisions = {
 			owns_core_province = 42			# Warmia
 			owns_core_province = 43			# Danzig
 		}
-			effect = {
+		effect = {
 			# General
             custom_tooltip = tooltip_line_seperate_general
 			change_tag = PRU
+			on_change_tag_effect = yes
 			restore_country_name_effect = yes
 			swap_non_generic_missions = yes
 			add_prestige_or_monarch_power = { amount = 15 }
@@ -445,18 +463,36 @@ country_decisions = {
 			if =  {
 				limit = {
 					is_revolutionary = no
-					NOT = {
-						government = republic
-					}
+					NOT = { government = republic }
+					NOT = { government = theocracy }
+					has_dlc = "Domination"
 				}
-				change_government_to_monarchy = yes
+				change_government = monarchy
 				add_government_reform = prussian_monarchy
+			}
+			else_if =  {
+				limit = {
+					is_revolutionary = no
+					NOT = { government = republic }
+					NOT = { government = theocracy }
+					NOT = { has_dlc = "Domination" }
+				}
+				change_government = monarchy
+				add_government_reform = prussian_monarchy_base
 			}
 			else_if = {
 				limit = {
+					government = republic
 					is_revolutionary = no
 				}
 				add_government_reform = prussian_republic_reform
+			}
+			else_if = {
+				limit = {
+					government = theocracy
+					is_revolutionary = no
+				}
+				add_government_reform = prussian_theocratic_reform
 			}
 			if = {
 				limit = {

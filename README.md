@@ -19,11 +19,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 # STEAM WORKSHOP DESCRIPTION
 [code]                                  [img] https://i.imgur.com/p7Fv1Z6.gif [/img] [/code]
 [img]https://i.imgur.com/dAceBAG.png[/img]
-Version: 1.34.4
+Version: 1.35.2
 Checksum: -
 [quote]
-[h1] 27/04/2023 [/h1]
+[h1] 04/05/2023 [/h1]
 
+- 1.35.2 Update.
 - If vanilla bookmark is selected, the usual disasters will occur.
 - Fixed trade companies tab in macrobuilder.
 - Fixed graphical issue with Maghrebi Piracy icon in ages.
