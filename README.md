@@ -25,10 +25,8 @@ Checksum: -
 [h1] 04/05/2023 [/h1]
 
 - 1.35.2 Update.
-- If vanilla bookmark is selected, the usual disasters will occur.
 - Fixed trade companies tab in macrobuilder.
 - Fixed graphical issue with Maghrebi Piracy icon in ages.
-- Cleaned up a bunch of missions, not only will they react to what DLCs you have, they will also react to your choice of bookmarks.
 - Elite Mercenaries reform fixed.
 - Monument fixes.
 
