@@ -25,10 +25,11 @@ Checksum: -
 [h1] 04/05/2023 [/h1]
 
 - 1.35.2 Update.
-- Fixed trade companies tab in macrobuilder.
-- Fixed graphical issue with Maghrebi Piracy icon in ages.
 - Elite Mercenaries reform fixed.
-- Monument fixes.
+- Fixed trade companies tab in macrobuilder.
+- Monuments being gone fixed and new monument icons fixed.
+- Fixed graphical issue with Maghrebi Piracy icon in ages.
+- Bunch of other fixes and tweaks. If you find something that feels off, feel free to talk about it, it may or may not be intentional.
 
 [/quote]
 
