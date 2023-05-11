@@ -1,0 +1,109 @@
+# This event is for Vanilla Flavour only, it is merely a transfer of a vanilla mission tree that Knight's have but not present in Shattered.
+namespace = dse_flavour_knights
+
+country_event = {
+    id = dse_flavour_knights.1
+    title = dse_flavour_knights.1.t
+    desc = dse_flavour_knights.1.d
+    picture = RELIGION_eventPicture
+
+    mean_time_to_happen = {
+        months = 60
+    }
+
+    trigger = {
+        started_in = 1444.11.9
+        is_subject = no
+        if = {
+            limit = {
+                NOT = { has_global_flag = knights_malta_event_flag }
+                126 = {
+                    owner = {
+                        is_subject = no
+                    }
+                }
+            }
+            OR = {
+                126 = { country_or_non_sovereign_subject_holds = ROOT }
+                126 = {
+                    owner = {
+                        alliance_with = ROOT
+                        has_opinion = {
+                            who = ROOT
+                            value = 150
+                        }
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                NOT = { has_global_flag = knights_malta_event_flag }
+            }
+            OR = {
+                126 = { country_or_non_sovereign_subject_holds = ROOT }
+                126 = {
+                    owner = {
+                        overlord = {
+                            alliance_with = ROOT
+                            has_opinion = {
+                                who = ROOT
+                                value = 150
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else = {
+            126 = { country_or_non_sovereign_subject_holds = ROOT }
+        }
+    }
+    mean_time_to_happen = {
+        days = 1
+    }
+
+    option = { 
+        name = dse_flavour_knights.1.o1
+        if = {
+            limit = {
+                NOT = {
+                    126 = { country_or_non_sovereign_subject_holds = ROOT }
+                }
+                126 = {
+                    owner = { is_subject = no }
+                }
+                NOT = { has_global_flag = knights_malta_event_flag }
+            }
+            126 = {
+                owner = {
+                    set_country_flag = kni_malta_mision_flag
+                    country_event = { id = flavor_kni.100 }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                NOT = {
+                    126 = { country_or_non_sovereign_subject_holds = ROOT }
+                }
+                126 = {
+                    owner = { is_subject = yes }
+                }
+                NOT = { has_global_flag = knights_malta_event_flag }
+            }
+            126 = {
+                owner = {
+                    overlord = {
+                        set_country_flag = kni_malta_mision_flag
+                        country_event = { id = flavor_kni.100 }
+                    }
+                }
+            }
+        }
+        else = {
+            add_dip_power = 100
+        }
+
+    }
+}

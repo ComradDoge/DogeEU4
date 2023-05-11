@@ -24,12 +24,10 @@ Checksum: -
 [quote]
 [h1] 04/05/2023 [/h1]
 
-- 1.35.2 Update.
-- Elite Mercenaries reform fixed.
-- Fixed trade companies tab in macrobuilder.
-- Monuments being gone fixed and new monument icons fixed.
-- Fixed graphical issue with Maghrebi Piracy icon in ages.
-- Bunch of other fixes and tweaks. If you find something that feels off, feel free to talk about it, it may or may not be intentional.
+- Vanilla Flavour core setup tweaked/fixed by Dzoni#7872
+- Prussia religion requirement removed. Why? Chaos.
+- Bunch of mission setup tweaking. For example, if you have Domination DLC and start Vanilla Flavour as Ottomans, you will have the new mission tree. If you don't you will have whatever was prior. Due to the nature of the mission tree, it will not exist in the Shattered Bookmark. In other cases, such as French mission tree, no matter which bookmark you play on, if you have the DLC, you will have the new mission tree. If you don't then you will get whatever was prior to that and accessible to all/most.
+
 
 [/quote]
 
