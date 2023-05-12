@@ -8,13 +8,9 @@ I'll try to credit people as much as I can especially for major stuff. Although 
 from the original mod I took. After all I need to understand how they work, else the mod will be hard to update in the future for me.
 
 
-- The Shattering - A list of countries and info about them as I am modding them. Might be useful for some.
-https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0
+- [The Shattering](https://docs.google.com/spreadsheets/d/1og2tIyMGXKUlLNaUrCZJdBHX_L6_WSMLEeLxDdEiklY/edit#gid=0) - A list of countries and info about them as I am modding them. Might be useful for some.
 
-- The Steam Workshop
-https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
-
-
+- [The Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065)
 
 # STEAM WORKSHOP DESCRIPTION
 
