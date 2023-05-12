@@ -24,9 +24,13 @@ Checksum: -
 [quote]
 [h1] 04/05/2023 [/h1]
 
-- Vanilla Flavour core setup tweaked/fixed by Dzoni#7872
+- Vanilla Flavour core setup tweaked/fixed by Dzoni.
 - Prussia religion requirement removed. Why? Chaos.
-- Bunch of mission setup tweaking. For example, if you have Domination DLC and start Vanilla Flavour as Ottomans, you will have the new mission tree. If you don't you will have whatever was prior. Due to the nature of the mission tree, it will not exist in the Shattered Bookmark. In other cases, such as French mission tree, no matter which bookmark you play on, if you have the DLC, you will have the new mission tree. If you don't then you will get whatever was prior to that and accessible to all/most.
+- Bunch of mission setup tweaking. For example, if you have Domination DLC and start Vanilla Flavour as Ottomans, you will have the new mission tree. If you don't you will have whatever was prior. Due to the nature of the mission tree, it will not exist in the Shattered Bookmark. In other cases, such as French mission tree, no matter which bookmark you play on, if you have the DLC, you will have the new mission tree. If you don't then you will get whatever was prior to that and accessible to all/most. This kind of work will continue.
+-- Ottomans in Vanilla Flavour has their latest DLC mission tree. Osman in Shattered has the custom mission tree.
+-- Sweden in Vanilla Flavour has their latest DLC mission tree. Sweden in Shattered has the custom mission tree.
+-- France, both bookmarks have the latest DLC mission tree as long as you have it.
+- Government reform screen expanded and no longer crashes. In time some reforms might be removed/consolidated/moved since there is just so damn many.
 
 
 [/quote]
