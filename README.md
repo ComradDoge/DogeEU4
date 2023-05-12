@@ -22,14 +22,14 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065
 Version: 1.35.2
 Checksum: -
 [quote]
-[h1] 04/05/2023 [/h1]
+[h1] 12/05/2023 [/h1]
 
-- 1.35.2 Update.
-- Elite Mercenaries reform fixed.
-- Fixed trade companies tab in macrobuilder.
-- Monuments being gone fixed and new monument icons fixed.
-- Fixed graphical issue with Maghrebi Piracy icon in ages.
-- Bunch of other fixes and tweaks. If you find something that feels off, feel free to talk about it, it may or may not be intentional.
+- Vanilla Flavour core setup tweaked/fixed by Dzoni.
+- Prussia religion requirement removed. Why? Chaos.
+- The script that make sures all rulers have 3/3/3 at game start will also trigger if you have 0 somewhere. Oops.
+- Bunch of mission setup tweaking. For example, if you have Domination DLC and start Vanilla Flavour as Ottomans, you will have the new mission tree. If you don't you will have whatever was prior. Due to the nature of the mission tree, it will not exist in the Shattered Bookmark. In other cases, such as French mission tree, no matter which bookmark you play on, if you have the DLC, you will have the new mission tree. If you don't then you will get whatever was prior to that and accessible to all/most. This kind of work will continue. Some missions might still need work to properly adapt to new systems.
+- Government reform screen expanded and no longer crashes. In time some reforms might be removed/consolidated/moved since there is just so damn many.
+
 
 [/quote]
 
