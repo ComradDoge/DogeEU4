@@ -20,6 +20,10 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Forming Rum will give the appropriate T1 reform.
+- Fixed Caliphate government mechanic monthly ticks not working.
+- Vanilla Flavour French vassals are now the correct type.
+- The Maritime Allies event in Vanilla Flavour will no longer spam you. Oops.
+- Some italian missions that require opinion requirements from Rome or Papal States tweaked.
 - Shattered bookmark, Ming will get the generic tree that chinese minors get while in Vanilla Flavour it will have access to its actual tree.
 
 <br/>
