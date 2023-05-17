@@ -1,0 +1,57 @@
+namespace = dse_meta_events
+
+country_event = { # Diplomatic Efficiency
+    id = dse_meta_events.1
+    title = dse_meta_events.1.t
+    desc = dse_meta_events.1.d
+    picture = DOGE_VENICE_eventPicture
+    hidden = yes
+
+    trigger = {
+        OR = {
+            started_in = 1444.11.3
+            started_in = 1444.11.6
+        }
+        OR = {
+            AND = { 
+                is_year = 1470
+                NOT = { has_country_modifier = first_diplo_relations }
+                NOT = { has_country_modifier = second_diplo_relations }
+            } 
+            AND = {
+                is_year = 1500
+                NOT = { has_country_modifier = second_diplo_relations }
+            }
+
+        }
+    }
+
+    option = {
+        name = "dse_meta_events.1.o1"
+        if = {
+            limit = {
+                is_year = 1470
+                NOT = { is_year = 1500 }
+                NOT = { has_country_modifier = first_diplo_relations }
+            }
+            add_country_modifier = {
+                name = first_diplo_relations
+                duration = -1
+            }
+        }
+        if = {
+            limit = {
+                is_year = 1500
+            }
+            remove_country_modifier = first_diplo_relations
+            add_country_modifier = {
+                name = second_diplo_relations
+                duration = -1
+            }
+        }
+    }
+    option = {
+        name = "dse_meta_events.1.o2"
+
+    }
+}
