@@ -11,21 +11,19 @@ from the original mod I took. After all I need to understand how they work, else
 
 # STEAM WORKSHOP DESCRIPTION
 
-<!-- <img src=https://i.imgur.com/p7Fv1Z6.gif/> THIS IMAGE IS UNAVAILBALEW-->
-
 - Version: 1.35.2
 - Checksum: ?
 
 <h1>19/05/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Tweaked the country setup in China.
 - Forming Rum will give the appropriate T1 reform.
 - Vanilla Flavour French vassals are now the correct type.
 - Fixed Caliphate government mechanic monthly ticks not working.
 - The Maritime Allies event in Vanilla Flavour will no longer spam you. Oops.
 - Lusitanian Empire formable now also has access to the Portuguese mission tree.
-- Some italian missions that require opinion requirements from Rome or Papal States tweaked.
-- Shattered bookmark, Ming will get the generic tree that chinese minors get while in Vanilla Flavour it will have access to its actual tree.
+- Some italian missions that require opinion requirements from Rome owner or Papal States tweaked.
 - Korea in Shattered and Vanilla flavor bookmarks get different missions trees, one from Missions Expanded and the other from Paradox, respectively.
 
 <br/>
