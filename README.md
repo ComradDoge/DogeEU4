@@ -17,7 +17,10 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>19/05/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-
+- Major fix for some tomfoolery regarding a wrong tag that used C01, a tag system used for colonial nations.
+- For Republics, naval reforms moved to the appropriate tier instead of the military one.
+- Fixed when subject colour did not change after forming a nation, if it ever occurs again just report it.
+- Lusitanian Empire tech requirement lowered 15>10.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
