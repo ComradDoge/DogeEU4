@@ -12,7 +12,7 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.35.2
-- Checksum: ?
+- Checksum: 66d4
 
 <h1>19/05/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
