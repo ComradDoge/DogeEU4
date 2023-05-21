@@ -43,7 +43,7 @@ PRU_generic_missions_3 = {
 	
 	PRU_prussian_ascendance = {
 		icon = an_army_with_a_state
-		required_missions = { PRU_prussian_might }
+		required_missions = { }
 		position = 6
 		provinces_to_highlight = {
 			province_id = 50
@@ -1028,6 +1028,15 @@ PRU_missions_3 = {
 				set_country_flag = ME_Eligible_for_Paderborn
 			}
 			restore_country_name = yes
+			
+			if = {
+				limit = {
+					primary_culture = prussian
+				}
+				set_ruler_culture = prussian
+				set_heir_culture = prussian
+				set_consort_culture = prussian
+			}
 		}
 	}
 	
@@ -1082,7 +1091,7 @@ PRU_missions_3 = {
 				limit = {
 					OR = {
 						culture = polish
-						culture = silesian
+						culture = schlesian
 					}
 				}
 				add_province_modifier = {
@@ -1094,7 +1103,7 @@ PRU_missions_3 = {
 				limit = {
 					OR = {
 						culture = polish
-						culture = silesian
+						culture = schlesian
 					}
 				}
 				add_province_modifier = {
@@ -1106,7 +1115,7 @@ PRU_missions_3 = {
 				limit = {
 					OR = {
 						culture = polish
-						culture = silesian
+						culture = schlesian
 					}
 				}
 				add_province_modifier = {
@@ -1118,7 +1127,7 @@ PRU_missions_3 = {
 				limit = {
 					OR = {
 						culture = polish
-						culture = silesian
+						culture = schlesian
 					}
 				}
 				add_province_modifier = {
@@ -1130,7 +1139,7 @@ PRU_missions_3 = {
 				limit = {
 					OR = {
 						culture = polish
-						culture = silesian
+						culture = schlesian
 					}
 				}
 				add_province_modifier = {
@@ -1142,7 +1151,7 @@ PRU_missions_3 = {
 				limit = {
 					OR = {
 						culture = polish
-						culture = silesian
+						culture = schlesian
 					}
 				}
 				add_province_modifier = {
@@ -1611,7 +1620,7 @@ PRU_missions_4 = {
 					area = carinthia_area
 					area = switzerland_area
 				}
-			}	
+			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
 		}
 		trigger = {
@@ -1632,7 +1641,7 @@ PRU_missions_4 = {
 						area = carinthia_area
 						area = switzerland_area
 					}
-				}	
+				}
 				value = 90
 			}
 			custom_trigger_tooltip = {
@@ -1868,7 +1877,21 @@ PRU_missions_4 = {
 			#country_event = { id = flavor_brapru.36 }
 			set_country_flag = brapru_army_reforms_3
 			country_event = { id = flavor_brapru.29 }
-			create_general = { tradition = 100 }
+			create_general_with_pips = { 
+				tradition = 100
+				add_fire = 1
+				add_shock = 1
+				add_manuever = 1
+				add_siege = 1
+			}
+			custom_tooltip = " "
+			if = {
+				limit = { has_dlc = "Domination" }
+				custom_tooltip = pru_access_advanced_militarization_tt
+				clr_country_flag = enable_second_mil_level_flag
+				set_country_flag = enable_third_mil_level_flag
+				regenerate_government_mechanics = yes
+			}
 		}
 	}
 	
@@ -2186,6 +2209,7 @@ PRU_missions_4 = {
 								value = 0
 							}
 							export_to_variable = {
+								#GUH?
 							}
 						}
 					}
@@ -2221,37 +2245,12 @@ PRU_missions_4 = {
 		position = 20
 		provinces_to_highlight = {
 			NOT = { owned_by = ROOT }
-			if = {
-				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
-				}
-				OR = {
-					trade_goods = grain
-					trade_goods = potato
-				}
-			}
-			else = {
-				trade_goods = grain
-			}
+			trade_goods = grain
 		}
 		trigger = {
 			stability = 2
 			has_institution = global_trade
-			if = {
-				limit = {
-					is_expanded_mod_active  = { mod = trade_goods }
-				}
-				num_of_owned_provinces_with = {
-					OR = {
-						trade_goods = grain
-						trade_goods = potato
-					}
-					value = 10
-				}
-			}
-			else = {
-				grain = 10
-			}
+			grain = 10
 			OR = {
 				north_america = {
 					has_discovered = ROOT
@@ -2262,201 +2261,6 @@ PRU_missions_4 = {
 			}
 		}
 		effect = {
-			if = {
-				limit = {
-					is_expanded_mod_active  = { mod = trade_goods }
-				}
-				custom_tooltip = ME_PRU_GRAIN_KARTOFFELN_TGE
-				tooltip = {
-					add_province_modifier = {
-						name = PRU_potatoes
-						duration = -1
-					}
-				}
-				hidden_effect = {
-					random_owned_province = { #1
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #2
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #3
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #4
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #5
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #6
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #7
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #8
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #9
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-					random_owned_province = { #10
-						limit = {
-							OR = {
-								trade_goods = grain
-								trade_goods = potato
-							}
-						}
-						if = {
-							limit = {
-								trade_goods = grain
-							}
-							set_province_flag = PRU_convert_to_potato
-						}
-						add_province_modifier = {
-							name = PRU_potatoes
-							duration = -1
-						}
-					}
-				}
-			}
-			else = {
 				custom_tooltip = ME_PRU_GRAIN_KARTOFFELN
 				tooltip = {
 					add_province_modifier = {
@@ -2557,7 +2361,7 @@ PRU_missions_4 = {
 					}
 				}
 			}
-		}
+		
 	}
 }
 
@@ -2645,6 +2449,19 @@ PRU_missions_5 = {
 			set_country_flag = brapru_army_reforms_2
 			country_event = { id = flavor_brapru.6 }
 			add_mil_power = 50
+			custom_tooltip = " "
+			custom_tooltip = me_pru_choice_between_quality_or_quantity_militarization
+			hidden_effect = {
+				if = {
+					limit = {
+						OR = {
+							has_dlc = "Emperor"
+							has_dlc = "Domination"
+						}
+					}
+					country_event = { id = ME_Prussia_Events.46 }
+				}
+			}
 		}
 	}
 	
@@ -2704,37 +2521,18 @@ PRU_missions_5 = {
 		required_missions = { }
 		position = 16
 		provinces_to_highlight = {
-			if = {
-				limit = {
-					is_expanded_mod_active  = { mod = trade_goods }
-				}
-				trade_goods = amber
+			OR = {
+				province_id = 43
+				province_id = 41
 			}
-			else = {
+		}
+		trigger = {
+			development_in_provinces = {
 				OR = {
 					province_id = 43
 					province_id = 41
 				}
-			}
-		}
-		trigger = {
-			if = {
-				limit = {
-					is_expanded_mod_active  = { mod = trade_goods }
-				}
-				development_in_provinces = {
-					trade_goods = amber
-					value = 65
-				}
-			}
-			else = {
-				development_in_provinces = {
-					OR = {
-						province_id = 43
-						province_id = 41
-					}
-					value = 65
-				}
+				value = 65
 			}
 			41 = { owned_by = ROOT }
 		}

@@ -37,12 +37,6 @@ country_event = {
 					adm = 1
 					age = 23
 				}
-				if = {
-					limit = {
-						is_expanded_mod_active   = { mod = governments }
-					}
-					add_government_reform = dynastic_theocracy_reform
-				}
 				custom_tooltip = BRA_recurring_hohenzollerns
 			}
 		}
@@ -126,12 +120,6 @@ country_event = {
 			dip = 2
 			adm = 1
 			age = 23
-		}
-		if = {
-			limit = {
-				is_expanded_mod_active = { mod = governments }
-			}
-			add_government_reform = dynastic_theocracy_reform
 		}
 		custom_tooltip = BRA_recurring_hohenzollerns
 		set_country_flag = BRA_recurring_hohenzollernsevent
@@ -929,7 +917,7 @@ country_event = {
 		
 		ai_chance = { factor = 100 }
 		
-		create_general = { tradition = 100 }
+		# create_general = { tradition = 150 }
 	}
 }
 
@@ -1254,6 +1242,7 @@ country_event = {
 		add_country_modifier = {
 			name = PRU_vassal_play
 			duration = -1
+			desc = PRU_until_germany_is_formed
 		}
 		hidden_effect = {
 			swap_non_generic_missions = yes
@@ -1285,22 +1274,10 @@ country_event = {
 		
 		ai_chance = { factor = 100 }
 		
-		if = {
-			limit = {
-				is_expanded_mod_active = { mod = governments }
-				has_reform_on_level = 5
-				NOT = { has_reform = kreditwerk_reform }
-			}
-			add_government_reform = kreditwerk_reform
-			#custom_tooltip = GE_Kreditwerk
-			set_country_flag = GE_Kreditwerk_flag
-		}
-		else = {
-			change_government_reform_progress = 25
-			add_country_modifier = {
-				name = BRA_reformed_kreditwerk
-				duration = 18250
-			}
+		change_government_reform_progress = 25
+		add_country_modifier = {
+			name = BRA_reformed_kreditwerk
+			duration = 18250
 		}
 	}
 }
@@ -1497,13 +1474,19 @@ country_event = {
 		ai_chance = { factor = 100 }
 		
 		1759 = {
-			change_trade_goods = glass
 			if = {
 				limit = {
 					has_manufactory_trigger = yes
 				}
-				remove_building = textile
+				set_province_flag = PRU_get_manu
+			}
+			change_trade_goods = glass
+			if = {
+				limit = {
+					has_province_flag = PRU_get_manu
+				}
 				add_building = mills
+				clr_province_flag = PRU_get_manu
 			}
 			add_province_modifier = {
 				name = PRU_potsdamer_glass
@@ -1703,7 +1686,6 @@ province_event = {
 		name = ME_Prussia_Events.43.a
 		
 		ai_chance = { factor = 100 }
-		change_trade_goods = potato
 	}
 	option = {
 		name = ME_Prussia_Events.43.b
@@ -1791,3 +1773,34 @@ country_event = {
 #If(Stiopa.SpareTime&&Stiopa->pLeadDev->Mod()->isFinished())
 #	Stiopa->pLeadDev->Mod()->AddMoreEventsfor("PRU");
 # seriously tho if I have more time, then I might add content about Otto von schiewrin, danzig gymnasium, library of the elector, krupp, royal porcelain factory, otto von schwierin.
+
+#Ok but Stiopa consider this, we got 1.35 so I might as well make an adjustment to timurid_militarization
+
+country_event = {
+	id = ME_Prussia_Events.46
+	title = ME_Prussia_Events.46.t
+	desc = ME_Prussia_Events.46.d
+	picture = COURT_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Prussia_Events.46.a
+		
+		ai_chance = { factor = 0 }
+
+		set_country_flag = me_pru_quantity_militarization
+		custom_tooltip = me_pru_change_militarization_to_quantity
+	}
+
+	option = {
+		name = ME_Prussia_Events.46.b
+		
+		ai_chance = { factor = 100 }
+
+		custom_tooltip = me_pru_militarization_stays_the_same
+		custom_tooltip = " "
+		clr_country_flag = me_pru_quantity_militarization
+		create_general = { tradition = 60 }
+	}
+}
