@@ -14,13 +14,14 @@ from the original mod I took. After all I need to understand how they work, else
 - Version: 1.35.2
 - Checksum: 66d4
 
-<h1>19/05/2023</h1>
+<h1>01/06/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Redid the naval doctrine UI to allow for more doctrines to be seen.
 - Added a naval reform that does something funny with naval doctrines, tehe.
 - Tributaries will no longer be colored the overlords colour.
 - Palace of Constantinople monument is no longer TAG limited.
+- When forming Armenia, missions will automatically refresh.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
