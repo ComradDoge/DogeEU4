@@ -17,11 +17,12 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>01/06/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Redid the naval doctrine UI to allow for more doctrines to be seen.
-- Added a naval reform that does something funny with naval doctrines, tehe.
 - Tributaries will no longer be colored the overlords colour.
 - Palace of Constantinople monument is no longer TAG limited.
 - When forming Armenia, missions will automatically refresh.
+- Redid the naval doctrine UI to allow for more doctrines to be seen.
+- Added a naval reform that does something funny with naval doctrines, tehe.
+- Marine Army reform tweaked so you have a chance for at least one cannon stack. No promises.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
