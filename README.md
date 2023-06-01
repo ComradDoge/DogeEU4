@@ -20,6 +20,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Redid the naval doctrine UI to allow for more doctrines to be seen.
 - Added a naval reform that does something funny with naval doctrines, tehe.
 - Tributaries will no longer be colored the overlords colour.
+- Palace of Constantinople monument is no longer TAG limited.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
