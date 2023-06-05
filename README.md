@@ -17,8 +17,10 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>01/06/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Reworked mercenary related modifiers.
 - Increase Scuttle Doctrine chance even more.
 - Conquerors no longer have a defensive bonus.
+- Russian modernization gains a yearly innovativeness gain.
 - Tributaries will no longer be colored the overlords colour.
 - Palace of Constantinople monument is no longer TAG limited.
 - When forming Armenia, missions will automatically refresh.
