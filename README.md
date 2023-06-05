@@ -17,6 +17,7 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>01/06/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Fixed freedom of religion reform.
 - Tweaked mercenary related modifiers.
 - Added more sources of monthly liberalism.
 - Increase Scuttle Doctrine chance even more.

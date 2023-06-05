@@ -345,21 +345,12 @@ country_event = {
 		OR = {
 			AND = {
 				has_government_attribute = enables_religious_freedom
-				OR = {
-					any_owned_province = {
-						OR = { 
-							has_building = temple
-							has_building = cathedral
-						}
-						NOT = { has_province_modifier = DSE_religious_freedom_mod }
+				any_owned_province = {
+					OR = { 
+						has_building = temple
+						has_building = cathedral
 					}
-					any_owned_province = {
-						OR = { 
-							NOT = { has_building = temple }
-							NOT = { has_building = cathedral }
-						}
-						has_province_modifier = DSE_religious_freedom_mod
-					}
+					NOT = { has_province_modifier = DSE_religious_freedom_mod }
 				}
 			}
 			AND = {
@@ -378,37 +369,63 @@ country_event = {
 	}
 	
 	immediate = {
-		every_owned_province = {
+		if = {
 			limit = {
-				#religion = ROOT
-				OR = { 
-					has_building = temple
-					has_building = cathedral
+				AND = {
+					has_government_attribute = enables_religious_freedom
+					any_owned_province = {
+						OR = { 
+							has_building = temple
+							has_building = cathedral
+						}
+						NOT = { has_province_modifier = DSE_religious_freedom_mod }
+					}
+				}				
+			}
+			every_owned_province = {
+				limit = {
+					NOT = { religion = ROOT }
+					OR = { 
+						has_building = temple
+						has_building = cathedral
+					}
+					NOT = { has_province_modifier = DSE_religious_freedom_mod }
+				} 
+				add_province_modifier = {
+					name = "DSE_religious_freedom_mod"
+					duration = -1
+					hidden = yes
 				}
-				NOT = { has_province_modifier = DSE_religious_freedom_mod }
-            } 
-			add_province_modifier = {
-				name = "DSE_religious_freedom_mod"
-				duration = -1
-				hidden = yes
 			}
 		}
-		every_owned_province = {
+		if = {
 			limit = {
-				OR = { 
-					NOT = { has_building = temple }
-					NOT = { has_building = cathedral }
+				AND = {
+					any_owned_province = {
+						has_province_modifier = DSE_religious_freedom_mod
+					}
+					NOT = {
+						has_government_attribute = enables_religious_freedom
+					}
+				}				
+			}
+			every_owned_province = {
+				limit = {
+					OR = { 
+						NOT = { has_building = temple }
+						NOT = { has_building = cathedral }
+					}
+					has_province_modifier = DSE_religious_freedom_mod
 				}
-				has_province_modifier = DSE_religious_freedom_mod
-            }
-			remove_province_modifier = DSE_religious_freedom_mod
-		}
-		every_owned_province = {
-			limit = {
-				owner = { NOT = { has_government_attribute = DSE_religious_freedom_mod } }
-				has_province_modifier = DSE_religious_freedom_mod
-            }
-			remove_province_modifier = DSE_religious_freedom_mod
+				remove_province_modifier = DSE_religious_freedom_mod
+			}
+			every_owned_province = {
+				limit = {
+					owner = { NOT = { has_government_attribute = DSE_religious_freedom_mod } }
+					has_province_modifier = DSE_religious_freedom_mod
+				}
+				remove_province_modifier = DSE_religious_freedom_mod
+			}
 		}
 	}
 	
