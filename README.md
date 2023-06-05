@@ -22,6 +22,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Increase Scuttle Doctrine chance even more.
 - Conquerors no longer have a defensive bonus.
 - Fixed a bunch of the missing privilege icons.
+- X Court Influence in reforms is no longer a mechanic.
 - Tweaked some government reforms that were rather weak.
 - Russian modernization gains a yearly innovativeness gain.
 - Tributaries will no longer be colored the overlords colour.
