@@ -17,9 +17,11 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>01/06/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Reworked mercenary related modifiers.
+- Tweaked mercenary related modifiers.
+- Added more sources of monthly liberalism.
 - Increase Scuttle Doctrine chance even more.
 - Conquerors no longer have a defensive bonus.
+- Tweaked some government reforms that were rather weak.
 - Russian modernization gains a yearly innovativeness gain.
 - Tributaries will no longer be colored the overlords colour.
 - Palace of Constantinople monument is no longer TAG limited.
