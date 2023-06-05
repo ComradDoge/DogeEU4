@@ -26,10 +26,11 @@ from the original mod I took. After all I need to understand how they work, else
 - X Court Influence in reforms is no longer a mechanic.
 - Tweaked some government reforms that were rather weak.
 - Russian modernization gains a yearly innovativeness gain.
+- When forming Armenia, missions will automatically refresh.
 - Tributaries will no longer be colored the overlords colour.
 - Palace of Constantinople monument is no longer TAG limited.
-- When forming Armenia, missions will automatically refresh.
 - Redid the naval doctrine UI to allow for more doctrines to be seen.
+- Fixed Kingdom/Empire Ideas not properly converting when changing rank.
 - Added a naval reform that does something funny with naval doctrines, tehe.
 - Marine Army reform tweaked so you have a chance for at least one cannon stack. No promises.
 - Removed or updated some privileges that were either low quality or duplicates/similar of existing vanilla ones.
