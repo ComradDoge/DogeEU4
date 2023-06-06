@@ -25,6 +25,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Fixed a bunch of the missing privilege icons.
 - X Court Influence in reforms is no longer a mechanic.
 - Tweaked some government reforms that were rather weak.
+- Burghers Force Draft privilege now also drafts galleys.
 - Russian modernization gains a yearly innovativeness gain.
 - When forming Armenia, missions will automatically refresh.
 - Tributaries will no longer be colored the overlords colour.
@@ -32,6 +33,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Redid the naval doctrine UI to allow for more doctrines to be seen.
 - Fixed Kingdom/Empire Ideas not properly converting when changing rank.
 - Added a naval reform that does something funny with naval doctrines, tehe.
+- Added a privilege akin to Raise Taxes (name changed to Clerical Funding) for Burghers.
 - Marine Army reform tweaked so you have a chance for at least one cannon stack. No promises.
 - Removed or updated some privileges that were either low quality or duplicates/similar of existing vanilla ones.
 - A nation that was played by a player but is an AI, in case they are not there for a session, will not receive the Conqueror trait.
