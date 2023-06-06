@@ -24,13 +24,13 @@ from the original mod I took. After all I need to understand how they work, else
 - Conquerors no longer have a defensive bonus.
 - Fixed a bunch of the missing privilege icons.
 - X Court Influence in reforms is no longer a mechanic.
-- Tweaked some government reforms that were rather weak.
 - Burghers Force Draft privilege now also drafts galleys.
 - Russian modernization gains a yearly innovativeness gain.
 - When forming Armenia, missions will automatically refresh.
 - Tributaries will no longer be colored the overlords colour.
 - Palace of Constantinople monument is no longer TAG limited.
 - Redid the naval doctrine UI to allow for more doctrines to be seen.
+- Government reforms saw a bunch of tweaking to make them more viable.
 - Fixed Kingdom/Empire Ideas not properly converting when changing rank.
 - Added a naval reform that does something funny with naval doctrines, tehe.
 - Added a privilege akin to Raise Taxes (name changed to Clerical Funding) for Burghers.
