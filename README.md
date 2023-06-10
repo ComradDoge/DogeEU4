@@ -35,6 +35,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Added a naval reform that does something funny with naval doctrines, tehe.
 - Added a privilege akin to Raise Taxes (name changed to Clerical Funding) for Burghers.
 - Marine Army reform tweaked so you have a chance for at least one cannon stack. No promises.
+- France saw a bunch of tweaks/rework to itself from naval doctrine, muskateers, reform and system of appanages.
 - Removed or updated some privileges that were either low quality or duplicates/similar of existing vanilla ones.
 - A nation that was played by a player but is an AI, in case they are not there for a session, will not receive the Conqueror trait.
 
