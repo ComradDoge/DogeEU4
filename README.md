@@ -17,28 +17,33 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>01/06/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+
+Major
+- X Court Influence in reforms is no longer a mechanic.
+- Redid the naval doctrine UI to allow for more doctrines to be seen.
+- Government reforms saw a bunch of tweaking to make them more viable.
+- Added a privilege akin to Raise Taxes (name changed to Clerical Funding) for Burghers.
+- Tweaked mercenary related modifiers, with a primary focus on reduction of cost and manpower modifiers.
+- France saw a bunch of tweaks/rework to itself from naval doctrine, muskateers, reform and system of appanages.
+- Removed or updated some privileges that were either low quality or duplicates/similar of existing vanilla ones.
+
+Minor
 - Fixed freedom of religion reform.
-- Tweaked mercenary related modifiers.
 - Added more sources of monthly liberalism.
 - Increase Scuttle Doctrine chance even more.
 - Conquerors no longer have a defensive bonus.
 - Fixed a bunch of the missing privilege icons.
-- X Court Influence in reforms is no longer a mechanic.
 - Burghers Force Draft privilege now also drafts galleys.
 - Russian modernization gains a yearly innovativeness gain.
 - When forming Armenia, missions will automatically refresh.
 - Tributaries will no longer be colored the overlords colour.
 - Palace of Constantinople monument is no longer TAG limited.
-- Redid the naval doctrine UI to allow for more doctrines to be seen.
-- Government reforms saw a bunch of tweaking to make them more viable.
 - Fixed Kingdom/Empire Ideas not properly converting when changing rank.
 - Added a naval reform that does something funny with naval doctrines, tehe.
-- Added a privilege akin to Raise Taxes (name changed to Clerical Funding) for Burghers.
 - Tir na Celtigh adm requirement lowered and Brittany, akin to Scotland, can form it as well.
 - Marine Army reform tweaked so you have a chance for at least one cannon stack. No promises.
-- France saw a bunch of tweaks/rework to itself from naval doctrine, muskateers, reform and system of appanages.
-- Removed or updated some privileges that were either low quality or duplicates/similar of existing vanilla ones.
 - A nation that was played by a player but is an AI, in case they are not there for a session, will not receive the Conqueror trait.
+
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
