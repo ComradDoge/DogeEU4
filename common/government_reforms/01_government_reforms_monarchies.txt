@@ -309,9 +309,10 @@ feudal_france_reform = {
 	icon = "feudal_france_reform"
 	allow_normal_conversion = no
 	potential = {
-		has_dlc = "Domination" 
+		has_dlc = "Domination"
+		
 		OR = {
-			tag = FRA
+			culture_group = french
 			AND = {
 				is_playing_custom_nation = yes
 				have_had_reform = feudal_france_reform
@@ -324,14 +325,15 @@ feudal_france_reform = {
 	modifiers = {
 		nobles_influence_modifier = 0.1
 		vassal_income = 0.2
-		max_absolutism = -50
+		max_absolutism = -60
 	}
 
 	custom_attributes = {
 		locked_government_type = yes
 		has_appanages = yes
+		has_appanage_maker_cb_tier_1 = yes
 		#need_crownland_to_annex = yes
-		nobility_loyalty_hit_on_integration = yes
+		#nobility_loyalty_hit_on_integration = yes
 	}
 }
 
@@ -363,7 +365,7 @@ absolutist_france_reform = {
 		has_dlc = "Domination" 
 		OR = {
 			AND = { 
-				tag = FRA 
+				culture_group = french
 				OR = {
 					has_reform = absolutist_france_reform
 					have_had_reform = absolutist_france_reform
@@ -380,7 +382,7 @@ absolutist_france_reform = {
 	trigger = {
 		OR = {
 			AND = { 
-				tag = FRA 
+				culture_group = french
 				OR = {
 					has_reform = absolutist_france_reform
 					have_had_reform = absolutist_france_reform
@@ -399,19 +401,19 @@ absolutist_france_reform = {
 		technology_group = western
 		capital_scope = { region = france_region }
 	}
+	fixed_rank = 3
 	lock_level_when_selected = yes
 
 	modifiers = {
-		all_estate_influence_modifier = -0.1
-		max_absolutism = 10
-		
+		all_estate_influence_modifier = -0.15
+		max_absolutism = 40
+		yearly_absolutism = 2
 	}
 
 	custom_attributes = {
-		centralize_state_development = yes 
+		centralize_state_development = yes
 	}
 }
-
 
 indep_daimyo = {
 	icon = "samurai"
@@ -5847,22 +5849,16 @@ royal_decree_reform = {
 		NOT = { has_reform = elective_monarchy_reform }
 	}
 	trigger = {
-		OR = {
-			NOT = { 		
-				check_variable = {
-						which = Royal_Influence
-						value = 3
-				}
-			}
-			has_reform = royal_decree_reform
-		}
 	}
 	modifiers = {
-		diplomatic_reputation = 1
-		army_tradition_decay = -0.003
-		nobles_influence_modifier = -0.05
-		burghers_influence_modifier = -0.05
-		church_influence_modifier = -0.05
+		max_absolutism = 20
+		yearly_absolutism = 1
+		nobles_influence_modifier = -0.1
+		burghers_influence_modifier = -0.1
+		church_influence_modifier = -0.1
+	}
+	custom_attributes = {
+		enables_royal_council = yes
 	}
 	ai = {
 		factor = 1
@@ -5876,20 +5872,13 @@ aristocratic_court_reform = {
 		NOT = { has_reform = elective_monarchy_reform }
 	}
 	trigger = {
-		OR = {
-			NOT = {
-				check_variable = {
-					which = Noble_Influence
-					value = 4
-				}
-			}
-			has_reform = aristocratic_court_reform
-		}			
 	}
 	modifiers = {
 		diplomatic_reputation = 1
 		monthly_favor_modifier = 0.25
 		improve_relation_modifier = 0.15
+		general_cost = -0.1
+		army_tradition_decay = -0.003
 	}
 	ai = {
 		factor = 1
@@ -5909,7 +5898,7 @@ states_general_reform = {
 	}
 
 	modifiers = {
-		stability_cost_modifier = -0.1
+		stability_cost_modifier = -0.25
 	}
 
 	ai = {
@@ -5948,22 +5937,12 @@ general_estates_reform = {
 	potential = {
 		is_revolutionary = no
 		NOT = { has_reform = elective_monarchy_reform }
-
 	}
-	trigger = {
-		OR = {
-			NOT = {
-				check_variable = {
-					which = Burgher_Influence 
-					value = 3
-				}
-			}
-			has_reform = general_estates_reform
-		}		
+	trigger = {	
 	}
 	modifiers = {
-		production_efficiency = 0.1
-		global_tax_modifier = 0.1
+		production_efficiency = 0.15
+		global_tax_modifier = 0.15
 		monthly_reform_progress_modifier = 0.1
 
 		all_estate_influence_modifier = 0.05
@@ -5971,6 +5950,7 @@ general_estates_reform = {
 	}
 	custom_attributes = {
 		diet_increases_not_influence = yes
+		enables_burgher_council = yes
 	}
 	ai = {
 		factor = 1
