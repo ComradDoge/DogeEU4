@@ -34,6 +34,7 @@ Minor
 - Increase Scuttle Doctrine chance even more.
 - Conquerors no longer have a defensive bonus.
 - Fixed a bunch of the missing privilege icons.
+- Estate decisions now also have an icon near them.
 - Burghers Force Draft privilege now also drafts galleys.
 - Russian modernization gains a yearly innovativeness gain.
 - When forming Armenia, missions will automatically refresh.
