@@ -1,0 +1,112 @@
+namespace = SBCD_menu_events
+country_event = { #SBCD main event
+	id = SBCD_menu_events.1
+	title = SBCD_menu_events.selective_building_title
+	desc = SBCD_menu_events.selective_building_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_exclude_province_effects = yes
+			SBCD_get_potential_and_excluded_province_effects = yes
+		}
+	}
+	option = { #Construct Buildings
+		name = SBCD.construct
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				check_variable = { which = SBCD_num_of_potential_province_var value = 1 }
+			}
+		}
+		hidden_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						event_target:SBCD_selected_country_target = {
+							government = native
+						}
+					}
+					country_event = {
+						id = SBCD_construct_native_events.0
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							event_target:SBCD_selected_country_target = {
+								government = native
+							}
+						}
+					}
+					country_event = {
+						id = SBCD_construct_events.0
+					}
+				}
+				
+			}
+		}
+	}
+	option = { #Demolish Buildings
+		name = SBCD.demolish
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				check_variable = { which = SBCD_num_of_potential_province_var value = 1 }
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					event_target:SBCD_selected_country_target = {
+						government = native
+					}
+				}
+				country_event = {
+					id = SBCD_demolish_native_events.0
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						event_target:SBCD_selected_country_target = {
+							government = native
+						}
+					}
+				}
+				country_event = {
+					id = SBCD_demolish_events.0
+				}
+			}
+			
+		}
+	}
+	option = { #Set Province Criteria
+		name = SBCD.set_province_criteria
+		ai_chance = { factor = 0 }
+		hidden_effect = {
+			country_event = {
+				id = SBCD_filter_events.1
+			}
+		}
+	}
+	option = { #Confirm
+		name = SBCD.confirm
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_filter_effects = yes
+			set_variable = { which = SBCD_current_treasury_var value = 0 }
+			set_variable = { which = SBCD_allocated_treasury_var value = 0 }
+
+			event_target:SBCD_selected_country_target = {
+				every_owned_province = { 
+					clr_province_flag = SBCD_excluded_flag
+				}
+			}
+			SBCD_clear_province_development_var_effects = yes
+
+			clr_country_flag = SBCD_open_menu_flag
+		}
+	}
+}

@@ -22,6 +22,7 @@ Major
 - X Court Influence in reforms is no longer a mechanic.
 - Redid the naval doctrine UI to allow for more doctrines to be seen.
 - Government reforms saw a bunch of tweaking to make them more viable.
+- Implemented Selective Building Construction and Demolition by Itsbenter.
 - Added a privilege akin to Raise Taxes (name changed to Clerical Funding) for Burghers.
 - Tweaked mercenary related modifiers, with a primary focus on reduction of cost and manpower modifiers.
 - France saw a bunch of tweaks/rework to itself from naval doctrine, muskateers, reform and system of appanages.

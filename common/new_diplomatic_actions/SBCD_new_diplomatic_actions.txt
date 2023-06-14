@@ -1,0 +1,52 @@
+SBCD_manage_buildings_diplomatic_action = {
+	category = economy
+	require_acceptance = no
+	is_visible = {
+		ai = no
+		NOT = { has_country_flag = SBCD_open_menu_flag }
+		OR = {
+			FROM = {
+				is_subject_of = ROOT
+				OR = {
+					is_vassal = yes
+					is_march = yes
+					is_subject_of_type = personal_union
+					is_subject_of_type = appanage
+					is_subject_of_type = core_eyalet
+					is_subject_of_type = eyalet
+					is_colonial_nation_of = ROOT
+				}
+			}
+			AND = {
+				ROOT = { is_trade_league_leader = yes }
+				FROM = { is_in_trade_league_with = ROOT }
+			}
+		}
+		#Disallow managing building if overlord is native while subject is not and vice versa
+		OR = {
+			AND = {
+				ROOT = { government = Native }
+				FROM = { government = Native }
+			}
+			AND = {
+				NOT = { ROOT = { government = Native } }
+				NOT = { FROM = { government = Native } }
+			}
+		}
+	}
+	is_allowed = {
+		always = yes
+	}
+	on_accept = {
+		FROM = { set_country_flag = SBCD_manage_building_target@ROOT }
+		set_country_flag = SBCD_open_menu_flag
+		SBCD_clear_filter_effects = yes
+		set_variable = { which = SBCD_allocated_treasury_var value = 0 }
+		country_event = {
+			id = SBCD_script_events.1
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}

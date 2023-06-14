@@ -1,0 +1,366 @@
+SBCD_change_num_of_manufactory_effects = {
+    if = {
+        limit = { event_target:SBCD_every_owned_province_target = { has_building = $BUILDING$ } }
+        change_variable = { which = SBCD_num_of_manufactory_var value = 1 }
+    }
+}
+SBCD_get_num_of_manufactory_effects = {
+	SBCD_change_num_of_manufactory_effects = { BUILDING = farm_estate }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = ramparts }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = impressment_offices }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = wharf }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = textile }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = weapons }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = state_house }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = plantations }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = tradecompany }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = soldier_households }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = mills }
+	SBCD_change_num_of_manufactory_effects = { BUILDING = furnace }
+}
+####
+SBCD_get_num_of_building_to_construct_effects = {
+	set_variable = { which = SBCD_allocated_treasury_for_$BUILDING$_var which = SBCD_allocated_treasury_var }
+
+	set_variable = { which = SBCD_num_of_potential_$BUILDING$_var value = 0 }
+	set_variable = { which = SBCD_num_of_potential_$BUILDING$_from_upgrade_var value = 0 }
+	set_variable = { which = SBCD_num_of_potential_$BUILDING$_no_upgrade_var value = 0 }
+
+	set_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 0 }
+	set_variable = { which = SBCD_total_potential_$BUILDING$_cost_from_upgrade_var value = 0 }
+	set_variable = { which = SBCD_total_potential_$BUILDING$_cost_no_upgrade_var value = 0 }
+	
+	event_target:SBCD_selected_country_target = {
+		every_owned_province = {
+			clr_province_flag = SBCD_selected_for_$BUILDING$_flag
+			save_event_target_as = SBCD_every_owned_province_target
+			set_variable = {
+				which = SBCD_allocated_treasury_for_$BUILDING$_var
+				which = ROOT
+			}
+			SBCD_get_$BUILDING$_priority_effects = yes
+			SBCD_get_$BUILDING$_cost_effects = yes
+		}
+	}
+	while = {
+		limit = {
+			event_target:SBCD_selected_country_target = {
+				any_owned_province = {
+					SBCD_potential_province_triggers = yes
+					SBCD_no_ongoing_construction_triggers = yes
+					SBCD_$BUILDING$_req_triggers = yes
+					NOT = { has_province_flag = SBCD_selected_for_$BUILDING$_flag }
+					check_variable = {
+						which = SBCD_allocated_treasury_for_$BUILDING$_var
+						which = SBCD_$BUILDING$_cost_var
+					}
+				}
+			}
+		}
+		event_target:SBCD_selected_country_target = {
+			#Select random province to have value to compare to when choosing highest priority
+			random_province = {
+				limit = {
+					SBCD_potential_province_triggers = yes
+					SBCD_no_ongoing_construction_triggers = yes
+					SBCD_$BUILDING$_req_triggers = yes
+					NOT = { has_province_flag = SBCD_selected_for_$BUILDING$_flag }
+					check_variable = {
+						which = SBCD_allocated_treasury_for_$BUILDING$_var
+						which = SBCD_$BUILDING$_cost_var
+					}
+				}
+				ROOT = {
+					set_variable = {
+						which = SBCD_$BUILDING$_priority_var
+						which = PREV
+					}
+					set_variable = {
+						which = SBCD_selected_$BUILDING$_priority_var
+						which = SBCD_$BUILDING$_priority_var
+					}
+				}
+				save_event_target_as = SBCD_selected_for_$BUILDING$_target
+			}
+			#Select province with highest priority
+			if = {
+				limit = { has_saved_event_target = SBCD_selected_for_$BUILDING$_target }
+				every_owned_province = {
+					limit = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						SBCD_$BUILDING$_req_triggers = yes
+						NOT = { has_province_flag = SBCD_selected_for_$BUILDING$_flag }
+						check_variable = {
+							which = SBCD_allocated_treasury_for_$BUILDING$_var
+							which = SBCD_$BUILDING$_cost_var
+						}
+					}
+					ROOT = {
+						set_variable = {
+							which = SBCD_$BUILDING$_priority_var
+							which = PREV
+						}
+					}
+					if = {
+						limit = {
+							ROOT = {
+								check_variable = {
+									which = SBCD_$BUILDING$_priority_var
+									which = SBCD_selected_$BUILDING$_priority_var
+								}
+							}
+						}
+						ROOT = {
+							set_variable = {
+								which = SBCD_selected_$BUILDING$_priority_var
+								which = SBCD_$BUILDING$_priority_var
+							}
+						}
+						save_event_target_as = SBCD_selected_for_$BUILDING$_target
+					}
+				}
+				#Subtract the cost from the treasury pool for specific building
+				event_target:SBCD_selected_for_$BUILDING$_target = {
+					set_province_flag = SBCD_selected_for_$BUILDING$_flag
+					ROOT = {
+						set_variable = {
+							which = SBCD_$BUILDING$_cost_var
+							which = PREV
+						}
+						subtract_variable = {
+							which = SBCD_allocated_treasury_for_$BUILDING$_var
+							which = SBCD_$BUILDING$_cost_var
+						}
+						change_variable = {
+							which = SBCD_total_potential_$BUILDING$_cost_var
+							which = SBCD_$BUILDING$_cost_var
+						}
+						change_variable = {
+							which = SBCD_num_of_potential_$BUILDING$_var
+							value = 1
+						}
+						if = {
+							limit = {
+								event_target:SBCD_selected_for_$BUILDING$_target = {
+									has_province_flag = SBCD_potential_$BUILDING$_from_upgrade_flag
+								}
+							}
+							change_variable = {
+								which = SBCD_total_potential_$BUILDING$_cost_from_upgrade_var
+								which = SBCD_$BUILDING$_cost_var
+							}
+							change_variable = {
+								which = SBCD_num_of_potential_$BUILDING$_from_upgrade_var
+								value = 1
+							}
+						}
+						if = {
+							limit = {
+								event_target:SBCD_selected_for_$BUILDING$_target = {
+									NOT = { has_province_flag = SBCD_potential_$BUILDING$_from_upgrade_flag }
+								}
+							}
+							change_variable = {
+								which = SBCD_total_potential_$BUILDING$_cost_no_upgrade_var
+								which = SBCD_$BUILDING$_cost_var
+							}
+							change_variable = {
+								which = SBCD_num_of_potential_$BUILDING$_no_upgrade_var
+								value = 1
+							}
+						}
+					}
+				}
+			}
+			event_target:SBCD_selected_country_target = {
+				every_owned_province = {
+					set_variable = {
+						which = SBCD_allocated_treasury_for_$BUILDING$_var
+						which = ROOT
+					}
+				}
+			}
+		}
+	}
+}
+SBCD_construct_building_scripted_effects = {
+	custom_tooltip = SBCD_construct_$BUILDING$_tt
+	if = {
+		limit = {
+			check_variable = {
+				which = SBCD_num_of_potential_$BUILDING$_from_upgrade_var
+				value = 1
+			}
+		}
+		custom_tooltip = SBCD_upgrade_$BUILDING$_tt
+	}
+	hidden_effect = {
+		event_target:SBCD_selected_country_target = {
+			if = {
+				limit = { tag = ROOT }
+				every_owned_province = {
+					limit = {
+						has_province_flag = SBCD_selected_for_$BUILDING$_flag
+					}
+					add_building_construction = {
+						building = $BUILDING$
+						speed = 1
+						cost = 1
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				every_owned_province = {
+					limit = {
+						has_province_flag = SBCD_selected_for_$BUILDING$_flag
+					}
+					add_building_construction = {
+						building = $BUILDING$
+						speed = 1
+						cost = 0
+					}
+				}
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = SBCD_total_potential_$BUILDING$_cost_var
+					value = 1000
+				}
+			}
+			subtract_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 1000 }
+			subtract_variable = { which = SBCD_allocated_treasury_var value = 1000 }
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				add_treasury = -1000
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = SBCD_total_potential_$BUILDING$_cost_var
+					value = 500
+				}
+			}
+			subtract_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 500 }
+			subtract_variable = { which = SBCD_allocated_treasury_var value = 500 }
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				add_treasury = -500
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = SBCD_total_potential_$BUILDING$_cost_var
+					value = 250
+				}
+			}
+			subtract_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 250 }
+			subtract_variable = { which = SBCD_allocated_treasury_var value = 250 }
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				add_treasury = -250
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = SBCD_total_potential_$BUILDING$_cost_var
+					value = 125
+				}
+			}
+			subtract_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 125 }
+			subtract_variable = { which = SBCD_allocated_treasury_var value = 125 }
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				add_treasury = -125
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = SBCD_total_potential_$BUILDING$_cost_var
+					value = 50
+				}
+			}
+			subtract_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 50 }
+			subtract_variable = { which = SBCD_allocated_treasury_var value = 50 }
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				add_treasury = -50
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = SBCD_total_potential_$BUILDING$_cost_var
+					value = 25
+				}
+			}
+			subtract_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 25 }
+			subtract_variable = { which = SBCD_allocated_treasury_var value = 25 }
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				add_treasury = -25
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = SBCD_total_potential_$BUILDING$_cost_var
+					value = 10
+				}
+			}
+			subtract_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 10 }
+			subtract_variable = { which = SBCD_allocated_treasury_var value = 10 }
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				add_treasury = -10
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = SBCD_total_potential_$BUILDING$_cost_var
+					value = 1
+				}
+			}
+			subtract_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 1 }
+			subtract_variable = { which = SBCD_allocated_treasury_var value = 1 }
+			if = {
+				limit = { NOT = { tag = ROOT } }
+				add_treasury = -1
+			}
+		}
+	}
+}
+SBCD_clear_building_vars_and_flags_effects = {
+	set_variable = { which = SBCD_allocated_treasury_for_$BUILDING$_var value = 0 }
+
+	set_variable = { which = SBCD_num_of_potential_$BUILDING$_var value = 0 }
+	set_variable = { which = SBCD_num_of_potential_$BUILDING$_from_upgrade_var value = 0 }
+	set_variable = { which = SBCD_num_of_potential_$BUILDING$_no_upgrade_var value = 0 }
+
+	set_variable = { which = SBCD_total_potential_$BUILDING$_cost_var value = 0 }
+	set_variable = { which = SBCD_total_potential_$BUILDING$_cost_from_upgrade_var value = 0 }
+	set_variable = { which = SBCD_total_potential_$BUILDING$_cost_no_upgrade_var value = 0 }
+
+	set_variable = { which = SBCD_$BUILDING$_cost_var value = 0 }
+	set_variable = { which = SBCD_$BUILDING$_priority_var value = 0 }
+	set_variable = { which = SBCD_selected_$BUILDING$_priority_var value = 0 }
+
+	event_target:SBCD_selected_country_target = {
+		every_owned_province = {
+			set_variable = { which = SBCD_allocated_treasury_for_$BUILDING$_var value = 0 }
+
+			set_variable = { which = SBCD_$BUILDING$_cost_var value = 0 }
+			set_variable = { which = SBCD_$BUILDING$_priority_var value = 0 }
+			clr_province_flag = SBCD_potential_$BUILDING$_from_upgrade_flag
+		}
+	}
+	
+}

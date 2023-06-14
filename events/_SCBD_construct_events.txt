@@ -1,0 +1,1135 @@
+namespace = SBCD_construct_events
+country_event = { #Construct Building
+	id = SBCD_construct_events.0
+	title = SBCD_construct_events.menu_title
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_exclude_province_effects = yes
+			SBCD_get_potential_and_excluded_province_effects = yes
+
+			export_to_variable = {
+				which = SBCD_global_build_cost_var
+				value = modifier:build_cost
+			}
+			change_variable = {
+				which = SBCD_global_build_cost_var
+				value = 1
+			}
+
+			event_target:SBCD_selected_country_target = {
+				every_owned_province = {
+					save_event_target_as = SBCD_every_owned_province_target
+					#Get num of manufactory
+					set_variable = { which = SBCD_num_of_manufactory_var value = 0 }
+					export_to_variable = {
+						which = SBCD_allowed_num_of_manufactory_var
+						value = modifier:allowed_num_of_manufactories
+					}
+					SBCD_get_num_of_manufactory_effects = yes
+					#Get inverted autonomy
+					set_variable = {
+						which = SBCD_inverted_local_autonomy_var
+						value = 100
+					}
+					export_to_variable = {
+						which = SBCD_local_autonomy_var
+						value = local_autonomy
+					}
+					subtract_variable = {
+						which = SBCD_inverted_local_autonomy_var
+						which = SBCD_local_autonomy_var
+					}
+					#Get build cost modifier
+					set_variable = {
+						which = SBCD_global_build_cost_var
+						which = ROOT
+					}
+					export_to_variable = {
+						which = SBCD_effective_build_cost_var
+						value = modifier:local_build_cost
+					}
+					change_variable = {
+						which = SBCD_effective_build_cost_var
+						which = SBCD_global_build_cost_var
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = SBCD.allocated_treasury
+		highlight = yes
+		hidden_effect = {
+			set_country_flag = SBCD_allocate_treasury_flag
+			country_event = {
+				id = SBCD_treasury_events.0
+			}
+		}
+	}
+	option = { #Government
+		name = SBCD.government
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_courthouse_req_triggers = yes
+							SBCD_town_hall_req_triggers = yes
+							SBCD_government_lvl_3_req_triggers = yes
+							SBCD_government_lvl_4_req_triggers = yes
+							SBCD_university_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.1
+			}
+		}
+	}
+	option = { #Production
+		name = SBCD.production
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_workshop_req_triggers = yes
+							SBCD_counting_house_req_triggers = yes
+							SBCD_steam_factory_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.2
+			}
+		}
+	}
+	option = { #Taxation
+		name = SBCD.taxation
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_temple_req_triggers = yes
+							SBCD_cathedral_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.3
+			}
+		}
+	}
+	option = { #Navy
+		name = SBCD.navy
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_shipyard_req_triggers = yes
+							SBCD_grand_shipyard_req_triggers = yes
+							SBCD_dock_req_triggers = yes
+							SBCD_drydock_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.4
+			}
+		}
+	}
+	option = { #Trade
+		name = SBCD.trade
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_marketplace_req_triggers = yes
+							SBCD_trade_depot_req_triggers = yes
+							SBCD_stock_exchange_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.5
+			}
+		}
+	}
+	option = { #Coastal
+		name = SBCD.coastal
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_coastal_defence_req_triggers = yes
+							SBCD_naval_battery_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.6
+			}
+		}
+	}
+	option = { #Army
+		name = SBCD.army
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_barracks_req_triggers = yes
+							SBCD_training_fields_req_triggers = yes
+							SBCD_regimental_camp_req_triggers = yes
+							SBCD_conscription_center_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.7
+			}
+		}
+	}
+	option = { #Forts
+		name = SBCD.forts
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_fort_15th_req_triggers = yes
+							SBCD_fort_16th_req_triggers = yes
+							SBCD_fort_17th_req_triggers = yes
+							SBCD_fort_18th_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.8
+			}
+		}
+	}
+	option = { #Manufactories
+		name = SBCD.manufactories
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_farm_estate_req_triggers = yes
+							SBCD_ramparts_req_triggers = yes
+							SBCD_impressment_offices_req_triggers = yes
+							SBCD_wharf_req_triggers = yes
+							SBCD_textile_req_triggers = yes
+							SBCD_weapons_req_triggers = yes
+							SBCD_state_house_req_triggers = yes
+							SBCD_plantations_req_triggers = yes
+							SBCD_tradecompany_req_triggers = yes
+							SBCD_soldier_households_req_triggers = yes
+							SBCD_mills_req_triggers = yes
+							SBCD_furnace_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.9
+			}
+		}
+	}
+	option = { # Road Infrastructure # Shattered
+		name = SBCD.roads
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				event_target:SBCD_selected_country_target = {
+					any_owned_province = {
+						SBCD_potential_province_triggers = yes
+						SBCD_no_ongoing_construction_triggers = yes
+						OR = {
+							SBCD_early_road_req_triggers = yes
+							SBCD_gravel_road_req_triggers = yes
+							SBCD_royal_road_req_triggers = yes
+							SBCD_macadam_road_req_triggers = yes
+							SBCD_railroad_req_triggers = yes
+						}
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.101
+			}
+		}
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			event_target:SBCD_selected_country_target = {
+				set_variable = { which = SBCD_global_build_cost_var value = 0 }
+				every_owned_province = {
+					set_variable = { which = SBCD_global_build_cost_var value = 0 }
+					set_variable = { which = SBCD_allowed_num_of_manufactory_var value = 0 }
+					set_variable = { which = SBCD_inverted_local_autonomy_var value = 0 }
+					set_variable = { which = SBCD_local_autonomy_var value = 0 }
+					set_variable = { which = SBCD_effective_build_cost_var value = 0 }
+				}
+			}
+			country_event = {
+				id = SBCD_menu_events.1
+			}
+		}
+	}
+}
+country_event = { #Government
+	id = SBCD_construct_events.1
+	title = SBCD.government
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = courthouse }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = town_hall }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = government_lvl_3 }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = government_lvl_4 }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = university }
+		}
+	}
+	option = { #Courthpuse
+		name = building_courthouse
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = courthouse }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = courthouse }
+	}
+	option = { #Town Hall
+		name = building_town_hall
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = town_hall }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = town_hall }
+	}
+
+	option = { #Palace of Justice # Shattered
+		name = building_government_lvl_3
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = government_lvl_3 }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = government_lvl_3 }
+	}
+	option = { #Governor's Residence # Shattered
+		name = building_government_lvl_4
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = government_lvl_4 }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = government_lvl_4 }
+	}
+	option = { #University
+		name = building_university
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = university }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = university }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = courthouse }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = town_hall }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = government_lvl_3 }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = government_lvl_4 }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = university }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+country_event = { #Production
+	id = SBCD_construct_events.2
+	title = SBCD.production
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = workshop }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = counting_house }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = steam_factory }
+		}
+	}
+	option = { #Workshop
+		name = building_workshop
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = workshop }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = workshop }
+	}
+	option = { #Counting House
+		name = building_counting_house
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = counting_house }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = counting_house }
+	}
+	option = { #Steam Factory # Shattered
+		name = building_steam_factory
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = steam_factory }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = steam_factory }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = workshop }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = counting_house }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = steam_factory }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+country_event = { #Taxation
+	id = SBCD_construct_events.3
+	title = SBCD.taxation
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = temple }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = cathedral }
+		}
+	}
+	option = { #Temple
+		name = building_temple
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = temple }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = temple }
+	}
+	option = { #Cathedral
+		name = building_cathedral
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = cathedral }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = cathedral }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = temple }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = cathedral }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+country_event = { #Navy
+	id = SBCD_construct_events.4
+	title = SBCD.navy
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = shipyard }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = grand_shipyard }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = dock }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = drydock }
+		}
+	}
+	option = { #Shipyard
+		name = building_shipyard
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = shipyard }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = shipyard }
+	}
+	option = { #Grand Shipyard
+		name = building_grand_shipyard
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = grand_shipyard }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = grand_shipyard }
+	}
+	option = { #Dock
+		name = building_dock
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = dock }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = dock }
+	}
+	option = { #Drydock
+		name = building_drydock
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = drydock }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = drydock }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = shipyard }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = grand_shipyard }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = dock }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = drydock }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+country_event = { #Trade
+	id = SBCD_construct_events.5
+	title = SBCD.trade
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = marketplace }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = trade_depot }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = stock_exchange }
+		}
+	}
+	option = { #Marketplace
+		name = building_marketplace
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = marketplace }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = marketplace }
+	}
+	option = { #Trade Depot
+		name = building_trade_depot
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = trade_depot }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = trade_depot }
+	}
+	option = { #Stock Exchange
+		name = building_stock_exchange
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = stock_exchange }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = stock_exchange }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = marketplace }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = trade_depot }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = stock_exchange }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+country_event = { #Coastal
+	id = SBCD_construct_events.6
+	title = SBCD.coastal
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = coastal_defence }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = naval_battery }
+		}
+	}
+	option = { #Coastal Defense
+		name = building_coastal_defence
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = coastal_defence }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = coastal_defence }
+	}
+	option = { #Naval Battery
+		name = building_naval_battery
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = naval_battery }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = naval_battery }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = coastal_defence }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = naval_battery }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+country_event = { #Army
+	id = SBCD_construct_events.7
+	title = SBCD.army
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = barracks }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = training_fields }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = regimental_camp }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = conscription_center }
+		}
+	}
+	option = { #Barracks
+		name = building_barracks
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = barracks }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = barracks }
+	}
+	option = { #Training Fields
+		name = building_training_fields
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = training_fields }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = training_fields }
+	}
+	option = { #Regimental Camp
+		name = building_regimental_camp
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = regimental_camp }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = regimental_camp }
+	}
+	option = { #Conscription Center
+		name = building_conscription_center
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = conscription_center }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = conscription_center }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = barracks }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = training_fields }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = regimental_camp }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = conscription_center }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+country_event = { #Forts
+	id = SBCD_construct_events.8
+	title = SBCD.forts
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = fort_15th }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = fort_16th }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = fort_17th }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = fort_18th }
+		}
+	}
+	option = { #Fort 15th
+		name = building_fort_15th
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = fort_15th }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = fort_15th }
+	}
+	option = { #Fort 16th
+		name = building_fort_16th
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = fort_16th }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = fort_16th }
+	}
+	option = { #Fort 17th
+		name = building_fort_17th
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = fort_17th }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = fort_17th }
+	}
+	option = { #Fort 18th
+		name = building_fort_18th
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = fort_18th }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = fort_18th }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = fort_15th }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = fort_16th }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = fort_17th }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = fort_18th }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+country_event = { #Manufactories
+	id = SBCD_construct_events.9
+	title = SBCD.manufactories
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = farm_estate }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = ramparts }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = impressment_offices }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = wharf }
+
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = textile }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = weapons }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = state_house }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = plantations }
+
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = tradecompany }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = soldier_households }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = mills }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = furnace }
+		}
+	}
+	option = { #Farm Estate
+		name = building_farm_estate
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = farm_estate }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = farm_estate }
+	}
+	option = { #Ramparts
+		name = building_ramparts
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = ramparts }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = ramparts }
+	}
+	option = { #Impressment Offices
+		name = building_impressment_offices
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = impressment_offices }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = impressment_offices }
+	}
+	option = { #Naval Equipment Manufactory
+		name = building_wharf
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = wharf }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = wharf }
+	}
+
+	option = { #Textile Manufactory
+		name = building_textile
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = textile }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = textile }
+	}
+	option = { #Weapons Manufactory
+		name = building_weapons
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = weapons }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = weapons }
+	}
+	option = { #State House
+		name = building_state_house
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = state_house }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = state_house }
+	}
+	option = { #Plantation
+		name = building_plantations
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = plantations }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = plantations }
+	}
+
+	option = { #Trade Station
+		name = building_tradecompany
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = tradecompany }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = tradecompany }
+	}
+	option = { #Soldier's Households
+		name = building_soldier_households
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = soldier_households }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = soldier_households }
+	}
+	option = { #Mills
+		name = building_mills
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = mills }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = mills }
+	}
+	option = { #Furnace
+		name = building_furnace
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = furnace }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = furnace }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = farm_estate }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = ramparts }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = impressment_offices }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = wharf }
+
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = textile }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = weapons }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = state_house }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = plantations }
+
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = tradecompany }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = soldier_households }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = mills }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = furnace }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
+
+
+
+# Shattered
+country_event = { #Road Infrastructure
+	id = SBCD_construct_events.101
+	title = SBCD.roads
+	desc = SBCD_construct_events.menu_desc
+	picture = ECONOMY_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = early_road }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = gravel_road }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = royal_road }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = macadam_road }
+			SBCD_get_num_of_building_to_construct_effects = { BUILDING = railroad }
+		}
+	}
+	option = { #Early Road
+		name = building_early_road
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = early_road }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = early_road }
+	}
+	option = { #Gravel Road
+		name = building_gravel_road
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = gravel_road }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = gravel_road }
+	}
+	option = { #Royal Road
+		name = building_royal_road
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = royal_road }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = royal_road }
+	}
+	option = { #Macadam Road
+		name = building_macadam_road
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = macadam_road }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = macadam_road }
+	}
+	option = { #Railroad
+		name = building_railroad
+		ai_chance = { factor = 0 }
+		trigger = {
+			hidden_trigger = {
+				SBCD_can_build_triggers = { BUILDING = railroad }
+			}
+		}
+		SBCD_construct_building_scripted_effects = { BUILDING = railroad }
+	}
+	option = { #Return
+		name = SBCD.return
+		ai_chance = { factor = 0 }
+		highlight = yes
+		hidden_effect = {
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = early_road }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = gravel_road }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = royal_road }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = macadam_road }
+			SBCD_clear_building_vars_and_flags_effects = { BUILDING = railroad }
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = {
+				id = SBCD_construct_events.0
+			}
+		}
+	}
+}
