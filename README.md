@@ -27,6 +27,7 @@ Major
 - Tweaked mercenary related modifiers, with a primary focus on reduction of cost and manpower modifiers.
 - France saw a bunch of tweaks/rework to itself from naval doctrine, muskateers, reform and system of appanages.
 - Removed or updated some privileges that were either low quality or duplicates/similar of existing vanilla ones.
+- Byzantine missions completely replaced with a new one by Europa Expanded/Flavor Universalis.
 
 Minor
 - Fixed freedom of religion reform.

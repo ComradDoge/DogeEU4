@@ -1,0 +1,2835 @@
+namespace = FU_Byzantium_Events
+
+country_event = { #Mending the Schism
+	id = FU_Byzantium_Events.1
+	title = FU_Byzantium_Events.1.t 
+	desc = FU_Byzantium_Events.1.d 
+	picture = POPE_PREACHING_eventPicture
+	is_triggered_only = yes 
+	
+	option = { 
+		name = FU_Byzantium_Events.1.a 
+		
+		custom_tooltip = byz_all_catholics_bend_the_knee
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = catholic 
+					NOT = { war_with = ROOT }
+				}
+				country_event = { id = FU_Byzantium_Events.2 } 
+			}
+		}
+		add_patriarch_authority = 0.1 
+		add_prestige = 50 
+	}
+}
+
+country_event = { #Downfall of Catholicism 
+	id = FU_Byzantium_Events.2
+	title = FU_Byzantium_Events.2.t 
+	desc = FU_Byzantium_Events.2.d 
+	picture = RELIGIOUS_TURMOIL_eventPicture 
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.2.a 
+		
+		ai_chance = {
+			factor = 0.4
+			
+			modifier = {
+				factor = 0
+				OR = {
+					is_papal_controller = yes
+					tag = PAP
+					tag = HAB
+					is_emperor = yes
+					is_in_war = {
+						attackers = ROOT
+						casus_belli = cb_crusade
+					}
+				}
+			}
+			modifier = {
+				factor = 5
+				is_excommunicated = yes
+			}
+		}
+		
+		change_religion = orthodox
+		custom_tooltip = byz_convert_core_catholic_tt
+		add_stability = -2
+		add_prestige = -100
+		add_legitimacy = -50
+		add_republican_tradition = -25 
+		add_devotion = -50 
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_core = ROOT
+					religion = catholic
+				}
+				change_religion = orthodox
+			}
+		}
+		capital_scope = {
+			catholic_rebels = 3
+			catholic_rebels = 3
+			catholic_rebels = 3
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.2.b 
+		
+		
+		ai_chance = {
+			factor = 0.6
+			
+			modifier = {
+				factor = 100
+				OR = {
+					is_papal_controller = yes
+					tag = PAP
+					tag = HAB
+					is_emperor = yes
+					is_in_war = {
+						attackers = ROOT
+						casus_belli = cb_crusade
+					}
+				}
+			}
+		}
+		
+		reverse_add_casus_belli = {
+			target = FROM
+			type = cb_vassalize_mission
+			months = 240
+		}
+		reverse_add_opinion = {
+			who = FROM
+			modifier = byz_religious_schism_opinion
+		}
+	}
+}
+
+country_event = { #Offer of the Phoenix
+	id = FU_Byzantium_Events.3
+	title = FU_Byzantium_Events.3.t 
+	desc = FU_Byzantium_Events.3.d 
+	picture = REFORM_eventPicture 
+	is_triggered_only = yes 
+	
+	option = {
+		
+		name = FU_Byzantium_Events.3.a 
+		
+		BYZ = {
+			create_subject = {
+				subject_type = colony
+				subject = ROOT 
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		
+		name = FU_Byzantium_Events.3.b
+		ai_chance = { factor = 0 }
+		
+		add_prestige = 5
+		add_mil_power = 50
+	}
+}
+
+country_event = { #Imperial Themata of Byzantium
+	id = FU_Byzantium_Events.4
+	title = FU_Byzantium_Events.4.t 
+	desc = FU_Byzantium_Events.4.d 
+	picture = MILITARY_CAMP_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.4.a 
+		
+		add_years_of_income = -0.5 
+		add_country_modifier = {
+			name = byz_restored_themata_modifier 
+			duration = 10950 
+		}
+		random_owned_province = {
+			limit = {
+				is_capital = no 
+				OR = {
+					has_building = barracks 
+					has_building = training_fields
+				}
+				OR = {
+					trade_goods = grain 
+					trade_goods = livestock
+					trade_goods = fish
+					trade_goods = wine
+				}
+				base_manpower = 5 
+				has_manufactory_trigger = no 
+			}
+			add_building = soldier_households
+		}
+	}
+
+	option = {
+		name = FU_Byzantium_Events.4.b 
+		
+		add_years_of_income = -0.25
+		add_country_modifier = {
+			name = byz_restored_themata_modifier 
+			duration = 7300 
+		}
+		if = {
+			limit = { has_estate = estate_nobles }
+			add_estate_loyalty = {
+				estate = estate_nobles 
+				loyalty = 20 
+			}
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.4.c 
+		
+		random_owned_province = {
+			limit = { base_manpower = 5 } 
+			add_base_manpower = 1 
+		}
+		random_owned_province = {
+			limit = { base_manpower = 5 } 
+			add_base_manpower = 1 
+		}
+		random_owned_province = {
+			limit = { base_manpower = 5 } 
+			add_base_manpower = 1 
+		}
+	}
+}
+
+country_event = { #The End of Bulgarian Independence
+	id = FU_Byzantium_Events.5
+	title = FU_Byzantium_Events.5.t 
+	desc = FU_Byzantium_Events.5.d 
+	picture = LIBERUM_VETO_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.5.a 
+		
+		trigger = {
+			BUL = {
+				OR = {
+					NOT = { is_subject_of = ROOT }
+					exists = no 
+				}
+			}
+		}
+		
+		every_province = {
+			limit = { is_core = BUL }
+			remove_core = BUL 
+		}
+		silistria_area = {
+			add_devastation = 25 
+			change_culture = ROOT 
+			add_province_modifier = {
+				name = byz_romanization_bulgaria_modifier
+				duration = 5475 
+			}
+		}
+		bulgaria_area = {
+			add_devastation = 25 
+			change_culture = ROOT 
+			add_province_modifier = {
+				name = byz_romanization_bulgaria_modifier
+				duration = 5475 
+			}
+		}
+		1764 = {
+			add_devastation = 25 
+			change_culture = ROOT 
+			add_province_modifier = {
+				name = byz_romanization_bulgaria_modifier
+				duration = 5475 
+			}
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.5.b 
+		
+		add_accepted_culture = bulgarian 
+		custom_tooltip = byz_every_bulgarian_area_owned_by_us_or_subject_tt
+		hidden_effect = {
+			silistria_area = {
+				limit = { country_or_non_sovereign_subject_holds = ROOT }
+				random_list = {
+					30 = { add_base_tax = 1 }
+					40 = { add_base_production = 1 }
+					30 = { add_base_manpower = 1 }
+				}
+			}
+			bulgaria_area = {
+				limit = { country_or_non_sovereign_subject_holds = ROOT }
+				random_list = {
+					30 = { add_base_tax = 1 }
+					40 = { add_base_production = 1 }
+					30 = { add_base_manpower = 1 }
+				}
+			}	
+			1764 = {
+				if = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					random_list = {
+						30 = { add_base_tax = 1 }
+						40 = { add_base_production = 1 }
+						30 = { add_base_manpower = 1 }
+					}
+				}
+			}
+		}
+		if = {	
+			limit = { 
+				BUL = { is_subject_of = ROOT }
+			}
+			add_historical_friend = BUL 
+			BUL = { add_historical_friend = ROOT }
+			BUL = { 
+				add_country_modifier = {
+					name = byz_bulgarian_border_guards_modifier
+					duration = -1 
+					desc = byz_as_long_as_subject_desc
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Reconquest of Jerusalem
+	id = FU_Byzantium_Events.6
+	title = FU_Byzantium_Events.6.t 	
+	desc = FU_Byzantium_Events.6.d
+	picture = BYZ_JERUSALEM_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.6.a 
+		
+		379 = {
+			add_province_modifier = {
+				name =  byz_protectors_of_jerusalem_modifier
+				duration = -1 
+			}
+		}
+		egypt_region = {
+			limit = { 
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+			add_permanent_claim = ROOT 
+		}
+	}
+}
+
+country_event = { #Hidden event to give scholar trait 
+	id = FU_Byzantium_Events.7 
+	title = FU_Byzantium_Events.7.t 
+	desc = FU_Byzantium_Events.d 
+	picture = REFORM_eventPicture
+	hidden = yes
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.7.a 
+		
+		add_ruler_personality = scholar_personality
+	}
+}
+
+country_event = { #The Status of the Serbian Lands
+	id = FU_Byzantium_Events.8
+	title = FU_Byzantium_Events.8.t 
+	desc = FU_Byzantium_Events.8.d 
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.8.a #Restore the local Despot!
+		
+		trigger = {
+			SER = {
+				exists = no 
+				is_subject = no 
+			}
+		}
+		
+		ai_chance = {
+			factor = 100
+			
+			modifier = {
+				factor = 0
+				NOT = { num_of_free_diplomatic_relations = 1 }
+			}
+		}
+		
+		serbia_area = {
+			limit = {
+				NOT = { is_core = SER }
+				owned_by = ROOT
+			}
+			add_core = SER
+		}
+		rascia_area = {
+			limit = {
+				NOT = { is_core = SER }
+				owned_by = ROOT
+			}
+			add_core = SER
+		}
+		release = SER 
+		SER = {
+			change_government = monarchy
+			change_government_reform_progress = 200 
+			change_religion = ROOT 
+		}
+		create_march = SER
+		SER = {
+			add_country_modifier = {
+				name = byz_bulgarian_border_guards_modifier
+				duration = -1 
+				desc = byz_as_long_as_subject_desc
+			}
+			
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.8.b 
+		
+		serbia_area = {
+			add_province_modifier = {
+				name = byz_reorganization_dusan_code_modifier
+				duration = 7300
+			}
+		}
+		rascia_area = {
+			add_province_modifier = {
+				name = byz_reorganization_dusan_code_modifier
+				duration = 7300
+			}
+		}
+		change_adm = 1 
+	}
+}
+
+country_event = { #Conquest of Egypt
+	id = FU_Byzantium_Events.9
+	title = FU_Byzantium_Events.9.t 
+	desc = FU_Byzantium_Events.9.d 
+	picture = CONQUEST_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.9.a 
+		
+		trigger = {
+			MAM = {
+				exists = no 
+				is_subject = no 
+			}
+		}
+		
+		ai_chance = {
+			factor = 0.8
+			
+			modifier = {
+				factor = 0
+				NOT = { num_of_free_diplomatic_relations = 1 }
+			}
+		}
+		
+		hidden_effect = {
+			every_owned_province = {
+				limit = { 
+					is_core = MAM 
+				}
+				remove_core = MAM 
+			}
+		}
+		egypt_region = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_core = MAM
+			remove_core = ROOT
+		}
+		release = MAM
+		MAM = {
+			set_government_rank = 3 
+			change_government = monarchy
+			add_government_reform = mamluk_government
+			set_dynasty = ROOT
+			if = {
+				limit = {
+					historical_rival_with = ROOT
+				}
+				remove_historical_rival = ROOT
+			}
+			add_historical_friend = ROOT
+			add_liberty_desire = -50
+			set_capital = 358 
+		}
+		if = {
+			limit = {
+				historical_rival_with = MAM
+			}
+			remove_historical_rival = MAM
+		}
+		add_historical_friend = MAM
+		vassalize = MAM
+		add_country_modifier = {
+			name = byz_enforced_egyptian_public_service_modifier
+			duration = -1 
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.9.b 
+		
+		add_country_modifier = {
+			name = byz_enforced_egyptian_public_service_modifier
+			duration = -1 
+		}
+		add_adm_power = 100
+	}
+}
+
+country_event = { #The Kingdom of Prester John
+	id = FU_Byzantium_Events.10
+	title = FU_Byzantium_Events.10.t 
+	desc = FU_Byzantium_Events.10.d 
+	picture = fu_prester_john_eventPicture
+	is_triggered_only = yes  
+	
+	option = {
+		name = FU_Byzantium_Events.10.a 
+		
+		trigger = {
+			any_owned_province = {
+				religion = coptic
+			}
+		}
+		add_country_modifier = {
+			name = byz_tolerated_the_copts_modifier
+			duration = -1 
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.10.b 
+		define_advisor = {
+			type = inquisitor 
+			skill = 3 
+			cost_multiplier = 0.1
+		}
+		add_patriarch_authority = 0.1
+		if = {
+			limit = { has_estate = estate_church }
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 20 
+			}
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.10.c 
+		
+		highlight = yes 
+		trigger = {
+			OR = {
+				AND = {
+					ETH = {
+						alliance_with = ROOT 
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+						marriage_with = ROOT 
+					}
+				}
+				ETH = { is_subject_of = ROOT }
+			}
+		}
+		add_country_modifier = {
+			name = byz_christian_cooperation_modifier
+			duration = 10950 
+		}
+		define_advisor = {
+			type = inquisitor 
+			skill = 3 
+			cost_multiplier = 0.5
+		}
+		ETH = { 
+			add_country_modifier = {
+				name = byz_christian_cooperation_modifier
+				duration = -1
+			}
+			define_advisor = {
+				type = inquisitor 
+				skill = 3 
+				cost_multiplier = 0.5
+			}
+		}
+	}
+}
+
+country_event = { #The Glory of Rome 
+	id = FU_Byzantium_Events.11
+	title = FU_Byzantium_Events.11.t 
+	desc = FU_Byzantium_Events.11.d 
+	picture = BYZ_BYZANTINE_EAGLE_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.11.a 
+		
+		trigger = {
+			num_accepted_cultures = 12 
+		}
+		change_tag = ROM
+		custom_tooltip = roman_culture_provinces_tooltip
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_owner_culture = yes
+				}
+				change_culture = roman
+			}
+		}
+		change_primary_culture = roman
+		custom_tooltip = restore_roman_empire_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_part_of_hre = yes
+				}
+				set_in_empire = no
+			}
+			restore_country_name = yes
+		}
+		add_country_modifier = {
+			name = byz_roman_melting_pot_administration_modifier
+			duration = -1 
+		}
+		france_region = {
+			limit = { 
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+			add_permanent_claim = ROOT 
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.11.b 
+		
+		trigger = {
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.25
+			}
+		}
+		change_tag = ROM
+		custom_tooltip = roman_culture_provinces_tooltip
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_owner_culture = yes
+				}
+				change_culture = roman
+			}
+		}
+		change_primary_culture = roman
+		custom_tooltip = restore_roman_empire_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_part_of_hre = yes
+				}
+				set_in_empire = no
+			}
+			restore_country_name = yes
+		}
+		add_country_modifier = {
+			name = byz_autocratic_roman_administration_modifier
+			duration = -1 
+		}
+		france_region = {
+			limit = { 
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+			add_permanent_claim = ROOT 
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.11.c 
+		
+		trigger = { absolutism = 100 }
+		change_tag = ROM 
+		custom_tooltip = roman_culture_provinces_tooltip
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_owner_culture = yes
+				}
+				change_culture = roman
+			}
+		}
+		change_primary_culture = roman
+		custom_tooltip = restore_roman_empire_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_part_of_hre = yes
+				}
+				set_in_empire = no
+			}
+			restore_country_name = yes
+		}
+		add_country_modifier = {
+			name = byz_absolutist_roman_administration_modifier
+			duration = -1 
+		}
+		france_region = {
+			limit = { 
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+			add_permanent_claim = ROOT 
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.11.e 
+		
+		add_country_modifier = {
+			name = byz_byzantine_concept_of_europe_modifier
+			duration = -1 
+		}
+		france_region = {
+			limit = { 
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+			add_permanent_claim = ROOT 
+		}
+	}
+}
+
+country_event = { #Grand Library of the House of Wisdom
+	id = FU_Byzantium_Events.12
+	title = FU_Byzantium_Events.12.t 
+	desc = FU_Byzantium_Events.12.d 
+	picture = fu_islamic_library_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.12.a 
+		
+		410 = {
+			if = {
+				limit = { 
+					NOT = {	has_building = university }
+				}
+				add_building = university 
+			}
+			else = {
+				add_base_tax = 1 
+				add_base_production = 3
+			}
+		}
+		change_innovativeness = 5 
+	
+		if = {
+			limit = {
+				410 = { 
+					OR = {
+						religion = sunni 
+						religion = shiite 
+						religion = ibadi 
+					}
+				}
+			}
+			410 = {
+				add_province_modifier = {
+					name = byz_permitted_islamic_teaching_in_the_house_of_wisdom_modifier
+					duration = -1 
+				}
+			}
+		}
+	}
+}	
+
+country_event = { #Reorganization of the Byzantine Empire
+	id = FU_Byzantium_Events.13
+	title = FU_Byzantium_Events.13.t 
+	desc = FU_Byzantium_Events.13.d 
+	picture = fu_reforms_eventPicture
+	is_triggered_only = yes 
+	major = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.13.a 
+		
+		add_country_modifier = {
+			name = byz_fund_post_offices_modifier
+			duration = -1 
+		}
+		add_ruler_personality = silver_tongue_personality
+		add_absolutism = -35
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.13.b 
+		
+		add_country_modifier = {
+			name = byz_introduced_paper_banknotes_modifier
+			duration = -1 
+		}
+		add_ruler_personality = midas_touched_personality
+		add_absolutism = -50
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.13.c 
+		
+		add_country_modifier = {
+			name = byz_establish_a_national_anthem_modifier
+			duration = -1 
+		}
+		add_ruler_personality = inspiring_leader_personality
+		add_absolutism = -50
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.13.e 
+		
+		add_country_modifier = {
+			name = byz_academy_of_sciences_modifier
+			duration = -1 
+		}
+		add_ruler_personality = free_thinker_personality
+		add_absolutism = -50
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.13.f
+		
+		add_country_modifier = {
+			name = byz_reorganize_civil_and_criminal_code_modifier
+			duration = -1 
+		}
+		add_ruler_personality = lawgiver_personality
+		add_absolutism = -50
+	}	
+	
+	option = {
+		name = FU_Byzantium_Events.13.g 
+		
+		add_ruler_personality = good_caesar_personality #fu_absolutist_personality
+		add_absolutism = 20 
+	} 
+}
+
+country_event = { #The Bride of Thermaikos
+	id = FU_Byzantium_Events.14
+	title = FU_Byzantium_Events.14.t 
+	desc = FU_Byzantium_Events.14.d 
+	picture = fu_thessaloniki_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.14.a 
+		
+		148 = {
+			change_province_name = Thessaloniki
+			rename_capital = Thessaloniki 
+			add_base_tax = 1 
+			add_base_production = 1 
+			add_base_manpower = 1 
+			add_province_modifier = {
+				name = byz_symvasilevousa_modifier
+				duration = -1 
+			}
+		}
+	}
+}
+
+country_event = { #Legacy of the Ottoman Order
+	id = FU_Byzantium_Events.15
+	title = FU_Byzantium_Events.15.t 
+	desc = FU_Byzantium_Events.15.x 
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.15.a 
+		
+		change_mil = 2 
+		add_ruler_modifier = {
+			name = byz_marbled_king_returns_modifier
+			duration = -1 
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.15.b 
+		add_country_modifier = {
+			name = byz_cheron_school_administration_modifier
+			duration = 10950 
+		}
+		change_innovativeness = 2 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.15.c 
+		
+		add_country_modifier = {
+			name = byz_romanized_the_timars_modifier 
+			duration = 9125 
+		}
+		if = {
+			limit = { has_estate = estate_nobles }
+			add_estate_loyalty = {
+				estate = estate_nobles 
+				loyalty = 15 
+			}
+		}
+	}
+}	
+
+country_event = { #Anatolia Returns to the Empire
+	id = FU_Byzantium_Events.16
+	title = FU_Byzantium_Events.16.t 
+	desc = FU_Byzantium_Events.16.d 
+	picture = {
+		trigger = {
+			has_dlc = "Purple Phoenix"
+		}
+		picture = BYZ_CIVIL_WAR_eventPicture
+	}
+	picture = {
+		trigger = {
+			NOT = { has_dlc = "Purple Phoenix" }
+		}
+		picture = RELIGIOUS_TURMOIL_eventPicture
+	}
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.16.a 
+		
+		add_country_modifier = {
+			name = byz_enforced_hellenization_modifier
+			duration = 5475
+		}
+		add_patriarch_authority = 0.1
+		custom_tooltip = byz_impact_missions_tt
+		set_country_flag = byz_turkish_conversion_camps_flag
+		custom_tooltip = " "
+		custom_tooltip = FU_CONVERT_ANATOLIA_OVER_TIME
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.16.b 
+		
+		custom_tooltip = byz_accept_turkish_culture_no_slot_tt
+		hidden_effect = {
+			add_accepted_culture = turkish
+			add_country_modifier = {
+				name = byz_accepted_turkish_culture 
+				duration = -1 
+				hidden = yes 
+			}
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = { culture = turkish } 
+				add_province_modifier = {
+					name = byz_tolerated_turkish_population_modifier
+					duration = -1 
+				}
+			}
+		}
+		set_country_flag = byz_tolerated_turkish_pop_flag 
+		add_dip_power = 100 
+		add_ruler_personality = tolerant_personality 
+		custom_tooltip = byz_impact_missions_tt
+	}
+}	
+
+country_event = { #The Faithful of Georgia 
+	id = FU_Byzantium_Events.17
+	title = FU_Byzantium_Events.17.t 
+	desc = FU_Byzantium_Events.17.d 
+	picture = BYZ_COURT_eventPicture
+	is_triggered_only = yes 
+	
+	option = { 
+		name = FU_Byzantium_Events.17.a 
+		
+		trigger = {
+			GEO = { 
+				OR = { 
+					exists = no 
+					is_subject_of = ROOT 
+				}
+			}
+		}
+		
+		ai_chance = {
+			factor = 100
+			
+			modifier = {
+				factor = 0
+				NOT = { num_of_free_diplomatic_relations = 1 }
+			}
+		}
+		
+		if = {
+			limit = { 
+				GEO = { 
+					exists = no 
+				}
+			}
+			caucasia_region = {
+				limit = {
+					NOT = { is_core = GEO }
+					owned_by = ROOT
+				}
+				add_core = GEO
+			}
+			release = GEO 
+			GEO = {
+				change_government = monarchy
+				change_government_reform_progress = 200 
+				change_religion = ROOT 
+			}
+			create_march = GEO
+			GEO = {
+				add_country_modifier = {
+					name = byz_georgian_patronqmoba_system_modifier
+					duration = -1 
+					desc = byz_as_long_as_subject_desc
+				}
+			}
+		}
+		else = {
+			GEO = {
+				add_country_modifier = {
+					name = byz_georgian_patronqmoba_system_modifier
+					duration = -1 
+					desc = byz_as_long_as_subject_desc
+				}
+				add_mil_power = 100
+				add_prestige = 25
+			}
+		}
+		if = {
+			limit = { 
+				TRE = { is_subject_of = ROOT }
+			}
+			TRE = { 
+				add_country_modifier = {
+					name = byz_legitimized_komnenos_dynasty_modifier
+					duration = 10950
+				}
+			}
+		}
+		persia_region = {
+			limit = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+				is_empty = no
+			}
+			add_permanent_claim = ROOT
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.17.b 
+		
+		caucasia_region = {
+			limit = { country_or_non_sovereign_subject_holds = ROOT }
+			add_nationalism = -5 
+		}
+		add_country_modifier = {
+			name = byz_regulated_the_georgian_court_modifier 
+			duration = 7300 
+		}
+		persia_region = {
+			limit = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+				is_empty = no
+			}
+			add_permanent_claim = ROOT
+		}
+	}
+}
+
+country_event = { #Reconciling with the See of Rome 
+	id = FU_Byzantium_Events.18
+	title = FU_Byzantium_Events.18.t 
+	desc = FU_Byzantium_Events.18.d 
+	picture = ST_PETERS_CHURCH_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.18.a 
+		
+		PAP = { 
+			country_event = { id = FU_Byzantium_Events.24 }
+		}
+		custom_tooltip = byz_if_pap_helps_tt
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.18.b 
+		
+		add_patriarch_authority = 0.05
+		add_estate_loyalty = {
+			estate = estate_church 
+			loyalty = 15 
+		}
+	}
+}
+
+country_event = { #Royal Workshops of Constantinople 
+	id = FU_Byzantium_Events.19
+	title = FU_Byzantium_Events.19.t 
+	desc = FU_Byzantium_Events.19.d 
+	picture = FEAST_eventPicture 
+	is_triggered_only = yes 
+	
+	# option = {
+		# name = FU_Byzantium_Events.19.a 
+		
+		# trigger = {
+			# custom_trigger_tooltip = {
+				# tooltip = has_trade_goods_expanded_active
+				# has_global_flag = trade_goods_expanded_mod_active 
+			# }
+			# 151 = { has_province_modifier = diamond_district }
+		# }
+		# 151 = {
+			# change_trade_goods = jewellery 
+			# add_building = jewellery_workshop  
+		# }
+	# }
+	
+	option = {	
+		name = FU_Byzantium_Events.19.b 
+		
+		trigger = { 
+			151 = { has_province_modifier = diamond_district }
+		}
+		
+		151 = {
+			remove_country_modifier = diamond_district 
+			add_province_modifier = {
+				name = byz_diamond_district_modifier 
+				duration = -1 
+			}
+			add_base_production = 1
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.19.c 
+		
+		trigger = { 
+			151 = { trade_goods = glass }
+		}
+		151 = {
+			add_province_modifier = {
+				name = byz_byzantine_glassmakers_modifier
+				duration = -1 
+			}
+		}
+		change_price = {
+			trade_goods = glass
+			key = byz_glass_techniques_modifier
+			value = 0.20
+			duration = -1
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.19.e 
+		
+		151 = {
+			change_trade_goods = silk 
+			if = { 
+				limit = { has_building = counting_house } 
+				add_base_production = 3 
+			}
+			else_if = {
+				limit = { has_building = workshop }
+				remove_building = workshop 
+				add_building = counting_house 
+			}
+			add_base_production = 2 
+		}
+		set_country_flag = byz_tyrian_purple_silk_flag 
+		custom_tooltip = byz_tyrian_purple_silk_tt 
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+country_event = { #The Spoils of Cairo
+	id = FU_Byzantium_Events.20
+	title = FU_Byzantium_Events.20.t 
+	desc = FU_Byzantium_Events.20.d 
+	picture = CITY_VIEW_eventPicture 
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.20.a 
+		
+		trigger = {
+			361 = {
+				NOT = { is_capital_of = ROOT }
+			}
+		}
+		361 = { 
+			add_devastation = 100 
+			add_base_tax = -1 
+			add_base_production = -1 
+			add_base_manpower = -1 
+			add_unrest = 10 
+		}
+	
+		capital_scope = {
+			add_base_tax = 1 
+			add_base_production = 1 
+			add_base_manpower = 1
+			if = {
+				limit = { has_dlc = "Leviathan" }
+				add_province_modifier = {
+					name = byz_treasures_of_the_ages_modifier
+					duration = 7300 
+				}
+			}
+			else = { 
+				add_province_modifier = {
+					name = byz_treasures_of_the_ages_non_leviathan_modifier
+					duration = 7300 
+				}
+			}
+			add_prosperity = 100
+		}
+		ai_chance = { factor = 0.75 }
+	}
+
+	option = {
+		name = FU_Byzantium_Events.20.b 
+		
+		add_years_of_income = 1
+		add_ruler_personality = kind_hearted_personality
+		add_dip_power = 50 	
+	}
+}
+
+
+
+country_event = { #Ghost-kun event to remove above Bulgarian modifier-chan OwO
+	id = FU_Byzantium_Events.21
+	title = FU_Byzantium_Events.21.t 
+	desc = FU_Byzantium_Events.21.d 
+	picture = REFORM_eventPicture
+	hidden = yes 
+	
+	trigger = {
+		has_country_modifier =  byz_bulgarian_border_guards_modifier
+		is_subject = no 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.21.a 
+		
+		remove_country_modifier = byz_bulgarian_border_guards_modifier 
+	}
+}
+
+country_event = { #apply turkish province bonus  
+	id = FU_Byzantium_Events.22
+	title = FU_Byzantium_Events.22.t 
+	desc = FU_Byzantium_Events.22.d 
+	picture = REFORM_eventPicture 
+	hidden = yes 
+	
+	trigger = {
+		tag = BYZ 
+		has_country_flag = byz_tolerated_turkish_pop_flag
+		any_owned_province = {
+			culture = turkish 
+			NOT = { has_province_modifier = byz_tolerated_turkish_population_modifier }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.22.a 
+		
+		every_owned_province = {
+			limit = { culture = turkish }
+			add_province_modifier = {
+				name = byz_tolerated_turkish_population_modifier
+				duration = -1 
+			}
+		}
+	}
+}
+
+country_event = { #event to remove turkish acceptance bonus in the event of losing turkish culture provinces 
+	id = FU_Byzantium_Events.23
+	title = FU_Byzantium_Events.23.t 
+	desc = FU_Byzantium_Events.23.d 
+	picture = REFORM_eventPicture
+	hidden = yes 
+	
+	trigger = {
+		tag = BYZ 
+		has_country_flag = byz_tolerated_turkish_pop_flag 
+		NOT = { accepted_culture = turkish }
+		any_owned_province = { has_province_modifier = byz_tolerated_turkish_population_modifier }
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.23.a 
+		
+		clr_country_flag = byz_tolerated_turkish_pop_flag 
+		every_owned_province = {
+			limit = { has_province_modifier = byz_tolerated_turkish_population_modifier }
+			remove_province_modifier = byz_tolerated_turkish_population_modifier
+		}
+	}
+}
+
+country_event = { #The Byzantine Appeal to the West
+	id = FU_Byzantium_Events.24
+	title = FU_Byzantium_Events.24.t 
+	desc = FU_Byzantium_Events.24.d 
+	picture = CONQUEST_eventPicture
+	is_triggered_only = yes 
+	
+	option = { 
+		name = FU_Byzantium_Events.24.a 
+		
+		BYZ = {
+			country_event = { 
+				id = FU_Byzantium_Events.25 
+				days = 10
+				random = 10
+			}
+		}
+		add_prestige = 10 
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.24.b 
+		
+		ai_chance = { factor = 0 }
+		add_prestige = 10 
+	}
+}
+
+country_event = { #The Papal Delegate Arrives!" 
+	id = FU_Byzantium_Events.25
+	title = FU_Byzantium_Events.25.t 
+	desc = FU_Byzantium_Events.25.d 
+	picture = ORTHODOX_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.25.a 
+		
+		ai_chance = { factor = 1 }
+		
+		change_religion = catholic 
+		every_owned_province = {
+			limit = { religion = orthodox }
+			change_religion = catholic 
+		}
+		add_prestige = -50  
+		set_ruler_religion = catholic 
+		set_heir_religion = catholic 
+		set_consort_religion = catholic 
+		random_owned_province = {
+			limit = { 
+				controlled_by = ROOT 
+			}
+			orthodox_rebels = 1 
+		}
+		PAP = {
+			add_opinion = {
+				who = ROOT 
+				modifier = byz_byzantine_conversion_modifier
+			}
+			set_ai_attitude = {
+				attitude = attitude_friendly
+				who = ROOT 
+			}
+		}
+		if = { 
+			limit = {
+				HAB = { 
+					NOT = { num_of_loans = 3 }
+					manpower_percentage = 0.25
+					is_at_war = no  
+					NOT = { truce_with = TUR } 
+					is_rival = no  
+					is_subject = no 
+					is_bankrupt = no
+					religion = catholic
+					total_development = 175 
+				}
+			}
+			HAB = { 
+				country_event = { id = FU_Byzantium_Events.26 }
+			}
+		}
+		else_if = {
+			limit = {
+				POL = {
+					NOT = { num_of_loans = 3 }
+					manpower_percentage = 0.25
+					is_at_war = no 
+					is_rival = no  
+					is_subject = no 
+					is_bankrupt = no
+					religion = catholic
+					total_development = 175 
+				}
+			}
+			POL = { 
+				country_event = { id = FU_Byzantium_Events.26 }
+				add_opinion = {
+					who = ROOT 
+					modifier = byz_byzantine_conversion_modifier
+				}
+				set_ai_attitude = {
+					attitude = attitude_friendly
+					who = ROOT 
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				HUN = {
+					NOT = { num_of_loans = 3 }
+					manpower_percentage = 0.25
+					is_at_war = no   
+					is_rival = no  
+					is_subject = no 
+					is_bankrupt = no
+					religion = catholic
+					total_development = 175 
+				}
+			}
+			HUN = { 
+				country_event = { id = FU_Byzantium_Events.26 }
+				add_opinion = {
+					who = ROOT 
+					modifier = byz_byzantine_conversion_modifier
+				}
+				set_ai_attitude = {
+					attitude = attitude_friendly
+					who = ROOT 
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				CAS = {
+					NOT = { num_of_loans = 3 }
+					manpower_percentage = 0.25
+					is_at_war = no  
+					is_rival = no  
+					is_subject = no 
+					is_bankrupt = no
+					religion = catholic
+					total_development = 175 
+				}
+			}
+			CAS = { 
+				country_event = { id = FU_Byzantium_Events.26 }
+				add_opinion = {
+					who = ROOT 
+					modifier = byz_byzantine_conversion_modifier
+				}
+				set_ai_attitude = {
+					attitude = attitude_friendly
+					who = ROOT 
+				}
+			}
+		}
+		else = {
+			add_manpower = 10
+			add_treasury = 500  
+			add_curia_treasury = -500
+			custom_tooltip = mlo_attract_swiss_elite_merc_tt 
+			hidden_effect = {
+				set_country_flag = mlo_attracted_elite_swiss_merc
+			}
+		}
+		if = {
+			limit = {
+				VEN = { 
+					NOT = { num_of_loans = 3 }
+					manpower_percentage = 0.25
+					is_at_war = no  
+					NOT = { truce_with = TUR } 
+					is_rival = no  
+					is_subject = no 
+					is_bankrupt = no
+					religion = catholic
+					total_development = 175 
+				}
+			}
+			VEN = { 
+				country_event = { id = FU_Byzantium_Events.26 }
+				add_opinion = {
+					who = ROOT 
+					modifier = byz_byzantine_conversion_modifier
+				}
+				set_ai_attitude = {
+					attitude = attitude_friendly
+					who = ROOT 
+				}
+				random_owned_province = { 
+					limit = { has_port = yes } 
+					galley = VEN 
+					galley = VEN
+				}
+				add_sailors = 1 
+			}
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.25.b 
+		ai_chance = { factor = 0 }
+		
+		add_patriarch_authority = 0.05
+		add_estate_loyalty = {
+			estate = estate_church 
+			loyalty = 15 
+		}
+		add_ruler_personality = inspiring_leader_personality 
+	}
+}
+
+country_event = { #In the Defense of Rome!
+	id = FU_Byzantium_Events.26
+	title = FU_Byzantium_Events.26.t 
+	desc = FU_Byzantium_Events.26.d 
+	picture = BYZ_BYZANTINE_EAGLE_eventPicture
+	is_triggered_only = yes 
+	major = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.26.a 
+		
+		ai_chance = { factor = 1 }
+		create_alliance = BYZ
+		add_papal_influence = 15
+		create_marriage = BYZ 
+	}
+	
+	option = { 
+		name = FU_Byzantium_Events.26.b 
+		
+		add_prestige = 10 
+		ai_chance = { factor = 0 }
+	}
+}
+
+country_event = { #The Decay of Rome
+	id = FU_Byzantium_Events.27
+	title = FU_Byzantium_Events.27.t 
+	desc = FU_Byzantium_Events.27.d 
+	picture = {
+		trigger = {
+			has_dlc = "Purple Phoenix"
+		}
+		picture = BYZ_CIVIL_WAR_eventPicture
+	}
+	picture = {
+		trigger = {
+			NOT = { has_dlc = "Purple Phoenix" }
+		}
+		picture = REVOLUTION_eventPicture
+	}
+	fire_only_once = yes 
+	
+	trigger = {
+		tag = BYZ
+		NOT = { 
+			BYZ = { total_development = 85 }
+		}
+		NOT = { is_year = 1453 }
+		is_subject = no 
+		# if = {
+			# limit = { has_dlc = "Purple Phoenix" }
+			NOT = { mission_completed = byz_prevent_collapse }
+		# }
+		# else = { 
+			# NOT = { mission_completed = ppbyz_prevent_collapse }
+		# }
+		# if = {
+			# limit = { has_dlc = "Purple Phoenix" }
+			NOT = { mission_completed = byz_retain_imperial_throne }
+		# }
+		# else = { 
+			# NOT = { mission_completed = ppbyz_retain_imperial_throne }
+		# }
+	}
+	
+	mean_time_to_happen = { months = 1 } 
+	
+	option = {
+		name = FU_Byzantium_Events.27.a 
+		
+		add_country_modifier = {
+			name = byz_decay_byzantium_modifier 
+			duration = -1 
+			desc = until_we_complete_missions_desc
+		}
+		add_prestige = -25 
+		add_legitimacy = -50
+		add_stability = -1
+		
+		aydin_area = {
+			limit = { 
+				NOT = { owned_by = ROOT }
+			}
+			add_core = ROOT 
+		}
+		hudavendigar_area = {
+			limit = { 
+				NOT = { owned_by = ROOT }
+			}
+			add_core = ROOT 
+		}
+	}
+}
+	
+country_event = { #The Brightest Academy of Europe
+	id = FU_Byzantium_Events.28
+	title = FU_Byzantium_Events.28.t 
+	desc = FU_Byzantium_Events.28.d 
+	picture = {
+		trigger = {
+			has_dlc = "Purple Phoenix"
+		}
+		picture = BYZ_ATHENS_eventPicture
+	}
+	picture = {
+		trigger = {
+			NOT = { has_dlc = "Purple Phoenix" }
+		}
+		picture = UNIVERSITY_eventPicture
+	}
+	fire_only_once = yes 
+	
+	trigger = {
+		owns = 146 
+		146 = {
+			has_great_project = {
+				type = parthenon
+				tier = 3 
+			}
+			has_building = university 
+			development = 45 
+		}
+	}
+	mean_time_to_happen = { 
+		months = 24
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.28.a 
+		
+		add_country_modifier = {
+			name = byz_platos_brightest_academy_modifier
+			duration = 5475 
+		}
+		change_innovativeness = 2 
+	}
+}
+
+country_event = { #Military Campaigns in North Africa 
+	id = FU_Byzantium_Events.29
+	title = FU_Byzantium_Events.29.t 
+	desc = FU_Byzantium_Events.29.d 
+	picture = SIEGE_eventPicture 
+	fire_only_once = yes 
+	trigger = {
+		any_country = {
+			capital_scope = { 
+				region = maghreb_region 
+			}
+			war_with = ROOT 
+		}
+		tag = BYZ 
+		total_development = 500 
+	}
+	
+	mean_time_to_happen = {
+		months = 120 
+	}
+	
+	option = {	
+		name = FU_Byzantium_Events.29.a 
+		
+		add_country_modifier = {
+			name = byz_march_to_maghreb_modifier
+			duration = 3650 
+		}
+	}
+}
+
+country_event = { #The Burning of Venezia (revenge for 1204)
+	id = FU_Byzantium_Events.30
+	title = FU_Byzantium_Events.30.t 
+	desc = FU_Byzantium_Events.30.d 
+	picture = REVOLUTION_eventPicture 
+	fire_only_once = yes 
+	trigger = {
+		tag = BYZ 
+		is_at_war = yes 
+		112 = { 
+			NOT = { country_or_non_sovereign_subject_holds = BYZ } 
+			sieged_by = BYZ
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 3 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.30.a 
+		
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				years_of_income = 0.5
+			}
+		}
+		add_prestige = 25 
+		add_ruler_personality = kind_hearted_personality 
+		112 = { add_devastation = 25 }
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.30.b 
+		
+		112 = {
+			add_base_tax = -2 
+			add_base_production = -1
+			add_base_manpower = -1 
+			add_devastation = 100 
+		}
+		add_years_of_income = 1 
+	}
+}
+
+country_event = { #Competition in the Aegean 
+	id = FU_Byzantium_Events.31
+	title = FU_Byzantium_Events.31.t 
+	desc = FU_Byzantium_Events.31.d 
+	picture = BYZ_HARBOUR_eventPicture
+	fire_only_once = yes 
+	
+	trigger = {
+		tag = BYZ 
+		1320 = {
+			trade_share = {
+				country = BYZ 
+				share = 25 
+			}
+		}
+		151 = { owned_by = BYZ } 
+		is_at_war = no 
+		NOT = { is_rival = VEN }
+		VEN = { exists = yes } 
+	}
+	
+	mean_time_to_happen = {
+		months = 36 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.31.a 
+		
+		add_country_modifier = {
+			name = byz_influx_venetian_business_modifier
+			duration = 5475 
+		}
+		VEN = { 
+			add_years_of_income = 0.5 
+			add_ruler_personality = entrepreneur_personality 
+		}
+	}	
+	
+	option = { 
+		name = FU_Byzantium_Events.31.b 
+		
+		add_mercantilism = 3 
+		VEN = { 	
+			add_opinion = {
+				who = ROOT 
+				modifier = byz_denied_access_to_constantinople_modifier
+			}
+			add_casus_belli = {
+				target = ROOT 
+				type = cb_trade_war_triggered
+				months = 24
+			}
+		}
+	}
+}
+
+country_event = { #The Final Hour of the Empire 
+	id = FU_Byzantium_Events.32
+	title = FU_Byzantium_Events.32.t 
+	desc = FU_Byzantium_Events.32.d 
+	picture = BATTLE_eventPicture 
+	fire_only_once = yes 
+	
+	trigger = {	
+		tag = BYZ
+		NOT = {
+			war_score_against = {
+				who = TUR 
+				value = -50
+			}
+		}
+		war_with = TUR 
+		num_of_loans = 3 
+		war_exhaustion = 3 
+		NOT = { is_year = 1454 }
+	}
+	mean_time_to_happen = { 
+		months = 3
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.32.a 
+		
+		add_war_exhaustion = -1 
+		add_prestige = 10 
+	}
+}
+
+country_event = { #The Re-Discovery of Greek Epic Literary Works
+	id = FU_Byzantium_Events.33
+	title = FU_Byzantium_Events.33.t 
+	desc = FU_Byzantium_Events.33.d 
+	picture = BIG_BOOK_eventPicture
+	fire_only_once = yes 
+	
+	trigger = {
+		tag = BYZ 
+		OR = {
+			adm_tech = 17 
+			innovativeness = 50 
+		}
+		OR = {
+			adm = 6 
+			full_idea_group = innovativeness_ideas 
+		}
+		146 = { owned_by = ROOT }
+		ROOT = {	
+			OR = {
+				ruler_has_personality = scholar_personality 
+				ruler_has_personality = free_thinker_personality 
+				capital_scope = { development = 50 } 
+			}
+		}
+	}
+	mean_time_to_happen = { 
+		months = 24
+	}
+	
+	option = {	
+		name = FU_Byzantium_Events.33.a 
+		
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 25
+				years_of_income = 0.5
+			}
+		}
+		define_advisor = {
+			type = artist 
+			cost_multiplier = 0.25
+			skill = 3 
+		}
+		add_ruler_personality = patron_of_arts_personality
+		change_innovativeness = 1 
+		add_years_of_income = -0.5 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.33.b 
+		ai_chance = {
+			factor = 50
+		}
+		add_prestige = 5
+	}
+}
+
+country_event = { #A Tale of Two Romes 
+	id = FU_Byzantium_Events.34
+	title = FU_Byzantium_Events.34.t 
+	desc = FU_Byzantium_Events.34.d 
+	picture = HRE_eventPicture 
+	fire_only_once = yes 
+	
+	trigger = {
+		tag = BYZ 
+		HAB = { 
+			is_emperor = yes 
+			religion = catholic
+			NOT = { alliance_with = BYZ } 
+			NOT = { truce_with = BYZ }
+		}
+		hre_size = 1 
+		hre_leagues_enabled = yes 
+		NOT = { in_league = protestant }
+	}
+	mean_time_to_happen = { 
+		months = 1
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.34.a 
+		
+		ai_chance = {
+			factor = 0
+		}
+		custom_tooltip = byz_if_we_are_victorious_tt
+		set_country_flag = byz_scorch_the_empire_flag 
+		if = { 
+			limit = { 
+				valid_for_personal_unions_trigger = yes
+				HAB = {
+					valid_for_personal_unions_trigger = yes
+				}
+			}
+			add_casus_belli = {
+				type = cb_restore_personal_union
+				months = 130
+				target = HAB
+			}
+		}
+		# else = {
+			# add_casus_belli = {
+				# target = HAB
+				# type = cb_make_puppet
+				# months = 180
+			# }
+		# }
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.34.b 
+		ai_chance = {
+			factor = 2
+		}
+		join_league = protestant 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.34.c 
+		
+		ai_chance = {
+			factor = 0.5
+		}
+		add_prestige = -20 
+		add_legitimacy = -10 
+		add_devotion = -10 
+		add_republican_tradition = -5 
+	}
+}
+
+country_event = { #hidden event to buff HAB 
+	id = FU_Byzantium_Events.35
+	title = FU_Byzantium_Events.35.t 
+	desc = FU_Byzantium_Events.35.d 
+	picture = UNIVERSITY_eventPicture
+	hidden = yes 
+	fire_only_once = yes 
+	trigger = {
+		tag = HAB 
+		war_with = BYZ 
+		BYZ = { has_country_flag = byz_scorch_the_empire_flag }
+	}
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.35.a 
+		
+		add_country_modifier = {
+			name = byz_fight_for_the_empire 
+			duration = 10850
+		}
+		add_prestige = 25 
+		add_years_of_income = 2 
+		add_manpower = 50
+	}
+}
+
+country_event = { #Struggle of Giants
+	id = FU_Byzantium_Events.36
+	title = FU_Byzantium_Events.36.t 
+	desc = FU_Byzantium_Events.36.d 
+	picture = HRE_eventPicture
+	
+	trigger = {
+		capital_scope = {
+			continent = europe 
+		}
+		religion = catholic 
+		NOT = { is_rival = HAB }
+		is_at_war = no 
+		NOT = { alliance_with = BYZ }
+		is_subject = no 
+		is_bankrupt = no 
+		OR = {
+			hre_religion_locked = no 
+			hre_religion_treaty = no
+		}
+		hre_size = 1
+		NOT = { truce_with = BYZ }
+		BYZ = { has_country_flag = byz_scorch_the_empire_flag }
+		HAB = { war_with = BYZ } 
+		NOT = { has_country_flag = byz_in_defense_of_the_emperor_flag }
+	}
+	mean_time_to_happen = { months = 12 } 
+	
+	immediate = {
+		hidden_effect = { set_country_flag = byz_in_defense_of_the_emperor_flag }
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.36.a 
+		
+		ai_chance = {
+			factor = 0.35
+			modifier = {
+				is_rival = BYZ 
+				factor = 10 
+			}
+		}
+		join_all_offensive_wars_of = HAB 
+		join_all_defensive_wars_of = HAB 
+		HAB = { add_imperial_influence = 1 }
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.36.b 
+		
+		ai_chance = {
+			factor = 0.65
+		}
+		HAB = {
+			add_opinion = {
+				who = ROOT 
+				modifier = byz_refused_to_defend_the_empire_opinion
+			}
+		}
+	}
+}
+
+country_event = { #Blood Moon Rises over Europe 
+	id = FU_Byzantium_Events.37
+	title = FU_Byzantium_Events.37.t 
+	desc = FU_Byzantium_Events.37.d 
+	picture = big_castle_eventPicture
+	fire_only_once = yes 
+	trigger = {
+		tag = BYZ
+		OR = {
+			BYZ = { has_country_flag = byz_scorch_the_empire_flag }
+			HAB = {
+				has_country_modifier = byz_fight_for_the_empire
+			}
+		}
+		war_with = HAB 
+		war_score_against = {
+			who = HAB 
+			value = 75
+		}
+		HAB = { 
+			capital_scope = { controlled_by = ROOT }
+		}
+	}
+	
+	mean_time_to_happen = { months = 1 } 
+	
+	immediate = { 
+		hidden_effect = {
+			clr_country_flag = byz_scorch_the_empire_flag 
+			clr_country_flag = byz_in_defense_of_the_emperor_flag 
+			HAB = { remove_country_modifier = byz_fight_for_the_empire }
+		}
+	}
+	
+	option = { 
+		name = FU_Byzantium_Events.37.a 
+		
+		ai_chance = {
+			factor = 0.65
+		}
+		white_peace = HAB
+		add_prestige = 100 
+		add_country_modifier = {
+			name = byz_legitimate_rome_modifier
+			duration = -1 
+		}	
+		dismantle_hre = yes 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.37.b 
+		
+		ai_chance = {
+			factor = 0.35
+		}
+		add_country_modifier = {
+			name = byz_legitimate_rome_modifier
+			duration = -1 
+		}
+	}	
+}	
+
+country_event = { #Heirs of the Imperial Throne 
+	id = FU_Byzantium_Events.38
+	title = FU_Byzantium_Events.38.t 
+	desc = FU_Byzantium_Events.38.d 
+	picture = {
+		trigger = {
+			has_dlc = "Purple Phoenix"
+		}
+		picture = BYZ_BYZANTINE_EMPEROR_eventPicture
+	}
+	picture = {
+		trigger = {
+			NOT = { has_dlc = "Star and Crescent" }
+		}
+		picture = ADVISOR_eventPicture
+	}
+	fire_only_once = yes 
+	major = yes 
+	
+	trigger = {	
+		tag = BYZ 
+		has_ruler = "Konstantinos"
+		if = { 
+			limit = { has_estate = estate_nobles } 
+			NOT = { 
+				estate_loyalty = {
+					estate = estate_nobles 
+					loyalty = 50
+				}
+			}
+		}
+		NOT = { development = 100 }
+		NOT = { legitimacy = 75 }
+		NOT = { stability = 1 }
+		NOT = { war_with = TUR }
+		
+	}
+	
+	mean_time_to_happen = { months = 6 } 
+	
+	option = { 
+		name = FU_Byzantium_Events.38.a 
+		ai_chance = { factor = 0.5 }
+		if = {	
+			limit = {
+				has_estate = estate_nobles 
+			}
+			change_estate_land_share = {
+				estate = estate_nobles 
+				share = 5
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles 
+				loyalty = 10 
+			}
+			add_legitimacy = -10 
+			define_general = {
+				name = "Thomas Palaiologos" 
+				fire = 2
+				shock = 3 
+				manuever = 2
+				siege = 0
+			}
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.38.b 
+		ai_chance = { factor = 0.25 }
+		define_ruler = {
+			name = "Dimitrios"
+			dynasty = ROOT 
+			claim = 50 
+		}
+		add_truce_with = TUR 
+		add_prestige = -10
+		add_treasury = -50
+		custom_tooltip = byz_turkish_prestige_tt
+		hidden_effect = {
+			TUR = { 
+				add_prestige = 25 
+				add_treasury = 250 
+			}
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.38.c 
+		ai_chance = { factor = 0.25 }
+		define_ruler = {
+			name = "Thomas" 
+			dynasty = ROOT 
+			adm = 2 
+			dip = 1 
+			mil = 3 
+			max_random_adm = 3 
+			max_random_dip = 3 
+			max_random_mil = 3 
+			claim = 50
+		}
+		add_legitimacy = -10 
+		add_prestige = -10 
+	}
+}
+	
+country_event = { #Gelati Monastery 
+	id = FU_Byzantium_Events.39
+	title = FU_Byzantium_Events.39.t 
+	desc = FU_Byzantium_Events.39.d 
+	picture = fu_monastery_eventPicture 
+	fire_only_once = yes 
+	
+	trigger = {
+		tag = BYZ 
+		422 = { country_or_non_sovereign_subject_holds = ROOT }
+		422 = { 
+			NOT = { devastation = 1 }
+			religion = orthodox 
+			has_owner_religion = yes 
+		}
+	}
+	
+	mean_time_to_happen = { months = 120 }
+	
+	option = {
+		name = FU_Byzantium_Events.39.a 
+		
+		ai_chance = { factor = 0.5 }
+		422 = {
+			if = { 
+				limit = { has_building = temple } 
+				remove_building = temple 
+				add_building = cathedral 
+			}
+			else = { add_building = temple }
+			add_base_tax = 2 
+			owner = {
+				add_patriarch_authority = 0.05 
+				add_prestige = 15
+				add_estate_loyalty = {	
+					estate = estate_church 
+					loyalty = 10 
+				}
+			}
+		}
+		add_treasury = -400
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.39.b 
+		ai_chance = { factor = 0.5 }
+		add_prestige = -5 
+		add_estate_loyalty = {
+			estate = estate_church 
+			loyalty = -10 
+		}
+	}
+}
+	
+country_event = { #Tyrian Purple 
+	id = FU_Byzantium_Events.40
+	title = FU_Byzantium_Events.40.t 
+	desc = FU_Byzantium_Events.40.d 
+	picture = ECONOMY_eventPicture
+	fire_only_once = yes 
+	trigger = {
+		tag = BYZ 
+		OR = {
+			any_owned_province = {
+				trade_goods = silk 
+				has_manufactory_trigger = yes 
+				base_production = 12 
+			}
+			AND = { 
+				has_country_flag = byz_tyrian_purple_silk_flag 
+				151 = { 
+					trade_goods = silk 
+					has_manufactory_trigger = yes 
+				}
+			}
+		}
+		is_bankrupt = no 
+		is_at_war = no 
+		151 = { controlled_by = BYZ }
+	}
+	
+	mean_time_to_happen = { months = 36 }
+	
+	option = {
+		name = FU_Byzantium_Events.40.a 
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = byz_chose_silk_tt 
+				has_country_flag = byz_tyrian_purple_silk_flag
+			}
+		}
+		highlight = yes 
+		ai_chance = { factor = 100 }
+		
+		151 = { add_base_production = 3 } 
+		151 = {
+			add_province_modifier = { 
+				name = byz_tyrian_purple_silk_modifier 
+				duration = -1 
+				desc = byz_as_long_as_silk_desc 
+			}
+		}
+		clr_country_flag = byz_tyrian_purple_silk_flag
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.40.b 
+		
+		ai_chance = { factor = 1 }
+		random_owned_province = {
+			limit = {
+				trade_goods = silk 
+				has_manufactory_trigger = yes 
+				base_production = 12 
+			}
+			add_province_modifier = { 
+				name = byz_tyrian_purple_silk_modifier 
+				duration = -1 
+				desc = byz_as_long_as_silk_desc 
+			}
+			add_base_production = 1 
+		}
+	}
+}
+
+country_event = { #Event to Clear Silk-chan 
+	id = FU_Byzantium_Events.41
+	title = FU_Byzantium_Events.41.t 
+	desc = FU_Byzantium_Events.41.d 
+	picture = ADVISOR_eventPicture
+	hidden = yes 
+	fire_only_once = yes 
+	
+	trigger = {
+		any_owned_province = {
+			has_province_modifier = byz_tyrian_purple_silk_modifier
+			NOT = { trade_goods = silk } 
+		}
+		tag = BYZ 
+	}
+	
+	mean_time_to_happen = { months = 1 } 
+	
+	immediate = {
+		random_owned_province = {
+			limit = { has_province_modifier = byz_tyrian_purple_silk_modifier }
+			remove_province_modifier = byz_tyrian_purple_silk_modifier
+		}
+	}
+	
+	option = {	
+		name = FU_Byzantium_Events.41.a 
+		
+	}
+}
+
+country_event = { #Jews Seek Refuge in Thessaloniki 
+	id = FU_Byzantium_Events.42
+	title = FU_Byzantium_Events.42.t 
+	desc = FU_Byzantium_Events.42.d 
+	picture = RELIGIOUS_CONVERSION_eventPicture
+	fire_only_once = yes 
+	goto = 148 
+	
+	trigger = {
+		148 = { owned_by = BYZ }
+		148 = { 
+			NOT = { religion = jewish }
+			controlled_by = BYZ 
+		}
+		is_at_war = no 
+		OR = {
+			CAS = { has_country_modifier = alhambra_decree }
+			SPA = { has_country_modifier = alhambra_decree }
+		}
+	}
+	
+	mean_time_to_happen = { months = 12 } 
+	
+	option = {
+		name = FU_Byzantium_Events.42.a 
+		
+		148 = { 
+			add_province_modifier = {
+				name = selanik_jews
+				duration = -1 
+			}
+			add_base_production = 1 
+		}
+		custom_tooltip = byz_allow_jewish_quarters_tt
+		if = {
+			limit = { has_estate = estate_burghers } 
+			add_estate_loyalty = {
+				estate = estate_burghers 
+				loyalty = 10 
+			}
+		}
+		if = {
+			limit = { has_estate = estate_church } 
+			add_estate_loyalty = {
+				estate = estate_church 
+				loyalty = -10 
+			}
+		}
+		add_patriarch_authority = -0.1 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.42.b 
+		
+		if = {
+			limit = { has_estate = estate_church } 
+			add_estate_loyalty = {
+				estate = estate_church 
+				loyalty = 10 
+			}
+		}
+		else = { add_prestige = 5 } 
+	}
+}
+
+country_event = { #Jews Prosper in Thessaloniki 
+	id = FU_Byzantium_Events.43
+	title = FU_Byzantium_Events.43.t 
+	desc = FU_Byzantium_Events.43.d 
+	picture = PRAYING_eventPicture 
+	fire_only_once = yes 
+	goto = 148 
+	
+	trigger = {
+		tag = BYZ 
+		148 = { has_province_modifier = selanik_jews }
+		148 = { 
+			development = 35 
+			OR = {
+				is_prosperous = yes 
+				has_building = university 
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120 
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.43.a 
+		
+		148 = {
+			change_religion = jewish 
+			add_base_production = 1 
+			add_province_modifier = {
+				name = byz_heart_of_jewish_faith_modifier
+				duration = -1 
+			}
+		}
+	}
+	
+	option = { 
+		name = FU_Byzantium_Events.43.b 
+		
+		148 = { 
+			add_unrest = 10 
+			remove_province_modifier = selanik_jews 
+		}
+	}
+}
+
+country_event = { #The Preservation of Old Ideals 
+	id = FU_Byzantium_Events.44
+	title = FU_Byzantium_Events.44.t 
+	desc = FU_Byzantium_Events.44.d 
+	fire_only_once = yes 
+	picture = LIBERUM_VETO_eventPicture
+	
+	trigger = {
+		tag = BYZ 
+		OR = {
+			mission_completed = byz_zupac_rascia
+			mission_completed = byz_subjugate_bulgars
+			mission_completed = byz_house_wisdom
+			mission_completed = byz_lost_sheep
+		}
+		BYZ = { total_development = 600 }
+		
+	}
+	
+	mean_time_to_happen = { months = 12 } 
+	immediate = { set_country_flag = byz_may_change_ideas }
+	
+	
+	option = { 
+		name = FU_Byzantium_Events.44.a 
+		custom_tooltip = FU_BYZ_CHANGE_IDEAS
+		hidden_effect = {
+			swap_free_idea_group = yes
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.44.b 
+		
+		add_country_modifier = {
+			name = byz_true_to_tradition_byz
+			duration = 5475 
+		}
+	}
+}
+
+country_event = { #Blood is Thicker than Water
+	id = FU_Byzantium_Events.45
+	title = FU_Byzantium_Events.45.t 
+	desc = FU_Byzantium_Events.45.d 
+	picture = DIPLOMACY_eventPicture
+	fire_only_once = yes 
+	major = yes 
+	
+	trigger = {
+		tag = TRE 
+		alliance_with = BYZ 
+		is_subject = no 
+		NOT = { development = BYZ } 
+		TRE = {
+			has_opinion = {
+				who = BYZ 
+				value = 150 
+			}
+		}
+	}
+	
+	mean_time_to_happen = { months = 32 }
+	
+	option = {
+		name = FU_Byzantium_Events.45.a 
+		
+		ai_chance = { factor = 0.5 }
+		BYZ = {
+			country_event = { 
+				id = FU_Byzantium_Events.46 
+				days = 10 
+			}
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.45.b 
+		
+		ai_chance = { factor = 0.5 }
+		add_prestige = 10 
+		add_legitimacy = 5 
+	}
+}
+
+country_event = { #Messengers from Trebizond 
+	id = FU_Byzantium_Events.46
+	title = FU_Byzantium_Events.46.t 
+	desc = FU_Byzantium_Events.46.d 
+	picture = DIPLOMACY_eventPicture
+	fire_only_once = yes 
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.46.a 
+		
+		ai_chance = { factor = 0.5 }
+		vassalize = TRE  
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.46.b 
+		
+		ai_chance = { factor = 0.5 }
+		add_stability_or_adm_power = yes 
+		add_legitimacy = 5 
+	}
+}
+
+country_event = { #A Man of Technical Expertise
+	id = FU_Byzantium_Events.47
+	title = FU_Byzantium_Events.47.t 
+	desc = FU_Byzantium_Events.47.d 
+	picture = fu_xorme_eventPicture
+	fire_only_once = yes 
+	
+	trigger = {
+		OR = {
+			AND = {
+				full_idea_group = naval_ideas 
+				navy_tradition = 80 
+				capital_scope = { continent = europe }
+			}
+			AND = {
+				tag = BYZ 
+				# OR = { 
+					mission_completed = byz_admiralty_purple
+					# mission_completed = ppbyz_admiralty_purple 
+				# }
+				navy_tradition = 50 
+			}
+		}
+	}
+	
+	mean_time_to_happen = { months = 2400 } 
+	
+	option = {
+		name = FU_Byzantium_Events.47.a 
+		
+		ai_chance = { factor = 0.5 }
+		define_admiral = {
+			name = "Sebastian Xorme" 
+			fire = 5 
+			shock = 5 
+			manuever = 6
+			siege = 0 
+			trait = ironside_personality
+		}
+	}
+}
+
+country_event = { #Catholicism Triumphant!
+	id = FU_Byzantium_Events.48
+	title = FU_Byzantium_Events.48.t 
+	desc = FU_Byzantium_Events.48.d 
+	picture = POPE_PREACHING_eventPicture
+	is_triggered_only = yes 
+	
+	option = {
+		name = FU_Byzantium_Events.48.a 
+		
+		add_country_modifier = {
+			name = byz_champion_of_catholicism_modifier
+			duration = -1 
+		}
+	}
+}
+
+country_event = { #The man the myth the legend Giovanni Justiniani
+	id = FU_Byzantium_Events.49
+	title = FU_Byzantium_Events.49.t 
+	desc = FU_Byzantium_Events.49.d 
+	picture = fu_byzantine_defenders_eventPicture
+	fire_only_once = yes 
+	
+	trigger = {
+		tag = BYZ 
+		NOT = { is_year = 1453 }
+	}
+	
+	mean_time_to_happen = { months = 60 }
+	
+	option = {
+		name = FU_Byzantium_Events.49.a 
+		
+		add_mil_power = 25
+		define_advisor = {
+			name = "Giovanni Justiniani"
+			culture = ligurian
+			religion = catholic 
+			type = fortification_expert 
+			skill = 1 
+			cost_multiplier = 0.5 
+		}
+		if = {
+			limit = { 
+				151 = { controlled_by = ROOT } 
+			}
+			custom_tooltip = byz_justinianis_band_tt
+			hidden_effect = {
+				151 = {	infantry = ROOT }
+			}
+		}
+	}
+}
+
+country_event = { #Gemisthus Plethon 
+	id = FU_Byzantium_Events.50
+	title = FU_Byzantium_Events.50.t 
+	desc = FU_Byzantium_Events.50.d 
+	picture = fu_gemistus_eventPicture
+	fire_only_once = yes 
+	
+	trigger = {
+		tag = BYZ 
+		NOT = { is_year = 1453 }
+		is_at_war = no 
+	}
+	mean_time_to_happen = { months = 36 } 
+	
+	option = {
+		name = FU_Byzantium_Events.50.a 
+		
+		define_advisor = {
+			name = "Gemisthus Plethon" 
+			type = natural_scientist 
+			skill = 2
+			cost_multiplier = 0.20
+			religion = zoroastrian
+		}
+		change_innovativeness = 1 
+		capital_scope = { add_next_institution_embracement = 10 }
+		add_estate_loyalty = {
+			estate = estate_church 
+			loyalty = -15
+		}
+		add_patriarch_authority = -0.1
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.50.b 
+		
+		add_estate_loyalty = {
+			estate = estate_church 
+			loyalty = 5
+		}
+	}
+}	
+	
+	
+province_event = { #Conversion of Anatolia
+	id = FU_Byzantium_Events.51
+	title = FU_Byzantium_Events.51.t 
+	desc = FU_Byzantium_Events.51.d 
+	picture = {
+		trigger = {
+			has_dlc = "Purple Phoenix"
+		}
+		picture = BYZ_CIVIL_WAR_eventPicture
+	}
+	picture = {
+		trigger = {
+			NOT = { has_dlc = "Purple Phoenix" }
+		}
+		picture = RELIGIOUS_TURMOIL_eventPicture
+	}
+	trigger = {
+		owner = {
+			has_country_flag = byz_turkish_conversion_camps_flag
+			culture_group = byzantine
+			OR = {
+				NOT = { has_country_flag = ee_byz_culture_change_cooldown }
+				had_country_flag = {
+					flag = ee_byz_culture_change_cooldown
+					days = 1825
+				}
+			}
+		}
+		region = anatolia_region
+		NOT = { culture_group = byzantine }
+	}
+
+	mean_time_to_happen = {
+		months = 80
+
+		modifier = {
+			factor = 0.5
+			NOT = { development = 10 }
+		}
+
+		modifier = {
+			factor = 1.5
+			development = 20
+		}
+	}
+	
+	option = {
+		name = FU_Byzantium_Events.51.a 
+		
+		if = {
+			limit = {
+				area = kastamonu_area
+			}
+			change_culture = pontic_greek
+		}
+		else = {
+			change_culture = greek
+		}
+		change_religion = ROOT
+		owner = {
+			set_country_flag = ee_byz_culture_change_cooldown
+		}
+	}
+}	
