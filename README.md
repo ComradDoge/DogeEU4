@@ -12,40 +12,14 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.35.2
-- Checksum: 66d4
+- Checksum: ?
 
-<h1>01/06/2023</h1>
+<h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-Major
-- X Court Influence in reforms is no longer a mechanic.
-- Redid the naval doctrine UI to allow for more doctrines to be seen.
-- Government reforms saw a bunch of tweaking to make them more viable.
-- Implemented Selective Building Construction and Demolition by Itsbenter.
-- Added a privilege akin to Raise Taxes (name changed to Clerical Funding) for Burghers.
-- Byzantine missions completely replaced with a new one by Europa Expanded/Flavor Universalis.
-- Tweaked mercenary related modifiers, with a primary focus on reduction of cost and manpower modifiers.
-- France saw a bunch of tweaks/rework to itself from naval doctrine, muskateers, reform and system of appanages.
-- Removed or updated some privileges that were either low quality or duplicates/similar of existing vanilla ones.
-
-Minor
-- Fixed freedom of religion reform.
-- Added more sources of monthly liberalism.
-- Increase Scuttle Doctrine chance even more.
-- Conquerors no longer have a defensive bonus.
-- Fixed a bunch of the missing privilege icons.
-- Estate decisions now also have an icon near them.
-- Burghers Force Draft privilege now also drafts galleys.
-- Russian modernization gains a yearly innovativeness gain.
-- When forming Armenia, missions will automatically refresh.
-- Tributaries will no longer be colored the overlords colour.
-- Palace of Constantinople monument is no longer TAG limited.
-- Fixed Kingdom/Empire Ideas not properly converting when changing rank.
-- Added a naval reform that does something funny with naval doctrines, tehe.
-- Tir na Celtigh adm requirement lowered and Brittany, akin to Scotland, can form it as well.
-- Marine Army reform tweaked so you have a chance for at least one cannon stack. No promises.
-- A nation that was played by a player but is an AI, in case they are not there for a session, will not receive the Conqueror trait.
+- 1.35.4 Update.
+- Fixed Appanage wargoal option.
 
 
 <br/>
