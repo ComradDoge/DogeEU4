@@ -783,8 +783,19 @@ ming_missions_1_b = {
 		}
 		
 		effect = {
-			custom_tooltip = mng_enable_3_grand_coordinators_offices_tt
-			set_country_flag = mng_enable_3_grand_coordinators_offices_flag 
+			if = {
+				limit = { has_dlc = "Golden Century" }
+				custom_tooltip = mng_enable_3_grand_coordinators_offices_tt
+				set_country_flag = mng_enable_3_grand_coordinators_offices_flag 
+			}
+			else = {
+				add_corruption = -2
+				change_government_reform_progress = 100
+				change_ruler_stat = {
+					stat = adm
+					amount = 1
+				}
+			}
 		}
 	}
 }
@@ -2120,20 +2131,17 @@ ming_missions_2_b = {
 				
 				if = {
 					limit = {
-						OR = {
-							NOT = { has_harmonized_with = pagan }
-							NOT = { has_harmonized_with = vajrayana }
-						}
+						NOT = { has_harmonized_with = pagan }
+						NOT = { has_harmonized_with = vajrayana }
 						religion = confucianism
-						has_reform = decentralize_reform
 					}
+					change_government_reform_progress = -250
 					add_harmonized_religion = pagan
 					add_harmonized_religion = vajrayana
-					add_harmony = 10 
-					change_government_reform_progress = -250
+					add_harmony = 10
 				}
-				else_if = {
-					limit = { has_reform = decentralize_reform } 
+				else = {
+					change_government_reform_progress = -250
 					add_country_modifier = {
 						name = mng_decentralized_migration_modifier
 						duration = -1 
@@ -2286,20 +2294,19 @@ ming_missions_2_b = {
 		
 		trigger = {
 			OR = {
-				custom_trigger_tooltip = {
-					tooltip = mng_5_tribs_with_opinion_and_lib_desire_tt
-					calc_true_if = {
-						all_subject_country = {
-							is_subject_of_type_with_overlord = { who = ROOT type = tributary_state }
-							NOT = { liberty_desire = 10 } 
-							has_opinion = { 
-								who = ROOT 
-								value = 120 
-							}
+				calc_true_if = {
+					all_subject_country = {
+						is_subject_of_type_with_overlord = { who = ROOT type = tributary_state }
+						NOT = { liberty_desire = 10 } 
+						has_opinion = { 
+							who = ROOT 
+							value = 120 
 						}
-						amount = 5
 					}
+					desc = mng_5_tribs_with_opinion_and_lib_desire_tt
+					amount = 5
 				}
+				
 				calc_true_if = {
 					all_ally = {
 						has_opinion = {
@@ -2714,7 +2721,7 @@ chinese_kingdoms_3 = {
 				if = {
 					limit = { 
 						is_in_war = {
-							attackers = ROOT 
+							attacker_leader = ROOT 
 							casus_belli = cb_independence_war
 							war_score = 25 
 						}
@@ -7590,23 +7597,3 @@ DOM_Qing_Missions_5_b = {
 		}
 	}
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

@@ -1653,9 +1653,14 @@ country_event = {
 	
 	option = {
 		name = flavor_mng.27.c 
-		add_mandate = 5
-		add_adm_power = 50
-		change_government_reform_progress = 25
+		if = {
+			limit = { has_dlc = "Mandate of Heaven" }
+			add_mandate = 5 
+		}
+		else = {
+			add_adm_power = 50
+			change_government_reform_progress = 25 
+		}
 	}
 }
 
@@ -1952,11 +1957,11 @@ country_event = { #The Karma Kagyu School and the [Root.Monarch.Dynasty.GetName]
 	option = { 
 		name = flavor_mng.33.b 
 		
-		add_prestige = 10 
+		add_prestige_or_monarch_power = { amount = 10 } 
 		FROM = {
 			add_casus_belli = {
 				type = cb_vassalize_mission
-				target = KOR
+				target = ROOT
 				months = 240
 			}
 		}
@@ -2729,6 +2734,7 @@ country_event = { #The [GetYear] Yellow River Flood
 	picture = COUNTRY_COLLAPSE_eventPicture
 	trigger = {
 		has_dlc = "Domination"
+		ai = no
 		owns = 4196 
 		NOT = { has_ruler_flag = stall_flood_events_flag }
 	}
@@ -2765,25 +2771,57 @@ country_event = { #The [GetYear] Yellow River Flood
 			if = { 
 				limit = { has_dlc = "Mandate of Heaven" has_country_flag = mng_flood_events_less_devastating_flag }
 				add_devastation = 20
-				random_list = { 
-					33 = { add_base_tax = -1 } 
-					33 = { add_base_production = -1 } 
-					33 = { add_base_manpower = -1 } 
+				random_list = {
+					1 = {
+						trigger = { base_tax = 2 }
+						add_base_tax = -1
+					}
+					1 = {
+						trigger = { base_production = 2 }
+						add_base_production = -1
+					}
+					1 = {
+						trigger = { base_manpower = 2 }
+						add_base_manpower = -1
+					}
+					1 = {}
 				}
 			}
 			else_if = { 
 				limit = { has_dlc = "Mandate of Heaven" }
 				add_devastation = 30
-				random_list = { 
-					33 = { add_base_tax = -3 } 
-					33 = { add_base_production = -3 } 
-					33 = { add_base_manpower = -3 } 
+				random_list = {
+					1 = {
+						trigger = { base_tax = 4 }
+						add_base_tax = -3
+					}
+					1 = {
+						trigger = { base_production = 4 }
+						add_base_production = -3
+					}
+					1 = {
+						trigger = { base_manpower = 4 }
+						add_base_manpower = -3
+					}
+					1 = {}
 				}
 			}
 			else = { 
-				add_base_tax = -2 
-				add_base_production = -2 
-				add_base_manpower = -2 
+				random_list = {
+					1 = {
+						trigger = { base_tax = 3 }
+						add_base_tax = -2
+					}
+					1 = {
+						trigger = { base_production = 3 }
+						add_base_production = -2
+					}
+					1 = {
+						trigger = { base_manpower = 3 }
+						add_base_manpower = -2
+					}
+					1 = {}
+				}
 			}
 		}
 		hidden_effect = { 
@@ -2792,26 +2830,57 @@ country_event = { #The [GetYear] Yellow River Flood
 				if = { 
 					limit = { has_dlc = "Mandate of Heaven" owner = { has_country_flag = mng_flood_events_less_devastating_flag } }
 					add_devastation = 20
-					random_list = { 
-						33 = { add_base_tax = -1 } 
-						33 = { add_base_production = -1 } 
-						33 = { add_base_manpower = -1 } 
+					random_list = {
+						1 = {
+							trigger = { base_tax = 2 }
+							add_base_tax = -1
+						}
+						1 = {
+							trigger = { base_production = 2 }
+							add_base_production = -1
+						}
+						1 = {
+							trigger = { base_manpower = 2 }
+							add_base_manpower = -1
+						}
+						1 = {}
 					}
 				}
 				else_if = { 
-					limit = { has_dlc = "Mandate of Heaven" development = 15 }
+					limit = { has_dlc = "Mandate of Heaven" }
 					add_devastation = 30
-					random_list = { 
-						33 = { add_base_tax = -3 } 
-						33 = { add_base_production = -3 } 
-						33 = { add_base_manpower = -3 } 
+					random_list = {
+						1 = {
+							trigger = { base_tax = 4 }
+							add_base_tax = -3
+						}
+						1 = {
+							trigger = { base_production = 4 }
+							add_base_production = -3
+						}
+						1 = {
+							trigger = { base_manpower = 4 }
+							add_base_manpower = -3
+						}
+						1 = {}
 					}
 				}
-				else_if = {
-					limit = { development = 15 } 
-					add_base_tax = -2 
-					add_base_production = -2 
-					add_base_manpower = -2 
+				else = {
+					random_list = {
+						1 = {
+							trigger = { base_tax = 3 }
+							add_base_tax = -2
+						}
+						1 = {
+							trigger = { base_production = 3 }
+							add_base_production = -2
+						}
+						1 = {
+							trigger = { base_manpower = 3 }
+							add_base_manpower = -2
+						}
+						1 = {}
+					}
 				}
 			}
 			set_ruler_flag = stall_flood_events_flag
@@ -2851,18 +2920,20 @@ country_event = { #The [GetYear] Yellow River Flood - Neighbor Event
 				limit = { has_dlc = "Mandate of Heaven" has_country_flag = mng_flood_events_less_devastating_flag }
 				add_devastation = 20
 				random_list = { 
-					33 = { add_base_tax = -1 } 
-					33 = { add_base_production = -1 } 
-					33 = { add_base_manpower = -1 } 
+					1 = { trigger = { base_tax = 2 } add_base_tax = -1 } 
+					1 = { trigger = { base_production = 2 } add_base_production = -1 } 
+					1 = { trigger = { base_manpower = 2 } add_base_manpower = -1 } 
+					1 = {}
 				}
 			}
 			else_if = { 
 				limit = { has_dlc = "Mandate of Heaven" }
 				add_devastation = 30
 				random_list = { 
-					33 = { add_base_tax = -3 } 
-					33 = { add_base_production = -3 } 
-					33 = { add_base_manpower = -3 } 
+					1 = { trigger = { base_tax = 4 } add_base_tax = -3 } 
+					1 = { trigger = { base_production = 4 } add_base_production = -3 } 
+					1 = { trigger = { base_manpower = 4 } add_base_manpower = -3 } 
+					1 = {}
 				}
 			}
 			else = { 
@@ -2873,30 +2944,61 @@ country_event = { #The [GetYear] Yellow River Flood - Neighbor Event
 		}
 		hidden_effect = {
 			every_owned_province = {
-				limit = { is_yellow_river_province_trigger = yes } 
+				limit = { is_yellow_river_province_trigger = yes development = 15 } 
 				if = { 
 					limit = { has_dlc = "Mandate of Heaven" owner = { has_country_flag = mng_flood_events_less_devastating_flag } }
 					add_devastation = 20
-					random_list = { 
-						33 = { add_base_tax = -1 } 
-						33 = { add_base_production = -1 } 
-						33 = { add_base_manpower = -1 } 
+					random_list = {
+						1 = {
+							trigger = { base_tax = 2 }
+							add_base_tax = -1
+						}
+						1 = {
+							trigger = { base_production = 2 }
+							add_base_production = -1
+						}
+						1 = {
+							trigger = { base_manpower = 2 }
+							add_base_manpower = -1
+						}
+						1 = {}
 					}
 				}
 				else_if = { 
-					limit = { has_dlc = "Mandate of Heaven" development = 15 }
+					limit = { has_dlc = "Mandate of Heaven" }
 					add_devastation = 30
-					random_list = { 
-						33 = { add_base_tax = -3 } 
-						33 = { add_base_production = -3 } 
-						33 = { add_base_manpower = -3 } 
+					random_list = {
+						1 = {
+							trigger = { base_tax = 4 }
+							add_base_tax = -3
+						}
+						1 = {
+							trigger = { base_production = 4 }
+							add_base_production = -3
+						}
+						1 = {
+							trigger = { base_manpower = 4 }
+							add_base_manpower = -3
+						}
+						1 = {}
 					}
 				}
-				else_if = {
-					limit = { development = 15 } 
-					add_base_tax = -2 
-					add_base_production = -2 
-					add_base_manpower = -2 
+				else = {
+					random_list = {
+						1 = {
+							trigger = { base_tax = 3 }
+							add_base_tax = -2
+						}
+						1 = {
+							trigger = { base_production = 3 }
+							add_base_production = -2
+						}
+						1 = {
+							trigger = { base_manpower = 3 }
+							add_base_manpower = -2
+						}
+						1 = {}
+					}
 				}
 			}
 		}
@@ -2910,6 +3012,7 @@ country_event = { #The [GetYear] Yangtze River Flood
 	picture = COUNTRY_COLLAPSE_eventPicture
 	trigger = {
 		has_dlc = "Domination"
+		ai = no
 		owns = 2145
 		NOT = { has_ruler_flag = stall_flood_events2_flag }
 	}
@@ -2957,51 +3060,88 @@ country_event = { #The [GetYear] Yangtze River Flood
 				limit = { has_dlc = "Mandate of Heaven" has_country_flag = mng_flood_events_less_devastating_flag }
 				add_devastation = 20
 				random_list = { 
-					33 = { add_base_tax = -1 } 
-					33 = { add_base_production = -1 } 
-					33 = { add_base_manpower = -1 } 
+					1 = { trigger = { base_tax = 2 } add_base_tax = -1 } 
+					1 = { trigger = { base_production = 2 } add_base_production = -1 } 
+					1 = { trigger = { base_manpower = 2 } add_base_manpower = -1 } 
+					1 = {}
 				}
 			}
 			else_if = { 
 				limit = { has_dlc = "Mandate of Heaven" }
 				add_devastation = 30
 				random_list = { 
-					33 = { add_base_tax = -3 } 
-					33 = { add_base_production = -3 } 
-					33 = { add_base_manpower = -3 } 
+					1 = { trigger = { base_tax = 4 } add_base_tax = -3 } 
+					1 = { trigger = { base_production = 4 } add_base_production = -3 } 
+					1 = { trigger = { base_manpower = 4 } add_base_manpower = -3 } 
+					1 = {}
 				}
 			}
 			else = { 
-				add_base_tax = -2 
-				add_base_production = -2 
-				add_base_manpower = -2 
+				random_list = { 
+					1 = { trigger = { base_tax = 3 } add_base_tax = -2 } 
+					1 = { trigger = { base_production = 3 } add_base_production = -2 } 
+					1 = { trigger = { base_manpower = 3 } add_base_manpower = -2 } 
+					1 = {}
+				}
 			}
 		}
 		hidden_effect = {
 			every_owned_province = {
+				limit = { is_yangtze_river_province_trigger = yes development = 15 } 
 				if = { 
 					limit = { has_dlc = "Mandate of Heaven" owner = { has_country_flag = mng_flood_events_less_devastating_flag } }
 					add_devastation = 20
-					random_list = { 
-						33 = { add_base_tax = -1 } 
-						33 = { add_base_production = -1 } 
-						33 = { add_base_manpower = -1 } 
+					random_list = {
+						1 = {
+							trigger = { base_tax = 2 }
+							add_base_tax = -1
+						}
+						1 = {
+							trigger = { base_production = 2 }
+							add_base_production = -1
+						}
+						1 = {
+							trigger = { base_manpower = 2 }
+							add_base_manpower = -1
+						}
+						1 = {}
 					}
 				}
 				else_if = { 
-					limit = { has_dlc = "Mandate of Heaven" development = 15 }
+					limit = { has_dlc = "Mandate of Heaven" }
 					add_devastation = 30
-					random_list = { 
-						33 = { add_base_tax = -3 } 
-						33 = { add_base_production = -3 } 
-						33 = { add_base_manpower = -3 } 
+					random_list = {
+						1 = {
+							trigger = { base_tax = 4 }
+							add_base_tax = -3
+						}
+						1 = {
+							trigger = { base_production = 4 }
+							add_base_production = -3
+						}
+						1 = {
+							trigger = { base_manpower = 4 }
+							add_base_manpower = -3
+						}
+						1 = {}
 					}
 				}
-				else_if = {
-					limit = { development = 15 } 
-					add_base_tax = -2 
-					add_base_production = -2 
-					add_base_manpower = -2 
+				else = {
+					random_list = {
+						1 = {
+							trigger = { base_tax = 3 }
+							add_base_tax = -2
+						}
+						1 = {
+							trigger = { base_production = 3 }
+							add_base_production = -2
+						}
+						1 = {
+							trigger = { base_manpower = 3 }
+							add_base_manpower = -2
+						}
+						1 = {}
+					}
 				}
 			}
 			set_ruler_flag = stall_flood_events2_flag
@@ -3041,52 +3181,88 @@ country_event = { #The [GetYear] Yangtze River Flood - Neighbor Event
 				limit = { has_dlc = "Mandate of Heaven" has_country_flag = mng_flood_events_less_devastating_flag }
 				add_devastation = 20
 				random_list = { 
-					33 = { add_base_tax = -1 } 
-					33 = { add_base_production = -1 } 
-					33 = { add_base_manpower = -1 } 
+					1 = { trigger = { base_tax = 2 } add_base_tax = -1 } 
+					1 = { trigger = { base_production = 2 } add_base_production = -1 } 
+					1 = { trigger = { base_manpower = 2 } add_base_manpower = -1 } 
+					1 = {}
 				}
 			}
 			else_if = { 
 				limit = { has_dlc = "Mandate of Heaven" }
 				add_devastation = 30
 				random_list = { 
-					33 = { add_base_tax = -3 } 
-					33 = { add_base_production = -3 } 
-					33 = { add_base_manpower = -3 } 
+					1 = { trigger = { base_tax = 4 } add_base_tax = -3 } 
+					1 = { trigger = { base_production = 4 } add_base_production = -3 } 
+					1 = { trigger = { base_manpower = 4 } add_base_manpower = -3 } 
+					1 = {}
 				}
 			}
 			else = { 
-				add_base_tax = -2 
-				add_base_production = -2 
-				add_base_manpower = -2 
+				random_list = { 
+					1 = { trigger = { base_tax = 3 } add_base_tax = -2 } 
+					1 = { trigger = { base_production = 3 } add_base_production = -2 } 
+					1 = { trigger = { base_manpower = 3 } add_base_manpower = -2 } 
+					1 = {}
+				}
 			}
 		}
 		hidden_effect = {
 			every_owned_province = {
-				limit = { is_yangtze_river_province_trigger = yes } 
+				limit = { is_yangtze_river_province_trigger = yes development = 15 } 
 				if = { 
 					limit = { has_dlc = "Mandate of Heaven" owner = { has_country_flag = mng_flood_events_less_devastating_flag } }
 					add_devastation = 20
-					random_list = { 
-						33 = { add_base_tax = -1 } 
-						33 = { add_base_production = -1 } 
-						33 = { add_base_manpower = -1 } 
+					random_list = {
+						1 = {
+							trigger = { base_tax = 2 }
+							add_base_tax = -1
+						}
+						1 = {
+							trigger = { base_production = 2 }
+							add_base_production = -1
+						}
+						1 = {
+							trigger = { base_manpower = 2 }
+							add_base_manpower = -1
+						}
+						1 = {}
 					}
 				}
 				else_if = { 
-					limit = { has_dlc = "Mandate of Heaven" development = 15 }
+					limit = { has_dlc = "Mandate of Heaven" }
 					add_devastation = 30
-					random_list = { 
-						33 = { add_base_tax = -3 } 
-						33 = { add_base_production = -3 } 
-						33 = { add_base_manpower = -3 } 
+					random_list = {
+						1 = {
+							trigger = { base_tax = 4 }
+							add_base_tax = -3
+						}
+						1 = {
+							trigger = { base_production = 4 }
+							add_base_production = -3
+						}
+						1 = {
+							trigger = { base_manpower = 4 }
+							add_base_manpower = -3
+						}
+						1 = {}
 					}
 				}
-				else_if = {
-					limit = { development = 15 } 
-					add_base_tax = -2 
-					add_base_production = -2 
-					add_base_manpower = -2 
+				else = {
+					random_list = {
+						1 = {
+							trigger = { base_tax = 3 }
+							add_base_tax = -2
+						}
+						1 = {
+							trigger = { base_production = 3 }
+							add_base_production = -2
+						}
+						1 = {
+							trigger = { base_manpower = 3 }
+							add_base_manpower = -2
+						}
+						1 = {}
+					}
 				}
 			}
 		}

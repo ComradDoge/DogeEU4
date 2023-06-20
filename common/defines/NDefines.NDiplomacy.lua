@@ -30,7 +30,7 @@ NDefines.NDiplomacy.CALL_ALLY_DECLINE_PRESTIGE_PENALTY = -10 -- Default -25. Cos
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_DEFAULT_INFLUENCE = 80 -- 80, Starting value for Mandate value of a new Chinese Emperor.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MODIFIER_THRESHOLD = 50 -- 50, Value of Mandate above which the positive Mandate Modifier is used instead of the negative one.
 
-NDefines.NDiplomacy.CELESTIAL_EMPIRE_REFORM_COST = 80 -- 80, Mandate cost of enacting a new reform for the Emperor of China.
+NDefines.NDiplomacy.CELESTIAL_EMPIRE_REFORM_COST = 70 -- 70, Mandate cost of enacting a new reform for the Emperor of China.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_REFORM_MIN_VALUE = 70 -- 80, Minimum value of Mandate above which new reforms can be enacted.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_REFORM_STABILITY_COST = 2 -- 1, Stability cost of enacting a new reform for the Emperor of China.
 
