@@ -17,9 +17,10 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Norwegian Naval Doctrine accessible through naval Adaptation reform. The upgraded doctrine is exclusive to the mission tree and tag.
 - Fixed Appanage peace treaty, again.
-- France and Occitania no longer has the 10 ADM tech requirement. 
+- France and Occitania no longer has the 10 ADM tech requirement.
+- Added "Domination" Japan missions if you have it, if not the previous modded missions will take over.
+- Norwegian Naval Doctrine accessible through naval Adaptation reform. The upgraded doctrine is exclusive to the mission tree and tag.
 
 
 <br/>
