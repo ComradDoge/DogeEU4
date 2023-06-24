@@ -19,6 +19,7 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Fixed Appanage peace treaty, again.
 - France and Occitania no longer has the 10 ADM tech requirement.
+- Fixed a bunch of Russian events to be applicable to Republican Russia as well.
 - Added "Domination" Japan missions if you have it, if not the previous modded missions will take over.
 - Norwegian Naval Doctrine accessible through naval Adaptation reform. The upgraded doctrine is exclusive to the mission tree and tag.
 
