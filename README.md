@@ -18,6 +18,7 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Fixed Appanage peace treaty, again.
+- Building roads through C&DS will no longer take loans.
 - France and Occitania no longer has the 10 ADM tech requirement.
 - Fixed a bunch of Russian events to be applicable to Republican Russia as well.
 - Added "Domination" Japan missions if you have it, if not the previous modded missions will take over.
