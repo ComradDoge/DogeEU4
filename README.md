@@ -23,8 +23,10 @@ from the original mod I took. After all I need to understand how they work, else
 - Building roads through C&DS will no longer take loans.
 - France and Occitania no longer has the 10 ADM tech requirement.
 - Fixed Byzantine mission not giving access to Wooden Wall as advertised.
+- Reduced the cost of state_maintenance increase when you have higher crownland.
 - Fixed a bunch of Russian events to be applicable to Republican Russia as well.
 - Added "Domination" Japan missions if you have it, if not the previous modded missions will take over.
+- Reworked various aspects of Ages. Abilities are now completely open and are buffed, objectives generally are now more difficult. Credit to Ages Reformed by Mdoulos as some aspects are from that mod. Will be balanced over time as I get more information.
 - Norwegian Naval Doctrine accessible through naval Adaptation reform. The upgraded doctrine is exclusive to the mission tree and tag.
 
 
