@@ -26,7 +26,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Reduced the cost of state_maintenance increase when you have higher crownland.
 - Fixed a bunch of Russian events to be applicable to Republican Russia as well.
 - Added "Domination" Japan missions if you have it, if not the previous modded missions will take over.
-- Reworked various aspects of Ages. Abilities are now completely open and are buffed, objectives generally are now more difficult. Credit to Ages Reformed by Mdoulos as some aspects are from that mod. Will be balanced over time as I get more information.
+- Reworked various aspects of Ages. Abilities are now completely open and are buffed, objectives are somewhat more difficult. Credit to Ages Reformed by Mdoulos as some aspects are from that mod. Will be balanced over time as I get more information but Ages abilities are intended to be far more important.
 - Norwegian Naval Doctrine accessible through naval Adaptation reform. The upgraded doctrine is exclusive to the mission tree and tag.
 
 
