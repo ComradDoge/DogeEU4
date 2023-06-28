@@ -22,6 +22,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Cleaned up and centred the Forts Active icon.
 - Building roads through C&DS will no longer take loans.
 - France and Occitania no longer has the 10 ADM tech requirement.
+- Added more custom modifier icons that appear on the trade mapmode.
 - Fixed Byzantine mission not giving access to Wooden Wall as advertised.
 - Reduced the cost of state_maintenance increase when you have higher crownland.
 - Fixed a bunch of Russian events to be applicable to Republican Russia as well.
