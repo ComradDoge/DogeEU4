@@ -21,7 +21,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Revolutions can now start in the Industrial Age.
 - Taking high autonomy provinces from the enemy is slightly ever cheaper.
 - Administrative Efficiency from technology increased from 10% to 12.5%.
-- Forcelimit amount in the game reduce, to better reflect the reduced amount of manpower in the game.
+- Forcelimit amount in the game reduced, to better reflect the reduced amount of manpower in the game.
 
 
 <br/>

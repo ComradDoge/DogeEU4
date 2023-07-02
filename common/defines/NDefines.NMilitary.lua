@@ -23,9 +23,9 @@ NDefines.NMilitary.SLACKEN_AP_DROP = 0.02 --Defines how much AP is lost when act
 NDefines.NMilitary.SLACKEN_MIN_AP = 0 --Defines how much AP is at least needed to keep the Slacken Modifier active. Put a -1 here if you want the toggle to not turn off automatically
 NDefines.NMilitary.SLACKEN_MAX_MP_PERCENTAGE = 0.80 --Defines how much manpower percentage of your whole manpower pool you can have before the toggle turns off automatically. "1" would mean "100% of your manpower pool". Put a -1 here if you don't want this toggle to turn off from having manpower
 
--- Naval
---NDefines.NMilitary.MARINE_SHOCK_DAMAGE_TAKEN = 0.1
---NDefines.NMilitary.MARINE_DISEMBARK_SPEED_BONUS = 3.0
+-- Morale
+BATTLE_DAILY_MORALE_DAMAGE = 0.01				-- Default 1%. Deployed troops take this fraction of their maximum morale as damage
+RESERVE_DAILY_MORALE_DAMAGE = 0.01				-- Default 2%. Reserve troops take this fraction of their maximum morale as damage (modified by reserves_organisation)
 
 NDefines.NMilitary.GALLEY_COMBAT_WIDTH = 1
 
