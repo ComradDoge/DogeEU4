@@ -25,7 +25,7 @@ NDefines.NDiplomacy.GREAT_PROJECT_WARSCORE_COST_MODIFIER = 0.15	-- How much each
 --Wars
 NDefines.NDiplomacy.DISHONORABLE_PEACE_MONTHS = 0 --Default 12. This is the thingie that forces you to wait a year before peacing out.
 NDefines.NDiplomacy.CALL_ALLY_DECLINE_PRESTIGE_PENALTY = -10 -- Default -25. Cost which you incur if you dont join an allies war.
-
+NDefines.NDiplomacy.AUTONOMY_WARSCORE_COST_MODIFIER = 0.5 -- Default 0.33. How much autonomy reduces score by (at 1, 50% autonomy = 50% reduction)
 -- Celestial Empire
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_DEFAULT_INFLUENCE = 80 -- 80, Starting value for Mandate value of a new Chinese Emperor.
 NDefines.NDiplomacy.CELESTIAL_EMPIRE_MODIFIER_THRESHOLD = 50 -- 50, Value of Mandate above which the positive Mandate Modifier is used instead of the negative one.
