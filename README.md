@@ -17,18 +17,9 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Fixed Berbers not giving agendas.
-- Fixed Appanage peace treaty, again.
-- Cleaned up and centred the Forts Active icon.
-- Building roads through C&DS will no longer take loans.
-- France and Occitania no longer has the 10 ADM tech requirement.
-- Added more custom modifier icons that appear on the trade mapmode.
-- Fixed Byzantine mission not giving access to Wooden Wall as advertised.
-- Reduced the cost of state_maintenance increase when you have higher crownland.
-- Fixed a bunch of Russian events to be applicable to Republican Russia as well.
-- Added "Domination" Japan missions if you have it, if not the previous modded missions will take over.
-- Reworked various aspects of Ages. Abilities are now completely open and are buffed, objectives are somewhat more difficult. Credit to Ages Reformed by Mdoulos as some aspects are from that mod. Will be balanced over time as I get more information but Ages abilities are intended to be far more important.
-- Norwegian Naval Doctrine accessible through naval Adaptation reform. The upgraded doctrine is exclusive to the mission tree and tag.
+- Max attrition reduced from 20% to 10%.
+- Taking high autonomy provinces from the enemy is slightly ever cheaper.
+- Administrative Efficiency from technology increased from 10% to 12.5%.
 
 
 <br/>

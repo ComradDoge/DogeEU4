@@ -611,7 +611,7 @@ add_development_half_monthly_monarch_power = {
 	}
 	else_if = {
 		limit = {
-			owner = { monthly_adm = 2 }
+			owner = { monthly_adm = 5 }
 		}
 		add_base_tax = 1
 	}
@@ -629,7 +629,7 @@ add_development_half_monthly_monarch_power = {
 	}
 	else_if = {
 		limit = {
-			owner = { monthly_dip = 2 }
+			owner = { monthly_dip = 5 }
 		}
 		add_base_production = 1
 	}
@@ -647,7 +647,7 @@ add_development_half_monthly_monarch_power = {
 	}
 	else_if = {
 		limit = {
-			owner = { monthly_mil = 2 }
+			owner = { monthly_mil = 5 }
 		}
 		add_base_manpower = 1
 	}
@@ -2288,6 +2288,115 @@ EE_change_variable = {
 		multiply_variable = {
 			which = $which$
 			value = $multiply$
+		}
+	]
+}
+
+
+ME_create_flagship = {
+	hidden_effect = {
+		owner = {
+			set_country_flag = ME_flagship_effect
+			set_country_flag = ME_flagship_$mod_1$_flag
+			set_country_flag = ME_flagship_$mod_2$_flag 
+			set_country_flag = ME_flagship_$mod_3$_flag
+		}
+	}
+	create_flagship = {
+		[[name] name = "$name$" ]
+		type = $type$
+	}
+	custom_tooltip = ME_flagship_$mod_1$_tt
+	custom_tooltip = ME_flagship_$mod_2$_tt
+	custom_tooltip = ME_flagship_$mod_3$_tt
+	hidden_effect = {
+		owner = {
+			clr_country_flag = ME_flagship_effect
+		}
+	}
+}
+
+add_stat_or_monarch_power = {
+    tooltip = {
+        change_$stat$ = $amount$
+    }
+    custom_tooltip = ADD_STAT_OR_POWER_$stat$
+    hidden_effect = {
+		set_variable = {
+			which = ForLoopCounter
+			value = $amount$
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ForLoopCounter
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { $stat$ = 6 }
+				}
+				change_$stat$ = 1
+			}
+			else = {
+				add_$stat$_power = 100
+			}
+			subtract_variable = {
+				which = ForLoopCounter
+				value = 1
+			}
+		}
+    }
+}
+
+country_event_with_effect_insight = {
+	country_event = {
+		id = $id$
+		[[days] days = $days$]
+		[[random] random = $random$]
+		[[tooltip] tooltip = $tooltip$]
+	}
+	custom_tooltip = EVENT_INSIGHT_INTRO
+	tooltip = {
+		$effect$
+	}
+}
+
+country_event_with_option_insight = {
+	country_event = {
+		id = $id$
+		[[days] days = $days$]
+		[[random] random = $random$]
+		[[tooltip] tooltip = $tooltip$]
+	}
+	custom_tooltip = EVENT_INSIGHT_INTRO
+	custom_tooltip = EVENT_INSIGHT_OPT_1
+	tooltip = {
+		$option_1$
+	}
+	[[option_2]
+		custom_tooltip = EVENT_INSIGHT_OPT_2
+		tooltip = {
+			$option_2$
+		}
+	]
+	[[option_3]
+		custom_tooltip = EVENT_INSIGHT_OPT_3
+		tooltip = {
+			$option_3$
+		}
+	]
+	[[option_4]
+		custom_tooltip = EVENT_INSIGHT_OPT_4
+		tooltip = {
+			$option_4$
+		}
+	]
+	[[option_5]
+		custom_tooltip = EVENT_INSIGHT_OPT_5
+		tooltip = {
+			$option_5$
 		}
 	]
 }
