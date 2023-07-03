@@ -17,7 +17,9 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Fixed Romania's `Romanize` mission.
 - Max attrition reduced from 20% to 10%.
+- Tweaked how Spear of Destiny flavour works.
 - Revolutions can now start in the Industrial Age.
 - Cavalry base cost increased back to vanilla costs, from 20 to 25.
 - Taking high autonomy provinces from the enemy is slightly ever cheaper.
