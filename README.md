@@ -24,6 +24,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Cavalry base cost increased back to vanilla costs, from 20 to 25.
 - Administrative Efficiency from technology increased from 10% to 12.5%.
 - Taking high autonomy provinces from the enemy is slightly ever cheaper.
+- Adapted some missions from `More Missions` by retconcrisis: Fafaria, Leon, Aksum.
 - Added a decision at the start of the game to choose how subject colouring is handled.
 - Fixed Yang not getting missions and not having one of the intermediate Chinese formables.
 - Forcelimit amount in the game reduced, to better reflect the reduced amount of manpower in the game.
