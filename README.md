@@ -27,7 +27,9 @@ from the original mod I took. After all I need to understand how they work, else
 - Adapted some missions from `More Missions` by retconcrisis: Fafaria, Leon, Aksum.
 - Added a decision at the start of the game to choose how subject colouring is handled.
 - Fixed Yang not getting missions and not having one of the intermediate Chinese formables.
+- State Firearms decreased the maintenance cost from 15%>10% and increased drill_gain 25%>30%
 - Forcelimit amount in the game reduced, to better reflect the reduced amount of manpower in the game.
+- Standardized Uniforms no longer locked with State Firearms and provides reinforce_cost_reduction (-25%) instead.
 
 
 <br/>
