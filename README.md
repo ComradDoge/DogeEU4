@@ -24,6 +24,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Cavalry base cost increased back to vanilla costs, from 20 to 25.
 - Administrative Efficiency from technology increased from 10% to 12.5%.
 - Taking high autonomy provinces from the enemy is slightly ever cheaper.
+- Removed the +5% forcelimit from normal difficulty that AI previously got.
 - Fixed Romania's `Romanize`, Britains `Early Industry`, Bulgaria's was_tag issue.
 - Added a decision at the start of the game to choose how subject colouring is handled.
 - Fixed Yang not getting missions and not having one of the intermediate Chinese formables.
