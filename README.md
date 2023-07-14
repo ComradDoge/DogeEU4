@@ -17,20 +17,7 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Max attrition reduced from 20% to 10%.
-- Tweaked how Spear of Destiny flavour works.
-- Revolutions can now start in the Industrial Age.
-- Fixed Punjab having a negative modifier in its ideas.
-- Cavalry base cost increased back to vanilla costs, from 20 to 25.
-- Administrative Efficiency from technology increased from 10% to 12.5%.
-- Taking high autonomy provinces from the enemy is slightly ever cheaper.
-- Removed the +5% forcelimit from normal difficulty that AI previously got.
-- Fixed Romania's `Romanize`, Britains `Early Industry`, Bulgaria's was_tag issue.
-- Added a decision at the start of the game to choose how subject colouring is handled.
-- Fixed Yang not getting missions and not having one of the intermediate Chinese formables.
-- State Firearms decreased the maintenance cost from 15%>10% and increased drill_gain 25%>30%
-- Forcelimit amount in the game reduced, to better reflect the reduced amount of manpower in the game.
-- Standardized Uniforms no longer locked with State Firearms and provides reinforce_cost_reduction (-25%) instead.
+
 
 
 <br/>
