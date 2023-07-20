@@ -18,7 +18,7 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-
+- Caliphate system is now only enabled in Vanilla Flavour bookmark as it does not quite work as intended in shattered.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
