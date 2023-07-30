@@ -18,6 +18,8 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
+- Reduced the cost of mines from 3k to 2k.
+- Fixed monopolies giving mercantilism again after 1.35 update.
 - Caliphate system is now only enabled in Vanilla Flavour bookmark as it does not quite work as intended in shattered.
 
 <br/>
