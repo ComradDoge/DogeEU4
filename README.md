@@ -21,6 +21,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Reduced the cost of mines from 3k to 2k.
 - Forming Romania triggers restoring country name action.
 - Updated Ethiopia forming decision to have the usual look.
+- Antioch now has access to the basic Crusader mission tree.
 - Fixed Vaisya governing capacity privilege not being limited.
 - Fixed monopolies giving mercantilism again after 1.35 update.
 - Fixed some monuments only accepting Jewish and not the other forms of it.
