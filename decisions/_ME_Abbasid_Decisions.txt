@@ -39,6 +39,7 @@ country_decisions = {
 		potential = {
 			ME_has_abbasid_caliph = yes
 			is_at_war = yes
+			religion_group = muslim
 			religion = sunni
 		}
 		provinces_to_highlight = {
@@ -46,9 +47,15 @@ country_decisions = {
 		}
 		allow = {
 			NOT = { war_exhaustion = 2 }
-			event_target:Caliph_province = {
-				has_siege = yes
+			if = {
+				limit = {
+					has_saved_global_event_target = Caliph_province
+				}
+				event_target:Caliph_province = {
+					has_siege = yes
+				}
 			}
+			else = { always = no }
 			mil_power = 100 
 			any_owned_province = {
 				Abbasid_valid_escape_route = yes
@@ -65,18 +72,24 @@ country_decisions = {
 				factor = 0
 				NOT = {
 					mil_power = 500
-					event_target:Caliph_province = {
-						has_siege = yes
-						num_of_units_in_province = {
-							amount = 10
+					if = {
+						limit = {
+							has_saved_global_event_target = Caliph_province
 						}
-						NOT = {
+						event_target:Caliph_province = {
+							has_siege = yes
 							num_of_units_in_province = {
-								who = ROOT
-								amount = 1
+								amount = 10
+							}
+							NOT = {
+								num_of_units_in_province = {
+									who = ROOT
+									amount = 1
+								}
 							}
 						}
 					}
+					else = { always = no }
 				}
 			}
 		}
@@ -85,11 +98,19 @@ country_decisions = {
 	Abbasid_put_in_capital = {
 		major = yes
 		potential = {
-			event_target:Caliph_province = {
-				owned_by = ROOT
-				NOT = { is_capital_of = ROOT }
+			if = {
+				limit = {
+					has_saved_global_event_target = Caliph_province
+				}
+				event_target:Caliph_province = {
+					owned_by = ROOT
+					NOT = { is_capital_of = ROOT }
+				}
+				NOT = { is_at_war = yes }
 			}
-			NOT = { is_at_war = yes }
+			else = {
+				always = no
+			}
 			religion = sunni
 		}
 		provinces_to_highlight = {

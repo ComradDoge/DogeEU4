@@ -1,26 +1,36 @@
 ME_set_abbasid_caliph_province = {
 	hidden_effect = {
 		set_global_flag = ME_abbasid_caliph_exists
-		event_target:Caliph_province = {
-			save_event_target_as = Old_caliph_province #should go out of scope because not global
-			ME_remove_abbasid_modifiers = yes
+		if = {
+			limit = {
+				has_saved_global_event_target = Caliph_province
+			}
+			event_target:Caliph_province = {
+				save_event_target_as = Old_caliph_province #should go out of scope because not global
+				ME_remove_abbasid_modifiers = yes
+			}
 		}
 		save_global_event_target_as = Caliph_province
 		
-		if = { #this if checks if the owner of the caliph changes
+		if = {
 			limit = {
-				NOT = {
-					event_target:Old_caliph_province = {
-						owner = {
-							ME_has_abbasid_caliph = yes
+				has_saved_global_event_target = Old_caliph_province
+			}
+			if = { #this if checks if the owner of the caliph changes
+				limit = {
+					NOT = {
+						event_target:Old_caliph_province = {
+							owner = {
+								ME_has_abbasid_caliph = yes
+							}
 						}
 					}
+					religion = sunni
 				}
-				religion = sunni
-			}
-			owner = { 
-				remove_country_modifier = ME_khalifah
-				country_event = { id = ME_Abbasid_Events.8 }
+				owner = { 
+					remove_country_modifier = ME_khalifah
+					country_event = { id = ME_Abbasid_Events.8 }
+				}
 			}
 		}
 	}
@@ -29,9 +39,14 @@ ME_set_abbasid_caliph_province = {
 }
 
 ME_caliph_tag_effect = { 
-	event_target:Caliph_province = {
-		owner = {
-			$effect$
+	if = {
+		limit = {
+			has_saved_global_event_target = Caliph_province
+		}
+		event_target:Caliph_province = {
+			owner = {
+				$effect$
+			}
 		}
 	}
 }
@@ -81,21 +96,40 @@ ME_become_caliphate_effect = {
 				}
 				add_government_reform = ME_caliphate_reform_sunni_arabian
 			}
-			else = {
+			else_if = {
+				limit = {
+					NOT = { has_reform = ottoman_government }
+					NOT = { has_reform = modernized_ottoman_government }
+					NOT = { has_reform = reorganized_ottoman_government }
+					NOT = { has_reform = caliphate_reform }
+					NOT = { has_reform = caliphate_theocracy_reform }
+				}
 				add_government_reform = ME_caliphate_reform_sunni
 			}
 			hidden_effect = {
 				save_global_event_target_as = ME_caliphate_tag
 				
 				clr_global_flag = ME_abbasid_caliph_exists
-				event_target:Caliph_province = {
-					save_event_target_as = Old_caliph_province #should go out of scope because not global
-					ME_remove_abbasid_modifiers = yes
+				if = {
+					limit = {
+						has_saved_global_event_target = Caliph_province
+					}
+					event_target:Caliph_province = {
+						save_event_target_as = Old_caliph_province #should go out of scope because not global
+						ME_remove_abbasid_modifiers = yes
+					}
 				}
 				clear_global_event_target = Caliph_province
 			}
 		}
-		else = { #the shia caliphate
+		else_if = { #the shia caliphate
+			limit = {
+				NOT = { has_reform = ottoman_government }
+				NOT = { has_reform = modernized_ottoman_government }
+				NOT = { has_reform = reorganized_ottoman_government }
+				NOT = { has_reform = caliphate_reform }
+				NOT = { has_reform = caliphate_theocracy_reform }
+			}
 			add_government_reform = ME_caliphate_reform_shia_ibadi
 		}
 		
@@ -127,9 +161,14 @@ ME_execute_caliph = {
 	hidden_effect = {
 		set_global_flag = ABA_executed_caliph
 		clr_global_flag = ME_abbasid_caliph_exists
-		event_target:Caliph_province = {
-			save_event_target_as = Old_caliph_province #should go out of scope because not global
-			ME_remove_abbasid_modifiers = yes
+		if = {
+			limit = {
+				has_saved_global_event_target = Caliph_province
+			}
+			event_target:Caliph_province = {
+				save_event_target_as = Old_caliph_province #should go out of scope because not global
+				ME_remove_abbasid_modifiers = yes
+			}
 		}
 		clear_global_event_target = Caliph_province
 		

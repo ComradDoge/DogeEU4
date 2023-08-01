@@ -1,7 +1,12 @@
 ME_caliph_tag_trigger = {
-	event_target:Caliph_province = {
-		owner = {
-			$trigger$
+	if = {
+		limit = {
+			has_saved_global_event_target = Caliph_province
+		}
+		event_target:Caliph_province = {
+			owner = {
+				$trigger$
+			}
 		}
 	}
 }
@@ -55,6 +60,7 @@ ME_has_abbasid_caliph = {
 	else_if = {
 		limit = {
 			has_global_flag = ME_abbasid_caliph_exists
+			has_saved_global_event_target = Caliph_province
 		}
 		custom_trigger_tooltip = {
 			tooltip = ME_has_abbasid_caliph
@@ -75,13 +81,21 @@ Abbasid_valid_escape_route = {
 	NOT = { has_siege = yes }
 	fort_level = 2
 	controlled_by = ROOT
-	NOT = { province_id = event_target:Caliph_province }
+	if = {
+		limit = {
+			has_saved_global_event_target = Caliph_province
+		}
+		NOT = { province_id = event_target:Caliph_province }
+	}
+	else = {
+		always = no
+	}
 }
 
 ME_abbasid_caliph_mission_trigger = {
 	if = {
 		limit = {
-			religion_group = muslim
+			religion = sunni
 		}
 		ME_has_abbasid_caliph = yes
 	}
@@ -122,6 +136,12 @@ ME_can_become_caliphate_gov = {
 }
 
 ME_abbasid_caliph_pth = {
-	province_id = event_target:Caliph_province
+	if = {
+		limit = {
+			has_saved_global_event_target = Caliph_province
+		}
+		province_id = event_target:Caliph_province
+	}
+	else = { always = no }
 	NOT = { owned_by = ROOT }
 }
