@@ -19,6 +19,7 @@ from the original mod I took. After all I need to understand how they work, else
 
 
 - Reduced the cost of mines from 3k to 2k.
+- Forming Romania triggers restoring country name action.
 - Fixed Vaisya governing capacity privilege not being limited.
 - Fixed monopolies giving mercantilism again after 1.35 update.
 - Caliphate system is now only enabled in Vanilla Flavour bookmark as it does not quite work as intended in shattered.
