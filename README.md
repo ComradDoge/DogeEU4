@@ -26,9 +26,9 @@ from the original mod I took. After all I need to understand how they work, else
 - Fixed Vaisya governing capacity privilege not being limited.
 - Fixed monopolies giving mercantilism again after 1.35 update.
 - Fixed some monuments only accepting Jewish and not the other forms of it.
-- Poland and Lithuania now prioritize Lions of the North missions if you have the DLC.
 - Fixed lollard rebels not working properly and not acting as an avenue for conversion.
 - Caliphate system is now only enabled in Vanilla Flavour bookmark as it does not quite work as intended in shattered.
+- Implemented Poland and Lithuania Lions of the North DLC missions. Polands gets it only in the Vanilla Flavour, while Lithuania gets it in both. If you don't have the DLC, Lithuania gets the older missions.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
