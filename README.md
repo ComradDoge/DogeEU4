@@ -18,6 +18,7 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
+- Tweaked the Draft Ships Privilege.
 - Reduced the cost of mines from 3k to 2k.
 - Tweaked the "Seperate Clergy from State" reform.
 - Forming Romania triggers restoring country name action.
