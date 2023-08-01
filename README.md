@@ -19,6 +19,7 @@ from the original mod I took. After all I need to understand how they work, else
 
 
 - Reduced the cost of mines from 3k to 2k.
+- Tweaked the "Seperate Clergy from State" reform.
 - Forming Romania triggers restoring country name action.
 - Updated Ethiopia forming decision to have the usual look.
 - Antioch now has access to the basic Crusader mission tree.
