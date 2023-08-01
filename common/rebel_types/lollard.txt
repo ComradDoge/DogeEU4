@@ -1,17 +1,18 @@
 ######################################################################
-# Lollard Rebels
+# lollard rebels. Disgruntled fanatics.
 ######################################################################
 lollard_rebels = {
 
-	color = { 235 115 115 }
+	color = { 230 175 175 }
 
-	area = nation_religion 				# Sticks to provinces of their religion
+	area = nation 					# Sticks to provinces of their nation
 	government = theocracy 			# Desires Theocracy
-	defection = none					# Will defect to the "best" alternative.
-	defect_delay = 120
+	religion = lollard
+	defection = none				# Will not defect
+	defect_delay = 120				# Held provinces will auto-defect after 18 months, regardless of accept/enforce demands.
 	independence = none				# Does not strive for independence
 	unit_transfer = no
-	gfx_type = culture_province	
+	gfx_type = culture_province
 	will_relocate = yes	
 	
 	resilient = no
@@ -23,8 +24,8 @@ lollard_rebels = {
 	infantry = 0.7
 	cavalry = 0.3
 	
-	morale = 1.0
-	
+	morale = 1.1
+
 	# Possible handle actions
 	handle_action_negotiate = yes
 	handle_action_stability = yes
@@ -35,47 +36,48 @@ lollard_rebels = {
 	spawn_chance = {
 		factor = 1
 		modifier = {
-			factor = 0
-			NOT = { has_global_flag = lollard_heresy }
-		}
-		modifier = {
-			factor = 1000
-			has_province_modifier = lollards
-		}
-		modifier = {
-			factor = 0
-			NOT = { owner = { religion = ROOT } }
-		}
-		modifier = {
-			factor = 0
-			NOT = { owner = { religion = catholic } }
-		}
-		modifier = {
-			factor = 0
-			religion_group = pagan
-		}
-		modifier = {
-			factor = 0
-			religion_group = eastern
-		}
-		modifier = {
 			factor = 0.5
-			is_year = 1700
-		}
-		modifier = {
-			factor = 0.01
 			is_overseas = yes
 		}
 		modifier = {
-			factor = 5
-			has_province_modifier = "heresy"
+			factor = 0.0
+			owner = { religion = ROOT }
 		}
 		modifier = {
-			factor = 3.0
-			is_year = 1450
-			owner = { religion = catholic }
-			NOT = { is_religion_enabled = protestant }
-			NOT = { is_religion_enabled = reformed }
+			factor = 0.0
+			NOT = { religion = lollard }
+		}
+		modifier = {
+			factor = 0.001
+			tolerance_to_this = 5
+		}
+		modifier = {
+			factor = 0.5
+			tolerance_to_this = 2
+		}
+		modifier = {
+			factor = 5.0
+			owner = { has_disaster = religious_turmoil }
+		}	
+		modifier = {
+			factor = 10.0
+			owner = { has_disaster = french_wars_of_religion }
+		}			
+		modifier = {
+			factor = 2000
+			has_missionary = yes
+		}
+		modifier = {
+			factor = 2
+			NOT = { tolerance_to_this = 1 }
+		}
+		modifier = {
+			factor = 2
+			NOT = { tolerance_to_this = -1 }
+		}
+		modifier = {
+			factor = 2
+			NOT = { tolerance_to_this = -2 }
 		}
 	}
  
@@ -83,16 +85,30 @@ lollard_rebels = {
 	movement_evaluation = {
 		factor = 1
 		modifier = {
-			factor = 0.001
-			has_province_modifier = "heresy"
-		}
-		modifier = {
-			factor = 0.1
+			factor = 0.5
 			units_in_province = 1
 		}
 		modifier = {
 			factor = 0.001
 			controlled_by = REB
+		}
+		modifier = {
+			factor = 0.0
+			religion = lollard
+			owner = { religion = lollard }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { religion = lollard }
+			any_neighbor_province = {
+	 			religion = lollard
+	 			NOT = { has_province_modifier = "forced_conversion" }
+	 		}
+	 	}
+		modifier = {
+			factor = 5
+			has_missionary = yes
+			religion = lollard
 		}
 		modifier = {
 			factor = 1.5
@@ -112,32 +128,45 @@ lollard_rebels = {
  	siege_won_trigger = {
 		NOT = {
 			AND = {
-				OR = {
-					owned_by = PAP
-					owned_by = AVI
-				}
+				owned_by = PAP
 				is_capital = yes
 			}
 		}
  	}
 	siege_won_effect = {
-		if = {
-			limit = {
-				religion = lollard
+		custom_tooltip = religious_rebels_seige_effect_tooltip
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						religion = lollard
+						is_reformation_center = yes
+						owner = { religion = lollard }
+					}
+				}
+				add_province_modifier = {
+					name = "religious_violence"
+					duration = 730
+				}
 			}
-			add_province_modifier = {
-				name = "religious_violence"
-				duration = 730
+			if = {
+				limit = {
+					NOT = { religion = lollard }
+					is_reformation_center = no
+					NOT = { owner = { religion = lollard } }
+				}
+				change_religion = lollard
+				add_province_modifier = {
+					name = "forced_conversion"
+					duration = 730
+				}
 			}
 		}
-		if = {
-			limit = {
-				NOT = { religion = lollard }
-			}
-			change_religion = lollard
-			add_province_modifier = {
-				name = "forced_conversion"
-				duration = 730
+		owner = {
+			change_estate_land_share = {
+				estate = estate_church
+				share = 10.0
+				province = ROOT
 			}
 		}
 	}
@@ -160,6 +189,13 @@ lollard_rebels = {
 	
 	# Country Scope	
 	demands_enforced_effect = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = just_lost_to_rebels
+				duration = 10
+				hidden = yes
+			}
+		}
 		if = {
 			limit = {
 				NOT = { religion_group = christian }
@@ -174,31 +210,44 @@ lollard_rebels = {
 		}
 		if = {
 			limit = {
-				OR = {
-					tag = PAP
-					tag = AVI
-				}
+				tag = PAP
 			}
 			add_stability = -1
+		}		
+		else_if = {
+			limit = {
+				NOT = { religion = lollard }
+				dominant_religion = lollard
+			}
+			change_religion = lollard
+			force_converted = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				religion = lollard
 			}
 			add_country_modifier = {
-				name = "religious_intolerance"
+				name = "religious_intolerance_enforced"
 				duration = 3650
 			}
 		}
-		if = {
+		else_if = {
 			limit = {
-				religion_group = christian
 				NOT = { religion = lollard }
-				NOT = { tag = PAP }
-				NOT = { tag = AVI }
+				NOT = { dominant_religion = lollard }
+				NOT = { has_country_modifier = heretic_tolerance }
+				religion_group = christian
 			}
-			change_religion = lollard
-			force_converted = yes
+			add_country_modifier = {
+				name = "heretic_tolerance"
+				duration = 3650
+			}
+		}
+		else = { add_stability = -1 } #Should probably never get here
+
+		change_estate_land_share = {
+			estate = estate_church
+			share = 10.0
 		}
 	}
 }

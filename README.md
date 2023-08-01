@@ -24,6 +24,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Fixed Vaisya governing capacity privilege not being limited.
 - Fixed monopolies giving mercantilism again after 1.35 update.
 - Fixed some monuments only accepting Jewish and not the other forms of it.
+- Fixed lollard rebels not working properly and not acting as an avenue for conversion.
 - Caliphate system is now only enabled in Vanilla Flavour bookmark as it does not quite work as intended in shattered.
 
 <br/>
