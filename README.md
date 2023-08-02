@@ -18,15 +18,16 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-- Tweaked the Draft Ships Privilege.
 - Reduced the cost of mines from 3k to 2k.
 - Tweaked the "Seperate Clergy from State" reform.
+- Removed fort buildings from game start in Shattered.
 - Forming Romania triggers restoring country name action.
 - Updated Ethiopia forming decision to have the usual look.
 - Antioch now has access to the basic Crusader mission tree.
 - Fixed Vaisya governing capacity privilege not being limited.
 - Fixed monopolies giving mercantilism again after 1.35 update.
 - Fixed some monuments only accepting Jewish and not the other forms of it.
+- Buffed the Draft Ships Privilege to be a max of 5>10 ships at 10>20 ports.
 - Fixed "Frequent Elections" bonus only applying to pirate republics, oopsie.
 - Frequent Elections now reduce election cycle -1>-2. Beware, this is not a buff.
 - Fixed lollard rebels not working properly and not acting as an avenue for conversion.
