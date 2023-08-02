@@ -18,6 +18,7 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
+- Fixed Uesugi missions being broken.
 - Reduced the cost of mines from 3k to 2k.
 - Tweaked the "Seperate Clergy from State" reform.
 - Removed fort buildings from game start in Shattered.
