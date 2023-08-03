@@ -23,6 +23,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Tweaked the "Seperate Clergy from State" reform.
 - Removed fort buildings from game start in Shattered.
 - Forming Romania triggers restoring country name action.
+- Riga can form Hansa without losing it's special reforms.
 - Updated Ethiopia forming decision to have the usual look.
 - Antioch now has access to the basic Crusader mission tree.
 - Internally redid the events that swapped government ideas.
