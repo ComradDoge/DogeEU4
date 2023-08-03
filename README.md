@@ -20,7 +20,6 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Fixed Uesugi missions being broken.
 - Reduced the cost of mines from 3k to 2k.
-- Tweaked the "Seperate Clergy from State" reform.
 - Removed fort buildings from game start in Shattered.
 - Forming Romania triggers restoring country name action.
 - Riga can form Hansa without losing it's special reforms.
@@ -28,6 +27,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Antioch now has access to the basic Crusader mission tree.
 - Internally redid the events that swapped government ideas.
 - Fixed Vaisya governing capacity privilege not being limited.
+- Tweaked "Seperate Clergy from State" and "Autocracy" reforms.
 - Fixed monopolies giving mercantilism again after 1.35 update.
 - Fixed some monuments only accepting Jewish and not the other forms of it.
 - Buffed the Draft Ships Privilege to be a max of 5>10 ships at 10>20 ports.
