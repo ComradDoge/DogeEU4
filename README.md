@@ -35,6 +35,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Frequent Elections now reduce election cycle -1>-2. Beware, this is not a buff.
 - Fixed lollard rebels not working properly and not acting as an avenue for conversion.
 - Caliphate system is now only enabled in Vanilla Flavour bookmark as it does not quite work as intended in shattered.
+- Added a "Disabled" text to Churches/Cathedrals when Bogomilist for easier understanding. More information on religion is in the description of Bogomilists in religion screen.
 - Implemented Poland and Lithuania Lions of the North DLC missions. Polands gets it only in the Vanilla Flavour, while Lithuania gets it in both. If you don't have the DLC, Lithuania gets the older missions.
 
 <br/>
