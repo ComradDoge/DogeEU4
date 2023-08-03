@@ -25,6 +25,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Forming Romania triggers restoring country name action.
 - Updated Ethiopia forming decision to have the usual look.
 - Antioch now has access to the basic Crusader mission tree.
+- Internally redid the events that swapped government ideas.
 - Fixed Vaisya governing capacity privilege not being limited.
 - Fixed monopolies giving mercantilism again after 1.35 update.
 - Fixed some monuments only accepting Jewish and not the other forms of it.
