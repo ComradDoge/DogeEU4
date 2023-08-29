@@ -17,7 +17,9 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone.
 
+- Tweaked advisor one-time event modifiers/bonuses.
 - Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
