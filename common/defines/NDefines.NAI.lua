@@ -52,7 +52,7 @@ NDefines.NAI.PEACE_TIME_MAX_MONTHS = 600 -- Max months applied to time factor in
 NDefines.NAI.PEACE_TIME_EARLY_FACTOR = 0.8 -- During months of stubbornness the effect of time passed is multiplied by this
 -- PEACE_TIME_EARLY_FACTOR = 0.75, -- During months of stubbornness the effect of time passed is multiplied by this
 
-NDefines.NAI.PEACE_TIME_LATE_FACTOR = 15.0 -- After months of stubbornness the effect of time passed is multiplied by this (only applied to positive war enthusiasm)
+NDefines.NAI.PEACE_TIME_LATE_FACTOR = 5 -- After months of stubbornness the effect of time passed is multiplied by this (only applied to positive war enthusiasm)
 -- PEACE_TIME_LATE_FACTOR = 1.0, -- After months of stubbornness the effect of time passed is multiplied by this (only applied to positive war enthusiasm)
 
 NDefines.NAI.PEACE_STALLED_WAR_TIME_FACTOR = 0.8 -- Applied to number of years war has been stalled to determine how much positive war enthusiasm is reduced
