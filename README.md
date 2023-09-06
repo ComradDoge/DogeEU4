@@ -23,6 +23,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
+- Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing due to lack of identity.
 #- Jewish proper replaced Samaritan/Karaite due to having a more interesting mechanic than standard deity system.
 #- Policies reworked to fix issues of idea group combinations having too many policies or none at all.
 
