@@ -21,11 +21,12 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Tweaked advisor one-time event modifiers/bonuses.
 - Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups.
+- Added Teutonic Order Lions of the North mission tree if you have the DLC.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
 - Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing due to lack of identity.
 #- Jewish proper replaced Samaritan/Karaite due to having a more interesting mechanic than standard deity system.
-#- Policies reworked to fix issues of idea group combinations having too many policies or none at all.
+#- Policies completely reworked due to the issue of some idea combinations having five policies while others none. I don't know what I was under that night that I made them. Eitherway, this means there is X amount of policies, compared to vanillas Y. God forbid I ever do this again.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
