@@ -20,6 +20,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone.
 
 - Tweaked advisor one-time event modifiers/bonuses.
+- Some religion colour tweaks to have semi-cohesive colour scheme.
 - Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups.
 - Added Teutonic Order Lions of the North mission tree if you have the DLC.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
@@ -27,7 +28,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
 - Fixed Northern German Confederation not getting some government mechanics (if you have the DLC).
 - Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing due to lack of identity.
-#- Jewish proper replaced Samaritan/Karaite due to having a more interesting mechanic than standard deity system.
+- Jewish proper replaced Samaritan/Karaite due to having a more interesting mechanic than standard deity system.
 #- Islamic Schools mechanic has been completely reworked and behaves differently.
 #- Policies completely reworked due to the issue of some idea combinations having five policies while others none. I don't know what I was under that night that I made them. Eitherway, this means there is X amount of policies, compared to vanillas Y. God forbid I ever do this again.
 
