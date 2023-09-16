@@ -17,20 +17,30 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone.
+- Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone and expanded.
 
-- Tweaked advisor one-time event modifiers/bonuses.
-- Some religion colour tweaks to have semi-cohesive colour scheme.
+Gargantuan
 - Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups.
+#- Policies completely reworked due to the issue of some idea combinations having five policies while others none. I don't know what I was under that night that I made them. Eitherway, this means there is X amount of policies, compared to vanillas Y. God forbid I ever do this again.
+#- Islamic Schools mechanic has been completely reworked and behaves differently.
+
+Major
 - Added Teutonic Order Lions of the North mission tree if you have the DLC.
+- Rebalanced a bunch of religion country/syncretic modifiers.
+- Heavily nerfed the amount of warscore that is increased by great projects. This will help with high warscore cost provinces as the game goes on.
+- Harmony modifiers tweaked, split the pagan groups modifiers and Asian Pagan group religions each have their own modifier.
+- Reduced the cost of latent good buildings to be more accessible.
+
+Minor
+#- Tweaked advisor one-time event modifiers/bonuses.
+- Some religion colour tweaks to have semi-cohesive colour scheme.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
-- Champagne no longer exists on the map and is just wine, also added a bit more wine.
+- Champagne good no longer exists on the map and is just wine, also added a bit more wine.
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
 - Fixed Northern German Confederation not getting some government mechanics (if you have the DLC).
-- Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing due to lack of identity.
-- Jewish proper replaced Samaritan/Karaite due to having a more interesting mechanic than standard deity system.
-#- Islamic Schools mechanic has been completely reworked and behaves differently.
-#- Policies completely reworked due to the issue of some idea combinations having five policies while others none. I don't know what I was under that night that I made them. Eitherway, this means there is X amount of policies, compared to vanillas Y. God forbid I ever do this again.
+- Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing much due to lack of identity. Might rework them later.
+- Jewish proper replaced Samaritan/Karaite due to having a unique mechanic while the others being false choices taking up space.
+
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>

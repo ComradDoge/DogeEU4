@@ -14,3 +14,6 @@ NDefines.NReligion.YEARLY_HARMONY_INCREASE = 1.0
 NDefines.NReligion.HARMONY_LOSS_PER_DEV_CONVERTED = 1.0
 NDefines.NReligion.YEARLY_HARMONY_INCREASE_WHEN_HARMONIZING = -2.0 -- Base game is -3%
 NDefines.NReligion.YEARLY_HARMONIZATION_PROGRESS = 0.05		-- Base game is 3%
+
+-- Syncretic
+NDefines.NReligion.CHANGE_SECONDARY_PRESTIGE_HIT = -25 -- -50
