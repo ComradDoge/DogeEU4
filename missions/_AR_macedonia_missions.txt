@@ -1,0 +1,1205 @@
+mac_first = {
+	slot = 1
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = MAC
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	mac_bulgaria = {
+	    icon = push_on_to_bulgaria
+		required_missions = { mac_prepare_diplomacy }
+		position = 2
+		
+		trigger = {
+		    bulgaria_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    silistria_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = silistria_area
+				area = bulgaria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_adm_power = 100
+			custom_tooltip = " "
+			add_accepted_culture_or_dip_power = {
+				culture = bulgarian
+			}
+		}
+	}
+	
+	mac_greece = {
+	    icon = cross_the_pindus
+		required_missions = { mac_macedonia }
+		position = 3
+		
+		trigger = {
+		    northern_greece_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    morea_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = northern_greece_area
+				area = morea_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_dip_power = 100
+			custom_tooltip = " "
+			146 = {
+				if = {
+					limit = {
+						NOT = {
+							has_great_project = {
+								type = parthenon
+								tier = 3
+							}
+						}
+					}
+					add_great_project_tier = {
+						type = parthenon
+						tier = 1
+					}
+				}
+				else = {
+					ROOT = { add_treasury = 2500 }
+				}		
+			}
+			custom_tooltip = " "
+			aegean_archipelago_area = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	mac_isles = {
+	    icon = mission_invade_island
+		required_missions = { mac_greece }
+		position = 4
+		
+		trigger = {
+		    aegean_archipelago_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = aegean_archipelago_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_navy_tradition = 15
+			custom_tooltip = " "
+			custom_tooltip = mac_isles_tt
+			hidden_effect = {
+				3003 = { galley = ROOT galley = ROOT galley = ROOT galley = ROOT galley = ROOT  }
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = "mac_galley"
+				duration = 7300
+			}
+		}
+	}
+	
+	mac_alexandria = {
+		icon = mission_conquer_alexandria
+		required_missions = { mac_egypt }
+		position = 8
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 358
+			}
+		}
+		
+		trigger = {
+			owns = 358
+			358 = {
+				owned_by = ROOT 
+				development = 30
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+			}
+		}
+		
+		effect = {
+			# set_capital = 358
+			358 = {
+				change_culture = ROOT
+				change_religion = ROOT
+			}
+			custom_tooltip = " "
+			358 = {
+				change_province_name = "Alexandria"
+				rename_capital = "Alexandria"
+			}
+			custom_tooltip = " "
+			358 = {
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 3
+			}
+			custom_tooltip = " "
+			358 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 1 }
+					}
+					center_of_trade = 1
+				}
+				else_if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			set_global_flag = ar_rebuilt_great_lightouse
+			custom_tooltip = ar_mac_lighthouse_tt
+			hidden_effect = {
+				358 = {
+					add_great_project = {
+						type = ar_egypt_great_lighthouse
+						instant = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+
+mac_second = {
+	slot = 2
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = MAC
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	mac_prepare_diplomacy = {
+	    icon = hispanic_monarchy
+		required_missions = {  }
+		position = 1	
+		
+		provinces_to_highlight = {
+
+		}	
+
+		trigger = {
+			
+			OR = {
+				num_of_allies = 2
+				num_of_subjects = 3
+				personal_union = 2
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "mac_diplomacy"
+				duration = 3650
+			}
+			bulgaria_area = {
+				add_permanent_claim = ROOT
+			}
+			# eastbulgaria_area = {
+			# 	limit = {
+			# 		NOT = { owned_by = ROOT }
+			# 		NOT = { is_core = ROOT }
+			# 	}
+			# 	add_permanent_claim = ROOT
+			# }
+			macedonia_area = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	mac_macedonia = {
+	    icon = mission_unite_home_region
+		required_missions = { mac_prepare_diplomacy }
+		position = 2
+		
+		trigger = {
+			is_subject = no
+		    macedonia_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = macedonia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}	
+		
+		effect = {
+			add_country_modifier = {
+				name = "mac_united"
+				duration = 5475
+			}
+			balkan_region = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	mac_thrace = {
+	    icon = mission_city_of_the_world's_desire
+		required_missions = { mac_macedonia }
+		position = 3
+		
+		trigger = {
+		    thrace_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = thrace_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			hudavendigar_area = {
+				add_permanent_claim = ROOT
+			}
+			aydin_area = {
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = " "
+			country_event_with_insight = {
+				id = mac_flavor_events.9
+				insight_tooltip = mac_thrace_effect_tt
+			}
+		}
+	}
+	
+	mac_coast = {
+	    icon = mission_arabian_sea_trade
+		required_missions = { mac_thrace }
+		position = 4
+		
+		trigger = {
+		    hudavendigar_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    aydin_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = hudavendigar_area
+				area = aydin_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_adm_power = 150
+			hudavendigar_area = {
+				change_culture = greek
+			}
+			aydin_area = {
+				change_culture = greek
+			}
+			custom_tooltip = " "
+			anatolia_region = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	mac_anatolia = {
+	    icon = anatolian_frontier
+		required_missions = { mac_coast mac_hone_ranks }
+		position = 5
+		
+		trigger = {
+		    anatolia_region = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				region = anatolia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 25
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = "mac_empire"
+				duration = -1
+			}
+			mashriq_region = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	mac_levant = {
+	    icon = mission_break_sicily
+		required_missions = { mac_anatolia }
+		position = 6
+		
+		trigger = {
+		    aleppo_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    syria_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    syrian_desert_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    trans_jordan_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    palestine_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = aleppo_area
+				area = syria_area
+				area = syrian_desert_area
+				area = trans_jordan_area
+				area = palestine_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			create_general = { tradition = 100 }
+			define_advisor = {
+				type = commandant
+				skill = 3
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
+			custom_tooltip = " "
+			egypt_region = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	mac_egypt = {
+	    icon = mission_egyptian_mamluk_soldier
+		required_missions = { mac_levant }
+		position = 7
+		
+		trigger = {
+		    egypt_region = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				region = egypt_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = "mac_pharaoh"
+				duration = -1
+			}
+		}
+	}
+}
+
+mac_third_EMPTY = {
+	slot = 3
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = MAC
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+}
+
+mac_third = {
+	slot = 3
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = MAC
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	mac_rule_aegean = {
+	    icon = renaissance_city
+		required_missions = { mac_establish_army }
+		position = 2
+		
+		trigger = {
+			owns_core_province = 148
+			naval_forcelimit = 25
+			if = {
+				limit = { ai = no }
+				navy_size_percentage = 1
+				num_of_galley = 15
+			}
+			else = {
+				navy_size = 0.75
+				num_of_galley = 10
+			}
+		}
+		
+		provinces_to_highlight = {
+			province_id = 148
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		
+		effect = {
+			148 = {
+				add_latest_building = {
+					navy_forcelimit = yes
+					builder = ROOT
+				}
+				add_building = naval_battery
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = mac_rule_aegean_modifier
+				duration = 5475
+			}
+			
+		}
+	}	
+
+	mac_hone_ranks = {
+	    icon = mission_redcoats
+		required_missions = { mac_macedonian_phalanx }
+		position = 4
+		
+		trigger = {
+			has_government_power = {
+				mechanic_type = ar_mac_war_cabinet
+				power_type = war_cabinet_organization
+				value = 100
+			}
+			army_professionalism = 0.5
+		}
+		
+		provinces_to_highlight = {
+			
+		}
+		
+		effect = {
+			add_mil_power = 100
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = mac_hone_ranks_modifier
+				duration = 7300
+			}
+		}
+	}		
+
+	mac_modernize_phalanx = {
+	    icon = spa_reform_tercios
+		required_missions = { mac_hone_ranks mac_vanquish_weak }
+		position = 4
+		
+		trigger = {
+			has_government_power = {
+				mechanic_type = ar_mac_war_cabinet
+				power_type = war_cabinet_organization
+				value = 100
+			}
+			OR = {
+				army_professionalism = 0.75
+				army_tradition = 90
+			}
+			has_commanding_three_star = yes
+			OR = {
+				has_country_modifier = mac_recruitment_drive_modifier
+				has_country_modifier = mac_centralize_command_modifier
+				has_country_modifier = mac_bolster_cataphracts_modifier
+			}
+		}
+		
+		provinces_to_highlight = {
+			
+		}
+		
+		effect = {
+			create_general = {
+				tradition = 100
+				add_fire = 2
+				add_shock = 2
+			}
+			custom_tooltip = " "
+			change_ruler_stat = {
+				stat = mil
+				amount = 2
+			}
+			custom_tooltip = " "
+			country_event_with_insight = {
+				id = mac_events.3
+				insight_tooltip = mac_modernize_phalanx_event_tt
+			}
+		}
+	}	
+	
+	mac_mesopotamia = {
+	    icon = mission_conquer_lower_burma_ori
+		required_missions = { mac_anatolia }
+		position = 6
+		
+		trigger = {
+		    iraq_arabi_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    basra_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		    al_jazira_area = {
+			    type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = al_jazira_area
+				area = iraq_arabi_area
+				area = basra_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "mac_absolutism"
+				duration = -1
+			}
+			persia_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			khorasan_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	mac_persia = {
+	    icon = mission_persianate_empire
+		required_missions = { mac_mesopotamia }
+		position = 7
+		
+		trigger = {
+		    num_of_owned_provinces_with = {
+				region = persia_region
+				value = 30
+			}
+		    num_of_owned_provinces_with = {
+				region = khorasan_region
+				value = 20
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				region = persia_region
+				region = khorasan_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			custom_tooltip = MAC_RENAME
+			add_country_modifier = {
+				name = "mac_conquest_persia"
+				duration = -1
+			}
+			hindusthan_region = {
+				add_permanent_claim = ROOT
+			}
+			west_india_region = {
+				add_permanent_claim = ROOT
+			}
+			hidden_effect = {
+				override_country_name = MAC_EMPIRE
+			}
+		}
+	}
+	
+	mac_india = {
+	    icon = mission_indian_empire
+		required_missions = { mac_persia }
+		position = 8
+		
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = hindusthan_region
+				value = 10
+			}
+			num_of_owned_provinces_with = {
+				region = west_india_region
+				value = 10
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				region = west_india_region
+				region = hindusthan_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = "mac_india"
+				duration = 7300
+			}
+			india_superregion = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}	
+}
+
+mac_fourth = {
+	slot = 4
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = MAC
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	mac_establish_army = {
+	    icon = spa_spanish_road
+		required_missions = { }
+		position = 1
+		
+		trigger = {
+			if = {
+				limit = { ai = no }
+				army_size_percentage = 1
+				manpower_percentage = 0.5
+				num_of_generals = 2
+			}
+			else = {			
+				army_size_percentage = 0.75
+				manpower_percentage = 0.3
+				num_of_generals = 1
+			}
+		}
+		
+		provinces_to_highlight = {
+			
+		}
+		
+		effect = {
+			add_mil_power = 100
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = mac_establish_army_modifier
+				duration = 5475
+			}
+		}
+	}	
+	mac_macedonian_phalanx = {
+	    icon = mission_hundred_years_war
+		required_missions = { mac_establish_army }
+		position = 3
+		
+		trigger = {
+			num_of_regiments_at_full_drill = 30
+			army_professionalism = 0.25
+		}
+		
+		provinces_to_highlight = {
+			
+		}
+		
+		effect = {
+			set_country_flag = unlocked_mac_war_cabinet
+			add_government_reform = mac_war_cabinet 
+			custom_tooltip = " "
+			country_event_with_insight = {
+				id = mac_events.2
+				insight_tooltip = mac_macedonian_phalanx_event_tt
+			}
+		}
+	}		
+	mac_vanquish_weak = {
+	    icon = assert_our_sovereignty
+		required_missions = { mac_macedonian_phalanx mac_funding_military }
+		position = 4
+		
+		trigger = {
+			stability = 2
+			is_great_power = yes
+			if = {
+				limit = { 
+					any_rival_country = { exists = yes }
+				} 
+				custom_trigger_tooltip = {
+					tooltip = "Have won a war against a rival in the past 10 years"
+					any_rival_country = {
+						ROOT = {
+							has_won_war_against = { who = PREV max_years_since = 10 }
+						}
+					}
+				}
+			}
+			else = {
+				government_rank = 3
+			}
+		}
+		
+		provinces_to_highlight = {
+			
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			custom_tooltip = " "
+			add_years_of_income = 5
+		}
+	}		
+	mac_alexanders_legacy = {
+	    icon = the_latin_empire
+		required_missions = { mac_vanquish_weak }
+		position = 5
+		
+		trigger = {
+			is_hegemon = yes
+			NOT = { great_power_rank = 3 }
+		}
+		
+		provinces_to_highlight = {
+			
+		}
+		
+		effect = {
+			add_stability_or_adm_power = yes
+			custom_tooltip = " "
+			add_ruler_modifier = {
+				name = mac_alexanders_legacy_ruler_modifer
+			}
+			add_country_modifier = {
+				name = mac_alexanders_legacy_modifer
+				duration = -1
+			}
+
+		}
+	}		
+	mac_hellenic_revival = {
+	    icon = mission_the_sudebnik
+		required_missions = {  }
+		position = 6
+		
+		trigger = {
+			religion = hellenic_pagan
+			#if = {
+			#	limit = { ai = no }
+			#	religious_unity = 0.5
+			#}
+			#else = {
+			#	religious_unity = 0.25
+			#}
+		}
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { religion = hellenic_pagan }
+		}
+		
+		effect = {
+			add_dip_power = 100
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = mac_hellenic_revival_modifier
+				duration = 7300
+			}
+			# country_event_with_insight = {
+			# 	id = mac_flavor_events.2
+			# 	insight_tooltip = mac_hellenic_revival_tt
+			# }
+		}
+	}
+				
+	mac_initiate_hellenization = {
+	    icon = mission_the_sultan_of_morocco
+		required_missions = { mac_hellenic_revival }
+		position = 7
+		
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				culture = ROOT
+				religion = hellenic_pagan
+			}
+		}
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				NOT = { religion = hellenic_pagan }
+				NOT = { culture = ROOT }
+			}
+		}
+		
+		effect = {
+			custom_tooltip = mac_initiate_hellenization_effect_tt
+			hidden_effect = { #10 random provinces that meet trigger get 1 base tax
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+				random_owned_province = {
+					limit = { religion = hellenic_pagan culture = greek }
+					add_base_tax = 1
+				}
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = mac_initiate_hellenization_modifier
+				duration = 7300
+			}
+		}
+	}	
+}
+
+mac_fifth = {
+	slot = 5
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		tag = MAC
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes		
+				
+	mac_thracian_dominance = {
+	    icon = mission_constantinople
+		required_missions = { mac_establish_army }
+		position = 2
+		
+		trigger = {
+			owns_core_province = 151
+			1320 = { 
+				trade_node_value = 15
+				trade_share = {
+					country = ROOT
+					share = 30
+				}
+			} 
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 151
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+				}
+				AND = {
+					province_id = 1320
+					OR = {
+						NOT = { trade_node_value = 25 }
+						NOT = {
+							trade_share = {
+								country = ROOT
+								share = 30
+							}
+						}
+					}
+				}
+
+			}
+
+		}
+		
+		effect = {
+			change_ruler_stat = {
+				stat = adm
+				amount = 1
+			}
+			change_ruler_stat = {
+				stat = dip
+				amount = 1
+			}
+			custom_tooltip = " "
+			country_event_with_insight = {
+				id = mac_events.1
+				insight_tooltip = mac_thracian_dominance_event_tt
+			}
+		}
+	}			
+				
+	mac_funding_military = {
+	    icon = mission_battle_of_varna
+		required_missions = { mac_thracian_dominance }
+		position = 3
+		
+		trigger = {
+			if = {
+				limit = { ai = no }
+				army_size_percentage = 1
+				land_forcelimit = 50
+				num_of_cavalry = 10
+			}
+			else = {				
+				army_size_percentage = 0.75
+				land_forcelimit = 35
+				num_of_cavalry = 10
+			}
+		}
+		
+		provinces_to_highlight = {
+			
+		}
+		
+		effect = {
+			add_army_professionalism = 0.05
+			custom_tooltip = " "
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+			custom_tooltip = " "
+			define_advisor = {
+				type = commandant
+				skill = 3
+				cost_multiplier = 0.25
+			}
+			
+		}
+	}			
+				
+	mac_revive_cataphracts = {
+	    icon = mission_protect_albania
+		required_missions = { mac_funding_military mac_vanquish_weak }
+		position = 5
+		
+		trigger = {
+			if = {
+				limit = { ai = no }
+				OR = {
+					AND = {
+						full_idea_group = monarchie0
+						num_of_cavalry = 15
+					}
+					num_of_cavalry = 30
+				}
+			}
+			else = {
+				num_of_cavalry = 15
+			}
+		}
+		
+		provinces_to_highlight = {
+			
+		}
+		
+		effect = {
+			set_country_flag = unlocked_bolster_cataphracts
+			custom_tooltip = mac_revive_cataphracts_tt
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = mac_revive_cataphracts_modifier
+				duration = -1
+			}
+		}
+	}				
+				
+	mac_back_in_control = {
+	    icon = mission_restore_trade_superiority
+		required_missions = { mac_hellenic_revival }
+		position = 7
+		
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				development = 30
+				culture = greek
+				religion = hellenic_pagan
+			}
+		}
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				NOT = { development = 30 }
+				NOT = { culture = greek }
+				NOT = { religion = hellenic_pagan }
+			}
+		}
+		
+		effect = {
+			country_event_with_insight = {
+				id = mac_flavor_events.2
+				insight_tooltip = mac_back_in_control_event_tt
+			}
+		}
+	}			
+
+	mac_greek_golden_age = {
+	    icon = mission_engelbrekt
+		required_missions = { mac_back_in_control mac_initiate_hellenization }
+		position = 8
+		
+		trigger = {
+			OR = {
+				in_golden_age = yes
+				has_had_golden_age = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 3
+				development = 40
+				culture = greek
+				religion = hellenic_pagan
+			}
+			1320 = { highest_value_trade_node = yes }
+			1320 = { is_strongest_trade_power = ROOT }
+		}
+		
+		provinces_to_highlight = {
+			province_id = 1320
+			OR = { 
+				highest_value_trade_node = no
+				NOT = { is_strongest_trade_power = ROOT }
+			}
+		}
+		
+		effect = {
+			
+			simple_dynamic_effect = {
+				first_custom_tooltip = mac_greek_golden_age_effect_tt
+				first_limit = "in_golden_age = no"
+				first_effect = "
+					reset_golden_age = yes
+				"
+				second_limit = "in_golden_age = yes"
+				second_effect = "
+					extend_golden_age = 600
+				"
+			}
+		}
+	}	
+}

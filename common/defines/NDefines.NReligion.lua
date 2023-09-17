@@ -17,3 +17,5 @@ NDefines.NReligion.YEARLY_HARMONIZATION_PROGRESS = 0.05		-- Base game is 3%
 
 -- Syncretic
 NDefines.NReligion.CHANGE_SECONDARY_PRESTIGE_HIT = -25 -- -50
+
+NDefines.NReligion.MAX_RELIGIOUS_CENTER_SPREAD_DISTANCE = 300 --150

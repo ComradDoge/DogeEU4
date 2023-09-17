@@ -1,0 +1,229 @@
+ar_mac_war_cabinet = {
+	available = { always = yes }
+	powers = {
+		war_cabinet_organization = {
+			gui = war_cabinet_organization_gov_mech
+			show_before_interactions = yes
+			max = 100
+			min = 0
+			# is_good = yes
+			reset_on_new_ruler = no
+			default = 10
+			base_monthly_growth = 0
+			development_scaled_monthly_growth = 0
+			# monarch_power = mil		
+			scaled_modifier = {
+				trigger = {
+					has_government_power = { 
+						mechanic_type = ar_mac_war_cabinet
+						power_type = war_cabinet_organization
+						value = 50
+					}
+				}
+				modifier = {
+					army_tradition = 1
+					drill_decay_modifier = -0.5
+					military_tactics = 0.25
+				}
+			}
+			reverse_scaled_modifier = {
+				trigger = {
+					NOT = {
+						has_government_power = { 
+							mechanic_type = ar_mac_war_cabinet
+							power_type = war_cabinet_organization
+							value = 50
+						}
+					}
+				}
+				modifier = {
+					recover_army_morale_speed = -0.1
+					reinforce_speed = -0.33
+				}
+			}
+			on_max_reached = {
+
+			}
+			on_min_reached = {
+
+			}
+		}
+	}
+	interactions = {
+		mac_recruitment_drive_ability = {
+			gui = war_cabinet_organization_interaction
+			icon = GFX_mac_recruitment_drive_button
+			cost_type = war_cabinet_organization
+			cost = 50
+			trigger = {
+
+			}
+			effect = {
+				custom_tooltip = " "
+				add_yearly_manpower = 5
+				custom_tooltip = " "
+				add_country_modifier = {
+					name = "mac_recruitment_drive_modifier"
+					duration = 1825
+				}
+			}
+			cooldown_years = 5
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 0
+					NOT = {
+						has_government_power = { 
+							mechanic_type = ar_mac_war_cabinet
+							power_type = war_cabinet_organization
+							value = 50
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					is_in_important_war = yes
+				}
+				modifier = {
+					factor = 5
+					NOT = { manpower_percentage = 0.25 }
+				}
+			}
+		}
+		mac_centralize_command_ability = {
+			gui = war_cabinet_organization_interaction
+			icon = GFX_mac_centralize_command_button
+			cost_type = war_cabinet_organization
+			cost = 50
+			trigger = {
+				
+			}			
+			effect = {
+				custom_tooltip = " "
+				create_general = {
+					tradition = 100
+					add_fire = 1
+					add_shock = 1
+				}
+				custom_tooltip = " "
+				add_country_modifier = {
+					name = "mac_centralize_command_modifier"
+					duration = 1825
+				}
+			}
+			cooldown_years = 5
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 0					
+					is_at_war = no
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						has_government_power = { 
+							mechanic_type = ar_mac_war_cabinet
+							power_type = war_cabinet_organization
+							value = 50
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					is_in_important_war = yes
+				}
+				modifier = {
+					factor = 2
+					NOT = { army_tradition = 50 }
+				}
+				modifier = {
+					factor = 3
+					NOT = { num_of_generals = 1 }
+				}
+			}
+		}
+		mac_bolster_cataphracts_ability = {
+			gui = war_cabinet_organization_interaction
+			icon = GFX_mac_cataphracts
+			cost_type = war_cabinet_organization
+			cost = 50
+			trigger = {
+				custom_trigger_tooltip = {
+					has_country_flag = unlocked_bolster_cataphracts
+					tooltip = mac_bolster_cataphracts_ability_tt
+				}
+			}
+			effect = {
+				custom_tooltip = " "
+				custom_tooltip = mac_catephracts_merc_tt		
+				custom_tooltip = " "
+				add_country_modifier = {
+					name = "mac_bolster_cataphracts_modifier"
+					duration = 1825
+				}
+			}
+			cooldown_years = 5
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 0					
+					is_at_war = no
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						has_government_power = { 
+							mechanic_type = ar_mac_war_cabinet
+							power_type = war_cabinet_organization
+							value = 50
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					is_in_important_war = yes
+				}
+				modifier = {
+					factor = 3
+					NOT = { num_of_cavalry = 10 }
+				}
+			}
+		}
+	}
+}
+ar_autonomous_phalanx = {
+	available = { always = yes }
+	powers = {
+		autonomous_phalanx_power = {
+			gui = war_cabinet_organization_gov_mech
+			max = 100
+			min = 0
+			# is_good = yes
+			reset_on_new_ruler = no
+			default = 50
+			base_monthly_growth = 0.5
+			development_scaled_monthly_growth = 0
+			# monarch_power = mil		
+			scaled_modifier = {
+				modifier = {
+					manpower_in_own_culture_provinces = 1
+					hostile_attrition = 1
+				}
+			}	
+			scaled_modifier = {
+				trigger = {
+					NOT = { has_country_flag = reconciled_war_cabinet_and_autonomous_phalanx_flag }
+				}
+				modifier = {					
+					monthly_war_cabinet_organization = -0.3
+				}
+			}	
+			scaled_modifier = {
+				trigger = { has_country_flag = reconciled_war_cabinet_and_autonomous_phalanx_flag }
+				modifier = {					
+					monthly_war_cabinet_organization = 0.2
+				}
+			}
+		}
+	}
+}

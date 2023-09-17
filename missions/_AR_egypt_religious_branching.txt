@@ -1,0 +1,283 @@
+
+
+# RELIGIOUS MISSIONS
+####################
+
+#Undecided
+ar_egypt_religion_crossroads = {
+    slot = 1                   
+    generic = no             
+    ai = yes              
+    has_country_shield = yes  
+    
+    potential = {
+        tag = EGP
+    }
+    
+    ar_egypt_religious_crossroad = {
+        icon = mission_cope_with_refugees       
+        position = 1 
+        
+        
+        required_missions = {
+        }
+        
+        
+        provinces_to_highlight = {
+        }
+    
+        
+        trigger = {
+            egypt_region = {
+                type = all
+                owned_by = ROOT
+                is_core = ROOT
+            }
+            NOT = {
+                any_owned_province = {
+                    region = egypt_region
+                    custom_trigger_tooltip = {
+                        tooltip = has_muslim_rebels.tooltip
+                        OR = {
+                            has_rebel_faction = sunni_rebels
+                            has_rebel_faction = shiite_rebels
+                            has_rebel_faction = ibadi_rebels
+                        }
+                    }
+                }
+            }
+        }
+        
+    
+        effect = {
+            country_event = {
+                id = ar_egypt.10
+            }
+        }
+    }
+}
+
+ar_egypt_religion_undecided = {
+    slot = 1                   
+    generic = no             
+    ai = yes              
+    has_country_shield = yes  
+    
+    potential = {
+        always = no
+        tag = EGP
+        NOT = {
+            has_country_flag = ar_egypt_completed_crossroadFaith_chain
+        }
+    }
+
+	ar_egypt_religious_unknown_1 = {
+        icon = mission_unknown_mission            
+        position = 3
+        
+        
+        required_missions = {
+			ar_egypt_religious_crossroad 
+        }
+        
+        
+        provinces_to_highlight = {
+        }
+    
+        
+        trigger = {
+            always = no
+        }
+        
+    
+        effect = {
+        }
+    }
+
+	ar_egypt_religious_unknown_2 = {
+        icon = mission_unknown_mission            
+        position = 5 
+        
+        
+        required_missions = {
+			ar_egypt_religious_unknown_1
+        }
+        
+        
+        provinces_to_highlight = {
+        }
+    
+        
+        trigger = {
+            always = no
+        }
+        
+    
+        effect = {
+        }
+    }
+}
+
+ar_egypt_religion_kemetic = {
+    slot = 1                   
+    generic = no             
+    ai = yes              
+    has_country_shield = yes  
+    
+    potential = {
+        always = no
+        tag = EGP
+        has_country_flag = ar_egypt_completed_crossroadFaith_chain
+        religion = egyptian_religion
+    }
+
+	ar_egypt_religion_kemetic_1 = {
+        icon = ar_kemet_1           
+        position = 3
+        
+        
+        required_missions = {
+			ar_egypt_religious_crossroad 
+        }
+        
+        
+        provinces_to_highlight = {
+        }
+    
+        
+        trigger = {
+            owns_all_provinces = {
+                region = egypt_region
+            }
+            num_of_estate_privileges = {
+                estate = estate_church
+                value = 3
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        has_country_flag = ar_egypt_tolerant_egypt
+                    }
+                    NOT = {
+                        has_country_modifier = ar_egypt_religion_muslims_tolerated
+                    }
+                }
+                all_owned_province = {
+                    region = egypt_region
+                    religion = ROOT
+                }
+            }
+            if = {
+                limit = {
+                    OR = {
+                        has_country_flag = ar_egypt_tolerant_egypt
+                        has_country_modifier = ar_egypt_religion_muslims_tolerated
+                    }
+                }
+                religious_unity = 0.75
+            }
+        }
+        
+        effect = {
+            if = {
+                limit = {
+                    has_country_modifier = ar_egypt_religion_muslims_tolerated
+                }
+                remove_country_modifier = ar_egypt_religion_muslims_tolerated
+            }
+            if = {
+                limit = {
+                    has_country_modifier = ar_egypt_religion_muslims_persecuted
+                }
+                remove_country_modifier = ar_egypt_religion_muslims_persecuted
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        has_country_flag = ar_egypt_tolerant_egypt
+                    }
+                    NOT = {
+                        has_country_modifier = ar_egypt_religion_muslims_tolerated
+                    }
+                }
+
+                add_estate_loyalty = {
+                    estate = estate_church
+                    loyalty = 20
+                }
+                add_stability = 1
+            }
+            if = {
+                limit = {
+                    OR = {
+                        has_country_flag = ar_egypt_tolerant_egypt
+                        has_country_modifier = ar_egypt_religion_muslims_tolerated
+                    }
+                }
+
+                add_dip_power = 150
+                add_stability = 1
+                
+                hidden_effect = {
+                    set_country_flag = ar_egypt_tolerant_egypt
+                }
+            }
+        }
+    }
+
+	ar_egypt_religion_kemetic_2 = {
+        icon = ar_kemet_2
+        position = 5 
+        
+        
+        required_missions = {
+			ar_egypt_religion_kemetic_1
+        }
+        
+        
+        provinces_to_highlight = {
+            
+        }
+    
+        
+        trigger = {
+            custom_trigger_tooltip = {
+                tooltip = hasRestoredAllTemples.Tooltip
+                has_country_flag = ar_cult_amen
+                has_country_flag = ar_cult_aset
+                has_country_flag = ar_cult_djehuty
+                has_country_flag = ar_cult_ptah
+                has_country_flag = ar_cult_sebek
+                has_country_flag = ar_cult_sutekh
+                has_country_flag = ar_cult_wsir
+            }
+            OR = {
+                361 = {
+                    has_great_project = {
+                        type = pyramid_of_cheops
+                        tier = 3
+                    }
+                }
+                360 = {
+                    has_great_project = {
+                        type = ar_egypt_derelmedina
+                        tier = 3
+                    }
+                }
+                360 = {
+                    has_great_project = {
+                        type = ar_egypt_valleyofkings
+                        tier = 3
+                    }
+                }
+            }
+        }
+    
+        effect = {
+            add_country_modifier = {
+                name = ar_egypt_triumph_old_gods 
+                duration = -1
+            }
+        }
+    }
+}

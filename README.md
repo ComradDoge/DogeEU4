@@ -25,21 +25,23 @@ Gargantuan
 #- Islamic Schools mechanic has been completely reworked and behaves differently.
 
 Major
-- Added Teutonic Order Lions of the North mission tree if you have the DLC.
 - Rebalanced a bunch of religion country/syncretic modifiers.
-- Heavily nerfed the amount of warscore that is increased by great projects. This will help with high warscore cost provinces as the game goes on.
-- Harmony modifiers tweaked, split the pagan groups modifiers and Asian Pagan group religions each have their own modifier.
 - Reduced the cost of latent good buildings to be more accessible.
+- Added Teutonic Order Lions of the North mission tree if you have the DLC.
+- Added missions for Assyria, Macedon and Aegyptus. Missions made by Chewyshoot from "Ancients Reborn" mod.
+- Harmony modifiers tweaked, split the pagan groups modifiers and Asian Pagan group religions each have their own modifier.
+- Heavily nerfed the amount of warscore that is increased by great projects. This will help with high warscore cost provinces as the game goes on.
 
 Minor
+- Reduced the price of Canal Projects.
 #- Tweaked advisor one-time event modifiers/bonuses.
 - Some religion colour tweaks to have semi-cohesive colour scheme.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
 - Champagne good no longer exists on the map and is just wine, also added a bit more wine.
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
 - Fixed Northern German Confederation not getting some government mechanics (if you have the DLC).
-- Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing much due to lack of identity. Might rework them later.
 - Jewish proper replaced Samaritan/Karaite due to having a unique mechanic while the others being false choices taking up space.
+- Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing much due to lack of identity. Might rework them later.
 
 
 <br/>
