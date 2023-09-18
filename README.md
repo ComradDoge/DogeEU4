@@ -25,16 +25,16 @@ Gargantuan
 #- Islamic Schools mechanic has been completely reworked and behaves differently.
 
 Major
-- Rebalanced a bunch of religion country/syncretic modifiers.
 - Reduced the cost of latent good buildings to be more accessible.
+- Rebalanced a bunch of religion country/syncretic modifiers, check wiki.
 - Added Teutonic Order Lions of the North mission tree if you have the DLC.
 - Added missions for Assyria, Macedon and Aegyptus. Missions made by Chewyshoot from "Ancients Reborn" mod.
-- Harmony modifiers tweaked, split the pagan groups modifiers and Asian Pagan group religions each have their own modifier.
+- Harmony modifiers tweaked, split the pagan groups modifiers and Asian Pagan group religions each have their own modifier, check wiki.
 - Heavily nerfed the amount of warscore that is increased by great projects. This will help with high warscore cost provinces as the game goes on.
 
 Minor
 - Reduced the price of Canal Projects.
-#- Tweaked advisor one-time event modifiers/bonuses.
+- Tweaked advisor one-time event modifiers/bonuses.
 - Some religion colour tweaks to have semi-cohesive colour scheme.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
 - Champagne good no longer exists on the map and is just wine, also added a bit more wine.
