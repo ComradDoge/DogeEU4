@@ -411,6 +411,56 @@ on_province_owner_change = {
 			}
 		}
 	}
+	###steam_factory
+	if = {
+		limit = {
+			AND = {
+				ROOT = { has_building = steam_factory NOT = { has_building = off_11 } }
+				owner = { check_variable = { which = steam_engine value = 0.1 } }	
+			}
+		}
+		owner = {
+			subtract_variable = { which = steam_engine value = 0.1 }             
+			change_variable = { which = steam_engine_used value = 0.1 }              		
+			change_variable = { which = steam_factory_amount value = 1 }         
+		}
+		FROM = {
+			change_variable = { which = steam_engine value = 0.1 }           
+			subtract_variable = { which = steam_engine_used value = 0.1 }        
+			subtract_variable = { which = steam_factory_amount value = 1 }         			
+		}
+	}
+	else_if = {
+		limit = {
+			AND = {
+				ROOT = { has_building = steam_factory NOT = { has_building = off_11 } }	
+				owner = { NOT = { check_variable = { which = steam_engine value = 0.1 } } }
+			}
+		}
+		owner = {
+			change_variable = { which = steam_engine_used value = 0.1 }        
+			change_variable = { which = steam_factory_amount value = 1 }
+		}
+		FROM = {
+			subtract_variable = { which = steam_engine_used value = 0.1 }        
+			subtract_variable = { which = steam_factory_amount value = 1 } 
+		}
+	}
+	if = {
+		limit = { AND = { has_building = steam_factory has_building = off_11 } }
+		owner = {
+			change_variable = {            
+				which = steam_factory_amount
+				value = 1
+			}
+		}
+		FROM = {
+			subtract_variable = {            
+				which = steam_factory_amount
+				value = 1
+			}
+		}
+	}
 	###steam_engine_manu
 	if = {
 		limit = {

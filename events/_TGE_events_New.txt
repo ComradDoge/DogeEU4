@@ -59,8 +59,9 @@ country_event = {
 			update_goods_subjects_monthly = { GOODS = lead }
 			update_goods_subjects_monthly = { GOODS = zinc }
 			update_goods_subjects_monthly = { GOODS = glass }
-			update_goods_subjects_monthly = { GOODS = tobacco }
-			update_goods_subjects_monthly = { GOODS = cocoa }
+			update_goods_subjects_monthly = { GOODS = steam_engine }
+			#update_goods_subjects_monthly = { GOODS = tobacco }
+			#update_goods_subjects_monthly = { GOODS = cocoa }
 		}
 		
 		update_goods = { GOODS = copper }
@@ -69,6 +70,7 @@ country_event = {
 		update_goods = { GOODS = lead }
 		update_goods = { GOODS = zinc }
 		update_goods = { GOODS = glass }
+		update_goods = { GOODS = steam_engine }
 		if = {
 			limit = {
 				NOT = {
@@ -461,6 +463,75 @@ country_event = {
 				}	
 			}
 		}
+
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						check_variable = {
+							which = steam_engine_total 
+							which = steam_engine_used
+						}	
+					}
+				}
+			}
+			set_variable = {
+				which = var11
+				value = 0
+			}
+			
+			while = {
+				limit = {
+					NOT = {
+						is_variable_equal = {
+							which = var11
+							which = steam_factory_amount
+						}
+					}
+				}
+				random_owned_province = { 	
+					limit = { 
+						has_building = steam_factory
+					}
+					add_building = off_11
+					owner = {
+						change_variable = {            
+							which = steam_engine
+							value = 0.1
+						}
+						subtract_variable = {            
+							which = steam_engine_used
+							value = 0.1
+						}
+					}
+					
+					if = {
+						limit = {
+							owner = { ai = yes }
+						}
+						remove_building = off_11
+						remove_building = steam_factory
+						clr_province_flag = back_to_off_11
+						
+						owner = {
+							subtract_variable = {            
+								which = steam_factory_amount
+								value = 1
+							}
+					
+							country_event = { 
+								id = New_TradeGood_Events.9
+								days = 2
+							}
+						}
+					}
+				}
+				change_variable = {            
+					which = var11 
+					value = 1 
+				}	
+			}
+		}
 	}
 }
 
@@ -484,6 +555,8 @@ province_event = {
 		if = {
 			limit = { NOT = { has_global_flag = New_TradeGood_First  } }
 			
+
+				###### Used Counter
 			every_country = { 
 				set_variable = {
 					which = copper_used
@@ -514,6 +587,11 @@ province_event = {
 					which = glass_used
 					value = 0
 				}
+
+				set_variable = {
+					which = steam_engine_used
+					value = 0
+				}	
 				
 				#set_variable = {
 				#	which = tobacco_used
@@ -524,6 +602,8 @@ province_event = {
 				#	which = cocoa_used
 				#	value = 0
 				#}
+
+				###### Building Counter		
 				
 				set_variable = {
 					which = cannon_foundry_amount
@@ -549,7 +629,11 @@ province_event = {
 					which = spectacle_factory_amount
 					value = 0
 				}
-				
+
+				set_variable = {
+					which = steam_factory_amount
+					value = 0
+				}				
 				#set_variable = {
 				#	which = cigars_factory_amount
 				#	value = 0
@@ -559,8 +643,8 @@ province_event = {
 				#	which = chocolate_factory_amount
 				#	value = 0
 				#}
-				
-				## NEW TEST STUFF
+
+				###### Subject Counter
 				set_variable = {
 					which = from_subjects_copper
 					value = 0
@@ -591,6 +675,10 @@ province_event = {
 					value = 0
 				}
 				
+				set_variable = {
+					which = from_subjects_steam_engine
+					value = 0
+				}
 				#set_variable = {
 				#	which = from_subjects_tobacco
 				#	value = 0
@@ -627,12 +715,13 @@ province_event = {
 					glass = 1
 					#tobacco = 1
 					#cocoa = 1
+					steam_engine = 1
 				}
 			}
 			if = {
 				limit = { NOT = { ai = yes } }
 				country_event = { id = New_TradeGood_Events.2 days = 120 }
-				country_event = { id = New_TradeGood_Events.2 days = 240 }
+				#country_event = { id = New_TradeGood_Events.2 days = 240 }
 				country_event = { id = New_TradeGood_Events.2 days = 360 }
 			}
 			else = {
@@ -801,5 +890,67 @@ country_event = {
 				add_building = off_5
 			}
 		}
+	}
+}
+
+country_event = {
+	id = New_TradeGood_Events.9
+	title = New_TradeGood_Events.9.t
+	desc = New_TradeGood_Events.9.d
+	picture = TRADEGOODS_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = New_TradeGood_Events.9.a
+		ai_chance = { factor = 100 }	
+	}
+	immediate = {
+		update_goods = { GOODS = steam_engine }
+		
+		if = {
+			limit = {
+				any_owned_province = { 
+					has_province_flag = back_to_off_11
+				}
+			}
+			every_owned_province = { 
+				limit = {
+					has_province_flag = back_to_off_11
+				}
+				add_building = off_11
+			}
+		}
+	}
+}
+
+
+###############################################################################
+country_event = {
+	id = New_TradeGood_Events.999
+	title = New_TradeGood_Events.999.t
+	desc = New_TradeGood_Events.999.d
+	picture = TRADEGOODS_eventPicture
+
+	fire_only_once = yes
+	hidden = yes
+
+	trigger = {
+		NOT = { has_global_flag = first_steam_engine_manu_already_built }
+		any_owned_province = {
+			trade_goods = steam_engine
+		}
+	}
+
+
+	immediate = {
+		set_global_flag = first_steam_engine_manu_already_built
+		set_country_flag = first_to_build_steam_engine_manu_tech_boost
+	}
+
+	option = {
+		name = New_TradeGood_Events.999.a
+		ai_chance = { factor = 1 }	
 	}
 }
