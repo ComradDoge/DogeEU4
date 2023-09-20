@@ -19,23 +19,28 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone and expanded.
 
+
+#Fix the Aegyptus and Babylon monuments interaction
+
 Gargantuan
 - Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups.
 #- Policies completely reworked due to the issue of some idea combinations having five policies while others none. I don't know what I was under that night that I made them. Eitherway, this means there is X amount of policies, compared to vanillas Y. God forbid I ever do this again.
 #- Islamic Schools mechanic has been completely reworked and behaves differently.
 
 Major
-- Reduced the cost of latent good buildings to be more accessible.
+- Trade good prices tweaked and a bunch of change up for latent goods.
 - Rebalanced a bunch of religion country/syncretic modifiers, check wiki.
 - Added Teutonic Order Lions of the North mission tree if you have the DLC.
 - Added missions for Assyria, Macedon and Aegyptus. Missions made by Chewyshoot from "Ancients Reborn" mod.
-- Harmony modifiers tweaked, split the pagan groups modifiers and Asian Pagan group religions each have their own modifier, check wiki.
+- Printed more money into the economy by having all nations earn 2 ducat each month more at game starts (24 ducats per year > 48 ducats per year).
 - Heavily nerfed the amount of warscore that is increased by great projects. This will help with high warscore cost provinces as the game goes on.
 
 Minor
 - Reduced the price of Canal Projects.
+- Reenabled Brazil formation decisions.
 - Tweaked advisor one-time event modifiers/bonuses.
 - Some religion colour tweaks to have semi-cohesive colour scheme.
+- Harmony modifiers tweaked, split the pagan groups modifiers, check wiki.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
 - Champagne good no longer exists on the map and is just wine, also added a bit more wine.
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
