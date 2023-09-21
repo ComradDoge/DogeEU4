@@ -42,6 +42,7 @@ Minor
 - Reenabled Brazil formation decisions.
 - Tweaked advisor one-time event modifiers/bonuses.
 - Some religion colour tweaks to have semi-cohesive colour scheme.
+- Added Nestorian to religion ideas converter for most likely religions.
 - Harmony modifiers tweaked, split the pagan groups modifiers, check wiki.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
 - Champagne good no longer exists on the map and is just wine, also added a bit more wine.
