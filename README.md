@@ -21,17 +21,12 @@ from the original mod I took. After all I need to understand how they work, else
 
 
 #Fix the Aegyptus and Babylon monuments interaction
-#think of modifiers for Fur clothing and update the localisation
 #check if brazil shit works
-
-Gargantuan
-- Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups.
-#- Policies completely reworked due to the issue of some idea combinations having five policies while others none. I don't know what I was under that night that I made them. Eitherway, this means there is X amount of policies, compared to vanillas Y. God forbid I ever do this again.
-#- Islamic Schools mechanic has been completely reworked and behaves differently.
 
 Major
 - Trade good prices tweaked and a bunch of change up for latent goods.
 - Rebalanced a bunch of religion country/syncretic modifiers, check wiki.
+- Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups.
 - Added Teutonic Order Lions of the North mission tree if you have the DLC.
 - Added missions for Assyria, Macedon and Aegyptus. Missions made by Chewyshoot from "Ancients Reborn" mod.
 - Printed more money into the economy by having all nations earn 1 ducat each month more at game starts (24 ducats per year > 36 ducats per year).
