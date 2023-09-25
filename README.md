@@ -35,7 +35,7 @@ Major
 
 Minor
 - Reduced the price of Canal Projects.
-- Reenabled Brazil formation decisions.
+- Reenabled Brazil formation decision.
 - Tweaked advisor one-time event modifiers/bonuses.
 - Some religion colour tweaks to have semi-cohesive colour scheme.
 - Added Nestorian to religion ideas converter for most likely religions.
