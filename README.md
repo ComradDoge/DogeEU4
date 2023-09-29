@@ -22,6 +22,7 @@ from the original mod I took. After all I need to understand how they work, else
 
 #Fix the Aegyptus and Babylon monuments interaction
 #-Added a bunch of new Dutch content from "Dutch Domination" by Petrus.
+#-Fix chan and taoism rebels not converting
 
 Major
 - Trade good prices tweaked and a bunch of change up for latent goods.
