@@ -42,6 +42,7 @@ Minor
 - Harmony modifiers tweaked, split the pagan groups modifiers, check wiki.
 - Advisor one-time events modifier duration changed from 6 years to 10 years.
 - Champagne good no longer exists on the map and is just wine, also added a bit more wine.
+- Buffed Siberian development cost reduction -25%>-50% to negate the arctic climate negative.
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
 - Fixed Northern German Confederation not getting some government mechanics (if you have the DLC).
 - Fixed some religions not having/working rebels that allow you to change religion if you do it through them.
