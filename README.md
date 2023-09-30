@@ -22,7 +22,6 @@ from the original mod I took. After all I need to understand how they work, else
 
 #Fix the Aegyptus and Babylon monuments interaction
 #-Added a bunch of new Dutch content from "Dutch Domination" by Petrus.
-#-Fix chan and taoism rebels not converting
 
 Major
 - Trade good prices tweaked and a bunch of change up for latent goods.
@@ -37,6 +36,7 @@ Minor
 - Reduced the price of Canal Projects.
 - Reenabled Brazil formation decision.
 - Tweaked advisor one-time event modifiers/bonuses.
+- Lowered the amount of loyalty estate interactions give.
 - Some religion colour tweaks to have semi-cohesive colour scheme.
 - Added Nestorian to religion ideas converter for most likely religions.
 - Harmony modifiers tweaked, split the pagan groups modifiers, check wiki.
@@ -44,6 +44,7 @@ Minor
 - Champagne good no longer exists on the map and is just wine, also added a bit more wine.
 - Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
 - Fixed Northern German Confederation not getting some government mechanics (if you have the DLC).
+- Fixed some religions not having/working rebels that allow you to change religion if you do it through them.
 - Jewish proper replaced Samaritan/Karaite due to having a unique mechanic while the others being false choices taking up space.
 - Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing much due to lack of identity. Might rework them later.
 
