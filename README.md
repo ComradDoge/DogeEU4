@@ -33,6 +33,7 @@ Major
 Minor
 - Reduced the price of Canal Projects.
 - Reenabled Brazil formation decision.
+- Society & Propaganda Ideas got tweaked.
 - Tweaked advisor one-time event modifiers/bonuses.
 - Lowered the amount of loyalty estate interactions give.
 - Some religion colour tweaks to have semi-cohesive colour scheme.
