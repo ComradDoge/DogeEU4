@@ -25,7 +25,6 @@ Major
 - Trade good prices tweaked and a bunch of change up for latent goods.
 - Rebalanced a bunch of religion country/syncretic modifiers, check wiki.
 - Added Teutonic Order Lions of the North mission tree if you have the DLC.
-- Dynastic Ideas removed/disabled to allow for 13/13/13 total idea groups and preparing for policy rework.
 - Added missions for Assyria, Macedon and Aegyptus. Missions made by Chewyshoot from "Ancients Reborn" mod.
 - Printed more money into the economy by having all nations earn 1 ducat each month more at game starts (24 ducats per year > 36 ducats per year).
 - Heavily nerfed the amount of warscore that is increased by great projects. This will help with high warscore cost provinces as the game goes on.
