@@ -19,8 +19,6 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone and expanded.
 
-
-#Fix the Aegyptus and Babylon monuments interaction
 #-Added a bunch of new Dutch content from "Dutch Domination" by Petrus.
 
 Major
@@ -31,6 +29,7 @@ Major
 - Added missions for Assyria, Macedon and Aegyptus. Missions made by Chewyshoot from "Ancients Reborn" mod.
 - Printed more money into the economy by having all nations earn 1 ducat each month more at game starts (24 ducats per year > 36 ducats per year).
 - Heavily nerfed the amount of warscore that is increased by great projects. This will help with high warscore cost provinces as the game goes on.
+- Policy numbers have been tweaked and are now in a more experimental phase, primarily as test ground for the complete rework in the works.
 
 Minor
 - Reduced the price of Canal Projects.
@@ -47,7 +46,8 @@ Minor
 - Fixed Northern German Confederation not getting some government mechanics (if you have the DLC).
 - Fixed some religions not having/working rebels that allow you to change religion if you do it through them.
 - Jewish proper replaced Samaritan/Karaite due to having a unique mechanic while the others being false choices taking up space.
-- Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing much due to lack of identity. Might rework them later.
+- Various modifiers got tweaked and touched upon, for example: mercenary manpower, cav_to_inf_ratio, infantry/cavalry combat abilities.
+- Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing much due to lack of identity and being general clutter. Might rework them later.
 
 
 <br/>
