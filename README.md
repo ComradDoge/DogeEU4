@@ -19,9 +19,8 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone and expanded.
 
-#-Added a bunch of new Dutch content from "Dutch Domination" by Petrus.
-
 Major
+- Society & Propaganda Ideas got reworked.
 - Trade good prices tweaked and a bunch of change up for latent goods.
 - Rebalanced a bunch of religion country/syncretic modifiers, check wiki.
 - Added Teutonic Order Lions of the North mission tree if you have the DLC.
@@ -33,7 +32,6 @@ Major
 Minor
 - Reduced the price of Canal Projects.
 - Reenabled Brazil formation decision.
-- Society & Propaganda Ideas got tweaked.
 - Tweaked advisor one-time event modifiers/bonuses.
 - Lowered the amount of loyalty estate interactions give.
 - Some religion colour tweaks to have semi-cohesive colour scheme.
@@ -50,6 +48,8 @@ Minor
 - Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing much due to lack of identity and being general clutter. Might rework them later.
 
 
+(Future Stuff?)
+#-Added a bunch of new Dutch content from "Dutch Domination" by Petrus.
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
