@@ -19,33 +19,9 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone and expanded.
 
-Major
-- Society & Propaganda Ideas got reworked.
-- Added Teutonic Order Lions of the North mission tree if you have the DLC.
-- Trade good prices tweaked and latent good prices and requirements reworked.
-- Religion country/syncretic modifiers have had a look over and have been tweaked, check wiki.
-- Added missions for Assyria, Macedon and Aegyptus. Missions made by Chewyshoot from "Ancients Reborn" mod.
-- Policy numbers have been tweaked and are now in a more experimental phase, primarily as test ground for the complete rework in the works.
-- Printed more money into the economy by having all nations earn 1 ducat each month more at game starts (24 ducats per year > 36 ducats per year).
-- Heavily nerfed the amount of warscore that is increased by great projects. This will help with high warscore cost provinces as the game goes on.
-- Various modifiers got tweaked and standardized, for example: mercenary manpower, cav_to_inf_ratio, discipline, infantry/cavalry combat abilities.
-
-Minor
-- Reduced the price of Canal Projects.
-- Tweaked advisor one-time event modifiers/bonuses.
-- Lowered the amount of loyalty estate interactions give.
-- Some religion colour tweaks to have semi-cohesive colour scheme.
-- Added Nestorian to religion ideas converter for most likely religions.
-- Harmony modifiers tweaked, split the pagan groups modifiers, check wiki.
-- Advisor one-time events modifier duration changed from 6 years to 10 years.
-- Reenabled Brazil formation decision but not the flee to Brazil since it still crashes.
-- Champagne good no longer exists on the map and is just wine, also added a bit more wine.
-- Buffed Siberian development cost reduction -25%>-50% to negate the arctic climate negative.
-- Indigenous Ideas are now counted as government type ideas and therefore part of ADM category.
-- Fixed Northern German Confederation not getting some government mechanics (if you have the DLC).
-- Fixed some religions not having/working rebels that allow you to change religion if you do it through them.
-- Jewish proper replaced Samaritan/Karaite due to having a unique mechanic while the others being false choices taking up space.
-- Disabled most Japanese formables except the standard Japan and Ikko Ikki due to them not providing much due to lack of identity and being general clutter. Might rework them later.
+- Zoroastrian monument slightly nerfed.
+- Azerbaijan and Persia can no longer form each other for balancing reasons.
+- Breakthrough mechanic is no longer a mechanic for cavalry and is back to vanilla settings.
 
 
 (Future Stuff?)
