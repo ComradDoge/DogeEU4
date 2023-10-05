@@ -17,8 +17,6 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone and expanded.
-
 - Zoroastrian monument slightly nerfed.
 - Nerfed Persia mission modifiers to not be as loaded.
 - Azerbaijan and Persia can no longer form each other for balancing reasons.
