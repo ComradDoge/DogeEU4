@@ -33,7 +33,7 @@ NDefines.NMilitary.GALLEY_COMBAT_WIDTH = 1
 -- Breakthrough: An experimental feature that when you defeat an enemy regiment with artillery behind it,
 -- there's a chance that you pull their artillery into the front row.
 NDefines.NMilitary.INFANTRY_BREAKTHROUGH = 0.0				-- Between 0 and 1
-NDefines.NMilitary.CAVALRY_BREAKTHROUGH = 0.5			    -- Between 0 and 1
+NDefines.NMilitary.CAVALRY_BREAKTHROUGH = 0.0			    -- Between 0 and 1
 
 -- Mercenaries
 
