@@ -20,6 +20,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Wiki is now housed in https://eu4.paradoxwikis.com/Doge_Shattered_Europa and completely redone and expanded.
 
 - Zoroastrian monument slightly nerfed.
+- Nerfed Persia mission modifiers to not be as loaded.
 - Azerbaijan and Persia can no longer form each other for balancing reasons.
 - Breakthrough mechanic is no longer a mechanic for cavalry and is back to vanilla settings.
 
