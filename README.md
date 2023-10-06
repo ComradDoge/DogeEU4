@@ -17,11 +17,11 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Supplier Advisor buffed.
 - Zoroastrian monument slightly nerfed.
 - Nerfed Persia mission modifiers to not be as loaded.
 - Azerbaijan and Persia can no longer form each other for balancing reasons.
 - Breakthrough mechanic is no longer a mechanic for cavalry and is back to vanilla settings.
-
 
 (Future Stuff?)
 #-Added a bunch of new Dutch content from "Dutch Domination" by Petrus.
