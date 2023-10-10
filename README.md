@@ -19,12 +19,13 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Supplier Advisor buffed.
 - Zoroastrian monument slightly nerfed.
+- Korea and Sweden missions being scuffed fixed.
+- Added more amber around the Baltic states area.
 - Nerfed Persia mission modifiers to not be as loaded.
 - Azerbaijan and Persia can no longer form each other for balancing reasons.
-- Breakthrough mechanic is no longer a mechanic for cavalry and is back to vanilla settings.
+- Upon formation of Baltic Union added an event that allows you to choose some preset names.
 
-(Future Stuff?)
-#-Added a bunch of new Dutch content from "Dutch Domination" by Petrus.
+
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
