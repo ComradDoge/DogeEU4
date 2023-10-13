@@ -17,13 +17,9 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Supplier Advisor buffed.
-- Zoroastrian monument slightly nerfed.
-- Korea and Sweden missions being scuffed fixed.
-- Added more amber around the Baltic states area.
-- Nerfed Persia mission modifiers to not be as loaded.
-- Azerbaijan and Persia can no longer form each other for balancing reasons.
-- Upon formation of Baltic Union added an event that allows you to choose some preset names.
+- Buffed Castillian Spanish ideas.
+- Added Timurid mission from Europa Expanded but only in Vanilla Flavour.
+- Fixed Vanilla Flavour not having the additional two diplomatic relations.
 
 
 <br/>
