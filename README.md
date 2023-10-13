@@ -18,6 +18,8 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Buffed Castillian Spanish ideas.
+- Manufactories now scale with development.
+- Local Goods Produced per production development increased back to 0.2. 
 - Added Timurid mission from Europa Expanded but only in Vanilla Flavour.
 - Fixed Vanilla Flavour not having the additional two diplomatic relations.
 
