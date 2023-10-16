@@ -1,0 +1,2070 @@
+Timurid_main_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		OR = {
+			has_country_flag = me_tim_vassal_path
+			has_country_flag = me_tim_horde_path
+		}
+	}
+	has_country_shield = yes
+	
+	TIM_kazan = {
+		icon = mission_non-western_cavalry_raid
+		required_missions = { TIM_nogai }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = volga_area
+				area = kazan_area
+				area = kama_area
+				area = bashkiria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			volga_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			kazan_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			kama_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			bashkiria_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				if = {
+					limit = {
+						NOT = { has_country_flag = me_tim_established_cossack_guard }
+					}
+					custom_tooltip = me_tim_unlocks_recruit_cossacks_decision
+					set_country_flag = me_tim_established_cossack_guard
+					custom_tooltip = " "
+					add_country_modifier = {
+						name = me_tim_cossack_guard
+						duration = -1
+					}
+				}
+				else = {
+					custom_tooltip = me_tim_increases_cossacks_regiments_cap_by_20
+					set_country_flag = me_tim_increased_guard_limit
+					custom_tooltip = " "
+					custom_tooltip = me_tim_modify_cossack_guard_modifier
+					hidden_effect = {
+						remove_country_modifier = me_tim_cossack_guard
+						add_country_modifier = {
+							name = me_tim_cossack_guard_2
+							duration = -1
+						}
+					}
+				}
+				ME_distribute_development = {
+					type = manpower
+					amount = 5
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.10 
+					option_1 = "
+						2444 = {
+							add_province_modifier = {
+								name = me_tim_kazan_gold
+								duration = -1
+							}
+						}
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = me_tim_kazan_vassal
+							duration = -1
+							desc = me_tim_until_vassalage_is_over
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_rus = {
+		icon = mission_land_of_churches
+		required_missions = { TIM_kazan TIM_great_horde }
+		position = 6
+		provinces_to_highlight = {
+			region = russia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = { 
+				all_province = {
+					region = russia_region
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 40 
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				add_army_tradition_or_mil_power = { amount = 15 }
+				custom_tooltip = " "
+				custom_tooltip = me_tim_unlocks_streltsy_recruitment
+				set_country_flag = me_tim_streltsy_guard
+				custom_tooltip = " "
+				add_country_modifier = {
+					name = me_tim_streltsy_guard
+					duration = -1
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.11 
+					option_1 = "
+						custom_tooltip = me_tim_every_russian_province_loses_autonomy
+					"
+					option_2 = "
+						custom_tooltip = me_tim_cede_every_owned_russian_province_to_kazan
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_caspian = {
+		icon = mission_conquer_50_development
+		required_missions = { }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = shirvan_area
+				area = tabarestan_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			tabarestan_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			shirvan_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				ME_distribute_development = {
+					type = production
+					amount = 10
+				}
+				custom_tooltip = " "
+				custom_tooltip = me_tim_unlock_silk_creation_decision
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.20 
+					option_1 = "
+						every_owned_province = {
+							limit = {
+								trade_goods = silk
+								OR = {
+									area = tabarestan_area
+									area = shirvan_area
+								}
+							}
+							add_building = textile
+						}
+					"
+					option_2 = "
+						add_years_of_owned_provinces_production_income = {
+							years = 12
+							trigger = {
+								trade_goods = silk
+								OR = {
+									area = tabarestan_area
+									area = shirvan_area
+								}
+							}
+							custom_tooltip = ME_TIM_CASPIAN_SILK
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_georgia = {
+		icon = fortress_switzerland
+		required_missions = { TIM_caspian TIM_qq }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				area = armenia_area
+				area = kartli_kakheti_area
+				area = samtskhe_area
+				area = imereti_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = { 
+				all_province = {
+					OR = {
+						area = armenia_area
+						area = kartli_kakheti_area
+						area = samtskhe_area
+						area = imereti_area
+					}
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 10
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				custom_tooltip = me_tim_distribute_georgian_engineers
+				custom_tooltip = " "
+				define_advisor = {
+					type = fortification_expert
+					skill = 3
+					culture = georgian
+					religion = orthodox
+					cost_multiplier = 0.25
+				}
+				hidden_effect = {
+					pick_best_provinces = {
+						5 = yes
+						scale = higher_development_than
+						scope = every_owned_province
+						event_target_name = "fort_province"
+					}
+					
+					event_target:fort_province_1 = {
+						add_province_modifier = {
+							name = me_tim_georgian_engineers
+							duration = -1
+						}
+						add_base_manpower = 2
+					}
+					event_target:fort_province_2 = {
+						add_province_modifier = {
+							name = me_tim_georgian_engineers
+							duration = -1
+						}
+						add_base_manpower = 2
+					}
+					event_target:fort_province_3 = {
+						add_province_modifier = {
+							name = me_tim_georgian_engineers
+							duration = -1
+						}
+						add_base_manpower = 2
+					}
+					event_target:fort_province_4 = {
+						add_province_modifier = {
+							name = me_tim_georgian_engineers
+							duration = -1
+						}
+						add_base_manpower = 2
+					}
+					event_target:fort_province_5 = {
+						add_province_modifier = {
+							name = me_tim_georgian_engineers
+							duration = -1
+						}
+						add_base_manpower = 2
+					}
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.21 
+					option_1 = "
+						ME_tim_event_21_opt_1 = yes
+					"
+					option_2 = "
+						ME_tim_event_21_opt_2 = yes
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_caliphate = {
+		icon = mission_mosque
+		required_missions = { TIM_levant }
+		position = 10
+		trigger = {
+			OR = {
+				ME_has_abbasid_caliph = yes
+				AND = {
+					total_own_and_non_tributary_subject_development = 1500
+					army_size = 150
+					legitimacy_equivalent = 100
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_we_captured_caliph
+			tooltip = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.22 
+					option_1 = "
+						custom_tooltip = me_tim_caliph_executed
+						custom_tooltip = \" \"
+						custom_tooltip = me_tim_gain_ae_and_lose_opinion_with_sunni
+						custom_tooltip = \" \"
+						add_age_modifier = {
+							name = me_tim_above_the_caliph
+							duration = -1
+							age = age_of_absolutism
+							else = \"
+								add_country_modifier = {
+									name = me_tim_above_the_caliph
+									duration = -1
+								}
+							\"
+						}
+					"
+					option_2 = "
+						custom_tooltip = me_tim_gain_benefits_for_caliph
+					"
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_completed_by_empire
+			tooltip = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.23 
+					option_1 = "
+						add_ruler_personality = me_heir_of_timur
+						add_army_professionalism = 0.1
+						add_ruler_modifier = {
+							name = me_tim_honoring_timur
+							duration = -1
+						}
+					"
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						ME_has_abbasid_caliph = yes
+					}
+					country_event = { id = ME_Timurid_Main_Events.22 }
+				}
+				else = {
+					country_event = { id = ME_Timurid_Main_Events.23 }
+				}
+			}
+		}
+	}
+	
+	TIM_a_new_empire = {
+		icon = mission_empire
+		required_missions = { TIM_caliphate TIM_ottomans }
+		position = 10
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_abbasid_completion
+				}
+				custom_trigger_tooltip = {
+					tooltip = me_tim_used_caliph_actions_30_times
+					check_variable = {
+						which = METimCaliphActions
+						value = 30
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = me_tim_empire_completion
+				}
+				custom_trigger_tooltip = {
+					tooltip = me_tim_won_25_wars
+					check_variable = {
+						which = METimWonWars
+						value = 25
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = me_tim_trigger_depends_on_previous_mission
+					always = no
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_abbasid_completion
+				}
+				custom_tooltip = me_tim_lowers_requirements_for_unify_islam
+				add_country_modifier = {
+					name = me_tim_allahs_faithful
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = me_tim_empire_completion
+				}
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.24 
+					option_1 = "
+						override_country_name = TIMURID_EMPIRE
+
+						add_stat_or_monarch_power = { stat = dip amount = 1 }
+						add_stat_or_monarch_power = { stat = mil amount = 1 }
+						add_stat_or_monarch_power = { stat = adm amount = 1 }
+					"
+				}
+			}
+			else = {
+				custom_tooltip = me_tim_reward_depends_on_previous_mission
+			}
+		}
+	}
+}
+
+Timurid_main_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		OR = {
+			has_country_flag = me_tim_vassal_path
+			has_country_flag = me_tim_horde_path
+		}
+	}
+	has_country_shield = yes
+	
+	TIM_solidify_succession = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { }
+		position = 1
+		trigger = {
+			legitimacy_equivalent = 100
+			army_size = 40
+			is_at_war = no
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				custom_tooltip = me_tim_unlocks_timurid_conquest_cb
+				set_country_flag = me_tim_timurid_conquest
+			}
+			else = {
+				custom_tooltip = me_tim_claim_cb_cost_less_ae
+				set_country_flag = me_tim_less_ae_claims
+			}
+			custom_tooltip = " "
+			ME_give_claims = { region = persia_region }
+		}
+	}
+	
+	TIM_expedition = {
+		icon = mission_abu_saids_dream
+		required_missions = { }
+		position = 3
+		trigger = {
+			num_of_generals = 2
+			num_of_cavalry = 15
+		}
+		
+		effect = {
+			ME_give_claims = { area = transcaspia_area }
+			ME_give_claims = { area = nogai_area }
+			ME_give_claims = { area = lower_yik_area }
+			add_country_modifier = {
+				name = me_tim_march_west
+				duration = 5475
+			}
+		}
+	}
+	
+	TIM_nogai = {
+		icon = mission_collect_yasak
+		required_missions = { TIM_expedition TIM_uzbek }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = nogai_area
+				area = transcaspia_area
+				area = lower_yik_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			nogai_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			transcaspia_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			lower_yik_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			ME_give_claims = { area = astrakhan_area }
+			ME_give_claims = { area = lower_don_area }
+			ME_give_claims = { area = saratov_area }
+			ME_give_claims = { area = volga_area }
+			ME_give_claims = { area = bashkiria_area }
+			ME_give_claims = { area = kama_area }
+			ME_give_claims = { area = kazan_area }
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				add_country_modifier = {
+					name = me_tim_inheriting_nomadic_warfare
+					duration = 5475
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.8 
+					option_1 = "
+						custom_tooltip = me_tim_unlock_desert_steppe_development_priv
+					"
+					option_2 = "
+						custom_tooltip = me_tim_3_random_provinces
+						tooltip = {
+							change_trade_goods = cloth
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_great_horde = {
+		icon = mission_break_the_tatar_yoke
+		required_missions = { TIM_nogai }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = astrakhan_area
+				area = lower_don_area
+				area = saratov_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			astrakhan_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			lower_don_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			saratov_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			ME_give_claims = { area = azov_area }
+			ME_give_claims = { area = zaporizhia_area }
+			ME_give_claims = { area = crimea_area }
+			ME_give_claims = { area = yedisan_area }
+			ME_give_claims = { area = circassia_area }
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				custom_tooltip = " "
+				if = {
+					limit = {
+						NOT = { has_country_flag = me_tim_established_cossack_guard }
+					}
+					custom_tooltip = me_tim_unlocks_recruit_cossacks_decision
+					set_country_flag = me_tim_established_cossack_guard
+					custom_tooltip = " "
+					add_country_modifier = {
+						name = me_tim_cossack_guard
+						duration = -1
+					}
+				}
+				else = {
+					custom_tooltip = me_tim_increases_cossacks_regiments_cap_by_20
+					set_country_flag = me_tim_increased_guard_limit
+					custom_tooltip = " "
+					custom_tooltip = me_tim_modify_cossack_guard_modifier
+					hidden_effect = {
+						remove_country_modifier = me_tim_cossack_guard
+						add_country_modifier = {
+							name = me_tim_cossack_guard_2
+							duration = -1
+						}
+					}
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.9 
+					option_1 = "
+						303 = {
+							add_base_production = -2
+							add_base_tax = -2
+							add_base_manpower = -2
+						}
+						capital_scope = {
+							add_base_production = 1
+							add_base_tax = 1
+							add_base_manpower = 1
+						}
+						add_years_of_income = 1
+						
+						astrakhan_area = {
+							add_unrest = -10
+						}
+						lower_don_area = {
+							add_unrest = -10
+						}
+						saratov_area = {
+							add_unrest = -10
+						}
+					"
+					option_2 = "
+						astrakhan_area = {
+							add_province_modifier = {
+								name = me_tim_integrate_great_horde_population
+								duration = 7300
+							}
+						}
+						lower_don_area = {
+							add_province_modifier = {
+								name = me_tim_integrate_great_horde_population
+								duration = 7300
+							}
+						}
+						saratov_area = {
+							add_province_modifier = {
+								name = me_tim_integrate_great_horde_population
+								duration = 7300
+							}
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_crimea = {
+		icon = mission_sca_lit_conquer_crimea
+		required_missions = { TIM_great_horde }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = azov_area
+				area = zaporizhia_area
+				area = crimea_area
+				area = yedisan_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					OR = {
+						area = azov_area
+						area = zaporizhia_area
+						area = crimea_area
+						area = yedisan_area
+					}
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 7
+			}
+			circassia_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			ME_give_claims = { area = astrakhan_area }
+			ME_give_claims = { area = lower_don_area }
+			ME_give_claims = { area = saratov_area }
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.43 
+					option_1 = "
+						ME_tim_event_43_opt_1 = yes
+					"
+					option_2 = "
+						custom_tooltip = me_tim_unlock_slave_soldiers_merc_company
+						custom_tooltip = \" \"
+						add_country_modifier = {
+							name = me_tim_tatar_slave_soldiers
+							duration = -1
+						}
+					"
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = me_tim_tatar_slave_soldiers
+					duration = -1
+				}
+				add_years_of_income = 0.5
+			}
+		}
+	}
+	
+	TIM_persia = {
+		icon = mission_persian_soldiers
+		required_missions = { }
+		position = 5
+		provinces_to_highlight = {
+			region = persia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = { 
+				all_province = {
+					region = persia_region
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 40 
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				add_country_modifier = {
+					name = me_tim_persian_reign
+					duration = 5475
+				}
+				custom_tooltip = me_tim_silk_province_dip
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							region = persia_region
+							trade_goods = silk
+						}
+						owner = {
+							add_dip_power = 10
+						}
+					}
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.12 
+					option_1 = "
+					ME_tim_event_12_opt_1 = yes
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = me_tim_persian_reign
+							duration = 5475
+						}
+						custom_tooltip = me_tim_silk_province_dip
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_qq = {
+		icon = mission_have_two_subjects
+		required_missions = { TIM_persia }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = iraq_arabi_area
+				area = basra_area
+				area = al_jazira_area
+				area = shahrizor_area
+				area = tabriz_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = { 
+				all_province = {
+					OR = {
+						area = iraq_arabi_area
+						area = basra_area
+						area = al_jazira_area
+						area = shahrizor_area
+						area = tabriz_area
+					}
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 10 
+			}
+			410 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			416 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.44 
+					option_1 = "
+						ME_distribute_development = {
+							type = manpower
+							amount = 10
+						}
+						custom_tooltip = \" \"
+						add_country_modifier = {
+							name = me_tim_remnants_of_black_sheep
+							duration = 7300
+						}
+					"
+					option_2 = "
+						ME_tim_add_spoils_of_war = { add = 15 }
+						custom_tooltip = \" \"
+						add_years_of_income = 1
+						custom_tooltip = \" \"
+						add_army_tradition_or_mil_power = { amount = 10 }
+					"
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.13 
+					option_1 = "
+						ME_tim_event_13_opt_1 = yes
+					"
+					option_2 = "
+						416 = {
+							add_base_manpower = -1
+							add_base_production = -1
+						}
+						410 = {
+							add_base_manpower = -1
+							add_base_production = -1
+						}
+						add_years_of_income = 0.4
+						add_country_modifier = {
+							name = me_tim_victors_spoils
+							duration = 7300
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_levant = {
+		icon = mission_egyptian_mamluk_soldier
+		required_missions = { TIM_qq }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = aleppo_area
+				area = syria_area
+				area = syrian_desert_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			aleppo_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			syria_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			syrian_desert_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			ME_give_claims = { region = anatolia_region }
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				custom_tooltip = " "
+				custom_tooltip = me_tim_gain_money_from_razing_churches
+				set_country_flag = me_tim_churches_money_raze
+				custom_tooltip = " "
+				add_years_of_income = 1
+				custom_tooltip = " "
+				ME_distribute_development = {
+					type = tax
+					amount = 15
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.14 
+					option_1 = "
+						custom_tooltip = if_377_has_a_fort
+						tooltip = {
+							377 = {
+								add_center_of_trade_level = 1
+								add_or_upgrade_fort_building = yes
+							}
+						}
+					"
+					option_2 = "
+						custom_tooltip = me_tim_when_we_go_to_war_with_ottomans
+						set_country_flag = me_tim_ottoman_offensive
+						tooltip = {
+							add_country_modifier = {
+								name = me_tim_anatolian_offensive
+								duration = 3650
+							}
+							create_general = { tradition = 60 add_shock = 1 }
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_ottomans = {
+		icon = mission_ottoman_harem
+		required_missions = { TIM_levant }
+		position = 8
+		provinces_to_highlight = {
+			region = anatolia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			anatolia_region = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.45 
+					option_1 = "
+						add_years_of_income = -0.5
+						custom_tooltip = \" \"
+						ME_add_power_projection = { value = 15 }
+						custom_tooltip = \" \"
+						add_age_modifier = {
+							name = me_tim_triumph_against_ottomans
+							duration = -1
+							age = age_of_reformation
+						}
+					"
+					option_2 = "
+						ME_tim_add_spoils_of_war = { add = 20 }
+						custom_tooltip = \" \"
+						add_years_of_income = 1
+						custom_tooltip = \" \"
+						add_ruler_modifier = {
+							name = me_tim_death_of_osmanoglus
+							duration = -1
+						}
+					"
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.15 
+					option_1 = "
+						anatolia_region = {
+							cede_province = RUM
+							add_core = RUM
+						}
+						RUM = {
+							add_government_reform = timurid_governor_upgraded
+							define_ruler = {
+								dynasty = \"Timurid\"
+							}
+						}
+						vassalize = RUM
+					"
+					option_2 = "
+						326 = {
+							add_devastation = 100
+						}
+						add_years_of_income = 1
+						add_country_modifier = {
+							name = me_tim_a_new_ankara
+							duration = -1
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_constantinople = {
+		icon = mission_plc_purple_phoenix
+		required_missions = { TIM_ottomans }
+		position = 9
+		provinces_to_highlight = {
+			province_id = 151
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			151 = {
+				OR = {
+					owned_by = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					151 = {
+						owned_by = ROOT
+					}
+				}
+				151 = {
+					change_province_name = "Teymurlu"
+					rename_capital = "Teymurlu"
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.46 
+					option_1 = "
+						random_owned_province = {
+							change_culture = greek
+							change_religion = orthodox
+							add_base_manpower = 2
+							add_base_production = 3
+							add_base_tax = 3
+							add_province_modifier = {
+								name = me_tim_remnants_of_greece
+								duration = -1
+							}
+						}
+					"
+					option_2 = "
+						ME_add_power_projection = { value = 10 }
+						add_legitimacy_or_reform_progress = { amount = 20 }
+						add_country_modifier = {
+							name = me_tim_scourge_of_byzantium
+							duration = 7300
+						}
+					"
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.25 
+					option_1 = "
+						add_years_of_income = 1
+
+						151 = {
+							add_base_manpower = -2
+							add_base_production = -2
+							add_base_tax = -2
+							add_province_modifier = {
+								name = me_tim_ignored_roman_legacy
+								duration = 7300
+							}
+						}
+						add_ruler_modifier = {
+							name = me_tim_above_rome
+							duration = -1
+						}
+					"
+					option_2 = "
+						151 = {
+							add_base_manpower = 1
+							add_base_production = 1
+							add_base_tax = 1
+						}
+						custom_tooltip = me_tim_over_time_constantinople_is_made_timurid
+					"
+				}
+			}
+		}
+	}
+}
+
+Timurid_main_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		OR = {
+			has_country_flag = me_tim_vassal_path
+			has_country_flag = me_tim_horde_path
+		}
+	}
+	has_country_shield = yes
+	
+	TIM_nomadic_conquest = {
+		icon = mission_conquer_central_deccan
+		required_missions = { TIM_nomadic_frontier TIM_solidify_succession }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = kyzylkum_area
+				area = khiva_area
+			}
+			NOT = { owned_by = ROOT }
+				
+		}
+		trigger = {
+			kyzylkum_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			khiva_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.1 
+				option_1 = "
+					custom_tooltip = me_tim_access_to_kazakhs
+					set_country_flag = me_tim_kazakh_company
+				"
+				option_2 = "
+					custom_tooltip = me_tim_resets_nomadic_conquest
+				"
+			}
+			ME_give_claims = { area = kazakhstan_area }
+			ME_give_claims = { area = syr_darya_area }
+			ME_give_claims = { area = balchasj_area }
+			ME_give_claims = { area = aqmola_area }
+		}
+	}
+	
+	TIM_uzbek = {
+		icon = mission_extent_yasak_to_the_east
+		required_missions = { TIM_nomadic_conquest }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = kazakhstan_area
+				area = aqmola_area
+				area = syr_darya_area
+				area = balchasj_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			kazakhstan_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			aqmola_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			syr_darya_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			balchasj_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.2 
+				option_1 = "
+					custom_tooltip = me_tim_every_kazakh_province
+					tooltip = {
+						add_yearly_manpower = 0.1
+					}
+				"
+				option_2 = "
+					2354 = {
+						add_base_production = 2
+						add_province_modifier = {
+							name = me_tim_promote_workforce
+							duration = 7300
+						}
+					}
+					479 = {
+						add_base_production = 2
+						add_province_modifier = {
+							name = me_tim_promote_workforce
+							duration = 7300
+						}
+					}
+				"
+			}
+		}
+	}
+	
+	TIM_great_wall = {
+		icon = mission_great_wall
+		required_missions = { TIM_chagatai }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 698
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			is_empty = no
+		}
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = me_tim_spy_network_on_great_war
+					698 = {
+						owner = {
+							has_spy_network_from = {
+								who = ROOT
+								value = 50
+							}
+						}
+					}
+				}
+				698 = {
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_completed_with_spy_network
+			custom_tooltip = me_tim_north_china_occupation
+			custom_tooltip = " "
+			custom_tooltip = me_tim_unlocks_reveal_infiltration_decision
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_completed_with_occupation
+			custom_tooltip = me_tim_access_to_great_wall
+			hidden_effect = {
+				if = {
+					limit = {
+						698 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					set_country_flag = me_tim_great_wall
+				}
+				else = {
+					set_country_flag = me_tim_infiltration
+				}
+			}
+		}
+	}
+	
+	TIM_europe = {
+		icon = mission_european_politics
+		required_missions = { TIM_great_horde }
+		position = 6
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = me_tim_defeated_european_nations
+				check_variable = {
+					which = me_tim_europe_victory
+					value = 10
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				add_country_modifier = {
+					name = me_tim_scourge_of_europe
+					duration = 9125
+				}
+				custom_tooltip = me_tim_razing_european_provinces_give_us_manpower
+			}
+			else = {
+				custom_tooltip = me_tim_unlocks_conquest_of_europe_cb
+				set_country_flag = me_tim_conquest_of_europe
+				custom_tooltip = " "
+				custom_tooltip = me_tim_when_we_occupy_provinces_in_europe
+			}
+		}
+	}
+	
+	TIM_arabia = {
+		icon = mission_arabian_fort
+		required_missions = { TIM_persia }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = bahrain_area
+				area = nafud_area
+				area = qasim_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = { 
+				all_province = {
+					OR = {
+						area = bahrain_area
+						area = nafud_area
+						area = qasim_area
+					}
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 3 
+			}
+		}
+		
+		effect = {
+			ME_give_claims = { region = arabia_region }
+			add_country_modifier = {
+				name = me_tim_foothold_in_arabia
+				duration = 7300
+			}
+			custom_tooltip = me_tim_if_we_own_gem_provinces
+			tooltip = {
+				add_years_of_owned_provinces_production_income = {
+					years = 8
+					trigger = {
+						trade_goods = gems
+						region = arabia_region
+					}
+					custom_tooltip = ME_TIM_ARABIAN_GEMS_INCOME
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						num_of_owned_provinces_with = {
+							trade_goods = gems
+							region = arabia_region
+							value = 1
+						}
+					}
+					add_years_of_owned_provinces_production_income = {
+						years = 8
+						trigger = {
+							trade_goods = gems
+							region = arabia_region
+						}
+						custom_tooltip = ME_TIM_ARABIAN_GEMS_INCOME
+					}
+				}
+			}
+		}
+	}
+	
+	TIM_arabia_conquest = {
+		icon = mission_invade_island
+		required_missions = { TIM_arabia TIM_hormuz }
+		position = 9
+		provinces_to_highlight = {
+			region = arabia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = { 
+				all_province = {
+					region = arabia_region
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 30 
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_unlocks_arid_development_privilege
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.47 
+					option_1 = "
+						ME_tim_event_13_opt_1 = yes
+					"
+					option_2 = "
+						ME_tim_event_13_opt_2 = yes
+					"
+				}
+			}
+			else = {
+				arabia_region = {
+					add_province_modifier = {
+						name = me_tim_arabian_development
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+Timurid_main_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		OR = {
+			has_country_flag = me_tim_vassal_path
+			has_country_flag = me_tim_horde_path
+		}
+	}
+	has_country_shield = yes
+	
+	TIM_nomadic_frontier = {
+		icon = mission_cossack_cavalry
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 4344
+			NOT = { fort_level = 2 }
+			NOT = { development = 10 }
+		}
+		trigger = {
+			4344 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				fort_level = 2
+				development = 10
+			}
+		}
+		
+		effect = {
+			ME_give_claims = { area = kyzylkum_area }
+			ME_give_claims = { area = khiva_area }
+			add_country_modifier = {
+				name = me_tim_counter_nomadic_warfare
+				duration = 7300
+			}
+		}
+	}
+	
+	TIM_yarkand = {
+		icon = mission_saharan_route
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = tarim_basin_area
+				area = shanshan_area
+				area = kashgaria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			tarim_basin_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			shanshan_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			kashgaria_area = {
+				type = all
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.3 
+				option_1 = "
+					2121 = {
+						add_base_production = 3
+					}
+					add_years_of_owned_provinces_production_income = {
+						years = 8
+						trigger = {
+							province_id = 2121
+						}
+						custom_tooltip = GOLD_INCOME
+					}
+				"
+				option_2 = "
+					2121 = {
+						add_or_upgrade_fort_building = yes
+					}
+				"
+			}
+			ME_give_claims = { area = jetysuu_area }
+			ME_give_claims = { area = zungaria_area }
+			ME_give_claims = { area = turpan_kumul_area }
+		}
+	}
+	
+	TIM_chagatai = {
+		icon = mission_imperial_cities
+		required_missions = { TIM_yarkand TIM_uzbek }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = jetysuu_area
+				area = zungaria_area
+				area = turpan_kumul_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = { 
+				all_province = {
+					OR = {
+						area = jetysuu_area
+						area = zungaria_area
+						area = turpan_kumul_area
+					}
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 10 
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.4 
+				option_1 = "
+					custom_tooltip = me_tim_unlocks_restoration_of_yuan
+					set_country_flag = me_tim_yuan_cb
+					change_mil = 1
+				"
+				option_2 = "
+					custom_tooltip = me_tim_easier_yuan_formation
+					set_country_flag = me_tim_yuan_formation
+					
+					add_ruler_modifier = {
+						name = me_tim_claimed_temujin_succession
+						duration = -1
+					}
+					custom_tooltip = me_tim_eoc_and_oirat_will_dislike_that
+				"
+			}
+			custom_tooltip = " "
+			ME_give_claims = { region = north_china_region }
+		}
+	}
+	
+	TIM_china = {
+		icon = mission_to_china
+		required_missions = { TIM_siege_engines TIM_great_wall }
+		position = 6
+		provinces_to_highlight = {
+			region = north_china_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = me_tim_restored_yuan
+					YUA = {
+						is_subject_of = ROOT
+					}
+				}
+				north_china_region = {
+					type = all
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				custom_trigger_tooltip = { 
+					tooltip = ME_tim_no_eoc
+					all_country = {
+						is_emperor_of_china = no
+					}
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_horde_path
+				}
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.48 
+					option_1 = "
+						random_owned_province = {
+							limit = {
+								culture = ROOT
+								is_capital = no
+							}
+							change_culture = jianghuai
+							add_base_manpower = 1
+							add_base_production = 1
+							add_base_tax = 1
+							add_province_modifier = {
+								name = me_tim_seat_of_the_old_emperor
+								duration = -1
+							}
+						}
+						custom_tooltip = \" \"
+						custom_tooltip = me_tim_allows_recruitment_of_emperors_guard
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = me_tim_killer_of_heaven
+							duration = -1
+						}
+					"
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.5 
+					option_1 = "
+						custom_tooltip = me_tim_this_option_will_influence_eoc
+						set_country_flag = me_tim_peaceful_china
+						custom_tooltip = \" \"
+						set_emperor_of_china = YUA
+						YUA = {
+							set_mandate = 100
+							add_meritocracy = 100
+						}
+					"
+					option_2 = "
+						custom_tooltip = me_tim_this_option_will_influence_eoc
+			
+						add_adm_power = 100
+						add_dip_power = 100
+						add_mil_power = 100
+						
+						custom_tooltip = me_tim_gain_access_to_all_chinese_monuments
+						set_country_flag = me_tim_chinese_monuments
+					"
+				}
+			}
+		}
+	}
+	
+	TIM_mandate = {
+		icon = me_mission_timurids_mandate_of_heaven
+		required_missions = { TIM_china TIM_oirat }
+		position = 6
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = me_tim_peaceful_china }
+				}
+				OR = {
+					region = north_china_region
+					region = south_china_region
+					region = xinan_region
+				}
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_peaceful_china
+				}
+				empire_of_china_reform_passed = military_governors_decision
+				YUA = {
+					imperial_mandate = 80
+				}
+			}
+			else = {
+				north_china_region = {
+					type = all
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				south_china_region = {
+					type = all
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				xinan_region = {
+					type = all
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = me_tim_peaceful_china
+				}
+				YUA = { country_event = { id = ME_Timurid_Main_Events.6 } }
+				#custom_tooltip = me_tim_mandate_interactions
+				#Not yet.......not yet........
+				if = {
+					limit = { in_golden_age = yes }  
+					reset_golden_age = yes 
+					custom_tooltip = me_hab_extend_golden_age_50
+					hidden_effect = {
+						extend_golden_age = 600
+					}
+				}
+				else = {
+					reset_golden_age = yes 
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = me_tim_conquest_of_china
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	TIM_hormuz = {
+		icon = mission_advance_to_the_arabian_sea
+		required_missions = { }
+		position = 7
+		provinces_to_highlight = {
+			province_id = 2999
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			2999 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+		}
+		
+		effect = {
+			country_event = { id = ME_Timurid_Main_Events.16 }
+		}
+	}
+}
+
+Timurid_main_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		OR = {
+			has_country_flag = me_tim_vassal_path
+			has_country_flag = me_tim_horde_path
+		}
+	}
+	has_country_shield = yes
+	
+	TIM_chinese_invasion = {
+		icon = mission_open_up_china
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			region = north_china_region
+		}
+		trigger = {
+			north_china_region = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_empty = yes
+				}
+			}
+			is_at_war = no
+			army_tradition = 30
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = me_tim_preparing_the_army
+				duration = -1
+				desc = me_tim_until_we_fight_eoc
+			}
+		}
+	}
+	
+	TIM_siege_engines = {
+		icon = mission_cannons_firing
+		required_missions = { TIM_chagatai TIM_chinese_invasion }
+		position = 5
+		trigger = {
+			OR = {
+				num_of_artillery = 10
+				has_leader_with = {
+					siege = 3
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_when_we_declare_on_eoc
+			set_country_flag = me_tim_planned_war_with_china
+			tooltip = {
+				add_country_modifier = {
+					name = me_tim_modern_siege_engines
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						any_country = {
+							is_emperor_of_china = yes
+							war_with = ROOT
+						}
+					}
+					add_country_modifier = {
+						name = me_tim_modern_siege_engines
+						duration = 7300
+					}
+				}
+			}
+			add_yearly_manpower = 1
+		}
+	}
+	
+	TIM_oirat = {
+		icon = mission_manchu_warrior
+		required_missions = { TIM_siege_engines }
+		position = 5
+		provinces_to_highlight = {
+			region = mongolia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			calc_true_if = { 
+				all_province = {
+					region = mongolia_region
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_empty = yes
+					}
+				}
+				amount = 30 
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					NOT = {
+						exists = YUA
+						has_country_flag = me_tim_horde_path
+					}
+				}
+				country_event_with_option_insight = { 
+					id = ME_Timurid_Main_Events.7 
+					option_1 = "
+						mongolia_region = {
+							limit = {
+								owned_by = ROOT
+							}
+							cede_province = YUA
+							add_core = YUA
+						}
+						vassalize = YUA
+						YUA = {
+							define_ruler = {
+								dynasty = "Borjigin"
+								adm = 3
+								dip = 3
+								mil = 3
+								age = 20
+								claim = 100
+							}
+						}
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = me_tim_north_yuan_control
+							duration = 7300
+						}
+					"
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = me_tim_north_yuan_control
+					duration = 7300
+				}
+			}
+		}
+	}
+}

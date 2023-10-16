@@ -20,6 +20,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Leadership Ideas buffed.
 - Updated some modifiers icons.
 - Buffed Castillian Spanish ideas.
+- Added a Diplomatic way of forming PLC back to vanilla bookmark.
 - Fixed Monarchy System not being removed when idea group is gone.
 - Mining Companies reform mechanic (Serbia) now includes all metals.
 - Local Goods Produced per production development increased back to 0.2. 

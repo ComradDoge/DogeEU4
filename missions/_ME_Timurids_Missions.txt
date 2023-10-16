@@ -1,0 +1,989 @@
+TIM_crisis_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		#always = no
+		
+		NOT = { has_country_flag = me_tim_vassal_path }
+		NOT = { has_country_flag = me_tim_mughal_path }
+		NOT = { has_country_flag = me_tim_horde_path }
+		NOT = { has_reform = timurid_stratocracy }
+	}
+	has_country_shield = yes
+	
+	me_tim_military_advisors = { #Military Advisors
+		icon = mission_gharbianss
+		position = 3
+		required_missions = {
+		
+		}
+		trigger = {
+			OR = {
+				AND = {
+					has_mil_advisor_2 = yes
+					is_in_deficit = no
+					army_size_percentage = 0.9
+					num_of_generals = 2
+					mil_power = 400
+				}
+				mil_tech = 4
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_5_fall_timurid
+			hidden_effect = {
+				add_disaster_progress = {
+					disaster = fall_of_the_timurid_empire
+					value = -5
+				}
+			}
+			custom_tooltip = me_tim_if_tech_3
+			tooltip = {
+				add_mil_tech = 1
+				add_mil_power = -400
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_else_tech
+			tooltip = {
+				add_country_modifier = {
+					name = me_tim_new_generation
+					duration = 5475
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						mil_tech = 4
+					}
+					add_country_modifier = {
+						name = me_tim_new_generation
+						duration = 5475
+					}
+				}
+				else = {
+					add_mil_tech = 1
+					add_mil_power = -400
+				}
+			}
+		}
+	}
+	
+	me_tim_replace_generals = { #Replacing our Military Cabinet
+		icon = mission_unite_the_deccan
+		position = 5
+		required_missions = {
+			me_tim_military_advisors
+		}
+		trigger = {
+			NOT = {
+				has_estate_privilege = ME_estate_nobles_TIM_influencial_military
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = me_tim_loyal_generals
+				duration = 5475
+			}
+			custom_tooltip = me_tim_5_fall_timurid
+			hidden_effect = {
+				add_disaster_progress = {
+					disaster = fall_of_the_timurid_empire
+					value = -5
+				}
+			}
+			custom_tooltip = POL_the_noble_privileges
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 4
+							}
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								num_of_estate_privileges = {
+									estate = estate_nobles
+									value = 3
+								}
+							}
+						}
+						if = {
+							limit = {
+								NOT = {
+									num_of_estate_privileges = {
+										estate = estate_nobles
+										value = 2
+									}
+								}
+							}
+							if = {
+								limit = {
+									NOT = {
+										num_of_estate_privileges = {
+											estate = estate_nobles
+											value = 1
+										}
+									}
+								}
+								add_mil_power = 100
+							}
+							else = { add_mil_power = 75 }
+						}
+						else = { add_mil_power = 50 }
+					}
+					else = { add_mil_power = 25 }
+				}
+			}
+		}
+	}
+}
+
+TIM_crisis_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		#always = no
+		
+		NOT = { has_country_flag = me_tim_vassal_path }
+		NOT = { has_country_flag = me_tim_mughal_path }
+		NOT = { has_country_flag = me_tim_horde_path }
+		NOT = { has_reform = timurid_stratocracy }
+	}
+	has_country_shield = yes
+	
+	me_tim_persianification = { #Persianification
+		icon = mission_abu_saids_dream
+		position = 2
+		required_missions = {
+			me_tim_court
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 100
+				culture_group = iranian
+				has_owner_accepted_culture = yes
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = theologian
+				skill = 2
+				culture = persian
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_prestige_per_persian_advisor
+			hidden_effect = {
+				if = {
+					limit = {
+						OR = {
+							employed_advisor = {
+								category = ADM
+								culture = persian
+							}
+							employed_advisor = {
+								category = ADM
+								culture = khorasani
+							}
+							employed_advisor = {
+								category = ADM
+								culture = afghani
+							}
+						}
+					}
+					add_prestige_or_monarch_power = { amount = 10 }
+				}
+				if = {
+					limit = {
+						OR = {
+							employed_advisor = {
+								category = DIP
+								culture = persian
+							}
+							employed_advisor = {
+								category = DIP
+								culture = khorasani
+							}
+							employed_advisor = {
+								category = DIP
+								culture = afghani
+							}
+						}
+					}
+					add_prestige_or_monarch_power = { amount = 10 }
+				}
+				if = {
+					limit = {
+						OR = {
+							employed_advisor = {
+								category = MIL
+								culture = persian
+							}
+							employed_advisor = {
+								category = MIL
+								culture = khorasani
+							}
+							employed_advisor = {
+								category = MIL
+								culture = afghani
+							}
+						}
+					}
+					add_prestige_or_monarch_power = { amount = 10 }
+				}
+			}
+		}
+	}
+	
+	me_tim_great_men = { #Great Men
+		icon = mission_the_ganges_campaign
+		position = 3
+		required_missions = {
+			me_tim_persianification
+		}
+		trigger = {
+			num_of_generals_with_traits = 3
+				
+			has_leader_with = {
+				shock = 5
+				general = yes
+			}
+		}
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 15
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_three_star_general
+			tooltip = {
+				add_ruler_modifier = {
+					name = me_tim_returning_of_timurs_advisors
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_commanding_three_star = yes
+					}
+				}
+				add_ruler_modifier = {
+					name = me_tim_returning_of_timurs_advisors
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	me_tim_military_loyalty = { #Military Loyalty
+		icon = mission_conquer_rajputana
+		position = 4
+		required_missions = {
+			me_tim_military_advisors
+			me_tim_succession
+		}
+		trigger = {
+			if = {
+				limit = {
+					ai = no
+				}
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 60
+				}
+				num_of_generals = 3
+			}
+			else = {
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 40
+				}
+				num_of_generals = 1
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_unlock_new_privilege
+			set_country_flag = me_tim_new_military
+			create_general = { tradition = 80 }
+			custom_tooltip = me_tim_10_fall_timurid
+			hidden_effect = {
+				add_disaster_progress = {
+					disaster = fall_of_the_timurid_empire
+					value = -10
+				}
+			}
+			remove_estate_privilege = ME_estate_nobles_TIM_influencial_military
+		}
+	}
+	
+	me_tim_peace = { #Internal Peace
+		icon = mission_reliable_allies
+		position = 4
+		required_missions = {
+			me_tim_military_loyalty
+			me_tim_vassals
+		}
+		trigger = {
+			is_at_war = no
+			OR = {
+				calc_true_if = {
+					all_subject_country = {
+						marriage_with = ROOT
+					}
+					amount = 3
+				}
+				NOT = { num_of_subjects = 1 }
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_unlocks_rein_in_diplo_action
+			set_country_flag = me_tim_rein_in_flag
+			add_prestige_or_monarch_power = { amount = 15 }
+			custom_tooltip = " "
+			set_country_flag = me_tim_can_remove_priv
+			custom_tooltip = me_tim_we_can_now_revoke
+		}
+	}
+}
+
+TIM_crisis_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		#always = no
+		
+		NOT = { has_country_flag = me_tim_vassal_path }
+		NOT = { has_country_flag = me_tim_mughal_path }
+		NOT = { has_country_flag = me_tim_horde_path }
+		NOT = { has_reform = timurid_stratocracy }
+	}
+	has_country_shield = yes
+	
+	me_tim_court = { #A Court in Decay
+		icon = mission_emperor_of_hindusthan
+		position = 1
+		required_missions = {
+		
+		}
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = me_tim_regency
+					has_country_flag = me_tim_picked_regency
+				}
+				
+				custom_trigger_tooltip = {
+					tooltip = me_tim_shah_rukh_dead
+					has_global_flag = death_of_shah_rukh
+				}
+			}
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = me_tim_succession_event
+					has_country_flag = me_tim_succession_crisis_event
+				}
+				custom_trigger_tooltip = {
+					tooltip = me_tim_shah_rukh_dead
+					has_global_flag = death_of_shah_rukh
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_if_regency
+			tooltip = {
+				add_ruler_modifier = {
+					name = me_tim_gawharid_administration
+					duration = -1
+				}
+				override_country_name = GAWHARIDS
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_shah_rukh
+			tooltip = {
+				every_subject_country = {
+					add_liberty_desire = -10
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = me_tim_picked_regency
+					}
+					add_ruler_modifier = {
+						name = me_tim_gawharid_administration
+						duration = -1
+					}
+					override_country_name = GAWHARIDS
+				}
+				else = {
+					every_subject_country = {
+						add_liberty_desire = -10
+					}
+				}
+			}
+		}
+	}
+	
+	me_tim_succession = { #Succession Crisis
+		icon = mission_defeat_mewar
+		position = 3
+		required_missions = {
+			me_tim_court
+			me_tim_ajam
+			me_tim_persianification
+		}
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = me_tim_in_succession_crisis
+					has_country_flag = me_tim_succession_crisis
+				}
+				total_development = 160
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = me_tim_revoke_priviliges
+				duration = -1
+				desc = me_tim_until_we_complete_mission
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_in_succession_crisis_effect
+			tooltip = {
+				change_variable = {
+					which = timurid_legitimacy_value
+					value = 15
+				}
+				add_estate_influence_modifier = {
+					estate = estate_nobles
+					influence = -30
+					duration = 7300
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_not_in_succession_crisis_effect
+			tooltip = {
+				custom_tooltip = me_tim_15_fall_timurid
+				hidden_effect = {
+					add_disaster_progress = {
+						disaster = fall_of_the_timurid_empire
+						value = -15
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = me_tim_succession_crisis
+					}
+					change_variable = {
+						which = timurid_legitimacy_value
+						value = 15
+					}
+					add_estate_influence_modifier = {
+						estate = estate_nobles
+						influence = -30
+						duration = 7300
+					}
+				}
+				else = {
+					add_disaster_progress = {
+						disaster = fall_of_the_timurid_empire
+						value = -15
+					}
+				}
+			}
+		}
+	}
+	
+	me_tim_vassals = { #The Rebellious Vassals
+		icon = mission_new_army
+		position = 4
+		required_missions = {
+			me_tim_succession
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = me_tim_vassal_loyalty
+				all_subject_country = {
+					NOT = {
+						liberty_desire = 30
+					}
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_in_succession_crisis_effect
+			tooltip = {
+				add_stability = 1
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_not_in_succession_crisis_effect
+			tooltip = {
+				custom_tooltip = me_tim_5_fall_timurid
+				hidden_effect = {
+					add_disaster_progress = {
+						disaster = fall_of_the_timurid_empire
+						value = -5
+					}
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_gain_25_mana_per_vassal
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = me_tim_succession_crisis
+					}
+					add_stability = 1
+				}
+				else = {
+					add_disaster_progress = {
+						disaster = fall_of_the_timurid_empire
+						value = -5
+					}
+				}
+				every_subject_country = {
+					overlord = {
+						add_mil_power = 25
+						add_adm_power = 25
+						add_dip_power = 25
+					}
+				}
+			}
+		}
+	}
+	
+	me_tim_aftermath = { #As the Dust Settles
+		icon = mission_cope_with_refugees
+		position = 6
+		required_missions = {
+			me_tim_governors
+			me_tim_peace
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = me_tim_not_in_disaster
+				NOT = { has_country_flag = me_tim_succession_crisis }
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = me_tim_reined_in_vassals
+				OR = {
+					all_subject_country = {
+						OR = {
+							NOT = { dynasty = ROOT }
+							has_country_flag = me_tim_reined_in
+						}
+					}
+					NOT = { num_of_subjects = 1 }
+					all_subject_country = {
+						NOT = {
+							liberty_desire = 20
+						}
+					}
+				}
+			}
+			total_development = 300
+		}
+		
+		effect = {
+			country_event = { id = ME_Timurids_Events.1 }
+			remove_country_modifier = me_tim_revoke_priviliges
+			clr_country_flag = ME_can_use_timurid_legitimacy
+		}
+	}
+}
+
+TIM_crisis_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		#always = no
+		
+		NOT = { has_country_flag = me_tim_vassal_path }
+		NOT = { has_country_flag = me_tim_mughal_path }
+		NOT = { has_country_flag = me_tim_horde_path }
+		NOT = { has_reform = timurid_stratocracy }
+	}
+	has_country_shield = yes
+	
+	me_tim_ajam = { #Stempeding the Traitor
+		icon = mission_a_million_elephants
+		position = 2
+		required_missions = {
+			
+		}
+		trigger = {
+			OR = {
+				war_with = QOM
+				QOM = {
+					is_subject_of = ROOT
+				}
+				AND = {
+					NOT = {
+						exists = QOM
+					}
+					iraq_e_ajam_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					isfahan_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_15_fall_timurid
+			hidden_effect = {
+				add_disaster_progress = {
+					disaster = fall_of_the_timurid_empire
+					value = -15
+				}
+			}
+			custom_tooltip = me_tim_if_vassal
+			tooltip = {
+				QOM = {
+					add_liberty_desire = -25
+				}
+				
+				add_country_modifier = {
+					name = me_tim_revolt_pacified
+					duration = 7300
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_war
+			tooltip = {
+				add_country_modifier = {
+					name = me_tim_stampede_the_traitor
+					duration = -1
+					desc = "until the war is over"
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_conquest
+			tooltip = {
+				iraq_e_ajam_area = {
+					add_unrest = -10
+				}
+				isfahan_area = {
+					add_unrest = -10
+				}
+			}
+			custom_tooltip = me_tim_gain_prestige_per_province
+			hidden_effect = {
+				if = {
+					limit = {
+						war_with = QOM
+					}
+					add_country_modifier = {
+						name = me_tim_stampede_the_traitor
+						duration = -1
+						desc = "until the war is over"
+					}
+				}
+				else_if = {
+					limit = {
+						QOM = {
+							is_subject_of = ROOT
+						}
+					}
+					QOM = {
+						add_liberty_desire = -25
+					}
+					
+					add_country_modifier = {
+						name = me_tim_revolt_pacified
+						duration = 7300
+					}
+				}
+				else = {
+					iraq_e_ajam_area = {
+						limit = {
+							owned_by = ROOT
+						}
+						add_unrest = -10
+						owner = {
+							add_prestige = 2
+						}
+					}
+					isfahan_area = {
+						limit = {
+							owned_by = ROOT
+						}
+						add_unrest = -10
+						owner = {
+							add_prestige = 2
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	me_tim_persia = { #Solidify Persia
+		icon = mission_persian_soldiers
+		position = 3
+		required_missions = {
+			me_tim_ajam
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 40
+				region = persia_region
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = me_tim_conquest_persia
+				duration = 7300
+			}
+			custom_tooltip = me_tim_gain_marchantilism_from_tcs
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = persia_region
+						province_has_center_of_trade_of_level = 2
+					}
+					owner = {
+						add_mercantilism = 3
+					}
+				}
+			}
+		}
+	}
+	
+	me_tim_legitimacy = { #Secure Legitimacy
+		icon = mission_war_for_the_crown
+		position = 4
+		required_missions = {
+			me_tim_succession
+			me_tim_regency
+		}
+		trigger = {
+			check_variable = {
+				which = timurid_legitimacy_value
+				value = 100
+			}
+			legitimacy = 100
+		}
+		effect = {
+			custom_tooltip = me_tim_in_succession_crisis_effect
+			tooltip = {
+				change_adm = 1
+				change_dip = 1
+				change_mil = 1
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_not_in_succession_crisis_effect
+			tooltip = {
+				custom_tooltip = me_tim_20_fall_timurid
+				hidden_effect = {
+					add_disaster_progress = {
+						disaster = fall_of_the_timurid_empire
+						value = -20
+					}
+				}
+			}
+			custom_tooltip = " "
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 30
+			}
+			add_estate_influence_modifier = {
+				estate = estate_nobles
+				influence = -25
+				duration = 7300
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = me_tim_succession_crisis
+					}
+					change_adm = 1
+					change_dip = 1
+					change_mil = 1
+				}
+				else = {
+					add_disaster_progress = {
+						disaster = fall_of_the_timurid_empire
+						value = -20
+					}
+				}
+			}
+		}
+	}
+	
+	me_tim_governors = { #Integrate the Governors
+		icon = mission_invade_maharashtra
+		position = 5
+		required_missions = {
+			me_tim_legitimacy
+			me_tim_vassals
+		}
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_subject_country = {
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+					}
+					amount = 3
+				}
+				NOT = { num_of_subjects = 1 }
+				all_subject_country = {
+					NOT = {
+						liberty_desire = 20
+					}
+				}
+			}
+			NOT = { has_estate_privilege = ME_estate_nobles_TIM_disloyal_princes }
+		}
+		effect = {
+			add_country_modifier = {
+				name = me_tim_governship
+				duration = 7300
+			}
+		}
+	}
+}
+
+TIM_crisis_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		#always = no
+		
+		NOT = { has_country_flag = me_tim_vassal_path }
+		NOT = { has_country_flag = me_tim_mughal_path }
+		NOT = { has_country_flag = me_tim_horde_path }
+		NOT = { has_reform = timurid_stratocracy }
+	}
+	has_country_shield = yes
+	
+	me_tim_regency = { #The Rengency
+		icon = mission_prosperity_in_bengal
+		position = 3
+		required_missions = {
+		
+		}
+		trigger = {
+			OR = {
+				is_advisor_employed = 942
+				OR = {
+					employed_advisor = {
+						category = ADM
+					}
+					employed_advisor = {
+						category = DIP
+					}
+					employed_advisor = {
+						category = MIL
+					}
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Timurids_Events.3 }
+			custom_tooltip = " "
+			custom_tooltip = me_tim_autocomplete_if_we_die
+		}
+	}
+	
+	me_tim_culture = { #Elevate our Culture
+		icon = mission_plc_cultural_flowering
+		position = 5
+		required_missions = {
+			me_tim_regency
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 5
+				num_of_times_improved = 3
+			}
+			years_of_income = 1.5
+		}
+		effect = {
+			custom_tooltip = me_tim_every_two_times_improved_province
+			tooltip = {
+				add_province_modifier = {
+					name = me_tim_courtly_investment
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						num_of_times_improved = 2
+					}
+					add_province_modifier = {
+						name = me_tim_courtly_investment
+						duration = 7300
+					}
+				}
+			}
+		}
+	}
+}
+
+TIM_crisis_missions_ai = {
+	slot = 15
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		#always = no
+		ai = yes
+		NOT = { has_country_flag = me_tim_vassal_path }
+		NOT = { has_country_flag = me_tim_mughal_path }
+		NOT = { has_country_flag = me_tim_horde_path }
+		NOT = { has_reform = timurid_stratocracy }
+	}
+	has_country_shield = yes
+
+	me_timurids_ai_conquest = {
+		required_missions = { }
+		icon = mission_icon
+		position = 1
+		ai_weight = {
+			factor = 10000 #They really wanna conquer stuff
+		}
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			ai = yes
+			hindusthan_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			
+		}
+	}
+
+}

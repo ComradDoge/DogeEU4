@@ -1,0 +1,71 @@
+timurid_militarization = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 10
+	available = {
+		tag = TIM
+		has_reform = timurid_stratocracy
+	}
+
+	powers = {
+		timurid_stratocracy_power = {
+			gui = prussian_militarization_gov_mech_3_power
+			show_before_interactions = yes
+			max = 100
+			base_monthly_growth = 0
+			development_scaled_monthly_growth = 0.03
+			scaled_modifier = {
+				modifier = {
+					manpower_recovery_speed = 0.5
+					land_maintenance_modifier = -0.3
+					land_forcelimit_modifier = 0.2
+					warscore_from_battles_modifier = 0.5
+				}
+			}
+			on_max_reached = {
+				custom_tooltip = me_tim_can_declare_wars
+				set_country_flag = me_tim_allows_decleration_of_war
+			}
+		}
+	}
+	
+	interactions = {
+		
+		boost_militarization_timurid = {
+			gui = prussian_militarization_gov_mech_3_interaction
+			icon = GFX_prussian_militarization_upgrade	
+			trigger = {
+				mil_power = 50
+				not = {
+					has_government_power = {
+						mechanic_type = timurid_militarization
+						power_type = timurid_stratocracy_power
+						value = 100
+					}
+				}
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = timurid_militarization
+					power_type = timurid_stratocracy_power
+					value = 10
+				}
+				add_mil_power = -50
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 0
+				modifier = {
+					factor = 10
+					not = {
+						has_government_power = {
+							mechanic_type = timurid_stratocracy_power
+							power_type = timurid_stratocracy_power
+							value = 90
+						}
+					}
+					mil_power = 500
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,338 @@
+country_decisions = {
+	timurid_princes_open_legitimacy_shop = {
+		major = yes
+		potential = {
+			has_country_flag = ME_can_use_timurid_legitimacy
+		}
+		allow = {
+			NOT = {
+				tag = TIM
+			}
+			check_variable = {
+				which = timurid_legitimacy_value
+				value = 100
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = TIM
+				}
+				add_casus_belli = {
+					target = TIM
+					type = cb_take_timurid_empire
+					months = 120
+				}
+			}
+			else = {
+				change_tag = TIM
+				country_event = { id = ME_Timurids_Events.1 }
+				remove_country_modifier = me_tim_revoke_priviliges
+				clr_country_flag = ME_can_use_timurid_legitimacy
+			}
+		}
+	}
+	
+	#timurid_or_beijing_owner_cancel_pact = {
+	#	potential = {
+	#		has_province_modifier = ME_beijing_samarkand_pact
+	#		ai = no #AI will never be able to cancel it
+	#	}
+	#	allow = {
+	#		always = yes
+	#	}
+	#	effect = {
+	#		every_country = {
+	#			remove_country_modifier = ME_beijing_samarkand_pact
+	#		}
+	#	}
+	#}
+	
+	ME_TIM_restore_yuan = {
+		major = yes
+		potential = {
+			has_country_flag = me_tim_yuan_cb
+			NOT = { has_country_flag = me_tim_restored_yuan }
+			NOT = { exists = YUA }
+		}
+		
+		allow = {
+			num_of_owned_provinces_with = {
+				region = north_china_region
+				value = 25
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_cede_every_north_china_province_to_yuan
+			set_country_flag = me_tim_restored_yuan
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = north_china_region
+					}
+					cede_province = YUA
+					add_core = YUA
+				}
+				vassalize = YUA
+				YUA = {
+					define_ruler = {
+						dynasty = "Borjigin"
+						mil = 3
+						claim = 95
+					}
+				}
+			}
+		}
+	}
+	
+	ME_TIM_espionage_against_china = {
+		major = yes
+		potential = {
+			has_country_flag = me_tim_infiltration
+		}
+		
+		allow = {
+			698 = {
+				owner = {
+					war_with = ROOT
+				}
+			}
+		}
+		
+		effect = {
+			698 = {
+				remove_fow = 32
+			}
+		}
+	}
+	
+	ME_TIM_spoils_of_war = {
+		major = yes
+		potential = {
+			has_government_attribute = enables_spoils_of_war
+		}
+		
+		allow = {
+			always = no
+			NOT = { is_month = 1 }
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_current_sow_gives
+			custom_tooltip = " "
+		}
+	}
+	
+	ME_TIM_exploit_merchants = {
+		potential = {
+			has_country_flag = me_tim_razing_provinces_mercantilism
+		}
+		
+		allow = {
+			mercantilism = 15
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 60
+			}
+		}
+		
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = -10
+			}
+			add_mercantilism = -15
+			ME_distribute_development = {
+				type = production
+				amount = 5
+			}
+		}
+	}
+
+	ME_TIM_raise_guard = {
+		potential = {
+			has_country_flag = me_tim_established_cossack_guard
+			NOT = { has_country_flag = me_tim_streltsy_guard }
+		}
+		allow = {
+			NOT = { num_of_cossacks = 1 }
+			manpower = 20
+			treasury = 100
+		}
+		effect = {
+			add_treasury = -100
+			add_manpower = -20
+			if = {
+				limit = {
+					has_country_flag = me_tim_increased_guard_limit
+				}
+				custom_tooltip = me_tim_raise_40_cossacks
+				hidden_effect = {
+					capital_scope = {
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+					}
+				}
+			}
+			else = {
+				custom_tooltip = me_tim_raise_20_cossacks
+				hidden_effect = {
+					capital_scope = {
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+						cossack_cavalry = ROOT
+					}
+				}
+			}
+		}
+	}
+
+	ME_TIM_raise_eastern_european_guard = {
+		potential = {
+			has_country_flag = me_tim_streltsy_guard
+		}
+		allow = {
+			NOT = { num_of_cossacks = 1 }
+			NOT = { num_of_streltsy = 1 }
+			manpower = 40
+			treasury = 200
+		}
+		effect = {
+			country_event = { id = ME_Timurid_Main_Events.49 }
+		}
+	}
+
+	ME_TIM_end_the_world = {
+		potential = {
+			has_country_modifier = ME_tim_horsemen_of_apocalypse_modifier
+		}
+		
+		allow = {
+			custom_trigger_tooltip = { 
+				tooltip = ME_tim_owns_all_the_world
+				all_country = {
+					OR = {
+						tag = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_end_the_world_tt
+			hidden_effect = {
+				every_subject_country = {
+					every_owned_province = {
+						decolonize = THIS
+					}
+				}
+				every_owned_province = {
+					decolonize = THIS
+				}
+			}
+		}
+	}
+
+	ME_TIM_caspian_silk = {
+		potential = {
+			mission_completed = TIM_caspian
+			has_country_flag = me_tim_horde_path
+			NOT = { has_country_flag = me_tim_created_silk }
+		}
+		
+		allow = {
+			treasury = 500
+			calc_true_if = {
+				all_owned_province = {
+					development = 20
+					trade_goods = grain
+				}
+				amount = 3
+			}
+		}
+			
+		effect = {
+			add_treasury = -500
+			set_country_flag = me_tim_created_silk
+			custom_tooltip = me_tim_spawn_2_silk_provinces
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes
+					global_trigger = "trade_goods = grain"
+					scale = higher_development_than
+					scope = every_owned_province
+					event_target_name = "grain_province"
+				}
+				event_target:grain_province_1 = {
+					add_base_manpower = 1
+					change_trade_goods = silk
+				}
+				event_target:grain_province_2 = {
+					add_base_manpower = 1
+					change_trade_goods = silk
+				}
+				event_target:grain_province_3 = {
+					add_base_manpower = 1
+					change_trade_goods = silk
+				}
+			}
+		}
+	}
+}

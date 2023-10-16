@@ -1,0 +1,298 @@
+timurids_rein_in_vassal = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		tag = TIM
+		has_country_flag = me_tim_rein_in_flag
+		FROM = {
+			is_subject_of = ROOT
+			dynasty = ROOT
+		}
+	}
+
+	is_allowed = {
+		FROM = {
+			NOT = { liberty_desire = 30 }
+			NOT = { has_country_flag = me_tim_reined_in }
+		}
+		prestige = 0
+		OR = {
+			NOT = {
+				has_country_flag = me_tim_rein_in_cooldown
+			}
+			had_country_flag = { flag = me_tim_rein_in_cooldown days = 1825 }
+		}
+	}
+
+	on_accept = {
+		FROM = {
+			set_country_flag = me_tim_reined_in
+			add_liberty_desire = -10
+		}
+		add_prestige = -10
+		set_country_flag = me_tim_rein_in_cooldown
+	}
+
+	ai_will_do = {
+		always = yes
+	}
+}
+
+timurids_ask_support = {
+	category = relation
+
+	require_acceptance = yes
+
+	is_visible = {
+		has_country_flag = ME_can_use_timurid_legitimacy
+		FROM = {
+			has_country_flag = ME_can_use_timurid_legitimacy
+		}
+	}
+
+	is_allowed = {
+		OR = {
+			NOT = {
+				has_country_flag = me_tim_support_cooldown
+			}
+			had_country_flag = { flag = me_tim_support_cooldown days = 1825 }
+		}
+	}
+
+	on_accept = {
+		change_variable = {
+			which = timurid_legitimacy_value
+			value = 10
+		}
+		set_country_flag = me_tim_support_cooldown
+	}
+
+	ai_will_do = {
+		always = no
+	}
+	
+	ai_acceptance = {
+		add_entry = {
+			name = HAB_FROM_ATTITUDE_TOWARDS_ROOT
+			limit = {
+				FROM = {
+					OR = {
+						ai_attitude = { who = ROOT attitude = attitude_allied }
+						ai_attitude = { who = ROOT attitude = attitude_friendly }
+					}
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 50
+			}
+		}
+		add_entry = {
+			name = BASE_VALUE
+
+			export_to_variable = {
+				which = ai_value
+				value = 150
+			}
+			multiply_variable = { which = ai_value value = -1 }
+		}
+		add_entry = {
+			name = HAB_FROM_ATTITUDE_TOWARDS_ROOT
+			limit = {
+				FROM = {
+					ai_attitude = { who = ROOT attitude = attitude_threatened }
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 60
+			}
+		}
+		add_entry = {
+			name = HAB_FROM_ATTITUDE_TOWARDS_ROOT
+			limit = {
+				FROM = {
+					OR = {
+						ai_attitude = { who = ROOT attitude = attitude_hostile }
+						ai_attitude = { who = ROOT attitude = attitude_rivalry }
+						ai_attitude = { who = ROOT attitude = attitude_outraged }
+					}
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 1000
+			}
+			multiply_variable = { which = ai_value value = -1 }
+		}
+		add_entry = {
+			name = HAB_FROM_ROOT_ARE_RIVALS
+			limit = {
+				OR = {
+					is_rival = FROM
+					is_enemy = FROM
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 1000
+			}
+			divide_variable = { which = ai_value value = -1 }
+		}
+		add_entry = {
+			name = HAB_FROM_HAS_MARRIAGE_WITH_ROOT
+			limit = {
+				marriage_with = FROM
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+		add_entry = {
+			name = HAB_ROOT_FROM_NOT_SAME_RELIGION
+			limit = {
+				NOT = { religion = FROM }
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 50
+			}
+			multiply_variable = { which = ai_value value = -1 }
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				which = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+		}
+		add_entry = {
+			name = HAB_ROOT_FROM_ARE_HISTORICAL_FRIENDS
+			limit = {
+				FROM = {
+					historical_friend_with = ROOT
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+		add_entry = {
+			name = HAB_ROOT_FROM_ARE_HISTORICAL_RIVALS
+			limit = {
+				FROM = {
+					historical_rival_with = ROOT
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 100
+			}
+			multiply_variable = { which = ai_value value = -1 }
+		}
+	}
+}
+
+timurids_establish_governor = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		has_reform = timurid_empire_upgraded
+		FROM = {
+			is_subject_of_type = vassal
+			is_subject_of = ROOT
+			NOT = { has_reform = timurid_governor_upgraded }
+		}
+	}
+
+	is_allowed = {
+		custom_trigger_tooltip = {
+			tooltip = me_tim_not_has_5_governors
+			NOT = {
+				calc_true_if = {
+					all_subject_country = {
+						has_reform = timurid_governor_upgraded
+					}
+					amount = 5
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		FROM = {
+			add_government_reform  = timurid_governor_upgraded
+		}
+	}
+
+	ai_will_do = {
+		always = no
+	}
+}
+
+timurids_establish_field_marshal = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		FROM = { has_reform = timurid_governor_upgraded }
+		mission_completed = TIM_field_marshal
+	}
+
+	is_allowed = {
+		NOT = {
+			any_country = {
+				has_country_modifier = me_tim_field_marshal
+			}
+		}
+	}
+
+	on_accept = {
+		FROM = {
+			add_liberty_desire = -30
+			add_country_modifier = {
+				name = me_tim_field_marshal
+				duration = -1
+			}
+		}
+	}
+
+	ai_will_do = {
+		always = yes
+	}
+}
+
+timurids_revoke_field_marshal = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		FROM = { has_country_modifier = me_tim_field_marshal }
+		mission_completed = TIM_field_marshal
+	}
+
+	is_allowed = {
+		
+	}
+
+	on_accept = {
+		FROM = {
+			add_liberty_desire = 30
+			remove_country_modifier = me_tim_field_marshal
+		}
+	}
+
+	ai_will_do = {
+		always = no
+	}
+}

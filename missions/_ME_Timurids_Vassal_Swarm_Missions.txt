@@ -1,0 +1,2374 @@
+Timurid_main_1_branching = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		NOT = {
+			has_country_flag = me_tim_vassal_swarm_path
+			has_country_flag = me_tim_centralized_army_path
+		}
+	}
+	has_country_shield = yes
+	
+	TIM_branching6 = {
+		icon = mission_unknown_mission
+		required_missions = { TIM_branching3 }
+		position = 14
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_vassal_swarm
+				always = no
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 100
+				NOT = { culture_group = TIM }
+				NOT = { unrest = 0.1 }
+				has_forcelimit_building_trigger = yes
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_centralized_army
+				always = no
+			}
+			OR = {
+				army_professionalism = 0.7
+				has_global_modifier_value = {
+					which = discipline
+					value = 0.2
+				}
+			}
+			OR = {
+				mil_tech = 16
+				AND = {
+					mil_power = 400
+					mil = 5
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_vassal_swarm
+			custom_tooltip = " "
+			custom_tooltip = me_tim_modify_armies_of_emperor
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_centralized_army
+			custom_tooltip = " "
+			custom_tooltip = me_tim_replace_centralized_army_with_professional
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_tech_16
+		}
+	}
+}
+
+Timurid_main_1_vassal_swarm = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		has_country_flag = me_tim_vassal_swarm_path
+	}
+	has_country_shield = yes
+	
+	
+	TIM_army_ethnicities = {
+		icon = mission_non-western_soldiers
+		required_missions = { TIM_strengthen_governors }
+		position = 14
+		provinces_to_highlight = {
+			NOT = { culture_group = TIM }
+			country_or_non_sovereign_subject_holds = ROOT
+			has_forcelimit_building_trigger = no
+			unrest = 0.1
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 100
+				NOT = { culture_group = TIM }
+				NOT = { unrest = 0.1 }
+				has_forcelimit_building_trigger = yes
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_modify_armies_of_emperor
+			hidden_effect = {
+				set_country_flag = me_tim_upgraded_armies_of_emperor
+				every_subject_country = {
+					limit = {
+						has_reform = timurid_governor_upgraded
+					}
+					remove_country_modifier = me_tim_armies_of_emperor
+					add_country_modifier = {
+						name = me_tim_armies_of_emperor_2
+						duration = -1
+					}
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_grant_at_in_our_subjects
+			hidden_effect = {
+				every_subject_country = {
+					add_army_tradition = 15
+				}
+			}
+		}
+	}
+}
+
+Timurid_main_1_centralized_army = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		has_country_flag = me_tim_centralized_army_path
+	}
+	has_country_shield = yes
+	
+	
+	TIM_army_professionalism = {
+		icon = mission_persian_soldiers
+		required_missions = { TIM_conquerors_legacy }
+		position = 14
+		trigger = {
+			OR = {
+				army_professionalism = 0.7
+				has_global_modifier_value = {
+					which = discipline
+					value = 0.2
+				}
+			}
+			OR = {
+				mil_tech = 16
+				AND = {
+					mil_power = 400
+					mil = 5
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_replace_centralized_army_with_professional
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_tech_16
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_modifier = me_tim_centralized_army
+					}
+					remove_country_modifier = me_tim_centralized_army
+					add_country_modifier = {
+						name = me_tim_professional_army
+						duration = -1
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_modifier = me_tim_centralized_army_1
+					}
+					remove_country_modifier = me_tim_centralized_army_1
+					add_country_modifier = {
+						name = me_tim_professional_army_1
+						duration = -1
+					}
+				}
+				if = {
+					limit = {
+						NOT = { mil_tech = 16 }
+					}
+					add_mil_power = -400
+				}
+			}
+		}
+	}
+}
+
+Timurid_main_1_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+	}
+	has_country_shield = yes
+	
+	TIM_observatory = {
+		icon = mission_early_modern_university
+		required_missions = { TIM_cultures }
+		position = 19
+		provinces_to_highlight = {
+			province_id = 454
+			NOT = { owned_by = ROOT }
+			NOT = { num_of_times_improved_by_owner = 5 }
+		}
+		trigger = {
+			454 = {
+				owned_by = ROOT
+				num_of_times_improved_by_owner = 5
+			}
+			OR = {
+				ruler_has_personality = scholar_personality
+				innovativeness = 50
+				full_idea_group = innovativeness_ideas
+			}
+		}
+		
+		effect = {
+			set_country_flag = me_tim_built_observatory
+			custom_tooltip = me_tim_allows_contruction_of_observatory
+			custom_tooltip = " "
+			if = {
+				limit = {
+					full_idea_group = innovativeness_ideas
+				}
+				add_country_modifier = {
+					name = me_tim_scientific_innovations
+					duration = 10950
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = me_tim_scientific_innovations
+					duration = 7300
+				}
+				custom_tooltip = " "
+				custom_tooltip = me_tim_10_moreyears_if_inno
+			}
+		}
+	}
+}
+
+Timurid_main_2_branching = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		NOT = {
+			has_country_flag = me_tim_vassal_swarm_path
+			has_country_flag = me_tim_centralized_army_path
+		}
+	}
+	has_country_shield = yes
+	
+	TIM_branching3 = {
+		icon = mission_unknown_mission
+		required_missions = { TIM_army_reforms }
+		position = 13
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_vassal_swarm
+				always = no
+			}
+			
+			calc_true_if = {
+				all_subject_country = {
+					has_reform = timurid_governor_upgraded
+					has_opinion = {
+						who = ROOT
+						value = 200
+					}
+				}
+				amount = 3
+			}
+			all_subject_country = {
+				has_reform = timurid_governor_upgraded
+				NOT = { liberty_desire = 50 }
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_centralized_army
+				always = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = me_tim_won_5_wars
+				always = no
+			}
+			num_of_cavalry = 35
+			OR = {
+				full_idea_group = defensive_ideas
+				full_idea_group = offensive_ideas
+				monthly_mil = 10
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_vassal_swarm
+			custom_tooltip = " "
+			custom_tooltip = me_tim_every_governor_gets_armies_of_emperor
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_centralized_army
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = me_tim_in_honor_of_timur
+				duration = 5475
+			}
+			custom_tooltip = me_tim_more_likely_to_get_conqueror
+		}
+	}
+	
+	TIM_branching4 = {
+		icon = mission_unknown_mission
+		required_missions = { TIM_branching3 }
+		position = 14
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_vassal_swarm
+				always = no
+			}
+			army_size = 100
+			OR = {
+				mil = 5
+				full_idea_group = quality_ideas
+				monthly_mil = 11
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_centralized_army
+				always = no
+			}
+			num_of_infantry = 60
+			ME_amount_of_mil_ideas = { amount = 2 }
+			custom_trigger_tooltip = {
+				tooltip = me_tim_won_50_battles
+				always = no
+			}
+			OR = {
+				army_professionalism = 0.4
+				army_tradition = 40
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_vassal_swarm
+			custom_tooltip = " "
+			custom_tooltip = me_tim_replace_extracting_with_guard
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_centralized_army
+			custom_tooltip = " "
+			custom_tooltip = me_tim_modify_centralized_army
+		}
+	}
+	
+	TIM_branching5 = {
+		icon = mission_unknown_mission
+		required_missions = { TIM_branching4 }
+		position = 15
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_vassal_swarm
+				always = no
+			}
+			num_of_owned_provinces_with = {
+				NOT = { culture_group = ROOT }
+				OR = {
+					base_manpower = 10
+					has_manpower_building_trigger = yes
+				}
+				value = 25
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_centralized_army
+				always = no
+			}
+			mil_tech = 13
+			num_of_artillery = 20
+			OR = {
+				has_global_modifier_value = {
+					which = fire_damage
+					value = 0.15
+				}
+				calc_true_if = {
+					has_leader_with = {
+						fire = 4
+					}
+					amount = 3
+				}
+				AND = {
+					full_idea_group = quality_ideas
+					full_idea_group = innovativeness_ideas
+				}
+				monthly_mil = 12
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_vassal_swarm
+			custom_tooltip = " "
+			custom_tooltip = me_tim_modify_emperors_guard
+			custom_tooltip = " "
+			custom_tooltip = me_tim_distribute_manpower_development
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_centralized_army
+			custom_tooltip = " "
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.34 
+				option_1 = "
+					add_country_modifier = {
+						name = me_tim_massing_artillery
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_concentrated_fire
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+}
+
+Timurid_main_2_vassal_swarm = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		has_country_flag = me_tim_vassal_swarm_path
+	}
+	has_country_shield = yes
+	
+	TIM_strengthen_governors = {
+		icon = mission_have_two_subjects
+		required_missions = { TIM_army_reforms }
+		position = 13
+		provinces_to_highlight = {
+			any_province = {
+				owner = {
+					has_reform = timurid_governor_upgraded
+					NOT = {
+						has_opinion = {
+							who = ROOT
+							value = 200
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = me_tim_3_governors_with_200_opinion
+				calc_true_if = {
+					all_subject_country = {
+						has_reform = timurid_governor_upgraded
+						has_opinion = {
+							who = ROOT
+							value = 200
+						}
+					}
+					amount = 3
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = me_tim_all_governors_are_loyal
+				all_subject_country = {
+					OR = {
+						NOT = { has_reform = timurid_governor_upgraded }
+						AND = {
+							has_reform = timurid_governor_upgraded
+							NOT = { liberty_desire = 50 }
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_every_governor_gets_armies_of_emperor
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						has_reform = timurid_governor_upgraded
+					}
+				}
+				add_country_modifier = {
+					name = me_tim_armies_of_the_emperor
+					duration = -1
+				}
+			}
+			set_country_flag = me_tim_vassal_armies_1
+		}
+	}
+	
+	TIM_emperors_guard = {
+		icon = mission_assemble_an_army
+		required_missions = { TIM_strengthen_governors }
+		position = 14
+		trigger = {
+			army_size = 100
+			OR = {
+				mil = 5
+				full_idea_group = quality_ideas
+				monthly_mil = 11
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_replace_extracting_with_guard
+			hidden_effect = {
+				remove_country_modifier = me_tim_governor_army
+				add_country_modifier = {
+					name = me_tim_emperors_guard
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_gain_army_professionalism_per_timurid_governor
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						has_reform = timurid_governor_upgraded
+					}
+					overlord = {
+						add_army_professionalism = 0.01
+					}
+				}
+			}
+		}
+	}
+	
+	TIM_every_corner = {
+		icon = mission_subdue_the_afghans
+		required_missions = { TIM_emperors_guard }
+		position = 15
+		provinces_to_highlight = {
+			NOT = { culture_group = ROOT }
+			owned_by = ROOT
+			NOT = {
+				OR = {
+					base_manpower = 10
+					has_manpower_building_trigger = yes
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				NOT = { culture_group = ROOT }
+				OR = {
+					base_manpower = 10
+					has_manpower_building_trigger = yes
+				}
+				value = 25
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_modify_emperors_guard
+			custom_tooltip = " "
+			custom_tooltip = me_tim_distribute_manpower_development
+			hidden_effect = {
+				remove_country_modifier = me_tim_emperors_guard
+				add_country_modifier = {
+					name = me_tim_emperors_guard_2
+					duration = -1
+				}
+				 ME_distribute_development = {
+					type = manpower
+					amount = 10
+					limit = " NOT = { has_manpower_building_trigger = yes } "
+				}
+			}
+		}
+	}
+}
+
+Timurid_main_2_centralized_army = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		has_country_flag = me_tim_centralized_army_path
+	}
+	has_country_shield = yes
+	
+	
+	TIM_conquerors_legacy = {
+		icon = mission_subdue_rajputana
+		required_missions = { TIM_army_reforms }
+		position = 13
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = me_tim_won_5_wars
+				check_variable = {
+					which = METimWarsWon1
+					value = 5
+				}
+			}
+			num_of_cavalry = 35
+			OR = {
+				full_idea_group = defensive_ideas
+				full_idea_group = offensive_ideas
+				monthly_mil = 10
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = me_tim_in_honor_of_timur
+				duration = 5475
+			}
+			custom_tooltip = me_tim_more_likely_to_get_conqueror
+			set_country_flag = me_tim_double_conqueror_chances
+		}
+	}
+	
+	TIM_emperors_army = {
+		icon = mission_unite_the_deccan
+		required_missions = { TIM_conquerors_legacy }
+		position = 14
+		trigger = {
+			num_of_infantry = 60
+			ME_amount_of_mil_ideas = { amount = 2 }
+			custom_trigger_tooltip = {
+				tooltip = me_tim_won_50_battles
+				check_variable = {
+					which = ME_tim_emperors_guard_counter
+					value = 50
+				}
+			}
+			OR = {
+				army_professionalism = 0.4
+				army_tradition = 40
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					has_country_modifier = me_tim_centralized_army
+				}
+				custom_tooltip = me_tim_modify_centralized_army
+				hidden_effect = {
+					remove_country_modifier = me_tim_centralized_army
+					add_country_modifier = {
+						name = me_tim_centralized_army_1
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_modifier = me_tim_professional_army
+				}
+				custom_tooltip = me_tim_modify_professional_army
+				hidden_effect = {
+					remove_country_modifier = me_tim_professional_army
+					add_country_modifier = {
+						name = me_tim_professional_army_1
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+	
+	TIM_gunpowder_empire = {
+		icon = mission_order_in_the_domain
+		required_missions = { TIM_emperors_army }
+		position = 15
+		trigger = {
+			mil_tech = 13
+			num_of_artillery = 20
+			OR = {
+				has_global_modifier_value = {
+					which = fire_damage
+					value = 0.15
+				}
+				AND = {
+					full_idea_group = quality_ideas
+					full_idea_group = innovativeness_ideas
+				}
+				monthly_mil = 12
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.34 
+				option_1 = "
+					add_country_modifier = {
+						name = me_tim_massing_artillery
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_concentrated_fire
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+}
+
+Timurid_main_2_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+	}
+	has_country_shield = yes
+	
+	TIM_persiafy = {
+		icon = mission_patronize_sufi_scholars
+		required_missions = { }
+		provinces_to_highlight = {
+			culture_group = iranian
+			NOT = { num_of_times_improved_by_owner = 5 }
+		}
+		position = 17
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture_group = iranian
+				num_of_times_improved_by_owner = 5
+				value = 10
+			}
+			calc_true_if = {
+				accepted_culture = persian
+				accepted_culture = luri
+				accepted_culture = azerbaijani
+				accepted_culture = khorasani
+				accepted_culture = baluchi
+				accepted_culture = afghani
+				accepted_culture = kurdish
+				accepted_culture = mazandarani
+				amount = 3
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.26 
+				option_1 = "
+					change_primary_culture = persian
+					custom_tooltip = \" \"
+
+					add_country_modifier = {
+						name = me_tim_persian_empire
+						duration = -1
+						desc = me_tim_until_we_are_not_persian
+					}
+
+					custom_tooltip = me_tim_5_persian_provinces
+					tooltip = {
+						add_province_modifier = {
+							name = me_tim_seat_of_power
+							duration = -1
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_persian_tolerance
+						duration = -1
+						desc = me_tim_until_we_do_not_accept_cultures
+					}
+				"
+			}
+		}
+	}
+	
+	TIM_cultures = {
+		icon = mission_rajput_mansabdars
+		required_missions = { TIM_persiafy }
+		position = 18
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { culture_group = ROOT }
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 400
+				NOT = { culture_group = ROOT }
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.27 
+				option_1 = "
+					custom_tooltip = me_tim_upgrade_ideas
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_maintaining_old_traditions
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+	
+	TIM_cultures_expand = {
+		icon = mission_fortifying_the_plain
+		required_missions = { TIM_observatory TIM_develop_mountains }
+		position = 20
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				has_building = university
+				religion = ROOT
+				development = 25
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_building = university
+				religion = ROOT
+				development = 25
+				value = 20
+			}
+			
+			religious_unity = 1
+			OR = {
+				ruler_has_personality = scholar_personality
+				ruler_has_personality = me_piety_pious_personality #I assume you mean this but if you don't then feck u
+				custom_trigger_tooltip = {
+					tooltip = me_tim_enacted_ibadat_decision
+					has_country_modifier = house_of_worship
+				}
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.31 
+				option_1 = "
+					ME_pinnacle_of_islamic_arts_effect = yes
+				"
+			}
+		}
+	}
+}
+
+Timurid_vassal_swarm_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+	}
+	has_country_shield = yes
+	
+	TIM_spices = {
+		icon = mission_rb_colonise_spice_islands
+		required_missions = { TIM_arabia_conquest }
+		position = 9
+		trigger = {
+			OR = {
+				production_leader = {
+					trade_goods = spices
+				}
+				development_in_provinces = {
+					value = 150
+					trade_goods = spices
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_of_world_producer_spice
+			tooltip = {
+				add_country_modifier = {
+					name = me_mug_spice_dominance
+					duration = 7300
+				}
+				ME_add_years_of_trade_income = { years = 2 }
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_spice_development
+			tooltip = {
+				custom_tooltip = me_tim_every_spice_province
+				build_possible_manufactory_in_province = yes
+				add_province_modifier = {
+					name = me_tim_spice_production
+					duration = 5475
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						production_leader = {
+							trade_goods = spices
+						}
+					}
+					add_country_modifier = {
+						name = me_mug_spice_dominance
+						duration = 7300
+					}
+					ME_add_years_of_trade_income = { years = 2 }
+				}
+				else = {
+					every_owned_province = {
+						limit = {
+							trade_goods = spices
+						}
+						build_possible_manufactory_in_province = yes
+						add_province_modifier = {
+							name = me_tim_spice_production
+							duration = 5475
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	TIM_army_reforms = {
+		icon = mission_gunpowder_warfare
+		required_missions = { }
+		position = 12
+		trigger = {
+			army_size = 60
+			num_of_generals = 2
+			OR = {
+				army_professionalism = 0.2
+				army_tradition = 20
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.32 
+				option_1 = "
+					add_country_modifier = {
+						name = me_tim_governor_army
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_centralized_army
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+	
+	TIM_elephants = {
+		icon = mission_indian_soldier_elephant
+		required_missions = { TIM_army_reforms TIM_delhi }
+		position = 14
+		trigger = {
+			OR = {
+				has_global_modifier_value = {
+					which = cavalry_power
+					value = 0.35
+				}
+				any_country = {
+					capital_scope = {
+						region = hindusthan_region
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			hidden_effect = {
+				set_variable = {
+					which = METimElephantBattlesWon
+					value = 0
+				}
+			}
+			custom_tooltip = me_tim_unlocks_war_elephants
+			set_country_flag = me_tim_unlocked_war_elephants
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = me_tim_if_cca
+				first_limit = "
+					has_global_modifier_value = {
+						which = cavalry_power
+						value = 0.35
+					}
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = me_tim_frightening_enemy
+						duration = 5475
+					}
+				"
+				second_custom_tooltip = me_tim_if_alliance
+				second_limit = "
+					any_country = {
+						capital_scope = {
+							region = hindusthan_region
+						}
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+				"
+				second_effect = "
+					add_country_modifier = {
+						name = me_tim_auxilary_elephants
+						duration = 7300
+					}
+				"
+			}
+		}
+	}
+}
+
+Timurid_main_3_branching = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		NOT = {
+			has_country_flag = me_tim_vassal_swarm_path
+			has_country_flag = me_tim_centralized_army_path
+		}
+	}
+	has_country_shield = yes
+	
+	TIM_branching1 = {
+		icon = mission_unknown_mission
+		required_missions = { TIM_elephants }
+		position = 15
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_vassal_swarm
+				always = no
+			}
+			all_subject_country = {
+				has_reform = timurid_governor_upgraded
+				NOT = { liberty_desire = 30 }
+			}
+			manpower = 60
+			
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_centralized_army
+				always = no
+			}
+			calc_true_if = {
+				has_leader_with = {
+					shock = 5
+				}
+				amount = 2
+			}
+			OR = {
+				full_idea_group = offensive_ideas
+				ruler_has_personality = bold_fighter_personality
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_vassal_swarm
+			custom_tooltip = " "
+			custom_tooltip = me_tin_allows_for_our_vassals_to_use_elephants
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_centralized_army
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = me_tim_art_of_offense
+				duration = 7300
+			}
+			custom_tooltip = me_tim_modify_war_elephants
+		}
+	}
+	
+	TIM_branching2 = {
+		icon = mission_unknown_mission
+		required_missions = { TIM_branching1 TIM_branching5 }
+		position = 16
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = selectable_mission_trigger_tt
+				always = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_vassal_swarm
+				always = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = me_tim_won_100_battles
+				always = no
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = me_tim_if_centralized_army
+				always = no
+			}
+			all_known_country = {
+				NOT = {
+					army_strength = {
+						who = ROOT
+						value = 1
+					}
+				}
+			}
+			army_reformer = 3
+			OR = {
+				mil = 6
+				monthly_mil = 14
+				AND = {
+					full_idea_group = offensive_ideas
+					full_idea_group = defensive_ideas
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_vassal_swarm
+			custom_tooltip = " "
+			custom_tooltip = me_tim_allows_establishing_field_marshal
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_centralized_army
+			custom_tooltip = " "
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.33 
+				option_1 = "
+					add_country_modifier = {
+						name = me_tim_masters_of_the_offense
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_art_of_defence
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+}
+
+Timurid_main_3_vassal_swarm = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		has_country_flag = me_tim_vassal_swarm_path
+	}
+	has_country_shield = yes
+
+	TIM_elephants_for_governors = {
+		icon = mission_prepare_an_invasion_force
+		required_missions = { TIM_elephants }
+		position = 15
+		provinces_to_highlight = {
+			owner = {
+				vassal_of = ROOT
+				has_reform = timurid_governor_upgraded
+				liberty_desire = 30
+			}
+		}
+		trigger = {
+			all_subject_country = {
+				has_reform = timurid_governor_upgraded
+				NOT = { liberty_desire = 30 }
+			}
+			manpower = 60
+		}
+		
+		effect = {
+			custom_tooltip = me_tin_allows_for_our_vassals_to_use_elephants
+			hidden_effect = {
+				set_country_flag = me_tim_access_governor_elephants
+				every_subject_country = {
+					limit = {
+						has_reform = timurid_governor_upgraded
+					}
+					set_country_flag = me_tim_war_elephants_access
+				}
+			}
+		}
+	}
+	
+	TIM_field_marshal = {
+		icon = mission_the_ganges_campaign
+		required_missions = { TIM_every_corner TIM_elephants_for_governors }
+		position = 16
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = me_tim_won_100_battles
+				check_variable = {
+					which = METimBattlesWonFinal
+					value = 100
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_allows_establishing_field_marshal
+			set_country_flag = me_tim_access_field_marshal_dip_action
+		}
+	}
+}
+
+Timurid_main_3_centralized_army = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+		has_country_flag = me_tim_centralized_army_path
+	}
+	has_country_shield = yes
+	
+	TIM_shock_tactics = {
+		icon = mission_afghan_frontier
+		required_missions = { TIM_elephants }
+		position = 15
+		trigger = {
+			has_leader_with = {
+				shock = 5
+			}
+			OR = {
+				full_idea_group = offensive_ideas
+				ruler_has_personality = bold_fighter_personality
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = me_tim_art_of_offense
+				duration = 7300
+			}
+			custom_tooltip = me_tim_modify_war_elephants
+			set_country_flag = me_tim_modified_war_elephants
+		}
+	}
+	
+	TIM_art_of_war = {
+		icon = mission_control_the_ganges_delta
+		required_missions = { TIM_gunpowder_empire TIM_shock_tactics }
+		position = 16
+		provinces_to_highlight = {
+			owner = {
+				army_strength = {
+					who = ROOT
+					value = 1
+				}
+			}
+		}
+		trigger = {
+			all_known_country = {
+				NOT = {
+					army_strength = {
+						who = ROOT
+						value = 1
+					}
+				}
+			}
+			army_reformer = 3
+			OR = {
+				mil = 6
+				monthly_mil = 14
+				AND = {
+					full_idea_group = offensive_ideas
+					full_idea_group = defensive_ideas
+				}
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.33 
+				option_1 = "
+					add_country_modifier = {
+						name = me_tim_masters_of_the_offense
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_art_of_defence
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+}
+
+Timurid_main_3_2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+	}
+	has_country_shield = yes
+	
+	TIM_advisors = {
+		icon = mission_swedish_military_advise
+		required_missions = { TIM_persiafy TIM_courtly_culture }
+		position = 18
+		trigger = {
+			has_mil_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_adm_advisor_3 = yes
+		}
+		
+		effect = {
+			define_advisor = {
+				type = sufi_scholar_advisor
+				skill = 3
+				discount = yes
+			}
+			add_country_modifier = {
+				name = me_tim_new_men
+				duration = 7300
+			}
+			ME_distribute_development = {
+				type = tax
+				amount = 10
+				limit = "development = 15"
+			}
+		}
+	}
+	
+	TIM_develop_mountains = {
+		icon = mission_colonial
+		required_missions = { TIM_cultures TIM_advisors TIM_grand_palace }
+		position = 19
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				has_terrain = mountain
+				has_terrain = hills
+				has_terrain = highlands
+			}
+			has_tax_building_trigger = no
+			has_production_building_trigger = no
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_terrain = mountain
+					has_terrain = hills
+					has_terrain = highlands
+				}
+				has_tax_building_trigger = yes
+				has_production_building_trigger = yes
+				
+				value = 20
+			}
+		}
+		
+		effect = {
+			unlock_estate_privilege = {
+				estate_privilege = estate_burghers_mountain_expansion
+			}
+		}
+	}
+}
+
+Timurid_vassal_swarm_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+	}
+	has_country_shield = yes
+	
+	TIM_trade = {
+		icon = mission_asian_trader
+		required_missions = { TIM_hormuz }
+		position = 8
+		trigger = {
+			OR = {
+				AND = {
+					trade_income_percentage = 0.15
+					monthly_income = 60
+				}
+				AND = {
+					trader = 2
+					dip = 3
+				}
+				num_of_owned_provinces_with = {
+					OR = {
+						has_building = marketplace 
+						has_building = trade_depot
+						has_building = stock_exchange
+					}
+					value = 10
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_income_percentage
+			tooltip = {
+				add_country_modifier = {
+					name = me_tim_hoarding_the_trade
+					duration = 7300
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_trader
+			tooltip = {
+				add_country_modifier = {
+					name = me_tim_trading_advice
+					duration = 5475
+				}
+				custom_tooltip = me_tim_every_level_1_or_2_cot
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_marketplaces
+			custom_tooltip = me_tim_every_marketplace_province
+			tooltip = {
+				add_province_modifier = {
+					name = me_tim_trading_posts
+					duration = 9125
+				}
+				add_base_production = 1
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						trade_income_percentage = 0.15
+					}
+					add_country_modifier = {
+						name = me_tim_hoarding_the_trade
+						duration = 7300
+					}
+				}
+				else_if = {
+					limit = {
+						trader = 2
+					}
+					add_country_modifier = {
+						name = me_tim_trading_advice
+						duration = 5475
+					}
+					every_owned_province = {
+						limit = {
+							region = persia_region
+							province_has_center_of_trade_of_level = 1
+						}
+						add_center_of_trade_level = 1
+					}
+				}
+				else_if = {
+					limit = {
+						num_of_owned_provinces_with = {
+							OR = {
+								has_building = marketplace 
+								has_building = trade_depot
+								has_building = stock_exchange
+							}
+							value = 10
+						}
+					}
+					every_owned_province = {
+						limit = {
+							OR = {
+								has_building = marketplace 
+								has_building = trade_depot
+								has_building = stock_exchange
+							}
+						}
+						add_province_modifier = {
+							name = me_tim_trading_posts
+							duration = 9125
+						}
+						add_base_production = 1
+					}
+				}
+				else = { }
+			}
+		}
+	}
+	
+	TIM_horses = {
+		icon = mission_into_arabia
+		required_missions = { TIM_trade TIM_caravans }
+		position = 8
+		provinces_to_highlight = {
+			region = arabia_region
+			trade_goods = livestock
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 100
+				region = arabia_region
+				trade_goods = livestock
+			}
+			OR = {
+				has_global_modifier_value = {
+					which = cavalry_power
+					value = 0.6
+				}
+				num_of_cavalry = 25
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight  = { 
+				id = ME_Timurid_Main_Events.17 
+				option_1 = "
+					add_country_modifier = {
+						name = me_tim_arabian_horses
+						duration = -1
+					}
+					
+					change_price = {
+						trade_goods = livestock
+						key = arabian_horses_monopoly
+						value = 0.2
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_adapting_arabian_tactics
+						duration = -1
+					}
+					
+					create_general_with_pips = { tradition = 60 add_shock = 2 }
+				"
+			}
+		}
+	}
+	
+	TIM_trade_empire = {
+		icon = the_shape_of_trades_to_come
+		required_missions = { TIM_spices TIM_horses TIM_silk }
+		position = 10
+		trigger = {
+			monthly_income = 500
+			OR = {
+				trade_income_percentage = 0.4
+				capital_scope = {
+					trade_share = {
+						country = ROOT
+						share = 85
+					}
+				}
+			}
+			OR = {
+				dip = 4
+				ruler_has_personality = entrepreneur_personality
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_entrepreneur_upgrade
+			custom_tooltip = " "
+			country_event_with_option_insight = { 
+				id = ME_Timurid_Main_Events.18 
+				option_1 = "
+					add_country_modifier = {
+						name = me_tim_trade_hegemony
+						duration = -1
+					}
+					
+					add_stat_or_monarch_power = { stat = dip amount = 2 }
+				"
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						ruler_has_personality = entrepreneur_personality
+					}
+					remove_ruler_personality = entrepreneur_personality
+					add_ruler_personality = entrepreneur_personality_upgrade
+				}
+			}
+		}
+	}
+	
+	TIM_india = {
+		icon = mission_marathi_fiefs
+		required_missions = { TIM_baluchistan }
+		position = 12
+		provinces_to_highlight = {
+			area = sind_sagar_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			sind_sagar_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = me_tim_invasion_of_india
+				duration = 5475
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_roh_has_fort
+			tooltip = {
+				578 = {
+					add_building = ramparts
+					add_province_modifier = {
+						name = me_mug_indian_pass
+						duration = -1
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						578 = {
+							owned_by = ROOT
+							OR = {
+								has_building = fort_15th
+								has_building = fort_16th
+								has_building = fort_17th
+								has_building = fort_18th
+							}
+						}
+					}
+					578 = {
+						add_building = ramparts
+						add_province_modifier = {
+							name = me_mug_indian_pass
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	TIM_delhi = {
+		icon = mission_crush_delhi
+		required_missions = { TIM_india }
+		position = 13
+		provinces_to_highlight = {
+			OR = {
+				area = lahore_area
+				area = sirhind_area
+				area = upper_doab_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = lahore_area
+					area = sirhind_area
+					area = upper_doab_area
+				}
+				value = 10
+			}
+			522 = {
+				owned_by = ROOT
+			}
+		}
+		
+		effect = {
+			country_event_with_option_insight  = { 
+				id = ME_Timurid_Main_Events.19 
+				option_1 = "
+					custom_tooltip = me_tim_affects_hindustan_mission
+					522 = {
+						add_devastation = 75
+					}
+					custom_tooltip = \" \"
+					ME_distribute_development = {
+						type = tax
+						amount = 5
+					}
+					ME_distribute_development = {
+						type = production
+						amount = 5
+					}
+					ME_distribute_development = {
+						type = manpower
+						amount = 5
+					}
+				"
+				option_2 = "
+					custom_tooltip = me_tim_affects_hindustan_mission
+					custom_tooltip = me_tim_unlocks_red_fort
+					set_country_flag = per_delhi_requirement_flag
+					custom_tooltip = \" \"
+					522 = {
+						add_base_manpower = 1
+						add_base_production = 1
+						add_base_manpower = 1
+					}
+				"
+			}
+		}
+	}
+	
+	TIM_courtly_culture = {
+		icon = mission_court_education
+		required_missions = { }
+		position = 17
+		trigger = {
+			OR = {
+				prestige = 60
+				has_estate_privilege = estate_burghers_patronage_of_the_arts
+			}
+			OR = {
+				artist = 2
+				philosopher = 2
+			}
+		}
+		
+		effect = {
+			custom_tooltip = AKK_patronage_of_arts_buff
+			set_country_flag = AKK_patronage_of_arts_buff_flag
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_philosopher
+			tooltip = {
+				add_ruler_modifier = {
+					name = me_tim_philosophical_pursuits
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_artist
+			tooltip = {
+				add_prestige_or_monarch_power = { amount = 25 }
+				custom_tooltip = me_tim_unlock_sufi_scholar_ruler_personality
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						philosopher = 2
+					}
+					add_ruler_modifier = {
+						name = me_tim_philosophical_pursuits
+						duration = -1
+					}
+				}
+				else = {
+					add_prestige_or_monarch_power = { amount = 25 }
+					set_country_flag = me_tim_sufi_scholar_personality_unlocked
+				}
+			}
+		}
+	}
+	
+	TIM_grand_palace = {
+		icon = mission_kanbawzathadi_palace
+		required_missions = { TIM_courtly_culture }
+		position = 18
+		trigger = {
+			prestige = 70
+			treasury = 3000
+			OR = {
+				AND = {
+					adm = 4
+					dip = 4
+					mil = 4
+				}
+				full_idea_group = economic_ideas
+				ruler_has_personality = architectural_visionary_personality
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_unlocks_construction_of_grand_palace_in_capital
+			set_country_flag = me_tim_grand_palace_unlocked
+		}
+	}
+	
+	TIM_change_culture  = {
+		icon = mission_cope_with_refugees
+		required_missions = { TIM_develop_mountains TIM_chagatai_literature }
+		position = 20
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = me_tim_culture_converted_30_provinces
+					check_variable = {
+						which = METimCultureConversion
+						value = 30
+					}
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					culture_group = ROOT
+					development = 15
+					value = 20
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_distribute_development_in_our_subjects
+			custom_tooltip = " "
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						has_reform = timurid_governor_upgraded
+					}
+					ME_distribute_development = {
+						type = tax
+						amount = 5
+					}
+					ME_distribute_development = {
+						type = production
+						amount = 5
+					}
+					ME_distribute_development = {
+						type = manpower
+						amount = 5
+					}
+				}
+			}
+			#custom_tooltip = me_tim_unlocks_manpower_privilege
+			#custom_tooltip = " "
+			custom_tooltip = me_tim_if_completed_by_culture_conversion
+			tooltip = {
+				custom_tooltip = me_tim_every_culture_converted_province
+				add_province_modifier = {
+					name = me_tim_integration_of_cities
+					duration = 7300
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_completed_with_provinces
+			tooltip = {
+				custom_tooltip = me_tim_every_high_development_province
+				add_province_modifier = {
+					name = me_tim_cultural_unity
+					duration = 7300
+				}
+			}
+		}
+	}
+}
+
+Timurid_vassal_swarm_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_vassal_path
+	}
+	has_country_shield = yes
+	
+	TIM_caravans = {
+		icon = mission_saharan_route
+		required_missions = { }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				province_id = 446
+				province_id = 4341
+				province_id = 428
+				province_id = 416
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { num_of_times_improved = 5 }
+			NOT = { province_has_center_of_trade_of_level = 2 }
+		}
+		trigger = {
+			446 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				num_of_times_improved = 5
+				province_has_center_of_trade_of_level = 2
+				development = 30
+			}
+			4341 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				num_of_times_improved = 5
+				province_has_center_of_trade_of_level = 2
+			}
+			428 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				num_of_times_improved = 5
+				province_has_center_of_trade_of_level = 2
+			}
+			416 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				num_of_times_improved = 5
+				province_has_center_of_trade_of_level = 2
+			}
+			446 = {
+				trade_share = {
+					country = ROOT
+					share = 75
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					dip = 0
+					NOT = { dip = 1 }
+				}
+				ME_add_caravan_modifier = { level = 0 }
+			}
+			else_if = {
+				limit = {
+					dip = 1
+					NOT = { dip = 2 }
+				}
+				ME_add_caravan_modifier = { level = 1 }
+			}
+			else_if = {
+				limit = {
+					dip = 2
+					NOT = { dip = 3 }
+				}
+				ME_add_caravan_modifier = { level = 2 }
+			}
+			else_if = {
+				limit = {
+					dip = 3
+					NOT = { dip = 4 }
+				}
+				ME_add_caravan_modifier = { level = 3 }
+			}
+			else_if = {
+				limit = {
+					dip = 4
+					NOT = { dip = 5 }
+				}
+				ME_add_caravan_modifier = { level = 4 }
+			}
+			else_if = {
+				limit = {
+					dip = 5
+					NOT = { dip = 6 }
+				}
+				ME_add_caravan_modifier = { level = 5 }
+			}
+			else_if = {
+				limit = {
+					dip = 6
+				}
+				ME_add_caravan_modifier = { level = 6 }
+			}
+			set_country_flag = me_tim_caravan_modifier
+			custom_tooltip = me_tim_modifier_scales_with_dip_skill
+			custom_tooltip = " "
+			446 = {
+				add_province_modifier = {
+					name = me_tim_pearl_of_khorasan
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	TIM_silk = {
+		icon = mission_valencian_silk
+		required_missions = { TIM_caravans }
+		position = 10
+		trigger = {
+			OR = {
+				AND = {
+					trading_part = {
+						trade_goods = silk
+						value = 0.3
+					}
+					trade_goods_produced_amount = {
+						trade_goods = silk
+						amount = 35
+					}
+				}
+				AND = {
+					production_leader = {
+						trade_goods = silk
+					}
+					num_of_owned_provinces_with = {
+						trade_goods = wool
+						value = 15
+					}
+				}
+			}
+		}
+		
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = me_tim_if_completed_by_production_leader
+				first_limit = "
+					production_leader = {
+						trade_goods = silk
+					}
+				"
+				first_effect = "
+					country_event_with_option_insight = { 
+						id = ME_Timurid_Main_Events.28 
+						option_1 = \"
+							custom_tooltip = me_tim_every_silk_province_gains_a_manufactory
+						\"
+						option_2 = \"
+							custom_tooltip = me_tim_every_wool_province_in_persia_becomes_silk
+						\"
+					}
+				"
+				second_custom_tooltip = me_tim_if_completed_by_trade_part
+				second_limit = "
+					trading_part = {
+						trade_goods = silk
+						value = 0.3
+					}
+				"
+				second_effect = "
+					country_event = { id = ME_Timurid_Main_Events.29 }
+					tooltip = {
+						change_price = {
+							trade_goods = silk
+							key = silk_trade_restored
+							value = 0.15
+							duration = -1
+						}
+					}
+				"
+			}
+		}
+	}
+	
+	TIM_baluchistan = {
+		icon = mission_non-western_soldiers
+		required_missions = { }
+		position = 11
+		provinces_to_highlight = {
+			OR = {
+				area = kalat_area
+				area = makran_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			kalat_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			makran_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_give_claims_on_gujarat_cots
+			custom_tooltip = " "
+			ME_give_claims = { area = lahore_area }
+			ME_give_claims = { area = sirhind_area }
+			ME_give_claims = { area = upper_doab_area }
+			ME_give_claims = { area = sind_sagar_area }
+			custom_tooltip = " "
+			custom_tooltip = me_mug_every_10_dev_province
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = kalat_area
+							area = makran_area
+						}
+						development = 10
+					}
+					add_or_upgrade_fort_building = yes
+				}
+				4457 = {
+					every_trade_node_member_province = {
+						limit = {
+							province_has_center_of_trade_of_level = 1
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+			}
+		}
+	}
+	
+	TIM_gujarat = {
+		icon = mission_dominate_gujarati_trade
+		required_missions = { TIM_baluchistan }
+		position = 11
+		trigger = {
+			4457 = {
+				trade_share = {
+					share = 70
+					country = ROOT
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_if_completed_with_no_cots
+			tooltip = {
+				add_mercantilism = 5
+				add_country_modifier = {
+					name = me_tim_indian_wealth
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_completed_with_cots
+			custom_tooltip = me_tim_gain_mercantilism_for_each_cot_level
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							any_province = {
+								OR = {
+									area = patan_area
+									area = ahmedabad_area
+									area = saurashtra_area
+								}
+								province_has_center_of_trade_of_level = 1 
+							}
+						}
+					}
+					add_mercantilism = 5
+					add_country_modifier = {
+						name = me_tim_indian_wealth
+						duration = -1
+					}
+				}
+				else = {
+					every_owned_province = {
+						limit = {
+							OR = {
+								area = patan_area
+								area = ahmedabad_area
+								area = saurashtra_area
+							}
+							province_has_center_of_trade_of_level = 1 
+						}
+						owner = {
+							add_mercantilism = 1
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	TIM_governor_of_hindustan = {
+		icon = mission_emperor_of_hindusthan
+		required_missions = { TIM_delhi }
+		position = 14
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = per_delhi_requirement_flag
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					num_of_times_improved_by_owner = 5
+					region = hindusthan_region 
+					value = 15
+				}	
+			}
+			else_if = {
+				limit = {
+					has_country_flag = me_tim_harsh_hindustan
+				}
+				development_in_provinces = {
+					value = 250
+					region = hindusthan_region
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = me_tim_previous_mission_unlocks_requirements
+					always = no
+				}
+			}
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = per_delhi_requirement_flag }
+					NOT = { has_country_flag = me_tim_harsh_hindustan }
+				}
+				custom_tooltip = me_tim_if_harsh
+				tooltip = {
+					custom_tooltip = me_tim_every_hindustani_province
+					add_province_modifier = {
+						name = me_tim_scourge_of_hindustan
+						duration = -1
+					}
+				}
+				custom_tooltip = " "
+				custom_tooltip = me_tim_if_benevolent
+				tooltip = {
+					country_event_with_option_insight = { 
+						id = ME_Timurid_Main_Events.30 
+						option_1 = "
+							hindusthan_region = {
+								limit = {
+									owned_by = ROOT
+								}
+								cede_province = HIN
+								add_core = HIN
+							}
+					
+							HIN = {
+								add_government_reform = timurid_governor_upgraded
+								define_ruler = {
+									dynasty = \"Timurid\"
+								}
+							}
+							vassalize = HIN
+						"
+						option_2 = "
+							hindusthan_region = {
+								limit = {
+									owned_by = ROOT
+								}
+								cede_province = MUG
+								add_core = MUG
+							}
+					
+							MUG = {
+								add_government_reform = timurid_governor_upgraded
+								define_ruler = {
+									dynasty = \"Timurid\"
+								}
+							}
+							vassalize = MUG
+						"
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = per_delhi_requirement_flag
+				}
+				country_event = { id = ME_Timurid_Main_Events.30 }
+			}
+			else_if = {
+				limit = {
+					has_country_flag = me_tim_harsh_hindustan
+				}
+				tooltip = {
+					custom_tooltip = me_tim_every_hindustani_province
+					add_province_modifier = {
+						name = me_tim_scourge_of_hindustan
+						duration = -1
+					}
+				}
+				hidden_effect = {
+					every_province = {
+						limit = {
+							region = hindusthan_region
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+						add_province_modifier = {
+							name = me_tim_scourge_of_hindustan
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	TIM_chagatai_literature = {
+		icon = mission_alliances
+		required_missions = { TIM_grand_palace }
+		position = 19
+		trigger = {
+			OR = {
+				adm = 5
+				ruler_has_personality = scholar_personality
+				monthly_adm = 9
+			}
+			OR = {
+				full_idea_group = monarchie0
+				has_adm_advisor_3 = yes
+			}
+		}
+		
+		effect = {
+			custom_tooltip = me_tim_give_reform_progress_to_subjects
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						has_reform = timurid_governor_upgraded
+					}
+					change_government_reform_progress = 50
+				}
+			}
+			custom_tooltip = " "
+			set_country_flag = me_tim_chagatai_literature_reform
+			custom_tooltip = me_tim_chagatai_tier_5
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_we_have_aristocratic_ideas
+			tooltip = {
+				add_country_modifier = {
+					name = me_tim_chagatai_nobility
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						full_idea_group = monarchie0
+					}
+					add_country_modifier = {
+						name = me_tim_chagatai_nobility
+						duration = 7300
+					}
+				}
+			}
+		}
+	}
+}

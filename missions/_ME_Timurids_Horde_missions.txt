@@ -1,0 +1,939 @@
+Timurid_horde_path_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_horde_path
+	}
+	has_country_shield = yes
+
+	ME_tim_timurs_conquest = {
+		required_missions = { ME_tim_horselords }
+		icon = mission_recruit_the_cossacks
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ME_tim_conquered_50_provinces
+				check_variable = {
+					which = METimConquestHorde
+					value = 50
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ME_tim_unlock_tribes
+        	set_country_flag = enables_estate_nomadic_tribes_flag
+		}
+	}
+
+	ME_tim_battle_tendency = {
+		required_missions = { ME_tim_uniting_warlords }
+		icon = mission_conquer_burma
+		position = 15
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.15
+			}
+			army_size = 200
+			num_of_battles_won = { value = 100 }
+		}
+		effect = {
+			custom_tooltip = ME_tim_winning_battles_gives_double_sow
+			custom_tooltip = " "
+			custom_tooltip = ME_tim_ruler_winning_battles_gives_tribes_loyalty
+			set_country_flag = ME_tim_battle_tendency_mission_flag
+		}
+	}
+}
+
+Timurid_horde_path_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_horde_path
+	}
+	has_country_shield = yes
+
+	ME_tim_horselords = {
+		required_missions = { }
+		icon = mission_conquer_malwa_mer
+		position = 10
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_global_modifier_value = {
+				which = cavalry_power
+				value = 0.15
+			}
+			num_of_cavalry = 20
+		}
+		effect = {
+			add_country_modifier = {
+				name = ME_tim_riders_of_timur
+				duration = -1
+			}
+		}
+	}
+
+	ME_tim_spoils_of_war = {
+		required_missions = { ME_tim_horselords }
+		icon = mission_spoils_of_war
+		position = 11
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_government_power = { 
+				mechanic_type = conquest_frenzy
+				power_type = conquest_frenzy_power
+				value = 80
+			}
+			num_of_provinces_razed = { value = 25 }
+		}
+		effect = {
+			add_years_of_income = 1
+			custom_tooltip = me_tim_razing_provinces_gives_double_the_sow
+			set_country_flag = me_tim_double_sow_razing
+		}
+	}
+
+	ME_tim_uniting_warlords = {
+		required_missions = { ME_tim_spoils_of_war ME_tim_timurs_conquest }
+		icon = mission_suppress_the_saophasa
+		position = 12
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			legitimacy = 100
+			NOT = { corruption = 0.1 }
+			total_development = 1000
+			OR = {
+				AND = {
+					adm = 4
+					dip = 4
+					mil = 4
+				}
+				full_idea_group = monarchie0
+				NOT = {
+					average_autonomy_above_min = 20
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_unlocks_numerous_tribes_estate_privileges
+			set_country_flag = me_tim_extra_tribes_privileges
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 15 }
+		}
+	}
+
+	ME_tim_horsemen_of_the_apocalypse = {
+		required_missions = { ME_tim_uniting_warlords }
+		icon = mission_steppe_warriors
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				ME_amount_of_mil_ideas = { amount = 1 }
+				num_of_battles_won = { amount = 150 }
+			}
+			OR = {
+				446 = {
+					owned_by = ROOT
+					has_great_project = {
+						type = me_skull_pyramid
+						tier = 2
+					}
+				}
+				ruler_has_personality = cruel_personality
+			}
+		}
+		effect = {
+			country_event_with_option_insight  = {
+				id =  ME_Timurid_Main_Events.36
+				option_1 = "
+					set_country_flag = me_tim_razing_destroys_province
+					custom_tooltip = me_tim_replace_horselords_with_horsemen_of_the_apocalypse
+					custom_tooltip = \" \"
+					custom_tooltip = me_tim_razing_provinces_decolonizes_them
+					hidden_effect = {
+						remove_country_modifier = ME_tim_riders_of_timur
+						add_country_modifier = {
+							name = ME_tim_horsemen_of_apocalypse_modifier
+							duration = -1
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_bulwark_against_the_apocalypse
+						duration = -1
+					}
+				"
+			}
+			hidden_effect = {
+				set_variable = {
+					which = METimRazedHighDevProvinces
+					value = 0
+				}
+				set_country_flag = me_tim_scourge_of_god_counter
+			}
+		}
+	}
+
+	ME_tim_scourge_of_god = {
+		required_missions = { ME_tim_battle_tendency ME_tim_horsemen_of_the_apocalypse ME_tim_shock_tactics_horde }
+		icon = mission_fire_of_london
+		position = 14
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				has_estate_privilege = ME_estate_nomadic_tribes_destruction_of_the_lands
+				has_global_modifier_value = {
+					which = raze_power_gain
+					value = 0.75
+				}
+			}
+			custom_trigger_tooltip = { 
+				tooltip = ME_tim_razed_at_least_15_high_dev_provinces
+				check_variable = { 
+					which = METimRazedHighDevProvinces
+					value = 15
+				}
+			}
+		}
+		effect = {
+			country_event_with_option_insight  = { 
+				id = ME_Timurid_Main_Events.42 
+				option_1 = "
+					custom_tooltip = me_tim_razing_provinces_give_us_inno
+					set_country_flag = me_tim_inno_with_razing
+					custom_tooltip = \" \"
+					add_country_modifier = {
+						name = me_tim_raising_new_hosts
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_bringing_the_end
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+}
+
+Timurid_horde_path_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_horde_path
+	}
+	has_country_shield = yes
+
+	ME_tim_recruit_the_bedouins = {
+		required_missions = { TIM_arabia_conquest }
+		icon = mission_bedouins
+		position = 9
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 100
+				culture = bedouin_arabic
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_unlocks_noble_privilege_recruit_bedouins
+			set_country_flag = me_tim_bedouin_recruitment
+		}
+	}
+
+	ME_tim_war_elephants_horde = {
+		required_missions = { ME_tim_horselords ME_tim_invasion_of_india }
+		icon = mission_prepare_an_invasion_force
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				has_global_modifier_value = {
+					which = cavalry_power
+					value = 0.35
+				}
+				any_country = {
+					capital_scope = {
+						region = hindusthan_region
+					}
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_effect = {
+				set_variable = {
+					which = METimElephantBattlesWon
+					value = 0
+				}
+			}
+			custom_tooltip = me_tim_unlocks_war_elephants
+			set_country_flag = me_tim_unlocked_war_elephants
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = me_tim_if_cca
+				first_limit = "
+					has_global_modifier_value = {
+						which = cavalry_power
+						value = 0.35
+					}
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = me_tim_frightening_enemy
+						duration = 5475
+					}
+				"
+				second_custom_tooltip = me_tim_if_alliance
+				second_limit = "
+					any_country = {
+						capital_scope = {
+							region = hindusthan_region
+						}
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+				"
+				second_effect = "
+					add_country_modifier = {
+						name = me_tim_auxilary_elephants
+						duration = 7300
+					}
+				"
+			}
+		}
+	}
+
+	ME_tim_shock_tactics_horde = {
+		required_missions = { ME_tim_war_elephants_horde ME_tim_uniting_warlords }
+		icon = mission_a_million_elephants
+		position = 15
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_leader_with = {
+				shock = 5
+			}
+			OR = {
+				full_idea_group = offensive_ideas
+				ruler_has_personality = bold_fighter_personality
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = me_tim_art_of_offense
+				duration = 7300
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_modify_war_elephants
+			set_country_flag = me_tim_modified_war_elephants
+		}
+	}
+
+	ME_tim_the_old_ways = {
+		required_missions = { ME_tim_raiding_tactics }
+		icon = mission_impaled_soldies
+		position = 16
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				development_in_provinces = {
+					value = 200
+					religion = tengri_pagan_reformed
+				}
+				custom_trigger_tooltip = { 
+					tooltip = ME_tim_converted_50_provinces
+					check_variable = { 
+						which = METimConvertedProvincesOldWays
+						value = 50
+					}
+				}
+			}
+		}
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_tim_if_completed_with_tengri
+				first_limit = "
+					development_in_provinces = {
+						value = 200
+						religion = tengri_pagan_reformed
+					}
+				"
+				first_effect = "
+					ME_tim_trigger_event_38 = yes
+				"
+				second_custom_tooltip = ME_tim_if_completed_with_conversion
+				second_limit = "
+					check_variable = { 
+						which = METimConvertedProvincesOldWays
+						value = 50
+					}
+				"
+				second_effect = "
+					add_age_modifier = {
+						name = me_tim_faithful_to_god
+						duration = -1
+						age = age_of_absolutism
+					}
+				"
+			}
+		}
+	}
+}
+
+Timurid_horde_path_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_horde_path
+	}
+	has_country_shield = yes
+
+	ME_tim_hormuz_fortress = {
+		required_missions = { TIM_hormuz }
+		icon = mission_galleys_in_port
+		position = 8
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			2999 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+				has_coast_defense_building_trigger = yes
+			}
+		}
+		effect = {
+			country_event_with_option_insight  = { 
+				id = ME_Timurid_Main_Events.39 
+				option_1 = "
+					2999 = {
+						add_province_modifier = {
+							name = me_tim_naval_defence
+							duration = -1
+						}
+					}
+				"
+				option_2 = "
+					2999 = {
+						add_province_modifier = {
+							name = me_tim_land_security
+							duration = -1
+						}
+					}
+				"
+			}
+		}
+	}
+
+	ME_tim_arabian_horses_horde = {
+		required_missions = { ME_tim_hormuz_fortress ME_tim_raid_caravans }
+		icon = mission_marwari_horses
+		position = 9
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 100
+				region = arabia_region
+				trade_goods = livestock
+			}
+			OR = {
+				has_global_modifier_value = {
+					which = cavalry_power
+					value = 0.6
+				}
+				num_of_cavalry = 35
+			}
+		}
+		effect = {
+			country_event_with_option_insight  = { 
+				id = ME_Timurid_Main_Events.17 
+				option_1 = "
+					add_country_modifier = {
+						name = me_tim_arabian_horses
+						duration = -1
+					}
+					
+					change_price = {
+						trade_goods = livestock
+						key = arabian_horses_monopoly
+						value = 0.2
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = me_tim_adapting_arabian_tactics
+						duration = -1
+					}
+					
+					create_general_with_pips = { tradition = 60 add_shock = 2 }
+				"
+			}
+		}
+	}
+
+	ME_tim_scourge_of_arabia = {
+		required_missions = { ME_tim_recruit_the_bedouins ME_tim_arabian_horses_horde ME_tim_hard_climate_training }
+		icon = mission_mosque
+		position = 10
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			arabia_region = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			country_event_with_option_insight  = { 
+				id = ME_Timurid_Main_Events.40 
+				option_1 = "
+					custom_tooltip = ME_tim_will_not_develop_arabian_provinces
+					set_country_flag = ME_tim_deny_developing_arabian_provinces
+				"
+				option_2 = "
+					custom_tooltip = me_tim_distribute_development_in_arab_land
+				"
+			}
+		}
+	}
+
+	ME_tim_invasion_of_india = {
+		required_missions = { ME_tim_baluchistan_horde }
+		icon = mission_indian_soldier_elephant
+		position = 11
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			sind_sagar_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = me_tim_invasion_of_india
+				duration = 5475
+			}
+			custom_tooltip = " "
+			custom_tooltip = me_tim_if_roh_has_fort
+			tooltip = {
+				578 = {
+					add_building = ramparts
+					add_province_modifier = {
+						name = me_mug_indian_pass
+						duration = -1
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						578 = {
+							owned_by = ROOT
+							OR = {
+								has_building = fort_15th
+								has_building = fort_16th
+								has_building = fort_17th
+								has_building = fort_18th
+							}
+						}
+					}
+					578 = {
+						add_building = ramparts
+						add_province_modifier = {
+							name = me_mug_indian_pass
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ME_tim_sack_of_delhi = {
+		required_missions = { ME_tim_invasion_of_india }
+		icon = mission_crush_delhi
+		position = 12
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = lahore_area
+					area = sirhind_area
+					area = upper_doab_area
+				}
+				value = 10
+			}
+			522 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			country_event_with_option_insight  = { 
+				id = ME_Timurid_Main_Events.19 
+				option_1 = "
+					522 = {
+						add_devastation = 75
+					}
+					custom_tooltip = \" \"
+					ME_distribute_development = {
+						type = tax
+						amount = 5
+					}
+					ME_distribute_development = {
+						type = production
+						amount = 5
+					}
+					ME_distribute_development = {
+						type = manpower
+						amount = 5
+					}
+				"
+				option_2 = "
+					custom_tooltip = me_tim_unlocks_red_fort
+					set_country_flag = per_delhi_requirement_flag
+					custom_tooltip = \" \"
+					522 = {
+						add_base_manpower = 1
+						add_base_production = 1
+						add_base_manpower = 1
+					}
+				"
+			}
+		}
+	}
+
+	ME_tim_foreign_gold = {
+		required_missions = { }
+		icon = mission_zambezi_gold
+		position = 13
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			treasury = 5000
+			num_of_battles_won = { amount = 75 }
+		}
+		effect = {
+			custom_tooltip = me_tim_razing_provinces_gives_20_gold
+			set_country_flag = me_tim_more_gold_razing
+		}
+	}
+
+	ME_tim_raiding_tactics = {
+		required_missions = { ME_tim_foreign_gold }
+		icon = mission_abu_saids_dream
+		position = 14
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_leader_with = {
+				manuever = 4
+				total_pips = 8
+			}
+			legitimacy_equivalent = 95
+			OR = {
+				num_of_war_reparations = 4
+				AND = {
+					army_organiser = 3
+					monthly_mil = 10
+				}
+				AND = {
+					mil = 4
+					ruler_has_personality = bold_fighter_personality
+				}
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = me_tim_increase_in_loot
+				duration = -1
+				age = age_of_reformation
+			}
+		}
+	}
+
+	ME_tim_eternal_war = {
+		required_missions = { ME_tim_raiding_tactics }
+		icon = mission_afghan_frontier
+		position = 15
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			total_development = 2000
+			great_power_rank = 1
+		}
+		effect = {
+			custom_tooltip = me_tim_rulers_are_guaranteed_to_be_conquerors
+			set_country_flag = me_tim_guaranteed_conqueror
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = ME_tim_war_against_the_world
+				duration = -1
+			}
+		}
+	}
+}
+
+Timurid_horde_path_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = TIM
+		
+		has_country_flag = me_tim_horde_path
+	}
+	has_country_shield = yes
+
+	ME_tim_raid_caravans = {
+		required_missions = { TIM_hormuz }
+		icon = mission_non-western_cavalry_raid
+		position = 9
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				#custom_trigger_tooltip = { #This is better than the non existant custom trigger tooltip that exists right now
+					#tooltip = ME_tim_razed_10_arabian_provinces 
+					check_variable = { 
+						which = METimArabianPorvincesRazed
+						value = 10
+					}
+				#}
+				mercantilism = 20
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_razing_provinces_with_trade_building_gives_mercantilism
+			set_country_flag = me_tim_razing_provinces_mercantilism
+			custom_tooltip = " "
+			ME_add_years_of_trade_income = { years = 5 }
+			custom_tooltip = " "
+			custom_tooltip = me_tim_unlocks_mercantilism_decision
+		}
+	}
+
+	ME_tim_hard_climate_training = {
+		required_missions = { ME_tim_raid_caravans }
+		icon = mission_marathi_fiefs
+		position = 10
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = arabia_region
+				has_terrain = desert
+				has_manpower_building_trigger = yes
+				value = 20
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_every_arabian_barracks_gets_manpower
+			custom_tooltip = " "
+			custom_tooltip = me_tim_distribute_manpower_in_arabia
+			hidden_effect = {
+				arabia_region = {
+					limit = {
+						owned_by = ROOT
+						has_terrain = desert
+						has_manpower_building_trigger = yes
+					}
+					add_province_modifier = {
+						name = ME_tim_hard_climate_modifier
+						duration = -1
+					}
+				}
+				ME_distribute_development = {
+					type = manpower
+					amount = 10
+					limit = " region = arabia_region "
+				}
+			}
+		}
+	}
+
+	ME_tim_baluchistan_horde = {
+		required_missions = { }
+		icon = mission_hills_of_gondwana
+		position = 11
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			kalat_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			makran_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = me_mug_every_10_dev_province
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							area = kalat_area
+							area = makran_area
+						}
+						development = 10
+					}
+					add_or_upgrade_fort_building = yes
+				}
+				4457 = {
+					every_trade_node_member_province = {
+						limit = {
+							province_has_center_of_trade_of_level = 1
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+			}
+		}
+	}
+
+	ME_tim_integrate_baluchistan = {
+		required_missions = { ME_tim_baluchistan_horde }
+		icon = mission_gharbianss
+		position = 12
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = baluchi
+				num_of_buildings_in_province = 4
+				value = 3
+			}
+		}
+		effect = {
+			custom_tooltip = me_tim_horde_unity_privilege_effects_baluchistan_as_well
+			set_country_flag = me_tim_horde_unity_baluchistan
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 20 }
+		}
+	}
+
+	ME_tim_syncretism = {
+		required_missions = { }
+		icon = mission_hands_praying
+		position = 14
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					religion = tengri_pagan_reformed
+					value = 15
+				}
+				religious_unity = 1
+			}
+		}
+		effect = {
+			country_event_with_option_insight  = { 
+				id = ME_Timurid_Main_Events.41 
+				option_1 = "
+					custom_tooltip = me_tim_tengri_provinces_will_provide_no_penalty
+					set_country_flag = me_tim_tengri_tolerance
+				"
+				option_2 = "
+					custom_tooltip = me_tim_razing_provinces_reduces_missionary_strength
+					set_country_flag = me_tim_reduced_conversion_on_razing
+				"
+			}
+		}
+	}
+
+	ME_tim_skull_monument = {
+		required_missions = { ME_tim_syncretism ME_tim_raiding_tactics }
+		icon = mission_kon_repel_the_missionaries
+		position = 16
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			446 = {
+				owned_by = ROOT
+				development = 25
+			}
+			NOT = { unrest = -6 }
+		}
+		effect = {
+			set_country_flag = me_tim_skull_pyramid_unlocked
+			custom_tooltip = me_tim_unlocks_skull_pyramid
+			hidden_effect = {
+				446 = {
+					add_great_project = {
+						type = me_skull_pyramid
+						instant = yes 
+					}
+					set_variable = {
+						which = METimSkullPyramidProgress
+						value = 1
+					}
+				}	
+			}
+		}
+	}
+}
