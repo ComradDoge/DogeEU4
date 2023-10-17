@@ -17,7 +17,10 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Buffed Hussite Aspects.
+- Jewish
 - Expand Fort Sabotage mechanic to take into account 40 provinces.
+- HRE modifiers are back to vanilla levels, since it really will only affect Vanilla Flavour.
 
 
 <br/>
