@@ -17,16 +17,7 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Leadership Ideas buffed.
-- Updated some modifiers icons.
-- Buffed Castillian Spanish ideas.
-- Added a Diplomatic way of forming PLC back to vanilla bookmark.
-- Fixed Monarchy System not being removed when idea group is gone.
-- Mining Companies reform mechanic (Serbia) now includes all metals.
-- Local Goods Produced per production development increased back to 0.2. 
-- Added Timurid mission from Europa Expanded but only in Vanilla Flavour.
-- Fixed Vanilla Flavour not having the additional two diplomatic relations.
-- Manufactories now scale with development (1 LGP per 10 dev), increased cost back to 1k.
+- Expand Fort Sabotage mechanic to take into account 40 provinces.
 
 
 <br/>
