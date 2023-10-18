@@ -18,7 +18,9 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Buffed Hussite Aspects.
-- Expand Fort Sabotage mechanic to take into account 40 provinces.
+- Rebalanced some goverment mechanics.
+- Updated existing Mamluk mission tree to be up to date.
+- Expanded Fort Sabotage mechanic to take into account 24>40 provinces at once.
 - HRE modifiers are back to vanilla levels, since it really only matters for Vanilla Flavour.
 
 

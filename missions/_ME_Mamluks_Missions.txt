@@ -3,9 +3,8 @@ MAM_missions_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		
@@ -83,7 +82,17 @@ MAM_missions_1 = {
 					duration = 9125
 				}
 			}
-			country_event = { id = ME_Mamluks_Events.25 }
+			country_event_with_effect_insight = { 
+				id = ME_Mamluks_Events.25 
+				effect = "
+					change_price = {
+						trade_goods = coffee
+						key = MAM_protector_of_the_secret
+						value = 0.25
+						duration = 9125
+					}
+				"
+			}
 		}
 	}
 	
@@ -174,13 +183,42 @@ MAM_missions_1 = {
 		position = 8
 		provinces_to_highlight = {
 			province_id = 358
-			NOT = { development = 45 }
+			OR = {
+				AND = {
+					NOT = { has_dlc = "Leviathan" }
+					NOT = { development = 45 }
+				}
+				AND = {
+					has_dlc = "Leviathan"
+					NOT = {
+						has_great_project = {
+							type = fu_pharos_alexandria
+							tier = 1
+						}
+					}
+				}
+				NOT = { owned_by = ROOT }
+			}
 		}
 		trigger = {
-			358 = {
-				owned_by = ROOT 
-				development = 45
-				num_of_buildings_in_province = 5
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				358 = {
+					owned_by = ROOT
+					has_great_project = {
+						type = fu_pharos_alexandria
+						tier = 1
+					}
+				}
+			}
+			else = {
+				358 = {
+					owned_by = ROOT 
+					development = 45
+					num_of_buildings_in_province = 5
+				}
 			}
 		}
 		effect = {
@@ -258,6 +296,7 @@ MAM_missions_1 = {
 				}
 				army_professionalism = 0.4
 			}
+			is_ahead_of_time_in_specific_tech = { type = mil }
 			num_of_artillery = 10
 			has_global_modifier_value = {
 				which = discipline
@@ -302,24 +341,24 @@ MAM_missions_1 = {
 			}
 		}
 		effect = {
-			if = {
-				limit = {
-					OR = { 
-						MDA = { is_subject_of = ROOT }
-						HED = { is_subject_of = ROOT }
-					}
-				}
-				country_event = { id = ME_Mamluks_Events.1 }
-			}
-			
-			custom_tooltip = " "
-			
 			add_country_modifier = {
 				name = MAM_piety_accelerator
 				duration = 9125
 			}
 			
 			ARB_claims_yemen = yes
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = { 
+				id = ME_Mamluks_Events.1 
+				option_1 = "
+					custom_tooltip = MAM_MDA_and_HED_will_unite_into_MCC
+				"
+				option_2 = "
+					add_prestige_or_monarch_power = { amount = 5 }
+				"
+			}
 		}
 	}
 	
@@ -407,23 +446,22 @@ MAM_missions_1 = {
 			320 = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		effect = {
-			country_event = { id = ME_Mamluks_Events.4 }
-			
-			custom_tooltip = " "
-			
-			tooltip = {
-				add_age_modifier = {
-					name = MAM_crusaders_repulsed
-					duration = -1
-					age = age_of_absolutism
-				}
-				custom_tooltip = " "
-				add_prestige_or_monarch_power = { amount = 40 }
-				custom_tooltip = " "
-				add_power_projection = {
-					type = mission_rewards_power_projection
-					amount = 20 
-				}
+			country_event_with_effect_insight = { 
+				id = ME_Mamluks_Events.4 
+				effect = "
+					add_age_modifier = {
+						name = MAM_crusaders_repulsed
+						duration = -1
+						age = age_of_absolutism
+					}
+					custom_tooltip = \" \"
+					add_prestige_or_monarch_power = { amount = 40 }
+					custom_tooltip = \" \"
+					add_power_projection = {
+						type = mission_rewards_power_projection
+						amount = 20 
+					}
+				"
 			}
 		}
 	}
@@ -434,9 +472,8 @@ MAM_missions_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		
@@ -458,21 +495,7 @@ MAM_missions_2 = {
 			}
 			OR = {
 				NOT = {
-					if = {
-						limit = {
-							is_expanded_mod_active = { mod = trade_goods }
-						}
-						OR = {
-							has_building = early_road
-							has_building = gravel_road
-							has_building = royal_road
-							has_building = macadam_road
-							has_building =railroad
-						}
-					}
-					else = {
-						num_of_times_improved = 3
-					}
+					num_of_times_improved = 3
 				}
 				NOT = { owned_by = ROOT }
 			}
@@ -480,93 +503,23 @@ MAM_missions_2 = {
 		trigger = {
 			2321 = {
 				owned_by = ROOT
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = trade_goods }
-					}
-					OR = {
-						has_building = early_road
-						has_building = gravel_road
-						has_building = royal_road
-						has_building = macadam_road
-						has_building =railroad
-					}
-				}
-				else = {
-					num_of_times_improved = 3
-				}
+				num_of_times_improved = 3
 			}
 			360 = {
 				owned_by = ROOT
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = trade_goods }
-					}
-					OR = {
-						has_building = early_road
-						has_building = gravel_road
-						has_building = royal_road
-						has_building = macadam_road
-						has_building =railroad
-					}
-				}
-				else = {
-					num_of_times_improved = 3
-				}
+				num_of_times_improved = 3
 			}
 			2315 = {
 				owned_by = ROOT
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = trade_goods }
-					}
-					OR = {
-						has_building = early_road
-						has_building = gravel_road
-						has_building = royal_road
-						has_building = macadam_road
-						has_building =railroad
-					}
-				}
-				else = {
-					num_of_times_improved = 3
-				}
+				num_of_times_improved = 3
 			}
 			361 = {
 				owned_by = ROOT
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = trade_goods }
-					}
-					OR = {
-						has_building = early_road
-						has_building = gravel_road
-						has_building = royal_road
-						has_building = macadam_road
-						has_building =railroad
-					}
-				}
-				else = {
-					num_of_times_improved = 3
-				}
+				num_of_times_improved = 3
 			}
 			4316 = {
 				owned_by = ROOT
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = trade_goods }
-					}
-					OR = {
-						has_building = early_road
-						has_building = gravel_road
-						has_building = royal_road
-						has_building = macadam_road
-						has_building =railroad
-					}
-				}
-				else = {
-					num_of_times_improved = 3
-				}
+				num_of_times_improved = 3
 			}
 		}
 		effect = {
@@ -957,15 +910,18 @@ MAM_missions_2 = {
 			}
 		}
 		effect = {
-			country_event = { id = ME_Mamluks_Events.7 } #Spawn Iraq?
-			
-			custom_tooltip = " "
-			
 			add_mil_power = 100
 			
 			custom_tooltip = " "
 			
 			ARB_claims_iraq = yes
+			
+			custom_tooltip = " "
+			
+			country_event_with_insight = { 
+				id = ME_Mamluks_Events.7 
+				insight_tooltip = MAM_we_may_release_iraq_if_we_want 
+			} #Spawn Iraq?
 		}
 	}
 	
@@ -1025,9 +981,8 @@ MAM_missions_3 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		
@@ -1200,7 +1155,31 @@ MAM_missions_3 = {
 			
 			custom_tooltip = " "
 			
-			country_event = { id = ME_Mamluks_Events.24 }
+			country_event_with_option_insight = { 
+				id = ME_Mamluks_Events.24 
+				option_1 = "
+					add_estate_influence_modifier = {
+						estate = estate_nobles
+						desc = MAM_muhtasib_position_sold
+						influence = 15
+						duration = 9125
+					}
+					
+					custom_tooltip = \" \"
+					
+					add_estate_loyalty = {
+						estate = estate_nobles 
+						loyalty = 10
+					}
+					
+					custom_tooltip = \" \"
+					
+					add_years_of_income = 1.5
+				"
+				option_2 = "
+					add_corruption = -0.5
+				"
+			}
 		}
 	}
 	
@@ -1372,8 +1351,77 @@ MAM_missions_3 = {
 			}
 		}
 		effect = {
-			country_event = { id = ME_Mamluks_Events.6 }
-			
+			if = {
+				limit = {
+					any_owned_province = {
+						OR = {
+							area = syria_area
+							area = aleppo_area
+							area = delta_area
+						}
+						has_port = yes
+					}
+				}
+				country_event_with_option_insight = { 
+					id = ME_Mamluks_Events.6 
+					option_1 = "
+						add_years_of_income = -0.5
+						add_mil_power = 10
+						
+						custom_tooltip = MAM_get_venetian
+					"
+					option_2 = "
+						random_owned_province = {
+							limit = {
+								OR = {
+									area = syria_area
+									area = aleppo_area
+									area = delta_area
+								}
+								has_port = yes
+							}
+							add_unit_construction = {
+								type = light_ship
+								amount = 5
+								speed = 0.25
+								cost = 0
+							}
+						}
+					"
+					option_3 = "
+						home_trade_node_effect_scope = {
+							add_trade_modifier = {
+								who = ROOT
+								duration = 7300
+								power = 40
+								key = MAM_strong
+							}
+						}
+					"
+				}
+			}
+			else = {
+				country_event_with_option_insight = { 
+					id = ME_Mamluks_Events.6 
+					option_1 = "
+						add_years_of_income = -0.5
+						add_mil_power = 10
+						
+						custom_tooltip = MAM_get_venetian
+					"
+					option_2 = "
+						home_trade_node_effect_scope = {
+							add_trade_modifier = {
+								who = ROOT
+								duration = 7300
+								power = 40
+								key = MAM_strong
+							}
+						}
+					"
+				}
+				
+			}
 			custom_tooltip = " "
 			
 			set_country_flag = MAM_recurring_trade_deals
@@ -1496,8 +1544,6 @@ MAM_missions_3 = {
 			}
 		}
 		effect = {
-			country_event = { id = ME_Mamluks_Events.5 } #influence beyliks or conquer
-			custom_tooltip = " "
 			#claims on lower half of white sheep
 			ME_give_claims = { id = 407 } #white sheep lands
 			ME_give_claims = { id = 418 }
@@ -1505,9 +1551,6 @@ MAM_missions_3 = {
 			ME_give_claims = { id = 2308 }
 			ME_give_claims = { id = 2328 } #tabuk
 			ME_give_claims = { id = 321 } #cyprus
-			ME_give_claims = { area	 = palestine_area }
-			ME_give_claims = { area	 = syria_area }
-			ME_give_claims = { area	 = aleppo_area }
 			
 			custom_tooltip = " "
 			
@@ -1515,6 +1558,20 @@ MAM_missions_3 = {
 				name = MAM_ld_from_dev
 				duration = -1
 			}
+			
+			country_event_with_option_insight = { 
+				id = ME_Mamluks_Events.5 
+				option_1 = "
+					ME_mam_event_5_opt_1 = yes
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = MAM_help_vassalize_beyliks
+						duration = 7300
+					}
+					custom_tooltip = MAM_karaman_will_be_easier
+				"
+			} #influence beyliks or conquer
 		}
 	}
 	
@@ -1590,8 +1647,8 @@ MAM_missions_3 = {
 			
 			custom_tooltip = " "
 			
-			#custom_tooltip = MAM_an_offer_to_beja
-			#set_country_flag = MAM_offer_to_beja
+			custom_tooltip = MAM_an_offer_to_beja
+			set_country_flag = MAM_offer_to_beja
 		}
 	}
 	
@@ -1691,9 +1748,8 @@ MAM_missions_4 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		
@@ -1715,7 +1771,23 @@ MAM_missions_4 = {
 		}
 		effect = {
 			custom_tooltip = MAM_three_most_developed_provinces
-			country_event = { id = ME_Mamluks_Events.3 }
+			country_event_with_option_insight = { 
+				id = ME_Mamluks_Events.3 
+				option_1 = "
+					random_owned_province = {
+						change_trade_goods = paper
+					}
+					random_owned_province = {
+						change_trade_goods = glass
+					}
+					random_owned_province = {
+						change_trade_goods = cloth
+					}
+				"
+				option_2 = "
+					add_years_of_income = 1
+				"
+			}
 			
 			custom_tooltip = " "
 			
@@ -1890,10 +1962,7 @@ MAM_missions_4 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			OR = { 
-				NOT = { started_in = 1444.11.9 }
-				ME_has_abbasid_caliph = yes
-			}
+			ME_has_abbasid_caliph = yes
 			if = {
 				limit = {
 					has_estate = estate_church
@@ -2190,9 +2259,8 @@ MAM_missions_5 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		
@@ -2220,7 +2288,7 @@ MAM_missions_5 = {
 			}
 		}
 		effect = {
-			country_event = { id = flavor_mam.2 }
+			country_event_with_option_insight = { id = flavor_mam.2 }
 			361 = { 
 				create_or_add_center_of_trade_level = { level = 1 }
 			}
@@ -2495,7 +2563,7 @@ MAM_missions_5 = {
 			
 			custom_tooltip = " "
 			
-			#ME_enable_estate_burghers_arid_development = yes
+			ME_enable_estate_burghers_arid_development = yes
 		}
 	}
 	
@@ -2569,7 +2637,22 @@ MAM_missions_5 = {
 		effect = {
 			custom_tooltip = MAM_if_by_opinion
 			tooltip = {
-				KAR = { country_event = { id = ME_Mamluks_Events.10 } }
+				KAR = { 
+					country_event_with_option_insight = {
+						id = ME_Mamluks_Events.10 
+						option_1 = "
+							ROOT = {
+								create_subject = {
+									subject = KAR
+									subject_type = vassal
+								}
+							}
+						"
+						option_2 = "
+							add_prestige_or_monarch_power = { amount = 10 }
+						"
+					} 
+				}
 				custom_tooltip = " "
 				add_dip_power = 50
 				
@@ -2595,7 +2678,22 @@ MAM_missions_5 = {
 							NOT = { tag = TUR }
 						}
 					}
-					KAR = { country_event = { id = ME_Mamluks_Events.10 } }
+					KAR = { 
+						country_event_with_option_insight = { 
+							id = ME_Mamluks_Events.10 
+							option_1 = "
+								ROOT = {
+									create_subject = {
+										subject = KAR
+										subject_type = vassal
+									}
+								}
+							"
+							option_2 = "
+								add_prestige_or_monarch_power = { amount = 10 }
+							"
+						} 
+					}
 					add_dip_power = 50
 				}
 				else = {
@@ -2645,9 +2743,8 @@ MAM_missions_1_ottoman_incident = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		has_country_flag = MAM_ottoman_incident_tree
@@ -2718,9 +2815,8 @@ MAM_missions_2_ottoman_incident = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		has_country_flag = MAM_ottoman_incident_tree
@@ -2789,9 +2885,8 @@ MAM_missions_3_ottoman_incident = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		has_country_flag = MAM_ottoman_incident_tree
@@ -2820,9 +2915,8 @@ MAM_missions_3_ottoman_incident_water = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		has_country_flag = MAM_ottoman_incident_tree
@@ -2863,9 +2957,8 @@ MAM_missions_3_ottoman_incident_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		has_country_flag = MAM_ottoman_incident_tree
@@ -2938,9 +3031,8 @@ MAM_missions_4_ottoman_incident = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		has_country_flag = MAM_ottoman_incident_tree
@@ -3032,9 +3124,8 @@ MAM_missions_5_ottoman_incident = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = { 
+		OR = {
 			tag = MAM
-			#tag = EGP
 			tag = EGY
 		}
 		has_country_flag = MAM_ottoman_incident_tree

@@ -1,0 +1,98 @@
+mamluk_reforms = {
+	potential = {
+		OR = {
+			tag = EGY
+			tag = MAM
+		}
+		NOT = { has_country_flag = MAM_concluded_reforms }
+		has_estate_privilege = ME_estate_nobles_MAM_oligarchy
+	}
+	can_start = {
+		OR = {
+			NOT = { current_age = age_of_discovery }
+			custom_trigger_tooltip = {
+				tooltip = MAM_reached_100_stab_cost
+				has_country_modifier = MAM_worsening_stability_10
+			}
+		}
+	}
+	can_stop = {
+		always = no
+	}
+	
+	down_progress = {
+		factor = 1
+	}
+	
+	progress = {
+		modifier = {
+			factor = 1
+			custom_trigger_tooltip = {
+				tooltip = MAM_base_speed
+				NOT = {
+					has_country_flag = MAM_pick_speed
+				}
+			}
+		}
+		modifier = {
+			factor = 10
+			custom_trigger_tooltip = {
+				tooltip = MAM_quick_speed_mod
+				has_country_flag = MAM_quick_speed
+			}
+		}
+		modifier = {
+			factor = 2
+			custom_trigger_tooltip = {
+				tooltip = MAM_slow_speed_mod
+				has_country_flag = MAM_slow_speed
+			}
+		}
+	}
+
+	can_end = {
+		custom_trigger_tooltip = {
+			tooltip = MAM_less_than_0.25_corruption
+			NOT = { corruption = 0.25 }
+		}
+		stability = 2
+		all_subject_country = {
+			NOT = { liberty_desire = 25 }
+		}
+		custom_trigger_tooltip = {
+			tooltip = MAM_final_wave_fired
+			has_country_flag = MAM_final_wave
+		}
+		NOT = { num_of_rebel_armies = 1 }
+		NOT = { num_of_rebel_controlled_provinces = 1 }
+	}
+	
+	modifier = {
+		global_unrest = 5
+		global_autonomy = 0.25
+	}
+
+	on_start = mamluk_reforms_events.2 #pick your fighter
+	on_end = mamluk_reforms_events.9 #the end
+	
+	on_monthly = {
+		events = {
+			mamluk_reforms_events.7 #first ones retreat
+		}
+		random_events = {
+			10 = 0
+		}
+	}
+	
+	on_progress_effect = {
+		if = {
+			limit = {
+				has_disaster_progress = {
+					disaster = mamluk_reforms
+					value = 5
+				}
+			}
+			country_event = { id = mamluk_reforms_events.1 }
+		}
+	}
+}
