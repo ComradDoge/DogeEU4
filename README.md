@@ -18,10 +18,12 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Buffed Hussite Aspects.
-- Rebalanced some goverment mechanics.
+- Rebalanced some government mechanics.
+- HRE modifiers for the Emperor are tweaked.
+- Monopoly on Gems now also accepts Amber and Pearls.
+- Fixed QQ not having some vassals in Vanilla Flavour.
 - Updated existing Mamluk mission tree to be up to date.
 - Expanded Fort Sabotage mechanic to take into account 24>40 provinces at once.
-- HRE modifiers are back to vanilla levels, since it really only matters for Vanilla Flavour.
 
 
 <br/>
