@@ -17,7 +17,13 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Fixed Thassalocracy decision not unlocking the relevant government reform.
+- Buffed Hussite Aspects.
+- Rebalanced some government mechanics.
+- HRE modifiers for the Emperor are tweaked.
+- Monopoly on Gems now also accepts Amber and Pearls.
+- Fixed QQ not having some vassals in Vanilla Flavour.
+- Updated existing Mamluk mission tree to be up to date.
+- Expanded Fort Sabotage mechanic to take into account 24>40 provinces at once.
 
 
 <br/>
