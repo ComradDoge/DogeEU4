@@ -17,10 +17,9 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Fixed some missing Hormuz cores.
-- Fixed noble precious minerals monopoly not working.
-- Fixed Thassalocracy decision not unlocking the relevant government reform.
-- Fixed a Yemen conditional modifier not triggering after a mission is completed.
+- Added an HRE Icon to related decisions.
+- Pearls are now also counted as part of State House manufactory.
+- Fixed Burghers/Vaisyas Ship Force Draft giving more ships than it should and some tweaks.
 
 
 <br/>
