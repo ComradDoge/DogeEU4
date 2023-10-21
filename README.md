@@ -17,11 +17,7 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Fixed Korean errors in Vanilla Flavour.
-- Updated Theocratic Roman Law reform (T3).
-- Fixed Culture ideas having wrong modifier.
-- Fixed Ming mission tree scuffing out in Vanilla Flavour.
-- Perm doesn't get to choose religion through event in Vanilla Flavour.
+- Fixed Rum mission scuff in Vanilla Flavour.
 
 
 <br/>
