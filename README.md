@@ -12,14 +12,16 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.35.6
-- Checksum: ?
+- Checksum: 9220
 
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Added an HRE Icon to related decisions.
-- Pearls are now also counted as part of State House manufactory.
-- Fixed Burghers/Vaisyas Ship Force Draft giving more ships than it should and some tweaks.
+- Fixed Korean errors in Vanilla Flavour.
+- Updated Theocratic Roman Law reform (T3).
+- Fixed Culture ideas having wrong modifier.
+- Fixed Ming mission tree scuffing out in Vanilla Flavour.
+- Perm doesn't get to choose religion through event in Vanilla Flavour.
 
 
 <br/>
