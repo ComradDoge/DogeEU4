@@ -22,6 +22,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Update the wiki to have an economy category.
 - Buffed Impressment Offices to follow Vanilla.
 - Readded diplomatic way to form Spain in Vanilla Flavour.
+- Morocco mission now uses one from Europa Expanded instead of Golden Century.
 - Added a new bookmark that splits China up into a Shogunate/Daimyo type deal.
 - Buffed State Houses to also reduce governing cost flat as a counter to expand infrastructure.
 - Since Adriaterra has no mission tree, for the time being they will get Italy mission tree (even if does not quite make sense) to somewhat encourage its use.
