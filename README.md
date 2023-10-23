@@ -17,6 +17,7 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Institution spread tweaks.
 - Increased chances of Sikhism surviving.
 - Fixed Rum mission scuff in Vanilla Flavour.
 - Update the wiki to have an economy category.

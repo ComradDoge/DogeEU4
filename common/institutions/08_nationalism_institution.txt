@@ -1,0 +1,341 @@
+
+#######################################
+# Nationalism
+#######################################
+nationalism_institution = {
+	bonus = {
+		land_morale = 0.15
+	}
+
+	trade_company_efficiency = 1.5
+	
+	historical_start_date = 1800.1.1
+	historical_start_province = 236 #London
+	
+	history = {
+		AND = {
+				is_year = 1850
+				owner = { technology_group = western }
+				development = 35
+			}
+	}
+
+	can_start = {
+		is_year = 1800
+
+		is_island = no		
+		is_in_capital_area = yes
+		industrialization = 100
+		is_capital = yes
+		culture = owner
+		development = 30
+	}
+	start_chance = 20		#in 100 for when a province can_start
+	
+	
+	on_start = vic_institutions.3
+	
+	
+	can_embrace = {
+		always = yes
+	}
+
+	
+	embracement_speed = {
+
+		
+
+		# In primary culture
+		modifier = {
+			factor = 1
+			scale = yes
+			culture = owner
+		}
+		# In culture group
+		modifier = {
+			factor = 0.5
+			scale = yes
+			potential = {
+				NOT = { culture = owner }
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_nationalism_culture_group_NOT_primary_culture
+				culture_group = owner 
+			}
+		}
+		
+		#European capital with 30 development
+		modifier = {
+			factor = 1
+			scale = yes
+			potential = {
+				owner = {
+					capital_scope = {
+						continent = europe
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_nationalism_europe_capital
+
+				is_capital = yes
+				development = 30
+				continent = europe
+			}
+		}
+		
+		#For colonial nation capitals or ports
+		modifier = {
+			factor = 0.5
+			scale = yes
+			potential = {
+				owner = {
+					is_colonial_nation = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_overlord_nationalism
+				OR = {
+					has_port = yes
+					is_capital = yes
+				}
+				owner = {
+					overlord = { has_institution = nationalism_institution }
+				}
+			}
+		}
+		# Embraced [nationalism] and [capital area not complete]
+		modifier = {
+			factor = 0.5
+			scale = yes
+			force_potential = yes
+			potential = {
+				owner = { has_institution = nationalism_institution }
+				is_in_capital_area = yes
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = tooltip_nationalism_embraced
+				is_owned_by_trade_company = no
+				owner = { has_institution = nationalism_institution }
+				is_in_capital_area = yes
+			}
+		}
+		#Friendly Province has [nationalism] and [primary culture]
+		modifier = {
+			factor = 0.5
+			scale = yes
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_nationalism_main_culture
+				any_friendly_coast_border_province = {
+					nationalism_institution = 100
+					primary_culture = ROOT
+				}
+			}
+		}
+		#Friendly Province has [nationalism] and [culture group]
+		modifier = {
+			factor = 0.4
+			scale = yes
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_nationalism_same_culture
+				any_friendly_coast_border_province = {
+					nationalism_institution = 100
+					culture_group = ROOT
+				}
+			}
+		}
+		# Friendly province has [nationalism] but [different culture group]
+		modifier = {
+			factor = 0
+			scale = yes
+			potential = {
+				NOT = {
+					any_friendly_coast_border_province = {
+						nationalism_institution = 100
+						culture_group = ROOT 
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_nationalism_diff_culture
+				any_friendly_coast_border_province = {
+					nationalism_institution = 100
+					NOT = { culture_group = ROOT }
+				}
+			}
+		}
+		# Friendly province has [nationalism] and [same religion]
+		modifier = {
+			factor = 0.3
+			scale = yes
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_nationalism_same_religion
+				any_friendly_coast_border_province = {
+					nationalism_institution = 100
+					religion = ROOT
+				}
+			}
+		}
+		# Friendly province has [nationalism] but [different religion]
+		modifier = {
+			factor = 0
+			scale = yes
+			potential = {
+				NOT = {
+					any_friendly_coast_border_province = {
+						nationalism_institution = 100
+						religion = ROOT 
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_nationalism_diff_religion
+				any_friendly_coast_border_province = {
+					nationalism_institution = 100
+					NOT = { religion = ROOT }
+				}
+			}
+		}
+
+
+		####
+		#### Neighbour Modifiers
+		####
+
+		# Province has [nationalism] and [culture group]
+		modifier = {
+			factor = 0.2
+			scale = yes
+			potential = {
+				NOT = {
+					any_friendly_coast_border_province = {
+						nationalism_institution = 100
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_neighbor_has_embraced_nationalism_same_culture
+				any_neighbor_province = {
+					NOT = { owned_by = ROOT }
+					nationalism_institution = 100
+					culture_group = ROOT
+				}
+			}
+		}
+		# Province has nationalism but not [culture group]
+		modifier = {
+			factor = 0
+			scale = yes
+			potential = {
+				NOT = {
+					any_friendly_coast_border_province = {
+						nationalism_institution = 100
+					}
+				}
+				NOT = {
+					any_neighbor_province = {
+						nationalism_institution = 100
+						culture_group = ROOT
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_neighbor_has_embraced_nationalism_diff_culture
+				any_neighbor_province = {
+					NOT = { owned_by = ROOT }
+					nationalism_institution = 100
+					NOT = { culture_group = ROOT }
+				}
+			}
+		}
+		# Province has [nationalism] and [same religion]
+		modifier = {
+			factor = 0.1
+			scale = yes
+			potential = {
+				NOT = {
+					any_friendly_coast_border_province = {
+						nationalism_institution = 100
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_neighbor_has_embraced_nationalism_same_religion
+				any_neighbor_province = {
+					NOT = { owned_by = ROOT }
+					nationalism_institution = 100
+					religion = ROOT
+				}
+			}
+		}
+		# Province has [nationalism] and [different religion]
+		modifier = {
+			factor = 0
+			scale = yes
+			potential = {
+				NOT = {
+					any_friendly_coast_border_province = {
+						nationalism_institution = 100						
+					}
+				}
+				NOT = {
+					any_neighbor_province = {
+						nationalism_institution = 100
+						religion = ROOT
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_neighbor_has_embraced_nationalism_diff_religion
+				any_neighbor_province = {
+					NOT = { owned_by = ROOT }
+					nationalism_institution = 100
+					NOT = { religion = ROOT }
+				}
+			}
+		}
+
+		#New slower spread bonus for owned provinces not connected to the capital by land
+		modifier = {
+			factor = 0.1
+			scale = yes
+			force_potential = yes
+			potential = {
+				owner = { has_institution = nationalism_institution }
+				is_in_capital_area = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_nationalism_embraced
+				is_owned_by_trade_company = no
+				owner = { has_institution = nationalism_institution }
+				is_in_capital_area = no
+			}
+		}
+	}
+	
+	ai_will_do = { #Cost of embracing institution must be lower than this factor * last month's regular income, and higher if loans are needed. (Or it has a more than long term goal...)
+		factor = 24
+		
+		modifier = {
+			factor = 0.25
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.1
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.2
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.3
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.4
+		}
+	}
+}
