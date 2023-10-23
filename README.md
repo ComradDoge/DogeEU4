@@ -18,6 +18,7 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Fixed Rum mission scuff in Vanilla Flavour.
+- Readded diplomatic way to form Spain in Vanilla Flavour.
 
 
 <br/>
