@@ -12,9 +12,9 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.35.6
-- Checksum: 9220
+- Checksum: 83a3
 
-<h1>00/00/2023</h1>
+<h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Institution spread tweaks.
