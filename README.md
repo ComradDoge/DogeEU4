@@ -23,6 +23,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Update the wiki to have an economy category.
 - Buffed Impressment Offices to follow Vanilla.
 - Readded diplomatic way to form Spain in Vanilla Flavour.
+- Added some content from With Fire & Sword mod primarily for Crimea.
 - Slightly cleaned up and consolidated some military government reforms.
 - Morocco mission now uses one from Europa Expanded instead of Golden Century.
 - Added a new bookmark that splits China up into a Shogunate/Daimyo type deal.

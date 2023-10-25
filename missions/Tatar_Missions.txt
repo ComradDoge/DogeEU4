@@ -1,137 +1,157 @@
-tatar_missions_1 = {
+WFAS_tatar_missions_1 = {
 	slot = 1
 	generic = no
 	ai = yes
 	potential = {
 		OR = {
-			tag = GOL
-			#tag = CRI # Own Mission Tree
-			tag = NOG
-			tag = KAZ
-			tag = SHY
-			tag = GLH
-			tag = SIB
-			tag = BSH
-			tag = AST
-			tag = QAS
-			tag = KZH
-			tag = CHG
-			tag = KAS
+			tag = GOL			#Great Horde
+			tag = NOG			#Nogai
+			tag = KAZ			#Kazań
+			tag = SHY			#Uzbek
+			tag = GLH			#Golden Horde
+			tag = SIB			#Sibir
+			tag = BSH			#Bashkiria
+			tag = AST			#Astrakhan
+			tag = QAS			#Qasim
+			tag = KZH			#Kazakh
 		}
-		NOT = { map_setup = map_setup_random }
+		NOT = {
+			map_setup = map_setup_random
+		}
 	}
 	has_country_shield = yes
-
-	unite_the_tatars = {
-		icon = mission_cossack_cavalry
-		required_missions = {  }
-		provinces_to_highlight = {
-			OR = {
-				province_id = 303
-				province_id = 466
-				province_id = 464
-				province_id = 1082
-				province_id = 465
-			}
-			NOT = {
-				AND = {
-					owned_by = ROOT
-					is_core = ROOT
-				}
-			}
+	WFAS_tatar_show_strength = {
+		position = 2
+		required_missions = {
+			WFAS_tatar_recruit_warriors
 		}
+		icon = mission_break_the_tatar_yoke
 		trigger = {
+			power_projection = 50
 			if = {
 				limit = {
-					has_dlc = "The Cossacks"
-					has_reform = steppe_horde
+					exists = CRI
 				}
-				horde_unity = 90
+				is_neighbor_of = CRI
+				army_size = CRI
 			}
-			else_if = {
-				limit = {
-					government = monarchy
-				}
-				legitimacy = 90
+			else = {
+				army_size = 35
 			}
-			else_if = {
-				limit = {
-					has_dlc = "Common Sense"
-					government = theocracy
-				}
-				devotion = 90
-			}
-			else_if = {
-				limit = {
-					NOT = { has_dlc = "Common Sense" }
-					government = theocracy
-				}
-				prestige = 40
-			}
-			else_if = {
-				limit = {
-					government = republic
-				}
-				republican_tradition = 90
-			}
-			else= {
-				legitimacy = 90
-			}
-			num_of_cities = 25
-			owns_core_province = 303
-			owns_core_province = 466
-			owns_core_province = 464
-			owns_core_province = 1082
-			owns_core_province = 465
 		}
 		effect = {
-			caucasia_region = {
+			if = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					exists = CRI
+				}
+				add_casus_belli = {
+					target = CRI
+					type = cb_vassalize_mission
+					months = 240
+				}
+			}
+			azov_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
 				}
 				add_permanent_claim = ROOT
 			}
-			nogai_area = {
+			crimea_area = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
 				}
 				add_permanent_claim = ROOT
 			}
-			kazakhstan_area = {
+			zaporizhia_area = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
 				}
 				add_permanent_claim = ROOT
 			}
-			syr_darya_area = {
+			yedisan_area = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			kyzylkum_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
 				}
 				add_permanent_claim = ROOT
 			}
 		}
 	}
-	mission_conquer_caucausus = {
-		icon = mission_steppe_warriors
-		required_missions = { unite_the_tatars }
+	WFAS_tatar_subjugate_crimea = {
 		position = 3
+		required_missions = {
+			WFAS_tatar_show_strength
+		}
 		provinces_to_highlight = {
-			region = caucasia_region
+			OR = {
+				area = azov_area
+				area = crimea_area
+				province_id = 2412
+				province_id = 1974
+			}
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
 		}
+		icon = mission_conquer_50_development
+		trigger = {
+			azov_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			crimea_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2412 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1974 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_manpower = 10
+			add_prestige = 15
+			add_country_modifier = {
+				name = WFAS_tatar_crimean_trade
+				duration = 7300
+			}
+		}
+	}
+	WFAS_tatar_cross_the_caucasus = {
+		position = 4
+		required_missions = {
+			WFAS_tatar_unite_the_tatars
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = caucasia_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		icon = mission_impaled_soldies
 		trigger = {
 			caucasia_region = {
 				type = all
@@ -139,47 +159,776 @@ tatar_missions_1 = {
 			}
 		}
 		effect = {
-			tabriz_area = {
+			add_stability = 1
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			anatolia_region = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			azerbaijan_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			shahrizor_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			luristan_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			tabarestan_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
 				}
 				add_permanent_claim = ROOT
 			}
 		}
 	}
+	WFAS_tatar_defeat_ottomans = {
+		position = 5
+		required_missions = {
+			WFAS_tatar_cross_the_caucasus
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = anatolia_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		icon = mission_non-western_soldiers
+		trigger = {
+			anatolia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			add_country_modifier = {
+				name = WFAS_tatar_turks_defeated
+				duration = -1
+			}
+		}
+	}
+	WFAS_tatar_horse_trade = {
+		position = 7
+		required_missions = {
+			WFAS_tatar_restore_golden_horde
+		}
+		provinces_to_highlight = {
+			OR = {
+				owned_by = ROOT
+			}
+		}
+		icon = mission_cossack_cavalry
+		trigger = {
+			tag = GLH
+			trading_bonus = {
+				trade_goods = livestock
+				value = yes
+			}
+		}
+		effect = {
+			country_event = {
+				id = WFAS_other.15
+			}
+		}
+	}
+}
 
+WFAS_tatar_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = GOL			#Great Horde
+			tag = NOG			#Nogai
+			tag = KAZ			#Kazań
+			tag = SHY			#Uzbek
+			tag = GLH			#Golden Horde
+			tag = SIB			#Sibir
+			tag = BSH			#Bashkiria
+			tag = AST			#Astrakhan
+			tag = QAS			#Qasim
+			tag = KZH			#Kazakh
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	has_country_shield = yes
+	WFAS_tatar_recruit_warriors = {
+		position = 1
+		required_missions = {
+		}
+		icon = mission_build_up_to_force_limit
+		trigger = {
+			army_size_percentage = 0.9
+		}
+		effect = {
+			add_manpower = 10
+			add_treasury = 100
+			if = {
+				limit = {
+					OR = {
+						tag = GOL
+						tag = GLH
+						tag = BSH
+						tag = QAS
+						tag = AST
+					}
+				}
+				lower_yik_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				saratov_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				tambov_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				samara_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						tag = NOG
+						tag = KAZ
+						tag = BSH
+					}
+				}
+				bashkiria_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				lower_yik_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				saratov_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				samara_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				astrakhan_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						tag = SHY
+						tag = SIB
+						tag = KZH
+					}
+				}
+				kazakhstan_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				bashkiria_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				nogai_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				khiva_area = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			if = {
+				limit = {
+					has_reform = steppe_horde
+				}
+				add_country_modifier = {
+					name = WFAS_tatar_raze_them_all
+					duration = 7300
+				}
+			}
+			else = {
+				add_adm_power = 50
+				add_dip_power = 50
+				add_mil_power = 50
+			}
+		}
+	}
+	WFAS_tatar_conquer_borderlands = {
+		position = 2
+		required_missions = {
+			WFAS_tatar_recruit_warriors
+		}
+		icon = mission_unite_home_region
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						tag = GOL
+						tag = GLH
+						tag = BSH
+						tag = QAS
+						tag = AST
+					}
+				}
+				lower_yik_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				saratov_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				tambov_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						tag = NOG
+						tag = KAZ
+						tag = BSH
+					}
+				}
+				bashkiria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				lower_yik_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				saratov_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				astrakhan_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						tag = SHY
+						tag = SIB
+						tag = KZH
+					}
+				}
+				kazakhstan_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				bashkiria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				nogai_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				khiva_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		effect = {
+			add_manpower = 10
+			add_treasury = 100
+			lower_don_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			astrakhan_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			saratov_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			tambov_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			lower_yik_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			nogai_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			volga_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			kazan_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			bashkiria_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			kazakhstan_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			syr_darya_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			ural_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			ishim_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			aqmola_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			balchasj_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			yrtesh_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			kyzylkum_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			define_general = {
+				shock = 5
+				fire = 2
+				manuever = 4
+				siege = 2
+				trait = born_to_the_saddle_personality
+			}
+		}
+	}
+	WFAS_tatar_unite_the_tatars = {
+		position = 3
+		required_missions = {
+			WFAS_tatar_conquer_borderlands
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = lower_don_area
+				area = astrakhan_area
+				area = saratov_area
+				area = tambov_area
+				area = lower_yik_area
+				area = nogai_area
+				area = volga_area
+				area = kazan_area
+				area = bashkiria_area
+				area = kazakhstan_area
+				area = syr_darya_area
+				area = ishim_area
+				area = aqmola_area
+				area = balchasj_area
+				area = yrtesh_area
+				area = kyzylkum_area
+				area = azov_area
+				area = crimea_area
+				province_id = 2412
+				province_id = 1974
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		icon = mission_non-western_cavalry_raid
+		trigger = {
+			lower_don_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			azov_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			crimea_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			astrakhan_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			saratov_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			tambov_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lower_yik_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			nogai_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			volga_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			kazan_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			bashkiria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			kazakhstan_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			syr_darya_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			ishim_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			aqmola_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			balchasj_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			yrtesh_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			kyzylkum_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2412 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1974 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 20
+			add_adm_power = 100
+			add_country_modifier = {
+				name = WFAS_tatar_united_tatar_state
+				duration = 18250
+			}
+			caucasia_region = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			khorasan_region = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			central_asia_region = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	WFAS_tatar_into_khorasan = {
+		position = 4
+		required_missions = {
+			WFAS_tatar_unite_the_tatars
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = khorasan_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		icon = mission_indian_stateman
+		trigger = {
+			khorasan_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 25
+			persia_region = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
 	mission_conquer_persia_tatars = {
 		icon = mission_persian_soldiers
-		required_missions = { mission_conquer_caucausus mission_conquer_samarkand }
+		position = 5
+		required_missions = {
+			WFAS_tatar_into_khorasan
+		}
 		provinces_to_highlight = {
 			OR = {
 				area = tabriz_area
@@ -240,13 +989,19 @@ tatar_missions_1 = {
 			}
 		}
 		effect = {
+			add_country_modifier = {
+				name = WFAS_tatar_persian_trade
+				duration = 7300
+			}
 			if = {
 				limit = {
 					ILK = {
 						exists = no
 					}
 				}
-				country_event = { id = flavor_cri.8 }
+				country_event = {
+					id = flavor_cri.8
+				}
 			}
 			else = {
 				4338 = {
@@ -257,287 +1012,520 @@ tatar_missions_1 = {
 			}
 		}
 	}
-	mission_secure_the_silk_road = {
-		icon = mission_market_place_with_asian_traders
-		required_missions = { mission_conquer_persia_tatars }
+	WFAS_tatar_restore_golden_horde = {
+		position = 6
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			OR = {
+				owned_by = ROOT
+			}
+		}
+		icon = mission_chinese_general_riding
 		trigger = {
-			454 = {
-				is_strongest_trade_power = ROOT
+			tag = GLH
+		}
+		effect = {
+			add_country_modifier = {
+				name = WFAS_tatar_restoration_of_golden_horde
+				duration = -1
 			}
-			4341 = {
-				is_strongest_trade_power = ROOT
+		}
+	}
+	WFAS_tatar_flora_and_fauna_of_steppes = {
+		position = 7
+		required_missions = {
+			WFAS_tatar_restore_golden_horde
+		}
+		provinces_to_highlight = {
+			OR = {
+				owned_by = ROOT
 			}
+		}
+		icon = mission_asian_trader
+		trigger = {
+			tag = GLH
+			calc_true_if = {
+				all_province = {
+					development = 15
+					owned_by = ROOT
+					OR = {
+						trade_goods = livestock
+						trade_goods = grain
+					}
+				}
+				amount = 30
+			}
+		}
+		effect = {
+			add_government_reform = WFAS_cult_of_nature
+		}
+	}
+}
+
+WFAS_tatar_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = GOL			#Great Horde
+			tag = NOG			#Nogai
+			tag = KAZ			#Kazań
+			tag = SHY			#Uzbek
+			tag = GLH			#Golden Horde
+			tag = SIB			#Sibir
+			tag = BSH			#Bashkiria
+			tag = AST			#Astrakhan
+			tag = QAS			#Qasim
+			tag = KZH			#Kazakh
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	has_country_shield = yes
+	WFAS_tatar_fear_from_the_steppes = {
+		position = 1
+		required_missions = {
+		}
+		icon = mission_non-western_cavalry_raid
+		trigger = {
 			if = {
 				limit = {
-					has_dlc = "Dharma"
+					exists = MOS
 				}
-				custom_trigger_tooltip = {
-					tooltip = tatar_silk_road_tooltip
-					any_owned_province = {
-						OR = {
-							region = persia_region
-							region = central_asia_region
-							region = khorasan_region
+				OR = {
+					MOS = {
+						has_opinion_modifier = {
+							who = ROOT
+							modifier = insulted
 						}
-						province_has_center_of_trade_of_level = 3
 					}
+					is_rival = MOS
 				}
-				num_of_owned_provinces_with = {
-					OR = {
-						region = persia_region
-						region = central_asia_region
-						region = khorasan_region
-					}
-					province_has_center_of_trade_of_level = 2
-					value = 6
+				is_neighbor_of = MOS
+			}
+			else_if = {
+				limit = {
+					has_reform = steppe_horde
 				}
+				horde_unity = 95
 			}
 			else = {
-				num_of_owned_provinces_with = {
-					OR = {
-						region = persia_region
-						region = central_asia_region
-						region = khorasan_region
+				prestige = 50
+			}
+		}
+		effect = {
+			add_manpower = 5
+			add_mil_power = 50
+			ryazan_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
 					}
-					OR = {
-						has_building = marketplace
-						has_building = trade_depot
-						has_building = stock_exchange
+					NOT = {
+						is_core = ROOT
 					}
-					value = 8
+				}
+				add_permanent_claim = ROOT
+			}
+			moscow_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			vladimir_area = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = WFAS_tatar_conquer_the_rus
+				duration = 7300
+			}
+		}
+	}
+	WFAS_tatar_raid_on_moskva = {
+		position = 2
+		required_missions = {
+			WFAS_tatar_fear_from_the_steppes
+		}
+		provinces_to_highlight = {
+			province_id = 295
+		}
+		icon = mission_defeat_muscovy
+		trigger = {
+			295 = {
+				OR = {
+					owned_by = root
+					AND = {
+						controlled_by = ROOT
+						devastation = 25
+					}
+				}
+			}
+		}
+		effect = {
+			add_treasury = 300
+			295 = {
+				add_core = ROOT
+			}
+			add_mil_power = 50
+			crimea_region = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+			ruthenia_region = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	WFAS_tatar_ruin_ruthenia = {
+		position = 3
+		required_missions = {
+			WFAS_tatar_raid_on_moskva
+		}
+		icon = mission_steppe_warriors
+		provinces_to_highlight = {
+			OR = {
+				region = ruthenia_region
+			}
+		}
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_province = {
+						region = ruthenia_region
+						controlled_by = ROOT
+					}
+					amount = 15
+				}
+				calc_true_if = {
+					all_province = {
+						region = ruthenia_region
+						owned_by = ROOT
+					}
+					amount = 15
 				}
 			}
 		}
 		effect = {
 			add_years_of_income = 1
 			add_country_modifier = {
-				name = "silk_road_controlled"
-				duration = 7300
+				name = WFAS_tatar_looting_ruthenia
+				duration = 18250
+			}
+		}
+	}
+	WFAS_tatar_reclaim_central_asia = {
+		position = 4
+		required_missions = {
+			WFAS_tatar_unite_the_tatars
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = central_asia_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		icon = mission_chinese_general_riding
+		trigger = {
+			central_asia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_horde_unity = 10
+			add_country_modifier = {
+				name = WFAS_tatar_huge_horde
+				duration = -1
+			}
+			mongolia_region = {
+				limit = {
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	WFAS_tatar_at_the_gates_of_india = {
+		position = 5
+		required_missions = {
+			WFAS_tatar_into_khorasan
+			WFAS_tatar_reclaim_central_asia
+		}
+		provinces_to_highlight = {
+			OR = {
+				superregion = india_superregion
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		icon = mission_accomodate_the_rajputs
+		trigger = {
+			calc_true_if = {
+				all_owned_province = {
+					superregion = india_superregion
+				}
+				amount = 10
+			}
+		}
+		effect = {
+			add_horde_unity = 10
+			add_years_of_income = 1
+			add_adm_power = 100
+			add_country_modifier = {
+				name = WFAS_tatar_conquest_of_india
+				duration = 18250
+			}
+		}
+	}
+	WFAS_tatar_claim_the_wastelands = {
+		position = 7
+		required_missions = {
+			WFAS_tatar_restore_golden_horde
+		}
+		provinces_to_highlight = {
+		}
+		icon = mission_amur_acquisition
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					has_empty_adjacent_province = yes
+					owned_by = ROOT
+				}
+				amount = 14
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = WFAS_tatar_tatar_expeditions_to_siberia
+				duration = 18250
 			}
 		}
 	}
 }
 
-tatar_missions_slot_2 = {
-	slot = 2
+WFAS_tatar_missions_4 = {
+	slot = 4
 	generic = no
 	ai = yes
 	potential = {
 		OR = {
-			tag = GOL
-			#tag = CRI # Own Mission Tree
-			tag = NOG
-			tag = KAZ
-			tag = SHY
-			tag = GLH
-			tag = SIB
-			tag = BSH
-			tag = AST
-			tag = QAS
-			tag = KZH
-			tag = CHG
-			tag = KAS
+			tag = GOL			#Great Horde
+			tag = NOG			#Nogai
+			tag = KAZ			#Kazań
+			tag = SHY			#Uzbek
+			tag = GLH			#Golden Horde
+			tag = SIB			#Sibir
+			tag = BSH			#Bashkiria
+			tag = AST			#Astrakhan
+			tag = QAS			#Qasim
+			tag = KZH			#Kazakh
 		}
-		NOT = { map_setup = map_setup_random }
+		NOT = {
+			map_setup = map_setup_random
+		}
 	}
 	has_country_shield = yes
-	
-	mission_conquer_kazakhstan = {
-		icon = mission_cossack_cavalry
-		required_missions = { unite_the_tatars }
-		position = 2
-		provinces_to_highlight = {
-			OR = {
-				area = nogai_area
-				area = kazakhstan_area
-				area = syr_darya_area
-				area = kyzylkum_area
+	WFAS_tatar_the_khan_laws = {
+		position = 1
+		required_missions = {
+		}
+		icon = mission_have_two_subjects
+		trigger = {
+			government_reform_progress = 50
+			NOT = {
+				inflation = 5
 			}
 			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		trigger = {
-			nogai_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			kazakhstan_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			syr_darya_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			kyzylkum_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+				corruption = 2
 			}
 		}
 		effect = {
-			transoxiana_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
+			add_corruption = -2
+			change_government_reform_progress = 25
+			add_country_modifier = {
+				name = WFAS_tatar_infallible_khan
+				duration = 7300
 			}
-			khiva_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			transcaspia_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			merv_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
+			add_country_modifier = {
+				name = WFAS_tatar_early_administration_reforms
+				duration = -1
 			}
 		}
 	}
-	mission_conquer_samarkand = {
-		icon = mission_central_asian_city
-		required_missions = { mission_conquer_kazakhstan }
+	WFAS_tatar_embrace_western_institutions = {
 		position = 2
-		provinces_to_highlight = {
-			OR = {
-				area = transoxiana_area
-				area = khiva_area
-				area = transcaspia_area
-				area = merv_area
-			}
-			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+		required_missions = {
+			WFAS_tatar_the_khan_laws
 		}
+		icon = mission_dominate_home_trade_node
 		trigger = {
-			transoxiana_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			khiva_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			transcaspia_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			merv_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+			has_institution = feudalism
+			is_institution_enabled = renaissance
 		}
 		effect = {
-			central_asia_region = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
+			change_government_reform_progress = 25
+			add_country_modifier = {
+				name = WFAS_tatar_feudal_society
+				duration = 10950
 			}
-			mashhad_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			herat_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			birjand_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			isfahan_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			iraq_e_ajam_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
+			add_country_modifier = {
+				name = WFAS_tatar_spread_of_ideas
+				duration = 3650
 			}
 		}
 	}
-	mission_conquer_central_asia = {
-		icon = mission_arabian_fort
-		required_missions = { mission_conquer_samarkand }
-		position = 2
-		provinces_to_highlight = {
-			region = central_asia_region
-			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
+	WFAS_tatar_stable_economy = {
+		position = 3
+		required_missions = {
+			WFAS_tatar_embrace_western_institutions
+		}
+		icon = mission_war_chest
+		trigger = {
+			monthly_income = 50
+			current_income_balance = 10
+		}
+		effect = {
+			add_splendor = 400
+			add_country_modifier = {
+				name = WFAS_tatar_development_of_infrastructure
+				duration = 18250
+			}
+			add_country_modifier = {
+				name = WFAS_tatar_caravan_trade
+				duration = -1
 			}
 		}
+	}
+	WFAS_tatar_border_fortifications = {
+		position = 4
+		required_missions = {
+			WFAS_tatar_new_military_tactics
+		}
+		icon = mission_colonial
 		trigger = {
-			central_asia_region = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						has_building = fort_15th
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+				amount = 20
 			}
 		}
 		effect = {
 			add_country_modifier = {
-				name = "integrating_the_steppe_peoples"
+				name = WFAS_tatar_fortifications
 				duration = -1
 			}
+		}
+	}
+	WFAS_tatar_back_to_the_mongolia = {
+		position = 5
+		required_missions = {
+			WFAS_tatar_reclaim_central_asia
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = mongolia_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		icon = mission_manchu_warrior
+		trigger = {
 			mongolia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_horde_unity = 10
+			add_country_modifier = {
+				name = WFAS_tatar_great_mongol_state
+				duration = -1
+			}
+			add_country_modifier = {
+				name = WFAS_tatar_preparation_for_invasion_of_china
+				duration = 18250
+			}
+			north_china_region = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
 				}
 				add_permanent_claim = ROOT
 			}
 		}
 	}
-	mission_conquer_mongolia = {
-		icon = mission_chinese_general_riding
-		required_missions = { mission_conquer_central_asia }
-		position = 2
+	WFAS_tatar_invasion_of_china = {
+		position = 6
+		required_missions = {
+			WFAS_tatar_back_to_the_mongolia
+		}
 		provinces_to_highlight = {
-			region = mongolia_region
+			OR = {
+				region = north_china_region
+			}
 			NOT = {
 				country_or_non_sovereign_subject_holds = ROOT
 			}
-			NOT = {
-				is_empty = yes
-			}
 		}
+		icon = mission_great_wall
 		trigger = {
-			owns_core_province = 4678
-			custom_trigger_tooltip = {
-				tooltip = mongol_china_mission_tooltip
-				mongolia_region = {
-					type = all
-					OR = {
-						is_empty = yes
-						country_or_non_sovereign_subject_holds = ROOT
-					}
+			calc_true_if = {
+				all_province = {
+					region = north_china_region
+					owned_by = ROOT
 				}
+				amount = 25
 			}
 		}
 		effect = {
@@ -549,63 +1537,22 @@ tatar_missions_slot_2 = {
 				}
 				set_government_rank = 3
 			}
-			4678 = {
-				add_base_tax = 2
-				add_base_production = 2
-				add_base_manpower = 2
-				change_culture = ROOT
-			}
-			north_china_region = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	mission_conquer_china = {
-		icon = mission_great_wall
-		required_missions = { mission_conquer_mongolia }
-		position = 2
-		provinces_to_highlight = {
-			region = north_china_region
-			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		trigger = {
-			north_china_region = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
 			if = {
 				limit = {
-					has_reform = steppe_horde
-					has_dlc = "The Cossacks"
+					is_revolutionary = no
 				}
-				add_horde_unity = 20
+				change_government = tribal
+				add_government_reform = great_mongol_state_reform
 			}
-			else = {
-				add_prestige = 25
-			}
-			add_country_modifier = {
-				name = "fall_of_china"
-				duration = 7300
-			}
-			xinan_region = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
+			add_horde_unity = 10
 			south_china_region = {
 				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+					NOT = {
+						is_permanent_claim = ROOT
+					}
+					NOT = {
+						is_core = ROOT
+					}
 				}
 				add_permanent_claim = ROOT
 			}
@@ -613,254 +1560,217 @@ tatar_missions_slot_2 = {
 	}
 }
 
-tatar_missions_2 = {
+WFAS_tatar_missions_5 = {
 	slot = 5
 	generic = no
 	ai = yes
 	potential = {
 		OR = {
-			tag = GOL
-			#tag = CRI # Own Mission Tree
-			tag = NOG
-			tag = KAZ
-			tag = SHY
-			tag = GLH
-			tag = SIB
-			tag = BSH
-			tag = AST
-			tag = QAS
-			tag = KZH
-			tag = CHG
-			tag = KAS
+			tag = GOL			#Great Horde
+			tag = NOG			#Nogai
+			tag = KAZ			#Kazań
+			tag = SHY			#Uzbek
+			tag = GLH			#Golden Horde
+			tag = SIB			#Sibir
+			tag = BSH			#Bashkiria
+			tag = AST			#Astrakhan
+			tag = QAS			#Qasim
+			tag = KZH			#Kazakh
 		}
-		NOT = { map_setup = map_setup_random }
+		NOT = {
+			map_setup = map_setup_random
+		}
 	}
 	has_country_shield = yes
-
-	crimean_expansion_horde = {
-		icon = mission_non-western_soldiers
-		required_missions = {  }
-		provinces_to_highlight = {
-			OR = {
-				area = azov_area
-				area = crimea_area
-			}
-			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+	WFAS_tatar_horde_traditions = {
+		position = 1
+		required_missions = {
 		}
+		icon = mission_crusade_for_varna
 		trigger = {
-			num_of_cities = 25
-			is_subject = no # otto-march not allowed
-			azov_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			if = {
+				limit = {
+					has_reform = steppe_horde
+				}
+				horde_unity = 99
 			}
-			crimea_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+			prestige = 35
+			power_projection = 50
+			stability = 1
 		}
 		effect = {
-			zaporizhia_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
+			add_prestige = 10
+			add_years_of_income = 0.5
+			set_religious_school = {
+				group = muslim
+				school = jafari_school
 			}
-			yedisan_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
+			capital_scope = {
+				ROOT = {
+					cavalry = PREV
+					cavalry = PREV
+					cavalry = PREV
+					cavalry = PREV
 				}
-				add_permanent_claim = ROOT
-			}
-			sloboda_ukraine_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			west_dniepr_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			east_dniepr_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			podolia_volhynia_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
 			}
 		}
 	}
-	ruin_ruthenia = {
-		icon = mission_steppe_warriors
-		required_missions = { crimean_expansion_horde }
+	WFAS_tatar_religious_tolerance = {
+		position = 2
+		required_missions = {
+			WFAS_tatar_horde_traditions
+		}
 		provinces_to_highlight = {
+			owned_by = ROOT
 			OR = {
-				area = zaporizhia_area
-				area = yedisan_area
-				area = sloboda_ukraine_area
-				area = west_dniepr_area
-				area = east_dniepr_area
-				area = podolia_volhynia_area
-			}
-			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
+				unrest = 1
+				nationalism = 1
 			}
 		}
+		icon = mission_mosque
 		trigger = {
-			zaporizhia_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			yedisan_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			sloboda_ukraine_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			west_dniepr_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			east_dniepr_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			podolia_volhynia_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			calc_true_if = {
+				all_province = {
+					owned_by = root
+					NOT = {
+						unrest = 1
+					}
+					NOT = {
+						nationalism = 1
+					}
+				}
+				amount = 40
 			}
 		}
 		effect = {
-			add_adm_power = 100
-			add_mil_power = 100
-			add_prestige = 25
-			add_horde_unity = 25
+			add_country_modifier = {
+				name = WFAS_tatar_tolerance
+				duration = -1
+			}
+			define_advisor = {
+				type = theologian
+				name = "Stanis Goralkus"
+				culture = ROOT
+				skill = 3
+				cost_multiplier = 0.25
+			}
 		}
 	}
-	subjugate_ryazan_horde = {
+	WFAS_tatar_new_military_tactics = {
+		position = 3
+		required_missions = {
+			WFAS_tatar_embrace_western_institutions
+		}
 		icon = mission_cossack_cavalry
-		provinces_to_highlight = {
-			province_id = 301
-			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
 		trigger = {
-			num_of_cities = 25
-			301 = {
-				country_or_non_sovereign_subject_holds = ROOT
+			num_of_cavalry = 20
+			OR = {
+				has_global_modifier_value = {
+					which = discipline
+					value = 0.2
+					extra_shortcut = yes
+				}
+				army_professionalism = 0.1
 			}
 		}
 		effect = {
-			ryazan_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			moscow_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			suzdal_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			tver_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			yaroslavl_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			vladimir_area = {
-				limit = {
-					NOT = { is_permanent_claim = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
+			add_mil_power = 50
+			add_country_modifier = {
+				name = WFAS_tatar_cavalry_armies
+				duration = -1
 			}
 		}
 	}
-	tatar_yoke_mission = {
-		icon = mission_non-western_cavalry_raid
-		required_missions = { subjugate_ryazan_horde }
-		provinces_to_highlight = {
-			OR = {
-				area = ryazan_area
-				area = moscow_area
-				area = suzdal_area
-				area = tver_area
-				area = yaroslavl_area
-				area = vladimir_area
-			}
-			NOT = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+	WFAS_tatar_reformation_of_army = {
+		position = 4
+		required_missions = {
+			WFAS_tatar_new_military_tactics
 		}
+		icon = mission_assemble_an_army
 		trigger = {
-			ryazan_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			moscow_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			suzdal_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			tver_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			yaroslavl_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			vladimir_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			army_tradition = 75
+			OR = {
+				has_global_modifier_value = {
+					which = discipline
+					value = 0.25
+					extra_shortcut = yes
+				}
+				army_professionalism = 0.25
 			}
 		}
 		effect = {
-			add_adm_power = 100
-			add_mil_power = 100
-			add_prestige = 25
-			add_horde_unity = 25
+			add_mil_power = 50
+			add_country_modifier = {
+				name = WFAS_tatar_improved_artillery_technology
+				duration = -1
+			}
+			add_country_modifier = {
+				name = WFAS_tatar_new_warriors
+				duration = 3650
+			}
+		}
+	}
+	WFAS_tatar_bashgird_gold_mine = {
+		position = 5
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			province_id = 2444
+		}
+		icon = mission_entrepot_of_india
+		trigger = {
+			owns_core_province = 2444
+			2444 = {
+				development = 10
+				NOT = {
+					unrest = 1
+				}
+			}
+		}
+		effect = {
+			add_corruption = -2
+			bashkiria_area = {
+				limit = {
+					owned_by = root
+				}
+				add_devastation = -100
+				add_prosperity = 100
+			}
+			2444 = {
+				add_base_production = 2
+			}
+		}
+	}
+	WFAS_tatar_kuqa_gold_mine = {
+		position = 6
+		required_missions = {
+			WFAS_tatar_bashgird_gold_mine
+		}
+		provinces_to_highlight = {
+			province_id = 2121
+		}
+		icon = mission_war_chest
+		trigger = {
+			owns_core_province = 2121
+			2121 = {
+				development = 10
+				NOT = {
+					unrest = 1
+				}
+			}
+		}
+		effect = {
+			add_corruption = -2
+			tarim_basin_area = {
+				limit = {
+					owned_by = root
+				}
+				add_devastation = -100
+				add_prosperity = 100
+			}
+			2121 = {
+				add_base_production = 4
+			}
 		}
 	}
 }

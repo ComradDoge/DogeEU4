@@ -1,0 +1,1228 @@
+namespace = WFAS_crimea
+#Crimean raiding parties
+country_event = {
+	id = WFAS_crimea.1
+	title = "WFAS_crimea_raid_start_title"
+	desc = "WFAS_crimea_raid_start_desc"
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+	trigger = {
+		tag = CRI
+		OR = {
+			has_reform = steppe_horde
+			has_reform = steppe_horde_legacy
+		}
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+	immediate = {
+		set_country_flag = WFAS_crimea_raided_flag
+		set_country_flag = WFAS_crimea_changed_raiding
+	}
+	option = {
+		name = "WFAS_crimea_raid_start_forbid"
+		if = {
+			limit = {
+				has_estate = estate_nomadic_tribes
+			}
+			add_estate_loyalty = {
+				estate = estate_nomadic_tribes
+				loyalty = -10
+			}
+		}
+		add_country_modifier = {
+			name = WFAS_forbidden_raiding
+			duration = -1
+		}
+		custom_tooltip = WFAS_unlock_raiding_decisions
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "WFAS_crimea_raid_start_restrict"
+		if = {
+			limit = {
+				has_estate = estate_nomadic_tribes
+			}
+			add_estate_loyalty = {
+				estate = estate_nomadic_tribes
+				loyalty = 10
+			}
+		}
+		add_country_modifier = {
+			name = WFAS_restricted_raiding
+			duration = -1
+		}
+		custom_tooltip = WFAS_unlock_raiding_decisions
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+#Hidden event to kickstart raid
+country_event = {
+	id = WFAS_crimea.2
+	title = "WFAS_crimea_raid_start_title"
+	desc = "WFAS_crimea_raid_start_desc"
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	hidden = yes
+	trigger = {
+		OR = {
+			AND = {
+				has_country_modifier = WFAS_restricted_raiding
+				had_country_flag = {
+					flag = WFAS_crimea_raided_flag
+					days = 1825
+				}
+			}
+			AND = {
+				has_country_modifier = WFAS_unrestricted_raiding
+				had_country_flag = {
+					flag = WFAS_crimea_raided_flag
+					days = 730
+				}
+			}
+		}
+		is_at_war = no
+	}
+	mean_time_to_happen = {
+		months = 2
+	}
+	immediate = {
+		random_province = {
+			limit = {
+				any_neighbor_province = {
+					owned_by = ROOT
+				}
+				owner = {
+					NOT = {
+						OR = {
+							has_guaranteed = ROOT
+							overlord_of = ROOT
+							alliance_with = ROOT
+							tag = ROOT
+						}
+					}
+				}
+				NOT = {
+					culture = ROOT
+				}
+			}
+			save_global_event_target_as = WFAS_crimean_raid_province
+		}
+		clr_country_flag = WFAS_crimea_raided_flag
+	}
+	option = {
+		if = {
+			limit = {
+				event_target:WFAS_crimean_raid_province = {
+					owner = {
+						has_estate_privilege = WFAS_protect_from_raidings
+					}
+				}
+			}
+			random_list = {
+				8 = {
+					country_event = {
+						id = WFAS_crimea.4
+						days = 1
+					}
+					event_target:WFAS_crimean_raid_province = {
+						owner = {
+							country_event = {
+								id = WFAS_crimea.6
+								days = 1
+							}
+						}
+					}
+				}
+				2 = {
+					country_event = {
+						id = WFAS_crimea.3
+						days = 1
+					}
+					event_target:WFAS_crimean_raid_province = {
+						owner = {
+							country_event = {
+								id = WFAS_crimea.5
+								days = 1
+							}
+						}
+					}
+				}
+			}
+		}
+		else = {
+			random_list = {
+				2 = {
+					country_event = {
+						id = WFAS_crimea.4
+						days = 1
+					}
+					event_target:WFAS_crimean_raid_province = {
+						owner = {
+							country_event = {
+								id = WFAS_crimea.6
+								days = 1
+							}
+						}
+					}
+				}
+				8 = {
+					country_event = {
+						id = WFAS_crimea.3
+						days = 1
+					}
+					event_target:WFAS_crimean_raid_province = {
+						owner = {
+							country_event = {
+								id = WFAS_crimea.5
+								days = 1
+							}
+						}
+					}
+				}
+			}
+		}
+		set_country_flag = WFAS_crimea_raided_flag
+	}
+}
+
+#Raid successful
+country_event = {
+	id = WFAS_crimea.3
+	title = "WFAS_crimea_raid_successful_title"
+	desc = {
+		trigger = {
+			event_target:WFAS_crimean_raid_province = {
+				owner = {
+					has_estate_privilege = WFAS_protect_from_raidings
+				}
+			}
+		}
+		desc = "WFAS_crimea_raid_successful_cossack_desc"
+	}
+	desc = {
+		trigger = {
+			NOT = {
+				event_target:WFAS_crimean_raid_province = {
+					owner = {
+						has_estate_privilege = WFAS_protect_from_raidings
+					}
+				}
+			}
+		}
+		desc = "WFAS_crimea_raid_successful_desc"
+	}
+	picture = VILLAGE_RAIDED_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_crimea_raid_successful_option"
+		add_treasury = 50
+		add_horde_unity = 5
+		random_list = {
+			1 = {
+				add_adm_power = 25
+			}
+			1 = {
+				add_dip_power = 25
+			}
+			1 = {
+				add_mil_power = 25
+			}
+		}
+		event_target:WFAS_crimean_raid_province = {
+			owner = {
+				add_opinion = {
+					who = ROOT
+					modifier = slaves_raided
+				}
+			}
+		}
+		tooltip = {
+			event_target:WFAS_crimean_raid_province = {
+				add_devastation = 20
+				random_list = {
+					1 = {
+						add_base_tax = -1
+					}
+					1 = {
+						add_base_production = -1
+					}
+					1 = {
+						add_base_manpower = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+#Raid failed
+country_event = {
+	id = WFAS_crimea.4
+	title = "WFAS_crimea_raid_failed_title"
+	desc = {
+		trigger = {
+			event_target:WFAS_crimean_raid_province = {
+				owner = {
+					has_estate_privilege = WFAS_protect_from_raidings
+				}
+			}
+		}
+		desc = "WFAS_crimea_raid_failed_cossack_desc"
+	}
+	desc = {
+		trigger = {
+			NOT = {
+				event_target:WFAS_crimean_raid_province = {
+					owner = {
+						has_estate_privilege = WFAS_protect_from_raidings
+					}
+				}
+			}
+		}
+		desc = "WFAS_crimea_raid_failed_desc"
+	}
+	picture = TRANSYLVANIA_BETHLEN_INVASION_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_crimea_raid_failed_option"
+		add_prestige = -5
+		add_horde_unity = -10
+	}
+}
+
+#Raid successful (target)
+country_event = {
+	id = WFAS_crimea.5
+	title = "WFAS_crimea_raid_successful_target_title"
+	desc = {
+		trigger = {
+			has_estate_privilege = WFAS_protect_from_raidings
+		}
+		desc = "WFAS_crimea_raid_successful_target_cossack_desc"
+	}
+	desc = {
+		trigger = {
+			NOT = {
+				has_estate_privilege = WFAS_protect_from_raidings
+			}
+		}
+		desc = "WFAS_crimea_raid_successful_target_desc"
+	}
+	picture = VILLAGE_RAIDED_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_crimea_raid_successful_target_option"
+		trigger = {
+			NOT = {
+				has_estate_privilege = WFAS_protect_from_raidings
+			}
+		}
+		event_target:WFAS_crimean_raid_province = {
+			add_devastation = 20
+			random_list = {
+				1 = {
+					add_base_tax = -1
+				}
+				1 = {
+					add_base_production = -1
+				}
+				1 = {
+					add_base_manpower = -1
+				}
+			}
+		}
+	}
+	option = {
+		name = "WFAS_crimea_raid_successful_target_cossack_option"
+		trigger = {
+			has_estate_privilege = WFAS_protect_from_raidings
+		}
+		add_estate_loyalty_modifier = {
+			estate = estate_cossacks
+			desc = WFAS_reprimanded_desc
+			loyalty = -5
+			duration = 730
+		}
+		event_target:WFAS_crimean_raid_province = {
+			add_devastation = 20
+			random_list = {
+				1 = {
+					add_base_tax = -1
+				}
+				1 = {
+					add_base_production = -1
+				}
+				1 = {
+					add_base_manpower = -1
+				}
+			}
+		}
+	}
+}
+
+#Raid failed (target)
+country_event = {
+	id = WFAS_crimea.6
+	title = "WFAS_crimea_raid_failed_target_title"
+	desc = {
+		trigger = {
+			has_estate_privilege = WFAS_protect_from_raidings
+		}
+		desc = "WFAS_crimea_raid_failed_target_cossack_desc"
+	}
+	desc = {
+		trigger = {
+			NOT = {
+				has_estate_privilege = WFAS_protect_from_raidings
+			}
+		}
+		desc = "WFAS_crimea_raid_failed_target_desc"
+	}
+	picture = TRANSYLVANIA_BETHLEN_INVASION_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_crimea_raid_failed_target_option"
+		add_prestige = 5
+		if = {
+			limit = {
+				has_estate_privilege = WFAS_protect_from_raidings
+			}
+			add_estate_loyalty_modifier = {
+				estate = estate_cossacks
+				desc = WFAS_defended_raid_desc
+				loyalty = 5
+				duration = 730
+			}
+		}
+	}
+}
+
+#Fall of the Western Tatars
+country_event = {
+	id = WFAS_crimea.7
+	title = "WFAS_crimea_no_tatars_title"
+	desc = "WFAS_crimea_no_tatars_desc"
+	picture = REFUGEES_ESCAPING_eventPicture
+	fire_only_once = yes
+	trigger = {
+		tag = CRI
+		NOT = {
+			OR = {
+				exists = GOL
+				exists = GLH
+				exists = AST
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+	immediate = {
+		set_global_flag = WFAS_fall_of_western_tatars
+	}
+	option = {
+		name = "WFAS_crimea_no_tatars_accept"
+		add_stability = -1
+		custom_tooltip = WFAS_crimea_last_tatar
+		add_country_modifier = {
+			name = WFAS_crimea_astrakhan_refugees
+			duration = -1
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "WFAS_crimea_no_tatars_turn"
+		add_prestige = -5
+		custom_tooltip = WFAS_crimea_last_tatar
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+#Slave trade prospects
+country_event = {
+	id = WFAS_crimea.8
+	title = "WFAS_crimea_slaves_title"
+	desc = "WFAS_crimea_slaves_desc"
+	picture = COLONIZATION_eventPicture
+	fire_only_once = yes
+	trigger = {
+		tag = CRI
+		OR = {
+			has_country_modifier = WFAS_restricted_raiding
+			has_country_modifier = WFAS_unrestricted_raiding
+		}
+		has_global_flag = WFAS_fall_of_western_tatars
+	}
+	mean_time_to_happen = {
+		months = 120
+	}
+	option = {
+		name = "WFAS_crimea_slaves_expand"
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 1
+				trade_goods = slaves
+			}
+		}
+		random_owned_province = {
+			limit = {
+				trade_goods = slaves
+				continent = europe
+			}
+			add_province_modifier = {
+				name = WFAS_expanded_slave_port
+				duration = -1
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "WFAS_crimea_slaves_port"
+		trigger = {
+			NOT = {
+				num_of_owned_provinces_with = {
+					value = 1
+					trade_goods = slaves
+				}
+			}
+			num_of_owned_provinces_with = {
+				value = 1
+				has_port = yes
+			}
+		}
+		random_owned_province = {
+			limit = {
+				has_port = yes
+			}
+			change_trade_goods = slaves
+			add_province_modifier = {
+				name = WFAS_expanded_slave_port
+				duration = -1
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "WFAS_crimea_slaves_disallow"
+		add_stability = 1
+		add_prestige = 15
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = "WFAS_crimea_slaves_port_kaffa"
+		highlight = yes
+		trigger = {
+			285 = {
+				owned_by = ROOT
+				trade_goods = slaves
+			}
+		}
+		285 = {
+			add_permanent_province_modifier = {
+				name = WFAS_kaffa_slave_port
+				duration = -1
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+#At the gates of Moscow
+country_event = {
+	id = WFAS_crimea.9
+	title = "WFAS_crimea_moscow_title"
+	desc = "WFAS_crimea_moscow_desc"
+	picture = SIEGE_eventPicture
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CRI
+		295 = {
+			OR = {
+				controlled_by = ROOT
+				AND = {
+					ROOT = {
+						is_subject_of = TUR
+					}
+					controlled_by = TUR
+				}
+			}
+			owner = {
+				war_with = ROOT
+			}
+		}
+		is_year = 1550
+	}
+	option = {
+		name = "WFAS_crimea_moscow_burn"
+		add_treasury = 100
+		295 = {
+			add_devastation = 100
+			add_base_tax = -2
+			add_base_production = -2
+			add_base_manpower = -2
+		}
+		295 = {
+			owner = {
+				add_opinion = {
+					who = ROOT
+					modifier = WFAS_chmielnicki_enraged
+				}
+				hidden_effect = {
+					country_event = {
+						id = WFAS_crimea.10
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "WFAS_crimea_moscow_retreat"
+		add_prestige = 10
+		295 = {
+			owner = {
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_pleased
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+#Burning of Moscow
+country_event = {
+	id = WFAS_crimea.10
+	title = "WFAS_crimea_moscow_burned_title"
+	desc = "WFAS_crimea_moscow_burned_desc"
+	picture = SIEGE_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_crimea_moscow_burned_option"
+		tooltip = {
+			295 = {
+				add_devastation = 100
+				add_base_tax = -2
+				add_base_production = -2
+				add_base_manpower = -2
+			}
+		}
+		add_prestige = -10
+	}
+}
+
+#Circassian mercenaries
+country_event = {
+	id = WFAS_crimea.11
+	title = "WFAS_crimea_circassian_mercenaries_title"
+	desc = "WFAS_crimea_circassian_mercenaries_desc"
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+	trigger = {
+		tag = CRI
+		OR = {
+			AND = {
+				CIR = {
+					exists = yes
+					NOT = {
+						is_rival = CRI
+					}
+					NOT = {
+						war_with = CRI
+					}
+				}
+				NOT = {
+					is_rival = CIR
+				}
+			}
+			AND = {
+				circassia_area = {
+					type = all
+					owned_by = ROOT
+				}
+				accepted_culture = circassian
+			}
+		}
+		is_year = 1460
+	}
+	mean_time_to_happen = {
+		months = 120
+	}
+	option = {
+		name = "WFAS_crimea_circassian_mercenaries_mercenaries"
+		custom_tooltip = WFAS_circassian_mercenaries_available
+		set_country_flag = WFAS_circassian_mercenaries_flag
+		if = {
+			limit = {
+				exists = CIR
+			}
+			CIR = {
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_pleased
+				}
+			}
+		}
+		ai_chance = {
+			factor = 3
+		}
+	}
+	option = {
+		name = "WFAS_crimea_circassian_mercenaries_army"
+		trigger = {
+			NOT = {
+				exists = CIR
+			}
+		}
+		add_country_modifier = {
+			name = WFAS_circassian_mercenaries_modifier
+			duration = -1
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	option = {
+		name = "WFAS_crimea_circassian_mercenaries_refuse"
+		add_mil_power = 50
+		if = {
+			limit = {
+				exists = CIR
+			}
+			CIR = {
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_disappointed
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+#A bride from the Caucassus
+country_event = {
+	id = WFAS_crimea.12
+	title = "WFAS_crimea_circassian_bride_title"
+	desc = "WFAS_crimea_circassian_bride_desc"
+	picture = wihgfx_FEMALE_RULER_eventPicture
+	trigger = {
+		tag = CRI
+		OR = {
+			AND = {
+				CIR = {
+					exists = yes
+					NOT = {
+						is_rival = CRI
+					}
+					NOT = {
+						war_with = CRI
+					}
+				}
+				NOT = {
+					is_rival = CIR
+				}
+			}
+			AND = {
+				circassia_area = {
+					type = all
+					owned_by = ROOT
+				}
+				accepted_culture = circassian
+			}
+		}
+		has_consort = no
+	}
+	mean_time_to_happen = {
+		months = 48
+	}
+	option = {
+		name = "WFAS_crimea_circassian_bride_accept"
+		if = {
+			limit = {
+				exists = CIR
+			}
+			define_consort = {
+				country_of_origin = CIR
+				religion = ROOT
+			}
+			reverse_add_opinion = {
+				who = CIR
+				modifier = opinion_pleased
+			}
+		}
+		else = {
+			define_consort = {
+				culture = circassian
+				religion = ROOT
+			}
+		}
+		ai_chance = {
+			factor = 8
+		}
+	}
+	option = {
+		name = "WFAS_crimea_circassian_bride_local"
+		define_consort = {
+			country_of_origin = ROOT
+			religion = ROOT
+			change_adm = -1
+			change_dip = -1
+			change_mil = -1
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+}
+
+#Heir's path
+country_event = {
+	id = WFAS_crimea.13
+	title = "WFAS_crimea_heir_path_title"
+	desc = "WFAS_crimea_heir_path_desc"
+	picture = HEIR_AND_FOREIGN_ADVISOR_eventPicture
+	trigger = {
+		tag = CRI
+		OR = {
+			AND = {
+				CIR = {
+					exists = yes
+					NOT = {
+						is_rival = CRI
+					}
+					NOT = {
+						war_with = CRI
+					}
+				}
+				NOT = {
+					is_rival = CIR
+				}
+			}
+			AND = {
+				circassia_area = {
+					type = all
+					owned_by = ROOT
+				}
+				accepted_culture = circassian
+			}
+		}
+		has_heir = yes
+		NOT = {
+			has_heir_flag = WFAS_crimea_heir_trained
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+	}
+	option = {
+		name = "WFAS_crimea_heir_path_send"
+		add_adm_power = -100
+		add_dip_power = -100
+		add_mil_power = -100
+		custom_tooltip = WFAS_crimea_heir_start_training
+		set_heir_flag = WFAS_crimea_heir_training
+		hidden_effect = {
+			random_list = {
+				4 = {
+					country_event = {
+						id = WFAS_crimea.14
+						days = 3650
+					}
+				}
+				1 = {
+					country_event = {
+						id = WFAS_crimea.15
+						days = 3650
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 4
+		}
+	}
+	option = {
+		name = "WFAS_crimea_heir_path_leave"
+		add_prestige = 10
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+#Heir's path (return, successful)
+country_event = {
+	id = WFAS_crimea.14
+	title = "WFAS_crimea_heir_path_title"
+	desc = "WFAS_crimea_heir_success_desc"
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_heir_flag = WFAS_crimea_heir_training
+	}
+	option = {
+		name = "WFAS_crimea_heir_success_option"
+		add_prestige = 15
+		custom_tooltip = WFAS_crimea_heir_improved
+		set_heir_flag = WFAS_crimea_heir_trained
+		random = {
+			chance = 15
+			set_heir_culture = circassian
+		}
+		hidden_effect = {
+			change_heir_adm = 1
+			change_heir_dip = 1
+			change_heir_mil = 1
+		}
+	}
+}
+
+#Heir's path (return, unsuccessful)
+country_event = {
+	id = WFAS_crimea.15
+	title = "WFAS_crimea_heir_path_title"
+	desc = "WFAS_crimea_heir_fail_desc"
+	picture = BAD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_heir_flag = WFAS_crimea_heir_training
+	}
+	option = {
+		name = "WFAS_crimea_heir_fail_option"
+		add_prestige = -10
+		custom_tooltip = WFAS_crimea_heir_not_improved
+		set_heir_flag = WFAS_crimea_heir_trained
+		random = {
+			chance = 15
+			set_heir_culture = circassian
+		}
+		hidden_effect = {
+			random_list = {
+				6 = {
+				}
+				1 = {
+					change_heir_mil = 1
+				}
+			}
+		}
+	}
+}
+
+#Consort pushes the Circassian issues
+country_event = {
+	id = WFAS_crimea.16
+	title = "WFAS_crimea_consort_issues_title"
+	desc = "WFAS_crimea_consort_issues_desc"
+	picture = CONSORT_DOING_BADLY_eventPicture
+	fire_only_once = yes
+	trigger = {
+		tag = CRI
+		consort_culture = circassian
+		NOT = {
+			accepted_culture = circassian
+		}
+		num_of_owned_provinces_with = {
+			value = 2
+			culture = circassian
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+	}
+	option = {
+		name = "WFAS_crimea_consort_issues_accept"
+		add_accepted_culture = circassian
+		every_owned_province = {
+			limit = {
+				culture = circassian
+			}
+			add_local_autonomy = 15
+		}
+		ai_chance = {
+			factor = 4
+		}
+	}
+	option = {
+		name = "WFAS_crimea_consort_issues_decline"
+		remove_consort = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+#Treaty of Karlowitz (Ottomans)
+country_event = {
+	id = WFAS_crimea.17
+	title = "WFAS_crimea_karlowitz_treaty_title"
+	desc = "WFAS_crimea_karlowitz_treaty_tur_desc"
+	picture = DIPLOMACY_SIGNING_eventPicture
+	trigger = {
+		tag = TUR
+		CRI = {
+			is_subject_of = ROOT
+			has_reform = WFAS_crimean_khanate
+			OR = {
+				has_country_modifier = WFAS_forbidden_raiding
+				has_country_modifier = WFAS_restricted_raiding
+				has_country_modifier = WFAS_unrestricted_raiding
+			}
+		}
+		is_year = 1650
+	}
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_crimea_karlowitz_treaty_tur_comply"
+		custom_tooltip = WFAS_crimea_will_stop_raiding
+		CRI = {
+			add_opinion = {
+				who = ROOT
+				modifier = WFAS_chmielnicki_enraged
+			}
+			country_event = {
+				id = WFAS_crimea.18
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "WFAS_crimea_karlowitz_treaty_tur_defy"
+		add_stability = -3
+		CRI = {
+			add_opinion = {
+				who = ROOT
+				modifier = opinion_pleased
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+#Treaty of Karlowitz (Crimea)
+country_event = {
+	id = WFAS_crimea.18
+	title = "WFAS_crimea_karlowitz_treaty_title"
+	desc = "WFAS_crimea_karlowitz_treaty_cri_desc"
+	picture = DIPLOMACY_SIGNING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_crimea_karlowitz_treaty_cri_comply"
+		if = {
+			limit = {
+				has_country_modifier = WFAS_forbidden_raiding
+			}
+			remove_country_modifier = WFAS_forbidden_raiding
+		}
+		if = {
+			limit = {
+				has_country_modifier = WFAS_restricted_raiding
+			}
+			remove_country_modifier = WFAS_restricted_raiding
+		}
+		if = {
+			limit = {
+				has_country_modifier = WFAS_unrestricted_raiding
+			}
+			remove_country_modifier = WFAS_unrestricted_raiding
+		}
+	}
+	option = {
+		name = "WFAS_crimea_karlowitz_treaty_cri_war"
+		custom_tooltip = WFAS_crimea_start_war_tooltip
+		set_country_flag = WFAS_crimean_war_start_flag
+	}
+}
+
+#Land of Silk and Honey MISSION
+country_event = {
+	id = WFAS_crimea.19
+	title = "WFAS_crimea_silk_title"
+	desc = "WFAS_crimea_silk_desc"
+	picture = FEAST_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_crimea_silk_wine"
+		every_owned_province = {
+			limit = {
+				trade_goods = wine
+			}
+			add_province_modifier = {
+				name = WFAS_crimean_wine
+				duration = -1
+			}
+		}
+	}
+	option = {
+		name = "WFAS_crimea_silk_silk"
+		random_owned_province = {
+			limit = {
+				trade_goods = wine
+			}
+			change_trade_goods = silk
+			add_province_modifier = {
+				name = WFAS_european_luxuries
+				duration = -1
+			}
+		}
+	}
+}
+
+#Hidden tobacco event
+country_event = {
+	id = WFAS_crimea.20
+	title = "WFAS_crimea_tobacco_title"
+	desc = "WFAS_crimea_tobacco_desc"
+	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			capital_scope = {
+				continent = europe
+			}
+			AND = {
+				is_subject = yes
+				overlord = {
+					capital_scope = {
+						continent = europe
+					}
+				}
+			}
+		}
+		num_of_owned_provinces_with = {
+			value = 3
+			trade_goods = tobacco
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		set_global_flag = WFAS_tobacco_found
+	}
+}
+
+#Introduction of Tobacco to Europe
+country_event = {
+	id = WFAS_crimea.21
+	title = "WFAS_crimea_tobacco_title"
+	desc = "WFAS_crimea_tobacco_desc"
+	picture = TRADE_GOODS_PLANTATION_GOODS_IN_WAREHOUSE_eventPicture
+	fire_only_once = yes
+	major = yes
+	trigger = {
+		tag = CRI
+		had_global_flag = {
+			flag = WFAS_tobacco_found
+			days = 55000
+		}
+		any_owned_province = {
+			trade_goods = wine
+			NOT = {
+				has_province_modifier = WFAS_crimean_wine
+			}
+		}
+		is_year = 1650
+	}
+	mean_time_to_happen = {
+		months = 50
+	}
+	option = {
+		name = "WFAS_crimea_tobacco_option"
+		random_owned_province = {
+			limit = {
+				trade_goods = wine
+				NOT = {
+					has_province_modifier = WFAS_crimean_wine
+				}
+			}
+			change_trade_goods = tobacco
+			add_province_modifier = {
+				name = WFAS_european_luxuries
+				duration = -1
+			}
+		}
+		change_price = {
+			trade_goods = tobacco
+			key = WFAS_tobacco_in_europe
+			value = -0.25
+			duration = -1
+		}
+	}
+}
+
+#The Red Hawk
+country_event = {
+	id = WFAS_crimea.22
+	title = "WFAS_crimea_red_hawk_title"
+	desc = "WFAS_crimea_red_hawk_desc"
+	picture = EXPLORERS_eventPicture
+	#fire_only_once = yes
+	trigger = {
+		government = monarchy
+		ai = no
+		is_lesser_in_union = no
+		has_regency = no
+
+		#OR = { # Why was it limited?
+		#	capital_scope = {
+		#		OR = {
+		#			region = poland_region
+		#			region = baltic_region
+		#			region = crimea_region
+		#			region = russia_region
+		#			region = ruthenia_region
+		#		}
+		#	}
+		#}
+	}
+	mean_time_to_happen = {
+		months = 1000
+	}
+	option = {
+		name = "WFAS_crimea_red_hawk_option"
+		set_ruler_flag = has_seen_the_hawk_flag
+		random_list = {
+			1 = {
+				change_adm = 2
+			}
+			1 = {
+				change_dip = 2
+			}
+			1 = {
+				change_mil = 2
+			}
+		}
+	}
+}
+

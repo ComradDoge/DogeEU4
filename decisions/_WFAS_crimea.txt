@@ -1,0 +1,132 @@
+country_decisions = {
+	WFAS_lease_raiding = {
+		major = yes
+		potential = {
+			tag = CRI
+			OR = {
+				has_country_modifier = WFAS_forbidden_raiding
+				has_country_modifier = WFAS_restricted_raiding
+			}
+		}
+		allow = {
+			is_at_war = no
+			OR = {
+				AND = {
+					NOT = {
+						estate_influence = {
+							estate = estate_nomadic_tribes
+							influence = 60
+						}
+					}
+					estate_loyalty = {
+						estate = estate_nomadic_tribes
+						loyalty = 40
+					}
+				}
+				NOT = {
+					has_estate = estate_nomadic_tribes
+				}
+			}
+			if = {
+				limit = {
+					has_country_modifier = WFAS_restricted_raiding
+				}
+				has_reform = WFAS_crimean_khanate
+			}
+			had_country_flag = {
+				flag = WFAS_crimea_changed_raiding
+				days = 365
+			}
+		}
+		effect = {
+			clr_country_flag = WFAS_crimea_changed_raiding
+			set_country_flag = WFAS_crimea_changed_raiding
+			add_stability = -1
+			if = {
+				limit = {
+					has_country_modifier = WFAS_forbidden_raiding
+				}
+				remove_country_modifier = WFAS_forbidden_raiding
+				add_country_modifier = {
+					name = WFAS_restricted_raiding
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_modifier = WFAS_restricted_raiding
+				}
+				remove_country_modifier = WFAS_restricted_raiding
+				add_country_modifier = {
+					name = WFAS_unrestricted_raiding
+					duration = -1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	WFAS_restrict_raiding = {
+		major = yes
+		potential = {
+			tag = CRI
+			OR = {
+				has_country_modifier = WFAS_restricted_raiding
+				has_country_modifier = WFAS_unrestricted_raiding
+			}
+		}
+		allow = {
+			is_at_war = no
+			OR = {
+				AND = {
+					NOT = {
+						estate_influence = {
+							estate = estate_nomadic_tribes
+							influence = 60
+						}
+					}
+					estate_loyalty = {
+						estate = estate_nomadic_tribes
+						loyalty = 40
+					}
+				}
+				NOT = {
+					has_estate = estate_nomadic_tribes
+				}
+			}
+			had_country_flag = {
+				flag = WFAS_crimea_changed_raiding
+				days = 365
+			}
+		}
+		effect = {
+			clr_country_flag = WFAS_crimea_changed_raiding
+			set_country_flag = WFAS_crimea_changed_raiding
+			add_stability = -1
+			if = {
+				limit = {
+					has_country_modifier = WFAS_restricted_raiding
+				}
+				remove_country_modifier = WFAS_restricted_raiding
+				add_country_modifier = {
+					name = WFAS_forbidden_raiding
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_modifier = WFAS_unrestricted_raiding
+				}
+				remove_country_modifier = WFAS_unrestricted_raiding
+				add_country_modifier = {
+					name = WFAS_restricted_raiding
+					duration = -1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
