@@ -25,7 +25,7 @@ NDefines.NMilitary.SLACKEN_MAX_MP_PERCENTAGE = 0.80 --Defines how much manpower 
 
 -- Morale
 BATTLE_DAILY_MORALE_DAMAGE = 0.01				-- Default 1%. Deployed troops take this fraction of their maximum morale as damage
-RESERVE_DAILY_MORALE_DAMAGE = 0.01				-- Default 2%. Reserve troops take this fraction of their maximum morale as damage (modified by reserves_organisation)
+RESERVE_DAILY_MORALE_DAMAGE = 0.02				-- Default 2%. Reserve troops take this fraction of their maximum morale as damage (modified by reserves_organisation)
 
 NDefines.NMilitary.GALLEY_COMBAT_WIDTH = 1
 
