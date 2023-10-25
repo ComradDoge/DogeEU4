@@ -12,16 +12,24 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.35.6
-- Checksum: 9220
+- Checksum: 83a3
 
-<h1>00/00/2023</h1>
+<h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Fixed Korean errors in Vanilla Flavour.
-- Updated Theocratic Roman Law reform (T3).
-- Fixed Culture ideas having wrong modifier.
-- Fixed Ming mission tree scuffing out in Vanilla Flavour.
-- Perm doesn't get to choose religion through event in Vanilla Flavour.
+- Institution spread tweaks.
+- Increased chances of Sikhism surviving.
+- Fixed Rum mission scuff in Vanilla Flavour.
+- Update the wiki to have an economy category.
+- Buffed Impressment Offices to follow Vanilla.
+- Readded diplomatic way to form Spain in Vanilla Flavour.
+- Added some content from With Fire & Sword mod primarily for Crimea.
+- Slightly cleaned up reforms and consolidated cavalry military reform.
+- Morocco mission now uses one from Europa Expanded instead of Golden Century.
+- Added a new bookmark that splits China up into a Shogunate/Daimyo type deal.
+- Trade League leaders get a scaling 0.5 diplo_rep to somewhat buff the outdated system.
+- Buffed State Houses to also reduce governing cost flat as a counter to expand infrastructure.
+- Since Adriaterra has no mission tree, for the time being they will get Italy mission tree (even if it does not quite make sense) to somewhat encourage its use.
 
 
 <br/>

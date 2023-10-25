@@ -1,0 +1,291 @@
+#######################################
+# Feudalism.  
+# 
+# Most in the old world start with it.
+#######################################
+
+feudalism = {
+	bonus = {
+		free_leader_pool = 1
+	}
+
+	trade_company_efficiency = 0.15
+
+
+	history = {
+		is_year = 1000
+		OR = {
+			AND = { #If this is changed costs for Nation Designer may also need to be changed.
+				OR = {
+					continent = new_world
+					continent = north_america
+					continent = south_america
+					continent = oceania
+				}
+				owner = {
+					is_playing_custom_nation = yes
+					OR = {
+						technology_group = western
+						technology_group = eastern
+						technology_group = ottoman
+						technology_group = muslim
+						technology_group = indian
+						technology_group = chinese
+						#technology_group = high_american #Is listed below as High Americans get it regardless of if Nation Designer is used.
+					}
+				}
+			}
+			AND = {
+				owner = { is_playing_custom_nation = no }
+				OR = {
+					culture = persian
+					culture = azerbaijani
+					culture = kurdish
+					culture = armenian
+					culture = mazandarani
+					culture = turkish
+					culture = omani_culture
+					culture = yemeni_culture
+					culture = swahili
+					area = ningguta_area
+					area = jilin_area
+					culture_group = byzantine
+					culture_group = dravidian
+					culture_group = east_asian
+					culture_group = east_slavic
+					culture_group = slavic
+					culture_group = eastern_aryan
+					culture_group = japanese_g
+					culture_group = korean_g
+					culture_group = scandinavian
+					culture_group = west_slavic
+					culture_group = western_aryan
+					province_id = 383
+					province_id = 412
+					province_id = 2327
+					province_id = 2329
+					province_id = 2331
+					province_id = 2999
+				}
+			}
+			AND = {
+				region = horn_of_africa_region
+				owner = { NOT = { has_reform = tribal_federation } }
+			}
+			AND = {
+				culture = al_misr_arabic
+				NOT = { area = al_wahat_area }
+				NOT = { area = cyrenaica_area }
+			}
+			AND = {
+				culture_group = hindusthani
+				NOT = { owner = { has_reform = tribal_kingdom } } #Ladakh
+			}
+			owner = { technology_group = high_american }
+			owner = {
+				NOT = {
+					government = tribal
+					government = native
+					primary_culture = bedouin_arabic
+					primary_culture = uyghur
+					technology_group = andean
+					technology_group = mesoamerican
+					technology_group = north_american
+					technology_group = south_american
+					technology_group = sub_saharan
+				}
+			}
+			AND = {
+				is_year = 1600
+				owner = {
+					NOT = { has_reform = siberian_tribe }
+					NOT = { has_reform = steppe_horde }
+				}
+			}
+			is_year = 1700
+		}
+	}
+	
+	# no need for events, as its there from the start.
+	#can_start = {	is_year = 1000	}
+	#start_chance = 100
+	#on_start = institution_events.1
+
+	can_embrace = {
+		always = yes
+	}
+
+	embracement_speed = {
+
+		modifier = {
+			factor = 0.6
+			scale = yes
+			custom_trigger_tooltip = {
+				tooltip = FRIENDLY_NEIGHBOR_OR_COAST_PROVINCE_HAS_EMBRACED
+				any_friendly_coast_border_province = {
+					feudalism = 100
+				}
+			}
+		}
+		modifier = {
+			factor = 0.1
+			scale = yes
+			potential = {
+				NOT = {
+					any_friendly_coast_border_province = {
+						feudalism = 100
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = NEIGHBOR_NOT_OWNED_IS_FEUDAL
+				any_neighbor_province = {
+					NOT = { owned_by = ROOT }
+					feudalism = 100
+				}
+			}
+		}
+		modifier = {
+			factor = 0.15
+			scale = yes
+			force_potential = yes	# Hide the this modifier when potential is false
+			potential = {
+				owner = { has_estate = estate_nobles }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FEUDALISM_AND_NOBLES
+				any_neighbor_province = {
+					feudalism = 100
+				}
+				owner = {
+					has_estate = estate_nobles
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+					estate_territory = {
+						estate = estate_nobles
+						territory = 30
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 5
+			scale = yes
+			potential = {
+				owner = {
+					is_colonial_nation = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = PORT_OR_CAPITAL_IN_COLONY_FEUDAL
+				OR = {
+					has_port = yes
+					is_capital = yes
+				}
+				owner = {
+					is_colonial_nation = yes
+					overlord = { has_institution = feudalism }
+				}
+			}
+		}
+		modifier = {
+			factor = 0.1
+			scale = yes
+			potential = {
+				owner = { is_colonial_nation = no }
+			}
+			custom_trigger_tooltip = {
+				tooltip = CAPITAL_IN_OLD_WORLD_FEUDAL
+			
+				is_capital = yes
+				NOT = { continent = north_america }
+				NOT = { continent = south_america }
+				NOT = { continent = new_world }
+				owner = {
+					NOT = { government = tribal }
+					NOT = { government = native }
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			scale = yes
+			potential = {
+				owner = {
+					has_institution = feudalism
+				}
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = tooltip_feudalism_embraced
+				is_owned_by_trade_company = no
+				owner = {
+					has_institution = feudalism
+				}
+			}
+		}
+        modifier = {
+			factor = -0.2
+			scale = yes
+			potential = {
+				owner = {
+					has_reform = steppe_horde
+				}
+			}
+           custom_trigger_tooltip = {
+                tooltip = tooltip_horde
+				owner = {
+					has_reform = steppe_horde
+				}
+			}
+		}
+        modifier = {
+			factor = -0.2
+			scale = yes
+			potential = {
+				owner = {
+                    OR = {
+                        government = native
+                        has_reform = siberian_tribe
+                    }
+				}
+			}
+           custom_trigger_tooltip = {
+                tooltip = tooltip_native_council
+				owner = {
+                    OR = {
+                        government = native
+                        has_reform = siberian_tribe
+                    }
+				}
+			}
+		}
+	}
+	
+	ai_will_do = { #Cost of embracing institution must be lower than this factor * last month's regular income, and higher if loans are needed. (Or it has a more than long term goal...)
+		factor = 24
+		
+		modifier = {
+			factor = 0.25
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.1
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.2
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.3
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.4
+		}
+	}
+}

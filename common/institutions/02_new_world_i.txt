@@ -1,0 +1,360 @@
+
+#######################################
+# New World
+# 
+# Colonising is good.. mkay.-.
+#######################################
+new_world_i = {
+	bonus = {
+        global_prov_trade_power_modifier = 0.10
+
+	}
+
+	trade_company_efficiency = 0.45
+
+
+	historical_start_date = 1500.1.1
+	historical_start_province = 224 #Sevilla
+
+	history = {
+		OR = {
+			AND = {
+				is_year = 1500
+				continent = europe
+				OR = {
+					owner = { has_idea = quest_for_the_new_world }
+					owner = { colony = 1 }
+				}
+			}
+			AND = {
+				is_year = 1550
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = south_america_superregion
+			}
+			AND = {
+				is_year = 1550
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = north_america_superregion
+			}
+			AND = {
+				is_year = 1550
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = central_america_superregion
+			}
+			AND = {
+				is_year = 1600
+				superregion = near_east_superregion
+			}
+			AND = {
+				is_year = 1600
+				continent = europe
+			}
+			AND = {
+				is_year = 1625
+				superregion = persia_superregion
+			}
+			AND = {
+				is_year = 1650
+				superregion = india_superregion
+			}
+			
+			
+			AND = {
+				is_year = 1650
+				superregion = china_superregion
+			}
+			
+			AND = {
+				is_year = 1650
+				superregion = east_indies_superregion
+			}
+			AND = {
+				is_year = 1700
+				superregion = africa_superregion
+			}
+			is_year = 1800
+		}
+	}
+	
+	can_start = {
+		is_year = 1500
+		OR = {
+			continent = europe
+			continent = asia
+			continent = africa
+		}
+		has_port = yes
+		is_island = no
+		is_state = yes
+		OR = {
+			province_has_center_of_trade_of_level = 1
+			development = 12
+			is_capital = yes
+		}
+		is_in_capital_area = yes
+		owner = { 
+			has_any_exploration_idea = yes
+			#at least one province colonised or colonising as a european, or have a subject colony as anyone
+			OR = {
+				any_owned_province = {
+					owner = {
+						capital_scope = {
+							continent = europe
+						}
+					}
+					OR = {
+						continent = north_america
+						continent = south_america
+						continent = new_world
+					}
+				}
+				any_subject_country = {
+					OR = {
+						is_subject_of_type = colony
+						is_subject_of_type = crown_colony
+						is_subject_of_type = private_enterprise
+						is_subject_of_type = self_governing_colony
+					}
+					capital_scope = {
+						OR = {
+							continent = north_america
+							continent = south_america
+							continent = new_world
+						}
+					}
+				}
+			}
+			OR = {
+				north_america = { has_discovered = PREV }
+				south_america = { has_discovered = PREV }
+				new_world = { has_discovered = PREV }
+			}
+		}
+	}
+	start_chance = 5		#in 100 for when a province can_start
+	
+	
+	on_start = institution_events.3
+	
+	
+	
+
+	
+	
+	can_embrace = {
+		always = yes
+	}
+
+
+	
+	embracement_speed = {
+		modifier = {
+			factor = 0.1
+			scale = yes
+			potential = {
+				OR = {
+					tag = YNZ
+					tag = BRK
+					tag = VIN
+				}
+				is_capital = yes
+			}
+		}
+
+	
+		modifier = {
+			factor = 1.2
+			scale = yes
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_colonialism
+				any_friendly_coast_border_province = {
+					new_world_i = 100
+				}
+			}
+			
+		}
+		
+		modifier = {
+			factor = 0.5
+			scale = yes
+			potential = {
+				has_port = yes
+				NOT = {
+					any_friendly_coast_border_province = {
+						new_world_i = 100
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_neighbor_port_province_new_world
+				has_port = yes
+				any_neighbor_province = {
+					new_world_i = 100
+				}
+			}
+		}
+		
+		#Port provinces in countries with colonial subjects
+		modifier = {
+			factor = 10
+			potential = {
+				OR = {
+					has_port = yes
+					is_capital = yes
+				}
+				owner = {
+					capital_scope = {
+						NOT = { continent = north_america }
+						NOT = { continent = south_america }
+						NOT = { continent = new_world }
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_has_colonial_subject_in_new_world
+				OR = {
+					has_port = yes
+					is_capital = yes
+				}
+				owner = {
+					colony = 1
+					any_subject_country = {
+						is_colonial_nation = yes
+						OR = {
+							capital_scope = { continent = north_america }
+							capital_scope = { continent = south_america }
+							capital_scope = { continent = new_world }
+						}
+					}
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 5
+			scale = yes
+			potential = {
+				owner = {
+					is_colonial_nation = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_colonial_overlord_new_world_i
+				OR = {
+					has_port = yes
+					is_capital = yes
+				}
+				owner = {
+					is_colonial_nation = yes
+					overlord = { has_institution = new_world_i }
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			scale = yes
+			potential = {
+				owner = {
+					has_institution = new_world_i
+				}
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = tooltip_new_world_i_embraced
+				is_owned_by_trade_company = no
+				owner = {
+					has_institution = new_world_i
+				}
+			}
+		}
+		modifier = {
+			factor = -0.8
+			scale = yes
+			potential = {
+				owner = {
+					technology_group = nomad_group
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_nomad_techgroup
+				owner = {
+					technology_group = nomad_group
+				}
+			}  
+		}
+		modifier = {
+			factor = -1
+			scale = yes
+			potential = {
+				owner = {
+					OR = {
+						technology_group = andean
+						technology_group = mesoamerican
+						technology_group = north_american
+						technology_group = south_american
+						technology_group = sub_saharan
+						technology_group = central_african
+						technology_group = aboriginal_tech
+						technology_group = polynesian_tech
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_primitive_techgroup
+				owner = {
+					OR = {
+						technology_group = andean
+						technology_group = mesoamerican
+						technology_group = north_american
+						technology_group = south_american
+						technology_group = sub_saharan
+						technology_group = central_african
+						technology_group = aboriginal_tech
+						technology_group = polynesian_tech
+					}
+				}
+			}  
+		}
+	}
+	
+	ai_will_do = { #Cost of embracing institution must be lower than this factor * last month's regular income, and higher if loans are needed. (Or it has a more than long term goal...)
+		factor = 24
+		
+		modifier = {
+			factor = 0.25
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.1
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.2
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.3
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.4
+		}
+	}
+}
+

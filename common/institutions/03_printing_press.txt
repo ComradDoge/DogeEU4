@@ -1,0 +1,450 @@
+
+#######################################
+# Printing Press
+#######################################
+printing_press = {
+	bonus = {
+		fabricate_claims_cost = -0.2
+	}
+
+	trade_company_efficiency = 0.60
+
+	historical_start_date = 1550.1.1
+	historical_start_province = 1876 #Frankfurt
+
+	history = {
+		OR = {
+			AND = {
+				province_id = 1876
+				is_year = 1550
+			}
+			AND = {
+				is_year = 1560
+				OR = {
+					religion = protestant
+					religion = reformed
+					region = italy_region
+					region = france_region
+				}
+			}
+			AND = {
+				is_year = 1575
+				continent = europe
+				development = 12
+			}
+			AND = {
+				is_year = 1600
+				continent = europe
+			}
+			AND = {
+				is_year = 1600
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = south_america_superregion
+			}
+			AND = {
+				is_year = 1600
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = north_america_superregion
+			}
+			AND = {
+				is_year = 1600
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = central_america_superregion
+			}
+			AND = {
+				is_year = 1625
+				superregion = near_east_superregion
+			}
+			AND = {
+				is_year = 1650
+				superregion = persia_superregion
+			}
+			AND = {
+				is_year = 1725
+				superregion = china_superregion
+			}
+			AND = {
+				is_year = 1725
+				superregion = india_superregion
+			}
+			AND = {
+				is_year = 1725
+				superregion = east_indies_superregion
+			}
+		}
+	}
+	
+	can_start = {
+		is_year = 1550
+		is_in_capital_area = yes
+		is_island = no
+		is_state = yes
+		OR = {
+			development = 15
+			is_capital = yes
+			trade_goods = paper
+		}
+		OR = {
+			religion = protestant
+			religion = reformed
+			religion = hussite
+			religion = anglican
+			religion = cathar
+			religion = fraticelli
+			religion = lollard
+			religion = waldensian
+			region = north_german_region
+			region = south_german_region
+		}
+
+	}
+	start_chance = 5		#in 100 for when a province can_start
+	
+	
+	on_start = institution_events.4
+	
+	
+	can_embrace = {
+		always = yes
+	}
+
+	
+	embracement_speed = {
+
+		modifier = {
+			factor = 0.6
+			scale = yes
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_friendly_coast_border_province_has_embraced_printing_press
+				any_friendly_coast_border_province = {
+					printing_press = 100
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.2
+			scale = yes
+			potential = {
+				NOT = {
+					any_friendly_coast_border_province = {
+						printing_press = 100
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_any_neighbor_has_embraced_printing_press
+				any_neighbor_province = {
+					NOT = { owned_by = ROOT }
+					printing_press = 100
+				}
+			}
+		}
+		modifier = {
+			factor = 0.1
+			scale = yes
+			force_potential = yes	# Hide the this modifier when potential is false
+			potential = {
+				owner = { has_estate = estate_church }
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_printing_press_clergy
+				any_neighbor_province = {
+					printing_press = 100
+				}
+				owner = {
+					has_estate = estate_church
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 40
+					}
+					estate_territory = {
+						estate = estate_church
+						territory = 30
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 1
+			custom_trigger_tooltip = {
+				tooltip = tooltip_dip_tech15_capital
+				is_capital = yes
+				owner = {
+					dip_tech = 15
+				}
+			}
+		}
+		modifier = {
+			factor = 0.05
+			scale = yes
+			potential = {
+				continent = europe
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_development_20_capital
+				development = 20
+				is_capital = yes
+				continent = europe
+			}
+		}
+		modifier = {
+			factor = 2
+			potential = {
+				owner = {
+					religion_group = christian
+				}
+			}
+			if = {
+				limit = { has_dlc = "Rule Britannia" }
+				custom_trigger_tooltip = {
+					tooltip = tooltip_owner_protestant
+					is_owned_by_trade_company = no
+					owner = {
+						OR = {
+							religion = protestant
+							religion = reformed
+							religion = anglican
+							religion = hussite
+
+							religion = cathar
+							religion = fraticelli
+							religion = lollard
+							religion = waldensian
+						}
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = tooltip_owner_protestant
+					is_owned_by_trade_company = no
+					owner = {
+						OR = {
+							religion = protestant
+							religion = reformed
+							religion = anglican
+							religion = hussite
+														
+							religion = cathar
+							religion = fraticelli
+							religion = lollard
+							religion = waldensian
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 1
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				custom_trigger_tooltip = {
+					tooltip = tooltip_province_protestant_RB
+					OR = {
+						religion = reformed
+						religion = protestant
+						religion = anglican
+						religion = hussite
+												
+						religion = cathar
+						religion = fraticelli
+						religion = lollard
+						religion = waldensian
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = tooltip_province_protestant
+					OR = {
+						religion = reformed
+						religion = protestant
+						religion = anglican
+						religion = hussite
+												
+						religion = cathar
+						religion = fraticelli
+						religion = lollard
+						religion = waldensian
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			scale = yes
+			potential = {
+				owner = {
+					is_colonial_nation = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_colonial_overlord_printing_press
+				OR = {
+					has_port = yes
+					is_capital = yes
+				}
+				owner = {
+					is_colonial_nation = yes
+					overlord = { has_institution = printing_press }
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			scale = yes
+			potential = {
+				owner = {
+					has_institution = printing_press
+				}
+				continent = owner
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_printing_press_embraced
+				is_owned_by_trade_company = no
+				owner = {
+					has_institution = printing_press
+				}
+			}
+		}
+		modifier = {
+			factor = 1
+			scale = yes
+			potential = {
+				owner = {
+					has_institution = printing_press
+				}
+				NOT = { continent = owner }
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = tooltip_printing_press_embraced
+				is_owned_by_trade_company = no
+				owner = {
+					has_institution = printing_press
+				}
+			}
+		}
+        modifier = { # Moveable type was not that advantageous over woodblock printing in East Asia during this era due to pictographic languages with thousands of characters. Mechanical press didn't arrive until 1800s
+			factor = -1
+			scale = yes
+			potential = {
+				owner = { 
+                    technology_group = chinese
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = tooltip_chinese
+                owner = { 
+                    technology_group = chinese
+                }
+            }  
+        }
+        modifier = { # The Jesuits brought the printing press to Japan in the 1590s and printed a romanized form of Japanese. Historically the Tokugawa shogunate did not embrace them, and the press didn't return until the 1800s
+			factor = 2
+			scale = yes
+			potential = {
+				owner = { 
+                    has_country_flag = a_kirishitan_realm
+                }
+            }
+            custom_trigger_tooltip = {
+                tooltip = tooltip_kirishitan
+                owner = { 
+                    has_country_flag = a_kirishitan_realm
+                }
+            }  
+        }
+		modifier = {
+			factor = -0.8
+			scale = yes
+			potential = {
+				owner = {
+					technology_group = nomad_group
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_nomad_techgroup
+				owner = {
+					technology_group = nomad_group
+				}
+			}  
+		}
+		modifier = {
+			factor = -1
+			scale = yes
+			potential = {
+				owner = {
+					OR = {
+						technology_group = andean
+						technology_group = mesoamerican
+						technology_group = north_american
+						technology_group = south_american
+						technology_group = sub_saharan
+						technology_group = central_african
+						technology_group = aboriginal_tech
+						technology_group = polynesian_tech
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_primitive_techgroup
+				owner = {
+					OR = {
+						technology_group = andean
+						technology_group = mesoamerican
+						technology_group = north_american
+						technology_group = south_american
+						technology_group = sub_saharan
+						technology_group = central_african
+						technology_group = aboriginal_tech
+						technology_group = polynesian_tech
+					}
+				}
+			}  
+		}
+	}
+	
+	ai_will_do = { #Cost of embracing institution must be lower than this factor * last month's regular income, and higher if loans are needed. (Or it has a more than long term goal...)
+		factor = 24
+		
+		modifier = {
+			factor = 0.25
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.1
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.2
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.3
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.4
+		}
+	}
+}

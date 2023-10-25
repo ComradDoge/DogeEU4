@@ -1,0 +1,319 @@
+
+#######################################
+# Global Trade
+#######################################
+global_trade = {
+	bonus = {
+        merchants = 1
+	}
+
+	trade_company_efficiency = 0.75
+
+	historical_start_date = 1600.1.1
+	historical_start_province = 97 #Holland
+
+	history = {
+		OR = {
+			AND = {
+				is_year = 1620
+				continent = europe
+				owner = { technology_group = western }
+			}
+			
+			AND = {
+				is_year = 1660
+				continent = europe
+			}	
+			AND = {
+				is_year = 1660
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = south_america_superregion
+			}
+			AND = {
+				is_year = 1660
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = north_america_superregion
+			}
+			AND = {
+				is_year = 1660
+				owner = {
+					NOT = { technology_group = north_american }
+					NOT = { technology_group = mesoamerican }
+					NOT = { technology_group = south_american }
+					NOT = { technology_group = andean }
+				}
+				superregion = central_america_superregion
+			}
+			AND = {
+				is_year = 1700
+				OR = {
+					region = maghreb_region
+					region = egypt_region
+					superregion = near_east_superregion
+				}
+			}
+			
+			AND = {
+				is_year = 1720
+				has_port = yes
+				OR = {
+					superregion = india_superregion
+					superregion = persia_superregion
+					superregion = east_indies_superregion
+				}
+			}
+			AND = {
+				is_year = 1750
+				has_port = yes
+				superregion = africa_superregion
+			}
+		}
+	}
+	
+	can_start = {
+		is_year = 1600
+		is_island = no
+		is_institution_enabled = printing_press
+		highest_value_trade_node = yes
+		OR = {
+			province_has_center_of_trade_of_level = 3
+			AND = { 
+				is_year = 1610
+				province_has_center_of_trade_of_level = 2
+			}
+			AND = {
+				is_year = 1620 #fallback
+				province_has_center_of_trade_of_level = 1
+			}
+		}
+		owner = {
+			any_active_trade_node = {
+				is_strongest_trade_power = PREV
+				highest_value_trade_node = yes
+			}
+		}
+
+	}
+	start_chance = 25		#in 100 for when a province can_start
+	
+	
+	on_start = institution_events.5
+	
+	
+	can_embrace = {
+		always = yes
+	}
+
+	
+	embracement_speed = {
+
+		modifier = {
+			factor = 0.2 #Not Scaled
+			province_trade_power = 30
+		}
+		modifier = {
+			factor = 0.4 #Not Scaled
+			province_trade_power = 45
+		}
+		modifier = {
+			factor = 0.8 #Not Scaled
+			province_trade_power = 90
+		}
+		modifier = {
+			factor = 0.5
+			scale = yes
+			potential = {
+				province_has_center_of_trade_of_level = 1
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_center_of_trade_3_spread
+				province_has_center_of_trade_of_level = 3
+			}
+		}
+		modifier = {
+			factor = 0.1
+			scale = yes
+			potential = {
+				province_has_center_of_trade_of_level = 1
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_center_of_trade_spread
+				province_has_center_of_trade_of_level = 2
+			}
+		}
+
+		modifier = {
+			factor = 0.1
+			scale = yes
+			potential = {
+				has_port = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_neighbor_non_port_province_global_trade
+				has_port = no
+				any_neighbor_province = {
+					global_trade = 100
+					
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.5
+			scale = yes
+			potential = {
+				has_port = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_neighbor_port_province_global_trade
+				has_port = yes
+				any_neighbor_province = {
+					global_trade = 100
+					
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 5
+			scale = yes
+			potential = {
+				owner = {
+					is_colonial_nation = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_colonial_overlord_global_trade
+				OR = {
+					has_port = yes
+					is_capital = yes
+				}
+				owner = {
+					is_colonial_nation = yes
+					overlord = { has_institution = global_trade }
+				}
+			}
+		}
+
+		modifier = {
+			factor = 2
+			scale = yes
+			potential = {
+				owner = {
+					has_institution = global_trade
+				}
+				continent = owner
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = tooltip_global_trade_embraced
+				is_owned_by_trade_company = no
+				owner = {
+					has_institution = global_trade
+				}
+			}
+		}
+		modifier = {
+			factor = 1
+			scale = yes
+			potential = {
+				owner = {
+					has_institution = global_trade
+				}
+				NOT = { continent = owner }
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = tooltip_global_trade_embraced_other_continent
+				is_owned_by_trade_company = no
+				owner = {
+					has_institution = global_trade
+				}
+			}
+		}
+		modifier = {
+			factor = -0.8
+			scale = yes
+			potential = {
+				owner = {
+					technology_group = nomad_group
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_nomad_techgroup
+				owner = {
+					technology_group = nomad_group
+				}
+			}  
+		}
+		modifier = {
+			factor = -1
+			scale = yes
+			potential = {
+				owner = {
+					OR = {
+						technology_group = andean
+						technology_group = mesoamerican
+						technology_group = north_american
+						technology_group = south_american
+						technology_group = sub_saharan
+						technology_group = central_african
+						technology_group = aboriginal_tech
+						technology_group = polynesian_tech
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = tooltip_primitive_techgroup
+				owner = {
+					OR = {
+						technology_group = andean
+						technology_group = mesoamerican
+						technology_group = north_american
+						technology_group = south_american
+						technology_group = sub_saharan
+						technology_group = central_african
+						technology_group = aboriginal_tech
+						technology_group = polynesian_tech
+					}
+				}
+			}  
+		}
+	}
+	
+	ai_will_do = { #Cost of embracing institution must be lower than this factor * last month's regular income, and higher if loans are needed. (Or it has a more than long term goal...)
+		factor = 24
+		
+		modifier = {
+			factor = 0.25
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.1
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.2
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.3
+		}
+		modifier = {
+			factor = 2
+			neighbors_tech_discount = 0.4
+		}
+	}
+}
+

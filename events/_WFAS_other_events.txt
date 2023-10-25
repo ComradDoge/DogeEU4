@@ -1,0 +1,768 @@
+namespace = WFAS_other
+#Moldavian Unification
+country_event = {
+	id = WFAS_other.2
+	title = "WFAS_other_moldavia_2_title"
+	desc = "WFAS_other_moldavia_2_desc"
+	picture = SEJM_eventPicture
+	fire_only_once = yes
+	major = yes
+	trigger = {
+		tag = WAL
+		MOL = {
+			was_player = no
+			exists = yes
+		}
+		senior_union_with = MOL
+		is_at_war = no
+		is_subject = no
+		is_year = 1500
+	}
+	mean_time_to_happen = {
+		months = 240
+	}
+	option = {
+		name = "WFAS_other_moldavia_2_option"
+		inherit = MOL
+		change_tag = RMN
+		remove_non_electors_emperors_from_empire_effect = yes
+		swap_non_generic_missions = yes
+		if = {
+			limit = {
+				NOT = {
+					government_rank = 2
+				}
+			}
+			set_government_rank = 2
+		}
+		add_prestige = 10
+		if = {
+			limit = {
+				has_custom_ideas = no
+			}
+			country_event = {
+				id = ideagroups.1
+			}
+			#Swap Ideas
+		}
+		set_country_flag = formed_romania_flag
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = {
+		name = "WFAS_other_moldavia_2_leave"
+		add_prestige = -10
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+#Moldavia falls under PU
+country_event = {
+	id = WFAS_other.3
+	title = "WFAS_other_moldavia_wall_title"
+	desc = "WFAS_other_moldavia_wall_desc"
+	picture = SEJM_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFAS_other_moldavia_wall_option"
+		create_union = MOL
+		MOL = {
+			add_liberty_desire = -50
+			add_opinion = {
+				who = ROOT
+				modifier = loyal_voidode
+			}
+		}
+	}
+}
+
+#Ryazan falls from grace
+country_event = {
+	id = WFAS_other.7
+	title = "WFAS_other_ryazan_title"
+	desc = "WFAS_other_ryazan_desc"
+	picture = BAD_WITH_MONARCH_eventPicture
+	fire_only_once = yes
+	trigger = {
+		tag = RYA
+		exists = MOS
+		is_year = 1510
+	}
+	mean_time_to_happen = {
+		months = 60
+	}
+	option = {
+		name = "WFAS_other_ryazan_option"
+		remove_historical_friend = MOS
+		MOS = {
+			remove_historical_friend = ROOT
+		}
+	}
+}
+
+#Ottomans pressure romanians
+country_event = {
+	id = WFAS_other.8
+	title = "WFAS_other_ottoman_pressure_title"
+	desc = "WFAS_other_ottoman_pressure_desc"
+	picture = SULTAN_AND_MERCHANT_eventPicture
+	major = yes
+	major_trigger = {
+		OR = {
+			any_subject_country = {
+				tag = ROOT
+			}
+			tag = TUR
+		}
+	}
+	trigger = {
+		OR = {
+			tag = RMN
+			tag = WAL
+			tag = MOL
+		}
+		TUR = {
+			exists = yes
+			is_neighbor_of = ROOT
+			is_subject = no
+			army_strength = {
+				who = ROOT
+				value = 1.7
+			}
+		}
+		is_year = 1600
+		IF = {
+			limit = {
+				is_subject = yes
+			}
+			overlord = {
+				NOT = {
+					alliance_with = TUR
+				}
+				NOT = {
+					truce_with = TUR
+				}
+				NOT = {
+					tag = TUR
+				}
+			}
+		}
+		NOT = {
+			has_country_flag = WFAS_other_pressured_by_ottomans
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = WFAS_other_pressured_by_ottomans
+		}
+	}
+	option = {
+		name = "WFAS_other_ottoman_submit"
+		IF = {
+			limit = {
+				is_subject = yes
+			}
+			save_global_event_target_as = WFAS_ottoman_pressure_target
+			overlord = {
+				country_event = {
+					id = WFAS_other.9
+					days = 1
+				}
+			}
+		}
+		TUR = {
+			create_subject = {
+				subject_type = march
+				subject = ROOT
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 20
+				is_subject = yes
+			}
+		}
+	}
+	option = {
+		name = "WFAS_other_ottoman_refuse"
+		TUR = {
+			add_casus_belli = {
+				type = cb_vassalize_mission
+				target = ROOT
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = refused_to_resign
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 80
+				is_subject = yes
+			}
+		}
+	}
+}
+
+#Romanian overlord reacts
+country_event = {
+	id = WFAS_other.9
+	title = "WFAS_other_ottoman_suzerain_title"
+	desc = "WFAS_other_ottoman_suzerain_desc"
+	picture = SULTAN_AND_MERCHANT_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFSA_other_ottoman_demand"
+		save_global_event_target_as = WFAS_ottoman_war_target
+		add_casus_belli = {
+			type = cb_vassalize_mission
+			target = event_target:WFAS_ottoman_pressure_target
+		}
+		custom_tooltip = "WFAS_other_ottoman_tooltip"
+		TUR = {
+			country_event = {
+				id = WFAS_other.10
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 90
+		}
+	}
+	option = {
+		name = "WFAS_other_ottoman_concede"
+		add_prestige = -10
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+#Ottomans get a message from overlord
+country_event = {
+	id = WFAS_other.10
+	title = "WFAS_other_ottoman_response_title"
+	desc = "WFAS_other_ottoman_response_desc"
+	picture = SULTAN_AND_MERCHANT_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = "WFSA_other_ottoman_war"
+		custom_tooltip = "WFAS_other_ottoman_war_tooltip"
+		hidden_effect = {
+			event_target:WFAS_ottoman_war_target = {
+				declare_war_with_cb = {
+					casus_belli = cb_vassalize_mission
+					who = event_target:WFAS_ottoman_pressure_target
+				}
+			}
+		}
+		ai_chance = {
+			factor = 90
+		}
+	}
+	option = {
+		name = "WFAS_other_ottoman_peace"
+		add_prestige = -10
+		event_target:WFAS_ottoman_war_target = {
+			create_subject = {
+				subject_type = vassal
+				subject = event_target:WFAS_ottoman_pressure_target
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+#Raid of Constantinople (Ottomans)
+country_event = {
+	id = WFAS_other.11
+	title = "WFAS_other_constantinople_title"
+	desc = "WFAS_other_constantinople_desc"
+	picture = SIEGE_eventPicture
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = TUR
+			tag = RUM
+		}
+		religion_group = muslim
+		owns = 151
+		NOT = {
+			owns = 283
+		}
+		is_year = 1600
+	}
+	mean_time_to_happen = {
+		months = 180
+	}
+	option = {
+		name = "WFAS_other_constantinople_demand"
+		151 = {
+			add_devastation = 20
+		}
+		kill_leader = {
+			type = admiral
+		}
+		IF = {
+			limit = {
+				exists = ZAZ
+			}
+			ZAZ = {
+				country_event = {
+					id = WFAS_other.12
+					days = 1
+				}
+			}
+		}
+		ELSE = {
+			283 = {
+				owner = {
+					country_event = {
+						id = WFAS_other.12
+						days = 1
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = "WFAS_other_constantinople_leave"
+		151 = {
+			add_devastation = 20
+		}
+		kill_leader = {
+			type = admiral
+		}
+		add_prestige = -20
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+#Raid of Constantinople (Cossacks)
+country_event = {
+	id = WFAS_other.12
+	title = "WFAS_other_constantinople_title"
+	picture = SIEGE_eventPicture
+	is_triggered_only = yes
+	desc = {
+		trigger = {
+			NOT = {
+				tag = ZAZ
+			}
+		}
+		desc = "WFAS_other_constantinople_cossack_desc"
+	}
+	desc = {
+		trigger = {
+			tag = ZAZ
+		}
+		desc = "WFAS_other_constantinople_zaz_desc"
+	}
+	option = {
+		name = "WFAS_other_constantinople_curtail"
+		IF = {
+			limit = {
+				has_estate = estate_cossacks
+			}
+			add_estate_loyalty = {
+				estate = estate_cossacks
+				loyalty = -20
+			}
+		}
+		add_prestige = -10
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 50
+				151 = {
+					owner = {
+						army_strength = {
+							who = ROOT
+							value = 1
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 80
+				151 = {
+					owner = {
+						army_strength = {
+							who = ROOT
+							value = 2
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				tag = ZAZ
+			}
+		}
+	}
+	option = {
+		name = "WFAS_other_constantinople_refuse"
+		reverse_add_opinion = {
+			who = TUR
+			modifier = WFAS_other_cossacks_uncontrolled
+		}
+		reverse_add_casus_belli = {
+			type = cb_insult
+			target = TUR
+		}
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 50
+				151 = {
+					owner = {
+						army_strength = {
+							who = ROOT
+							value = 1
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 20
+				151 = {
+					owner = {
+						army_strength = {
+							who = ROOT
+							value = 2
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				tag = ZAZ
+			}
+		}
+	}
+	option = {
+		name = "WFAS_other_constantinople_zaz_refuse"
+		trigger = {
+			tag = ZAZ
+		}
+		reverse_add_opinion = {
+			who = TUR
+			modifier = WFAS_other_cossacks_uncontrolled
+		}
+		reverse_add_casus_belli = {
+			type = cb_insult
+			target = TUR
+		}
+		add_prestige = 50
+		add_treasury = 500
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+#Capture of Azov (other)
+country_event = {
+	id = WFAS_other.13
+	title = "WFAS_other_azov_title"
+	desc = "WFAS_other_azov_desc"
+	picture = COSSACK_ESTATE_RAIDERS_eventPicture
+	fire_only_once = yes
+	trigger = {
+		owns = 286
+		286 = {
+			any_neighbor_province = {
+				owner = {
+					has_estate = estate_cossacks
+					NOT = {
+						alliance_with = ROOT
+					}
+					NOT = {
+						war_with = ROOT
+					}
+				}
+			}
+		}
+		NOT = {
+			has_estate = estate_cossacks
+		}
+		is_year = 1600
+	}
+	mean_time_to_happen = {
+		months = 240
+	}
+	immediate = {
+		hidden_effect = {
+			286 = {
+				random_neighbor_province = {
+					limit = {
+						owner = {
+							has_estate = estate_cossacks
+							NOT = {
+								alliance_with = ROOT
+							}
+							NOT = {
+								war_with = ROOT
+							}
+						}
+					}
+					owner = {
+						save_global_event_target_as = WFAS_other_azov_cos_target
+					}
+				}
+			}
+			286 = {
+				cede_province = event_target:WFAS_other_azov_cos_target
+			}
+			save_global_event_target_as = WFAS_other_azov_target
+		}
+	}
+	option = {
+		name = "WFAS_other_azov_leave"
+		IF = {
+			limit = {
+				NOT = {
+					owns_core_province = 286
+				}
+			}
+			add_core = 286
+		}
+		add_prestige = -20
+		hidden_effect = {
+			286 = {
+				add_core = event_target:WFAS_other_azov_cos_target
+			}
+		}
+	}
+	option = {
+		name = "WFAS_other_azov_demand"
+		event_target:WFAS_other_azov_cos_target = {
+			country_event = {
+				id = WFAS_other.14
+				days = 1
+			}
+		}
+	}
+}
+
+#Capture of Azov (Russia)
+country_event = {
+	id = WFAS_other.14
+	title = "WFAS_other_azov_title"
+	desc = "WFAS_other_azov_res_desc"
+	picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		tag = event_target:WFAS_other_azov_target
+	}
+	option = {
+		name = "WFAS_other_azov_cede"
+		286 = {
+			cede_province = event_target:WFAS_other_azov_target
+		}
+		add_estate_loyalty = {
+			estate = estate_cossacks
+			loyalty = -20
+		}
+		reverse_add_opinion = {
+			who = event_target:WFAS_other_azov_target
+			modifier = opinion_pleased
+		}
+	}
+	option = {
+		name = "WFAS_other_azov_refuse"
+		add_estate_loyalty = {
+			estate = estate_cossacks
+			loyalty = 10
+		}
+		reverse_add_opinion = {
+			who = event_target:WFAS_other_azov_target
+			modifier = WFAS_other_cossacks_uncontrolled
+		}
+	}
+}
+
+#Khan in Hajitarkhan
+country_event = {
+	id = WFAS_other.15
+	title = "WFAS_other_astrakhan_title"
+	desc = "WFAS_other_astrakhan_desc"
+	picture = BAD_WITH_MONARCH_eventPicture
+	major = yes
+	trigger = {
+		tag = GOL
+		NOT = {
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					area = tambov_area
+					area = sloboda_ukraine_area
+					area = saratov_area
+				}
+			}
+		}
+		NOT = {
+			owns = 303
+		}
+		NOT = {
+			stability = 2
+		}
+		NOT = {
+			exists = AST
+		}
+		is_year = 1460
+	}
+	mean_time_to_happen = {
+		months = 24
+	}
+	option = {
+		name = "WFAS_other_astrakhan_reform"
+		change_tag = AST
+		add_stability_or_adm_power = yes
+
+		add_accepted_culture_or_dip_power = { culture = astrakhani }
+		add_accepted_culture_or_dip_power = { culture = nogaybak }
+		custom_tooltip = " "
+		add_horde_unity = 100
+		custom_tooltip = " "
+		if = {
+			limit = {
+				owns_core_province = 464
+			}
+			464 = {
+				move_capital_effect = yes
+			}
+		}
+		if = {
+			limit = { has_custom_ideas = no NOT = { has_idea_group = AST_ideas } }
+			country_event = { id = ideagroups.1 } #Swap Ideas
+		}
+		ai_chance = {
+			factor = 5
+		}
+	}
+	option = {
+		name = "WFAS_other_astrakhan_reform_monarchy"
+		change_tag = AST
+		add_stability_or_adm_power = yes
+
+		add_accepted_culture_or_dip_power = { culture = astrakhani }
+		add_accepted_culture_or_dip_power = { culture = nogaybak }
+		custom_tooltip = " "
+		change_government = monarchy
+		add_legitimacy = 100
+		custom_tooltip = " "
+		if = {
+			limit = {
+				owns_core_province = 464
+			}
+			464 = {
+				move_capital_effect = yes
+			}
+		}
+		if = {
+			limit = { has_custom_ideas = no NOT = { has_idea_group = AST_ideas } }
+			country_event = { id = ideagroups.1 } #Swap Ideas
+		}
+		ai_chance = {
+			factor = 5
+		}
+	}
+	option = {
+		name = "WFAS_other_astrakhan_reform_republic"
+		change_tag = AST
+		add_stability_or_adm_power = yes
+		custom_tooltip = " "
+		add_accepted_culture_or_dip_power = { culture = astrakhani }
+		add_accepted_culture_or_dip_power = { culture = nogaybak }
+		custom_tooltip = " "
+		change_government = republic
+		add_republican_tradition = 100
+
+		if = {
+			limit = {
+				owns_core_province = 464
+			}
+			464 = {
+				move_capital_effect = yes
+			}
+		}
+		if = {
+			limit = { has_custom_ideas = no NOT = { has_idea_group = AST_ideas } }
+			country_event = { id = ideagroups.1 } #Swap Ideas
+		}
+		ai_chance = {
+			factor = 5
+		}
+	}
+	option = {
+		name = "WFAS_other_astrakhan_reform_theocracy"
+		change_tag = AST
+		add_stability_or_adm_power = yes
+		custom_tooltip = " "
+		add_accepted_culture_or_dip_power = { culture = astrakhani }
+		add_accepted_culture_or_dip_power = { culture = nogaybak }
+		custom_tooltip = " "
+		change_government = theocracy
+		add_devotion = 100
+
+		if = {
+			limit = {
+				owns_core_province = 464
+			}
+			464 = {
+				move_capital_effect = yes
+			}
+		}
+		if = {
+			limit = { has_custom_ideas = no NOT = { has_idea_group = AST_ideas } }
+			country_event = { id = ideagroups.1 } #Swap Ideas
+		}
+		ai_chance = {
+			factor = 5
+		}
+	}
+	option = {
+		name = "WFAS_other_astrakhan_remain"
+		add_stability = -1
+		ai_chance = {
+			factor = 2
+		}
+	}
+}
+
+#The Finest of Horses - Golden Horde 
+country_event = {
+	id = WFAS_other.16
+	title = "WFAS_other_golden_horde_horses_title"
+	desc = "WFAS_other_golden_horde_horses_desc"
+	picture = HORSE_ON_HORSEBACK_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	major = yes
+	option = {
+		name = "WFAS_other_golden_horde_option"
+		change_price = {
+			key = WFAS_other_finest_horses
+			trade_goods = livestock
+			value = 0.5
+			duration = 18250
+		}
+	}
+}
