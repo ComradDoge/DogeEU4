@@ -34,6 +34,13 @@ marketplace = {
 	modifier = {
 		province_trade_power_modifier = 0.5
 	}
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	on_built = {
 		add_development_from_building = {
 			building = marketplace
@@ -80,16 +87,27 @@ marketplace = {
 			factor = 30
 			province_has_center_of_trade_of_level = 3
 		}
+		modifier = {
+			factor = 100.0
+			has_province_modifier = xorme_ai_agenda_building_spot
+		}
 	}
 }
 
 workshop = {
 	cost = 150
 	time = 12
+
 	modifier = {
 		local_production_efficiency = 1
 	}
-	
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	allow_in_gold_provinces = no
 	on_built = {
 		add_development_from_building = {
@@ -195,13 +213,19 @@ workshop = {
 temple = {
 	cost = 150
 	time = 12
+
 	modifier = {
 		local_tax_modifier = 0.5
 		local_missionary_strength = 0.005
 	}
+
 	build_trigger = {
 		NOT = {
 			religion = bogomilist
+		}
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
 		}
 	}
 	on_built = {
@@ -345,9 +369,19 @@ temple = {
 barracks = {
 	cost = 150
 	time = 12
+
 	modifier = {
 		local_manpower_modifier = 0.25
 	}
+
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
+
 	on_built = {
 		if = {
 			limit = {
@@ -486,9 +520,7 @@ barracks = {
 shipyard = {
 	cost = 150
 	time = 12
-	build_trigger = {
-		has_port = yes
-	}
+
 	modifier = {
 		naval_forcelimit = 0.5
 		ship_recruit_speed = -0.25
@@ -496,6 +528,15 @@ shipyard = {
 		local_has_man_of_war = yes
 		local_has_galleass = yes
 	}
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+		has_port = yes
+	}
+
 	on_built = {
 		navy_forcelimit_giver_building_modifier_effect = yes
 		add_development_from_building = {
@@ -597,6 +638,31 @@ fort_15th = {
 	modifier = {
 		fort_level = 2
 	}
+
+	build_trigger = {
+		if = {
+			limit = { 
+				FROM = { 
+					ai = yes 
+					NOT ={ 
+						overlord = {
+							ai = no
+						}
+					}
+				}
+			}
+			all_neighbor_province = {
+				NOT = {
+					OR = {
+						xorme_ai_is_building_fort_trigger = yes
+						xorme_ai_has_any_fort_trigger = yes
+						has_influencing_fort = yes
+					}
+				}
+			}
+		}
+	}
+
 	# THIS = Province, FROM = Builder(not nessecairly owner, can be overlord)
 	on_built = {
 		if = {
@@ -676,13 +742,19 @@ fort_15th = {
 coastal_defence = {
 	cost = 200
 	time = 12
-	build_trigger = {
-		has_port = yes
-	}
+
 	modifier = {
 		blockade_force_required = 0.5
 		hostile_disembark_speed = 1.0
 		allowed_num_of_buildings = 1
+	}
+
+	build_trigger = {
+		has_port = yes
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
 	}
 
 	ai_will_do = {
@@ -698,13 +770,18 @@ coastal_defence = {
 dock = {
 	cost = 150
 	time = 12
-	build_trigger = {
-		has_port = yes
-	}
 	modifier = {
 		local_sailors_modifier = 0.25
 		local_has_man_of_war = yes
 		local_has_galleass = yes
+	}
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+		has_port = yes
 	}
 	
 	on_built = {
@@ -752,8 +829,16 @@ dock = {
 regimental_camp = {
 	cost = 150
 	time = 12
+
 	modifier = {
 		land_forcelimit = 0.5
+	}
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
 	}
 	on_built = {
 		add_development_from_building = {
@@ -876,8 +961,37 @@ fort_16th = {
 	cost = 400
 	time = 30
 	make_obsolete = fort_15th
+
 	modifier = {
 		fort_level = 4
+	}
+
+	build_trigger = {
+		if = {
+			limit = { 
+				FROM = { 
+					ai = yes 
+					NOT ={ 
+						overlord = {
+							ai = no
+						}
+					}
+				}
+			}
+			OR = {
+				is_capital_of = FROM
+				all_neighbor_province = {
+					NOT = {
+						OR = {
+							xorme_ai_is_building_fort_trigger = yes
+							xorme_ai_has_any_fort_trigger = yes
+							has_influencing_fort = yes
+						}
+					}
+				}	
+			}
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
 	}
 	# THIS = Province, FROM = Builder(not nessecairly owner, can be overlord)
 	on_built = {
@@ -965,15 +1079,21 @@ naval_battery = {
 	make_obsolete = coastal_defence
 	cost = 400
 	time = 24
-	build_trigger = {
-		has_port = yes
-	}
+
 	modifier = {
 		blockade_force_required = 1.0
 		hostile_disembark_speed = 2.0
 		hostile_fleet_attrition = 5
 		allowed_num_of_buildings = 1
 		block_slave_raid = yes
+	}
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+		has_port = yes
 	}
 
 	ai_will_do = {
@@ -996,11 +1116,17 @@ cathedral = {
 
 	cost = 300
 	time = 24
+
 	modifier = {
 		local_missionary_strength = 0.03
 		local_tax_modifier = 1
 	}
+
 	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
 		NOT = { 
 			religion = bogomilist
 		}
@@ -1151,9 +1277,17 @@ cathedral = {
 university = {
 	cost = 500
 	time = 24
+
 	modifier = {
 		local_development_cost = -0.10
 		allowed_num_of_buildings = 1
+	}
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
 	}
 	on_built = {
 		add_development_from_building = {
@@ -1263,6 +1397,13 @@ trade_depot = {
 	modifier = {
 		province_trade_power_modifier = 1
 	}
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	on_built = {
 		add_development_from_upgrading_or_building = {
 			building = trade_depot
@@ -1327,8 +1468,13 @@ grand_shipyard = {
 	make_obsolete = shipyard
 
 	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
 		has_port = yes
 	}
+
 	modifier = {
 		naval_forcelimit = 1
 		ship_recruit_speed = -0.50
@@ -1447,7 +1593,14 @@ training_fields = {
 	modifier = {
 		local_manpower_modifier = 0.75
 	}
-	
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
+
 	on_built = {
 		if = {
 			limit = {
@@ -1597,6 +1750,34 @@ fort_17th = {
 
 	make_obsolete = fort_16th
 
+	build_trigger = {
+		if = {
+			limit = { 
+				FROM = { 
+					ai = yes 
+					NOT ={ 
+						overlord = {
+							ai = no
+						}
+					}
+				}
+			}
+			OR = {
+				is_capital_of = FROM
+				all_neighbor_province = {
+					NOT = {
+						OR = {
+							xorme_ai_is_building_fort_trigger = yes
+							xorme_ai_has_any_fort_trigger = yes
+							has_influencing_fort = yes
+						}
+					}
+				}	
+			}
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
+
 	modifier = {
 		fort_level = 6
 	}
@@ -1696,7 +1877,13 @@ stock_exchange = {
 	modifier = {
 		province_trade_power_modifier = 1.5
 	}
-
+	
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	on_built = {
 		if = {
 			limit = {
@@ -1786,12 +1973,19 @@ counting_house = {
 	time = 24
 
 	make_obsolete = workshop
+
 	modifier = {
 		local_production_efficiency = 2
 	}
 
 	allow_in_gold_provinces = no
 
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	on_built = {
 		add_development_from_upgrading_or_building = {
 			building = counting_house
@@ -1892,9 +2086,6 @@ drydock = {
 
 	make_obsolete = dock
 
-	build_trigger = {
-		has_port = yes
-	}
 
 	modifier = {
 		local_sailors_modifier = 0.75
@@ -1902,6 +2093,13 @@ drydock = {
 		local_has_galleass = yes
 	}
 	
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+		has_port = yes
+	}
 	on_built = {
 		if = {
 			limit = {
@@ -1958,6 +2156,14 @@ conscription_center = {
 	modifier = {
 		land_forcelimit = 1
 	}
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
+
 	on_built = {
 		add_development_from_upgrading_or_building = {
 			building = conscription_center
@@ -2092,6 +2298,34 @@ fort_18th = {
 	modifier = {
 		fort_level = 8
 	}
+
+	build_trigger = {
+		if = {
+			limit = { 
+				FROM = { 
+					ai = yes 
+					NOT ={ 
+						overlord = {
+							ai = no
+						}
+					}
+				}
+			}
+			OR = {
+				is_capital_of = FROM
+				all_neighbor_province = {
+					NOT = {
+						OR = {
+							xorme_ai_is_building_fort_trigger = yes
+							xorme_ai_has_any_fort_trigger = yes
+							has_influencing_fort = yes
+						}
+					}
+				}	
+			}
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	# THIS = Province, FROM = Builder(not nessecairly owner, can be overlord)
 	on_built = {
 		if = {
@@ -2191,6 +2425,12 @@ manufactory = {
 }
 
 wharf = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		naval_supplies
 		fish
@@ -2279,6 +2519,12 @@ wharf = {
 }
 
 weapons = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		copper
 		iron
@@ -2373,6 +2619,12 @@ weapons = {
 }
 
 textile = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		wool
 		cloth
@@ -2463,6 +2715,12 @@ textile = {
 }
 
 plantations = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		coffee
 		cotton
@@ -2559,6 +2817,12 @@ plantations = {
 }
 
 tradecompany = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		ivory
 		slaves
@@ -2663,6 +2927,12 @@ tradecompany = {
 }
 
 farm_estate = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		grain
 		livestock
@@ -2759,6 +3029,12 @@ farm_estate = {
 }
 
 mills = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		chinaware
 		gems
@@ -2852,6 +3128,12 @@ mills = {
 }
 
 furnace = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		coal
 	}
@@ -2895,6 +3177,12 @@ furnace = {
 }
 
 ramparts = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		all
 	}
@@ -2947,6 +3235,12 @@ ramparts = {
 }
 
 soldier_households = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		all
 	}
@@ -3071,6 +3365,12 @@ soldier_households = {
 }
 
 impressment_offices = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		all
 	}
@@ -3137,6 +3437,12 @@ impressment_offices = {
 }
 
 state_house = {
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 	manufactory = {
 		all
 	}
@@ -3258,6 +3564,13 @@ early_road = {
     cost = 100
     time = 8
 
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
+
     one_per_country = no
     allow_in_gold_provinces = yes
     onmap = no
@@ -3292,6 +3605,13 @@ gravel_road = {
     time = 16
 	make_obsolete = early_road
 
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
+
     one_per_country = no
     allow_in_gold_provinces = yes
     onmap = no
@@ -3315,15 +3635,42 @@ gravel_road = {
 		#local_hostile_movement_speed = 0.05
 
     }
-    ai_will_do = {
-        factor = 5
-    }
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			is_overseas = yes
+		}
+		modifier = {
+			factor = 0
+			NOT = { development = 14 }
+		}
+		modifier = {
+			factor = 1
+			development = 15
+		}
+		modifier = {
+			factor = 1
+			development = 30
+		}
+		modifier = {
+			factor = 25.0
+			has_province_modifier = xorme_ai_agenda_building_spot
+		}
+	}
 }
 
 royal_road = {
     cost = 400
     time = 24
 	make_obsolete = gravel_road
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 
     one_per_country = no
     allow_in_gold_provinces = yes
@@ -3347,15 +3694,42 @@ royal_road = {
 		local_friendly_movement_speed = 0.2
 		#local_hostile_movement_speed = 0.1
     }
-    ai_will_do = {
-        factor = 5
-    }
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			is_overseas = yes
+		}
+		modifier = {
+			factor = 0
+			NOT = { development = 14 }
+		}
+		modifier = {
+			factor = 1
+			development = 15
+		}
+		modifier = {
+			factor = 1
+			development = 30
+		}
+		modifier = {
+			factor = 25.0
+			has_province_modifier = xorme_ai_agenda_building_spot
+		}
+	}
 }
 
 macadam_road = {
     cost = 500
     time = 32
 	make_obsolete = royal_road
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 
     one_per_country = no
     allow_in_gold_provinces = yes
@@ -3379,9 +3753,29 @@ macadam_road = {
 		local_friendly_movement_speed = 0.25
 		#local_hostile_movement_speed = 0.15
     }
-    ai_will_do = {
-        factor = 5
-    }
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			is_overseas = yes
+		}
+		modifier = {
+			factor = 0
+			NOT = { development = 14 }
+		}
+		modifier = {
+			factor = 1
+			development = 15
+		}
+		modifier = {
+			factor = 1
+			development = 30
+		}
+		modifier = {
+			factor = 25.0
+			has_province_modifier = xorme_ai_agenda_building_spot
+		}
+	}
 }
 
 
@@ -3389,6 +3783,13 @@ railroad = {
 	cost = 1000
 	time = 40
 	make_obsolete = macadam_road
+
+	build_trigger = {
+		if = {
+			limit = { FROM = { ai = yes } }
+			FROM = { NOT = { num_of_loans = 4 } }
+		}
+	}
 
     one_per_country = no
     allow_in_gold_provinces = yes
@@ -3416,25 +3817,25 @@ railroad = {
 
 	ai_will_do = {
 		factor = 5
-#		modifier = {
-#			factor = 0
-#			NOT = { development = 10 }
-#		}	
-#		modifier = {
-#			factor = 0.5
-#			NOT = { development = 20 }
-#		}
-#		modifier = {
-#			factor = 1.5
-#			development = 30
-#		}
-#		modifier = {
-#			factor = 1.5
-#			development = 40
-#		}
-#		modifier = {
-#			factor = 0.1
-#			is_overseas = yes
-#		}
+		modifier = {
+			factor = 0
+			is_overseas = yes
+		}
+		modifier = {
+			factor = 0
+			NOT = { development = 14 }
+		}
+		modifier = {
+			factor = 1
+			development = 15
+		}
+		modifier = {
+			factor = 1
+			development = 30
+		}
+		modifier = {
+			factor = 25.0
+			has_province_modifier = xorme_ai_agenda_building_spot
+		}
 	}
 }

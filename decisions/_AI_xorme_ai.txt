@@ -1,0 +1,229 @@
+country_decisions = {
+
+    xorme_ai_merchant_reset = {
+        potential = {
+            NOT = { has_country_modifier = xorme_ai_merchant_reset_cooldown }
+            had_recent_war = 10
+            total_development = 200
+            ai = yes
+        }
+
+        allow = {
+			is_at_war = no
+        }
+
+        effect = {
+			add_country_modifier = {
+				name = xorme_ai_merchant_reset_modifier
+				duration = 31
+			}
+            add_country_modifier = {
+                name = xorme_ai_merchant_reset_cooldown
+                duration = 10000
+            }
+        }
+        ai_will_do = {
+            factor = 100
+        }
+    }
+    xorme_ai_policy_reset = {
+        potential = {
+            xorme_ai_valid_nation = yes
+            NOT = { has_country_modifier = xorme_ai_policy_reset_cooldown }
+            OR = {
+                AND = {
+                    adm_tech = 18
+                    NOT = { adm_tech = 19 }
+                }
+                AND = {
+                    adm_tech = 24
+                    NOT = { adm_tech = 25 }
+                }
+                AND = {
+                    adm_tech = 26
+                    NOT = { adm_tech = 27 }
+                }
+                AND = {
+                    adm_tech = 29
+                    NOT = { adm_tech = 30 }
+                }
+            }
+        }
+
+        allow = {
+			is_at_war = no
+        }
+
+        effect = {
+			add_country_modifier = {
+				name = xorme_ai_policy_reset_modifier
+				duration = 31
+			}
+            add_country_modifier = {
+                name = xorme_ai_policy_reset_cooldown
+                duration = 3000
+            }
+        }
+        ai_will_do = {
+            factor = 100
+        }
+    }
+
+	#######################
+	##Build Production 1 ##
+	#######################
+	xorme_ai_build_base_1 = {
+		potential = {
+			has_global_flag = xorme_ai_building_scripts_on
+			NOT = { is_year = 1700 }
+			NOT = { has_country_modifier = xorme_ai_buildings_cooldown_1 }
+			has_country_modifier = xorme_ai_great_power
+			adm_tech = 6
+			NOT = { num_of_loans = 1 }
+			treasury = 1250
+		}
+
+		allow = {
+			OR = {
+				is_month = 7
+				is_month = 8
+				is_month = 9
+			}
+			any_owned_province = {
+				OR = {
+					xorme_forcelimit_buildings_potential_trigger = yes
+					xorme_production_potential_trigger = yes	
+				}
+				xorme_not_under_construction = yes
+				is_core = ROOT
+			}
+		}
+
+		effect = {
+			set_variable = {
+                which = check_loop
+                value = 0
+            }
+			while = {
+                limit = {
+                    treasury = 400
+                    is_variable_equal = {
+                        which = check_loop
+                        value = 0
+                    }
+                }
+                random_owned_province = {
+	                limit = {
+						OR = {
+							xorme_production_potential_trigger = yes
+							xorme_forcelimit_buildings_potential_trigger = yes
+						}
+						xorme_not_under_construction = yes
+					}
+					if = {
+						limit = { xorme_production_potential_trigger = yes }
+						xorme_ai_build_production_buildings_effect = { production = yes }
+					}
+					if = {
+						limit = { xorme_forcelimit_buildings_potential_trigger = yes }
+						xorme_ai_build_forcelimit_buildings_effect = { forcelimit = yes }
+					}
+                    PREV = {
+	                    subtract_variable = {
+	                        which = check_loop
+	                        value = 1
+	                    }
+	                }
+               	}
+				change_variable = {
+            		which = check_loop
+                	value = 1
+                }
+            }
+            set_variable = {
+                which = check_loop
+                value = 0
+            }
+			add_country_modifier = {
+				name = xorme_ai_buildings_cooldown_1
+				duration = 999
+			}
+		}
+
+		ai_will_do = {
+			factor = 50.0
+		}
+	}
+	#########################
+	##Build Manufactory 1 ##
+	########################
+	xorme_ai_build_manufactory_1 = {
+		potential = {
+			has_global_flag = xorme_ai_building_scripts_on
+			NOT = { is_year = 1760 }
+			NOT = { has_country_modifier = xorme_ai_buildings_cooldown_2 }
+			has_country_modifier = xorme_ai_great_power
+			adm_tech = 6
+			NOT = { num_of_loans = 1 }
+			treasury = 2000
+		}
+
+		allow = {
+			OR = {
+				is_month = 1
+				is_month = 2
+				is_month = 3
+			}
+			any_owned_province = {
+				xorme_production_potential_trigger = yes
+				xorme_not_under_construction = yes
+				is_core = ROOT
+			}
+		}
+
+		effect = {
+			set_variable = {
+                which = check_loop_m
+                value = 0
+            }
+			while = {
+                limit = {
+                    treasury = 900
+                    is_variable_equal = {
+                        which = check_loop_m
+                        value = 0
+                    }
+                }
+                random_owned_province = {
+	                limit = {
+						xorme_good_manufactory_province = yes
+						xorme_not_under_construction = yes
+					}
+					xorme_ai_build_manufactory_buildings_effect = { manufactory = yes }
+	                    PREV = {
+	                        subtract_variable = {
+	                            which = check_loop_m
+	                            value = 1
+	                        }
+	                    }
+               		}
+				change_variable = {
+            		which = check_loop_m
+                	value = 1
+                }
+            }
+            set_variable = {
+                which = check_loop_m
+                value = 0
+            }
+			add_country_modifier = {
+				name = xorme_ai_buildings_cooldown_2
+				duration = 666
+			}
+		}
+
+		ai_will_do = {
+			factor = 100.0
+		}
+	}
+}

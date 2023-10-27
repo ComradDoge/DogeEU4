@@ -18,7 +18,8 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Buffed North German Confederation Ideas.
-
+- Cleaned up and consolidated personality traits.
+- Updated Xorme AI integration to be more up to date and replaced some of older scripts.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
