@@ -52,6 +52,11 @@ NDefines.NCountry.STARTING_ARMY_SIZE_AT_WAR = 1.0
 NDefines.NCountry.STARTING_FLEET_SIZE = 0.75 --.9
 --NDefines.NCountry.PS_SCORCH_EARTH = 5
 
+-- Personalities
+NDefines.NCountry.MAX_EXTRA_PERSONALITIES = 3 -- 2
+NDefines.NCountry.FIRST_EXTRA_PERSONALITY = 0 -- 10
+NDefines.NCountry.YEARS_PER_EXTRA_PERSONALITY = 15 -- 15
+
 
 --Estates
 NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 6		-- Max. number of privileges active at the same time
