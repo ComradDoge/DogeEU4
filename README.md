@@ -19,6 +19,7 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Buffed North German Confederation Ideas.
 - Cleaned up and consolidated personality traits.
+- Wool has the same province modifier as cloth and cotton.
 - Updated Xorme AI integration to be more up to date and replaced some of older scripts.
 
 <br/>
