@@ -26,7 +26,6 @@ from the original mod I took. After all I need to understand how they work, else
 - Updated Xorme AI integration to be more up to date and replaced some of older scripts.
 - Tweaked the prices of Wool, Cotton and Cloth. Added Cloth as a latent good that uses Wool or Cotton.
 
-# Fix the diplomatic efficiency to not appear in vanilla, seperate into two.
 # Add depressed_ruler, ck2 type shit
 # when campaign leaves age of discovery, nerf adaptive combat terrain bonus to 1
 # update the balanced books on the wiki
