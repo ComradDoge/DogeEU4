@@ -28,7 +28,6 @@ from the original mod I took. After all I need to understand how they work, else
 
 # Add depressed_ruler, ck2 type shit
 # when campaign leaves age of discovery, nerf adaptive combat terrain bonus to 1
-# update the balanced books on the wiki
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
