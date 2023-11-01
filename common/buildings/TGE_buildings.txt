@@ -1580,6 +1580,7 @@ steam_engine_manu = {
 			NOT = {	
 				trade_goods = zinc
 				trade_goods = copper
+				trade_goods = iron
 				has_province_flag = has_latent_good
 			}
 		}
@@ -1612,6 +1613,10 @@ steam_engine_manu = {
 				which = copper
 				value = 0.4
 			}
+			check_variable = {
+				which = iron
+				value = 0.5
+			}
 		}
 	}
 	
@@ -1637,7 +1642,15 @@ steam_engine_manu = {
 					which = copper_used
 					value = 0.4
 				}
-		
+				subtract_variable = {            
+					which = iron
+					value = 0.5
+				}
+				
+				change_variable = {            
+					which = iron_used
+					value = 0.5
+				}
 				change_variable = {            
 					which = steam_engine_manu_amount
 					value = 1
@@ -1689,6 +1702,16 @@ steam_engine_manu = {
 					subtract_variable = {            
 						which = copper_used
 						value = 0.4
+					}
+
+					change_variable = {            
+						which = iron
+						value = 0.5
+					}
+				
+					subtract_variable = {            
+						which = iron_used
+						value = 0.5
 					}
 				}
 			}
@@ -1971,5 +1994,72 @@ cheese_workshop = {
 	
 	ai_will_do = {
 		factor = 0
+	}
+}
+
+
+cloth_workshop = {
+	cost = 400
+	time = 12
+
+	build_trigger = {
+		ROOT = {
+			OR = { 
+				trade_goods = wool
+				trade_goods = cotton
+			}
+			development = 10
+			NOT = { has_province_flag = has_latent_good }
+		}
+		
+		FROM = {
+			OR = {
+				overlord = {
+					adm_tech = 4
+				}
+				AND = { 
+					adm_tech = 4
+				}
+			}
+		}
+
+	}
+	
+	potential = {
+
+	}
+	
+	on_built = {
+		hidden_effect = { 			
+			ROOT = { 
+				goods_save = yes
+				change_trade_goods = cloth
+				set_province_flag = has_latent_good
+			}
+			
+		}
+	}
+	
+	on_destroyed = {
+		ROOT = {
+			clr_province_flag = has_latent_good
+			goods_back = yes	
+		}
+	}
+
+	modifier = {
+		allowed_num_of_buildings = 1
+	}	
+	
+	ai_will_do = {
+		factor = 700
+		
+		modifier = {	
+			factor = 0
+			FROM = {
+				cloth = 3
+			}
+		}
+
 	}
 }

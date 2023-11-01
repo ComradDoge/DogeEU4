@@ -4,7 +4,8 @@
 NDefines.NEconomy.DEBASE_MAX_CORRUPTION = 30 -- Default 90, Above this level of corruption, you won't be able to Debase Currency.
 NDefines.NEconomy.MAX_BUILDING_SLOTS = 16 -- Default 12
 NDefines.NEconomy.INFLATION_FROM_LOAN = 0.2 -- Default 0.1
-NDefines.NEconomy.BASE_INTERESTS = 4.0 -- Default 4.0
+NDefines.NEconomy.BASE_INTERESTS = 5.0 -- Default 4.0
+NDefines.NEconomy.MINIMUM_INTERESTS = 2.0 -- Default 1.0
 
 NDefines.NEconomy.GOLD_INFLATION = 1 -- Default 0.5 (Ex. La Mancha - 1 = 0.35, 0.5 = 0.17
 

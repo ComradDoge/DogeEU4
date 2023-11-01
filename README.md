@@ -12,25 +12,22 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.35.6
-- Checksum: 83a3
+- Checksum: e3b7
 
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Institution spread tweaks.
-- Increased chances of Sikhism surviving.
-- Fixed Rum mission scuff in Vanilla Flavour.
-- Update the wiki to have an economy category.
-- Buffed Impressment Offices to follow Vanilla.
-- Readded diplomatic way to form Spain in Vanilla Flavour.
-- Added some content from With Fire & Sword mod primarily for Crimea.
-- Slightly cleaned up reforms and consolidated cavalry military reform.
-- Morocco mission now uses one from Europa Expanded instead of Golden Century.
-- Added a new bookmark that splits China up into a Shogunate/Daimyo type deal.
-- Trade League leaders get a scaling 0.5 diplo_rep to somewhat buff the outdated system.
-- Buffed State Houses to also reduce governing cost flat as a counter to expand infrastructure.
-- Since Adriaterra has no mission tree, for the time being they will get Italy mission tree (even if it does not quite make sense) to somewhat encourage its use.
+- Tweaked North German Confederation Ideas.
+- Wool ship_costs trading_in_bonus -5%>-10%.
+- Cleaned up and consolidated personality traits.
+- Interest per annum modifiers and some system aspects have been changed.
+- Russia "Proclaim Emperor Title" gives you event to choose some custom names.
+- Tweaked some formable decisions and Himalayan Empire is now a flavour tag for Tibet.
+- Updated Xorme AI integration to be more up to date and replaced some of older scripts.
+- Tweaked the prices of Wool, Cotton and Cloth. Added Cloth as a latent good that uses Wool or Cotton.
 
+# Add depressed_ruler, ck2 type shit
+# when campaign leaves age of discovery, nerf adaptive combat terrain bonus to 1
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>

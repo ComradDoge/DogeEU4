@@ -1,63 +1,12 @@
 namespace = dse_meta_events
+namespace = dse_meta_diplo_shattered
 namespace = dse_meta_natives_event
 namespace = dse_meta_info
 
 
-country_event = { # Diplomatic Efficiency
-    id = dse_meta_events.1
-    title = dse_meta_events.1.t
-    desc = dse_meta_events.1.d
-    picture = DOGE_VENICE_eventPicture
-    hidden = yes
+# dse_meta_events.1 is free
 
-    trigger = {
-        OR = {
-            started_in = 1444.11.3
-            started_in = 1444.11.6
-        }
-        OR = {
-            AND = { 
-                is_year = 1470
-                NOT = { has_country_modifier = first_diplo_relations }
-                NOT = { has_country_modifier = second_diplo_relations }
-            } 
-            AND = {
-                is_year = 1500
-                NOT = { has_country_modifier = second_diplo_relations }
-            }
 
-        }
-    }
-
-    option = {
-        name = "dse_meta_events.1.o1"
-        if = {
-            limit = {
-                is_year = 1470
-                NOT = { is_year = 1500 }
-                NOT = { has_country_modifier = first_diplo_relations }
-            }
-            add_country_modifier = {
-                name = first_diplo_relations
-                duration = -1
-            }
-        }
-        if = {
-            limit = {
-                is_year = 1500
-            }
-            remove_country_modifier = first_diplo_relations
-            add_country_modifier = {
-                name = second_diplo_relations
-                duration = -1
-            }
-        }
-    }
-    option = {
-        name = "dse_meta_events.1.o2"
-
-    }
-}
 
 
 country_event = { # Subject Colour Choice
@@ -155,6 +104,57 @@ country_event = { # Fort Removal # not used
     }
 }
 
+
+country_event = { # Diplomatic Efficiency Adder
+    id = dse_meta_diplo_shattered.1
+    title = dse_meta_diplo_shattered.1.t
+    desc = dse_meta_diplo_shattered.1.d
+    picture = DOGE_VENICE_eventPicture
+    hidden = yes
+
+    trigger = {
+        OR = {
+            start_date = 1444.11.3
+            start_date = 1444.11.6
+        }
+        is_year = 1500
+        NOT = { has_country_modifier = second_diplo_relations }
+    }
+
+    option = {
+        name = "dse_meta_diplo_shattered.1.o1"
+        remove_country_modifier = first_diplo_relations
+        add_country_modifier = {
+            name = second_diplo_relations
+            duration = -1
+        }
+    }
+}
+
+country_event = { # Diplomatic Efficiency Removal
+    id = dse_meta_diplo_shattered.2
+    title = dse_meta_diplo_shattered.2.t
+    desc = dse_meta_diplo_shattered.2.d
+    picture = DOGE_VENICE_eventPicture
+    hidden = yes
+
+    trigger = {
+        OR = {
+            has_country_modifier = first_diplo_relations
+            has_country_modifier = second_diplo_relations
+        }
+        NOT = { 
+            is_year = 1500
+        }
+    }
+
+    option = {
+        name = "dse_meta_diplo_shattered.2.o1"
+        remove_country_modifier = first_diplo_relations
+        remove_country_modifier = second_diplo_relations
+    }
+}
+
 country_event = { # Vanilla Efficiency
     id = dse_meta_events.4
     title = dse_meta_events.4.t
@@ -201,9 +201,12 @@ country_event = { # The info event at the start of the game
             set_global_flag = great_monuments_expanded_mod_active
             every_country = {
                 limit = { ai = yes }
+                country_event = { id = ai_bonus_events.1 }
+                add_ruler_personality = xorme_ai_personality
                 xorme_ai_estates_initialization_effect = yes
                 xorme_ai_create_court = yes
                 xorme_ai_set_crown_land = yes
+                change_national_focus = MIL
             }
             every_country = {
                 unlock_cult = yemoja_cult

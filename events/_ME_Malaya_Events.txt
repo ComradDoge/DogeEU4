@@ -2358,6 +2358,10 @@ country_event = {
 		ai_chance = {
 			factor = 1
 		}
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 25
+		}
 		custom_tooltip = SLO_BURGHER_MANA
 		hidden_effect = {
 			if = {
@@ -3377,28 +3381,12 @@ country_event = {
 					days = 5475
 				}
 			}
-			if = {
-				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
+			any_owned_province = {
+				OR = {
+					trade_goods = spices
+					trade_goods = cloves
 				}
-				any_owned_province = {
-					OR = {
-						trade_goods = spices
-						trade_goods = cloves
-						trade_goods = nutmeg
-						trade_goods = vanilla
-					}
-					NOT = { has_province_modifier = MSA_enhanced_spice_production }
-				}
-			}
-			else = {
-				any_owned_province = {
-					OR = {
-						trade_goods = spices
-						trade_goods = cloves
-					}
-					NOT = { has_province_modifier = MSA_enhanced_spice_production }
-				}
+				NOT = { has_province_modifier = MSA_enhanced_spice_production }
 			}
 		}
 
@@ -3625,8 +3613,13 @@ country_event = {
 			flag = MSA_muslim_center_flag_being_rivalled
 			days = 1825
 		}
-		event_target:ME_MSA_muslim_center_target_rival = {
-			owned_by = ROOT
+		if = {
+			limit = {
+				has_saved_global_event_target = ME_MSA_muslim_center_target_rival
+			}
+			event_target:ME_MSA_muslim_center_target_rival = {
+				owned_by = ROOT
+			}
 		}
 	}
 
@@ -3903,19 +3896,19 @@ province_event = {
 	mean_time_to_happen = {
 		months = 60
 		modifier = {
-			factor = 1.00
+			factor = 0.75
 			current_age = age_of_discovery
 		}
 		modifier = {
-			factor = 0.75
+			factor = 0.5
 			current_age = age_of_reformation
 		}
 		modifier = {
-			factor = 1.25
+			factor = 1
 			current_age = age_of_absolutism
 		}
 		modifier = {
-			factor = 1.50
+			factor = 1.25
 			current_age = age_of_revolutions
 		}
 
