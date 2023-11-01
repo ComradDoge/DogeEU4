@@ -18,9 +18,9 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Tweaked North German Confederation Ideas.
-- Wool ship_costs trading_in bonus -5%>-10%.
+- Wool ship_costs trading_in_bonus -5%>-10%.
 - Cleaned up and consolidated personality traits.
-- Interest per annum modifiers and some systemic aspects have been changed.
+- Interest per annum modifiers and some system aspects have been changed.
 - Russia "Proclaim Emperor Title" gives you event to choose some custom names.
 - Tweaked some formable decisions and Himalayan Empire is now a flavour tag for Tibet.
 - Updated Xorme AI integration to be more up to date and replaced some of older scripts.
