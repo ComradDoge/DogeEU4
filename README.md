@@ -27,7 +27,6 @@ from the original mod I took. After all I need to understand how they work, else
 - Tweaked the prices of Wool, Cotton and Cloth. Added Cloth as a latent good that uses Wool or Cotton.
 
 # Add depressed_ruler, ck2 type shit
-# when campaign leaves age of discovery, nerf adaptive combat terrain bonus to 1
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
