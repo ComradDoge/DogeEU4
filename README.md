@@ -17,16 +17,7 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Tweaked North German Confederation Ideas.
-- Wool ship_costs trading_in_bonus -5%>-10%.
-- Cleaned up and consolidated personality traits.
-- Interest per annum modifiers and some system aspects have been changed.
-- Russia "Proclaim Emperor Title" gives you event to choose some custom names.
-- Tweaked some formable decisions and Himalayan Empire is now a flavour tag for Tibet.
-- Updated Xorme AI integration to be more up to date and replaced some of older scripts.
-- Tweaked the prices of Wool, Cotton and Cloth. Added Cloth as a latent good that uses Wool or Cotton.
-
-# Add depressed_ruler, ck2 type shit
+- 1.36 Update
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
