@@ -18,7 +18,7 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - 1.36 Update.
-
+- Various other tidbits.
 
 # Nerf Tibet defensiveness
 <br/>
