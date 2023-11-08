@@ -1,0 +1,281 @@
+# This file is dedicated to UI AI logic
+
+country_decisions = {
+	ME_public_execution_ui_button_ai = {
+		major = yes
+		potential = {
+			ai = yes
+			is_absolutism_active = yes
+		}
+		allow = {
+			public_execution_mil_power_req = yes
+		}
+		effect = {
+			custom_tooltip = public_execution_delimiter
+			custom_tooltip = public_execution_absolutism_gain
+			hidden_effect = {
+				add_absolutism = 4 #hidden before absolutism is enabled, needs custom tooltip
+			}
+			custom_tooltip = " "
+			
+			public_execution_mil_power_req_effect = yes
+			custom_tooltip = public_execution_how_cost_works
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = ME_every_province_3_base_unrest
+			hidden_effect = {
+				every_owned_province = {
+					add_unrest = 3
+				}
+				
+				add_mil_power = 50
+				update_recent_execution_effect = yes
+				
+				update_execution_cost = yes
+				play_sound = "old_revolt"
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				check_variable = { which = execution_cost value = 1  } #it's better if the AI doesn't waste mana on this if not needed
+			}
+			
+			modifier = {
+				factor = 0
+				num_of_rebel_armies = 1
+			}
+			
+			modifier = {
+				factor = 0
+				num_of_rebel_controlled_provinces = 1
+			}
+			
+			modifier = {
+				factor = 0
+				if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 100
+						}
+					}
+					absolutism = 90
+				}
+				else_if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 90
+						}
+					}
+					absolutism = 80
+				}
+				else_if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 80
+						}
+					}
+					absolutism = 70
+				}
+				else_if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 70
+						}
+					}
+					absolutism = 60
+				}
+				else_if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 60
+						}
+					}
+					absolutism = 50
+				}
+				else_if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 50
+						}
+					}
+					absolutism = 40
+				}
+				else_if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 40
+						}
+					}
+					absolutism = 30
+				}
+				else_if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 30
+						}
+					}
+					absolutism = 20
+				}
+				else_if = {
+					limit = {
+						has_global_modifier_value = {
+							which = max_absolutism
+							value = 20
+						}
+					}
+					absolutism = 10
+				}
+				else = { always = no }
+			}
+		}
+	}
+	ME_absolutist_prime_minister_activate_ai = {
+		major = yes
+		potential = {
+			ai = yes
+			is_absolutism_active = yes
+		}
+		allow = {
+			if = {
+				limit = {
+					NOT = { has_country_modifier = ME_absolutist_prime_minister_active }
+				}
+				adm_power_cost = 25
+			}
+			else = {
+				stability = 2
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					NOT = { has_country_modifier = ME_absolutist_prime_minister_active }
+				}
+				adm_power_cost = 25
+		
+				custom_tooltip = " "
+				
+				add_country_modifier = {
+					name = ME_absolutist_prime_minister_active
+					duration = -1
+				}
+			}
+			else = {
+				add_stability = -1
+		
+				remove_country_modifier = ME_absolutist_prime_minister_active
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { has_country_modifier = ME_absolutist_prime_minister_active }
+				NOT = {
+					has_global_modifier_value = {
+						which = max_absolutism
+						value = 115
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_modifier = ME_absolutist_prime_minister_active
+				has_global_modifier_value = {
+					which = max_absolutism
+					value = 100
+				}
+			}
+		}
+	}
+	
+	ME_convert_foreign_coins_ai = {
+		major = yes
+		potential = {
+			always = no
+		}
+		allow = {
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_modifier = ME_convert_foreign_coins_modifier_1
+				}
+				remove_country_modifier = ME_convert_foreign_coins_modifier_1
+				add_country_modifier = {
+					name = ME_convert_foreign_coins_modifier_2
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_modifier = ME_convert_foreign_coins_modifier_2
+				}
+				remove_country_modifier = ME_convert_foreign_coins_modifier_2
+			}
+			else = {
+				add_country_modifier = {
+					name = ME_convert_foreign_coins_modifier_1
+					duration = -1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						AND = {
+							has_country_modifier = ME_convert_foreign_coins_modifier_1
+							OR = {
+								has_global_modifier_value = {
+									which = inflation_reduction
+									value = 0.1
+								}
+								NOT = {
+									has_global_modifier_value = {
+										which = inflation_reduction
+										value = 0.0
+									}
+								}
+							}
+						}
+						AND = {
+							has_country_modifier = ME_convert_foreign_coins_modifier_2
+							NOT = {
+								has_global_modifier_value = {
+									which = inflation_reduction
+									value = 0.01
+								}
+							}
+						}
+						AND = {
+							NOT = {
+								has_country_modifier = ME_convert_foreign_coins_modifier_1
+							}
+							NOT = {
+								has_country_modifier = ME_convert_foreign_coins_modifier_2
+							}
+							has_global_modifier_value = {
+								which = inflation_reduction
+								value = 0.05
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

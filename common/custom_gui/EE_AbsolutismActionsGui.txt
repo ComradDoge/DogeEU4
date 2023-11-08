@@ -1,0 +1,187 @@
+# Reminder to anyone editing this about the AI events!
+
+custom_text_box = {
+    name = absolutism_category_text
+    potential = {
+		always = yes
+	}
+	tooltip = absolutism_category_text_tooltip
+}
+
+custom_button = {
+	name = public_execution_ui_button
+	tooltip = public_execution_ui_button_tt
+	potential = {
+		always = yes
+	}
+   frame = { 
+       number = 2
+       trigger = { is_revolutionary = yes }
+   }
+   frame = { 
+       number = 1
+       trigger = { always = yes }
+   }
+	trigger = {
+		is_absolutism_active = yes
+		public_execution_mil_power_req = yes
+	}
+	effect = { 
+		custom_tooltip = public_execution_delimiter
+		if = {
+			limit = { is_revolutionary = yes }
+			custom_tooltip = public_execution_zeal_gain
+		}
+		else = {
+			custom_tooltip = public_execution_absolutism_gain
+		}
+		hidden_effect = {
+			add_absolutism = 4 #hidden before absolutism is enabled, needs custom tooltip
+			add_revolutionary_zeal = 10 #hidden before revolution is enabled, needs custom tooltip
+		}
+		custom_tooltip = " "
+		
+		public_execution_mil_power_req_effect = yes
+		custom_tooltip = public_execution_how_cost_works
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ME_every_province_3_base_unrest
+		hidden_effect = {
+			every_owned_province = {
+				add_unrest = 2
+			}
+			
+			update_recent_execution_effect = yes
+			
+			update_execution_cost = yes
+			play_sound = "old_revolt"
+		}
+	}
+}
+
+custom_icon = {
+   name = reign_of_terror_indicator
+   potential = { always = yes } 
+   tooltip = reign_of_terror_tt_custom_loc
+   frame = { 
+       number = 5
+       trigger = { is_absolutism_active = no }
+   }
+   frame = { 
+       number = 4
+       trigger = {
+		   has_country_modifier = ME_reign_of_terror_rev
+		   is_revolutionary = yes
+	   }
+   }
+   frame = { 
+       number = 3
+       trigger = { is_revolutionary = yes }
+   }
+   frame = { 
+       number = 2
+       trigger = { has_country_modifier = ME_reign_of_terror }
+   }
+   frame = { 
+       number = 1
+       trigger = { always = yes }
+   }
+}
+
+custom_button = {
+	name = absolutist_prime_minister_activate
+	tooltip = absolutist_prime_minister_activate_tt_customloc
+	potential = {
+		NOT = {
+			OR = {
+				has_country_modifier = ME_absolutist_prime_minister_active
+				has_country_modifier = ME_revolutionary_prime_minister_active
+			}
+		}
+	}
+   frame = { 
+       number = 2
+       trigger = { is_revolutionary = yes }
+   }
+   frame = { 
+       number = 1
+       trigger = { always = yes }
+   }
+	trigger = {
+		is_absolutism_active = yes
+		adm_power_cost = 50
+	}
+	effect = { 
+		adm_power_cost = 50
+		
+		custom_tooltip = " "
+		if = {
+			limit = { is_revolutionary = yes }
+			add_country_modifier = {
+				name = ME_revolutionary_prime_minister_active
+				duration = -1
+			}
+			custom_tooltip = revolutionary_prime_minister_statesman_buff
+		}
+		else = {
+			add_country_modifier = {
+				name = ME_absolutist_prime_minister_active
+				duration = -1
+			}
+			custom_tooltip = absolutist_prime_minister_statesman_buff
+		}
+		
+	}
+}
+
+custom_button = {
+	name = absolutist_prime_minister_deactivate
+	tooltip = absolutist_prime_minister_deactivate_tt_customloc
+	potential = {
+		OR = {
+			has_country_modifier = ME_absolutist_prime_minister_active
+			has_country_modifier = ME_revolutionary_prime_minister_active
+		}
+	}
+   frame = { 
+       number = 2
+       trigger = { is_revolutionary = yes }
+   }
+   frame = { 
+       number = 1
+       trigger = { always = yes }
+   }
+	trigger = {
+		is_absolutism_active = yes
+		stability = 2
+	}
+	effect = { 
+		add_stability = -1
+		
+		custom_tooltip = " "
+		
+		remove_country_modifier = ME_absolutist_prime_minister_active
+		remove_country_modifier = ME_revolutionary_prime_minister_active
+		
+		custom_tooltip = " "
+		
+		if = {
+			limit = { is_revolutionary = yes }
+			custom_tooltip = revolutionary_prime_minister_statesman_no_morebuff
+		}
+		else = {
+			custom_tooltip = absolutist_prime_minister_statesman_no_morebuff
+		}
+	}
+}
+
+custom_icon = {
+   name = absolutist_prime_minister_glow
+   potential = {
+		OR = {
+			has_country_modifier = ME_absolutist_prime_minister_active
+			has_country_modifier = ME_revolutionary_prime_minister_active
+		}
+   }
+}

@@ -111,6 +111,9 @@ emp_hab_poland_branch = {
 				}
 			}
 		}
+		ai_weight = {
+			factor = 75	#Just a little bit of goodies for Austria
+		}
 	}
 }
 
@@ -836,7 +839,7 @@ emp_hab_minorities_branch = {
 					NOT = { accepted_culture = hungarian }
 					NOT = { primary_culture = hungarian }
 				}
-				add_accepted_culture = hungarian
+				add_accepted_culture_or_dip_power = { culture = hungarian dip_reward = yes }
 				if = {
 					limit = {
 						153 = { culture = austrian }
@@ -860,7 +863,13 @@ emp_hab_minorities_branch = {
 					NOT = { accepted_culture = slovak }
 					NOT = { primary_culture = slovak }
 				}
-				add_accepted_culture = slovak
+				if = {
+					limit = { has_updated_culture = { culture = slavic } }
+					add_accepted_culture_or_dip_power = { culture = slovak_new dip_reward = yes }
+				}
+				else = {
+					add_accepted_culture_or_dip_power = { culture = slovak dip_reward = yes }
+				}
 				if = {
 					limit = {
 						1772 = { culture = austrian }
@@ -879,6 +888,9 @@ emp_hab_minorities_branch = {
 					add_base_tax = 1
 				}
 			}
+		}
+		ai_weight = {
+			factor = 500	#Historical Conquest
 		}
 	}
 	
@@ -1028,6 +1040,13 @@ emp_hab_german_expansion_branch = {
 				}
 			}
 		}
+		ai_weight = {
+			factor = 500	#Historical conquest
+			modifier = {
+				is_emperor = yes
+				factor = 0	#Unless they are the emperor
+			}
+		}
 	}
 	
 	emp_hab_union_bayern = {
@@ -1070,6 +1089,13 @@ emp_hab_german_expansion_branch = {
 				duration = 7300
 			}
 		}
+		ai_weight = {
+			factor = 500	#Reasonable conquest
+			modifier = {
+				is_emperor = yes
+				factor = 0	#Unless they are the emperor
+			}
+		}
 	}
 	
 	emp_hab_swabia = {
@@ -1081,14 +1107,16 @@ emp_hab_german_expansion_branch = {
 			OR = {
 				area = upper_swabia_area
 				area = lower_swabia_area
+				area = upper_rhineland_area
 			}
 			ROOT = {
 				NOT = {
 					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-						value = 6 #of 10 (you can spare the FCs)
+						value = 8 #of 10 (you can spare the FCs)
 						OR = {
 							area = upper_swabia_area
 							area = lower_swabia_area
+							area = upper_rhineland_area
 						}
 					}
 				}
@@ -1097,10 +1125,11 @@ emp_hab_german_expansion_branch = {
 		}
 		trigger = {
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				value = 6 #of 10 (you can spare the FCs)
+				value = 8 #of 10 (you can spare the FCs)
 				OR = {
 					area = upper_swabia_area
 					area = lower_swabia_area
+					area = upper_rhineland_area
 				}
 			}
 		}
@@ -1120,6 +1149,21 @@ emp_hab_german_expansion_branch = {
 					name = hab_holdings_in_swabia
 					duration = 10950
 				}
+			}
+			upper_rhineland_area = {
+				limit = { country_or_non_sovereign_subject_holds = root }
+				add_nationalism = -5
+				add_province_modifier = {
+					name = hab_holdings_in_swabia
+					duration = 10950
+				}
+			}
+		}
+		ai_weight = {
+			factor = 500	#Reasonable conquest
+			modifier = {
+				is_emperor = yes
+				factor = 0	#Unless they are the emperor
 			}
 		}
 	}
@@ -1342,6 +1386,9 @@ emp_hab_german_expansion_branch_2 = {
 				}
 			}
 		}
+		ai_weight = {
+			factor = 0	#Not really doable
+		}
 	}
 }
 
@@ -1363,34 +1410,21 @@ emp_hab_western_expansion_branch = {
 	
 	emp_hab_connect_further_austria = {
 		icon = connect_further_austria
-		
-		ai_weight = {
-			factor = 3
-			modifier = {
-				factor = 0.33
-				NOT = { owns = 1880 }
-			}
-		}
-
 
 		position = 9
 		
 		required_missions = {  }
 		provinces_to_highlight = {
-			OR = { 
-				area = upper_bavaria_area
-				area = tirol_area
+			province_id = 1880
+			OR = {
+				NOT = { owned_by = root }
+				is_in_capital_area = no
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			upper_bavaria_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			tirol_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			1880 = {
+				owned_by = root
+				is_in_capital_area = yes
 			}
 		}
 		effect = {
@@ -1422,13 +1456,24 @@ emp_hab_western_expansion_branch = {
 				}
 				add_permanent_claim = root
 			}
-			#upper_rhineland_area = {
-			#	limit = {
-			#		NOT = { is_core = root }
-			#		NOT = { is_permanent_claim = root }
-			#	}
-			#	add_permanent_claim = root
-			#}
+			upper_rhineland_area = {
+				limit = {
+					NOT = { is_core = root }
+					NOT = { is_permanent_claim = root }
+				}
+				add_permanent_claim = root
+			}
+		}
+		ai_weight = {
+			factor = 500	#Historical conquest
+			modifier = {
+				is_emperor = yes	#But not when you are the emperor
+				factor = 0
+			}
+			modifier = {
+				factor = 0.33
+				NOT = { owns = 1880 }
+			}
 		}
 	}
 	
@@ -1483,7 +1528,7 @@ emp_hab_western_expansion_branch = {
 				}
 				add_permanent_claim = root
 			}
-			west_burgundy_area = {
+			lorraine_area = {
 				limit = {
 					NOT = { is_core = root }
 					NOT = { is_permanent_claim = root }
@@ -1509,6 +1554,13 @@ emp_hab_western_expansion_branch = {
 				add_permanent_claim = root
 			}
 		}
+		ai_weight = {
+			factor = 500	#Historical conquest
+			modifier = {
+				is_emperor = yes	#But not when you are the emperor
+				factor = 0
+			}
+		}
 	}
 	
 	emp_hab_conquer_burgundy = {
@@ -1518,7 +1570,7 @@ emp_hab_western_expansion_branch = {
 		provinces_to_highlight = {
 			OR = {
 				area = bourgogne_area
-				area = west_burgundy_area
+				area = lorraine_area
 			}
 			NOT = { country_or_non_sovereign_subject_holds = root }
 		}
@@ -1527,7 +1579,7 @@ emp_hab_western_expansion_branch = {
 				type = all
 				country_or_non_sovereign_subject_holds = root
 			}
-			west_burgundy_area = {
+			lorraine_area = {
 				type = all
 				country_or_non_sovereign_subject_holds = root
 			}
@@ -1543,7 +1595,7 @@ emp_hab_western_expansion_branch = {
 					duration = 7300
 				}
 			}
-			west_burgundy_area = {
+			lorraine_area = {
 				add_province_modifier = {
 					name = hab_back_into_empire
 					duration = 7300
@@ -1561,6 +1613,9 @@ emp_hab_western_expansion_branch = {
 					modifier = opinion_hab_back_into_empire
 				}
 			}
+		}
+		ai_weight = {
+			factor = 500	#Historical conquest
 		}
 	}
 	
@@ -1595,6 +1650,9 @@ emp_hab_western_expansion_branch = {
 				duration = 10950
 			}
 		}
+		ai_weight = {
+			factor = 500	#Historical rivalry
+		}
 	}
 }
 
@@ -1620,11 +1678,6 @@ emp_hab_balkans = {
 		icon = defeat_the_serbs
 
 		position = 7
-
-		ai_weight = {
-			factor = 2
-		}
-
 		
 		required_missions = { austrian_croatia }
 		provinces_to_highlight = {
@@ -1688,6 +1741,9 @@ emp_hab_balkans = {
 				add_permanent_claim = root
 			}
 		}
+		ai_weight = {
+			factor = 500	#Historical conquest
+		}
 	}
 }
 
@@ -1711,11 +1767,6 @@ emp_hab_balkans_2 = {
 		icon = push_on_to_bulgaria
 
 		position = 8
-
-		ai_weight = {
-			factor = 2
-		}
-
 		
 		required_missions = { emp_hab_take_serbia conquer_transylvania }
 		provinces_to_highlight = {
@@ -1763,17 +1814,15 @@ emp_hab_balkans_2 = {
 				}
 			}
 		}
+		ai_weight = {
+			factor = 500	#Historical rivalry conquest
+		}
 	}
 	
 	emp_hab_scourge_of_europe = {
 		icon = mission_ottoman_diplomacy
 
 		position = 10
-
-		ai_weight = {
-			factor = 2
-		}
-
 		
 		required_missions = { emp_hab_take_wallachia_bulgaria }
 		provinces_to_highlight = {
@@ -1807,6 +1856,9 @@ emp_hab_balkans_2 = {
 				country_event = { id = new_flavour_hun.3 } #event used by Hungary too
 			}
 		}
+		ai_weight = {
+			factor = 500	#Historical rivalry conquest
+		}
 	}
 }
 
@@ -1831,11 +1883,6 @@ emp_hab_more_italy_branch = {
 		icon = kingdom_of_lombardy
 
 		position = 9
-		
-		ai_weight = {
-			factor = 3
-		}
-
 		
 		required_missions = { austrian_italian_ambition }
 		provinces_to_highlight = {
@@ -1925,17 +1972,19 @@ emp_hab_more_italy_branch = {
 				}
 			}
 		}
+		ai_weight = {
+			factor = 500	#Historical conquest
+			modifier = {
+				factor = 0	#Shadow Kingdom and Emperorship though
+				is_emperor = yes
+				NOT = { is_year = 1490 }
+			}
+		}
 	}
 	
 	emp_hab_naples = {
 		icon = union_with_naples
-
 		position = 10
-		
-		ai_weight = {
-			factor = 3
-		}
-
 		
 		required_missions = { emp_hab_veneto_lombardy }
 		provinces_to_highlight = {
@@ -1986,6 +2035,9 @@ emp_hab_more_italy_branch = {
 				}
 				add_permanent_claim = root
 			}
+		}
+		ai_weight = {
+			factor = 500	#Historical conquest
 		}
 	}
 }

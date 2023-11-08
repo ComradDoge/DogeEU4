@@ -2,7 +2,10 @@ tribal_federation_mechanic = {
 	alert_icon_gfx = GFX_alerticons_government_mechanics
 	alert_icon_index = 5
 	available = {
-		has_dlc = "Cradle of Civilization"
+		OR = {
+			has_dlc = "Cradle of Civilization"
+			has_dlc = "King of Kings"
+		}
 	}
 
 	powers = {
@@ -30,8 +33,18 @@ tribal_federation_mechanic = {
 			trigger = {
 			}
 			effect = {
-				create_general = {
-					tradition = 40
+				if = {
+					limit = {
+						has_country_flag = ARB_upgrade_enlist_general_flag
+					}
+					create_general = {
+						tradition = 60
+					}
+				}
+				else = {
+					create_general = {
+						tradition = 40
+					}
 				}
 			}
 			cooldown_years = 0
@@ -96,14 +109,27 @@ tribal_federation_mechanic = {
 			cost_type = tribal_allegiance
 			cost = 30
 			trigger = {
+				NOT = { has_country_modifier = ABR_train_horsemanship_modifier_upgraded }
+				NOT = { has_country_modifier = train_horsemanship_modifier }
 			}
 			effect = {
-				add_country_modifier = {
-					name = train_horsemanship_modifier
-					duration = 3650
+				if = {
+					limit = {
+						has_country_flag = ARB_upgrade_train_horsemanship_flag
+					}
+					add_country_modifier = {
+						name = ABR_train_horsemanship_modifier_upgraded
+						duration = 5475
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = train_horsemanship_modifier
+						duration = 3650
+					}
 				}
 			}
-			cooldown_years = 10
+			cooldown_years = 0
 			ai_chance = {
 				factor = 1
 				modifier = {
@@ -154,6 +180,17 @@ tribal_federation_mechanic = {
 						speed = 0.25
 						cost = 0
 					}
+				}
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = turkoman_safavids_conscripted
+							has_country_flag = ARB_upgrade_conscript_from_the_tribes_flag
+						}
+					}
+					custom_tooltip = " "
+					
+					add_yearly_manpower = 1
 				}
 			}
 			cooldown_years = 0

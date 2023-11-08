@@ -507,13 +507,41 @@ on_siege_won_country = {
 		}
 	}
 	grant_manpower_from_besieging_fort = yes
+	if = {
+		limit = {
+			has_dlc = "Domination"
+			not = { tag = MAM }
+			exists = MAM
+			FROM = {
+				is_capital = yes
+				owner = { tag = MAM }
+			}
+			root = {
+				or = {
+					tag = TUR
+					and = {
+						is_subject = yes
+						is_subject_of = TUR
+						is_subject_other_than_tributary_trigger = yes
+					}
+				}
+				is_in_war = {
+					casus_belli = cb_ottoman_invasion
+					attacker_leader = TUR
+					defender_leader = MAM
+				}
+			}
+		}
+		TUR = {
+			country_event = { id = flavor_tur.240 }	#Collapse of the Mamluks
+		}
+	}
 	events = {
 		tyw_events.14 # Fall of Prague in Religious War
 		flavor_oir.5 # Oirats capture Beijing
 		flavor_lna.1 # Emerald Buddha
 		flavor_son.14 # Djenne surrenders to Songhai Trigger
 		flavor_teu.25 # Payback for the Hussite Wars
-		flavor_tur.240 # Collapse of teh Mamluks
 		flavor_kor.16 # Tripitaka Koreana
 		flavor_tur.211 # Fall of Vienna
 	}
@@ -981,66 +1009,7 @@ on_hre_religion_white_peace = {
 
 # When a non-native changes government type
 on_government_change = {
-	clr_country_flag = pirate_mutineer_council
-	clr_country_flag = caretaker_revolutionary_government
-	if = {
-		limit = {
-			NOT = { government = monarchy }
-			any_owned_province = {
-				has_province_modifier = domain_of_spouses_family
-			}
-		}
-		random_owned_province = {
-			limit = { has_province_modifier = domain_of_spouses_family }
-			remove_province_modifier = domain_of_spouses_family
-		}
-	}
-	if = {
-		limit = {
-			NOT = { government = monarchy }
-			any_owned_province = {
-				has_province_modifier = home_of_consort
-			}
-		}
-		random_owned_province = {
-			limit = { has_province_modifier = home_of_consort }
-			remove_province_modifier = home_of_consort
-		}
-	}
-	if = {
-		limit = {
-			OR = {
-				tag = ENG
-				tag = GBR
-			}
-			any_owned_province = {
-				has_province_modifier = rotten_borough
-			}
-		}
-		every_owned_province = {
-			limit = {
-				has_province_modifier = rotten_borough
-			}
-			remove_province_modifier = rotten_borough
-		}
-	}
-	if = {
-		limit = { has_country_modifier = the_reign_of_terror }
-		remove_country_modifier = the_reign_of_terror
-	}
-	if = {
-		limit = {
-			has_global_flag = great_peasants_war_flag
-			is_part_of_hre = yes
-			has_government_attribute = is_peasants_republic
-		}
-		1 = {
-			change_variable = {
-				which = GPW_counting_variable
-				value = -3
-			}
-		}
-	}
+	on_government_change_effect = yes
 }
 
 # When a native changes government after filling all their advancement groups.
@@ -1638,9 +1607,15 @@ on_bi_yearly_pulse_3 = {
 	#on_bi_yearly_pulse_estate_privileges_effect = yes
 
 	events = {
-
+		#muslim_school_events.20 #Pick School
+		promoting_art_events.2	#Art finished!
 	}
 	random_events = {
+		100 = promoting_art_events.3
+		100 = promoting_art_events.4
+		100 = promoting_art_events.5
+		100 = promoting_art_events.6
+		50 = promoting_art_events.7
 		100 = new_court_flavour_events.25 #blood is thicker than water
 		200 = 0
 	}
@@ -3862,6 +3837,18 @@ on_convert_by_trade_policy = {
 			}
 		}
 	}
+
+	
+	if = {
+		limit = {
+			FROM = {
+				has_country_flag = YEM_propagation_gives_navy_tradition
+			}
+		}
+		FROM = {
+			add_navy_tradition = 1
+		}
+	}
 }
 
 # country
@@ -3920,7 +3907,33 @@ on_consecrate_patriarch = {
 			}
 		}
 	}
+	if = {
+		limit = {
+			owner = { has_country_flag = BYZ_extra_patriarch_authority }
+			NOT = { has_province_flag = BYZ_consecrated_here_bonus }
+		}
+		owner = {
+			add_patriarch_authority = 0.025
+		}
+		every_province_in_state = {
+			limit = { has_state_patriach = yes }
+			set_province_flag = BYZ_consecrated_here_bonus
+		}
+	}
+	if = {
+		limit = {
+			owner = { has_country_flag = geo_metropolitan_flag }
+		}
+		every_province_in_state = {
+			add_province_modifier = {
+				name = geo_consecrated_ground
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
 	
+	# Europa Expanded
 	if = {
 		limit = {
 			NOT = { has_province_flag = ee_byz_consecrated }
@@ -3964,6 +3977,34 @@ on_leader_recruited = {
 	}
 }
 
+on_general_recruited = {
+	on_general_recruited_effect = yes
+	if = {
+		limit = {
+			has_reform = sparapet_office
+		}
+		add_army_tradition = 0.25
+	}
+	# Shattered
+	if = {
+		limit = { has_government_mechanic = ar_mac_war_cabinet }
+		add_government_power = {
+			mechanic_type = ar_mac_war_cabinet
+			power_type = war_cabinet_organization
+			value = 2
+		}
+
+	}
+
+ 	# Government Expanded
+	if = {
+		limit = {
+			has_government_attribute = enables_general_guards
+		}
+		add_army_professionalism = 0.0125
+	}
+}
+
 # country
 on_admiral_recruited = {
 	if = {
@@ -3978,6 +4019,12 @@ on_admiral_recruited = {
 			}
 		}
 		add_navy_tradition = 1 
+	}
+	if = {
+		limit = {
+			has_country_flag = improve_nav_prof_flag
+		}
+		add_navy_tradition = 1
 	}
 }
 
@@ -4186,6 +4233,12 @@ on_musketeer_raised = {
 on_samurai_raised = {
 }
 
+on_qizilbash_raised = {
+}
+
+on_mamluks_raised = {
+}
+
 on_geobukseon_raised = {
 }
 
@@ -4254,11 +4307,19 @@ on_center_of_trade_upgrade = {
 		limit = { owner = { has_country_flag = enable_upgrading_centers_of_trade_dev } }
 		add_base_production = 1 
 	}
+	if = {
+		limit = { owner = { has_country_modifier = geo_centers_of_trade } }
+		add_base_production = 1 
+	}
 }
 
 on_center_of_trade_downgrade = {
 	if = {
 		limit = { owner = { has_country_flag = enable_upgrading_centers_of_trade_dev } }
+		add_base_production = -1 
+	}
+	if = {
+		limit = { owner = { has_country_modifier = geo_centers_of_trade } }
 		add_base_production = -1 
 	}
 }
@@ -4285,6 +4346,7 @@ on_culture_demoted = {
 	judaism_on_culture_country_effect = yes
 	imperial_modifiers_on_culture_country_effect = yes
 	on_culture_demoted_effect = yes
+	on_culture_demoted_effect_remove_all_free_slots = yes
 }
 
 on_primary_culture_changed = {
@@ -4416,6 +4478,12 @@ on_dependency_lost = {
 			remove_country_modifier = revoked_war_rights
 		}
 	}
+	FROM = {
+		if = {
+			limit = { has_country_modifier = grain_trade_imports_modifier }
+			remove_country_modifier = grain_trade_imports_modifier
+		}
+	}
 }
 
 # ROOT = Country establishing it
@@ -4481,27 +4549,6 @@ on_raid_coast = {
 		}
 	}
 
-
-	# Missions Expanded
-	if = { 
-		limit = { has_country_flag = nss_raid_for_pp_flag } 
-		add_power_projection = {
-			type = mission_rewards_power_projection
-			amount = 1
-		}
-	}
-	save_event_target_as = Temp_THIS
-	ME_on_raid_coast_sea_effect = yes
-	FROM = {
-		every_neighbor_province = {
-			limit = {
-				NOT = { is_sea = yes }
-			}
-			event_target:Temp_THIS = { 
-				ME_on_raid_coast_province_effect = yes
-			}
-		}
-	}
 }
 
 # ROOT = Tag that captured the flagship, FROM = Tag that lost the flagship
@@ -4569,6 +4616,9 @@ on_rebels_break_country = {
 		duration = 10
 		hidden = yes
 	}
+	events = {
+		flavor_per.64	#No more Zoroastrian
+	}
 }
 
 # this = country
@@ -4608,17 +4658,17 @@ on_pre_mil_advisor_fired = {
 
 # this = country
 on_post_adm_advisor_fired = {
-
+	on_advisor_removed_effct = { type = adm }
 }
 
 # this = country
 on_post_dip_advisor_fired = {
-	
+	on_advisor_removed_effct = { type = dip }
 }
 
 # this = country
 on_post_mil_advisor_fired = {
-	
+	on_advisor_removed_effct = { type = mil }
 }
 
 # this = new target, from = previous target (both can be non-existent tag)
@@ -4696,20 +4746,6 @@ on_conquest = {
 		}
 	}
 
-	# Missions Expanded
-	if = {
-		limit = {
-			owner = {
-				has_country_modifier = MSY_the_end_is_nigh
-			}
-		}
-		owner = {
-			add_disaster_progress = {
-				disaster = ME_the_end_of_times
-				value = -0.3
-			}
-		}
-	}
 }
 
 on_country_creation = {
@@ -4965,33 +5001,11 @@ on_institution_embracement = {
 	}
 }
 # Does not work, not implemented?
-on_national_focus_change = {
-	#if = {
-	#	limit = {
-	#		has_government_attribute = enables_power_on_national_focus_change
-	#		national_focus = ADM
-	#	}
-	#	add_mil_power = 50
-	#	add_dip_power = 50
-	#}
-	#if = {
-	#	limit = {
-	#		has_government_attribute = enables_power_on_national_focus_change
-	#		national_focus = DIP
-	#	}
-	#	add_mil_power = 50
-	#	add_adm_power = 50
-	#}
-	#if = {
-	#	limit = {
-	#		has_government_attribute = enables_power_on_national_focus_change
-	#		national_focus = MIL
-	#	}
-	#	add_dip_power = 50
-	#	add_adm_power = 50
-	#}
+on_national_focus_change = {}
+
+on_capital_moved = {
+	on_capital_moved_effect = yes
 }
-on_capital_moved = {}
 
 #ROOT = province that was expanded in, FROM = country that did it
 on_expanded_infrastructure = {
@@ -5051,34 +5065,10 @@ consort_on_shipwreck = {
 
 #ROOT = country
 on_defender_of_faith_loss = {
-	clr_country_flag = claimed_defender_of_faith_flag
-	remove_country_modifier = liv_the_livonian_defender
-	remove_country_modifier = gov_improved_defender_of_faith_mod
-	remove_country_modifier = pol_shield_against_catholicism_modifier
+	on_defender_of_faith_loss_effect = yes
 }
 on_defender_of_faith_claim = {
-	set_country_flag = claimed_defender_of_faith_flag
-	if = {
-		limit = {
-			religion = catholic
-			has_country_flag = liv_the_livonian_defender_flag
-			NOT = { has_country_modifier = liv_the_livonian_defender }
-		}
-		add_country_modifier = {
-			name = liv_the_livonian_defender
-			duration = -1
-			desc = liv_the_livonian_defender_tt
-		}
-	}
-	if = {
-		limit = {
-			has_government_attribute = improved_defender_of_faith
-		}
-		add_country_modifier = {
-			name = gov_improved_defender_of_faith_mod
-			duration = -1
-		}
-	}
+	on_defender_of_faith_claim_effect = yes
 }
 on_hre_dismantled = {
 	country_event = {
@@ -5096,6 +5086,7 @@ on_new_age = {
 		flavor_rus.44 #Update the Russian mission tree
 		flavor_gbr.122 #Assign Religious Chaos to England
 	}
+	set_age_passed_global_flag = yes
 	remove_all_age_timed_modifiers = yes
 	if = {
 		limit = {
@@ -5450,6 +5441,26 @@ on_war_ended = { #ROOT - Winer FROM - Loser
 
 on_alliance_broken = { #ROOT - Original alliance creator, FROM - Alliance accepter
 	on_alliance_broken_effect = yes
+	if = {
+		limit = { has_country_modifier = grain_trade_imports_modifier }
+		remove_country_modifier = grain_trade_imports_modifier
+	}
+	FROM = { 
+		if = {
+			limit = { has_country_modifier = grain_trade_imports_modifier }
+			remove_country_modifier = grain_trade_imports_modifier
+		}
+	}
+	if = {
+		limit = { has_country_flag = enable_galleass }
+		clr_country_flag = enable_galleass
+	}
+	FROM = {
+		if = {
+			limit = { has_country_flag = enable_galleass }
+			clr_country_flag = enable_galleass
+		}
+	}
 }
 
 on_royal_marriage_broken = { #ROOT - Original marriage creator, FROM - Marriage accepter
@@ -5466,4 +5477,8 @@ on_royal_marriage = { #ROOT - Marraige sender, FROM - marriage accepter
 
 on_heir_disinherited = {
 	on_heir_disinherited_or_death_effect = yes
+}
+
+on_overrun = { #ROOT - winner, FROM - loser, on stackwipe
+
 }
