@@ -286,3 +286,326 @@ QIR_end_preview_mode = {
 	}
 	else = { }
 }
+
+ME_init_caliphal_influence_variables = {
+	if = {
+		limit = {
+			OR = {
+				religion = sunni
+				has_country_flag = unified_islam
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						has_saved_global_event_target = Caliph_province_holder
+						has_saved_global_event_target = Old_caliph_province
+						event_target:Old_caliph_province = {
+							owner = {
+								NOT = { tag = event_target:Caliph_province_holder }
+							}
+						}
+					}
+					NOT = { has_saved_global_event_target = Old_caliph_province }
+					NOT = { has_saved_global_event_target = Caliph_province_holder }
+					AND = {
+						has_saved_global_event_target = Caliph_province_holder
+						NOT = { has_saved_global_event_target = Caliph_province }
+						#NOT = { religion = sunni }
+					}
+				}
+			}
+			set_variable = {
+				which = caliphal_influence
+				value = 50
+			}
+			set_variable = {
+				which = caliphal_influence_growth
+				value = 0.10
+			}
+		}
+	}
+	else = {
+		#set_variable = {
+		#	which = caliphal_influence
+		#	value = 0
+		#}
+		#set_variable = {
+		#	which = caliphal_influence_growth
+		#	value = 0
+		#}
+	}
+	ME_check_caliphal_influence_modifiers = yes
+}
+
+ME_check_caliphal_influence_growth_modifiers = {
+	set_variable = {
+		which = caliphal_influence_growth
+		value = 0
+	}
+	export_to_variable = {
+		which = religious_unity_var
+		value = religious_unity
+	}
+	export_to_variable = {
+		which = totf_var
+		value = modifier:tolerance_own
+	}
+	export_to_variable = {
+		which = piety_var
+		value = piety
+	}
+	export_to_variable = {
+		which = corruption_var
+		value = corruption
+	}
+	multiply_variable = {
+		which = religious_unity_var
+		value = 0.15
+	}
+	multiply_variable = {
+		which = totf_var
+		value = 0.02
+	}
+	multiply_variable = {
+		which = piety_var
+		value = 0.20
+	}
+	multiply_variable = {
+		which = corruption_var
+		value = -0.10
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					which = piety_var
+					value = 0
+				}
+			}
+		}
+		multiply_variable = {
+			which = piety_var
+			value = -1
+		}
+	}
+	change_variable = {
+		which = caliphal_influence_growth
+		which = religious_unity_var
+	}
+	change_variable = {
+		which = caliphal_influence_growth
+		which = totf_var
+	}
+	change_variable = {
+		which = caliphal_influence_growth
+		which = piety_var
+	}
+	change_variable = {
+		which = caliphal_influence_growth
+		which = corruption_var
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = caliphal_influence
+				value = 50
+			}
+		}
+		set_variable = {
+			which = caliphal_influence_copy_high_demerit
+			which = caliphal_influence
+		}
+		set_variable = {
+			which = caliphal_influence_high_demerit
+			value = -0.75
+		}
+		divide_variable = {
+			which = caliphal_influence_copy_high_demerit
+			value = 100
+		}
+		subtract_variable = {
+			which = caliphal_influence_copy_high_demerit
+			value = 0.5
+		}
+		multiply_variable = {
+			which = caliphal_influence_copy_high_demerit
+			value = 2
+		}
+		multiply_variable = {
+			which = caliphal_influence_high_demerit
+			which = caliphal_influence_copy_high_demerit
+		}
+		change_variable = {
+			which = caliphal_influence_growth
+			which = caliphal_influence_high_demerit
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_country_modifier = hanafi_scholar_modifier
+				has_country_modifier = hanbali_scholar_modifier
+				has_country_modifier = maliki_scholar_modifier
+				has_country_modifier = shafii_scholar_modifier
+				has_country_modifier = ismaili_scholar_modifier
+				has_country_modifier = jafari_scholar_modifier
+				has_country_modifier = zaidi_scholar_modifier
+			}
+		}
+		change_variable = {
+			which = caliphal_influence_growth
+			which = 0.05
+		}
+	}
+	if = {
+		limit = {
+			is_defender_of_faith = yes
+		}
+		change_variable = {
+			which = caliphal_influence_growth
+			which = 0.10
+		}
+	}
+}
+
+ME_check_caliphal_influence_modifiers = {
+	ME_check_caliphal_influence_growth_modifiers = yes
+	if = {
+		limit = {
+			has_global_flag = monthly_check_can_run
+		}
+		change_variable = {
+			which = caliphal_influence
+			which = caliphal_influence_growth
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = {
+				which = caliphal_influence
+				value = 100
+			}
+		}
+		set_variable = {
+			which = caliphal_influence
+			value = 100
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					which = caliphal_influence
+					value = 0
+				}
+			}
+		}
+		set_variable = {
+			which = caliphal_influence
+			value = 0
+		}
+	}
+	
+	set_variable = {
+		which = caliphal_influence_check
+		which = caliphal_influence
+	}
+	set_variable = {
+		which = caliphal_influence_check_original
+		which = caliphal_influence
+	}
+	divide_variable = {
+		which = caliphal_influence_check
+		value = 100
+	}
+	set_variable = {
+		which = caliphal_influence_check_negative
+		which = caliphal_influence_check
+	}
+	subtract_variable = {
+		which = caliphal_influence_check
+		value = 0.5
+	}
+	multiply_variable = {
+		which = caliphal_influence_check
+		value = 2
+	}
+	subtract_variable = {
+		which = caliphal_influence_check_negative
+		value = 0.5
+	}
+	multiply_variable = {
+		which = caliphal_influence_check_negative
+		value = 2
+	}
+	
+	set_variable = {
+		which = caliphal_influence_pos_manpower
+		value = 25
+	}
+	set_variable = {
+		which = caliphal_influence_pos_cost
+		value = -50
+	}
+	set_variable = {
+		which = caliphal_influence_pos_opinion
+		value = 100
+	}
+	
+	multiply_variable = {
+		which = caliphal_influence_pos_manpower
+		which = caliphal_influence_check
+	}
+	multiply_variable = {
+		which = caliphal_influence_pos_cost
+		which = caliphal_influence_check
+	}
+	multiply_variable = {
+		which = caliphal_influence_pos_opinion
+		which = caliphal_influence_check
+	}
+	
+	set_variable = {
+		which = caliphal_influence_neg_tolerance
+		value = 3
+	}
+	set_variable = {
+		which = caliphal_influence_neg_damage
+		value = -10
+	}
+	set_variable = {
+		which = caliphal_influence_neg_opinion
+		value = 50
+	}
+	
+	multiply_variable = {
+		which = caliphal_influence_neg_tolerance
+		which = caliphal_influence_check_negative
+	}
+	multiply_variable = {
+		which = caliphal_influence_neg_damage
+		which = caliphal_influence_check_negative
+	}
+	multiply_variable = {
+		which = caliphal_influence_neg_opinion
+		which = caliphal_influence_check_negative
+	}
+	
+	regenerate_government_mechanics = yes
+	
+	set_government_power = {
+		mechanic_type = caliphal_authority_ui_hidden_mechanic
+		power_type = caliphal_legitimacy_hidden
+		value = 0
+	}
+	
+	gov_power_variable_use_in_effect_effect = {
+		mechanic_name = caliphal_authority_ui_hidden_mechanic 
+		power_name = caliphal_legitimacy_hidden 
+		variable = caliphal_influence_check_original
+	}
+}

@@ -1,0 +1,91 @@
+caliphal_authority_ui_hidden_mechanic = {
+	available = {
+		#always = yes
+		tag = event_target:Caliph_province_holder
+		OR = {
+			religion = sunni
+			has_country_flag = unified_islam
+		}
+	}
+
+	powers = {
+		caliphal_legitimacy_hidden = {
+			gui = caliphal_authority_ui_gov_mech
+			max = 100	#Monarchy direction
+			min = 0	#Parliament direction
+			base_monthly_growth = 0
+			scaled_modifier = {
+				trigger = {
+					has_government_power = { 
+						mechanic_type = caliphal_authority_ui_hidden_mechanic
+						power_type = caliphal_legitimacy_hidden
+						value = 50
+					}
+				}
+				modifier = {
+					same_religion_advisor_cost = -0.5
+					reverse_relation_with_same_religion = 100
+					manpower_in_true_faith_provinces = 0.25
+				}
+				start_value = 50
+				end_value = 100			
+			}
+			reverse_scaled_modifier = {
+				trigger = {
+					NOT = {
+						has_government_power = { 
+							mechanic_type = caliphal_authority_ui_hidden_mechanic
+							power_type = caliphal_legitimacy_hidden
+							value = 50
+						}
+					}
+				}
+				modifier = {
+					tolerance_own = -3
+					morale_damage_received = 0.10
+					reverse_relation_with_same_religion = -50
+				}
+				start_value = 0
+				end_value = 50
+			}
+			on_max_reached = {
+				
+			}
+			on_min_reached = {
+				
+			}
+		}
+		is_caliph_hidden = {
+			gui = caliphal_authority_ui_gov_mech
+			max = 100	#Monarchy direction
+			min = 0	#Parliament direction
+			base_monthly_growth = 0
+			range_modifier = {
+				trigger = {
+					ME_can_benefit_from_abbasid_caliph = yes
+				}
+				modifier = {
+					diplomatic_reputation = 1
+					#legitimacy = 0.5
+					tolerance_own = 1#0.5
+				}
+				start_value = 0
+				end_value = 100	
+			}
+			range_modifier = {
+				trigger = {
+					has_country_flag = unified_islam
+					#NOT = { has_disaster = ABB_abbasid_caliph_revolt }
+				}
+				modifier = {
+					stability_cost_modifier = -0.2
+					global_missionary_strength = 0.02
+					tolerance_own = 2
+					tolerance_heretic = 1
+				}
+				start_value = 0
+				end_value = 100	
+			}
+		}
+	}
+}

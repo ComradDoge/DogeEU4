@@ -11,6 +11,42 @@ ME_set_abbasid_caliph_province = {
 			}
 		}
 		save_global_event_target_as = Caliph_province
+		if = {
+			limit = {
+				has_saved_global_event_target = Caliph_province_holder
+			}
+			event_target:Caliph_province_holder = { regenerate_government_mechanics = yes }
+		}
+		owner = { regenerate_government_mechanics = yes }
+		owner = { save_global_event_target_as = Caliph_province_holder }
+		owner = { ME_init_caliphal_influence_variables = yes }
+		
+		remove_country_modifier = Abbasid_got_denounced
+		every_country = {
+			limit = {
+				has_opinion_modifier = {
+					who = event_target:Caliph_province_holder
+					modifier = abbasid_got_denounced_by_caliph_opinion
+				}
+			}
+			remove_opinion = {
+				who = event_target:Caliph_province_holder
+				modifier = abbasid_got_denounced_by_caliph_opinion
+			}
+		}
+		
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_saved_global_event_target = Caliph_province }
+					AND = {
+						has_saved_global_event_target = Caliph_province
+						has_saved_global_event_target = Old_caliph_province
+					}
+				}
+			}
+			
+		}
 		
 		if = {
 			limit = {
@@ -27,6 +63,7 @@ ME_set_abbasid_caliph_province = {
 					}
 					religion = sunni
 				}
+				clr_global_flag = caliph_held_by_infidels
 				owner = { 
 					remove_country_modifier = ME_khalifah
 					country_event = { id = ME_Abbasid_Events.8 }
@@ -78,12 +115,62 @@ ME_become_caliphate_effect = {
 			religion_group = muslim
 		}
 		change_government = monarchy #necessary condition
-		
+		hidden_effect = {
+			set_global_flag = ME_caliphate_is_active
+			if = {
+				limit = {
+					has_saved_global_event_target = ME_caliphate_tag
+				}
+				event_target:ME_caliphate_tag = {
+					clr_country_flag = unified_islam
+					if = {
+						limit = {
+							has_reform = ME_caliphate_reform_sunni
+						}
+						remove_government_reform = ME_caliphate_reform_sunni
+					}
+					else_if = {
+						limit = {
+							has_reform = ME_caliphate_reform_sunni_andalusia
+						}
+						remove_government_reform = ME_caliphate_reform_sunni_andalusia
+					}
+					else_if = {
+						limit = {
+							has_reform = ME_caliphate_reform_sunni_arabian
+						}
+						remove_government_reform = ME_caliphate_reform_sunni_arabian
+					}
+					else_if = {
+						limit = {
+							has_reform = ME_caliphate_reform_shia_ibadi
+						}
+						remove_government_reform = ME_caliphate_reform_shia_ibadi
+					}
+					else = { }
+				}
+			}
+			save_global_event_target_as = ME_caliphate_tag
+			save_global_event_target_as = Caliph_province_holder
+			set_country_flag = unified_islam
+			set_global_flag = unified_islam_global
+			clr_global_flag = ME_abbasid_caliph_exists
+			if = {
+				limit = {
+					has_saved_global_event_target = Caliph_province
+				}
+				event_target:Caliph_province = {
+					save_event_target_as = Old_caliph_province #should go out of scope because not global
+					ME_remove_abbasid_modifiers = yes
+				}
+			}
+			clear_global_event_target = Caliph_province
+			clear_global_event_target = Old_caliph_province
+		}
 		if = {
 			limit = {
 				religion = sunni # the three sunni caliphate types
 			}
-			set_global_flag = ME_caliphate_is_active
 			if = {
 				limit = {
 					has_country_flag = ME_andalusian_caliphate
@@ -98,35 +185,14 @@ ME_become_caliphate_effect = {
 			}
 			else_if = {
 				limit = {
-					NOT = { has_reform = ottoman_government }
-					NOT = { has_reform = modernized_ottoman_government }
-					NOT = { has_reform = reorganized_ottoman_government }
 					NOT = { has_reform = caliphate_reform }
 					NOT = { has_reform = caliphate_theocracy_reform }
 				}
 				add_government_reform = ME_caliphate_reform_sunni
 			}
-			hidden_effect = {
-				save_global_event_target_as = ME_caliphate_tag
-				
-				clr_global_flag = ME_abbasid_caliph_exists
-				if = {
-					limit = {
-						has_saved_global_event_target = Caliph_province
-					}
-					event_target:Caliph_province = {
-						save_event_target_as = Old_caliph_province #should go out of scope because not global
-						ME_remove_abbasid_modifiers = yes
-					}
-				}
-				clear_global_event_target = Caliph_province
-			}
 		}
 		else_if = { #the shia caliphate
 			limit = {
-				NOT = { has_reform = ottoman_government }
-				NOT = { has_reform = modernized_ottoman_government }
-				NOT = { has_reform = reorganized_ottoman_government }
 				NOT = { has_reform = caliphate_reform }
 				NOT = { has_reform = caliphate_theocracy_reform }
 			}
@@ -145,8 +211,20 @@ ME_become_caliphate_effect = {
 			limit = {
 				has_dlc = "Cradle of Civilization"
 			}
-			country_event = { id = ME_Abbasid_Events.24 }
+			#country_event = { id = ME_Abbasid_Events.24 }
 		}
+		
+		regenerate_government_mechanics = yes
+		
+		if = {
+			limit = {
+				NOT = { has_faction = caliphate_faction }
+			}
+			add_faction = caliphate_faction
+		}
+		
+		
+		ME_init_caliphal_influence_variables = yes
 	}		
 }
 
@@ -171,6 +249,7 @@ ME_execute_caliph = {
 			}
 		}
 		clear_global_event_target = Caliph_province
+		clear_global_event_target = Caliph_province_holder
 		
 		# country_event = { id = ME_Abbasid_Events.21 }
 	}
@@ -180,10 +259,15 @@ ME_abbasid_bimonthly_check_effect = {
 	if = {
 		limit = {
 			has_global_flag = ME_caliphate_is_active
-			event_target:ME_caliphate_tag = {
-				OR = {
-					NOT = { exists = yes }
-					NOT = { ME_has_caliphate_reform_trigger = yes }
+			if = {
+				limit = {
+					has_saved_global_event_target = ME_caliphate_tag
+				}
+				event_target:ME_caliphate_tag = {
+					OR = {
+						NOT = { exists = yes }
+						NOT = { ME_has_caliphate_reform_trigger = yes }
+					}
 				}
 			}
 		}
@@ -808,5 +892,624 @@ ABA_pick_advisor = {
 				religion = ROOT
 			}
 		}
+	}
+}
+
+can_enact_fatwa_trigger_tt = {
+	if = {
+		limit = {
+			NOT = {
+				if = {
+					limit = { has_saved_global_event_target = Caliph_province_holder }
+					event_target:Caliph_province_holder = {
+						check_variable = {
+							which = caliphal_influence
+							value = 75
+						}
+					}
+				}
+			}
+		}
+		custom_tooltip = auth_req_fatwa_tt
+	}
+	if = {
+		limit = {
+			is_fatwa_active = { fatwa = $fatwa$ }
+		}
+		custom_tooltip = no_fatwa_yet_tt
+	}
+	if = {
+		limit = {
+			OR = {
+				NOT = {
+					if = {
+						limit = { has_saved_global_event_target = Caliph_province_holder }
+						event_target:Caliph_province_holder = {
+							check_variable = {
+								which = caliphal_influence
+								value = 75
+							}
+						}
+					}
+				}
+				is_fatwa_active = { fatwa = $fatwa$ }
+			}
+		}
+		custom_tooltip = "--------------"
+	}
+}
+
+enact_fatwa_button_effect = {
+	if = {
+		limit = {
+			OR = {
+				ME_has_abbasid_caliph = yes
+				has_country_flag = unified_islam
+			}
+		}
+		can_enact_fatwa_trigger_tt = { fatwa = $fatwa$ }
+		
+		if = {
+			limit = {
+				can_enact_fatwa_effect_tt = { fatwa = $fatwa$ }
+			}
+			enact_fatwa = { fatwa = $fatwa$ }
+			fatwa_event = { id = $event_id$ }
+		}
+		else = {
+			tooltip = {
+				enact_fatwa = { fatwa = $fatwa$ }
+				fatwa_event = { id = $event_id$ }
+			}
+		}
+	}
+	else = {
+		custom_tooltip = only_caliph_fatwa_tt
+	}
+}
+
+enact_fatwa = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_saved_global_event_target = Caliph_province_holder
+				NOT = { is_fatwa_active = { fatwa = $fatwa$ } }
+			}
+			event_target:Caliph_province_holder = {
+				subtract_variable = {
+					which = caliphal_influence
+					value = 20
+				}
+				ME_check_caliphal_influence_modifiers = yes
+			}
+		}
+		add_country_modifier = {
+			name = fatwa_$fatwa$_modifier
+			duration = 10950
+			hidden = yes
+		}
+	}
+	
+	custom_tooltip = fatwa_cost
+	
+	custom_tooltip = " "
+	
+	enact_fatwa_$fatwa$ = yes
+}
+
+enact_fatwa_permit_taqiyya = {
+	custom_tooltip = ABA_permit_fatwa_effect
+		
+	custom_tooltip = " "
+	
+	custom_tooltip = ABA_every_province_of_root
+	tooltip = {
+		add_province_modifier = {
+			name = ABA_taqiya
+			duration = 10950
+		}
+	}
+	hidden_effect = {
+		every_province = {
+			limit = {
+				religion = ROOT
+				owner = {
+					NOT = { religion = ROOT }
+				}
+			}
+			add_province_modifier = {
+				name = ABA_taqiya
+				duration = 10950
+			}
+		}
+	}
+}
+
+enact_fatwa_promote_maddhab = {
+	if = {
+		limit = {
+			has_dlc = "Cradle of Civilization"
+		}
+		custom_tooltip = ABA_every_nation_of_our_school
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = ROOT
+					same_religious_school_trigger = yes
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = abbasid_promoted_our_maddhab
+				}
+				if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = hanbali_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_hanbali_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = hanafi_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_hanafi_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = shafii_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_shafii_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = maliki_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_maliki_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = ismaili_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_ismaili_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = jafari_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_jafari_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = zaidi_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_zaidi_scholar_modifier
+						duration = 10950
+					}
+				}
+				#################################
+				# Shattered
+				#################################
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = akbari_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_akbari_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = alawite_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_alawite_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = ashari_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_ashari_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = azariqa_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_azariqa_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = barelvi_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_barelvi_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = ghulat_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_ghulat_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = imami_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_imami_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = masmudi_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_masmudi_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = maturidi_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_maturidi_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = muhakkima_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_muhakkima_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = mutazilla_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_mutazilla_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = nadjat_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_nadjat_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = nizari_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_nizari_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = quran_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_quran_scholar_modifier
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						ROOT = {
+							religious_school = {
+								group = muslim
+								school = usuli_school
+							}
+						}
+					}
+					add_country_modifier = {
+						name = ABA_usuli_scholar_modifier
+						duration = 10950
+					}
+				}
+
+				else = { }
+			}
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = ABA_opinion_maddhab
+			duration = 10950
+		}
+	}
+}
+
+enact_fatwa_promote_exchange = {
+	if = {
+		limit = {
+			has_dlc = "Cradle of Civilization"
+		}
+		custom_tooltip = ABA_no_need_to_ally_nations
+	}
+	else = {
+		custom_tooltip = ABA_every_country_of_root_religion
+		tooltip = {
+			add_country_modifier = {
+				name = ABA_islamic_exchange
+				duration = 10950
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = ROOT
+				}
+				add_country_modifier = {
+					name = ABA_islamic_exchange
+					duration = 10950
+				}
+			}
+		}
+	}
+}
+
+enact_fatwa_religious_fervor = {
+	custom_tooltip = ABA_gain_100_manpower #this would be limited to nations that support the caliph TODO
+	
+	hidden_effect = {
+		every_province = {
+			limit = {
+				religion = ROOT
+				owner = {
+					religion = ROOT
+				}
+			}
+			ROOT = {
+				add_manpower = 0.1
+			}
+		}
+	}
+	
+	custom_tooltip = " "
+	
+	custom_tooltip = ABA_every_country_of_root_religion
+	tooltip = {
+		add_country_modifier = {
+			name = ABA_religious_fervor
+			duration = 10950
+		}
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				religion = ROOT
+			}
+			add_country_modifier = {
+				name = ABA_religious_fervor
+				duration = 10950
+			}
+		}
+	}
+}
+
+enact_fatwa_permit_sufi_teachings = {
+	custom_tooltip = ABA_support_turuq
+	hidden_effect = {
+		every_country = {
+			limit = {
+				religion = ROOT
+			}
+			add_country_modifier = {
+				name = fatwa_permit_sufi_teachings_modifier
+				duration = 10950
+			}
+		}
+	}	
+	#if = {
+	#	limit = {
+	#		has_dlc = "Cradle of Civilization"
+	#	}
+	#	custom_tooltip = " "
+	#	
+	#	custom_tooltip = ABA_inviting_religious_of_scholars
+	#}
+}
+
+enact_fatwa_relax_sharia = {
+	custom_tooltip = ABA_every_country_of_root_religion
+	tooltip = {
+		add_country_modifier = {
+			name = ABA_relaxed_sharia
+			duration = 10950
+		}
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				religion = ROOT
+			}
+			add_country_modifier = {
+				name = ABA_relaxed_sharia
+				duration = 10950
+			}
+		}
+	}
+}
+
+enact_fatwa_endorse_literature = {
+	add_prestige_or_monarch_power = { amount = 20 }
+	
+	custom_tooltip = " "
+	
+	custom_tooltip = ABA_every_country_of_root_religion
+	tooltip = {
+		add_country_modifier = {
+			name = ABA_loyalty_prestige
+			duration = 10950
+		}
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				religion = ROOT
+			}
+			add_country_modifier = {
+				name = ABA_loyalty_prestige
+				duration = 10950
+			}
+		}
+	}
+}
+
+fatwa_event = {
+	hidden_effect = {
+		#every_country = {
+		#	limit = {
+		#		religion = ROOT
+		#	}
+		#	country_event = { id = ME_Abbasid_Events.$id$ }
+		#}
+		country_event = { id = ME_Abbasid_Events.$id$ }
 	}
 }

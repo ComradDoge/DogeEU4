@@ -1,0 +1,200 @@
+# Added in EE 1.12.1 (1.12.1_additions)
+# Used as the primary repository for EE on_actions now - Doge
+# Will move stuff bit by bit
+
+# country
+on_religion_change = {
+	if = {
+		limit = {
+			religion_group = muslim
+			NOT = { has_faction = caliphate_faction }
+		}
+		add_faction = caliphate_faction
+	}
+}
+
+# this = Released country, FROM = Releasing country
+on_country_released = {
+	#FROM = { ME_change_all_subject_colors = yes }
+	this = {
+		if = {
+			limit = {
+				religion_group = muslim
+				NOT = { has_faction = caliphate_faction }
+			}
+			add_faction = caliphate_faction
+		}
+	}
+}
+
+# Removed all on_pre/post_X_advisor_fired
+
+
+# ROOT = Overlord, FROM = Minor
+on_dependency_gained = {
+	#ME Stuff
+	#ME_change_all_subject_colors = yes
+}
+
+# ROOT = New vassal, FROM = Overlord
+on_create_vassal = {
+	#ME Stuff
+	#FROM = {
+	#	ME_change_all_subject_colors = yes
+	#}
+}
+
+# THIS = New CS, FROM = Overlord
+on_create_client_state = {
+	#ME Stuff
+	#FROM = {
+	#	ME_change_all_subject_colors = yes
+	#}
+}
+
+# Removed on_dependency_lost
+
+# When a non-native changes government type
+on_government_change = {
+	#ME Stuff
+	if = {
+		limit = {
+			religion_group = muslim
+			NOT = { has_faction = caliphate_faction }
+		}
+		add_faction = caliphate_faction
+	}
+}
+
+on_reform_changed = {
+	#ME Stuff 
+	if = {
+		limit = {
+			religion_group = muslim
+			NOT = { has_faction = caliphate_faction }
+		}
+		add_faction = caliphate_faction
+	}
+}
+
+# country (country annexing, root = target)
+on_diplomatic_annex = {
+	#ME Stuff
+	#clr_country_flag = color_toggled_from_ui 
+	#clr_country_flag = has_overriden_color_flag
+	#restore_country_color = yes
+}
+
+# Nation is integrated after being in union
+on_integrate = {
+	#ME Stuff
+	#clr_country_flag = color_toggled_from_ui 
+	#clr_country_flag = has_overriden_color_flag
+	#restore_country_color = yes
+}
+
+on_annexed = {
+	#ME Stuff
+	#FROM = {
+	#	clr_country_flag = color_toggled_from_ui 
+	#	clr_country_flag = has_overriden_color_flag
+	#	restore_country_color = yes 
+	#}
+}
+
+
+
+
+# Moved
+on_reform_enacted = {
+	#ME Stuff
+	if = {
+		limit = {
+			religion_group = muslim
+			NOT = { has_faction = caliphate_faction }
+		}
+		add_faction = caliphate_faction
+	}
+	
+	if = {
+		limit = {
+			mission_completed = ME_tim_military_administration
+		}
+		add_army_professionalism = 0.05
+		add_army_tradition = 10
+	}
+
+}
+
+on_raid_coast = {
+	# Missions Expanded
+	if = { 
+		limit = { has_country_flag = nss_raid_for_pp_flag } 
+		add_power_projection = {
+			type = mission_rewards_power_projection
+			amount = 1
+		}
+	}
+	save_event_target_as = Temp_THIS
+	ME_on_raid_coast_sea_effect = yes
+	FROM = {
+		every_neighbor_province = {
+			limit = {
+				NOT = { is_sea = yes }
+			}
+			event_target:Temp_THIS = { 
+				ME_on_raid_coast_province_effect = yes
+			}
+		}
+	}
+}
+
+on_conquest = {
+	# Missions Expanded
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = MSY_the_end_is_nigh
+			}
+		}
+		owner = {
+			add_disaster_progress = {
+				disaster = ME_the_end_of_times
+				value = -0.3
+			}
+		}
+	}
+	if = {
+		limit = {
+			religion = ROOT
+			ME_caliph_tag_trigger = {
+				trigger = "
+					religion = ROOT
+				"
+			}
+			is_fatwa_active = {
+				fatwa = permit_taqiyya
+			}
+		}
+		add_nationalism = -10
+	}
+}
+
+on_startup = {
+	if = {
+		limit = {
+			tag = event_target:Caliph_province_holder
+		}
+		ME_check_caliphal_influence_modifiers = yes
+	}
+	if = {
+		limit = {
+			religion_group = muslim
+			NOT = { has_faction = caliphate_faction }
+		}
+		add_faction = caliphate_faction
+	}
+	361 = {
+		province_event = { id = ME_Abbasid_Events.1 }
+	}
+}

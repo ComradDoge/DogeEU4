@@ -1,0 +1,1166 @@
+update_recent_execution_effect = {
+	change_variable = {
+		which = recent_execution_var
+		value = 1
+	}
+	
+	update_reign_of_terror = yes
+	
+	country_event = { id = ME_Absolutist_UI_Events.1 days = 1825 }
+}
+
+update_reign_of_terror = {
+	if = {
+		limit = {
+			if = {
+				limit = {
+					has_reform = letat_cest_moi_reform
+				}
+				check_variable = {
+					which = recent_execution_var
+					value = 4
+				}
+			}
+			else = {
+				check_variable = {
+					which = recent_execution_var
+					value = 5
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_revolutionary = yes
+			}
+			add_country_modifier = {
+				name = ME_reign_of_terror_rev
+				duration = -1
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = ME_reign_of_terror
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_country_modifier = ME_reign_of_terror
+				has_country_modifier = ME_reign_of_terror_rev
+			}
+		}
+		remove_country_modifier = ME_reign_of_terror
+		remove_country_modifier = ME_reign_of_terror_rev
+	}
+	else = { }
+	if = {
+		limit = {
+			is_revolutionary = yes
+			has_country_modifier = ME_reign_of_terror
+		}
+		remove_country_modifier = ME_reign_of_terror
+	}
+	if = {
+		limit = {
+			is_revolutionary = no
+			has_country_modifier = ME_reign_of_terror_rev
+		}
+		remove_country_modifier = ME_reign_of_terror_rev
+	}
+}
+
+update_execution_cost = {
+	change_variable = {
+		which = execution_cost
+		value = 1 
+	}
+	
+	if = {
+		limit = {
+			check_variable = {
+				which = execution_cost
+				value = 4
+			}
+		}
+		set_variable = {
+			which = execution_cost
+			value = 4 
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = { has_country_flag = ME_reducing_execution_cost }
+		}
+		set_country_flag = ME_reducing_execution_cost
+		if = {
+			limit = {
+				NOT = { has_global_flag = ME_ui_monthly }
+			}
+			1 = { add_province_triggered_modifier = ME_UI_monthly_update }
+			set_global_flag = ME_ui_monthly
+		}
+		# country_event = { id = ME_Absolutist_UI_Events.2 days = 30 }
+	}
+}
+
+update_execution_cost_monthly = {
+	change_variable = {
+		which = execution_cost
+		value = -0.033
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					which = execution_cost
+					value = 0
+				}
+			}
+		}
+		set_variable = {
+			which = execution_cost
+			value = 0
+		}
+		clr_country_flag = ME_reducing_execution_cost
+	}
+	else = {
+		# country_event = { id = ME_Absolutist_UI_Events.3 }
+	}
+}
+
+public_execution_mil_power_req_effect = {
+	if = {
+		limit = {
+			NOT = { check_variable = { which = execution_cost value = 0.001 } }
+		}
+		mil_power_cost = 50
+	}
+	else_if = {
+		limit = {
+			check_variable = { which = execution_cost value = 4 }
+		}
+		mil_power_cost = 250
+	}
+	else = {
+		if = {
+			limit = {
+				check_variable = { which = execution_cost value = 2.0 }
+			}
+			if = {
+				limit = {
+					check_variable = { which = execution_cost value = 3.0 }
+				}
+				if = {
+					limit = {
+						check_variable = { which = execution_cost value = 3.5 }
+					}
+					if = {
+						limit = {
+							check_variable = { which = execution_cost value = 3.75 }
+						}
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 3.875 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 3.9375 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.96875 }
+									}
+									mil_power_cost = 248
+								}
+								else = {
+									mil_power_cost = 247
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.90625 }
+									}
+									mil_power_cost = 245
+								}
+								else = {
+									mil_power_cost = 244
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 3.8125 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.84375 }
+									}
+									mil_power_cost = 242
+								}
+								else = {
+									mil_power_cost = 240
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.78125 }
+									}
+									mil_power_cost = 239
+								}
+								else = {
+									mil_power_cost = 237
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 3.625 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 3.6875 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.71875 }
+									}
+									mil_power_cost = 236
+								}
+								else = {
+									mil_power_cost = 234
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.65625 }
+									}
+									mil_power_cost = 233
+								}
+								else = {
+									mil_power_cost = 231
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 3.5625 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.59375 }
+									}
+									mil_power_cost = 229
+								}
+								else = {
+									mil_power_cost = 228
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.53125 }
+									}
+									mil_power_cost = 226
+								}
+								else = {
+									mil_power_cost = 225
+								}
+							}
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							check_variable = { which = execution_cost value = 3.25 }
+						}
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 3.375 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 3.4375 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.46875 }
+									}
+									mil_power_cost = 223
+								}
+								else = {
+									mil_power_cost = 222
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.40625 }
+									}
+									mil_power_cost = 220
+								}
+								else = {
+									mil_power_cost = 219
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 3.3125 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.34375 }
+									}
+									mil_power_cost = 217
+								}
+								else = {
+									mil_power_cost = 215
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.28125 }
+									}
+									mil_power_cost = 214
+								}
+								else = {
+									mil_power_cost = 212
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 3.125 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 3.1875 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.21875 }
+									}
+									mil_power_cost = 211
+								}
+								else = {
+									mil_power_cost = 209
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.15625 }
+									}
+									mil_power_cost = 208
+								}
+								else = {
+									mil_power_cost = 206
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 3.0625 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.09375 }
+									}
+									mil_power_cost = 204
+								}
+								else = {
+									mil_power_cost = 203
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 3.03125 }
+									}
+									mil_power_cost = 201
+								}
+								else = {
+									mil_power_cost = 200
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						check_variable = { which = execution_cost value = 2.5 }
+					}
+					if = {
+						limit = {
+							check_variable = { which = execution_cost value = 2.75 }
+						}
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 2.875 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 2.9375 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.96875 }
+									}
+									mil_power_cost = 198
+								}
+								else = {
+									mil_power_cost = 197
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.90625 }
+									}
+									mil_power_cost = 195
+								}
+								else = {
+									mil_power_cost = 194
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 2.8125 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.84375 }
+									}
+									mil_power_cost = 192
+								}
+								else = {
+									mil_power_cost = 190
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.78125 }
+									}
+									mil_power_cost = 189
+								}
+								else = {
+									mil_power_cost = 187
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 2.625 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 2.6875 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.71875 }
+									}
+									mil_power_cost = 186
+								}
+								else = {
+									mil_power_cost = 184
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.65625 }
+									}
+									mil_power_cost = 183
+								}
+								else = {
+									mil_power_cost = 181
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 2.5625 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.59375 }
+									}
+									mil_power_cost = 179
+								}
+								else = {
+									mil_power_cost = 178
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.53125 }
+									}
+									mil_power_cost = 176
+								}
+								else = {
+									mil_power_cost = 175
+								}
+							}
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							check_variable = { which = execution_cost value = 2.25 }
+						}
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 2.375 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 2.4375 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.46875 }
+									}
+									mil_power_cost = 173
+								}
+								else = {
+									mil_power_cost = 172
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.40625 }
+									}
+									mil_power_cost = 170
+								}
+								else = {
+									mil_power_cost = 169
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 2.3125 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.34375 }
+									}
+									mil_power_cost = 167
+								}
+								else = {
+									mil_power_cost = 165
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.28125 }
+									}
+									mil_power_cost = 164
+								}
+								else = {
+									mil_power_cost = 162
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 2.125 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 2.1875 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.21875 }
+									}
+									mil_power_cost = 161
+								}
+								else = {
+									mil_power_cost = 159
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.15625 }
+									}
+									mil_power_cost = 158
+								}
+								else = {
+									mil_power_cost = 156
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 2.0625 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.09375 }
+									}
+									mil_power_cost = 154
+								}
+								else = {
+									mil_power_cost = 153
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 2.03125 }
+									}
+									mil_power_cost = 151
+								}
+								else = {
+									mil_power_cost = 150
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					check_variable = { which = execution_cost value = 1.0 }
+				}
+				if = {
+					limit = {
+						check_variable = { which = execution_cost value = 1.5 }
+					}
+					if = {
+						limit = {
+							check_variable = { which = execution_cost value = 1.75 }
+						}
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 1.875 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 1.9375 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.96875 }
+									}
+									mil_power_cost = 148
+								}
+								else = {
+									mil_power_cost = 147
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.90625 }
+									}
+									mil_power_cost = 145
+								}
+								else = {
+									mil_power_cost = 144
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 1.8125 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.84375 }
+									}
+									mil_power_cost = 142
+								}
+								else = {
+									mil_power_cost = 140
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.78125 }
+									}
+									mil_power_cost = 139
+								}
+								else = {
+									mil_power_cost = 137
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 1.625 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 1.6875 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.71875 }
+									}
+									mil_power_cost = 136
+								}
+								else = {
+									mil_power_cost = 134
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.65625 }
+									}
+									mil_power_cost = 133
+								}
+								else = {
+									mil_power_cost = 131
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 1.5625 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.59375 }
+									}
+									mil_power_cost = 129
+								}
+								else = {
+									mil_power_cost = 128
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.53125 }
+									}
+									mil_power_cost = 126
+								}
+								else = {
+									mil_power_cost = 125
+								}
+							}
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							check_variable = { which = execution_cost value = 1.25 }
+						}
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 1.375 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 1.4375 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.46875 }
+									}
+									mil_power_cost = 123
+								}
+								else = {
+									mil_power_cost = 122
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.40625 }
+									}
+									mil_power_cost = 120
+								}
+								else = {
+									mil_power_cost = 119
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 1.3125 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.34375 }
+									}
+									mil_power_cost = 117
+								}
+								else = {
+									mil_power_cost = 115
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.28125 }
+									}
+									mil_power_cost = 114
+								}
+								else = {
+									mil_power_cost = 112
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 1.125 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 1.1875 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.21875 }
+									}
+									mil_power_cost = 111
+								}
+								else = {
+									mil_power_cost = 109
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.15625 }
+									}
+									mil_power_cost = 108
+								}
+								else = {
+									mil_power_cost = 106
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 1.0625 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.09375 }
+									}
+									mil_power_cost = 104
+								}
+								else = {
+									mil_power_cost = 103
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 1.03125 }
+									}
+									mil_power_cost = 101
+								}
+								else = {
+									mil_power_cost = 100
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						check_variable = { which = execution_cost value = 0.5 }
+					}
+					if = {
+						limit = {
+							check_variable = { which = execution_cost value = 0.75 }
+						}
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 0.875 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 0.9375 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.96875 }
+									}
+									mil_power_cost = 98
+								}
+								else = {
+									mil_power_cost = 97
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.90625 }
+									}
+									mil_power_cost = 95
+								}
+								else = {
+									mil_power_cost = 94
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 0.8125 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.84375 }
+									}
+									mil_power_cost = 92
+								}
+								else = {
+									mil_power_cost = 90
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.78125 }
+									}
+									mil_power_cost = 89
+								}
+								else = {
+									mil_power_cost = 87
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 0.625 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 0.6875 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.71875 }
+									}
+									mil_power_cost = 86
+								}
+								else = {
+									mil_power_cost = 84
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.65625 }
+									}
+									mil_power_cost = 83
+								}
+								else = {
+									mil_power_cost = 81
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 0.5625 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.59375 }
+									}
+									mil_power_cost = 79
+								}
+								else = {
+									mil_power_cost = 78
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.53125 }
+									}
+									mil_power_cost = 76
+								}
+								else = {
+									mil_power_cost = 75
+								}
+							}
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							check_variable = { which = execution_cost value = 0.25 }
+						}
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 0.375 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 0.4375 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.46875 }
+									}
+									mil_power_cost = 73
+								}
+								else = {
+									mil_power_cost = 72
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.40625 }
+									}
+									mil_power_cost = 70
+								}
+								else = {
+									mil_power_cost = 69
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 0.3125 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.34375 }
+									}
+									mil_power_cost = 67
+								}
+								else = {
+									mil_power_cost = 65
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.28125 }
+									}
+									mil_power_cost = 64
+								}
+								else = {
+									mil_power_cost = 62
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								check_variable = { which = execution_cost value = 0.125 }
+							}
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 0.1875 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.21875 }
+									}
+									mil_power_cost = 61
+								}
+								else = {
+									mil_power_cost = 59
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.15625 }
+									}
+									mil_power_cost = 58
+								}
+								else = {
+									mil_power_cost = 56
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									check_variable = { which = execution_cost value = 0.0625 }
+								}
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.09375 }
+									}
+									mil_power_cost = 54
+								}
+								else = {
+									mil_power_cost = 53
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										check_variable = { which = execution_cost value = 0.03125 }
+									}
+									mil_power_cost = 51
+								}
+								else = {
+									mil_power_cost = 50
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

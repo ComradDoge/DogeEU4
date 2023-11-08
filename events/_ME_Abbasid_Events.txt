@@ -13,11 +13,33 @@ province_event = {
 	picture = GOOD_WITH_MONARCH_eventPicture
 
 	fire_only_once = yes
-	is_triggered_only = yes
 	
 	major = yes
 	major_trigger = {
 		religion_group = muslim
+	}
+	
+	immediate = {
+		hidden_effect = {
+			361 = { ME_set_abbasid_caliph_province = yes }
+			
+			410 = {
+				add_province_triggered_modifier = ME_abbasid_baghdad_modifier
+			}
+			1 = {
+				add_province_triggered_modifier = ABA_do_bi_monthly_checks
+			}
+			clr_global_flag = ME_abbasid_bimonthly
+			set_global_flag = ME_abbasid_bimonthly
+			REB = { country_event = { id = ME_Abbasid_Events.20 } }
+			1 = {
+				add_province_triggered_modifier = ME_refresh_monthly
+				set_province_flag = first_game_month_flag
+			}
+			event_target:Caliph_province_holder = {
+				ME_check_caliphal_influence_modifiers = yes
+			}
+		}
 	}
 	
 	trigger = {
@@ -30,17 +52,13 @@ province_event = {
 		ai_chance = {
 			factor = 1
 		}
-		custom_tooltip = ME_Abbasid_in_cairo_tt
-		
 		ME_set_abbasid_caliph_province = yes
-		
-		410 = {
-			add_province_triggered_modifier = ME_abbasid_baghdad_modifier
-		}
+		custom_tooltip = ME_Abbasid_in_cairo_tt
+		custom_tooltip = ME_Abbasid_in_baghdad_tt
 		
 		hidden_effect = {
-			1 = {
-				add_province_triggered_modifier = ABA_do_bi_monthly_checks
+			410 = {
+				add_province_triggered_modifier = ME_abbasid_baghdad_modifier
 			}
 		}
 	}
@@ -98,8 +116,13 @@ country_event = {
 	
 	immediate = {
 		hidden_effect = {
-			event_target:Caliph_province = {
-				clr_province_flag = ABA_can_take_caliph
+			if = {
+				limit = {
+					has_saved_global_event_target = Caliph_province
+				}
+				event_target:Caliph_province = {
+					clr_province_flag = ABA_can_take_caliph
+				}
 			}
 		}
 	}
@@ -964,8 +987,13 @@ country_event = {
 	immediate = {
 		set_global_flag = ABA_heathen_took_caliph
 		hidden_effect = {
-			event_target:Caliph_province = {
-				clr_province_flag = ABA_can_take_caliph
+			if = {
+				limit = {
+					has_saved_global_event_target = Caliph_province
+				}
+				event_target:Caliph_province = {
+					clr_province_flag = ABA_can_take_caliph
+				}
 			}
 		}
 	}
@@ -1172,6 +1200,7 @@ country_event = {
 			PAP = {
 				exists = yes
 			}
+			NOT = { tag = PAP }
 		}
 		
 		highlight = yes
@@ -1786,6 +1815,448 @@ country_event = {
 		add_opinion = {
 			who = event_target:temp_caliph
 			modifier = ABA_supported_us
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.32
+	title = ME_Abbasid_Events.32.t
+	desc = ME_Abbasid_Events.32.d
+	picture = POPE_PREACHING_eventPicture
+	
+	hidden = yes
+	trigger = {
+		ai = yes
+		custom_trigger_tooltip = {
+			tooltip = "Caliphal Authority at least 75"
+			if = {
+				limit = { has_saved_global_event_target = Caliph_province_holder }
+				event_target:Caliph_province_holder = {
+					check_variable = {
+						which = caliphal_influence
+						value = 75
+					}
+				}
+			}
+		}
+		OR = {
+			ME_has_abbasid_caliph = yes
+			has_country_flag = unified_islam
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	
+	option = {
+		name = ME_Abbasid_Events.32.a
+		
+		ai_chance = {
+			factor = 70
+		}
+		
+		
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.32.permit_taqiyya
+		
+		ai_chance = {
+			factor = 10
+		}
+		
+		trigger = {
+			NOT = { is_fatwa_active = { fatwa = permit_taqiyya } }
+		}
+		
+		enact_fatwa = { fatwa = permit_taqiyya }
+		fatwa_event = { id = 33 }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.32.promote_maddhab
+		
+		ai_chance = {
+			factor = 10
+		}
+		
+		trigger = {
+			NOT = { is_fatwa_active = { fatwa = promote_maddhab } }
+		}
+		
+		enact_fatwa = { fatwa = promote_maddhab }
+		fatwa_event = { id = 34 }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.32.promote_exchange
+		
+		ai_chance = {
+			factor = 10
+		}
+		
+		trigger = {
+			NOT = { is_fatwa_active = { fatwa = promote_exchange } }
+		}
+		
+		enact_fatwa = { fatwa = promote_exchange }
+		fatwa_event = { id = 35 }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.32.religious_fervor
+		
+		ai_chance = {
+			factor = 10
+		}
+		
+		trigger = {
+			NOT = { is_fatwa_active = { fatwa = religious_fervor } }
+		}
+		
+		enact_fatwa = { fatwa = religious_fervor }
+		fatwa_event = { id = 36 }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.32.permit_sufi_teachings
+		
+		ai_chance = {
+			factor = 10
+		}
+		
+		trigger = {
+			NOT = { is_fatwa_active = { fatwa = permit_sufi_teachings } }
+		}
+		
+		enact_fatwa = { fatwa = permit_sufi_teachings }
+		fatwa_event = { id = 37 }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.32.relax_sharia
+		
+		ai_chance = {
+			factor = 10
+		}
+		
+		trigger = {
+			NOT = { is_fatwa_active = { fatwa = relax_sharia } }
+		}
+		
+		enact_fatwa = { fatwa = relax_sharia }
+		fatwa_event = { id = 38 }
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.32.endorse_literature
+		
+		ai_chance = {
+			factor = 10
+		}
+		
+		trigger = {
+			NOT = { is_fatwa_active = { fatwa = endorse_literature } }
+		}
+		
+		enact_fatwa = { fatwa = endorse_literature }
+		fatwa_event = { id = 39 }
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.33
+	title = ME_Abbasid_Events.33.t
+	desc = ME_Abbasid_Events.33.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	#hidden = yes 
+	
+	major = yes
+	major_trigger = {
+		always = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.33.a
+		
+		ai_chance = {
+			factor = 70
+		}
+		
+		tooltip = {
+			FROM = {
+				enact_fatwa = { fatwa = permit_taqiyya }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.33.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		trigger = {
+			ai =yes
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.34
+	title = ME_Abbasid_Events.33.t
+	desc = ME_Abbasid_Events.33.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	#hidden = yes 
+	
+	major = yes
+	major_trigger = {
+		always = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.34.a
+		
+		ai_chance = {
+			factor = 70
+		}
+		
+		tooltip = {
+			FROM = {
+				enact_fatwa = { fatwa = promote_maddhab }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.33.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		trigger = {
+			ai =yes
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.35
+	title = ME_Abbasid_Events.33.t
+	desc = ME_Abbasid_Events.33.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	#hidden = yes 
+	
+	major = yes
+	major_trigger = {
+		always = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.35.a
+		
+		ai_chance = {
+			factor = 70
+		}
+		
+		tooltip = {
+			FROM = {
+				enact_fatwa = { fatwa = promote_exchange }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.33.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		trigger = {
+			ai =yes
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.36
+	title = ME_Abbasid_Events.33.t
+	desc = ME_Abbasid_Events.33.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	#hidden = yes 
+	
+	major = yes
+	major_trigger = {
+		always = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.36.a
+		
+		ai_chance = {
+			factor = 70
+		}
+		
+		tooltip = {
+			FROM = {
+				enact_fatwa = { fatwa = religious_fervor }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.33.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		trigger = {
+			ai =yes
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.37
+	title = ME_Abbasid_Events.33.t
+	desc = ME_Abbasid_Events.33.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	#hidden = yes 
+	
+	major = yes
+	major_trigger = {
+		always = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.37.a
+		
+		ai_chance = {
+			factor = 70
+		}
+		
+		tooltip = {
+			FROM = {
+				enact_fatwa = { fatwa = permit_sufi_teachings }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.33.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		trigger = {
+			ai = yes
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.38
+	title = ME_Abbasid_Events.33.t
+	desc = ME_Abbasid_Events.33.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	#hidden = yes 
+	
+	major = yes
+	major_trigger = {
+		always = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.38.a
+		
+		ai_chance = {
+			factor = 70
+		}
+		
+		tooltip = {
+			FROM = {
+				enact_fatwa = { fatwa = relax_sharia }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.33.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		trigger = {
+			ai =yes
+		}
+	}
+}
+
+country_event = {
+	id = ME_Abbasid_Events.39
+	title = ME_Abbasid_Events.33.t
+	desc = ME_Abbasid_Events.33.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	
+	#hidden = yes 
+	
+	major = yes
+	major_trigger = {
+		always = yes
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.39.a
+		
+		ai_chance = {
+			factor = 70
+		}
+		
+		tooltip = {
+			FROM = {
+				enact_fatwa = { fatwa = endorse_literature }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Abbasid_Events.33.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		trigger = {
+			ai =yes
 		}
 	}
 }

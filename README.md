@@ -19,6 +19,9 @@ from the original mod I took. After all I need to understand how they work, else
 
 - 1.36 Update.
 - Various other tidbits.
+- Updated Absolutism and Caliphate with UI elements from Europa Expanded.
+
+There is still some things need to be tweaked (primarily the Caliphate stuff) but generally should be fine. Please report things on discord.
 
 # Nerf Tibet defensiveness
 <br/>
