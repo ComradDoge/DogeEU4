@@ -11,17 +11,13 @@ from the original mod I took. After all I need to understand how they work, else
 
 # STEAM WORKSHOP DESCRIPTION
 
-- Version: 1.35.6
-- Checksum: e3b7
+- Version: 1.36.0
+- Checksum: b416
 
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- 1.36 Update.
-- Various other tidbits.
-- Updated Absolutism and Caliphate with UI elements from Europa Expanded.
-
-There is still some things need to be tweaked (primarily the Caliphate stuff) but generally should be fine. Please report things on discord.
+- 1.36 Update and various other tidbits.
 
 # Nerf Tibet defensiveness
 <br/>
