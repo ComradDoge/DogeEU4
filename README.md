@@ -12,14 +12,15 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.36.0
-- Checksum: 0cd1
+- Checksum: 458e
 
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Fixed some privleges being duplicated.
-- Defend of Faith screen should no longer CTD you.
+- Fixed some missions flow being broken.
 - Great Armenian Ideas should properly apply.
+- Defend of Faith screen should no longer CTD you.
 
 # Nerf Tibet defensiveness
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash peopel
