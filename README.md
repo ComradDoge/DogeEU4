@@ -12,12 +12,12 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.36.0
-- Checksum: 
+- Checksum: f4cd
 
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Some estate privileges were duplicated.
+- Fixed some privleges being duplicated.
 - Defend of Faith screen should no longer CTD you.
 - Great Armenian Ideas should properly apply.
 
