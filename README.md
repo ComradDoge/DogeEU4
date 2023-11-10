@@ -12,14 +12,17 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.36.0
-- Checksum: b416
+- Checksum: 
 
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- 1.36 Update and various other tidbits.
+- Some estate privileges were duplicated.
+- Defend of Faith screen should no longer CTD you.
+- Great Armenian Ideas should properly apply.
 
 # Nerf Tibet defensiveness
+# Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash peopel
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
