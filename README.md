@@ -17,12 +17,12 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Nerfed Inwards Perfectionist privilege.
-- Tibetan development modifiers have been nerfed.
-- Tweaked terrain development numbers, check wiki.
+- Tweaked Inwards Perfectionist privilege.
 - Fixed North German Confederation missing some ideas.
-- Centralization development_cost_modifier changed to standard development_cost
+- Tweaked terrain local_development_cost numbers, check wiki.
+- Fixed missing localisation in Confucian Harmonization events.
 - Tweaked Expansion of Faith. Removed manpower and instead increased the enforce_faith_cost modifier to -50%.
+- Tibetan development modifiers have been nerfed by around -70% (in addition to the loss of -50% in arctic/glacial)
 - Fixed the flow and bugs of German missions and now has access to both North German Confederation & South German Confederation mechanics.
 
 # Nerf Tibet defensiveness
