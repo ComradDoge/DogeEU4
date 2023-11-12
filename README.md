@@ -17,10 +17,7 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Fixed some privleges being duplicated.
-- Fixed some missions flow being broken.
-- Great Armenian Ideas should properly apply.
-- Defend of Faith screen should no longer CTD you.
+- Nerfed Inwards Perfectionist privilege.
 
 # Nerf Tibet defensiveness
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash peopel
