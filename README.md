@@ -18,6 +18,11 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 - Nerfed Inwards Perfectionist privilege.
+- Tibetan development modifiers have been nerfed.
+- Tweaked terrain development numbers, check wiki.
+- Fixed North German Confederation missing some ideas.
+- Tweaked Expansion of Faith. Removed manpower and instead increased the enforce_faith_cost modifier to -50%.
+- Fixed the flow and bugs of German missions and now has access to both North German Confederation & South German Confederation mechanics.
 
 # Nerf Tibet defensiveness
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash peopel
