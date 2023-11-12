@@ -21,6 +21,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Tibetan development modifiers have been nerfed.
 - Tweaked terrain development numbers, check wiki.
 - Fixed North German Confederation missing some ideas.
+- Centralization development_cost_modifier changed to standard development_cost
 - Tweaked Expansion of Faith. Removed manpower and instead increased the enforce_faith_cost modifier to -50%.
 - Fixed the flow and bugs of German missions and now has access to both North German Confederation & South German Confederation mechanics.
 
