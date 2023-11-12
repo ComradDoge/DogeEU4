@@ -25,7 +25,6 @@ from the original mod I took. After all I need to understand how they work, else
 - Tibetan development modifiers have been nerfed by around -70% (in addition to the loss of -50% in arctic/glacial)
 - Fixed the flow and bugs of German missions and now has access to both North German Confederation & South German Confederation mechanics.
 
-# Nerf Tibet defensiveness
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash peopel
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
