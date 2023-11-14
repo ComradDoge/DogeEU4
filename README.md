@@ -20,9 +20,9 @@ from the original mod I took. After all I need to understand how they work, else
 - Reworked the "Remove Natives" decision.
 - Tweaked Inwards Perfectionist privilege.
 - Fixed North German Confederation missing some ideas.
-- Added a new decision to remove regions in the Old World.
 - Tweaked terrain local_development_cost numbers, check wiki.
 - Fixed missing localisation in Confucian Harmonization events.
+- Added a new decision to remove some asian regions in the Old World.
 - Tweaked Expansion of Faith. Removed manpower and instead increased the enforce_faith_cost modifier to -50%.
 - Logistics siege_ability buffed from 7.5%>15% and changed the first idea to act as a counter to defensiveness.
 - Tibetan development modifiers have been nerfed by around -70% (in addition to the loss of -50% in arctic/glacial)
