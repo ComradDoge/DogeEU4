@@ -1,0 +1,684 @@
+namespace = dse_meta_natives_event
+
+country_event = {
+	id = dse_meta_natives_event.1
+	title = dse_meta_natives_event.1.t
+	desc = dse_meta_natives_event.1.d
+	picture = NATIVES_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = dse_natives_removed_global_flag
+	}
+
+	option = { # North America
+		name = dse_meta_natives_event.1.o1
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_north_america_remove_flag }
+            }
+            set_global_flag = dse_natives_north_america_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_north_america_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.2 } } 
+	}
+
+	option = { # South America
+		name = dse_meta_natives_event.1.o2
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_south_america_remove_flag }
+            }
+            set_global_flag = dse_natives_south_america_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_south_america_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.2 } } 
+	}
+
+	option = { # Oceania
+		name = dse_meta_natives_event.1.o3
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_oceania_remove_flag }
+            }
+            set_global_flag = dse_natives_oceania_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_oceania_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.2 } } 
+	}
+
+	option = { # Mexico
+		name = dse_meta_natives_event.1.o4
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_mexico_remove_flag }
+            }
+            set_global_flag = dse_natives_mexico_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_mexico_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.2 } } 
+	}
+
+	option = { # Incas
+		name = dse_meta_natives_event.1.o5
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_incas_remove_flag }
+            }
+            set_global_flag = dse_natives_incas_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_incas_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.2 } } 
+	}
+
+	option = { # Special Natives
+		name = dse_meta_natives_event.1.o6
+        trigger = {
+            OR = { 
+                exists = VIN
+                exists = YNZ
+                exists = BRK
+            }
+        }
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_special_natives_remove_flag }
+            }
+            set_global_flag = dse_natives_special_natives_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_special_natives_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.2 } } 
+	}
+
+
+
+
+
+
+
+
+	option = {
+		name = dse_meta_natives_event.1.none
+        trigger = {
+            NOT = {
+                OR = {
+                    has_global_flag = dse_natives_north_america_remove_flag
+                    has_global_flag = dse_natives_south_america_remove_flag
+                    has_global_flag = dse_natives_oceania_remove_flag
+                    has_global_flag = dse_natives_mexico_remove_flag
+                    has_global_flag = dse_natives_incas_remove_flag
+                    has_global_flag = dse_natives_special_natives_remove_flag
+                }
+            }
+        }
+	}
+
+	option = {
+		name = dse_meta_natives_event.1.confirm
+        custom_tooltip = dse_natives_confirmation_result
+        trigger = {
+            OR = {
+                has_global_flag = dse_natives_north_america_remove_flag
+                has_global_flag = dse_natives_south_america_remove_flag
+                has_global_flag = dse_natives_oceania_remove_flag
+                has_global_flag = dse_natives_mexico_remove_flag
+                has_global_flag = dse_natives_incas_remove_flag
+                has_global_flag = dse_natives_special_natives_remove_flag
+            }
+        }
+        hidden_effect = {
+            # North America
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_north_america_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            NOT = {
+                                OR = {
+                                    tag = VIN
+                                    tag = YNZ
+                                }
+                            }
+                            OR = { technology_group = north_american }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = north_america
+                    }
+                    change_trade_goods = unknown
+                }
+                north_america = {
+                    limit = {
+                        owner = {
+                            NOT = {
+                                OR = {
+                                    tag = VIN
+                                    tag = YNZ
+                                }
+                            }
+                            OR = { technology_group = north_american }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }            
+        }
+        hidden_effect = {
+            # South America
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_south_america_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            NOT = {
+                                OR = {
+                                    tag = BRK
+                                }
+                            }
+                            OR = { technology_group = south_american }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = south_america
+
+                    }
+                    change_trade_goods = unknown
+                }
+                south_america = {
+                    limit = {
+                        owner = {
+                            NOT = {
+                                OR = {
+                                    tag = BRK
+                                }
+                            }
+                            OR = { technology_group = south_american }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }            
+        }
+        hidden_effect = {
+            # Oceania
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_oceania_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = aboriginal_tech technology_group = polynesian_tech }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = oceania
+                    }
+                    change_trade_goods = unknown
+                }
+                oceania = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = aboriginal_tech technology_group = polynesian_tech }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }            
+        }
+        hidden_effect = {
+            # Mexico
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_mexico_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = mesoamerican }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = north_america
+                    }
+                    change_trade_goods = unknown
+                }
+                north_america = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = mesoamerican }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }            
+        }
+        hidden_effect = {
+            # Incas
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_incas_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = andean }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = south_america
+                    }
+                    change_trade_goods = unknown
+                }
+                south_america = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = andean }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }           
+        }
+        hidden_effect = {
+            # Old World Colonials       
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_special_natives_remove_flag
+                }
+                north_america = {
+                    limit = {
+                        owner = {
+                            OR = {
+                                tag = VIN
+                                tag = YNZ
+                            }
+                        }
+                    }
+                    cede_province = ---
+                }
+                south_america = {
+                    limit = {
+                        owner = {
+                            tag = BRK
+                        }
+                    }
+                    cede_province = ---
+                }
+                ##############
+                # Vinland
+                980 = { change_trade_goods = unknown }
+                981 = { change_trade_goods = unknown }
+                2573 = { change_trade_goods = unknown }
+                # Ying Zhou
+                870 = { change_trade_goods = unknown }
+                2021 = { change_trade_goods = unknown }
+                4637 = { change_trade_goods = unknown }
+                4638 = { change_trade_goods = unknown }
+                # Boure Bambouk
+                754 = { change_trade_goods = unknown }
+                755 = { change_trade_goods = unknown }
+            }           
+        }
+
+        custom_trigger_tooltip = {
+            tooltip = DST_Native_Region_north_america_tt
+            has_global_flag = dse_natives_north_america_remove_flag
+        }
+        custom_trigger_tooltip = {
+            tooltip = DST_Native_Region_south_america_tt
+            has_global_flag = dse_natives_south_america_remove_flag
+        }
+        custom_trigger_tooltip = {
+            tooltip = DST_Native_Region_oceania_tt
+            has_global_flag = dse_natives_oceania_remove_flag
+        }
+        custom_trigger_tooltip = {
+            tooltip = DST_Native_Region_mexico_tt
+            has_global_flag = dse_natives_mexico_remove_flag
+        }
+        custom_trigger_tooltip = {
+            tooltip = DST_Native_Region_incas_tt
+            has_global_flag = dse_natives_incas_remove_flag
+        }
+        custom_trigger_tooltip = {
+            tooltip = DST_Native_Region_special_native_tt
+            has_global_flag = dse_natives_special_natives_remove_flag
+        }
+    }
+
+
+
+
+
+}
+
+country_event = {
+	id = dse_meta_natives_event.2
+	title = dse_meta_natives_event.2.t
+	desc = dse_meta_natives_event.2.d
+	picture = NATIVES_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = dse_natives_removed_global_flag
+	}
+
+	option = { # North America
+		name = dse_meta_natives_event.2.o1
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_north_america_remove_flag }
+            }
+            set_global_flag = dse_natives_north_america_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_north_america_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.1 } } 
+	}
+
+	option = { # South America
+		name = dse_meta_natives_event.2.o2
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_south_america_remove_flag }
+            }
+            set_global_flag = dse_natives_south_america_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_south_america_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.1 } } 
+	}
+
+	option = { # Oceania
+		name = dse_meta_natives_event.2.o3
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_oceania_remove_flag }
+            }
+            set_global_flag = dse_natives_oceania_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_oceania_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.1 } } 
+	}
+
+	option = { # Mexico
+		name = dse_meta_natives_event.2.o4
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_mexico_remove_flag }
+            }
+            set_global_flag = dse_natives_mexico_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_mexico_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.1 } } 
+	}
+
+	option = { # Incas
+		name = dse_meta_natives_event.2.o5
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_incas_remove_flag }
+            }
+            set_global_flag = dse_natives_incas_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_incas_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.1 } } 
+	}
+
+	option = { # Special Natives
+		name = dse_meta_natives_event.2.o6
+        trigger = {
+            OR = { 
+                exists = VIN
+                exists = YNZ
+                exists = BRK
+            }
+        }
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_natives_special_natives_remove_flag }
+            }
+            set_global_flag = dse_natives_special_natives_remove_flag
+        }
+        else = { clr_global_flag = dse_natives_special_natives_remove_flag }
+        hidden_effect = { country_event = { id = dse_meta_natives_event.1 } } 
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	option = {
+		name = dse_meta_natives_event.2.none
+        trigger = {
+            NOT = {
+                OR = {
+                    has_global_flag = dse_natives_north_america_remove_flag
+                    has_global_flag = dse_natives_south_america_remove_flag
+                    has_global_flag = dse_natives_oceania_remove_flag
+                    has_global_flag = dse_natives_mexico_remove_flag
+                    has_global_flag = dse_natives_incas_remove_flag
+                    has_global_flag = dse_natives_special_natives_remove_flag
+                }
+            }
+        }
+	}
+
+	option = {
+		name = dse_meta_natives_event.2.confirm
+        trigger = {
+            OR = {
+                has_global_flag = dse_natives_north_america_remove_flag
+                has_global_flag = dse_natives_south_america_remove_flag
+                has_global_flag = dse_natives_oceania_remove_flag
+                has_global_flag = dse_natives_mexico_remove_flag
+                has_global_flag = dse_natives_incas_remove_flag
+                has_global_flag = dse_natives_special_natives_remove_flag
+            }
+        }
+        custom_tooltip = dse_natives_confirmation_result
+        hidden_effect = {
+            # North America
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_north_america_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            NOT = {
+                                OR = {
+                                    tag = VIN
+                                    tag = YNZ
+                                }
+                            }
+                            OR = { technology_group = north_american }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = north_america
+                    }
+                    change_trade_goods = unknown
+                }
+                north_america = {
+                    limit = {
+                        owner = {
+                            NOT = {
+                                OR = {
+                                    tag = VIN
+                                    tag = YNZ
+                                }
+                            }
+                            OR = { technology_group = north_american }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }            
+        }
+        hidden_effect = {
+            # South America
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_south_america_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            NOT = {
+                                OR = {
+                                    tag = BRK
+                                }
+                            }
+                            OR = { technology_group = south_american }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = south_america
+
+                    }
+                    change_trade_goods = unknown
+                }
+                south_america = {
+                    limit = {
+                        owner = {
+                            NOT = {
+                                OR = {
+                                    tag = BRK
+                                }
+                            }
+                            OR = { technology_group = south_american }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }            
+        }
+        hidden_effect = {
+            # Oceania
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_oceania_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = aboriginal_tech technology_group = polynesian_tech }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = oceania
+                    }
+                    change_trade_goods = unknown
+                }
+                oceania = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = aboriginal_tech technology_group = polynesian_tech }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }            
+        }
+        hidden_effect = {
+            # Mexico
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_mexico_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = mesoamerican }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = north_america
+                    }
+                    change_trade_goods = unknown
+                }
+                north_america = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = mesoamerican }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }            
+        }
+        hidden_effect = {
+            # Incas
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_incas_remove_flag
+                }
+                every_province = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = andean }
+                        }
+                        NOT = { trade_goods = unknown }
+                        continent = south_america
+                    }
+                    change_trade_goods = unknown
+                }
+                south_america = {
+                    limit = {
+                        owner = {
+                            OR = { technology_group = andean }
+                        }
+                    }
+                    cede_province = ---
+                }
+            }           
+        }
+        hidden_effect = {
+            # Old World Colonials       
+            if = {
+                limit = {
+                    has_global_flag = dse_natives_special_natives_remove_flag
+                }
+                north_america = {
+                    limit = {
+                        owner = {
+                            OR = {
+                                tag = VIN
+                                tag = YNZ
+                            }
+                        }
+                    }
+                    cede_province = ---
+                }
+                south_america = {
+                    limit = {
+                        owner = {
+                            tag = BRK
+                        }
+                    }
+                    cede_province = ---
+                }
+                ##############
+                # Vinland
+                980 = { change_trade_goods = unknown }
+                981 = { change_trade_goods = unknown }
+                2573 = { change_trade_goods = unknown }
+                # Ying Zhou
+                870 = { change_trade_goods = unknown }
+                2021 = { change_trade_goods = unknown }
+                4637 = { change_trade_goods = unknown }
+                4638 = { change_trade_goods = unknown }
+                # Boure Bambouk
+                754 = { change_trade_goods = unknown }
+                755 = { change_trade_goods = unknown }
+            }           
+        }
+
+    }
+}

@@ -17,15 +17,22 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Reworked the "Remove Natives" decision.
 - Tweaked Inwards Perfectionist privilege.
 - Fixed North German Confederation missing some ideas.
+- Added a new decision to remove regions in the Old World.
 - Tweaked terrain local_development_cost numbers, check wiki.
 - Fixed missing localisation in Confucian Harmonization events.
 - Tweaked Expansion of Faith. Removed manpower and instead increased the enforce_faith_cost modifier to -50%.
+- Logistics siege_ability buffed from 7.5%>15% and changed the first idea to act as a counter to defensiveness.
 - Tibetan development modifiers have been nerfed by around -70% (in addition to the loss of -50% in arctic/glacial)
 - Fixed the flow and bugs of German missions and now has access to both North German Confederation & South German Confederation mechanics.
 
-# Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash peopel
+# TODO
+# Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash people
+# AFTER CAMPAIGN Centralization: move development_cost_modifier to the 25_dev_requirement. Replace it with -10% dev cost and reduce -30% to -20%. This prevents non_deved nation having an op modifier. 
+# AFTER CAMPAIGN Manufactory dev bonus limited to production, forcelmit dev bonus to mil dev. Reduce scaling requirement to 5 for each.
+
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
