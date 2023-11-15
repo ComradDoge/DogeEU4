@@ -11,8 +11,8 @@ from the original mod I took. After all I need to understand how they work, else
 
 # STEAM WORKSHOP DESCRIPTION
 
-- Version: 1.36.0
-- Checksum: 2504
+- Version: 1.36.1
+- Checksum: ?
 
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
@@ -31,6 +31,8 @@ from the original mod I took. After all I need to understand how they work, else
 
 # TODO
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash people
+# Look at Sca_norwegian flow
+# check on songhai mission
 # AFTER CAMPAIGN Centralization: move development_cost_modifier to the 25_dev_requirement. Replace it with -10% dev cost and reduce -30% to -20%. This prevents non_deved nation having an op modifier. Also remove manpower modifiers/rethink
 # AFTER CAMPAIGN = manufactory bonus +1 reduced to +0.5
 # AFTER CAMPAIGN MUST = NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.01 INCREASE TO 0.02
