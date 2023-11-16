@@ -22,6 +22,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Fixed North German Confederation missing some ideas.
 - Tweaked terrain local_development_cost numbers, check wiki.
 - Fixed missing localisation in Confucian Harmonization events.
+- Slightly reduced construction cost modifiers across the board.
 - Added a new setting decision to remove some asian regions in the Old World.
 - Reworked the "Remove Natives" decision and gave some facelift to other setting decisions.
 - Tweaked Expansion of Faith. Removed manpower and instead increased the enforce_faith_cost modifier to -50%.
@@ -31,10 +32,12 @@ from the original mod I took. After all I need to understand how they work, else
 
 # TODO
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash people
-# Look at Sca_norwegian flow
+# Look at sca_norwegian flow
 # check on songhai mission
 # AFTER CAMPAIGN Centralization: move development_cost_modifier to the 25_dev_requirement. Replace it with -10% dev cost and reduce -30% to -20%. This prevents non_deved nation having an op modifier. Also remove manpower modifiers/rethink
+# AFTER CAMPAIGN = look into making expand_infrastrucutre 20/40/60 and reduce flat_governing_value to 15>10 to be at parity with state house
 # AFTER CAMPAIGN = manufactory bonus +1 reduced to +0.5
+# AFTER CAMPAIGN = Remove Church Councils reform as it basically is a duplicate of a privilege and a reform
 # AFTER CAMPAIGN MUST = NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.01 INCREASE TO 0.02
 
 <br/>
