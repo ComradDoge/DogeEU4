@@ -42,6 +42,7 @@ from the original mod I took. After all I need to understand how they work, else
 # AFTER CAMPAIGN MAYBE = manufactory bonus +1 reduced to +0.5
 # AFTER CAMPAIGN = Remove Church Councils reform as it basically is a duplicate of a privilege and a reform
 # AFTER CAMPAIGN MUST = NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.01 INCREASE TO 0.02
+# AFTER CAMPAIGN = Reduce merc_disc stuff
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
