@@ -2726,12 +2726,23 @@ on_development_effect = {
 			}
 		}
 	}
+	# Shattered
+	if = {
+		limit = { owner = { has_country_flag = druid_woodland_modifier } OR = { has_terrain = woods has_terrain = forest } }
+		random_list = {
+			13 = { add_base_tax = 1 }
+			13 = { add_base_production = 1 }
+			13 = { add_base_manpower = 1 }
+			60 = { }
+		}
+	}
 }
 
 # THIS = Province, FROM = Country, ROOT = Merc Unit
 on_mercenary_recruited_effect = {
 	if = {
 		limit = {
+			FROM = { NOT = { has_country_flag = me_hab_free_doppelsoldner } } # EE
 			FROM = { has_not_free_mercs_trait = yes }
 			is_not_free_merc_company = yes
 			OR = {
@@ -3001,7 +3012,23 @@ on_change_tag_effect = {
 	if = { limit = { has_country_modifier = naval_reassignment_act_modifier } remove_country_modifier = naval_reassignment_act_modifier }
 	if = { limit = { has_country_modifier = diplomatic_act_modifier } remove_country_modifier = diplomatic_act_modifier }
 	if = { limit = { has_country_modifier = internal_focus_act_modifier } remove_country_modifier = internal_focus_act_modifier }
-
+	#Europa Expanded
+	if = {
+		limit = {
+			OR = {
+				has_country_flag = unified_islam
+				AND = {
+					religion = sunni
+					any_owned_province = {
+						province_id = event_target:Caliph_province
+					}
+				}
+			}
+		}
+		save_global_event_target_as = ME_caliphate_tag
+		save_global_event_target_as = Caliph_province_holder
+	}
+	#Shattered
 	if = {
 		limit = {
 			has_global_flag = dse_colour_all_subjects_flag

@@ -1,0 +1,937 @@
+HAB_change_habsburg_glory = { #amount
+	[[remove]
+		add_government_power = {
+			mechanic_type = habsburg_glory
+			power_type = habsburg_glory_power
+			value = -$remove$
+		}
+	]
+	[[amount]
+		add_government_power = {
+			mechanic_type = habsburg_glory
+			power_type = habsburg_glory_power
+			value = $amount$
+		}
+	]
+}
+
+HAB_determine_habsburg_glory_bonus = {
+	remove_country_modifier = HAB_habsburg_glory_21_40
+	remove_country_modifier = HAB_habsburg_glory_41_60
+	remove_country_modifier = HAB_habsburg_glory_61_80
+	remove_country_modifier = HAB_habsburg_glory_81_100
+	
+	if = {
+		limit = {
+			check_variable = {
+				which = habsburg_glory
+				value = 81
+			}
+		}
+		add_country_modifier = {
+			name = HAB_habsburg_glory_81_100
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = habsburg_glory
+				value = 61
+			}
+		}
+		add_country_modifier = {
+			name = HAB_habsburg_glory_61_80
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = habsburg_glory
+				value = 41
+			}
+		}
+		add_country_modifier = {
+			name = HAB_habsburg_glory_41_60
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = habsburg_glory
+				value = 21
+			}
+		}
+		add_country_modifier = {
+			name = HAB_habsburg_glory_21_40
+			duration = -1
+		}
+	}
+	else = { }
+}
+
+HAB_balkanize_poland_into_hre_effect = {
+	#Deal with Polish subjects - the ones in the german region are to be released and the rest inherited. Leave Lithuania (they are important to the end)
+	$Poland$ = {
+		save_event_target_as = HAB_target_pol
+	}
+	
+	set_country_flag = me_hab_balkanized_poland
+	
+	$Poland$ = {
+		every_subject_country = {
+			limit = {
+				NOT = {
+					tag = LIT
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						OR = {
+							region = north_german_region
+							region = south_german_region
+						}
+					}
+				}
+				grant_independence = yes
+			}
+			else = {
+				overlord = {
+					inherit = PREV
+				}
+			}
+		}
+		
+		every_owned_province = { #Get rid of those provinces.
+			limit = {
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+			}
+			random_core_country = {
+				limit = {
+					NOT = { exists = yes }
+				}
+				save_event_target_as = HAB_temp
+				PREV = {
+					$Poland$ = {
+						release = event_target:HAB_temp
+					}
+				}
+			} #try again
+			if = {
+				limit = {
+					owned_by = $Poland$
+				}
+				random_core_country = {
+					limit = {
+						exists = yes
+						is_part_of_hre = yes
+					}
+					every_core_province = {
+						limit = {
+							owned_by = $poland$
+						}
+						cede_province = PREV
+					}
+				}
+			}
+			#omg try again
+			if = {
+				limit = {
+					owned_by = $Poland$
+				}
+				random_core_country = {
+					limit = {
+						exists = yes
+					}
+					every_core_province = {
+						limit = {
+							owned_by = $poland$
+						}
+						cede_province = PREV
+					}
+				}
+			}
+			#at this point I give up
+		}
+	}
+	
+	$Poland$ = {
+		every_owned_province = {
+			set_province_flag = HAB_set_hre
+		}
+	}
+	#Now let us handle individual provinces
+	if = {
+		limit = {
+			NOT = {
+				exists = KRA
+			}
+		}
+		262 = {
+			if = {
+				limit = {
+					owned_by = $Poland$
+				}
+				add_core = KRA
+			}
+		}
+		$Poland$ = { 
+			release = KRA
+		}
+	}
+	else = {
+		262 = {
+			add_core = MPK
+		}
+	}
+	
+	sandomierz_area = {
+		limit = {
+			owned_by = $Poland$
+		}
+		add_core = MPK
+	}
+	malopolska_area = {
+		limit = {
+			owned_by = $Poland$
+		}
+		add_core = MPK
+	}
+	
+	$Poland$ = {
+		release = MPK
+	}
+	
+	wielkopolska_area = {
+		limit = {
+			owned_by = $Poland$
+		}
+		add_core = WPK
+	}
+
+	4533 = {
+		if = {
+			limit = {
+				owned_by = $Poland$
+			}
+			add_core = WPK
+		}
+	}
+	258 = {
+		if = {
+			limit = {
+				owned_by = $Poland$
+			}
+			add_core = WPK
+		}
+	}
+	1939 = {
+		if = {
+			limit = {
+				owned_by = $Poland$
+			}
+			add_core = WPK
+		}
+	}
+
+	$Poland$ = {
+		release = WPK
+	}
+	
+	if = {
+		limit = {
+			NOT = { 
+				exists = MAZ
+			}
+		}
+		mazovia_area = {
+			limit = {
+				owned_by = $Poland$
+			}
+			add_core = MAZ
+		}
+		red_ruthenia_area = {
+			remove_core = MAZ
+		}
+	}
+	$Poland$ = {
+		release = MAZ
+	}
+	
+	kuyavia_area = {
+		limit = {
+			owned_by = $Poland$
+		}
+		add_core = KJW
+	}
+
+	2997 = {
+		if = {
+			limit = {
+				owned_by = $Poland$
+			}
+			add_core = KJW
+		}
+	}
+
+	1841 = {
+		if = {
+			limit = { 
+				owned_by = $Poland$
+			}
+			add_core = KJW
+		}
+	}
+	42 = {
+		if = {
+			limit = { 
+				owned_by = $Poland$
+			}
+			add_core = KJW
+		}
+	}
+	
+	$Poland$ = {
+		release = KJW
+	}
+	
+	if = {
+		limit = {
+			NOT = { exists = DNZ }
+		}
+		43 = {
+			if = {
+				limit = {
+					owned_by = $Poland$
+				}
+				add_core = DNZ
+				$Poland$ = {
+					release = DNZ
+				}
+			}
+		}
+	}
+	else = {
+		43 = {
+			if = {
+				limit = {
+					owned_by = $Poland$
+				}
+				add_core = KJW
+			}
+		}
+	}
+
+
+	if = {
+		limit = {
+			NOT = { exists = PRU }
+		}
+		east_prussia_area = {
+			limit = {
+				owned_by = $Poland$
+			}
+			add_core = PRU
+		}
+		$Poland$ = {
+			release = PRU
+		}
+		PRU = {
+			change_religion = event_target:HAB_target_pol
+			change_primary_culture = event_target:HAB_target_pol
+		}
+	}
+	
+	$Poland$ = {
+		every_owned_province = {
+			clr_province_flag = HAB_set_hre
+		}
+	}
+	
+	every_province = {
+		limit = {
+			has_province_flag = HAB_set_hre
+		}
+		clr_province_flag = HAB_set_hre
+		set_in_empire = yes
+		add_core = LIT
+	}
+	MPK = {
+		change_religion =  event_target:HAB_target_pol
+		change_primary_culture =  event_target:HAB_target_pol
+	}
+	WPK = {
+		change_religion = event_target:HAB_target_pol
+		change_primary_culture = event_target:HAB_target_pol
+	}
+	KJW = {
+		change_religion = event_target:HAB_target_pol
+		change_primary_culture = event_target:HAB_target_pol
+	}
+	DNZ = {
+		change_religion = event_target:HAB_target_pol
+		change_primary_culture = event_target:HAB_target_pol
+	}
+	MAZ = {
+		change_religion = event_target:HAB_target_pol
+		change_primary_culture = event_target:HAB_target_pol
+		define_ruler = {
+			name = "Bartlomiej I 'Zlewikk'"
+			dynasty = "Zalewski"
+			change_adm = 3
+			change_dip = 3
+			change_mil = 3
+			max_random_adm = 3
+			max_random_dip = 3
+			max_random_mil = 3
+			age = 20
+			claim = 100
+		}
+		add_ruler_personality = me_enlightened_despote_personality
+	}
+	
+	LIT = {
+		inherit = $Poland$
+		change_tag = PLC
+		on_change_tag_effect = yes
+	}
+}
+
+HAB_balkanize_france_into_hre_effect = {
+	#copied from the above scripted effect
+	
+	
+	set_global_flag = me_hab_balkanized_france
+	
+	$France$ = {
+		every_subject_country = {
+			if = {
+				limit = {
+					capital_scope = {
+						OR = {
+							region = north_german_region
+							region = south_german_region
+						}
+					}
+				}
+				grant_independence = yes
+			}
+			else = {
+				overlord = {
+					inherit = PREV
+				}
+			}
+		}
+		
+		every_owned_province = {
+			set_in_empire = yes
+		}
+		every_owned_province = { #Get rid of those provinces.
+			limit = {
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+			}
+			set_in_empire = yes
+			random_core_country = {
+				limit = {
+					NOT = { exists = yes }
+				}
+				save_event_target_as = HAB_temp
+				PREV = {
+					$France$ = {
+						release = event_target:HAB_temp
+					}
+				}
+			}
+		}
+	}
+	
+	$France$ = {
+		every_owned_province = {
+			set_province_flag = HAB_set_hre
+		}
+	}
+	#Now let us handle individual provinces
+	if = {
+		limit = {
+			NOT = {
+				exists = PIC
+			}
+		}
+		picardy_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = PIC
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		$France$ = { 
+			release = PIC
+		}
+		
+		PIC = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = CHP
+			}
+		}
+		picardy_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = CHP
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		185 = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = CHP
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		182 = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = CHP
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = CHP
+		}
+		
+		CHP = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = NRM
+			}
+		}
+		normandy_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = NRM
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = NRM
+		}
+		
+		NRM = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = BRI
+			}
+		}
+		brittany_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = BRI
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = BRI
+		}
+		
+		BRI = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = PRO
+			}
+		}
+		loire_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = PRO
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		poitou_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = PRO
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		provence_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = PRO
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = PRO
+		}
+		
+		PRO = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = TOU
+			}
+		}
+		languedoc_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = TOU
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = TOU
+		}
+		
+		TOU = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = GUY
+			}
+		}
+		guyenne_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = GUY
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		pyrenees_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = GUY
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		massif_central_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = GUY
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = GUY
+		}
+		
+		GUY = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = DAU
+			}
+		}
+		savoy_dauphine_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = DAU
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = DAU
+		}
+		
+		DAU = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = ORL
+			}
+		}
+		orleans_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = ORL
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = ORL
+		}
+		
+		ORL = {
+			change_religion = capital
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = {
+				exists = BUR
+			}
+		}
+		west_burgundy_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = BUR
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		bourgogne_area = {
+			if = {
+				limit = {
+					owned_by = $France$
+				}
+				add_core = BUR
+				set_in_empire = yes
+				remove_core = $France$
+			}
+		}
+		
+		$France$ = { 
+			release = BUR
+		}
+		
+		BUR = {
+			change_religion = capital
+		}
+	}
+	
+	
+	$France$ = {
+		every_owned_province = {
+			clr_province_flag = HAB_set_hre
+		}
+	}
+	
+	every_owned_province = {
+		set_in_empire = yes
+	}
+}
+
+me_decrease_emperor_of_romans_level = {
+	subtract_variable = {
+		which = me_emperor_of_romans_level
+		value = 1
+	}
+	if = {
+		limit = {
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 0 } }
+		}
+		set_variable = { which = me_emperor_of_romans_level value = 0 }
+	}
+	if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 4 }
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 5 } }
+		}
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_1
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 3 }
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 4 } }
+		}
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_2
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 2 }
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 3 } }
+		}
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 1 }
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 2 } }
+		}
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_4
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 0 }
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 1 } }
+		}
+		#Do absolutely nothing
+	}
+}
+
+me_increase_emperor_of_romans_level = {
+	change_variable = {
+		which = me_emperor_of_romans_level
+		value = 1
+	}
+	if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 5 }
+		}
+		set_variable = { which = me_emperor_of_romans_level value = 4 }
+	}
+	if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 4 }
+		}
+		remove_country_modifier = me_sty_emperor_of_romans_4
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 3 }
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 2 } }
+		}
+		remove_country_modifier = me_sty_emperor_of_romans_3
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_2
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 2 }
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 1 } }
+		}
+		remove_country_modifier = me_sty_emperor_of_romans_3
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_2
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { which = me_emperor_of_romans_level value = 1 }
+			NOT = { check_variable = { which = me_emperor_of_romans_level value = 0 } }
+		}
+		remove_country_modifier = me_sty_emperor_of_romans_2
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_1
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { has_ruler_modifier = me_sty_emperor_of_romans_1 }
+			NOT = { has_ruler_modifier = me_sty_emperor_of_romans_2 }
+			NOT = { has_ruler_modifier = me_sty_emperor_of_romans_3 }
+			NOT = { has_ruler_modifier = me_sty_emperor_of_romans_4 }
+			NOT = { has_ruler_modifier = me_sty_emperor_of_romans_1 }
+		}
+		add_ruler_modifier = {
+			name = me_sty_emperor_of_romans_4
+			duration = -1
+		}
+	}
+}

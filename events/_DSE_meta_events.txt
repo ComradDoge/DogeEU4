@@ -1,6 +1,5 @@
 namespace = dse_meta_events
 namespace = dse_meta_diplo_shattered
-namespace = dse_meta_natives_event
 namespace = dse_meta_info
 
 
@@ -188,6 +187,10 @@ country_event = { # MP Player Alliance Flag
 
     is_triggered_only = yes
 
+    immediate = {
+        set_global_flag = pressed_player_alliance_decision
+    }
+
     option = {
         name = "dse_meta_events.5.o1"
         set_global_flag = player_alliance_button_enabled
@@ -219,13 +222,16 @@ country_event = { # The info event at the start of the game
             set_global_flag = great_monuments_expanded_mod_active
             every_country = {
                 limit = { ai = yes }
-                country_event = { id = ai_bonus_events.1 }
-                add_ruler_personality = xorme_ai_personality
                 xorme_ai_estates_initialization_effect = yes
                 xorme_ai_create_court = yes
                 xorme_ai_set_crown_land = yes
-                change_national_focus = MIL
             }
+        }
+    }
+
+    option = {
+        name = "dse_meta_info.1.o1"
+        hidden_effect = {
             every_country = {
                 unlock_cult = yemoja_cult
                 unlock_cult = roog_cult
@@ -237,157 +243,12 @@ country_event = { # The info event at the start of the game
                 unlock_cult = waaq_cult
                 unlock_cult = zanahary_cult   
             }
-         
+            every_country = {
+                limit = { ai = yes }
+                country_event = { id = ai_bonus_events.1 }
+                add_ruler_personality = xorme_ai_personality
+                change_national_focus = MIL
+            }
         }
     }
-
-    option = {
-        name = "dse_meta_info.1.o1"
-    }
-}
-
-country_event = { # Mission Choice
-    id = dse_meta_info.2
-    title = dse_meta_info.2.t
-    desc = dse_meta_info.2.d
-    picture = DOGE_VENICE_eventPicture
-
-    is_triggered_only = yes
-
-    trigger = {
-        always = no
-        #OR = { 
-        #    tag = NOR
-        #    tag = SWE
-        #}
-    }
-
-    option = {
-        name = "dse_meta_info.2.o1"
-        set_country_flag = dst_use_shattered_mission
-        clr_country_flag = dst_use_paradox_mission
-        swap_non_generic_missions = yes
-        ai_chance = { factor = 100 }
-    }
-    option = {
-        name = "dse_meta_info.2.o2"
-        set_country_flag = dst_use_paradox_mission
-        clr_country_flag = dst_use_shattered_mission
-        swap_non_generic_missions = yes
-    }
-}
-
-# Credit: https://steamcommunity.com/sharedfiles/filedetails/?id=2852551458 by Chewy
-country_event = {
-	id = dse_meta_natives_event.1
-	title = dse_meta_natives_event.1.t
-	desc = dse_meta_natives_event.1.d
-	picture = NATIVES_eventPicture
-
-	is_triggered_only = yes
-
-	immediate = {
-		set_global_flag = dse_natives_removed_global_flag
-	}
-
-	option = {
-		name = dse_meta_natives_event.1.o1
-		custom_tooltip = dse_meta_natives_event_1_o1_tooltip
-		hidden_effect = {
-			north_america = {
-				limit = {
-					owner = {
-						OR = { technology_group = north_american technology_group = high_american }
-					}
-				}
-				cede_province = ---
-			}
-			south_america = {
-				limit = {
-					owner = {
-						OR = { technology_group = south_american technology_group = high_american }
-					}
-				}
-				cede_province = ---
-			}
-			oceania = {
-				limit = {
-					owner = {
-						OR = { technology_group = aboriginal_tech technology_group = polynesian_tech }
-					}
-				}
-				cede_province = ---
-			}
-			##############
-			every_province = {
-				limit = {
-					is_city = no
-					NOT = { trade_goods = unknown }
-					OR = { 
-						continent = north_america
-						continent = south_america
-						continent = oceania
-					}
-				}
-				change_trade_goods = unknown
-			}
-		}
-	}
-	option = {
-		name = dse_meta_natives_event.1.o2
-		custom_tooltip = dse_meta_natives_event_1_o2_tooltip
-		hidden_effect = {
-			north_america = {
-				limit = {
-					owner = {
-						NOT = {
-							OR = {
-								tag = VIN
-								tag = YNZ
-							}
-						}
-						OR = { technology_group = north_american technology_group = high_american }
-					}
-				}
-				cede_province = ---
-			}
-			south_america = {
-				limit = {
-					owner = {
-						NOT = {
-							OR = {
-								tag = BRK
-							}
-						}
-						OR = { technology_group = south_american technology_group = high_american }
-					}
-				}
-				cede_province = ---
-			}
-			oceania = {
-				limit = {
-					owner = {
-						OR = { technology_group = aboriginal_tech technology_group = polynesian_tech }
-					}
-				}
-				cede_province = ---
-			}
-			##############
-			every_province = {
-				limit = {
-					is_city = no
-					NOT = { trade_goods = unknown }
-					OR = { 
-						continent = north_america
-						continent = south_america
-						continent = oceania
-					}
-				}
-				change_trade_goods = unknown
-			}
-		}
-	}
-	option = {
-		name = dse_meta_natives_event.1.none
-	}
 }

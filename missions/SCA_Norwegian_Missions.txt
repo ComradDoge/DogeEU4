@@ -6,7 +6,6 @@ nor_colonialism_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -346,7 +345,6 @@ nor_colonize_north_america_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -548,7 +546,6 @@ nor_colonize_random_new_world_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -654,7 +651,6 @@ nor_conquest_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -667,7 +663,66 @@ nor_conquest_mission_slot = {
 	}
 	has_country_shield = yes
 	
-
+	nor_find_allies = {
+		icon = mission_alliances
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {
+			is_capital = yes
+			owner = {
+				OR = {
+					is_rival = DAN
+					is_enemy = DAN
+				}
+				NOT = {
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					NOT = { is_subject_of_type = tributary_state }
+					is_subject_of = DAN
+				}
+				OR = {
+					is_free_or_tributary_trigger = yes
+					calc_true_if = {
+						desc = nor_find_allies_ct
+						all_known_country = {
+							OR = {
+								is_rival = DAN
+								is_enemy = DAN
+							}
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+						}
+						amount = 2
+					}
+				}
+			}
+			else = {
+				is_free_or_tributary_trigger = yes
+			}
+		}
+		effect = {
+			if = {
+				limit = { is_free_or_tributary_trigger = yes }
+				add_dip_power = 100
+			}
+			else = {
+				country_event = {
+					id = flavor_nor.42
+				}
+			}
+		}
+	}
+	
 	nor_build_navy = {
 		icon = imperial_navy
 		position = 2
@@ -676,7 +731,7 @@ nor_conquest_mission_slot = {
 		trigger = {
 			OR = {
 				num_of_heavy_ship = 5
-				num_of_light_ship = 10
+				num_of_light_ship = 8
 			}
 		}
 		effect = {
@@ -725,7 +780,7 @@ nor_conquest_mission_slot = {
 	nor_conquer_scotland = {
 		icon = mission_rb_conquer_scotland
 		position = 4
-		required_missions = {  }
+		required_missions = { nor_get_independent }
 		provinces_to_highlight = {
 			OR = {
 				area = lowlands_area
@@ -835,7 +890,6 @@ nor_colonize_middle_america_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -1003,7 +1057,6 @@ nor_circumnavigate_the_world_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -1152,7 +1205,6 @@ nor_kalmar_union_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -1165,11 +1217,121 @@ nor_kalmar_union_mission_slot = {
 	}
 	has_country_shield = yes
 	
-
+	nor_declare_independence = {
+		icon = mission_norwegian_independence
+		position = 2
+		required_missions = {
+			nor_find_allies
+			nor_build_troops
+		}
+		provinces_to_highlight = {}
+		trigger = {
+			is_free_or_tributary_trigger = yes
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			add_legitimacy = 30
+			vastra_gotaland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			svealand_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			skaneland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	nor_get_independent = {
+		icon = mission_norways_is_independent
+		position = 3
+		required_missions = {
+			nor_declare_independence
+		}
+		provinces_to_highlight = {}
+		trigger = {
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+		}
+		effect = {
+			lowlands_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			highlands_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			kingdom_of_the_isles_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			scandinavia_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			if = {
+				limit = {
+					NOT = { legitimacy_equivalent = 80 }
+				}
+				add_legitimacy_equivalent = {
+					amount = 20
+					republican_tradition = 10
+				}
+			}
+			else = {
+				add_power_projection = {
+					type = mission_rewards_power_projection
+					amount = 25
+				}
+			}
+			if = {
+				limit = {
+					DAN = {
+						exists = yes
+						government = monarchy
+						religion_group = christian
+					}
+				}
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					target = DAN
+					months = 240
+				}
+			}
+		}
+	}
+	
 	nor_norway_denmark = {
 		icon = mission_crown_of_denmark
 		position = 5
 		required_missions = { 
+			nor_get_independent
 			nor_restore_norwegian_nobility
 		}
 		provinces_to_highlight = {
@@ -1227,7 +1389,7 @@ nor_kalmar_union_mission_slot = {
 			else = {
 				custom_tooltip = nor_norway_denmark_tt
 			}
-			#custom_tooltip = allow_earlier_scandinavia_formation_tt
+			custom_tooltip = allow_earlier_scandinavia_formation_tt
 			hidden_effect = { set_country_flag = can_form_scandinavia_earlier }
 		}
 	}
@@ -1241,7 +1403,6 @@ nor_dominate_colonialism_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -1327,7 +1488,6 @@ nor_development_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -1339,6 +1499,24 @@ nor_development_mission_slot = {
 		NOT = { map_setup = map_setup_random }
 	}
 	has_country_shield = yes
+	
+	nor_build_troops = {
+		icon = mission_norwegian_royal_army
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {}
+		trigger = {
+			army_size_percentage = 1
+			num_of_generals = 1
+		}
+		effect = {
+			add_mil_power = 50
+			add_country_modifier = {
+				name = nor_fight_for_liberty
+				duration = 9125
+			}
+		}
+	}
 	
 	nor_restore_the_leidang = {
 		icon = mission_marines
@@ -1520,7 +1698,6 @@ nor_west_africa_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -1587,7 +1764,6 @@ nor_army_and_religion_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -1765,7 +1941,6 @@ nor_religion_start_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -1851,8 +2026,9 @@ nor_religion_start_mission_slot = {
 			}
 		}
 		effect = {
-			country_event = {
-				id = flavor_sca.1
+			enable_branching_mission_review = {
+				key = NOR
+				ai_event_id = flavor_sca.1
 			}
 		}
 	}
@@ -1866,7 +2042,6 @@ nor_religion_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -2114,7 +2289,6 @@ nor_catholic_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -2140,6 +2314,7 @@ nor_catholic_mission_slot = {
 			}
 		}
 		trigger = {
+			not_in_mission_preview_mode = { key = NOR }
 			religion = catholic
 			OR = {
 				is_papal_controller = yes
@@ -2198,6 +2373,7 @@ nor_catholic_mission_slot = {
 			}
 		}
 		trigger = {
+			not_in_mission_preview_mode = { key = NOR }
 			religion = catholic
 			owns_core_province = 4144
 			4144 = {
@@ -2246,7 +2422,6 @@ nor_protestant_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -2269,6 +2444,7 @@ nor_protestant_mission_slot = {
 			NOT = { religion = ROOT }
 		}
 		trigger = {
+			not_in_mission_preview_mode = { key = NOR }
 			religion_group = christian
 			NOT = { religion = catholic }
 			OR = {
@@ -2335,6 +2511,7 @@ nor_protestant_mission_slot = {
 			}
 		}
 		trigger = {
+			not_in_mission_preview_mode = { key = NOR }
 			religion_group = christian
 			NOT = { religion = catholic }
 			owns_core_province = 4144
@@ -2383,7 +2560,6 @@ nor_humanist_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -2403,6 +2579,7 @@ nor_humanist_mission_slot = {
 		required_missions = { nor_religious_path_mission }
 		provinces_to_highlight = {}
 		trigger = {
+			not_in_mission_preview_mode = { key = NOR }
 			has_idea_group = humanist_ideas
 			if = {
 				limit = { has_estate = estate_church }
@@ -2438,6 +2615,7 @@ nor_humanist_mission_slot = {
 		required_missions = { nor_remove_power_from_the_clergy }
 		provinces_to_highlight = {}
 		trigger = {
+			not_in_mission_preview_mode = { key = NOR }
 			has_idea_group = humanist_ideas
 			full_idea_group = humanist_ideas
 			num_accepted_cultures = 5
@@ -2463,7 +2641,6 @@ nor_norse_mission_slot = {
 		has_dlc = "Lions of the North"
 	}
 	potential = {
-		
 		OR = {
 			tag = NOR
 			AND = {
@@ -2490,6 +2667,7 @@ nor_norse_mission_slot = {
 			}
 		}
 		trigger = {
+			not_in_mission_preview_mode = { key = NOR }
 			religion = norse_pagan_reformed
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				religion = ROOT
@@ -2553,6 +2731,7 @@ nor_norse_mission_slot = {
 			}
 		}
 		trigger = {
+			not_in_mission_preview_mode = { key = NOR }
 			religion = norse_pagan_reformed
 			num_of_owned_provinces_with = {
 				region = british_isles_region

@@ -11,19 +11,38 @@ from the original mod I took. After all I need to understand how they work, else
 
 # STEAM WORKSHOP DESCRIPTION
 
-- Version: 1.36.0
-- Checksum: 2504
+- Version: 1.36.1
+- Checksum: ?
 
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Fixed some privleges being duplicated.
-- Fixed some missions flow being broken.
-- Great Armenian Ideas should properly apply.
-- Defend of Faith screen should no longer CTD you.
+- Druidic religion reworked.
+- Tweaked Inwards Perfectionist privilege.
+- Fixed North German Confederation missing some ideas.
+- Moved Latent Good decision to the macrobuilder screen.
+- Added mission for Austria and Nitra from Europa Expanded.
+- Tweaked terrain local_development_cost numbers, check wiki.
+- Fixed missing localisation in Confucian Harmonization events.
+- Slightly reduced construction cost modifiers across the board.
+- Moved Goods info decision into their own little section as a sort of test.
+- Added a new setting decision to remove some asian regions in the Old World.
+- Reworked the "Remove Natives" decision and gave some facelift to other setting decisions.
+- Tweaked Expansion of Faith. Removed manpower and instead increased the enforce_faith_cost modifier to -50%.
+- Tibetan development modifiers have been nerfed by around -70% (in addition to the loss of -50% in arctic/glacial)
+- Logistics siege_ability buffed from 7.5%>15% and changed the first idea to act as a counter to defensiveness later in the game.
+- Fixed the flow and bugs of German missions and now has access to both North German Confederation & South German Confederation mechanics.
 
-# Nerf Tibet defensiveness
-# Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash peopel
+# TODO
+# Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash people
+# Look at sca_norwegian flow
+# check on songhai mission
+# AFTER CAMPAIGN Centralization: move development_cost_modifier to the 25_dev_requirement. Replace it with -10% dev cost and reduce -30% to -20%. This prevents non_deved nation having an op modifier. Also remove manpower modifiers/rethink
+# AFTER CAMPAIGN = look into making expand_infrastrucutre 20/40/60 and reduce flat_governing_value to 15>10 to be at parity with state house
+# AFTER CAMPAIGN MAYBE = manufactory bonus +1 reduced to +0.5
+# AFTER CAMPAIGN = Remove Church Councils reform as it basically is a duplicate of a privilege and a reform
+# AFTER CAMPAIGN MUST = NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.01 INCREASE TO 0.02
+
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 

@@ -1,0 +1,263 @@
+namespace = dse_druidism_religious_events
+namespace = dse_druidism_vanilla_conversion
+
+country_event = {
+    id = dse_druidism_religious_events.1
+    title = dse_druidism_religious_events.1.t
+    desc = dse_druidism_religious_events.1.d
+    picture = PRAYING_eventPicture
+
+
+    trigger = {
+        NOT = { has_country_flag = druidism_decided_faith_beginning }
+        OR = { 
+            culture_group = gaelic
+            primary_culture = scottish
+            primary_culture = breton
+        }
+        NOT = { started_in = 1444.11.4 }
+    }
+
+    immediate = {
+        set_country_flag = druidism_decided_faith_beginning
+    }
+    option = {
+        name = "dse_druidism_religious_events.1.o1"
+        ai_chance = { factor = 50 }
+        if = {
+            limit = {
+                NOT = { religion = celtic }
+            }
+            change_religion = celtic
+            capital_scope = {
+                change_religion = celtic
+            }
+        }
+    }
+
+    option = {
+        name = "dse_druidism_religious_events.1.o2"
+        ai_chance = { factor = 50 }
+        if = {
+            limit = {
+                NOT = { religion = catholic }
+            }
+            change_religion = catholic
+            capital_scope = {
+                change_religion = catholic
+            }
+        }
+    }
+
+    option = {
+        name = "dse_druidism_religious_events.1.o3"
+        ai_chance = { factor = 50 }
+        trigger = {
+            primary_culture = highland_scottish
+        }
+        if = {
+            limit = {
+                NOT = { religion = norse_pagan_reformed }
+            }
+            change_religion = norse_pagan_reformed
+            capital_scope = {
+                change_religion = norse_pagan_reformed
+            }
+        }
+    }
+}
+
+country_event = {
+    id = dse_druidism_vanilla_conversion.1
+    title = dse_druidism_vanilla_conversion.1.t
+    desc = dse_druidism_vanilla_conversion.1.d
+    picture = BIG_BOOK_eventPicture
+
+
+    trigger = {
+        NOT = { has_country_flag = druidism_decided_faith_beginning }
+        NOT = { has_country_flag = druidism_vanilla_conversion_event_fired }
+        OR = {
+            culture_group = gaelic
+            primary_culture = scottish
+            primary_culture = breton
+        }
+    }
+
+	mean_time_to_happen = {
+		months = 800
+
+		modifier = {
+			factor = 1
+			capital_scope = {
+                region = british_isles_region
+            }
+		}
+	}
+
+    immediate = {
+        set_country_flag = druidism_vanilla_conversion_event_fired
+    }
+    option = { # Investigate
+        name = "dse_druidism_vanilla_conversion.1.o1" 
+        ai_chance = { factor = 50 }
+        hidden_effect = {
+            country_event = { id = dse_druidism_vanilla_conversion.2 days = 180 }
+        }
+    }
+
+    option = { # Ignore
+        name = "dse_druidism_vanilla_conversion.1.o2"
+        ai_chance = { factor = 50 }
+        trigger = {
+            NOT = { ruler_has_personality = scholar_personality }
+        }
+        custom_tooltip = druidism_vanilla_ignore_the_manuscript_tt
+
+    }
+
+    option = { # Ignore
+        name = "dse_druidism_vanilla_conversion.1.o3"
+        ai_chance = { factor = 50 }
+        trigger = {
+            ruler_has_personality = scholar_personality
+        }
+        custom_tooltip = druidism_vanilla_ignore_the_manuscript_tt
+    }
+}
+
+country_event = {
+    id = dse_druidism_vanilla_conversion.2
+    title = dse_druidism_vanilla_conversion.2.t
+    desc = dse_druidism_vanilla_conversion.2.d
+    picture = AULIC_COUNCIL_eventPicture
+
+    is_triggered_only = yes
+
+    option = { # Embrace the Whispers
+        name = "dse_druidism_vanilla_conversion.2.o1" 
+        ai_chance = { factor = 100 }
+        if = {
+            limit = {
+                NOT = { ruler_has_personality = sinner_personality }
+            }
+            add_ruler_personality = sinner_personality
+        }
+        hidden_effect = {
+            country_event = { id = dse_druidism_vanilla_conversion.3 days = 180 }
+        }
+    }
+
+    option = { # This is just a bunch of pagan filth
+        name = "dse_druidism_vanilla_conversion.2.o2"
+        ai_chance = { factor = 0 }
+        custom_tooltip = druidism_vanilla_ignore_the_manuscript_tt
+    }
+
+}
+
+country_event = {
+    id = dse_druidism_vanilla_conversion.3
+    title = dse_druidism_vanilla_conversion.3.t
+    desc = dse_druidism_vanilla_conversion.3.d
+    picture = ADVISOR_eventPicture
+
+
+    is_triggered_only = yes
+
+    option = { # Seek the Druid
+        name = "dse_druidism_vanilla_conversion.3.o1" 
+        ai_chance = { factor = 100 }
+        hidden_effect = {
+            country_event = { id = dse_druidism_vanilla_conversion.4 days = 180 }
+        }       
+    }
+
+    option = { # What am I doing. I shall stop at once.
+        name = "dse_druidism_vanilla_conversion.3.o2"
+        ai_chance = { factor = 0 }
+        custom_tooltip = druidism_vanilla_ignore_the_manuscript_tt
+        if = {
+            limit = {
+                ruler_has_personality = sinner_personality
+            }
+            remove_ruler_personality = sinner_personality
+        }
+    }
+
+}
+
+country_event = {
+    id = dse_druidism_vanilla_conversion.4
+    title = dse_druidism_vanilla_conversion.4.t
+    desc = dse_druidism_vanilla_conversion.4.d
+    picture = PRAYING_eventPicture
+
+
+    is_triggered_only = yes
+
+    option = { # Embrace the ways of your ancestors
+        name = "dse_druidism_vanilla_conversion.4.o1" 
+        ai_chance = { factor = 100 }
+        add_country_modifier = {
+            name = druidism_embraced_celtic_final_stage_modifier
+            duration = 3650
+        }
+        if = {
+            limit = {
+                ruler_has_personality = sinner_personality
+            }
+            remove_ruler_personality = sinner_personality
+        }
+        change_religion = celtic
+        capital_scope = {
+            change_religion = celtic
+        }
+        define_advisor = {
+            type = missionary_advisor
+            skill = 3
+            culture = ROOT
+            religion = ROOT
+            cost_multiplier = 0.5
+        }
+    }
+
+    option = { # This should have stopped long ago.
+        name = "dse_druidism_vanilla_conversion.4.o2"
+        add_country_modifier = {
+            name = druidism_rejected_celtic_final_stage_modifier
+            duration = 3650
+        }
+        if = {
+            limit = {
+                ruler_has_personality = sinner_personality
+            }
+            remove_ruler_personality = sinner_personality
+        }
+        if = {
+            limit = {
+                NOT = { ruler_has_personality = zealot_personality }
+            }
+            add_ruler_personality = zealot_personality
+        }
+        random_owned_province = {
+            limit = {
+                NOT = { religion = celtic }
+            }
+            change_religion = celtic
+        }
+        random_owned_province = {
+            limit = {
+                NOT = { religion = celtic }
+            }
+            change_religion = celtic
+        }
+        random_owned_province = {
+            limit = {
+                NOT = { religion = celtic }
+            }
+            change_religion = celtic
+        }
+        ai_chance = { factor = 0 }
+    }
+}

@@ -167,159 +167,6 @@ on_war_won = {
 			id = flavor_swe.121
 		}
 	}
-
-
-	# Missions Expanded
-	
-	if = {
-		limit = {
-			tag = TUN
-			FROM = {
-				has_country_flag = TUN_abu_l_hasan
-				ai = yes 
-			}
-		}
-		add_yearly_manpower = 1.5
-		FROM = {
-			every_owned_province = {
-				random_core_country = {
-					every_core_province = {
-						limit = {
-							owned_by = FROM
-						}
-						cede_province = PREV
-					}
-				}
-			}
-			random_neighbor_country = {
-				limit = {
-					ai = yes
-				}
-				save_event_target_as = TUN_annex_us
-			}
-			if = {
-				limit = {
-					has_saved_event_target = TUN_annex_us
-				}
-				every_owned_province = {
-					add_core = ROOT
-					cede_province = event_target:TUN_annex_us
-				}
-			}
-		}
-	}
-	else_if = {
-		limit = {
-			has_country_flag = TUN_abu_l_hasan
-			FROM = {
-				tag = TUN
-				ai = yes 
-			}
-		}
-		if = {
-			limit = {
-				NOT = { exists = TRP }
-			}
-			FROM = { change_tag = TRP }
-		}
-		remove_country_modifier = TUN_abu_l_hasans_rebellion_modifier
-	}
-	else = { }
-	
-	if = {
-		limit = {
-			has_global_flag = GHD_some_nation_set_west_africa_on_fire
-			technology_group = sub_saharan 
-			FROM = {
-				technology_group = sub_saharan 
-			}
-		}
-		every_country = {
-			# every_trade_node_member_country = {
-			limit = {
-				has_country_flag = GHD_nations_in_west_africa_fighting_wars_buff_us
-				NOT = { tag = FROM }
-				NOT = { tag = ROOT }
-				OR = {
-					1132 = {
-						has_merchant = PREV
-					}
-					1149 = {
-						has_merchant = PREV
-					}
-				}
-			}
-			export_to_variable = {
-				variable_name = ROOT_dev
-				value = total_development
-				who = ROOT
-			}
-			export_to_variable = {
-				variable_name = PREV_dev
-				value = total_development
-				who = PREV
-			}
-			change_variable = {
-				which = ROOT_dev
-				which = PREV_dev
-			}
-			while = {
-				limit = {
-					check_variable = {
-						which = ROOT_dev
-						value = 1
-					}
-				}
-				subtract_variable = {
-					which = ROOT_dev
-					value = 1
-				}
-				add_treasury = 1
-				add_manpower = 0.025
-			}
-			set_variable = {
-				which = ROOT_dev
-				value = 0
-			}
-			set_variable = {
-				which = PREV_dev
-				value = 0
-			}
-		}
-	}
-	if = {
-		limit = {
-			has_global_flag = YEM_relationship
-			tag = event_target:YEM_target
-		}
-		event_target:YEM_beneficiary = {
-			add_dip_power = 50
-			add_mil_power = 50
-		}
-	}
-	if = {
-		limit = {
-			FROM = {
-				NOT = { religion = ROOT }
-			}
-		}
-		change_variable = {
-			which = ME_num_of_heathen_heretic_wars_won
-			value = 1
-		}
-	}	
-	if = {
-		limit = {
-			has_country_modifier = MSY_the_end_is_nigh
-			FROM = { 
-				NOT = { religion = ROOT }
-			}
-		}
-		add_disaster_progress = {
-			disaster = ME_the_end_of_times
-			value = -5
-		}
-	}
 }
 
 # country
@@ -1079,6 +926,7 @@ on_mandate_of_heaven_gained = {
 			NOT = { primary_culture = chahar }
 			NOT = { primary_culture = khalkha }
 			NOT = { primary_culture = oirats }
+			has_domination_eoc_missions_available = yes
 		}
 		swap_non_generic_missions = yes 
 	}
@@ -2521,6 +2369,9 @@ on_four_year_pulse_2 = {
 
 on_four_year_pulse_3 = {
 	random_events = {
+		1500 = 0
+		100 = me_austria_nobles.2
+		100 = me_austria_nobles.3
 		100 = decadence.1
 		100 = decadence.2
 		100 = decadence.3
@@ -2531,7 +2382,6 @@ on_four_year_pulse_3 = {
 		100 = decadence.8
 		100 = decadence.9
 		100 = decadence.10
-		200 = 0
 	}
 }
 
@@ -3652,106 +3502,6 @@ on_province_religion_converted = {
 		}
 		remove_province_modifier = ottoman_siyasah_tax_reform_manpower
 	}
-	# Missions Expanded
-	
-	if = {
-		limit = {
-			owner = {
-				has_country_modifier = ME_muslim_enforced_religion
-			}
-			# religion_group = owner 
-			# NOT = { religion = owner }
-		}
-		export_to_variable = {
-			which = ME_temp_religion_enforced
-			value = trigger_value:development
-		}
-		while = {
-			limit = {
-				check_variable = {
-					which = ME_temp_religion_enforced
-					value = 1
-				}
-			}
-			owner = {
-				add_piety = 0.02
-			}
-			change_variable = {
-				which = ME_temp_religion_enforced
-				value = -1
-			}
-		}
-	}
-	
-	if = {
-		limit = {
-			owner = {
-				has_country_modifier = MSY_the_end_is_nigh
-			}
-		}
-		export_to_variable = {
-			which = MSY_temp
-			value = trigger_value:development
-		}
-		while = {
-			limit = {
-				check_variable = {
-					which = MSY_temp
-					value = 1
-				}
-			}
-			owner = {
-				add_disaster_progress = {
-					disaster = ME_the_end_of_times
-					value = -0.2
-				}
-			}
-			change_variable = {
-				which = MSY_temp
-				value = -1
-			}
-		}
-	}
-	
-	# if = {
-		# limit = {
-			# owner = {
-				# has_country_flag = RUM_piety_from_conversion
-			# }
-		# }
-		# export_to_variable = {
-			# which = MSY_temp
-			# value = trigger_value:development
-		# }
-		# while = {
-			# limit = {
-				# check_variable = {
-					# which = MSY_temp
-					# value = 1
-				# }
-			# }
-			# owner = {
-				# add_positive_or_negative_piety = { amount = 0.2 }
-			# }
-			# change_variable = {
-				# which = MSY_temp
-				# value = -1
-			# }
-		# }
-	# }
-
-	if = {
-		limit = {
-			owner = {
-				has_country_flag = me_tim_reduced_conversion_on_razing
-			}
-		}
-		remove_province_modifier = religious_zeal_at_conv
-		add_province_modifier = {
-			name = me_tim_harsh_conversions
-			duration = 7300
-		}
-	}
 }
 
 on_province_religion_changed = {
@@ -3932,22 +3682,6 @@ on_consecrate_patriarch = {
 			}
 		}
 	}
-	
-	# Europa Expanded
-	if = {
-		limit = {
-			NOT = { has_province_flag = ee_byz_consecrated }
-			owner = {
-				has_government_attribute = enables_reform_progress_on_metrapolitan
-			}
-		}
-		area = {
-			set_province_flag = ee_byz_consecrated
-		}
-		owner = {
-			change_government_reform_progress = 10
-		}
-	}
 }
 
 # country. from = overlord
@@ -4049,6 +3783,10 @@ on_regiment_recruited = {
 
 }
 
+# THIS = Province, FROM = Country, ROOT = Merc Unit
+on_mercenary_recruited = {
+	on_mercenary_recruited_effect = yes
+}
 
 # THIS = One province in the state
 on_add_pasha = {
@@ -4079,81 +3817,6 @@ on_add_pasha = {
 			add_province_modifier = { name = the_provincial_system duration = -1 }
 		}
 	}
-
-
-	# Europa Expanded (?)
-	hidden_effect = {
-		owner = {
-			save_event_target_as = province_owner
-		}
-	}
-	
-	if = {
-		limit = {
-			owner = {
-				has_country_flag = RUM_pasha_empowerment
-			}
-		}
-		area = {
-			limit = {
-				owned_by = event_target:province_owner
-			}
-			add_province_modifier = {
-				name = RUM_pasha_modifier
-				duration = -1
-			}
-		}
-	}
-	
-	if = {
-		limit = {
-			owner = {
-				has_country_flag = RUM_pasha_seljuk_flag
-			}
-		}
-		area = {
-			limit = {
-				owned_by = event_target:province_owner
-			}
-			add_province_modifier = {
-				name = RUM_pasha_seljuk_modifier
-				duration = -1
-			}
-		}
-	}
-	else_if = {
-		limit = {
-			owner = {
-				has_country_flag = RUM_pasha_roman_flag
-			}
-		}
-		area = {
-			limit = {
-				owned_by = event_target:province_owner
-			}
-			add_province_modifier = {
-				name = RUM_pasha_roman_modifier
-				duration = -1
-			}
-		}
-	}
-	else_if = {
-		limit = {
-			owner = {
-				has_country_flag = RUM_pasha_caliphate_flag
-			}
-		}
-		area = {
-			limit = {
-				owned_by = event_target:province_owner
-			}
-			add_province_modifier = {
-				name = RUM_pasha_caliphate_modifier 
-				duration = -1
-			}
-		}
-	}
-	else = { }
 }
 
 # THIS = One province in the state
@@ -4180,14 +3843,6 @@ on_remove_pasha = {
 
 # THIS = Province
 on_janissaries_raised = {
-	owner = {
-		if = {
-			limit = {
-				has_country_flag = RUM_cost_of_janissaries_decreased
-			}
-			add_mil_power = 6
-		}
-	}
 }
 
 on_cawa_raised = {
@@ -4595,18 +4250,6 @@ on_flagship_destroyed = {
 # this = country
 on_loan_repaid = {
 	on_loan_repaid_estate_privileges_effect = yes
-	
-	if = {
-		limit = {
-			has_country_flag = MAM_repaying_loans_gives_lower_inflation
-		}
-		add_inflation = -0.05
-	}
-	else_if = {
-		limit = { economic_ideas = 3 }
-		add_inflation = -0.05
-	}
-	else = { }
 }
 
 # this = country
@@ -4959,34 +4602,6 @@ on_colonist_boosting_colony = {
 #ROOT = converted country, FROM = country which force converts ROOT, on_action gets called on Force religion peace and Enforce Religion subject interaction
 on_force_conversion = {
 	on_force_conversion_effect = yes
-	
-	# Missions Expanded
-	if = {
-		limit = {
-			FROM = {
-				has_country_modifier = MSY_the_end_is_nigh
-			}
-		}
-		FROM = {
-			add_disaster_progress = {
-				disaster = ME_the_end_of_times
-				value = -2.5
-			}
-		}
-	}
-	
-	if = {
-		limit = {
-			technology_group = western
-			FROM = {
-				has_country_flag = ARB_islamization_of_europe_cb
-			}
-		}
-		add_power_projection = {
-			type = ARB_islamization_of_europe
-			amount = 5
-		}
-	}
 }
 
 
@@ -5150,7 +4765,6 @@ on_new_age = {
 
 #ROOT = province
 on_adm_exploited = {
-	ME_on_exploit_development = yes
 	if = {
 		limit = { owner = { has_government_attribute = may_not_reduce_tax_on_exploitation } }
 		random = {
@@ -5182,8 +4796,6 @@ on_adm_exploited = {
 	manufactory_goods_giver_building_modifier_effect = yes
 }
 on_dip_exploited = {
-	ME_on_exploit_development = yes
-
 	# Shattered
 	x_forcelimit_remover_building_modifier_effect = yes
 	land_forcelimit_giver_building_modifier_effect = yes
@@ -5193,8 +4805,6 @@ on_dip_exploited = {
 	manufactory_goods_giver_building_modifier_effect = yes
 }
 on_mil_exploited = {
-	ME_on_exploit_development = yes
-
 	# Shattered
 	x_forcelimit_remover_building_modifier_effect = yes
 	land_forcelimit_giver_building_modifier_effect = yes
