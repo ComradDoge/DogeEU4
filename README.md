@@ -20,6 +20,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Druidic religion reworked.
 - Tweaked Inwards Perfectionist privilege.
 - Fixed North German Confederation missing some ideas.
+- Added mission for Austria and Nitra from Europa Expanded.
 - Tweaked terrain local_development_cost numbers, check wiki.
 - Fixed missing localisation in Confucian Harmonization events.
 - Slightly reduced construction cost modifiers across the board.
