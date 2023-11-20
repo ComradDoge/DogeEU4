@@ -17,21 +17,8 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Druidic religion reworked.
-- Tweaked Inwards Perfectionist privilege.
-- Fixed North German Confederation missing some ideas.
-- Moved Latent Good decision to the macrobuilder screen.
-- Added mission for Austria and Nitra from Europa Expanded.
-- Tweaked terrain local_development_cost numbers, check wiki.
-- Fixed missing localisation in Confucian Harmonization events.
-- Slightly reduced construction cost modifiers across the board.
-- Moved Goods info decision into their own little section as a sort of test.
-- Added a new setting decision to remove some asian regions in the Old World.
-- Reworked the "Remove Natives" decision and gave some facelift to other setting decisions.
-- Tweaked Expansion of Faith. Removed manpower and instead increased the enforce_faith_cost modifier to -50%.
-- Tibetan development modifiers have been nerfed by around -70% (in addition to the loss of -50% in arctic/glacial)
-- Logistics siege_ability buffed from 7.5%>15% and changed the first idea to act as a counter to defensiveness later in the game.
-- Fixed the flow and bugs of German missions and now has access to both North German Confederation & South German Confederation mechanics.
+- Monarchy Ideas system army_tradition buffed and added province_warscore_cost for diplomatic.
+- Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
 # TODO
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash people
