@@ -331,3 +331,127 @@ dig_more_var = {
 		}
 	}
 }
+
+
+add_power0 = { #reddit.com/r/eu4/comments/dy7lyv
+	set_variable = {
+		which = temp
+		which = baseCost
+	}
+	
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 1024 	valueSub = -1024 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 512		valueSub = -512 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 256		valueSub = -256 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 128		valueSub = -128 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 64		valueSub = -64 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 32		valueSub = -32 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 16		valueSub = -16 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 8		valueSub = -8 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 4		valueSub = -4 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 2		valueSub = -2 }
+	binary_ad10 = { variable = temp	addcommand = $power$	valueAdd = 1		valueSub = -1 }
+	#log = dev_info.4
+}
+
+set_base_value0 = {
+	set_variable = { #100% base cost
+		which = $which$
+		value = 1 
+	}
+	
+	export_to_variable = {
+		variable_name = apowerCost
+		value = modifier:all_power_cost
+		who = owner
+	}
+	change_variable = { #power cost modifiers
+		which = $which$
+		which = apowerCost
+	}
+	
+	export_to_variable = {
+		variable_name = devCost
+		value = modifier:development_cost
+		who = owner
+	}
+	change_variable = { #country dev modifiers
+		which = $which$
+		which = devCost
+	}
+	
+	export_to_variable = {
+		variable_name = ldevCost
+		value = modifier:local_development_cost
+	}
+	change_variable = { #province dev modifiers
+		which = $which$
+		which = ldevCost
+	}
+	
+	if = { #5% in capital per 100 country dev (up to 50%)
+		limit = {
+			is_capital = yes
+		}
+		export_to_variable = {
+			variable_name = totalDev
+			value = total_development
+			who = owner
+		}
+		if = { 
+			limit = {
+				check_variable = {
+					which = totalDev
+					value = 1000
+				}
+			}
+			set_variable = {
+				which = totalDev
+				value = -0.5
+			}
+		}
+		else = {
+			divide_variable = {
+				which = totalDev
+				value = -2000
+			}
+		}
+		change_variable = { 
+			which = $which$
+			which = totalDev
+		}
+	}
+	
+	if = { #dev efficiency from adm tech affects base cost by -10%
+		limit = {
+			owner = { adm_tech = 27 } 
+		}
+		multiply_variable = { 
+			which = $which$
+			value = 35
+		}
+	}
+	else_if  = {
+		limit = {
+			owner = { adm_tech = 23 } 
+		}
+		multiply_variable = { 
+			which = $which$
+			value = 40
+		}
+	}
+	else_if  = {
+		limit = {
+			owner = { adm_tech = 17 }
+		}
+		multiply_variable = { 
+			which = $which$
+			value = 45
+		}
+	}
+	else = {
+		multiply_variable = { 
+			which = $which$
+			value = 50
+		}
+	}
+}
