@@ -17,6 +17,7 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+- Mercenary Ideas nerfed.
 - Monarchy Ideas system army_tradition buffed and added province_warscore_cost for diplomatic.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
