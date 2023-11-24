@@ -17,9 +17,9 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
-- Mercenary Ideas nerfed.
 - Tweaked Government buildings.
 - Added Druidic religious ideas.
+- Mercenary Ideas and other values nerfed.
 - Monarchy Ideas system army_tradition buffed and added province_warscore_cost for diplomatic.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
@@ -33,6 +33,7 @@ from the original mod I took. After all I need to understand how they work, else
 # AFTER CAMPAIGN MUST = NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.01 INCREASE TO 0.02
 # AFTER CAMPAIGN = Reduce merc_disc stuff, check reform and remove professionalism shit it has
 # AFTER CAMPAIGN = remove the -10% dev cost in burghers privs
+# Update merc disc on age wiki to 10%
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
