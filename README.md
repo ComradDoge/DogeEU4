@@ -22,6 +22,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Mercenary Ideas and other values nerfed.
 - Removed Civil Conscription privilege to reduce bloat.
 - Removed Church Council as it was a duplicate of other sources.
+- Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Monarchy Ideas system army_tradition buffed and added province_warscore_cost for diplomatic.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
@@ -29,12 +30,8 @@ from the original mod I took. After all I need to understand how they work, else
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash people
 # Look at sca_norwegian flow
 # check on songhai mission
-# AFTER CAMPAIGN = look into making expand_infrastrucutre 20/40/60 and reduce flat_governing_value to 15>10 to be at parity with state house
-# AFTER CAMPAIGN MAYBE = manufactory bonus +1 reduced to +0.5
-# AFTER CAMPAIGN = Remove Church Councils reform as it basically is a duplicate of a privilege and a reform
 # AFTER CAMPAIGN MUST = NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.01 INCREASE TO 0.02
 # AFTER CAMPAIGN = Reduce merc_disc stuff, check reform and remove professionalism shit it has
-# AFTER CAMPAIGN = remove the -10% dev cost in burghers privs
 # Update merc disc on age wiki to 10%
 
 <br/>
