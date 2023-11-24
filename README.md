@@ -20,6 +20,8 @@ from the original mod I took. After all I need to understand how they work, else
 - Tweaked Government buildings.
 - Added Druidic religious ideas.
 - Mercenary Ideas and other values nerfed.
+- Removed Civil Conscription privilege to reduce bloat.
+- Removed Church Council as it was a duplicate of other sources.
 - Monarchy Ideas system army_tradition buffed and added province_warscore_cost for diplomatic.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
