@@ -81,3 +81,4 @@ NDefines.NDiplomacy.PEACE_COST_RELEASE_VASSAL = 0.3 -- 0.4 in vanilla. set to ha
 NDefines.NDiplomacy.PEACE_COST_CONVERSION = 0.6 -- 0.8 in vanilla. conversion should definitely be a lot cheaper than demanding full annexation.
 NDefines.NDiplomacy.PEACE_COST_ENFORCED_FLEET_BASING_RIGHTS = 10 -- 25 in vanilla. the victor still has to pay for it lol
 NDefines.NDiplomacy.PEACE_COST_ENFORCED_MILITARY_ACCESS = 5 -- 15 in vanilla. it is difficult to think of a situation where this would be preferable as an option to money or anything else really
+NDefines.NDiplomacy.PEACE_COST_GIVE_UP_CLAIM = 10 --20. Who has ever clicked this.
