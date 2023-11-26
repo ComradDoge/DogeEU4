@@ -25,6 +25,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Monarchy Ideas system army_tradition buffed and added province_warscore_cost for diplomatic.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
+- Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
 # TODO
 # Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash people
