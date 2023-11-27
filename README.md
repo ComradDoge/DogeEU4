@@ -19,6 +19,8 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Tweaked Government buildings.
 - Added Druidic religious ideas.
+- Buffed Trade Management Ideas.
+- Tweaked Blood Tax, Regional Councils.
 - Mercenary Ideas and other values nerfed.
 - Removed Civil Conscription privilege to reduce bloat.
 - Removed Church Council as it was a duplicate of other sources.
