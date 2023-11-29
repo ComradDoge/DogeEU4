@@ -20,14 +20,15 @@ from the original mod I took. After all I need to understand how they work, else
 - Tweaked Government buildings.
 - Added Druidic religious ideas.
 - Buffed Trade Management Ideas.
+- Monarchy Ideas system values tweaked.
 - Mercenary Ideas and other values nerfed.
+- Shuffled Centralization development modifiers.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce bloat.
 - Land and Discipline policies are back to older value setup.
 - Removed Church Council as it was a duplicate of other sources.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
-- Monarchy Ideas system army_tradition buffed and added province_warscore_cost for diplomatic.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
