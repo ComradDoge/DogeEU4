@@ -23,6 +23,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Monarchy Ideas system values tweaked.
 - Mercenary Ideas and other values nerfed.
 - Shuffled Centralization development modifiers.
+- Moved Construction Steward into it's own button.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce bloat.
 - Land and Discipline policies are back to older value setup.
@@ -33,12 +34,8 @@ from the original mod I took. After all I need to understand how they work, else
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
 # TODO
-# Reintroduce caliphal legitimact in DoTF but make sure it doesnt crash people
 # Look at sca_norwegian flow
 # check on songhai mission
-# AFTER CAMPAIGN MUST = NDefines.NCountry.ADVISOR_COST_INCREASE_PER_YEAR = 0.01 INCREASE TO 0.02
-# AFTER CAMPAIGN = Reduce merc_disc stuff, check reform and remove professionalism shit it has
-# Update merc disc on age wiki to 10%
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
