@@ -29,6 +29,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Land and Discipline policies are back to older value setup.
 - Removed Church Council as it was a duplicate of other sources.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
+- Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).

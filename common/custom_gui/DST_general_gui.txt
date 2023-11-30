@@ -1,0 +1,65 @@
+# Rhineland Specific Blast Furnace Button
+custom_button = {
+	name = dst_blast_furnace_build_gui_name
+	tooltip = dst_blast_furnace_build_gui_tt
+	potential = {
+        FROM = { has_country_flag = RHN_Blast_furnaces }
+        ROOT = { owned_by = FROM }
+        ROOT = {
+            OR = { 
+                OR = {
+                    area = hesse_area
+                    area = north_rhine_area
+                    area = lower_rhineland_area
+                    area = palatinate_area
+                }
+                AND = {
+                    FROM = { has_country_flag = RHN_westphalia }
+                    OR = {
+                        westphalia_area = {
+                            NOT = { has_building = blast_furnace }
+                        }
+                        north_westphalia_area = {
+                            NOT = { has_building = blast_furnace }
+                        }
+                    }
+                }                
+            }
+        }
+	}
+	trigger = {
+        ROOT = {
+            NOT = { has_building = blast_furnace }
+            NOT = { has_construction = blast_furnace }
+
+            NOT = { has_construction = building }
+            NOT = { has_construction = core }
+            NOT = { has_construction = great_project }
+            NOT = { has_construction = canal }
+            NOT = { has_construction = culture }
+            NOT = { has_construction = missionary }
+        }
+	}
+	effect = {
+        hidden_effect = {
+            FROM = {
+                if = {
+                    limit = {
+                        has_country_modifier = RHN_blast_furnace_cost
+                    }
+                    add_treasury = -2250
+                }
+                else = {
+                    add_treasury = -3000
+                }
+            }
+            ROOT = {
+                add_building_construction = {
+                    building = blast_furnace
+                    speed = 1
+                    cost = 0
+                }
+            }
+        }
+	}
+}
