@@ -26,6 +26,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Moved Construction Steward into it's own button.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce bloat.
+- Reworked Kingdom/Empire into Minor/Great Power ideas.
 - Removed Church Council as it was a duplicate of other sources.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
