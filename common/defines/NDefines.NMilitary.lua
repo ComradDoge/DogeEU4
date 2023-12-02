@@ -54,3 +54,5 @@ NDefines.NMilitary.MERCENARY_COMPANY_BUILDING_TIME = 0.25                 -- Mul
 NDefines.NMilitary.MERCENARY_COMPANY_LOCAL_VIRTUAL_DISTANCE = 40          -- How many "pixels away" local companies pretend to be.
 NDefines.NMilitary.MERCENARY_COMPANY_ARMY_TRADITION = 60.0                -- 50, At what army tradition mercenary leaders are generated at.
 
+-- War
+NDefines.NMilitary.WARGOAL_MAX_BONUS = 40 -- 25

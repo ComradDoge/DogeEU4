@@ -22,9 +22,11 @@ from the original mod I took. After all I need to understand how they work, else
 - Buffed Trade Management Ideas.
 - Monarchy Ideas system values tweaked.
 - Mercenary Ideas and other values nerfed.
+- War Exhaustion scaling is slightly more rough.
 - Shuffled Centralization development modifiers.
 - Moved Construction Steward into it's own button.
 - Tweaked Blood Tax and Regional Councils reforms.
+- Max warscore gained from a wargoal increased 25>40.
 - Removed Civil Conscription privilege to reduce bloat.
 - Reworked Kingdom/Empire into Minor/Great Power ideas.
 - Removed Church Council as it was a duplicate of other sources.
