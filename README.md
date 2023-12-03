@@ -17,29 +17,38 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>25/10/2023</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+
+Major
 - Tweaked Government buildings.
 - Added Druidic religious ideas.
+- Mercenary Ideas and other values nerfed.
+- Shuffled Centralization development modifiers.
+- Max warscore gained from a wargoal increased 25>40.
+- Reworked Kingdom/Empire into Minor/Great Power ideas.
+- Expansion Ideas reworked and are closer to vanilla version.
+- Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
+- Land and Discipline policies are back to older value setup with a unified cap.
+- Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
+
+Minor
 - Buffed Trade Management Ideas.
 - Monarchy Ideas system values tweaked.
-- Mercenary Ideas and other values nerfed.
 - War Exhaustion scaling is slightly more rough.
-- Shuffled Centralization development modifiers.
 - Moved Construction Steward into it's own button.
 - Tweaked Blood Tax and Regional Councils reforms.
-- Max warscore gained from a wargoal increased 25>40.
 - Removed Civil Conscription privilege to reduce bloat.
-- Reworked Kingdom/Empire into Minor/Great Power ideas.
 - Removed Church Council as it was a duplicate of other sources.
-- Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
-- Land and Discipline policies are back to older value setup with a unified cap.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
-- Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
 # TODO
 # Look at sca_norwegian flow
 # check on songhai mission
+# reduce government building defence scaling
+
+
+# when updating anbennar or vanilla ideas, note that expansion_ideas were updated and so ml_addideas
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
