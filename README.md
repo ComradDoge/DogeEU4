@@ -40,6 +40,7 @@ Minor
 - Removed Church Council as it was a duplicate of other sources.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
+- HAB flavor events are extended to AUB and SGF if you were HAB originally.
 - Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
 # TODO
