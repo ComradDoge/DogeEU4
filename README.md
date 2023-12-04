@@ -48,8 +48,8 @@ Minor
 # TODO
 # Look at sca_norwegian flow
 
-
-# when updating anbennar or vanilla ideas, note that expansion_ideas were updated and so ml_addideas
+# when updating vanilla ideas, note that expansion_ideas were updated and so ml_addideas
+# At some point in the future, update aristo0 into theocracy0
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
