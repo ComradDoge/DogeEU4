@@ -27,6 +27,7 @@ Major
 - Reworked Kingdom/Empire into Minor/Great Power ideas.
 - Expansion Ideas reworked and are closer to vanilla version.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
+- Autononmy reduction/increase values have been changed across the board.
 - Land and Discipline policies are back to older value setup with a unified cap.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
@@ -37,6 +38,7 @@ Minor
 - Moved Construction Steward into it's own button.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce bloat.
+- Prosperity goods_produced modifer replaced with production.
 - Removed Church Council as it was a duplicate of other sources.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
