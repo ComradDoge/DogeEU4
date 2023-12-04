@@ -25,10 +25,10 @@ Major
 - Shuffled Centralization development modifiers.
 - Max warscore gained from a wargoal increased 25>40.
 - Reworked Kingdom/Empire into Minor/Great Power ideas.
-- Expansion Ideas reworked and are closer to vanilla version.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Autononmy reduction/increase values have been changed across the board.
 - Land and Discipline policies are back to older value setup with a unified cap.
+- Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
 Minor
