@@ -34,6 +34,8 @@ Major
 Minor
 - Buffed Trade Management Ideas.
 - Monarchy Ideas system values tweaked.
+- Shock and Fire lost 5% x_damage_received.
+- Janissaries tweaked but primarily nerfed.
 - War Exhaustion scaling is slightly more rough.
 - Moved Construction Steward into it's own button.
 - Tweaked Blood Tax and Regional Councils reforms.
