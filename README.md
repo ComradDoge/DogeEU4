@@ -31,6 +31,10 @@ Major
 - Government buldings tweaked. Removed non-governing related modifiers but added +1 num_of_allowed_buildings so it's less annoying to build.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
+User Interface
+- Tweaked the Peace Screen.
+- Reworked Army/Navy Unit panels.
+
 Minor
 - Buffed Trade Management Ideas.
 - Monarchy Ideas system values tweaked.
@@ -52,6 +56,7 @@ Minor
 # TODO
 # Look at sca_norwegian flow
 # slightly lower hire advisor initial cost
+# update peace screen ui, bless their souls
 
 # when updating vanilla ideas, note that expansion_ideas were updated and so ml_addideas
 # At some point in the future, update aristo0 into theocracy0
