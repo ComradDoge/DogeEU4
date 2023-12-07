@@ -1,39 +1,6 @@
 namespace = New_TradeGood_Events
+namespace = dst_goods_system_events
 
-country_event = {
-	id = New_TradeGood_Events.1
-	title = New_TradeGood_Events.1.t
-	desc = New_TradeGood_Events.1.d
-	picture = TRADEGOODS_eventPicture
-
-	fire_only_once = yes	
-	major = yes
-
-	trigger = {
-		dip_tech = 11
-		whaling = 1
-		NOT = { has_global_flag = whaling_price }
-	}
-	
-	mean_time_to_happen = {
-		months = 1
-	}
-	
-	option = {
-		name = New_TradeGood_Events.1.a
-		ai_chance = { factor = 100 }
-		change_price = {
-			trade_goods = whaling
-			key = COMMERCIAL_WHALING
-			value = 0.2
-			duration = -1
-		}
-		add_years_of_income  = 0.15
-		add_prestige = 10
-		
-		set_global_flag = whaling_price
-	}
-}
 
 country_event = {
 	id = New_TradeGood_Events.2
@@ -955,6 +922,50 @@ country_event = {
 
 	option = {
 		name = New_TradeGood_Events.999.a
+		ai_chance = { factor = 1 }	
+	}
+}
+
+
+
+
+###########################
+country_event = {
+	id = dst_goods_system_events.1
+	title = dst_goods_system_events.1.t
+	desc = dst_goods_system_events.1.d
+	picture = TRADEGOODS_eventPicture
+
+	hidden = yes
+
+	trigger = {
+		is_subject = no
+		any_owned_province = {
+			has_province_modifier = import_from_subjects_modifier
+		}
+	}
+
+
+	immediate = {
+		every_owned_province = {
+			limit = {
+				has_province_modifier = import_from_subjects_modifier
+			}
+			remove_province_modifier = import_from_subjects_modifier
+		}
+		update_goods_subjects = { GOODS = copper }
+		update_goods_subjects = { GOODS = tin }
+		update_goods_subjects = { GOODS = iron }
+		update_goods_subjects = { GOODS = lead }
+		update_goods_subjects = { GOODS = zinc }
+		update_goods_subjects = { GOODS = glass }
+		update_goods_subjects = { GOODS = steam_engine }
+
+		country_event = { id = New_TradeGood_Events.2 }
+	}
+
+	option = {
+		name = dst_goods_system_events.1.empty
 		ai_chance = { factor = 1 }	
 	}
 }
