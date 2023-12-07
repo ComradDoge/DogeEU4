@@ -19,36 +19,39 @@ from the original mod I took. After all I need to understand how they work, else
 
 
 Major
-- Tweaked Government buildings.
-- Added Druidic religious ideas.
 - Mercenary Ideas and other values nerfed.
-- Shuffled Centralization development modifiers.
 - Max warscore gained from a wargoal increased 25>40.
 - Reworked Kingdom/Empire into Minor/Great Power ideas.
+- Added Druidic religious ideas with a special mechanic.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Autononmy reduction/increase values have been changed across the board.
 - Land and Discipline policies are back to older value setup with a unified cap.
 - Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
+- Shuffled Centralization development modifiers. Base_cost reduction is now part of the 25 development requirement instead.
+- Government buldings tweaked. Removed non-governing related modifiers but added +1 num_of_allowed_buildings so it's less annoying to build.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
 Minor
 - Buffed Trade Management Ideas.
 - Monarchy Ideas system values tweaked.
-- Shock and Fire lost 5% x_damage_received.
-- Janissaries tweaked but primarily nerfed.
+- Subject penalties to base amounts increased.
 - War Exhaustion scaling is slightly more rough.
+- Age fire and shock reductions decreased by 5%.
+- Shock and Fire ideas lost 5% x_damage_received.
 - Moved Construction Steward into it's own button.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce bloat.
 - Prosperity goods_produced modifer replaced with production.
 - Removed Church Council as it was a duplicate of other sources.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
-- Mughals upon formation can decide to stay Muslim tech/units or go Indian.
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
+- Mughals upon formation can decide to stay Muslim tech/units or go Indian.
+- Janissaries damage_received changed to damage and reinforce cost increased by 50%.
 - Old World Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
 # TODO
 # Look at sca_norwegian flow
+# slightly lower hire advisor initial cost
 
 # when updating vanilla ideas, note that expansion_ideas were updated and so ml_addideas
 # At some point in the future, update aristo0 into theocracy0
