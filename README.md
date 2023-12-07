@@ -38,15 +38,15 @@ Minor
 - War Exhaustion scaling is slightly more rough.
 - Age fire and shock reductions decreased by 5%.
 - Shock and Fire ideas lost 5% x_damage_received.
-- Moved Construction Steward into it's own button.
 - Tweaked Blood Tax and Regional Councils reforms.
-- Removed Civil Conscription privilege to reduce bloat.
+- Removed Civil Conscription privilege to reduce dev bloat.
+- Moved "Construction Steward" decision into it's own button.
 - Prosperity goods_produced modifer replaced with production.
 - Removed Church Council as it was a duplicate of other sources.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
-- Janissaries damage_received changed to damage and reinforce cost increased by 50%.
+- Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 - Old World Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
 # TODO
