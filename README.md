@@ -32,8 +32,9 @@ Major
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
 User Interface
-- Tweaked the Peace Screen.
+- Redid the estate screen.
 - Reworked Army/Navy Unit panels.
+- Moved "Construction Steward" decision into it's own button.
 
 Minor
 - Buffed Trade Management Ideas.
@@ -44,7 +45,6 @@ Minor
 - Shock and Fire ideas lost 5% x_damage_received.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce dev bloat.
-- Moved "Construction Steward" decision into it's own button.
 - Prosperity goods_produced modifer replaced with production.
 - Removed Church Council as it was a duplicate of other sources.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
