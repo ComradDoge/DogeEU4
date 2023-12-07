@@ -56,7 +56,7 @@ Minor
 # TODO
 # Look at sca_norwegian flow
 # slightly lower hire advisor initial cost
-# update peace screen ui, bless their souls
+# add events for ai to build meta buildings
 
 # when updating vanilla ideas, note that expansion_ideas were updated and so ml_addideas
 # At some point in the future, update aristo0 into theocracy0
