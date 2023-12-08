@@ -46,6 +46,7 @@ Minor
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce dev bloat.
 - Prosperity goods_produced modifer replaced with production.
+- Tweaked some Council of Trent Concessions to be more viable.
 - Removed Church Council as it was a duplicate of other sources.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
@@ -59,7 +60,6 @@ Minor
 # add events for ai to build meta buildings
 
 # when updating vanilla ideas, note that expansion_ideas were updated and so ml_addideas
-# At some point in the future, update aristo0 into theocracy0
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
