@@ -36,6 +36,7 @@ User Interface
 - Reworked Army/Navy Unit panels.
 - Cleaned up the Military Tab interface.
 - Moved "Construction Steward" decision into it's own button.
+- Cleaned up the building screen in province view and now has latent goods as well.
 
 Minor
 - Buffed Trade Management Ideas.
@@ -49,6 +50,7 @@ Minor
 - Prosperity goods_produced modifer replaced with production.
 - Tweaked some Council of Trent Concessions to be more viable.
 - Removed Church Council as it was a duplicate of other sources.
+- Tweaked the government building effect on ship time/cost edict.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
@@ -57,10 +59,8 @@ Minor
 
 # TODO
 # Look at sca_norwegian flow
-# slightly lower hire advisor initial cost
+# slightly lower hire advisor initial cost, and redo event ui
 # add events for ai to build meta buildings
-
-# when updating vanilla ideas, note that expansion_ideas were updated and so ml_addideas
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
