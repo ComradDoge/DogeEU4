@@ -34,6 +34,7 @@ Major
 User Interface
 - Redid the estate screen.
 - Reworked Army/Navy Unit panels.
+- Cleaned up the Military Tab interface.
 - Moved "Construction Steward" decision into it's own button.
 
 Minor
