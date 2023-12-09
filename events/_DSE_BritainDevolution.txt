@@ -1,6 +1,196 @@
 namespace = dse_britain_devolution
 
 country_event = {
+	id = dse_britain_devolution.0
+	title = dse_britain_devolution.0.t
+	desc = dse_britain_devolution.0.d
+	picture = BRITISH_FLAG_ANIMATED_eventPicture
+	
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		play_sound = "britain_meme"
+	}
+	
+	option = { 
+		name = dse_britain_devolution.0.o1
+		custom_tooltip = britain_devolution_decision_tooltip
+		country_event = { id = dse_britain_devolution.1 }
+		hidden_effect = {
+			set_country_flag = british_devolution_enacted_country_flag
+			every_subject_country = {
+				limit = {
+					capital_scope = {
+						region = british_isles_region
+					}
+				}
+				every_owned_province = {
+					cede_province = GBR
+				}				
+			}
+			british_isles_region = {
+				remove_core = SCO
+				remove_core = IRE
+				remove_core = GBR
+			}
+			# England
+			east_midlands_area = {
+				add_core = GBR
+			}
+			west_midlands_area = {
+				add_core = GBR
+			}
+			yorkshire_area = {
+				add_core = GBR
+			}
+			scottish_marches_area = {
+				add_core = GBR
+			}
+			home_counties_area = {
+				add_core = GBR
+			}
+			east_anglia_area = {
+				add_core = GBR
+			}
+			# Ireland
+			munster_area = {
+				add_core = IRE
+			}
+			connacht_area = {
+				add_core = IRE
+			}
+			leinster_area = {
+				add_core = IRE
+			}
+			ulster_area = {
+				add_core = IRE
+			}
+			# Wales
+			wales_area = {
+				add_core = GBR
+			}
+			# Cornwall
+			wessex_area = {
+				add_core = GBR
+			}
+			# Scotland
+			lowlands_area = {
+				add_core = SCO
+			}
+			highlands_area = {
+				add_core = SCO
+			}
+			kingdom_of_the_isles_area = {
+				add_core = SCO
+			}
+			change_tag = GBR # temp
+			release = IRE
+			create_subject = {
+				subject_type = britain_devolution_ireland
+				subject = IRE
+			}
+			release = SCO
+			create_subject = {
+				subject_type = britain_devolution_scotland
+				subject = SCO
+			}
+			SCO = {
+				if = {
+					limit = {
+						NOT = { religion = ROOT }
+					}
+					change_religion = ROOT
+				}
+				set_country_flag = has_overriden_color_flag
+				change_country_color = { 
+					country = ROOT
+				}
+			}
+			IRE = {
+				if = {
+					limit = {
+						NOT = { religion = ROOT }
+					}
+					change_religion = ROOT
+				}
+				set_country_flag = has_overriden_color_flag
+				change_country_color = { 
+					country = ROOT
+				}
+			}
+		}
+	}
+	option = { 
+		name = dse_britain_devolution.0.o2
+		add_country_modifier = {
+			name = britain_devolution_centralized_mod
+			duration = -1
+		}
+		if = {
+			limit = {
+				OR = {
+					full_idea_group = humanist_ideas
+					full_idea_group = assimilation0
+					full_idea_group = gesellschaft0
+				}
+			}
+			custom_tooltip = devolution_no_rebels_tt
+		}
+		else = {
+			random_owned_province = {
+				limit = {
+					area = munster_area
+					culture = irish
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 2
+				}
+			}
+			random_owned_province = {
+				limit = {
+					OR = { 
+						area = highlands_area
+						area = lowlands_area
+					}
+					OR = {
+						culture = highland_scottish
+						culture = scottish
+					}
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 2
+				}
+			}
+			random_owned_province = {
+				limit = {
+					area = wales_area
+					culture = welsh
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 2
+				}
+			}
+			random_owned_province = {
+				limit = {
+					area = wessex_area
+					culture = cornish
+				}
+				spawn_rebels = {
+					type = nationalist_rebels
+					size = 2
+				}
+			}			
+		}
+
+	}
+}
+
+
+country_event = {
 	id = dse_britain_devolution.1
 	title = dse_britain_devolution.1.t
 	desc = dse_britain_devolution.1.d
@@ -8,7 +198,22 @@ country_event = {
 	
 	major = yes
 	is_triggered_only = yes
-	
+
+	option = { # Stay as is
+		name = dse_britain_devolution.1.o0
+	}
+	option = { # England
+		name = dse_britain_devolution.1.o5
+		override_country_name = britain_devolved_name_5
+	}
+	option = { # Britain
+		name = dse_britain_devolution.1.o4
+		override_country_name = britain_devolved_name_4
+	}
+	option = { # Britannia
+		name = dse_britain_devolution.1.o6
+		override_country_name = britain_devolved_name_6
+	}
 	option = { # Federation of Britain
 		name = dse_britain_devolution.1.o1
 		override_country_name = britain_devolved_name_1
@@ -21,27 +226,20 @@ country_event = {
 		name = dse_britain_devolution.1.o3
 		override_country_name = britain_devolved_name_3
 	}
+
+
+	after = {
+		country_event = { id = dse_britain_devolution.2 }
+	}
 }
 
 country_event = {
 	id = dse_britain_devolution.2
 	title = dse_britain_devolution.2.t
 	desc = dse_britain_devolution.2.d
-	picture = COURT_eventPicture
+	picture = BRITISH_FLAG_ANIMATED_eventPicture
 
-	trigger = {
-		NOT = { has_country_flag = wales_cornwall_choice_flag }
-		has_country_flag = british_devolution_enacted_country_flag
-		tag = GBR
-		AND = { 
-			NOT = { exists = WLS }
-			NOT = { exists = CRN }
-		}
-	}	
-	
-	mean_time_to_happen = {
-		days = 15
-	}
+	is_triggered_only = yes
 	
 	option = { # Release Wales and Cornwall
 		name = dse_britain_devolution.2.o1
@@ -78,6 +276,10 @@ country_event = {
 					}
 					change_religion = ROOT
 				}
+				set_country_flag = has_overriden_color_flag
+				change_country_color = { 
+					country = ROOT
+				}
 			}
 			CRN = {
 				if = {
@@ -85,6 +287,10 @@ country_event = {
 						NOT = { religion = ROOT }
 					}
 					change_religion = ROOT
+				}
+				set_country_flag = has_overriden_color_flag
+				change_country_color = { 
+					country = ROOT
 				}
 			}
 		}
@@ -114,6 +320,10 @@ country_event = {
 					}
 					change_religion = ROOT
 				}
+				set_country_flag = has_overriden_color_flag
+				change_country_color = { 
+					country = ROOT
+				}
 			}
 		}
 	}
@@ -141,6 +351,10 @@ country_event = {
 						NOT = { religion = ROOT }
 					}
 					change_religion = ROOT
+				}
+				set_country_flag = has_overriden_color_flag
+				change_country_color = { 
+					country = ROOT
 				}
 			}
 		}

@@ -45,6 +45,7 @@ Minor
 - War Exhaustion scaling is slightly more rough.
 - Age fire and shock reductions decreased by 5%.
 - Shock and Fire ideas lost 5% x_damage_received.
+- Devolution of Britain decision making reworked.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce dev bloat.
 - Prosperity goods_produced modifer replaced with production.
