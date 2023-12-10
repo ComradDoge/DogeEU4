@@ -29,6 +29,7 @@ Major
 - Autononmy reduction/increase values have been changed across the board.
 - Land and Discipline policies are back to older value setup with a unified cap.
 - Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
+- Manufactories scaling mechanic changed +1GP per 10 total development > +1GP per 5 production development.
 - Shuffled Centralization development modifiers. Base_cost reduction is now part of the 25 development requirement instead.
 - Government buldings tweaked. Removed non-governing related modifiers but added +1 num_of_allowed_buildings so it's less annoying to build.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
@@ -66,6 +67,10 @@ Minor
 # Look at sca_norwegian flow
 # slightly lower hire advisor initial cost, and redo event ui
 # add events for ai to build meta buildings
+
+# bigger trade node ui screen
+# bigger chinese screen
+# bigger map selection screen
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
