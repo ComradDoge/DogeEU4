@@ -21,8 +21,10 @@ from the original mod I took. After all I need to understand how they work, else
 Major
 - Mercenary Ideas and other values nerfed.
 - Max warscore gained from a wargoal increased 25>40.
+- Shipyard buildings forcelimit increased 0.5/1 > 1/2.
 - Reworked Kingdom/Empire into Minor/Great Power ideas.
 - Added Druidic religious ideas with a special mechanic.
+- Production buildings nerfed 100/200/400 > 0.75/1.5/300
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Autononmy reduction/increase values have been changed across the board.
 - Land and Discipline policies are back to older value setup with a unified cap.
@@ -41,6 +43,7 @@ User Interface
 Minor
 - Buffed Trade Management Ideas.
 - Monarchy Ideas system values tweaked.
+- Can now seize estate land while at war.
 - Subject penalties to base amounts increased.
 - War Exhaustion scaling is slightly more rough.
 - Age fire and shock reductions decreased by 5%.
@@ -48,6 +51,7 @@ Minor
 - Devolution of Britain decision making reworked.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce dev bloat.
+- Coastal Defence no longer gives +1 local_num_of_buildings.
 - Prosperity goods_produced modifer replaced with production.
 - Tweaked some Council of Trent Concessions to be more viable.
 - Removed Church Council as it was a duplicate of other sources.
