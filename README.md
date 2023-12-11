@@ -37,6 +37,7 @@ Major
 User Interface
 - Reworked the estate screen.
 - Reworked Army/Navy Unit panels.
+- Made mapmode selection screen larger.
 - Cleaned up the Military Tab interface.
 - Moved "Construction Steward" decision into it's own button.
 - Cleaned up the building screen in province view and now has latent goods as well.
@@ -52,11 +53,11 @@ Minor
 - Devolution of Britain decision making reworked.
 - Tweaked Blood Tax and Regional Councils reforms.
 - Removed Civil Conscription privilege to reduce dev bloat.
-- Coastal Defence no longer gives +1 local_num_of_buildings.
 - Prosperity goods_produced modifer replaced with production.
 - Tweaked some Council of Trent Concessions to be more viable.
 - Removed Church Council as it was a duplicate of other sources.
 - Tweaked the government building effect on ship time/cost edict.
+- Coastal category buildings no longer give +1 local_num_of_buildings.
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
@@ -74,6 +75,7 @@ Minor
 # bigger map selection screen
 
 # update wiki manufactories x per dev
+# update wiki age university requirement
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
