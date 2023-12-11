@@ -31,11 +31,11 @@ Major
 - Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
 - Manufactories scaling mechanic changed +1GP per 10 total development > +1GP per 5 production development.
 - Shuffled Centralization development modifiers. Base_cost reduction is now part of the 25 development requirement instead.
-- Government buldings tweaked. Removed non-governing related modifiers but added +1 num_of_allowed_buildings so it's less annoying to build.
+- Government buldings tweaked. Removed non-governing related modifiers and added +1 num_of_allowed_buildings so it's less annoying to build.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 
 User Interface
-- Redid the estate screen.
+- Reworked the estate screen.
 - Reworked Army/Navy Unit panels.
 - Cleaned up the Military Tab interface.
 - Moved "Construction Steward" decision into it's own button.
@@ -60,6 +60,7 @@ Minor
 - Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
+- Reforms that require subject/ally with 25 total development increased to 50.
 - Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 - Old World Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
@@ -71,6 +72,8 @@ Minor
 # bigger trade node ui screen
 # bigger chinese screen
 # bigger map selection screen
+
+# update wiki manufactories x per dev
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
