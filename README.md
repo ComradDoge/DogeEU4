@@ -55,6 +55,7 @@ Minor
 - Removed Civil Conscription privilege to reduce dev bloat.
 - Prosperity goods_produced modifer replaced with production.
 - Tweaked some Council of Trent Concessions to be more viable.
+- State Investments decreased heavily after 40>30 development.
 - Removed Church Council as it was a duplicate of other sources.
 - Tweaked the government building effect on ship time/cost edict.
 - Coastal category buildings no longer give +1 local_num_of_buildings.
@@ -67,12 +68,10 @@ Minor
 
 # TODO
 # Look at sca_norwegian flow
-# slightly lower hire advisor initial cost, and redo event ui
+# slightly lower hire advisor initial cost, and redo event ui, use flag instead of modifier
 # add events for ai to build meta buildings
 
-# bigger trade node ui screen
-# bigger chinese screen
-# bigger map selection screen
+# prosperous korea modifier given an icon
 
 # update wiki manufactories x per dev
 # update wiki age university requirement
