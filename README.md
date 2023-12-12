@@ -55,7 +55,6 @@ Minor
 - Removed Civil Conscription privilege to reduce dev bloat.
 - Prosperity goods_produced modifer replaced with production.
 - Tweaked some Council of Trent Concessions to be more viable.
-- State Investments decreased heavily after 40>30 development.
 - Removed Church Council as it was a duplicate of other sources.
 - Tweaked the government building effect on ship time/cost edict.
 - Coastal category buildings no longer give +1 local_num_of_buildings.
@@ -63,6 +62,7 @@ Minor
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
 - Reforms that require subject/ally with 25 total development increased to 50.
+- Development Ideas State Investments decreased heavily after 40>30 development.
 - Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 - Old World Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
