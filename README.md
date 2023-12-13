@@ -24,8 +24,9 @@ Major
 - Shipyard buildings forcelimit increased 0.5/1 > 1/2.
 - Reworked Kingdom/Empire into Minor/Great Power ideas.
 - Added Druidic religious ideas with a special mechanic.
-- Production buildings nerfed 100/200/400 > 0.75/1.5/300
+- Production buildings nerfed 100/200/400 > 0.75/1.5/300.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
+- Tweaked Road Buildings, to be much more focused on the speed aspect.
 - Autononmy reduction/increase values have been changed across the board.
 - Land and Discipline policies are back to older value setup with a unified cap.
 - Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
@@ -33,6 +34,7 @@ Major
 - Shuffled Centralization development modifiers. Base_cost reduction is now part of the 25 development requirement instead.
 - Government buldings tweaked. Removed non-governing related modifiers and added +1 num_of_allowed_buildings so it's less annoying to build.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
+- Tweaked AI building management logic, and should behave a bit more like a player. Expect to see more soldier households on proper provinces.
 
 User Interface
 - Reworked the estate screen.
@@ -75,6 +77,7 @@ Minor
 
 # update wiki manufactories x per dev
 # update wiki age university requirement
+# at some point add the idea events to anbennar/vanilla kek
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
