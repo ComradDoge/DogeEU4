@@ -18,21 +18,25 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-Major
-- Mercenary Ideas and other values nerfed.
-- Max warscore gained from a wargoal increased 25>40.
-- Shipyard buildings forcelimit increased 0.5/1 > 1/2.
-- Reworked Kingdom/Empire into Minor/Great Power ideas.
-- Added Druidic religious ideas with a special mechanic.
-- Production buildings nerfed 100/200/400 > 0.75/1.5/300.
+General
+- Can now seize estate land while at war.
+- Age fire and shock reductions decreased by 5%.
+- War Exhaustion scaling is slightly more rough.
+- Decentralisation of Britain decision making reworked.
+- Removed Civil Conscription privilege to reduce dev bloat.
+- Prosperity goods_produced modifer replaced with production.
+- Tweaked some Council of Trent Concessions to be more viable.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
-- Tweaked Road Buildings, to be much more focused on the speed aspect.
+- Removed most Rhenish decisions and reworked Blast Furnace interaction.
 - Autononmy reduction/increase values have been changed across the board.
-- Land and Discipline policies are back to older value setup with a unified cap.
-- Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
-- Manufactories scaling mechanic changed +1GP per 10 total development > +1GP per 5 production development.
-- Shuffled Centralization development modifiers. Base_cost reduction is now part of the 25 development requirement instead.
-- Government buldings tweaked. Removed non-governing related modifiers and added +1 num_of_allowed_buildings so it's less annoying to build.
+- HAB flavor events are extended to AUB and SGF if you were HAB originally.
+- Mughals upon formation can decide to stay Muslim tech/units or go Indian.
+- Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
+
+Systems
+- Subject penalties to base amounts increased.
+- Max warscore gained from a wargoal increased 25>40.
+- Old World Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 - Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
 - Tweaked AI building management logic, and should behave a bit more like a player. Expect to see more soldier households on proper provinces.
 
@@ -44,30 +48,37 @@ User Interface
 - Moved "Construction Steward" decision into it's own button.
 - Cleaned up the building screen in province view and now has latent goods as well.
 
-Minor
-- Reduced some AI bonuses.
-- Buffed Trade Management Ideas.
-- Monarchy Ideas system values tweaked.
-- Can now seize estate land while at war.
-- Subject penalties to base amounts increased.
-- War Exhaustion scaling is slightly more rough.
-- Age fire and shock reductions decreased by 5%.
-- Shock and Fire ideas lost 5% x_damage_received.
-- Devolution of Britain decision making reworked.
-- Tweaked Blood Tax and Regional Councils reforms.
-- Removed Civil Conscription privilege to reduce dev bloat.
-- Prosperity goods_produced modifer replaced with production.
-- Tweaked some Council of Trent Concessions to be more viable.
-- Removed Church Council as it was a duplicate of other sources.
+
+Buildings
+- Tweaked Road Infrastructure modifiers.
+- Shipyard buildings forcelimit increased 0.5/1 > 1/2.
+- Production buildings nerfed 100/200/400 > 0.75/1.5/300.
 - Tweaked the government building effect on ship time/cost edict.
 - Coastal category buildings no longer give +1 local_num_of_buildings.
-- Removed most Rhenish decisions and reworked Blast Furnace interaction.
-- HAB flavor events are extended to AUB and SGF if you were HAB originally.
-- Mughals upon formation can decide to stay Muslim tech/units or go Indian.
+- Manufactories scaling mechanic changed +1GP per 10 total development > +1GP per 5 production development.
+- Government buldings tweaked. Removed non-governing related modifiers and added +1 num_of_allowed_buildings so it's less annoying to build.
+
+
+Ideas
+- Monarchy Ideas system values tweaked.
+- Shock and Fire ideas lost 5% x_damage_received.
+- Reworked Kingdom/Empire into Minor/Great Power ideas.
+- Added Druidic religious ideas with a special mechanic.
+- Mercenary Ideas and other values nerfed across the board.
+- Trade Management: CoT Upgrade cost -15%>-50%, promote_mercantalism -10%>-25%
+- Land and Discipline policies are back to older value setup with a unified cap.
+- Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
+- Development Ideas: State Investments start heavily decreasing after 40>20 development.
+- Shuffled Centralization development modifiers. Base_cost reduction is now part of the 25 development requirement instead.
+
+
+Reforms
+- Blood Tax now scales manpower_recovery_speed.
+- Regional Councils tax modifier reduced +50% > +30%.
+- Removed Church Council as it was a duplicate of other sources.
+- Added T6 Merchants of the Monsoon reform for East Bantu group. 
 - Reforms that require subject/ally with 25 total development increased to 50.
-- Development Ideas State Investments decreased heavily after 40>20 development.
-- Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
-- Old World Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
+
 
 # TODO
 # Look at sca_norwegian flow
