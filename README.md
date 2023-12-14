@@ -69,6 +69,7 @@ Ideas
 - Mercenary Ideas and other values nerfed across the board.
 - Trade Management: CoT Upgrade cost -15%>-50%, promote_mercantalism -10%>-25%
 - Land and Discipline policies are back to older value setup with a unified cap.
+- Hire Advisor event cleanedup internally and no longer costs during event choice.
 - Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
 - Development Ideas: State Investments start heavily decreasing after 40>20 development.
 - Shuffled Centralization development modifiers. Base_cost reduction is now part of the 25 development requirement instead.
