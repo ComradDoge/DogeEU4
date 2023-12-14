@@ -45,6 +45,7 @@ User Interface
 - Cleaned up the building screen in province view and now has latent goods as well.
 
 Minor
+- Reduced some AI bonuses.
 - Buffed Trade Management Ideas.
 - Monarchy Ideas system values tweaked.
 - Can now seize estate land while at war.
@@ -64,16 +65,18 @@ Minor
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
 - Reforms that require subject/ally with 25 total development increased to 50.
-- Development Ideas State Investments decreased heavily after 40>30 development.
+- Development Ideas State Investments decreased heavily after 40>20 development.
 - Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 - Old World Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
 
 # TODO
 # Look at sca_norwegian flow
-# slightly lower hire advisor initial cost, and redo event ui, use flag instead of modifier
-# add events for ai to build meta buildings
 
 # prosperous korea modifier given an icon
+
+# rajput into bharat ideas should be viable
+# ROAD BUILDER MIGHT BE LOOPING
+
 
 # update wiki manufactories x per dev
 # update wiki age university requirement
