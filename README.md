@@ -89,8 +89,7 @@ Reforms
 # prosperous korea modifier given an icon
 
 # rajput into bharat ideas should be viable
-# ROAD BUILDER MIGHT BE LOOPING
-
+# take a look at silver/debuff and rework
 
 # update wiki manufactories x per dev
 # update wiki age university requirement
