@@ -47,6 +47,7 @@ Systems
 User Interface
 - Reworked Army/Navy Unit panels.
 - Updated the estate screen visuals.
+- Redid the Advisor selection screen.
 - Made mapmode selection screen larger.
 - Cleaned up the building screen in province view and now has latent goods as well.
 - Cleaned up the Military Tab interface and move the scuttle doctrine there as a button.
