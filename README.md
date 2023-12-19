@@ -90,7 +90,6 @@ Reforms
 
 # rajput into bharat ideas should be viable
 # take a look at silver/debuff and rework
-# dead sea icon (universal lake icon will do so baikal can use it)
 
 # update wiki manufactories x per dev
 # update wiki age university requirement
