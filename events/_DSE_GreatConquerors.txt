@@ -1,5 +1,6 @@
 # Yoinked from Anbennar
 namespace = great_conqueror
+namespace = dst_synthetic_invasion
 
 country_event = {
 	id = great_conqueror.0
@@ -254,6 +255,7 @@ country_event = {
 			limit = {
 				has_global_flag = mythical_conqueror
 				total_development = 500
+				NOT = { tag = SYN }
 			}
 			add_ruler_personality = mythical_conqueror_personality
 			add_ruler_modifier = {
@@ -280,6 +282,9 @@ country_event = {
 			log = "MYTHICAL CONQUEROR ---------------- [Root.GetName] |[Root.ownDev.GetValue]| became a Mythical Conqueror in [GetYear] [GetMonth]. It's a [Root.GovernmentName] | Number of GC: [REB.nbGC.GetValue]"
 		}
 		else = {
+			limit = {
+				NOT = { tag = SYN }
+			}
 			add_ruler_personality = great_conqueror_personality
 			add_ruler_modifier = {
 				name = great_conqueror_modifier
@@ -330,7 +335,7 @@ country_event = {
 	option = {
 		name = great_conqueror.1.a
 		ai_chance = {  factor = 100 }
-		hidden_effect = { set_global_flag = no_great_conqueror }
+		hidden_effect = { set_global_flag = no_great_conqueror clr_global_flag = synthetic_invasion_flag }
 	}
 	
 	#Let them in
@@ -348,5 +353,140 @@ country_event = {
 		add_splendor = 10
 		hidden_effect = { set_global_flag = mythical_conqueror clr_global_flag = no_great_conqueror }
 		custom_tooltip = mythical_conqueror_tooltip
+	}
+}
+
+
+country_event = {
+	id = dst_synthetic_invasion.1
+	title = dst_synthetic_invasion.1.t
+	desc = dst_synthetic_invasion.1.d
+	picture = GREATMAN_eventPicture
+
+	fire_only_once = yes
+
+	trigger = {
+		is_year = 1550
+		ai = yes
+		#NOT = { any_neighbor_country = { ai = no } }
+		has_global_flag = dse_meta_fantasy_synthetics_flag
+	}
+
+	mean_time_to_happen = {
+		years = 30
+	}
+
+	immediate = {
+		random_province = {
+			limit = {
+				NOT = { owner = { any_neighbor_country = { ai = no } } }
+				is_island = no
+				is_city = yes
+				OR = {
+					continent = europe
+					superregion = africa_superregion
+					continent = asia
+				}
+			}
+			add_core = SYN
+			owner = { release = SYN }
+		}
+		every_province = {
+			limit = {
+				owner = { ai = yes }
+				is_wasteland = no
+				is_city = yes
+				is_neighbor_of = SYN
+			}
+			add_core = SYN
+			cede_province = SYN
+		}
+
+		SYN = {
+
+			add_adm_power = 5000
+			add_dip_power = 5000
+			add_mil_power = 5000
+			add_treasury = 50000
+			
+			
+			add_manpower = 100
+			add_sailors = 10000
+			add_army_professionalism = 1
+
+			change_government = monarchy
+			add_legitimacy = 200
+
+			change_dip = 6
+			change_adm = 6
+			change_mil = 6
+
+			add_stability = 5
+			add_prestige = 100
+
+			set_ai_personality = {
+				personality = ai_militarist
+				locked = yes
+			}
+
+			swap_free_idea_group = yes
+			
+			add_country_modifier = {
+				name = syn_extermination_inprogress
+				duration = -1
+			}
+			change_primary_culture = synthetic_culture
+			change_religion = unknown
+		}
+		
+	}
+
+	after = {
+		if = {
+			limit = {
+				is_year = 1650
+			}
+			every_province = {
+				limit = {
+					owner = { ai = yes }
+					is_wasteland = no
+					is_city = yes
+					is_neighbor_of = SYN
+				}
+				add_core = SYN
+				cede_province = SYN
+			}
+		}
+		every_province = {
+			limit = {
+				is_wasteland = no
+				is_city = yes
+				is_neighbor_of = SYN
+			}
+			add_core = SYN
+		}
+		SYN = {
+			capital_scope = {
+				build_to_forcelimit = {
+					infantry = 0.8
+					artillery = 0.2
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				build_to_forcelimit = {
+					heavy_ship = 0.5
+					transport = 0.5
+				}
+			}
+		}
+	}
+	
+	
+	option = {
+		name = dst_synthetic_invasion.1.a
+
 	}
 }

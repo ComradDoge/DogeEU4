@@ -20,6 +20,7 @@ from the original mod I took. After all I need to understand how they work, else
 
 Uncategorized
 - Can now seize estate land while at war.
+- Reduced/removed some bonuses that AI gets.
 - Age fire and shock reductions decreased by 5%.
 - War Exhaustion scaling is slightly more rough.
 - Removed Civil Conscription privilege to reduce dev bloat.
