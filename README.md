@@ -92,6 +92,7 @@ Reforms
 
 # rajput into bharat ideas should be viable
 # take a look at silver/debuff and rework
+# solution for ai desire to max out forcelimit at expense of manpower
 
 # update wiki manufactories x per dev
 # update wiki age university requirement
