@@ -55,10 +55,10 @@ User Interface
 - CoT Upgrading, construction steward, development ideas mechanic and hire advisor decision are now dedicated buttons.
 
 Buildings
+- Tweaked Road Infrastructure buildings.
 - Shipyard buildings forcelimit increased 0.5/1 > 1/2.
 - Production buildings nerfed 100/200/400 > 0.75/1.5/300.
 - Coastal category buildings no longer give +1 local_num_of_buildings.
-- Tweaked Road Infrastructure modifiers with a primary boost to movement speed.
 - Tweaked the government building effect on ship time/cost and development edict.
 - Manufactories scaling mechanic changed +1GP per 10 total development > +1GP per 5 production development.
 - Government buldings tweaked. Removed non-governing related modifiers and added +1 num_of_allowed_buildings so it's less annoying to build.
