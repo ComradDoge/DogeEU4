@@ -57,6 +57,7 @@ User Interface
 Buildings
 - Tweaked Road Infrastructure buildings.
 - Shipyard buildings forcelimit increased 0.5/1 > 1/2.
+- State Houses now also accept jewellery and sculptures.
 - Production buildings nerfed 100/200/400 > 0.75/1.5/300.
 - Coastal category buildings no longer give +1 local_num_of_buildings.
 - Tweaked the government building effect on ship time/cost and development edict.
