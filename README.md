@@ -28,6 +28,7 @@ Uncategorized
 - Tweaked some Council of Trent Concessions to be more viable.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Autononmy reduction/increase values have been changed across the board.
+- Various monument images have been updated. Some monuments have been removed.
 - Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 
 Flavour
