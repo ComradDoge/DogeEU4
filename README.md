@@ -28,7 +28,6 @@ Uncategorized
 - Tweaked some Council of Trent Concessions to be more viable.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Autononmy reduction/increase values have been changed across the board.
-- Various monument images have been updated. Some monuments have been removed.
 - Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 
 Flavour
@@ -62,6 +61,7 @@ Buildings
 - Production buildings nerfed 100/200/400 > 0.75/1.5/300.
 - Coastal category buildings no longer give +1 local_num_of_buildings.
 - Tweaked the government building effect on ship time/cost and development edict.
+- Monuments have had a cleanup, with images changed and some monuments removed or integrated into others.
 - Manufactories scaling mechanic changed +1GP per 10 total development > +1GP per 5 production development.
 - Government buldings tweaked. Removed non-governing related modifiers and added +1 num_of_allowed_buildings so it's less annoying to build.
 
@@ -76,7 +76,7 @@ Ideas
 - Hire Advisor event cleanedup internally and no longer costs during event choice.
 - Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
 - Development Ideas: State Investments start heavily decreasing after 40>20 development.
-- Shuffled Centralization development modifiers. Base_cost reduction is now part of the 25 development requirement instead.
+- Shuffled Centralization development modifiers, base_cost reduction is now part of the 25 development requirement instead.
 
 Reforms
 - Blood Tax now scales manpower_recovery_speed.
@@ -92,12 +92,10 @@ Reforms
 
 # prosperous korea modifier given an icon
 
-# rajput into bharat ideas should be viable
 # take a look at silver/debuff and rework
 # solution for ai desire to max out forcelimit at expense of manpower
 
 # update wiki manufactories x per dev
-# update wiki age university requirement
 # at some point add the idea events to anbennar/vanilla kek
 
 <br/>
