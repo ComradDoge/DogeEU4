@@ -28,6 +28,7 @@ Uncategorized
 - Tweaked some Council of Trent Concessions to be more viable.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
 - Autononmy reduction/increase values have been changed across the board.
+- Colonial benefits to overlord buffed generally from 5% to 15%, check wiki.
 - Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 
 Flavour
@@ -46,6 +47,7 @@ Systems
 - Tweaked AI building management logic, and should behave a bit more like a player. Expect to see more soldier households on proper provinces.
 
 User Interface
+# Parliament screen made larger. 
 - Reworked Army/Navy Unit panels.
 - Updated the estate screen visuals.
 - Redid the Advisor selection screen.
