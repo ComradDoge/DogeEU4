@@ -88,9 +88,6 @@ Reforms
 
 
 # TODO
-
-# prosperous korea modifier given an icon
-
 # solution for ai desire to max out forcelimit at expense of manpower
 
 # at some point add the idea events to anbennar/vanilla kek
