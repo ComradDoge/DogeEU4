@@ -88,15 +88,14 @@ Reforms
 
 
 # TODO
-# Look at sca_norwegian flow
 
 # prosperous korea modifier given an icon
 
-# take a look at silver/debuff and rework
 # solution for ai desire to max out forcelimit at expense of manpower
 
-# update wiki manufactories x per dev
 # at some point add the idea events to anbennar/vanilla kek
+# update staatsverwaltung > trademanagement in vanilla/anbennar
+# update formation > logistics in vanilla/anbennar
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
