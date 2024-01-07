@@ -27,13 +27,11 @@ Uncategorized
 - Prosperity goods_produced modifer replaced with production.
 - Tweaked some Council of Trent Concessions to be more viable.
 - Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
-- Autononmy reduction/increase values have been changed across the board.
+- Autonomy reduction/increase values have been changed across the board.
 - Colonial benefits to overlord buffed generally from 5% to 15%, check wiki.
 - Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 
 Flavour
-# Added X events for Trade Management ideas.
-# Added 5 pulse events for caucasian culture group.
 - HAB flavor events are extended to AUB and SGF if you were HAB originally.
 - Mughals upon formation can decide to stay Muslim tech/units or go Indian.
 - Decentralisation of Britain decision making reworked so you can choose not to do it.
@@ -60,7 +58,7 @@ Buildings
 - Tweaked Road Infrastructure buildings.
 - Shipyard buildings forcelimit increased 0.5/1 > 1/2.
 - State Houses now also accept jewellery and sculptures.
-- Production buildings nerfed 100/200/400 > 0.75/1.5/300.
+- Production buildings nerfed 100/200/400 > 75/150/300.
 - Coastal category buildings no longer give +1 local_num_of_buildings.
 - Tweaked the government building effect on ship time/cost and development edict.
 - Monuments have had a cleanup, with images changed and some monuments removed or integrated into others.
