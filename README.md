@@ -47,7 +47,7 @@ Systems
 - Tweaked AI building management logic, and should behave a bit more like a player. Expect to see more soldier households on proper provinces.
 
 User Interface
-# Parliament screen made larger. 
+- Parliament screen made larger. 
 - Reworked Army/Navy Unit panels.
 - Updated the estate screen visuals.
 - Redid the Advisor selection screen.
