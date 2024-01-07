@@ -11,10 +11,10 @@ from the original mod I took. After all I need to understand how they work, else
 
 # STEAM WORKSHOP DESCRIPTION
 
-- Version: 1.36.1
+- Version: 1.36.2
 - Checksum: ?
 
-<h1>25/10/2023</h1>
+<h1>08/01/2024</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
