@@ -1,0 +1,467 @@
+custom_button = {
+	name = dst_decisions_builder_gui
+	tooltip = dst_decisions_builder_gui_tt
+	potential = {
+	}
+	trigger = {
+        hidden_trigger = {
+           NOT = { has_country_flag = SBCD_open_menu_flag }
+        }
+	}
+	effect = {
+        hidden_effect = {
+            set_country_flag = SBCD_open_menu_flag
+            SBCD_clear_filter_effects = yes
+            export_to_variable = { which = SCBD_current_treasury_var value = treasury }
+            set_variable = { which = SBCD_allocated_treasury_var which = SCBD_current_treasury_var }
+            country_event = {
+                id = SBCD_script_events.0
+            }
+        }
+	}
+}
+
+
+
+# More Decisions Screen
+custom_button = {
+	name = dst_decisions_screen_menu_button
+	potential = {
+	}
+	trigger = {
+	}
+    frame = { 
+       number = 2
+       trigger = { has_country_flag = dst_show_decisions_screen_menu_flag }
+    }
+    frame = { 
+       number = 1
+       trigger = { always = yes }
+    }
+	effect = { 
+		hidden_effect = {
+			FROM = {
+				if = {
+					limit = {
+						has_country_flag = dst_show_decisions_screen_menu_flag
+					}
+					clr_country_flag = dst_show_decisions_screen_menu_flag
+				}
+				else = {
+					set_country_flag = dst_show_decisions_screen_menu_flag
+				}
+			}
+		}
+	}
+}
+custom_icon = {
+	name = dst_decisions_screen_menu_bg
+    potential = {
+        FROM = { has_country_flag = dst_show_decisions_screen_menu_flag }
+	}
+}
+
+# Natural Development
+custom_button = {
+	name = dst_natural_development_button
+    tooltip = dev_sum_dev_ideas_decision_tooltip
+	potential = {
+        FROM = { has_country_flag = dst_show_decisions_screen_menu_flag }
+	}
+	trigger = {
+        full_idea_group = entwicklung0
+        #custom_trigger_tooltip = {
+        #    tooltip = dst_natural_development_button_requirement_tt
+        #    FROM = { has_idea = entwicklung1 }
+        #}
+	}
+    frame = { 
+       number = 2
+        trigger = { 
+            full_idea_group = entwicklung0
+            NOT = { has_country_flag = idp_prosperous_hidden }
+        }
+    }
+    frame = {
+        number = 1
+        trigger = {
+            OR = { 
+                NOT = { full_idea_group = entwicklung0 }
+                AND = {
+                    full_idea_group = entwicklung0
+                    has_country_flag = idp_prosperous_hidden
+                }
+            }
+        }
+    }
+	effect = {
+        FROM = {
+            if = {
+                limit = {
+                    has_country_flag = idp_prosperous_hidden
+                }
+                custom_tooltip = dst_natural_development_show_events_tt
+                clr_country_flag = idp_prosperous_hidden
+            }
+            else = {
+                custom_tooltip = dst_natural_development_hide_events_tt
+                set_country_flag = idp_prosperous_hidden
+            }
+        }
+	}
+}
+
+# Hire Advisor 
+custom_button = {
+	name = dst_hire_advisor_button
+    tooltip = dst_hire_advisor_button_tt
+	potential = {
+        FROM = { has_country_flag = dst_show_decisions_screen_menu_flag }
+	}
+	trigger = {
+        hidden_trigger = {
+            NOT = { has_country_flag = dst_hire_advisor_event_present_flag }
+        }
+        NOT = { 
+            has_country_modifier = recently_hired_advisor_mechanic
+        }
+        custom_trigger_tooltip = {
+            tooltip = dst_hire_advisor_button_requirement_tt
+            OR = { 
+                FROM = { full_idea_group = humanist_ideas }
+                FROM = { has_idea = imperialismus5 }
+            }
+        }
+	}
+
+	effect = {
+        FROM = {
+            country_event = { id = dse_idea_mechanics_hire_advisor.1 }
+        }
+        hidden_effect = {
+            set_country_flag = dst_hire_advisor_event_present_flag
+        }
+	}
+}
+
+# Building Province Limiter
+custom_button = {
+	name = dst_building_limiter_button
+    tooltip = dst_building_limiter_tt
+	potential = {
+        FROM = { has_country_flag = dst_show_decisions_screen_menu_flag }
+	}
+	trigger = {
+        hidden_trigger = {
+            NOT = { has_country_flag = building_province_selection_decision_opened }
+        }
+	}
+
+	effect = {
+        FROM = {
+            country_event = { id = dse_basic_events.0 }
+        }
+        #Manufactory
+        FROM = {
+            if = {
+                limit = {
+                    has_country_flag = building_selection_5_prod_flag
+                }
+                custom_tooltip = dst_limiter_5_manufactory_selection_tt
+            }
+            else_if = {
+                limit = {
+                    has_country_flag = building_selection_10_prod_flag
+                }
+                custom_tooltip = dst_limiter_10_manufactory_selection_tt
+            }
+            else_if = {
+                limit = {
+                    has_country_flag = building_selection_15_prod_flag
+                }
+                custom_tooltip = dst_limiter_15_manufactory_selection_tt
+            }
+            else = {
+                custom_tooltip = dst_limiter_no_manufactory_selection_tt
+            }
+        }
+        # Forcelimit
+        FROM = {
+            if = {
+                limit = {
+                    has_country_flag = building_selection_10_development_flag
+                }
+                custom_tooltip = dst_limiter_10_forcelimit_selection_tt
+            }
+            else_if = {
+                limit = {
+                    has_country_flag = building_selection_20_development_flag
+                }
+                custom_tooltip = dst_limiter_20_forcelimit_selection_tt
+            }
+            else_if = {
+                limit = {
+                    has_country_flag = building_selection_30_development_flag
+                }
+                custom_tooltip = dst_limiter_30_forcelimit_selection_tt
+            }
+            else = {
+                custom_tooltip = dst_limiter_no_forcelimit_selection_tt
+            }
+        }
+        hidden_effect = {
+            set_country_flag = building_province_selection_decision_opened
+        }
+	}
+}
+
+# Trade Centre Upgrader Decision
+custom_button = {
+	name = dst_cot_upgrade_1_to_2_button
+    tooltip = upgrade_1_to_2_tooltip
+	potential = {
+        FROM = { has_country_flag = dst_show_decisions_screen_menu_flag }
+	}
+	trigger = {
+        FROM = {
+			any_owned_province = {
+				development = 15
+				province_has_center_of_trade_of_level = 1
+				NOT = { province_has_center_of_trade_of_level = 2 }
+				OR = {
+					is_state = yes
+					is_owned_by_trade_company = yes
+				}
+			}
+        }
+        FROM = {
+            treasury = 200
+            is_at_war = no
+        }
+	}
+    effect = {
+        hidden_effect = {
+            FROM = {
+                set_variable = {
+                    which = ptPower
+                    value = -1
+                }
+
+                every_owned_province = {
+                    limit = {
+                        development = 15
+                        province_has_center_of_trade_of_level = 1
+                        NOT = { province_has_center_of_trade_of_level = 2 }
+                        OR = {
+                            is_state = yes
+                            is_owned_by_trade_company = yes
+                        }
+                    }
+
+                    export_to_variable = {
+                        which = ptPower
+                        value = trigger_value:province_trade_power
+                    }
+
+                    if = {
+                        limit = {
+                            check_variable = {
+                                which = ptPower
+                                which = owner
+                            }
+                        }
+
+                        owner = {
+                            set_variable = {
+                                which = ptPower
+                                which = PREV
+                            }
+                        }
+
+                        save_event_target_as = ptpFlag
+                        #log = "find [This.GetName] [This.ptPower.GetValue]"
+                    }
+                }
+
+                if = {
+                    limit = { has_saved_event_target = ptpFlag }
+                    event_target:ptpFlag = {
+                        add_center_of_trade_level = 1
+                            hidden_effect = {
+                                owner = {
+                                    export_to_variable = {
+                                        which = cotuCost
+                                        value = modifier:center_of_trade_upgrade_cost
+                                    }
+                                    change_variable = {
+                                        which = cotuCost
+                                        value = 1
+                                    }
+                                    multiply_variable = {
+                                        which = cotuCost
+                                        value = -200
+                                    }
+                                    add_power_effect = { #command_variable_effect
+                                        variable = cotuCost
+                                        command = add_treasury
+                                    }
+                                }
+                            }
+                        #log = "final [This.GetName] [This.ptPower.GetValue]"
+                    }
+                }
+            }
+        }
+    }
+}
+
+custom_button = {
+	name = dst_cot_upgrade_2_to_3_button
+    tooltip = upgrade_2_to_3_tooltip
+	potential = {
+        FROM = { has_country_flag = dst_show_decisions_screen_menu_flag }
+	}
+	trigger = {
+        any_owned_province = {
+            development = 30
+            province_has_center_of_trade_of_level = 2
+            all_province_in_state = {
+                NOT = {
+                    province_has_center_of_trade_of_level = 3
+                }
+            }
+            OR = {
+                is_state = yes
+                is_owned_by_trade_company = yes
+            }
+        }
+        FROM = {
+            treasury = 1000
+            is_at_war = no
+        }
+		FROM = {
+            if = { limit = { NOT = { num_of_owned_provinces_with = { value =    1	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 1  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =    2	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 2  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =    3	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 3  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =    4	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 4  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =    5	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 5  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =    6	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 6  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =    7	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 7  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =    8	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 8  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =    9	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	 9  }
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	10	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	10	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	11	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	11	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	12	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	12	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	13	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	13	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	14	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	14	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	15	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	15	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	16	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	16	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	17	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	17	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	18	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	18	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	19	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	19	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	20	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	20	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	21	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	21	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	22	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	22	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	23	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	23	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	24	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	24	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	25	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	25	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	26	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	26	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	27	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	27	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	28	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	28	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	29	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	29	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	30	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	30	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	31	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	31	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	32	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	32	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	33	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	33	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	34	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	34	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	35	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	35	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	36	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	36	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	37	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	37	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	38	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	38	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	39	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	39	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	40	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	40	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	41	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	41	}
+            else_if = { limit = { NOT = { num_of_owned_provinces_with = { value =	42	province_has_center_of_trade_of_level = 3 } } } num_of_merchants =	42	}
+        }
+	}
+    effect = {
+        hidden_effect = {
+            FROM = {
+                set_variable = {
+                    which = ptPower
+                    value = -1
+                }
+
+                every_owned_province = {
+                    limit = {
+                        development = 30
+                        province_has_center_of_trade_of_level = 2
+                        all_province_in_state = {
+                            NOT = {
+                                province_has_center_of_trade_of_level = 3
+                            }
+                        }
+
+                        OR = {
+                            is_state = yes
+                            is_owned_by_trade_company = yes
+                        }
+                    }
+
+                    export_to_variable = {
+                        which = ptPower
+                        value = trigger_value:province_trade_power
+                    }
+
+                    if = {
+                        limit = {
+                            check_variable = {
+                                which = ptPower
+                                which = owner
+                            }
+                        }
+
+                        owner = {
+                            set_variable = {
+                                which = ptPower
+                                which = PREV
+                            }
+                        }
+
+                        save_event_target_as = ptpFlag
+                        #log = "find [This.GetName] [This.ptPower.GetValue]"
+                    }
+                }
+
+                if = {
+                    limit = { has_saved_event_target = ptpFlag }
+                    event_target:ptpFlag = {
+                        add_center_of_trade_level = 1
+                            hidden_effect = {
+                                owner = {
+                                    export_to_variable = {
+                                        which = cotuCost
+                                        value = modifier:center_of_trade_upgrade_cost
+                                    }
+                                    change_variable = {
+                                        which = cotuCost
+                                        value = 1
+                                    }
+                                    multiply_variable = {
+                                        which = cotuCost
+                                        value = -1000
+                                    }
+                                    add_power_effect = { #command_variable_effect
+                                        variable = cotuCost
+                                        command = add_treasury
+                                    }
+                                }
+                            }
+                        #log = "final [This.GetName] [This.ptPower.GetValue]"
+                    }
+                }
+            }
+        }
+    }
+}
+

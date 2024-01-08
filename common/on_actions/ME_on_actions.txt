@@ -1719,16 +1719,16 @@ on_remove_pasha = {
 	}
 }
 
-on_janissaries_raised = {
-	owner = {
-		if = {
-			limit = {
-				has_country_flag = RUM_cost_of_janissaries_decreased
-			}
-			add_mil_power = 6
-		}
-	}
-}
+#on_janissaries_raised = {
+#	owner = {
+#		if = {
+#			limit = { #DISABLED AND NERFED RUM
+#				has_country_flag = RUM_cost_of_janissaries_decreased
+#			}
+#			add_mil_power = 6
+#		}
+#	}
+#}
 
 #on_four_year_pulse_4 = {
 #	random_events = {
@@ -2409,4 +2409,59 @@ on_consecrate_patriarch = {
 			change_government_reform_progress = 10
 		}
 	}
+}
+
+on_monarch_death = {
+	random_events = {
+		900 = ME_Mamluks_Events.21
+	}
+	if = {
+		limit = {
+			tag = ERE
+			mission_completed = BEY_splendid_court
+		}
+		random_owned_province = {
+			province_event = {
+				id = ME_Beylik_Events.14
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_ruler_flag = Ulugh_beg_is_ruler
+		}
+		ROOT = {
+			country_event = { id = ME_Timurid_Princes_Event.11 }
+		}
+	}
+	complete_mission = me_tim_regency
+	
+	if = {
+		limit = {
+			tag = TIM
+			has_global_flag = tim_successor
+		}
+		event_target:me_tim_successor = {
+			country_event = { id = ME_Timurid_Princes_Event.20 }
+		}
+		clr_global_flag = tim_successor
+	}
+	else_if = {
+		limit = {
+			tag = TIM
+			has_global_flag = prince_successor
+		}
+		event_target:me_tim_successor = {
+			country_event = { id = ME_Timurid_Princes_Event.19 }
+		}
+		clr_global_flag = prince_successor
+	}
+	else_if = {
+		limit = {
+			tag = TIM
+			has_country_flag = ME_TIM_no_successor
+		}
+		country_event = { id = ME_Timurid_Princes_Event.12 }
+	}
+	else = { } #don't complain error log.
 }

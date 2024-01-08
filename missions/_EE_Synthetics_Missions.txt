@@ -1,0 +1,282 @@
+SYN_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SYN } 
+
+	EE_syn_new_government = {
+		icon = neapolitan_govenance
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = { reform_level = 2 } 
+
+		effect = {
+			change_government = monarchy
+			add_government_reform = EE_synthetic_monarchy
+		}
+	}
+
+	EE_syn_governing_capacity = {
+		icon = a_strong_government
+		position = 3
+		required_missions = { EE_syn_human_governments } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			reform_level = 4
+			OR = {
+				adm = 4
+				has_adm_advisor_3 = yes
+				full_idea_group = administrative_ideas
+			}
+		}
+
+		effect = {
+			custom_tooltip = EE_SYN_PASSING_REFORMS_GIVES_US_BONUS
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = "EE_syn_outer_space_governing_technology"
+				duration = -1
+			}
+		}
+	}
+}
+
+SYN_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SYN } 
+
+	EE_syn_human_governments = {
+		icon = mission_noble_council
+		position = 2
+		required_missions = {
+			EE_syn_new_government
+			EE_syn_synthetic_dawn
+		}
+		provinces_to_highlight = { 
+			NOT = { owned_by = ROOT }
+			OR = {
+				development = 15
+				has_courthouse_building_trigger = yes
+			}
+		} 
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_courthouse_building_trigger = yes
+					development = 15
+				}
+				value = 20
+			}
+		}
+
+		effect = {
+			change_government_reform_progress = 100
+			ME_distribute_development = {
+				type = production
+				amount = 5
+			}
+			ME_distribute_development = {
+				type = tax
+				amount = 5
+			}
+			ME_distribute_development = {
+				type = manpower
+				amount = 5
+			}
+			custom_tooltip = EE_SYN_EXPAND_INFRASTRUCTURE_GIVES_REFORM_PROGRESS
+		}
+	}
+
+	EE_syn_construction_efforts = {
+		icon = mission_early_game_buildings
+		position = 4
+		required_missions = {
+			EE_syn_governing_capacity
+			EE_syn_development_efforts
+		}
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { num_of_buildings_in_province = 3 } 
+		}
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				num_of_buildings_in_province = 3
+				value = 20
+			}
+		}
+
+		effect = {
+			enable_development_on_buildings_built = yes
+			custom_tooltip = " "
+			custom_tooltip = EE_SYN_GAIN_MONEY_WHEN_CONSENTRATING_DEVELOPMENT
+		}
+	}
+}
+SYN_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SYN } 
+
+	EE_syn_synthetic_dawn = {
+		icon = league_of_the_public_weal
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = { num_of_battles_won = { amount = 10 }  } 
+
+		effect = {
+			add_ruler_modifier = {
+				name = "EE_syn_successful_landing"
+				duration = -1
+			}
+			custom_tooltip = " "
+			custom_tooltip = EE_SYN_EVERY_NEW_RULER_WE_GAIN_BUFFS
+		}
+	}
+
+	EE_syn_development_efforts = {
+		icon = mission_colonial
+		position = 3
+		required_missions = {
+			EE_syn_human_governments
+			EE_syn_winged_dinosaurs
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { num_of_provinces_developed = { value = 15 }  } 
+
+		effect = {
+			custom_tooltip = EE_DOUBLE_DEV_PROVINCES
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = "ee_syn_alien_development"
+				duration = -1
+			}
+		}
+	}
+
+	EE_syn_new_world_order = {
+		icon = me_mission_protect_throne
+		position = 5
+		required_missions = {
+			EE_syn_construction_efforts
+			EE_syn_militarize_the_robots
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = { value = 500 }  } 
+
+		effect = {
+			add_country_modifier = {
+				name = "ee_syn_synthetic_dawn_modifier"
+				duration = -1
+			}
+			custom_tooltip = " "
+			change_adm = 2
+			change_mil = 2
+			change_dip = 2
+		}
+	}
+}
+SYN_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SYN } 
+
+	EE_syn_winged_dinosaurs = {
+		icon = mission_conquer_5_states
+		position = 2
+		required_missions = {
+			EE_syn_synthetic_dawn
+			EE_syn_robot_army
+		}
+		provinces_to_highlight = { region = central_america_region } 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = central_america_region
+				value = 15
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "mayan_dinosaur_cavalry"
+				duration = -1
+			}
+			add_country_modifier = {
+				name = "EE_winged_dinosaurs"
+				duration = -1
+			}
+		}
+	}
+
+	EE_syn_militarize_the_robots = {
+		icon = military_self_reliance
+		position = 4
+		required_missions = {
+			EE_syn_one_radience_thing
+			EE_syn_development_efforts
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_battles_won = { amount = 100 } 
+			monthly_mil = 9
+		}
+
+		effect = { add_government_reform = EE_synthetic_monarchy_militarized } 
+	}
+}
+SYN_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SYN } 
+
+	EE_syn_robot_army = {
+		icon = industrialized_rhineland
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = { num_of_battles_won = { amount = 50 }  } 
+
+		effect = {
+			custom_tooltip = EE_WINNING_BATTLES_GIVES_MANA
+			custom_tooltip = " "
+			add_army_tradition_or_mil_power = { amount = 10 } 
+		}
+	}
+
+	EE_syn_one_radience_thing = {
+		icon = issue_general_reglement
+		position = 3
+		required_missions = { EE_syn_winged_dinosaurs } 
+		provinces_to_highlight = {  } 
+
+		trigger = { ME_amount_of_mil_ideas = { amount = 2 }  } 
+
+		effect = {
+			define_general = {
+				name = "ORT"
+				shock = 10
+				fire = 10
+				manuever = 10
+				siege = 10
+				trait = ORT_personality
+			}
+		}
+	}
+}

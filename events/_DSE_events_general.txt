@@ -1,154 +1,32 @@
-namespace = dse_events_african
 namespace = dse_events_general
-
-# IDEA
-# 1. A single farmlands/grassland gets an event due to massive mismanagement of the land
-# 2. A choice to A. Help them out (2.0 money and manpower) B. Oversee it (1.0 half money and manpower) C. Let themselves sort it out (prestige -10)
-
-#If A. -10 dev cost; taxation +20 | 10 years
-#If B. -5 dev cost; taxation +15 | 5 years
-#If C. one of the 3 random events 
-#   (25%=Development cost +10; -20 | 50%=nothing happens | 25%=taxation +10
+namespace = dse_events_farmland_mismanagement
 
 
 
+#province_event = { # Province Template
+#	id = dse_events_general.0
+#	title = dse_events_general.0.t
+#	desc = dse_events_general.0.d
+#	picture = CITY_DEVELOPMENT_eventPicture
+#
+#	is_triggered_only = yes
+#	goto = ROOT
+#
+#	trigger = {
+#	}
+#	
+#	option = {
+#		name = dse_events_general.0.o1
+#	}
+#	option = {
+#		name = dse_events_general.0.o2
+#	}
+#	option = {
+#		name = dse_events_general.3.o3
+#	}
+#
+#}
 
-# African Advantage #1
-country_event = {
-	id = dse_events_african.1
-	title = dse_events_african.1.t
-	desc = dse_events_african.1.d
-	picture = WESTERNISATION_eventPicture
-	hidden = yes
-	
-
-	trigger = {
-        capital_scope = { continent = africa }
-		any_owned_province = {
-			is_colony = yes
-			continent = africa
-			NOT = { has_province_modifier = colony_african_advantage_mod }
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 3
-	}
-	
-	immediate = {
-		every_owned_province = {
-			limit = {
-                is_colony = yes
-                continent = africa
-                NOT = { has_province_modifier = colony_african_advantage_mod }
-            }
-			add_province_modifier = {
-				name = "colony_african_advantage_mod"
-				duration = -1
-				#hidden = yes
-			}
-		}
-	}
-	
-	option = {
-		name = dse_events_african.1.o1
-		
-	}
-}
-# African Advantage #2
-country_event = {
-	id = dse_events_african.2
-	title = dse_events_african.2.t
-	desc = dse_events_african.2.d
-	picture = WESTERNISATION_eventPicture
-	hidden = yes
-	
-
-	trigger = {
-		any_owned_province = {
-			is_colony = no
-			has_province_modifier = colony_african_advantage_mod
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 3
-	}
-	
-	immediate = {
-		every_owned_province = {
-			limit = {
-				has_province_modifier = colony_african_advantage_mod
-            }
-			remove_province_modifier = colony_african_advantage_mod
-		}
-	}
-	
-	option = {
-		name = dse_events_african.2.o1
-		
-	}
-}
-
-# African Gold Mine Boost Adder
-province_event = {
-	id = dse_events_african.3
-	title = dse_events_african.3.t
-	desc = dse_events_african.3.d
-	picture = WESTERNISATION_eventPicture
-	hidden = yes
-	
-
-	trigger = {
-		continent = africa
-		trade_goods = gold
-		NOT = { has_province_modifier = african_goldmine_mod }
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		add_province_modifier = {
-			name = "african_goldmine_mod"
-			duration = -1
-			#hidden = yes
-		}
-	}
-	
-	option = {
-		name = dse_events_african.3.o1
-		
-	}
-}
-# African Gold Mine Boost Removal
-province_event = {
-	id = dse_events_african.4
-	title = dse_events_african.4.t
-	desc = dse_events_african.4.d
-	picture = WESTERNISATION_eventPicture
-	hidden = yes
-	
-
-	trigger = {
-		has_province_modifier = african_goldmine_mod
-		NOT = { trade_goods = gold }
-	}
-	
-	mean_time_to_happen = {
-		days = 3
-	}
-	
-	immediate = {
-		remove_province_modifier = african_goldmine_mod
-	}
-	
-	option = {
-		name = dse_events_african.4.o1
-		
-	}
-}
 
 country_event = {
 	id = dse_events_general.1
@@ -180,3 +58,264 @@ country_event = {
 	}
 }
 
+country_event = { # Military Theory Publication
+	id = dse_events_general.2
+	title = dse_events_general.2.t
+	desc = dse_events_general.2.d
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_province = {
+			has_building = university
+		}
+	}
+	
+	option = {
+		name = dse_events_general.2.o1
+		define_advisor = {
+			type = commandant
+			discount = yes
+			skill = 3
+		}
+		add_prestige = -5
+	}	
+	option = {
+		name = dse_events_general.2.o2
+		add_army_professionalism = 0.005
+		add_treasury = -150
+	}
+	option = {
+		name = dse_events_general.2.o3
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+}
+
+province_event = { # Roadside Inn
+	id = dse_events_general.3
+	title = dse_events_general.3.t
+	desc = dse_events_general.3.d
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	is_triggered_only = yes
+	goto = ROOT
+
+	trigger = {
+		NOT = { has_province_modifier = dse_events_general_roadside_inn_mod }
+		has_any_road_building = yes
+	}
+	
+	option = {
+		name = dse_events_general.3.o1
+		add_local_autonomy = 10
+		add_province_modifier = {
+			name = dse_events_general_roadside_inn_mod
+			duration = 1825
+		}
+
+	}
+	option = {
+		name = dse_events_general.3.o2
+		owner = {
+			add_manpower = -1
+			add_legitimacy_equivalent = { amount = 10 republican_tradition = 5 }
+		}
+	}
+	option = {
+		name = dse_events_general.3.o3
+		owner = {
+			add_treasury = 50
+			add_prestige = -5
+		}
+	}
+
+}
+
+province_event = { # Farmland Mismanagement # Disabled # CBA rn but change province_flag to target or something so that in event it doesnt say "every owned province gets x" as it will confuse players
+	id = dse_events_general.4
+	title = dse_events_general.4.t
+	desc = dse_events_general.4.d
+	picture = FARMING_eventPicture
+
+	is_triggered_only = yes
+	goto = ROOT
+
+	trigger = {
+		owner = { NOT = { has_country_modifier = dse_events_farmland_mismanagement_timer } }
+		has_terrain = farmlands
+	}
+
+	immediate = {
+		set_province_flag = farmland_mismanagement_province_flag
+		owner = {
+			add_country_modifier = {
+				name = dse_events_farmland_mismanagement_timer
+				duration = 5475
+				hidden = yes
+			}
+		}
+	}
+	
+	option = {
+		name = dse_events_general.4.o1
+		owner = {
+			add_years_of_income = -1
+			add_yearly_manpower = -1
+			hidden_effect = {
+				country_event = { id = dse_events_farmland_mismanagement.1 days = 180 }
+			}
+		}
+	}
+	option = {
+		name = dse_events_general.4.o2
+		owner = {
+			add_years_of_income = -0.5
+			add_yearly_manpower = -0.5
+			hidden_effect = {
+				country_event = { id = dse_events_farmland_mismanagement.2 days = 180 }
+			}
+		}
+	}
+	option = {
+		name = dse_events_general.4.o3
+		owner = {
+			add_prestige = -10
+			hidden_effect = {
+				random_list = {
+					10 = { # Good Ending
+						country_event = { id = dse_events_farmland_mismanagement.3 days = 180 }
+					}
+					60 = { # Nothing happens
+
+					}
+					30 = { # Bad Ending
+						country_event = { id = dse_events_farmland_mismanagement.4 days = 180 }
+					}
+				}
+			}
+		}
+	}
+
+}
+
+province_event = {
+	id = dse_events_farmland_mismanagement.1
+	title = dse_events_farmland_mismanagement.1.t
+	desc = dse_events_farmland_mismanagement.1.d
+	picture = FARMING_eventPicture
+
+	is_triggered_only = yes
+	goto = ROOT
+
+	option = {
+		name = dse_events_farmland_mismanagement.1.o1
+		every_owned_province = {
+			limit = {
+				has_province_flag = farmland_mismanagement_province_flag
+			}
+			add_province_modifier = {
+				name = dse_events_general_farmland_mismanagement_mod_1
+				duration = 3650
+			}
+		}
+	}
+	after = {
+		every_owned_province = {
+			limit = {
+				has_province_flag = farmland_mismanagement_province_flag
+			}
+			remove_province_flag = farmland_mismanagement_province_flag
+		}
+	}
+}
+province_event = {
+	id = dse_events_farmland_mismanagement.2
+	title = dse_events_farmland_mismanagement.2.t
+	desc = dse_events_farmland_mismanagement.2.d
+	picture = FARMING_eventPicture
+
+	is_triggered_only = yes
+	goto = ROOT
+
+	option = {
+		name = dse_events_farmland_mismanagement.2.o1
+		every_owned_province = {
+			limit = {
+				has_province_flag = farmland_mismanagement_province_flag
+			}
+			add_province_modifier = {
+				name = dse_events_general_farmland_mismanagement_mod_2
+				duration = 1825
+			}
+		}
+	}
+	after = {
+		every_owned_province = {
+			limit = {
+				has_province_flag = farmland_mismanagement_province_flag
+			}
+			remove_province_flag = farmland_mismanagement_province_flag
+		}
+	}
+}
+province_event = {
+	id = dse_events_farmland_mismanagement.3
+	title = dse_events_farmland_mismanagement.3.t
+	desc = dse_events_farmland_mismanagement.3.d
+	picture = FARMING_eventPicture
+
+	is_triggered_only = yes
+	goto = ROOT
+
+	option = {
+		name = dse_events_farmland_mismanagement.3.o1
+		every_owned_province = {
+			limit = {
+				has_province_flag = farmland_mismanagement_province_flag
+			}
+			add_province_modifier = {
+				name = dse_events_general_farmland_mismanagement_mod_3
+				duration = 1825
+			}
+		}
+	}
+	after = {
+		every_owned_province = {
+			limit = {
+				has_province_flag = farmland_mismanagement_province_flag
+			}
+			remove_province_flag = farmland_mismanagement_province_flag
+		}
+	}
+}
+province_event = {
+	id = dse_events_farmland_mismanagement.4
+	title = dse_events_farmland_mismanagement.4.t
+	desc = dse_events_farmland_mismanagement.4.d
+	picture = FARMING_eventPicture
+
+	is_triggered_only = yes
+	goto = ROOT
+
+	option = {
+		name = dse_events_farmland_mismanagement.4.o1
+		every_owned_province = {
+			limit = {
+				has_province_flag = farmland_mismanagement_province_flag
+			}
+			add_province_modifier = {
+				name = dse_events_general_farmland_mismanagement_mod_4
+				duration = 3650
+			}
+		}
+	}
+	after = {
+		every_owned_province = {
+			limit = {
+				has_province_flag = farmland_mismanagement_province_flag
+			}
+			remove_province_flag = farmland_mismanagement_province_flag
+		}
+	}
+}

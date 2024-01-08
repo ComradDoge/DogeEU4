@@ -1,0 +1,181 @@
+# Rhineland Specific Blast Furnace Button
+custom_button = {
+	name = dst_blast_furnace_build_gui_name
+	tooltip = dst_blast_furnace_build_gui_tt
+	potential = {
+        FROM = { has_country_flag = RHN_Blast_furnaces }
+        ROOT = { owned_by = FROM }
+        ROOT = {
+            OR = { 
+                OR = {
+                    area = hesse_area
+                    area = north_rhine_area
+                    area = lower_rhineland_area
+                    area = palatinate_area
+                }
+                AND = {
+                    FROM = { has_country_flag = RHN_westphalia }
+                    OR = {
+                        westphalia_area = {
+                            NOT = { has_building = blast_furnace }
+                        }
+                        north_westphalia_area = {
+                            NOT = { has_building = blast_furnace }
+                        }
+                    }
+                }                
+            }
+        }
+	}
+	trigger = {
+        FROM = { treasury = 3000 }
+        ROOT = {
+            NOT = { has_building = blast_furnace }
+            NOT = { has_construction = blast_furnace }
+
+            NOT = { has_construction = building }
+            NOT = { has_construction = core }
+            NOT = { has_construction = great_project }
+            NOT = { has_construction = canal }
+            NOT = { has_construction = culture }
+            NOT = { has_construction = missionary }
+        }
+	}
+	effect = {
+        hidden_effect = {
+            FROM = {
+                if = {
+                    limit = {
+                        has_country_modifier = RHN_blast_furnace_cost
+                    }
+                    add_treasury = -2250
+                }
+                else = {
+                    add_treasury = -3000
+                }
+            }
+            ROOT = {
+                add_building_construction = {
+                    building = blast_furnace
+                    speed = 1
+                    cost = 0
+                }
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = dst_scuttle_doctrine_button
+    tooltip = dst_scuttle_doctrine_button_tooltip
+	potential = {
+	}
+	trigger = {
+        hidden_trigger = {
+            FROM = {
+                num_of_ports = 1
+            }
+        }
+	}
+    frame = { 
+       number = 2
+       trigger = { has_country_modifier = meta_scuttle_doctrine_mod }
+    }
+    frame = { 
+       number = 1
+       trigger = { always = yes }
+    }
+	effect = { 
+        FROM = {
+            if = {
+                limit = {
+                    has_country_modifier = meta_scuttle_doctrine_mod
+                }
+                remove_country_modifier = meta_scuttle_doctrine_mod
+            }
+            else = {
+                add_country_modifier = {
+                    name = meta_scuttle_doctrine_mod
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+custom_button = {
+	name = dst_state_firearms_button
+    tooltip = dst_state_firearms_button_tooltip
+	potential = {
+		has_dlc = "Cradle of Civilization"
+	}
+	trigger = {
+        mil_tech = 6
+        army_professionalism = 0.15
+	}
+    frame = { 
+       number = 2
+       trigger = { has_country_modifier = gunpowder_core }
+    }
+    frame = { 
+       number = 1
+       trigger = { always = yes }
+    }
+	effect = { 
+        FROM = {
+            if = {
+                limit = {
+                    has_country_modifier = gunpowder_core
+                }
+			    add_army_professionalism = -0.025
+                clr_country_flag = gunpowder_core_activated
+                remove_country_modifier = gunpowder_core
+            }
+            else = {
+                set_country_flag = gunpowder_core_activated
+                add_country_modifier = {
+                    name = gunpowder_core
+                    duration = -1
+                }
+            }
+        }
+	}
+}
+
+
+custom_button = {
+	name = dst_uniforms_regulated_button
+    tooltip = dst_uniforms_regulated_button_tooltip
+	potential = {
+		has_dlc = "Cradle of Civilization"
+	}
+	trigger = {
+		mil_tech = 19
+        army_professionalism = 0.3
+	}
+    frame = { 
+       number = 2
+       trigger = { has_country_modifier = standardized_uniforms_modifier }
+    }
+    frame = { 
+       number = 1
+       trigger = { always = yes }
+    }
+	effect = { 
+        FROM = {
+            if = {
+                limit = {
+                    has_country_modifier = standardized_uniforms_modifier
+                }
+                add_army_professionalism = -0.025
+                remove_country_modifier = standardized_uniforms_modifier
+            }
+            else = {
+                add_country_modifier = {
+                    name = standardized_uniforms_modifier
+                    duration = -1
+                }
+            }
+        }
+	}
+}

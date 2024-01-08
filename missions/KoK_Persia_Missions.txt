@@ -1,4 +1,4 @@
-# Changed full_idea_group = theocracy_gov_ideas to aristo0
+# Changed full_idea_group = theocracy_gov_ideas to theocracy0
 
 #Conquest + Religious Branches
 kok_persia_conquest_mission_slot_1 = {
@@ -259,7 +259,7 @@ kok_persia_mission_muslim_slot_1 = {
 				}
 				AND = {
 					superregion = near_east_superregion
-					NOT = { root = { num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = { superregion = near_east_superregion value = 100 } } }
+					NOT = { root = { num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = { superregion = near_east_superregion value = 125 } } }
 				}
 				AND = {
 					OR = {
@@ -273,7 +273,7 @@ kok_persia_mission_muslim_slot_1 = {
 									superregion = eastern_europe_superregion 
 									superregion = europe_superregion 
 								} 
-								value = 100 
+								value = 50 
 							} 
 						} 
 					}
@@ -352,7 +352,7 @@ kok_persia_mission_zoroastrian_slot_1 = {
 				}
 				AND = {
 					superregion = near_east_superregion
-					NOT = { root = { num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = { superregion = near_east_superregion value = 100 } } }
+					NOT = { root = { num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = { superregion = near_east_superregion value = 125 } } }
 				}
 				AND = {
 					OR = {
@@ -366,7 +366,7 @@ kok_persia_mission_zoroastrian_slot_1 = {
 									superregion = eastern_europe_superregion 
 									superregion = europe_superregion 
 								} 
-								value = 100 
+								value = 50 
 							} 
 						} 
 					}
@@ -517,14 +517,34 @@ kok_persia_conquest_mission_slot_2 = {
 			NOT = { country_or_non_sovereign_subject_holds = root }
 		}
 		trigger = {
-			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-				culture = kurdish
-				OR = {
-					region = persia_region
-					region = anatolia_region
-					region = mashriq_region
+			if = {
+				limit = {
+					calc_true_if = {
+						all_province = { culture = kurdish }
+						amount = 8
+					}
 				}
-				value = 10
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					culture = kurdish
+					value = 8
+				}
+			}
+			else_if = {
+				limit = {
+					any_province = { culture = kurdish }
+				}
+				all_province = {
+					OR = {
+						NOT = { culture = kurdish }
+						AND = {
+							culture = kurdish
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+				}
+			}
+			else = {
+				NOT = { any_province = { culture = kurdish } }
 			}
 		}
 		effect = {
@@ -2306,7 +2326,7 @@ kok_persia_mission_muslim_slot_4 = {
 			OR = {
 				has_commanding_three_star = yes
 				mil = 5
-				full_idea_group = aristo0
+				full_idea_group = theocracy0
 				full_idea_group = religious_ideas
 			}
 			num_of_owned_provinces_with = {
@@ -2730,7 +2750,7 @@ kok_persia_mission_zoroastrian_slot_4 = {
 				duration = 9125
 			}
 			if = {
-				limit = { is_core = 4430 }
+				limit = { NOT = { is_core = 4430 } }
 				add_core = 4430
 			}
 		}

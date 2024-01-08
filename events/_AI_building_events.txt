@@ -1,0 +1,1084 @@
+namespace = ai_building_events
+
+
+# The Building AI is somewhat limited and doesn't queue building like a player would. 
+# This is a way to save some of that building time and decision making.
+# They don't cheat with cost here, but their time is reduced. 
+# However, to trigger the events at all, the amount of cash they need to hold is still static and does not take in account any reductions. So it kinda works out.
+
+# Cotton/Cloth > Cloth Workshop
+# Cloth Workshop > Uniform Workshop
+# Marble/Jade > Sculptures
+# Lumber > Woodworking (tropical wood left alone)
+# Livestock > 95% Leather 5% Cheese (hehe)
+# Amber/Gems/Pearls to Jewellery but to a limit of 4
+# Fur > Fur Clothing
+# Soldier Households
+# Road Buildings
+
+# Cotton/Cloth > Cloth Workshop
+country_event = { 
+	id = ai_building_events.1
+	title = ai_building_events.1.t
+	desc = ai_building_events.1.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+	hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 400
+        OR = {
+            adm_tech = 4
+            overlord = { adm_tech = 4 }
+        }
+        any_owned_province = {
+            development = 10
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            OR = { 
+                trade_goods = cotton
+                trade_goods = wool
+            }
+        }
+	}
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                development = 10
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+                NOT = { has_building = cloth_workshop }
+                OR = { 
+                    trade_goods = cotton
+                    trade_goods = wool
+                }
+            }
+            add_building_construction = {
+                building = cloth_workshop
+                speed = 0.5
+                cost = 1
+            }
+        }        
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Cloth Workshop > Uniform Workshop
+country_event = { 
+	id = ai_building_events.2
+	title = ai_building_events.2.t
+	desc = ai_building_events.2.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 1000
+        OR = {
+            mil_tech = 20
+            overlord = { mil_tech = 20 }
+        }
+        any_owned_province = {
+            development = 15
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            has_building = cloth_workshop
+        }
+	}
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                development = 15
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+                has_building = cloth_workshop
+            }
+            remove_building = cloth_workshop
+            add_building_construction = {
+                building = uniforms_workshop
+                speed = 0.5
+                cost = 1
+            }
+        }        
+    }
+	
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Marble/Jade > Sculptures
+country_event = { 
+	id = ai_building_events.3
+	title = ai_building_events.3.t
+	desc = ai_building_events.3.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 600
+        OR = {
+            adm_tech = 10
+            overlord = { adm_tech = 10 }
+        }
+        any_owned_province = {
+            development = 15
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            OR = { 
+                trade_goods = marble
+                trade_goods = jade
+            }
+        }
+	}
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                development = 15
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+                NOT = { has_building = sculpture_workshop }
+                OR = { 
+                    trade_goods = marble
+                    trade_goods = jade
+                }
+            }
+            add_building_construction = {
+                building = sculpture_workshop
+                speed = 0.5
+                cost = 1
+            }
+        }
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Lumber > Woodworking
+country_event = { 
+	id = ai_building_events.4
+	title = ai_building_events.4.t
+	desc = ai_building_events.4.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 400
+        OR = {
+            adm_tech = 4
+            overlord = { adm_tech = 4 }
+        }
+        any_owned_province = {
+            development = 10
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            trade_goods = lumber
+        }
+	}
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                development = 10
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+                NOT = { has_building = wood_workshop }
+                trade_goods = lumber
+            }
+            add_building_construction = {
+                building = wood_workshop
+                speed = 0.5
+                cost = 1
+            }
+        }
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Livestock > 95% Leather 5% Cheese (hehe)
+country_event = { 
+	id = ai_building_events.5
+	title = ai_building_events.5.t
+	desc = ai_building_events.5.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 200
+        OR = {
+            adm_tech = 4
+            overlord = { adm_tech = 4 }
+        }
+        any_owned_province = {
+            development = 5
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            trade_goods = livestock
+        }
+	}
+
+    immediate = {
+        random_list = {
+            95 = {
+                random_owned_province = {
+                    limit = {
+                        development = 5
+                        meet_basic_province_requirements_trigger = yes
+                        no_ongoing_construction_triggers = yes
+                        NOT = { has_building = leather_workshop }
+                        trade_goods = livestock
+                    }
+                    add_building_construction = {
+                        building = leather_workshop
+                        speed = 0.5
+                        cost = 1
+                    }
+                }
+            }
+            5 = {
+                random_owned_province = {
+                    limit = {
+                        development = 5
+                        meet_basic_province_requirements_trigger = yes
+                        no_ongoing_construction_triggers = yes
+                        NOT = { has_building = cheese_workshop }
+                        trade_goods = livestock
+                    }
+                    add_building_construction = {
+                        building = cheese_workshop
+                        speed = 0.5
+                        cost = 1
+                    }
+                }
+            }
+        }
+
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Amber/Gems/Pearls to Jewellery but to a limit of 4
+country_event = { 
+	id = ai_building_events.6
+	title = ai_building_events.6.t
+	desc = ai_building_events.6.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 600
+        NOT = { jewellery = 4 } 
+        OR = {
+            dip_tech = 14
+            overlord = { dip_tech = 14 }
+        }
+        any_owned_province = {
+            development = 15
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            OR = { 
+                trade_goods = amber
+                trade_goods = gems
+                trade_goods = pearls
+            }
+        }
+	}
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                development = 15
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+                NOT = { has_building = jewellery_workshop }
+                OR = { 
+                    trade_goods = amber
+                    trade_goods = gems
+                    trade_goods = pearls
+                }
+            }
+            add_building_construction = {
+                building = jewellery_workshop
+                speed = 0.5
+                cost = 1
+            }
+        }
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Fur > Fur Clothing
+country_event = { 
+	id = ai_building_events.7
+	title = ai_building_events.7.t
+	desc = ai_building_events.7.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 400
+        OR = {
+            dip_tech = 4
+            overlord = { dip_tech = 4 }
+        }
+        any_owned_province = {
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            development = 10
+            trade_goods = fur
+        }
+	}
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                development = 10
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+                NOT = { has_building = fur_workshop }
+                trade_goods = fur
+            }
+            add_building_construction = {
+                building = fur_workshop
+                speed = 0.5
+                cost = 1
+            }
+        }
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Soldier Households
+country_event = { 
+	id = ai_building_events.8
+	title = ai_building_events.8.t
+	desc = ai_building_events.8.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 1000
+        OR = {
+            adm_tech = 15
+            overlord = { adm_tech = 15 }
+        }
+        any_owned_province = {
+            development = 5
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            has_soldier_households_goods = yes
+            has_manufactory_trigger = no
+            num_free_building_slots = 1
+        }
+	}
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                development = 5
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+                has_soldier_households_goods = yes
+                has_manufactory_trigger = no
+                num_free_building_slots = 1
+            }
+            add_building_construction = {
+                building = soldier_households
+                speed = 0.1
+                cost = 1
+            }
+        }
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Wrong Manufactory on Soldier Household good
+country_event = { 
+	id = ai_building_events.9
+	title = ai_building_events.9.t
+	desc = ai_building_events.9.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 6
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        treasury = 1000
+        OR = {
+            adm_tech = 15
+            overlord = { adm_tech = 15 }
+        }
+        any_owned_province = {
+            development = 5
+            meet_basic_province_requirements_trigger = yes
+            no_ongoing_construction_triggers = yes
+            has_soldier_households_goods = yes
+            has_manufactory_trigger = yes
+            NOT = { has_building = soldier_households }
+        }
+	}
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                development = 5
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+                has_soldier_households_goods = yes
+                OR = {
+                    has_building = wharf
+                    has_building = weapons
+                    has_building = textile
+                    has_building = tradecompany
+                    has_building = farm_estate
+                    has_building = mills
+                    has_building = furnace
+                    has_building = plantations
+                    
+                    has_building = ramparts
+                    #has_building = soldier_households
+                    has_building = impressment_offices
+                    has_building = state_house
+                }
+            }
+            remove_building = wharf
+            remove_building = weapons
+            remove_building = textile
+            remove_building = tradecompany
+            remove_building = farm_estate
+            remove_building = mills
+            remove_building = furnace
+            remove_building = plantations
+            remove_building = ramparts
+            remove_building = impressment_offices
+            remove_building = state_house
+            owner = { add_treasury = 1000 }
+            add_building_construction = {
+                building = soldier_households
+                speed = 0.1
+                cost = 1
+            }
+        }
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+# Road Buildings
+country_event = { 
+	id = ai_building_events.10
+	title = ai_building_events.10.t
+	desc = ai_building_events.10.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	
+    hidden = yes
+
+	mean_time_to_happen = {
+		months = 12
+		
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 6
+			num_of_loans = 8
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 4
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 2
+		}
+	}
+	
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        #was_player = no
+        if = {
+            limit = {
+                
+            }
+        }
+        OR = { 
+            AND = { 
+                treasury = 500
+                NOT = { adm_tech = 27 }
+            }
+            AND = { 
+                treasury = 1000
+                adm_tech = 27
+            }
+        }
+        OR = { 
+            any_owned_province = {
+                owner = { adm_tech = 3 }
+                development = 5
+                NOT = { development = 10 }
+                NOT = { local_autonomy = 50 }
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+
+                NOT = { has_building = early_road }
+                NOT = { has_building = gravel_road }
+                NOT = { has_building = royal_road }
+                NOT = { has_building = macadam_road }
+                NOT = { has_building = railroad }
+            }
+            any_owned_province = {
+                owner = { adm_tech = 10 }
+                development = 10
+                NOT = { development = 15 }
+                NOT = { local_autonomy = 50 }
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+
+                #NOT = { has_building = early_road }
+                NOT = { has_building = gravel_road }
+                NOT = { has_building = royal_road }
+                NOT = { has_building = macadam_road }
+                NOT = { has_building = railroad }
+            }      
+            any_owned_province = {
+                owner = { adm_tech = 17 }
+                development = 15
+                #NOT = { development = 20 }
+                NOT = { local_autonomy = 50 }
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+
+                #NOT = { has_building = early_road }
+                #NOT = { has_building = gravel_road }
+                NOT = { has_building = royal_road }
+                NOT = { has_building = macadam_road }
+                NOT = { has_building = railroad }
+            }
+            any_owned_province = {
+                owner = { adm_tech = 23 }
+                development = 15
+                #NOT = { development = 25 }
+                NOT = { local_autonomy = 50 }
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+
+                #NOT = { has_building = early_road }
+                #NOT = { has_building = gravel_road }
+                #NOT = { has_building = royal_road }
+                NOT = { has_building = macadam_road }
+                NOT = { has_building = railroad }
+            }
+            any_owned_province = {
+                owner = { adm_tech = 27 }
+                development = 15
+                NOT = { local_autonomy = 50 }
+                meet_basic_province_requirements_trigger = yes
+                no_ongoing_construction_triggers = yes
+
+                #NOT = { has_building = early_road }
+                #NOT = { has_building = gravel_road }
+                #NOT = { has_building = royal_road }
+                #NOT = { has_building = macadam_road }
+                NOT = { has_building = railroad }
+            } 
+        }
+	}
+
+    immediate = {
+        if = {
+            limit = {
+                any_owned_province = {
+                    development = 5
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    NOT = { has_building = early_road }
+                    NOT = { has_building = gravel_road }
+                    NOT = { has_building = royal_road }
+                    NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    development = 5
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    NOT = { has_building = early_road }
+                    NOT = { has_building = gravel_road }
+                    NOT = { has_building = royal_road }
+                    NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+                #remove_building = early_road #5
+                #remove_building = gravel_road #10
+                #remove_building = royal_road #15
+                #remove_building = macadam_road #20
+                #remove_building = railroad #25
+
+                add_building_construction = {
+                    building = early_road
+                    speed = 0.5
+                    cost = 1
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                adm_tech = 10
+                any_owned_province = {
+                    development = 10
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    #NOT = { has_building = early_road }
+                    NOT = { has_building = gravel_road }
+                    NOT = { has_building = royal_road }
+                    NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    development = 10
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    #NOT = { has_building = early_road }
+                    NOT = { has_building = gravel_road }
+                    NOT = { has_building = royal_road }
+                    NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+                remove_building = early_road #5
+                #remove_building = gravel_road #10
+                #remove_building = royal_road #15
+                #remove_building = macadam_road #20
+                #remove_building = railroad #25
+
+                add_building_construction = {
+                    building = gravel_road
+                    speed = 0.5
+                    cost = 1
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                adm_tech = 17
+                any_owned_province = {
+                    development = 15
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    #NOT = { has_building = early_road }
+                    #NOT = { has_building = gravel_road }
+                    NOT = { has_building = royal_road }
+                    NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    development = 15
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    #NOT = { has_building = early_road }
+                    #NOT = { has_building = gravel_road }
+                    NOT = { has_building = royal_road }
+                    NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+                remove_building = early_road #5
+                remove_building = gravel_road #10
+                #remove_building = royal_road #15
+                #remove_building = macadam_road #20
+                #remove_building = railroad #25
+
+                add_building_construction = {
+                    building = royal_road
+                    speed = 0.5
+                    cost = 1
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                adm_tech = 23
+                any_owned_province = {
+                    development = 15
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    #NOT = { has_building = early_road }
+                    #NOT = { has_building = gravel_road }
+                    #NOT = { has_building = royal_road }
+                    NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    development = 15
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    #NOT = { has_building = early_road }
+                    #NOT = { has_building = gravel_road }
+                    #NOT = { has_building = royal_road }
+                    NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+                remove_building = early_road #5
+                remove_building = gravel_road #10
+                remove_building = royal_road #15
+                #remove_building = macadam_road #20
+                #remove_building = railroad #25
+
+                add_building_construction = {
+                    building = macadam_road
+                    speed = 0.5
+                    cost = 1
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                adm_tech = 27
+                any_owned_province = {
+                    development = 15
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    #NOT = { has_building = early_road }
+                    #NOT = { has_building = gravel_road }
+                    #NOT = { has_building = royal_road }
+                    #NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    development = 15
+                    NOT = { local_autonomy = 50 }
+                    meet_basic_province_requirements_trigger = yes
+                    no_ongoing_construction_triggers = yes
+                    #NOT = { has_building = early_road }
+                    #NOT = { has_building = gravel_road }
+                    #NOT = { has_building = royal_road }
+                    #NOT = { has_building = macadam_road }
+                    NOT = { has_building = railroad }
+                }
+                remove_building = early_road #5
+                remove_building = gravel_road #10
+                remove_building = royal_road #15
+                remove_building = macadam_road #20
+                #remove_building = railroad #25
+
+                add_building_construction = {
+                    building = railroad
+                    speed = 0.5
+                    cost = 1
+                }
+            }
+        }
+        else = {
+            log = "ROAD BUILDER MIGHT BE LOOPING"
+        }
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}

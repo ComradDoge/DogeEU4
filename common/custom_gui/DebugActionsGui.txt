@@ -1,0 +1,1152 @@
+custom_icon = {
+    name = debug_toggle_raise_lower_dev_indicator #Must match a scripted iconType in a .gui file
+    potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	} #Determines when the icon is visible
+    #tooltip = EstateDecisionButtonIconName #Can use customizable localisation
+    frame = {  #Can define multiple frame clauses
+        number = 2 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = { 
+			FROM = {
+				NOT = { has_country_flag = debug_change_dev_decrease }
+			}
+		}
+    }
+	frame = {  #Can define multiple frame clauses
+        number = 4 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+		trigger = { 
+			FROM = {
+				has_country_flag = debug_change_dev_decrease 
+			}
+		}
+    }
+}
+
+custom_icon = {
+	name = debug_menu_background_bg
+    potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	}
+}
+
+custom_text_box = {
+    name = debug_menu_header_text #Must match a scripted instantTextBoxType in a .gui file
+    potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	} #Determines when the text is visible
+    #tooltip = ESTATE_ACTION_DESCRIPTION #Can use customizable localisation
+    #To localize it, use the name of the button as a key, can also use customizable localisation
+}
+
+custom_button = {
+	name = debug_menu_open_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			#FROM = { NOT = { has_country_flag = debug_menu_active } }
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		hidden_effect = {
+			FROM = {
+				if = {
+					limit = {
+						has_country_flag = debug_menu_active
+					}
+					clr_country_flag = debug_menu_active
+				}
+				else = {
+					set_country_flag = debug_menu_active
+				}
+			}
+		}
+	}
+	tooltip = debug_menu_open_text_tooltip
+}
+
+custom_button = {
+	name = debug_menu_close_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		hidden_effect = {
+			FROM = {
+				clr_country_flag = debug_menu_active
+			}
+		}
+	}
+	tooltip = debug_menu_close_text_tooltip
+}
+
+custom_button = {
+	name = debug_transfer_occupation_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		ROOT = { NOT = { controlled_by = FROM } }
+	}
+	effect = { 
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			change_controller = FROM
+		}
+		else = {
+			area = {
+				change_controller = FROM
+			}
+		}
+		
+	}
+	tooltip = debug_transfer_occupation_text_tooltip
+}
+
+custom_button = {
+	name = debug_core_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		ROOT = { 
+			OR = {
+				NOT = { is_state_core = FROM } 
+			}
+		}
+	}
+	effect = { 
+		
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			add_core = FROM
+		}
+		else = {
+			area = {
+				add_core = FROM
+			}
+		}
+	}
+	tooltip = debug_core_text_tooltip
+}
+
+custom_button = {
+	name = debug_own_core_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		ROOT = { 
+			OR = {
+				NOT = { owned_by = FROM } 
+				NOT = { is_state_core = FROM } 
+			}
+		}
+	}
+	effect = { 
+		
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			add_core = FROM
+			cede_province = FROM
+		}
+		else = {
+			area = {
+				add_core = FROM
+				cede_province = FROM
+			}
+		}
+	}
+	tooltip = debug_own_core_text_tooltip
+}
+
+custom_button = {
+	name = debug_decolonize_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		is_empty = no
+	}
+	effect = { 
+		
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			decolonize = THIS
+		}
+		else = {
+			area = {
+				decolonize = THIS
+			}
+		}
+	}
+	tooltip = debug_decolonize_text_tooltip
+}
+
+custom_button = {
+	name = debug_culture_convert_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		has_owner_culture = no
+	}
+	effect = { 
+		
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			change_culture = owner
+		}
+		else = {
+			area = {
+				change_culture = owner
+			}
+		}
+	}
+	tooltip = debug_culture_convert_text_tooltip
+}
+
+custom_button = {
+	name = debug_convert_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		FROM = { clr_country_flag = debug_building_menu_active }
+		FROM = { clr_country_flag = debug_goods_menu_active }
+		FROM = { clr_country_flag = debug_province_modifier_menu_active }
+		FROM = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = debug_convert_menu_active }
+				}
+				set_country_flag = debug_convert_menu_active
+			}
+			else = { clr_country_flag = debug_convert_menu_active }
+		}
+	}
+	tooltip = debug_convert_text_tooltip
+}
+
+custom_button = {
+	name = debug_change_trade_good_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		FROM = { clr_country_flag = debug_building_menu_active }
+		FROM = { clr_country_flag = debug_convert_menu_active }
+		FROM = { clr_country_flag = debug_province_modifier_menu_active }
+		FROM = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = debug_goods_menu_active }
+				}
+				set_country_flag = debug_goods_menu_active
+			}
+			else = { clr_country_flag = debug_goods_menu_active }
+		}
+	}
+	tooltip = debug_change_trade_good_text_tooltip
+}
+
+custom_button = {
+	name = debug_add_building_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		FROM = { clr_country_flag = debug_convert_menu_active }
+		FROM = { clr_country_flag = debug_goods_menu_active }
+		FROM = { clr_country_flag = debug_province_modifier_menu_active }
+		FROM = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = debug_building_menu_active }
+				}
+				set_country_flag = debug_building_menu_active
+			}
+			else = { clr_country_flag = debug_building_menu_active }
+		}
+	}
+	tooltip = debug_add_building_text_tooltip
+}
+
+custom_button = {
+	name = debug_add_province_modifier_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		FROM = { clr_country_flag = debug_convert_menu_active }
+		FROM = { clr_country_flag = debug_goods_menu_active }
+		FROM = { clr_country_flag = debug_building_menu_active }
+		FROM = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = debug_province_modifier_menu_active }
+				}
+				set_country_flag = debug_province_modifier_menu_active
+			}
+			else = { clr_country_flag = debug_province_modifier_menu_active }
+		}
+	}
+	tooltip = debug_add_province_modifier_text_tooltip
+}
+
+custom_button = {
+	name = debug_change_adm_dev_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			ROOT = {
+				FROM = {
+					if = {
+						limit = {
+							NOT = { has_country_flag = debug_change_dev_decrease }
+						}
+						PREV = { add_base_tax = 1 }
+					}
+					else = { PREV = { add_base_tax = -1 } }
+				}
+			}
+		}
+		else = {
+			ROOT = {
+				area = {
+					FROM = {
+						if = {
+							limit = {
+								NOT = { has_country_flag = debug_change_dev_decrease }
+							}
+							PREV = { add_base_tax = 1 }
+						}
+						else = { PREV = { add_base_tax = -1 } }
+					}
+				}
+			}
+		}
+	}
+	tooltip = debug_change_adm_dev_text_tooltip
+}
+
+custom_button = {
+	name = debug_change_dip_dev_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			ROOT = {
+				FROM = {
+					if = {
+						limit = {
+							NOT = { has_country_flag = debug_change_dev_decrease }
+						}
+						PREV = { add_base_production = 1 }
+					}
+					else = { PREV = { add_base_production = -1 } }
+				}
+			}
+		}
+		else = {
+			ROOT = {
+				area = {
+					FROM = {
+						if = {
+							limit = {
+								NOT = { has_country_flag = debug_change_dev_decrease }
+							}
+							PREV = { add_base_production = 1 }
+						}
+						else = { PREV = { add_base_production = -1 } }
+					}
+				}
+			}
+		}
+	}
+	tooltip = debug_change_dip_text_tooltip
+}
+
+custom_button = {
+	name = debug_change_mil_dev_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			ROOT = {
+				FROM = {
+					if = {
+						limit = {
+							NOT = { has_country_flag = debug_change_dev_decrease }
+						}
+						PREV = { add_base_manpower = 1 }
+					}
+					else = { PREV = { add_base_manpower = -1 } }
+				}
+			}
+		}
+		else = {
+			ROOT = {
+				area = {
+					FROM = {
+						if = {
+							limit = {
+								NOT = { has_country_flag = debug_change_dev_decrease }
+							}
+							PREV = { add_base_manpower = 1 }
+						}
+						else = { PREV = { add_base_manpower = -1 } }
+					}
+				}
+			}
+		}
+	}
+	tooltip = debug_change_mil_dev_text_tooltip
+}
+
+custom_button = {
+	name = debug_toggle_raise_lower_dev_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		FROM = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = debug_change_dev_decrease }
+				}
+				set_country_flag = debug_change_dev_decrease
+			}
+			else = { clr_country_flag = debug_change_dev_decrease }
+		}
+	}
+	tooltip = debug_toggle_raise_lower_dev_text_tooltip
+}
+
+custom_button = {
+	name = debug_build_to_force_land_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		build_to_forcelimit = {
+			infantry = 0.7
+			cavalry = 0.1
+			artillery = 0.2
+		}
+	}
+	tooltip = debug_build_to_force_land_text_tooltip
+}
+
+custom_button = {
+	name = debug_build_to_force_sea_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		has_port = yes
+	}
+	effect = { 
+		build_to_forcelimit = {
+			heavy_ship = 0.5
+			light_ship = 0.5
+			transport = 0.0
+		}
+	}
+	tooltip = debug_build_to_force_sea_text_tooltip
+}
+
+
+
+custom_button = {
+	name = debug_make_subject_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			check_variable = {
+				which = debug_menu_page_variable
+				value = 1
+			}
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 2
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		ROOT = { NOT = { owned_by = FROM } }
+	}
+	effect = { 
+		FROM = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = debug_make_subject_menu_active }
+				}
+				set_country_flag = debug_make_subject_menu_active
+			}
+			else = { clr_country_flag = debug_make_subject_menu_active }
+		}
+	}
+	#tooltip = debug_build_to_force_sea_text_tooltip
+}
+
+custom_button = {
+	name = debug_convert_country_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			check_variable = {
+				which = debug_menu_page_variable
+				value = 1
+			}
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 2
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		FROM = { clr_country_flag = debug_building_menu_active }
+		FROM = { clr_country_flag = debug_goods_menu_active }
+		FROM = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = debug_convert_menu_active }
+				}
+				set_country_flag = debug_convert_menu_active
+			}
+			else = { clr_country_flag = debug_convert_menu_active }
+			
+			if = {
+				limit = {
+					NOT = { has_country_flag = debug_using_country_scope }
+				}
+				set_country_flag = debug_using_country_scope
+			}
+			else = { clr_country_flag = debug_using_country_scope }
+		}
+	}
+	tooltip = debug_convert_country_text_tooltip
+}
+
+custom_button = {
+	name = debug_integrate_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			check_variable = {
+				which = debug_menu_page_variable
+				value = 1
+			}
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 2
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		ROOT = { NOT = { owned_by = FROM } }
+	}
+	effect = { 
+		owner = {
+			FROM = {
+				inherit = prev
+			}
+		}
+	}
+	tooltip = debug_integrate_text_tooltip
+}
+
+custom_button = {
+	name = debug_change_tag_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			check_variable = {
+				which = debug_menu_page_variable
+				value = 1
+			}
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 2
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		ROOT = { NOT = { owned_by = FROM } }
+	}
+	effect = { 
+		owner = {
+			if = {
+				limit = {
+					FROM = {
+						check_variable = {
+							which = debug_menu_page_variable
+							value = 0
+						}
+						NOT = {
+							check_variable = {
+								which = debug_menu_page_variable
+								value = 1
+							}
+						}
+					}
+				}
+				set_variable = {            
+					which = debug_menu_page_variable
+					value = 0
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						check_variable = {
+							which = debug_menu_page_variable
+							value = 1
+						}
+						NOT = {
+							check_variable = {
+								which = debug_menu_page_variable
+								value = 2
+							}
+						}
+					}
+				}
+				set_variable = {            
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						check_variable = {
+							which = debug_menu_page_variable
+							value = 2
+						}
+						NOT = {
+							check_variable = {
+								which = debug_menu_page_variable
+								value = 3
+							}
+						}
+					}
+				}
+				set_variable = {            
+					which = debug_menu_page_variable
+					value = 2
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						has_country_flag = debug_using_state_scope
+					}
+				}
+				set_country_flag = debug_using_state_scope
+			}
+			FROM = {
+				clr_country_flag = debug_mode_active
+				clr_country_flag = debug_menu_active
+				clr_country_flag = debug_convert_menu_active
+				clr_country_flag = debug_goods_menu_active
+				clr_country_flag = debug_building_menu_active
+				clr_country_flag = debug_province_modifier_menu_active
+				clr_country_flag = debug_make_subject_menu_active
+				clr_country_flag = debug_building_menu_active
+				clr_country_flag = debug_country_modifier_menu_active
+				switch_tag = prev
+			}
+			set_country_flag = debug_mode_active
+			set_country_flag = debug_menu_active
+		}
+	}
+	tooltip = debug_change_tag_tooltip
+}
+
+custom_button = {
+	name = debug_prev_page_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		hidden_trigger = {
+			FROM = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	effect = { 
+		hidden_effect = {
+			FROM = {
+				change_variable = {
+					which = debug_menu_page_variable
+					value = -1
+				}
+			}
+			FROM = { clr_country_flag = debug_building_menu_active }
+			FROM = { clr_country_flag = debug_convert_menu_active }
+			FROM = { clr_country_flag = debug_using_country_scope }
+			FROM = { clr_country_flag = debug_goods_menu_active }
+			FROM = { clr_country_flag = debug_make_subject_menu_active }
+			FROM = { clr_country_flag = debug_province_modifier_menu_active }
+			FROM = { clr_country_flag = debug_country_modifier_menu_active }
+		}
+	}
+	#tooltip = debug_toggle_raise_lower_dev_text_tooltip
+}
+
+custom_button = {
+	name = debug_next_page_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		hidden_trigger = {
+			FROM = {
+				NOT = {
+					check_variable = {
+						which = debug_menu_page_variable
+						value = 1
+					}
+				}
+			}
+		}
+	}
+	effect = { 
+		hidden_effect = {
+			FROM = {
+				change_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+			FROM = { clr_country_flag = debug_building_menu_active }
+			FROM = { clr_country_flag = debug_convert_menu_active }
+			FROM = { clr_country_flag = debug_using_country_scope }
+			FROM = { clr_country_flag = debug_goods_menu_active }
+			FROM = { clr_country_flag = debug_make_subject_menu_active }
+			FROM = { clr_country_flag = debug_province_modifier_menu_active }
+			FROM = { clr_country_flag = debug_country_modifier_menu_active }
+		}
+	}
+	#tooltip = debug_toggle_raise_lower_dev_text_tooltip
+}
+
+custom_button = {
+	name = debug_toggle_state_scope_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		FROM = {
+			if = {
+				limit = {
+					FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+				}
+				set_country_flag = debug_using_state_scope
+			}
+			else = { clr_country_flag = debug_using_state_scope }
+		}
+	}
+	#tooltip = debug_toggle_raise_lower_dev_text_tooltip
+}
+
+custom_icon = {
+    name = debug_toggle_state_scope_indicator #Must match a scripted iconType in a .gui file
+    potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	} #Determines when the icon is visible
+    #tooltip = EstateDecisionButtonIconName #Can use customizable localisation
+    frame = {  #Can define multiple frame clauses
+        number = 5 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+        trigger = { 
+			FROM = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+		}
+    }
+	frame = {  #Can define multiple frame clauses
+        number = 1 #Which frame to use. Check dds files with multiple icons like icon_religion.dds
+		trigger = { 
+			FROM = {
+				has_country_flag = debug_using_state_scope 
+			}
+		}
+    }
+}
+
+
+##############################  Supported files with scopes ##############################
+#   The Gui objects must be directly inside the specified window Gui element!
+#   FROM is always the country that clicks
+#   provinceview.gui:
+#       province_window         (ROOT: Clicked province)
+#       buildings_window        (ROOT: Clicked province)
+#       state_window            (ROOT: Clicked province)
+#   countrycourtview.gui:
+#       countrycourtview        (ROOT = FROM)
+#   countrygovernmentview.gui:
+#       countrygovernmentview   (ROOT = FROM)
+#   countrydiplomacyview.gui:
+#       countrydiplimacyview    (ROOT: Selected country)
+#   countryeconomyview.gui:
+#       countryeconomyview      (ROOT = FROM)
+#   countrytradeview.gui:
+#       countrytradeview        (ROOT = FROM)
+#   countrytechnologyview.gui:
+#       countrytechnologyview   (ROOT = FROM)
+#   countryideasview.gui:
+#       countryideasview        (ROOT = FROM)
+#   countrymissionsview.gui:
+#       countrymissionsview     (ROOT: Selected country)
+#   countrydecisionview.gui:
+#       countrydecisionsview    (ROOT = FROM)
+#   countrystabilityview.gui:
+#       countrystabilityview    (ROOT = FROM)
+#   countryreligionview.gui:
+#       countryreligionview     (ROOT = FROM)
+#   countrymilitaryview.gui:
+#       countrymilitaryview     (ROOT = FROM)
+#   countrysubjectsview.gui:
+#       countrysubjectview      (ROOT = FROM)
+#   countryestatesview.gui:
+#       countryestatesview      (ROOT = FROM)
+#   ages_view.gui:
+#       ages_view               (ROOT = FROM)
+#   tradeinterface.gui:
+#       TradeNodeInterface      (ROOT: Trade capital of a trade node)
+#   hre.gui:
+#       hre_window              (ROOT = FROM)
+#   papacy.gui:
+#       papacy_window           (ROOT = FROM)
+#   faction.gui:
+#       All faction windows     (ROOT = FROM)
+#   celestialempireview.gui:
+#       celestial_window        (ROOT = FROM)
+#   countrynativesview.gui:
+#       natives_window          (ROOT = FROM)
+#   religiousreforms.gui:
+#       reforms_window          (ROOT = FROM)
+#   parliament.gui:
+#       parliament_window       (ROOT = FROM)

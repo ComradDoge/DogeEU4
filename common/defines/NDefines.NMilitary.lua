@@ -40,7 +40,7 @@ NDefines.NMilitary.CAVALRY_BREAKTHROUGH = 0.0			    -- Between 0 and 1
 NDefines.NEconomy.LAND_TECH_MERC_MAINTENANCE_IMPACT = 0.08                -- How much mercenary maintenance increases per military tech.
 NDefines.NMilitary.PARTICIPATION_SCORE_MERC_MULT = 0.50                   -- How much less war participation you get from fighting using mercenaries.
 NDefines.NMilitary.MERCENARY_REINFORCE_COST_MULTIPLIER = -1.0             -- Modifies the reinforcement cost for mercenaries.
-NDefines.NMilitary.MERCENARY_BASE_COST = 10.0                             -- 10, Increased hiring cost per regiment in the mercenary company.
+NDefines.NMilitary.MERCENARY_BASE_COST = 30.0                             -- 10, Increased hiring cost per regiment in the mercenary company.
 NDefines.NMilitary.MERCENARY_COMPANY_HIRING_COST_MONTHS = 48              -- How many months of maintenance you must pay upfront when hiring a company.
 NDefines.NMilitary.MERCENARY_COMPANY_STARTING_MORALE = 0.5                -- How much morale mercenary armies have upon recruitment.
 NDefines.NMilitary.MERCENARY_COMPANY_MIN_REGIMENTS = 4                    -- Minimum size of a mercenary company, regardless of nation's development.
@@ -54,3 +54,5 @@ NDefines.NMilitary.MERCENARY_COMPANY_BUILDING_TIME = 0.25                 -- Mul
 NDefines.NMilitary.MERCENARY_COMPANY_LOCAL_VIRTUAL_DISTANCE = 40          -- How many "pixels away" local companies pretend to be.
 NDefines.NMilitary.MERCENARY_COMPANY_ARMY_TRADITION = 60.0                -- 50, At what army tradition mercenary leaders are generated at.
 
+-- War
+NDefines.NMilitary.WARGOAL_MAX_BONUS = 40 -- 25
