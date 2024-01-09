@@ -91,8 +91,8 @@ Uncategorized
 # solution for ai desire to max out forcelimit at expense of manpower
 
 # at some point add the idea events to anbennar/vanilla kek
-# update staatsverwaltung > trademanagement in vanilla/anbennar
-# update formation > logistics in vanilla/anbennar
+# update staatsverwaltung > trademanagement in anbennar
+# update formation > logistics in anbennar
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
