@@ -12,82 +12,21 @@ from the original mod I took. After all I need to understand how they work, else
 # STEAM WORKSHOP DESCRIPTION
 
 - Version: 1.36.2
-- Checksum: 78a3
+- Checksum: ?
 
-<h1>08/01/2024</h1>
+<h1>00/00/2024</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+# - Heavenly Kingdom (China Formable) completely reworked. To trigger the entry event you need to border a Christian province while having Chinese culture group. (Yes, it's not limited to any region.)
+- Fixed Druidic Woodland Stewardship mechanic literally not being enabled (lmao).
+- Added Overseas CB to Exploration as the colonial primitive one imo is too useless.
 
-User Interface
-- Parliament screen made larger. 
-- Reworked Army/Navy Unit panels.
-- Updated the estate screen visuals.
-- Redid the Advisor selection screen.
-- Made mapmode selection screen larger.
-- Cleaned up the building screen in province view and now has latent goods as well.
-- Cleaned up the Military Tab interface and move the scuttle doctrine there as a button.
-- CoT Upgrading, construction steward, development ideas mechanic and hire advisor decision are now dedicated buttons.
-
-Systems
-- Max warscore gained from a wargoal increased 25>40.
-- Subject penalties to base money/forcelimit amounts increased.
-- Old World Region removal applies a modifier that prevents from colonizing or siberian-frontier'ing the provinces.
-- Conqueror System: Normal Conqueror option has a limit of 10>15 that can be present. Mythical option now has 16>30 max (Great or Mythical).
-- Tweaked AI building management logic, and should behave a bit more like a player. Expect to see more soldier households on proper provinces.
-
-Flavour
-- HAB flavor events are extended to AUB and SGF if you were HAB originally.
-- Mughals upon formation can decide to stay Muslim tech/units or go Indian.
-- Decentralisation of Britain decision making reworked so you can choose not to do it.
-- Cleaned up Rhenish decisions and reworked Blast Furnace interaction into it's own button.
-
-Buildings
-- Tweaked Road Infrastructure buildings.
-- Shipyard buildings forcelimit increased 0.5/1 > 1/2.
-- State Houses now also accept jewellery and sculptures.
-- Production buildings nerfed 100/200/400 > 75/150/300.
-- Coastal category buildings no longer give +1 local_num_of_buildings.
-- Tweaked the government building effect on ship time/cost and development edict.
-- Monuments have had a cleanup, with images changed and some monuments removed or integrated into others.
-- Manufactories scaling mechanic changed +1GP per 10 total development > +1GP per 5 production development.
-- Government buldings tweaked. Removed non-governing related modifiers and added +1 num_of_allowed_buildings so it's less annoying to build.
-
-Ideas
-- Monarchy Ideas system values tweaked.
-- Shock and Fire ideas lost 5% x_damage_received.
-- Reworked Kingdom/Empire into Minor/Great Power ideas.
-- Added Druidic religious ideas with a special mechanic.
-- Mercenary Ideas and other values nerfed across the board.
-- Trade Management: CoT Upgrade cost -15%>-50%, promote_mercantalism -10%>-25%
-- Land and Discipline policies are back to older value setup with a unified cap.
-- Hire Advisor event cleanedup internally and no longer costs during event choice.
-- Expansion and Exploration cleaned up internally and reworked to be closer to vanilla.
-- Development Ideas: State Investments start heavily decreasing after 40>20 development.
-- Shuffled Centralization development modifiers, base_cost reduction is now part of the 25 development requirement instead.
-
-Reforms
-- Blood Tax now scales manpower_recovery_speed.
-- Regional Councils tax modifier reduced +50% > +30%.
-- Removed Church Council as it was a duplicate of other sources.
-- Added T6 Merchants of the Monsoon reform for East Bantu group. 
-- Reforms that made mercs not cost professionalism now only reduce it 50%.
-- Reforms that require subject/ally with 25 total development increased to 50.
-
-Uncategorized
-- Can now seize estate land while at war.
-- Reduced/removed some bonuses that AI gets.
-- Age fire and shock reductions decreased by 5%.
-- War Exhaustion scaling is slightly more rough.
-- Removed Civil Conscription privilege to reduce dev bloat.
-- Prosperity goods_produced modifer replaced with production.
-- Tweaked some Council of Trent Concessions to be more viable.
-- Expand Infrastructure dev_cost -15%>-10%, flat governing_cost 15>10.
-- Autonomy reduction/increase values have been changed across the board.
-- Colonial benefits to overlord buffed generally from 5% to 15%, check wiki.
-- Janissaries damage_received changed to damage and reinforce_cost increased by 50%.
 
 
 # TODO
+
+# add 950 auto dev button as ui button somewhere
+
 # solution for ai desire to max out forcelimit at expense of manpower
 
 # at some point add the idea events to anbennar/vanilla kek
