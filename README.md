@@ -26,6 +26,7 @@ from the original mod I took. After all I need to understand how they work, else
 # TODO
 
 # add 950 auto dev button as ui button somewhere
+# lower most if not all yearly_corruption = -0.1 to -0.05
 
 # solution for ai desire to max out forcelimit at expense of manpower
 
