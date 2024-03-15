@@ -17,7 +17,15 @@ from the original mod I took. After all I need to understand how they work, else
 <h1>00/00/2024</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
+
+- Policies completely reworked from the ground up. Now every combo* has a policy like in vanilla (*with some exceptions due to internal game limitations). This means there are 491 policies in total. For comparison, vanilla has 203. 
+- There is now a UI button in game (in decisions tab) to see a table of policy combinations.
+- The policies can also be viewed in a spreadsheet located here:
+
+
+
 # - Heavenly Kingdom (China Formable) completely reworked. To trigger the entry event you need to border a Christian province while having Chinese culture group. (Yes, it's not limited to any region.)
+- Yearly_crruption in ideas lowered 0.1 > 0.05.
 - Fixed Druidic Woodland Stewardship mechanic literally not being enabled (lmao).
 - Added Overseas CB to Exploration as the colonial primitive one imo is too useless.
 
@@ -26,7 +34,6 @@ from the original mod I took. After all I need to understand how they work, else
 # TODO
 
 # add 950 auto dev button as ui button somewhere
-# lower most if not all yearly_corruption = -0.1 to -0.05
 
 # solution for ai desire to max out forcelimit at expense of manpower
 
