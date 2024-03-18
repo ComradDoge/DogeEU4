@@ -18,9 +18,9 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-- Policies completely reworked from the ground up. Now every combo* has a policy like in vanilla (*with some exceptions due to internal game limitations). This means there are 491 policies in total. For comparison, vanilla has 203. 
-- There is now a UI button in game (in decisions tab) to see a table of policy combinations.
-- The policies can also be viewed in a spreadsheet located here:
+- Policies completely reworked from the ground up. Now every combo* has a policy like in vanilla (*with some exceptions due to some limitations). This means there are 491 policies in total. For comparison, vanilla has 203. Albeit some are repeating, you should find plenty of possible builds.
+- There is now a UI button in game (in top of decisions tab) to see a table of policy combinations.
+- The policies can also be viewed in a spreadsheet located here: https://docs.google.com/spreadsheets/d/1UVH9Ju7uHwZhNgV_I_qliV4MXHAhFfGj7bFXS_BSsZg/edit?usp=sharing
 
 
 
@@ -28,7 +28,9 @@ from the original mod I took. After all I need to understand how they work, else
 - Yearly_crruption in ideas lowered 0.1 > 0.05.
 - Fixed Druidic Woodland Stewardship mechanic literally not being enabled (lmao).
 - Added Overseas CB to Exploration as the colonial primitive one imo is too useless.
-
+- Mercenary maintenance cost per technology 0.08 > 0.1 increase.
+- Mercenary manpower reserve pool lowered (define value 2.0 > 1.0).
+- Mercenary generals are now generated at 60>40 army tradition.
 
 
 # TODO

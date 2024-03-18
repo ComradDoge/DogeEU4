@@ -37,7 +37,7 @@ NDefines.NMilitary.CAVALRY_BREAKTHROUGH = 0.0			    -- Between 0 and 1
 
 -- Mercenaries
 
-NDefines.NEconomy.LAND_TECH_MERC_MAINTENANCE_IMPACT = 0.08                -- How much mercenary maintenance increases per military tech.
+NDefines.NEconomy.LAND_TECH_MERC_MAINTENANCE_IMPACT = 0.1                -- 0.08 How much mercenary maintenance increases per military tech.
 NDefines.NMilitary.PARTICIPATION_SCORE_MERC_MULT = 0.50                   -- How much less war participation you get from fighting using mercenaries.
 NDefines.NMilitary.MERCENARY_REINFORCE_COST_MULTIPLIER = -1.0             -- Modifies the reinforcement cost for mercenaries.
 NDefines.NMilitary.MERCENARY_BASE_COST = 30.0                             -- 10, Increased hiring cost per regiment in the mercenary company.
@@ -45,14 +45,14 @@ NDefines.NMilitary.MERCENARY_COMPANY_HIRING_COST_MONTHS = 48              -- How
 NDefines.NMilitary.MERCENARY_COMPANY_STARTING_MORALE = 0.5                -- How much morale mercenary armies have upon recruitment.
 NDefines.NMilitary.MERCENARY_COMPANY_MIN_REGIMENTS = 4                    -- Minimum size of a mercenary company, regardless of nation's development.
 NDefines.NMilitary.MERCENARY_COMPANY_MAX_REGIMENTS = 40                   -- 60, Maximum size of a mercenary company, regardless of nation's development.
-NDefines.NMilitary.MERCENARY_COMPANY_MANPOWER_PER_REGIMENT = 2.0          -- How much reserve manpower a company has. (multiplied by 1000 per regiment)
+NDefines.NMilitary.MERCENARY_COMPANY_MANPOWER_PER_REGIMENT = 1.0          -- How much reserve manpower a company has. (multiplied by 1000 per regiment)
 NDefines.NMilitary.MERCENARY_COMPANY_MANPOWER_RECOVERY = 120              -- How many months it takes for a company to fully replenish its manpower from zero.
 NDefines.NMilitary.MERCENARY_COMPANY_HIRED_MANPOWER_RECOVERY_MOD = 2.0    -- Multiplier on how many months to replenish manpower while employed.
 NDefines.NMilitary.MERCENARY_COMPANY_LOW_MANPOWER_THRESHOLD = 0.1         -- At what fraction of reserve manpower the player is shown an alert.
 NDefines.NMilitary.MERCENARY_TRADE_RANGE_MODIFIER = 1.0                   -- What fraction of trade range is used to determine mercenary recruitment range.
 NDefines.NMilitary.MERCENARY_COMPANY_BUILDING_TIME = 0.25                 -- Multiplies by the distance from company's home province in pixels to determine recruitment time in days.
 NDefines.NMilitary.MERCENARY_COMPANY_LOCAL_VIRTUAL_DISTANCE = 40          -- How many "pixels away" local companies pretend to be.
-NDefines.NMilitary.MERCENARY_COMPANY_ARMY_TRADITION = 60.0                -- 50, At what army tradition mercenary leaders are generated at.
+NDefines.NMilitary.MERCENARY_COMPANY_ARMY_TRADITION = 40.0                -- 50, At what army tradition mercenary leaders are generated at.
 
 -- War
 NDefines.NMilitary.WARGOAL_MAX_BONUS = 40 -- 25
