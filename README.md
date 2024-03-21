@@ -36,12 +36,8 @@ from the original mod I took. After all I need to understand how they work, else
 # TODO
 
 # add 950 auto dev button as ui button somewhere
-
 # solution for ai desire to max out forcelimit at expense of manpower
-
 # at some point add the idea events to anbennar/vanilla kek
-# update staatsverwaltung > trademanagement in anbennar
-# update formation > logistics in anbennar
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
