@@ -26,6 +26,8 @@ from the original mod I took. After all I need to understand how they work, else
 
 # - Heavenly Kingdom (China Formable) completely reworked. To trigger the entry event you need to border a Christian province while having Chinese culture group. (Yes, it's not limited to any region.)
 - Yearly_crruption in ideas lowered 0.1 > 0.05.
+- Internal file cleanup for some performance improvements.
+- Extra cost when over forcelimit define slightly reduced, Land: 6>4; Navy: 8>6.
 - Fixed Druidic Woodland Stewardship mechanic literally not being enabled (lmao).
 - Added Overseas CB to Exploration as the colonial primitive one imo is too useless.
 - Mercenary maintenance cost per technology 0.08 > 0.1 increase.

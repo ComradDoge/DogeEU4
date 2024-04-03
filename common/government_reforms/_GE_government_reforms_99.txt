@@ -103,39 +103,6 @@ theocratic_autocracy = {
 	}
 }
 
-crown_of_aragon = {
-	icon = aragon_alfonso
-	allow_normal_conversion = yes
-	effect = {
-	}
-	potential = {
-		OR = {
-			tag = ARA
-			tag = VAL
-			tag = CAT
-			has_reform = crown_of_aragon
-		}
-	}
-	trigger = {
-		has_reform = crown_of_aragon
-	}
-	valid_for_nation_designer = yes
-	nation_designer_cost = 0
-	modifiers = {
-		min_autonomy = 10
-		global_unrest = -2
-	}
-	custom_attributes = {
-		enables_kingdom_of_aragon = yes
-		enables_principality_of_catalonia = yes
-		enables_city_of_valencia = yes
-		#enables_kingdom_of_sicily = yes
-	}
-	ai = {
-		factor = 100
-	}
-}
-
 granadan_iqta_reform = {
 	icon = iberian_iqta   #granada_iqta
 	allow_normal_conversion = yes
@@ -514,6 +481,19 @@ despotate_of_caucasia_reform = {
 	custom_attributes = {
 		enables_royal_council = yes
 	}
+	effect = {
+		hidden_effect = {
+			country_event = { 
+				id = dse_government_mechanics.4
+				days = 1
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			ge_countryremove_royal_council = yes
+		}
+	}
 	factions = {
 		GE_orthodox
 		GE_coptic
@@ -574,6 +554,16 @@ consulate_of_the_malay = {
 	custom_attributes = { 
 		enables_unite_the_malay = yes #5% Naval Force Limit and Sailors for each Accepted Malay Culture.
 	}
+	effect = {
+		hidden_effect = {
+			ge_countryupdate_unite_the_malay = yes
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			ge_countryupdate_unite_the_malay = yes
+		}
+	}
 	ai = {
 		factor = 100
 	}
@@ -607,8 +597,18 @@ basic_reformed_mandala_reform = {
 	trigger = {
 		has_reform = basic_reformed_mandala_reform
 	}
+	effect = {
+		hidden_effect = {
+			every_subject_country = { ge_countryupdate_mandala_periphery = yes }
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_subject_country = { remove_country_modifier = GE_Mandala_Periphery }
+		}
+	}
 	modifiers = {
-		vassal_income = 0.33
+		vassal_income = 0.25
 		vassal_forcelimit_bonus = 1
 		governing_capacity_modifier = -0.33
 	}
@@ -644,6 +644,16 @@ solar_kingdom_reform = {
     trigger = {
         has_reform = solar_kingdom_reform
     }
+	effect = {
+		hidden_effect = {
+			every_subject_country = { ge_countryupdate_solar_periphery = yes }
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_subject_country = { remove_country_modifier = GE_Solar_Periphery }
+		}
+	}
     modifiers = {
 		vassal_income = 0.5
 		vassal_forcelimit_bonus = 2
@@ -722,6 +732,19 @@ united_holy_roman_empire_reform = {
     }
 	custom_attributes = {
 		enables_royal_council = yes
+	}
+	effect = {
+		hidden_effect = {
+			country_event = { 
+				id = dse_government_mechanics.4
+				days = 1
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			ge_countryremove_royal_council = yes
+		}
 	}
     ai = {
         factor = 100
@@ -1273,10 +1296,7 @@ mamluk_privileges_reform = {
 taha_divisions_reform = {
 	icon = granada_taha
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
+
 	potential = {
 		OR = {
 			AND = {
@@ -1295,12 +1315,26 @@ taha_divisions_reform = {
 			has_reform = taha_divisions_reform 
 		}
 	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				ge_provinceupdate_morisca_band = yes
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = ge_morisca_band_modifier
+			}
+		}
+	}
 	modifiers = {
 		global_tax_modifier = 0.1
 		development_cost = -0.05
 	}
 	custom_attributes = {
-		enables_morisca_band = yes #15% Fort Defence on Border with Christians
+		enables_morisca_band = yes
 	}
 	ai = {
 		factor = 100
@@ -1660,7 +1694,7 @@ buddhist_nation_reform = {
 		manpower_recovery_speed = 0.10
 	}
 	custom_attributes = {
-		enables_Religious_Fervor = yes #+20% Manpower if you have 90% Religious Unity
+		enables_religious_fervor = yes #+20% Manpower if you have 90% Religious Unity
 	}
 	ai = {
 		factor = 10
@@ -1756,7 +1790,9 @@ regional_forts_reform = {
 	}
 	effect = {
 		hidden_effect = {
-			country_event = { id = dse_government_mechanics.4 }
+			every_owned_province = {
+				ge_provinceupdate_administrative_forts = yes
+			}
 		}
 	}
 	removed_effect = {
@@ -2650,10 +2686,7 @@ dual_city_administration_reform = {
 levy_the_thirthieth_reform = {
 	icon = economy_tax
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
+
 	potential = {
 		OR = {
 			has_reform = levy_the_thirthieth_reform
@@ -2664,6 +2697,20 @@ levy_the_thirthieth_reform = {
 		OR = {
 			has_reform = levy_the_thirthieth_reform
 			primary_culture = hungarian
+		}
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				ge_provinceupdate_salt_monopoly = yes
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = ge_salt_monopoly_modifier
+			}
 		}
 	}
 	modifiers = {
@@ -3671,26 +3718,6 @@ empowered_monastic_militarism_reform = {
 	}
 }
 
-empowered_church_councils_reform = {
-	icon = "bishop"
-	allow_normal_conversion = yes
-	potential = {
-		always = no # Remove after so it doesn't fully break someones reforms
-	}
-	trigger = {
-	}
-	modifiers = {
-		tolerance_own = 1
-	}
-	custom_attributes = {
-		enables_church_poorhouses = yes 
-	}
-	ai = {
-		factor = 1
-	}
-}
-
-
 empowered_imperial_circles_political_reform = {
 	icon = "king"
 	allow_normal_conversion = yes
@@ -4075,6 +4102,20 @@ freedom_of_religion_reform = {
 		tolerance_heretic = 1
 	 	tolerance_of_heretics_capacity = 1
 	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				provinceupdate_religious_freedom = yes
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = DSE_religious_freedom_mod
+			}
+		}
+	}
 	custom_attributes ={
 		enables_religious_freedom = yes
 	}
@@ -4238,8 +4279,18 @@ feudal_levies_reform = {
 	icon = "soldiers_2"
 	allow_normal_conversion = yes
 	effect = {
+		every_subject_country = {
+			hidden_effect = {
+				ge_countryupdate_marcher_lords = yes
+			}
+		}
 	}
 	removed_effect = {
+		every_subject_country = {
+			hidden_effect = {
+				ge_countryupdate_marcher_lords = yes
+			}
+		}
 	}
 	potential = { 
 	}
@@ -4251,7 +4302,7 @@ feudal_levies_reform = {
 		vassal_forcelimit_bonus = 0.5
 	}
 	custom_attributes = {
-		enables_marcher_lords = yes #25% vassal force limit and manpower
+		enables_marcher_lords = yes
 		enables_expansion_of_noble_privileges = yes
 	}
 	ai = {
@@ -4628,10 +4679,7 @@ reorganize_the_imperial_army = {
 arabian_horses_reform = {
 	icon = mamluk_horse
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
+
 	potential = {
 		OR = {
 			primary_culture = al_misr_arabic			
@@ -4661,7 +4709,7 @@ arabian_horses_reform = {
 
 	effect = {
 		hidden_effect = {
-			country_event = { id = reform_me_events.22 }
+			ge_countryupdate_arabian_horses = yes
 		}
 	}
 	removed_effect = {

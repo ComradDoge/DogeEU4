@@ -332,109 +332,6 @@ country_event = {
 	}
 }
 
-
-country_event = {
-	id = dse_government_mechanics.2
-	title = dse_government_mechanics.2.t
-	desc = dse_government_mechanics.2.d
-	picture = WESTERNISATION_eventPicture
-	hidden = yes
-	
-
-	trigger = {
-		OR = {
-			AND = {
-				has_government_attribute = enables_religious_freedom
-				any_owned_province = {
-					OR = { 
-						has_building = temple
-						has_building = cathedral
-					}
-					NOT = { has_province_modifier = DSE_religious_freedom_mod }
-				}
-			}
-			AND = {
-				any_owned_province = {
-					has_province_modifier = DSE_religious_freedom_mod
-				}
-				NOT = {
-					has_government_attribute = enables_religious_freedom
-				}
-			}
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 5
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				AND = {
-					has_government_attribute = enables_religious_freedom
-					any_owned_province = {
-						OR = { 
-							has_building = temple
-							has_building = cathedral
-						}
-						NOT = { has_province_modifier = DSE_religious_freedom_mod }
-					}
-				}				
-			}
-			every_owned_province = {
-				limit = {
-					NOT = { religion = ROOT }
-					OR = { 
-						has_building = temple
-						has_building = cathedral
-					}
-					NOT = { has_province_modifier = DSE_religious_freedom_mod }
-				} 
-				add_province_modifier = {
-					name = "DSE_religious_freedom_mod"
-					duration = -1
-					hidden = yes
-				}
-			}
-		}
-		if = {
-			limit = {
-				AND = {
-					any_owned_province = {
-						has_province_modifier = DSE_religious_freedom_mod
-					}
-					NOT = {
-						has_government_attribute = enables_religious_freedom
-					}
-				}				
-			}
-			every_owned_province = {
-				limit = {
-					OR = { 
-						NOT = { has_building = temple }
-						NOT = { has_building = cathedral }
-					}
-					has_province_modifier = DSE_religious_freedom_mod
-				}
-				remove_province_modifier = DSE_religious_freedom_mod
-			}
-			every_owned_province = {
-				limit = {
-					owner = { NOT = { has_government_attribute = DSE_religious_freedom_mod } }
-					has_province_modifier = DSE_religious_freedom_mod
-				}
-				remove_province_modifier = DSE_religious_freedom_mod
-			}
-		}
-	}
-	
-	option = {
-		name = dse_government_mechanics.1.o1
-		
-	}
-}
-
 country_event = {
 	id = dse_government_mechanics.3
 	title = dse_government_mechanics.3.t
@@ -705,186 +602,242 @@ country_event = {
 	id = dse_government_mechanics.4
 	title = dse_government_mechanics.4.t
 	desc = dse_government_mechanics.4.d
-	picture = WESTERNISATION_eventPicture
-	hidden = yes
-
-	mean_time_to_happen = {
-		days = 20
-	}
+	picture = LIBERIUM_VETO_eventPicture
 
 	trigger = {
-		has_government_attribute = enables_administrative_forts 
-		any_owned_province = {
-			OR = {
-				AND = {
-					any_province_in_state = {
-						fort_level = 2
-					}
-					NOT = { has_province_modifier = dse_administrative_forts_mod }
-				}
-				AND = {
-					NOT = {
-						any_province_in_state = {
-							fort_level = 2
-						}
-					}
-					has_province_modifier = dse_administrative_forts_mod
-				}
-			}
-		}
+		has_government_attribute = enables_royal_council
+		NOT = {	has_ruler_flag = council_picked }
 	}
+	
+	is_triggered_only = yes
 
 	immediate = {
-		every_owned_province = {
-			limit = {
-				any_province_in_state = {
-					fort_level = 2
+		set_ruler_flag = council_picked
+		hidden_effect = {
+			if = {
+				limit = {
+					adm = 5
 				}
-				NOT = { has_province_modifier = dse_administrative_forts_mod }
-            }
-			add_province_modifier = {
-				name = dse_administrative_forts_mod
-				duration = -1
-				#hidden = yes
+				random_list = {
+					10 = { set_country_flag = ge_bad_admin }
+					65 = { set_country_flag = ge_decent_admin }
+					25 = { set_country_flag = ge_good_admin }
+				}
 			}
-		}
-		every_owned_province = {
-			limit = {
-				NOT = {
-					any_province_in_state = {
-						fort_level = 2
-					}
+			else_if = {
+				limit = {
+					adm = 3
 				}
-				has_province_modifier = dse_administrative_forts_mod
-            }
-			remove_province_modifier = dse_administrative_forts_mod
+				random_list = {
+					40 = { set_country_flag = ge_bad_admin }
+					50 = { set_country_flag = ge_decent_admin }
+					10 = { set_country_flag = ge_good_admin }
+				}
+			}
+			else = {
+				random_list = {
+					70 = { set_country_flag = ge_bad_admin }
+					25 = { set_country_flag = ge_decent_admin }
+					5 = { set_country_flag = ge_good_admin }
+				}
+			}
+			if = {
+				limit = {
+					dip = 5
+				}
+				random_list = {
+					10 = { set_country_flag = ge_bad_diplo }
+					65 = { set_country_flag = ge_decent_diplo }
+					25 = { set_country_flag = ge_good_diplo }
+				}
+			}
+			else_if = {
+				limit = {
+					dip = 3
+				}
+				random_list = {
+					40 = { set_country_flag = ge_bad_diplo }
+					50 = { set_country_flag = ge_decent_diplo }
+					10 = { set_country_flag = ge_good_diplo }
+				}
+			}
+			else = {
+				random_list = {
+					70 = { set_country_flag = ge_bad_diplo }
+					25 = { set_country_flag = ge_decent_diplo }
+					5 = { set_country_flag = ge_good_diplo }
+				}
+			}
+			if = {
+				limit = {
+					mil = 5
+				}
+				random_list = {
+					10 = { set_country_flag = ge_bad_mil }
+					65 = { set_country_flag = ge_decent_mil }
+					25 = { set_country_flag = ge_good_mil }
+				}
+			}
+			else_if = {
+				limit = {
+					mil = 3
+				}
+				random_list = {
+					40 = { set_country_flag = ge_bad_mil }
+					50 = { set_country_flag = ge_decent_mil }
+					10 = { set_country_flag = ge_good_mil }
+				}
+			}
+			else = {
+				random_list = {
+					70 = { set_country_flag = ge_bad_mil }
+					25 = { set_country_flag = ge_decent_mil }
+					5 = { set_country_flag = ge_good_mil }
+				}
+			}
 		}
 	}
 
 	option = {
 		name = dse_government_mechanics.4.o1
-		
-	}
-}
 
-
-country_event = {
-	id = dse_government_mechanics.5
-	title = dse_government_mechanics.5.t
-	desc = dse_government_mechanics.5.d
-	picture = WESTERNISATION_eventPicture
-	hidden = yes
-
-	mean_time_to_happen = {
-		days = 10
-	}
-
-	trigger = {
-		has_government_attribute = enables_mountain_towns 
-		any_owned_province = {
-			OR = {
-				has_terrain = mountain
-				has_terrain = highlands
-				has_terrain = hills
+		trigger_switch = {
+			on_trigger = has_country_flag
+			ge_bad_admin = {
+				add_ruler_modifier = {
+					name = "ge_bad_admin"
+					duration = -1
+				}
+				clr_country_flag = ge_bad_admin
 			}
-			OR = { 
-				NOT = { has_province_modifier = dse_mountain_towns_one_mod }
-				NOT = { has_province_modifier = dse_mountain_towns_two_mod }
-				NOT = { has_province_modifier = dse_mountain_towns_three_mod }
+			ge_decent_admin = {
+				add_ruler_modifier = {
+					name = "ge_decent_admin"
+					duration = -1
+				}
+				clr_country_flag = ge_decent_admin
+			}
+			ge_good_admin = {
+				add_ruler_modifier = {
+					name = "ge_good_admin"
+					duration = -1
+				}
+				clr_country_flag = ge_good_admin
 			}
 		}
-	}
-
-	immediate = {
-		every_owned_province = {
+		if = {
 			limit = {
-				has_terrain = mountain
-            }
-			add_province_modifier = {
-				name = dse_mountain_towns_one_mod
-				duration = -1
-				hidden = yes
+				has_estate = estate_church
+				NOT = { has_reform = states_general_reform }
+			}
+			add_estate_influence_modifier = {
+				estate = estate_church
+				desc = EST_VAL_CLERGY_ADVANCES
+				influence = 10
+				duration = 3650
 			}
 		}
-		every_owned_province = {
-			limit = {
-				has_terrain = highlands
-            }
-			add_province_modifier = {
-				name = dse_mountain_towns_two_mod
-				duration = -1
-				hidden = yes
-			}
-		}
-		every_owned_province = {
-			limit = {
-				has_terrain = hills
-            }
-			add_province_modifier = {
-				name = dse_mountain_towns_three_mod
-				duration = -1
-				hidden = yes
-			}
-		}
+		clr_country_flag = ge_bad_diplo
+		clr_country_flag = ge_decent_diplo
+		clr_country_flag = ge_good_diplo
+		clr_country_flag = ge_bad_mil
+		clr_country_flag = ge_decent_mil
+		clr_country_flag = ge_good_mil
 	}
 
 	option = {
-		name = dse_government_mechanics.5.o1
-		
-	}
-}
+		name = dse_government_mechanics.4.o2
 
-country_event = {
-	id = dse_government_mechanics.6
-	title = dse_government_mechanics.6.t
-	desc = dse_government_mechanics.6.d
-	picture = WESTERNISATION_eventPicture
-	hidden = yes
-
-	mean_time_to_happen = {
-		days = 5
-	}
-
-	trigger = {
-		NOT = { has_government_attribute = enables_mountain_towns  }
-		any_owned_province = {
-			OR = {
-				has_terrain = mountain
-				has_terrain = highlands
-				has_terrain = hills
+		trigger_switch = {
+			on_trigger = has_country_flag
+			ge_bad_diplo = {
+				add_ruler_modifier = {
+					name = "ge_bad_diplo"
+					duration = -1
+				}
+				clr_country_flag = ge_bad_diplo
 			}
-			OR = { 
-				has_province_modifier = dse_mountain_towns_one_mod
-				has_province_modifier = dse_mountain_towns_two_mod
-				has_province_modifier = dse_mountain_towns_three_mod
+			ge_decent_diplo = {
+				add_ruler_modifier = {
+					name = "ge_decent_diplo"
+					duration = -1
+				}
+				clr_country_flag = ge_decent_diplo
+			}
+			ge_good_diplo = {
+				add_ruler_modifier = {
+					name = "ge_good_diplo"
+					duration = -1
+				}
+				clr_country_flag = ge_good_diplo
 			}
 		}
-	}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+				NOT = { has_reform = states_general_reform }
+			}
+			add_estate_influence_modifier = {
+				estate = estate_burghers
+				desc = EST_VAL_BURGHERS_ADVANCES
+				influence = 10
+				duration = 3650
+			}
+		}
 
-	immediate = {
-		every_owned_province = {
-			limit = {
-				has_terrain = mountain
-            }
-			remove_province_modifier = dse_mountain_towns_one_mod
-		}
-		every_owned_province = {
-			limit = {
-				has_terrain = highlands
-            }
-			remove_province_modifier = dse_mountain_towns_two_mod
-		}
-		every_owned_province = {
-			limit = {
-				has_terrain = hills
-            }
-			remove_province_modifier = dse_mountain_towns_three_mod
-		}
+		clr_country_flag = ge_bad_admin
+		clr_country_flag = ge_decent_admin
+		clr_country_flag = ge_good_admin
+		clr_country_flag = ge_bad_mil
+		clr_country_flag = ge_decent_mil
+		clr_country_flag = ge_good_mil
 	}
 
 	option = {
-		name = dse_government_mechanics.6.o1
-		
+		name = dse_government_mechanics.4.o3
+
+		trigger_switch = {
+			on_trigger = has_country_flag
+			ge_bad_mil = {
+				add_ruler_modifier = {
+					name = "ge_bad_mil"
+					duration = -1
+				}
+				clr_country_flag = ge_bad_mil
+			}
+			ge_decent_mil = {
+				add_ruler_modifier = {
+					name = "ge_decent_mil"
+					duration = -1
+				}
+				clr_country_flag = ge_decent_mil
+			}
+			ge_good_mil = {
+				add_ruler_modifier = {
+					name = "ge_good_mil"
+					duration = -1
+				}
+				clr_country_flag = ge_good_mil
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_nobles
+				NOT = { has_reform = states_general_reform }
+			}
+			add_estate_influence_modifier = {
+				estate = estate_nobles
+				desc = EST_VAL_NOBILITY_ADVANCES
+				influence = 10
+				duration = 3650
+			}
+		}
+		clr_country_flag = ge_bad_admin
+		clr_country_flag = ge_decent_admin
+		clr_country_flag = ge_good_admin
+		clr_country_flag = ge_bad_diplo
+		clr_country_flag = ge_decent_diplo
+		clr_country_flag = ge_good_diplo
 	}
 }
 
