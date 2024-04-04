@@ -23,21 +23,19 @@ from the original mod I took. After all I need to understand how they work, else
 - The policies can also be viewed in a spreadsheet located here: https://docs.google.com/spreadsheets/d/1UVH9Ju7uHwZhNgV_I_qliV4MXHAhFfGj7bFXS_BSsZg/edit?usp=sharing
 
 
-
 # - Heavenly Kingdom (China Formable) completely reworked. To trigger the entry event you need to border a Christian province while having Chinese culture group. (Yes, it's not limited to any region.)
-- Yearly_crruption in ideas lowered 0.1 > 0.05.
 - Internal file cleanup for some performance improvements.
+- Mercenary generals are now generated at 60>40 army tradition.
+- Added back At-Cap Auto-Development button in decisions screen.
+- Mercenary maintenance cost per technology 0.08 > 0.1 increase.
+- Mercenary manpower reserve pool lowered (define value 2.0 > 1.0).
+- Yearly_crruption in ideas lowered 0.1 > 0.05 to increase it's value elsewhere.
 - Extra cost when over forcelimit define slightly reduced, Land: 6>4; Navy: 8>6.
 - Fixed Druidic Woodland Stewardship mechanic literally not being enabled (lmao).
 - Added Overseas CB to Exploration as the colonial primitive one imo is too useless.
-- Mercenary maintenance cost per technology 0.08 > 0.1 increase.
-- Mercenary manpower reserve pool lowered (define value 2.0 > 1.0).
-- Mercenary generals are now generated at 60>40 army tradition.
-
 
 # TODO
 
-# add 950 auto dev button as ui button somewhere
 # solution for ai desire to max out forcelimit at expense of manpower
 # at some point add the idea events to anbennar/vanilla kek
 
