@@ -1594,10 +1594,7 @@ sayyid_privileges_reform = {
 mint_towns_reform = {
 	icon = paper_money_map
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
+
 	potential = {
 		OR = {
 			has_reform = mint_towns_reform
@@ -1616,10 +1613,25 @@ mint_towns_reform = {
 		global_tax_modifier = 0.15
 	}
 	custom_attributes = {
-		enables_mint_towns = yes # -25% state maintenance in 20+ dev provinces
+		enables_mint_towns = yes
 	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				ge_provinceupdate_mint_towns = yes
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = ge_mint_towns_modifier
+			}
+		}
+	}
+
 	ai = {
-		factor = 100
+		factor = 50
 	}
 }
 
@@ -1933,34 +1945,6 @@ faith_in_ancestors_spirits_reform = {
 	}
 }
 
-histories_of_the_sky_god_reform = {
-	icon = horde_riding
-	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
-	potential = {
-        religion = tengri_pagan_reformed
-	}
-	trigger = {
-        OR = {
-            religion = tengri_pagan_reformed
-        }
-		
-	}
-	modifiers = {
-		global_missionary_strength = 0.01
-		church_influence_modifier = 0.10
-	}
-	custom_attributes = {
-		enables_people_under_tengri = yes #500 manpower and -2 unrest for steppe provinces
-	}
-	ai = {
-		factor = 1
-	}
-}
-
 enforced_caste_system_reform = {
     icon = indian_sultanate
 	allow_normal_conversion = yes
@@ -2074,10 +2058,6 @@ enlightened_ethical_teachings_reform = {
 state_temple_harmonization_reform = {
 	icon = temple_harmony_icon
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
 	potential = {
         OR = {
 			religion = buddhism
@@ -2089,7 +2069,6 @@ state_temple_harmonization_reform = {
 			religion = buddhism
 			religion = mahayana
         }
-		
 	}
 	modifiers = {
         global_missionary_strength = 0.01
@@ -2097,8 +2076,23 @@ state_temple_harmonization_reform = {
 		church_influence_modifier = 0.10
 	}
 	custom_attributes = {
-		enables_religious_adherence = yes #250 manpower in true faith provinces with temples
+		enables_religious_adherence = yes
 	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				ge_provinceupdate_religious_adherence = yes
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = GE_Religious_Adherence
+			}
+		}
+	}
+
 	ai = {
 		factor = 1
 	}
@@ -2140,10 +2134,7 @@ nahuatl_blood_sacrifices_reform = {
 inti_sun_god_centralization_reform = {
 	icon = asian_scripture
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
+
 	potential = {
         OR = {
 			religion = inti
@@ -2159,8 +2150,23 @@ inti_sun_god_centralization_reform = {
 		tolerance_own = 1
 	}
 	custom_attributes = {
-		enables_religious_adherence = yes #250 manpower in true faith provinces with temples
+		enables_religious_adherence = yes
 	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				ge_provinceupdate_religious_adherence = yes
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = GE_Religious_Adherence
+			}
+		}
+	}
+
 	ai = {
 		factor = 1
 	}
@@ -2169,10 +2175,7 @@ inti_sun_god_centralization_reform = {
 inti_huaca_regionalism_reform = {
 	icon = asian_scripture
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
+
 	potential = {
         OR = {
 			religion = inti
@@ -2190,7 +2193,22 @@ inti_huaca_regionalism_reform = {
 		tolerance_heretic = 0.5
 	}
 	custom_attributes = {
-		enables_huaca_cults = yes #+10% tax in non-believer provinces.
+		enables_huaca_cults = yes
+	}
+
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				ge_provinceupdate_huaca_cults = yes
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = ge_huaca_cults_modifier
+			}
+		}
 	}
 	ai = {
 		factor = 1
@@ -2441,38 +2459,6 @@ taifa_governors_reform = {
 	}
 }
 
-
-persian_satrapies_reform = {
-	icon = king
-	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
-	potential = {
-		OR = {
-			AND = {
-				religion_group = zoroastrian_group
-				culture_group = iranian	
-			}
-		}
-	}
-	trigger = {
-		AND = {
-			religion_group = zoroastrian_group
-			culture_group = iranian	
-		}
-	}
-	modifiers = {
-		state_maintenance_modifier = -0.25
-	}
-	custom_attributes = {
-		enables_satrapies = yes
-	}
-	ai = {
-		factor = 100
-	}
-}
 
 
 emirate_of_andalusia_reform = {
@@ -2814,6 +2800,24 @@ crossroads_of_cultures_reform = {
 	custom_attributes = {
 		enables_cultural_inspiration = yes #+5% production efficiency and -2% tech cost per accepted culture.
 	}
+	effect = {
+		hidden_effect = {
+			country_event = { 
+				id = reform_me_events.212
+				days = 1
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			remove_country_modifier = GE_Cultural_Inspiration_1
+			remove_country_modifier = GE_Cultural_Inspiration_2
+			remove_country_modifier = GE_Cultural_Inspiration_3
+			remove_country_modifier = GE_Cultural_Inspiration_4
+			remove_country_modifier = GE_Cultural_Inspiration_5
+		}
+	}
+
     ai = {
         factor = 101
     }
@@ -3578,7 +3582,7 @@ decretum_maius_reform = {
 		enables_masked_monarch = yes #-0.10 corruption while at peace
 	}
 	ai = {
-		factor = 100
+		factor = 10
 	}
 }
 
@@ -3739,8 +3743,23 @@ empowered_imperial_circles_political_reform = {
 		vassal_income = 0.25
 	}
 	custom_attributes = {
-		enables_imperial_circle = yes #+0.5 Diprep per subject hre prince, up to 2.5 maximum
+		enables_imperial_circle = yes
 	}
+	effect = {
+		hidden_effect = {
+			ge_countryupdate_imperial_circle = yes
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			remove_country_modifier = GE_Imperial_Circle_1
+			remove_country_modifier = GE_Imperial_Circle_2
+			remove_country_modifier = GE_Imperial_Circle_3
+			remove_country_modifier = GE_Imperial_Circle_4
+			remove_country_modifier = GE_Imperial_Circle_5
+		}
+	}
+
 	ai = {
 		factor = 105
 	}
@@ -4330,58 +4349,6 @@ national_guard_reform = {
 		factor = 10
 	}
 }
-# Not used
-mercenary_corps_reform = {
-	icon = landsknecht
-	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
-	potential = {
-		NOT = { culture_group = latin }
-	}
-	modifiers = {
-		mercenary_manpower = 0.15
-		reinforce_speed = 0.15
-		merc_maintenance_modifier = -0.1
-	}
-	custom_attributes = {
-		#enables_foreign_worship = yes #10% Religious Unity if you employ mercenaries
-		enables_foreign_experts = yes #+5% Mercenary Disciple for each ally of a foreign culturegroup you have.
-
-	}
-	ai = {
-		factor = 1
-	}
-}
-#not used
-landsknecht_captains_reform = {
-	icon = landsknecht
-	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
-	potential = {
-		culture_group = germanic
-	}
-	trigger = {
-		culture_group = germanic
-	}
-	modifiers = {
-		mercenary_manpower = 0.15
-		land_forcelimit_modifier = 0.1
-	}
-	custom_attributes = {
-		#enables_foreign_worship = yes #10% Religious Unity if you employ mercenaries
-		#enables_foreign_experts = yes #+5% Mercenary Disciple for each ally of a foreign culturegroup you have.
-		enables_landsknecht_sergeants = yes #+10% ICA if you employ mercenaries
-	}
-	ai = {
-		factor = 10
-	}
-}
 
 professional_army_reform = {
 	icon = "soldiers"
@@ -4419,37 +4386,10 @@ professional_army_reform = {
 	}
 }
 
-empowered_mercenary_corps_reform = {
-	icon = "Teuton_2"
-	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
-	potential = { 
-	}
-	trigger = {
-	}
-	modifiers = {
-		land_attrition = -0.1	
-		reinforce_speed = 0.25
-		merc_maintenance_modifier = -0.15
-	}
-	custom_attributes = {
-		enables_crusader_order = yes #1% ICA per Tolerance
-	}
-	ai = {
-		factor = 1
-	}
-}
-
 imperial_circles_reform = {
 	icon = "imperial_army"
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
+
 	potential = {
 		is_part_of_hre = yes
 		NOT = { culture_group = latin }
@@ -4467,6 +4407,20 @@ imperial_circles_reform = {
 	}
 	custom_attributes = {
 		enables_unified_drills = yes #-2% Regiment cost and +4% Manpower Recovery Speed
+	}
+	effect = {
+		hidden_effect = {
+			ge_countryupdate_unified_drills = yes
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			remove_country_modifier = GE_Shared_Drills_1
+			remove_country_modifier = GE_Shared_Drills_2
+			remove_country_modifier = GE_Shared_Drills_3
+			remove_country_modifier = GE_Shared_Drills_4
+			remove_country_modifier = GE_Shared_Drills_5
+		}
 	}
 	ai = {
 		factor = 10
@@ -4736,10 +4690,7 @@ arabian_horses_reform = {
 berber_cavalry_reform = {
 	icon = berber_warrior
 	allow_normal_conversion = yes
-	effect = {
-	}
-	removed_effect = {
-	}
+
 	potential = {
 		OR = {
 			AND = {
@@ -4749,6 +4700,7 @@ berber_cavalry_reform = {
 			has_reform = berber_cavalry_reform 
 		}
 	}
+
 	trigger = {
 		OR = {
 			AND = {
@@ -4758,13 +4710,32 @@ berber_cavalry_reform = {
 			has_reform = berber_cavalry_reform 
 		}
 	}
+
 	modifiers = {
 		cavalry_power = 0.1
 		land_morale = 0.05
 	}
+
 	custom_attributes = {
-		enables_grazing_herds = yes #-5% Development Cost and Culture Conversion Cost in Iberian Hills and Drylands
+		enables_grazing_herds = yes
 	}
+
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				ge_provinceupdate_berber_herders = yes
+			}
+		}
+	}
+
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = ge_berber_herders_modifier
+			}
+		}
+	}
+
 	ai = {
 		factor = 100
 	}
@@ -5023,6 +4994,20 @@ noble_taxes_reform = {
 	custom_attributes = {
 		enables_efficient_taxation = yes
 		
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				ge_provinceupdate_efficient_taxation = yes
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = ge_efficient_taxes_modifier
+			}
+		}
 	}
 	ai = {
 		factor = 1
