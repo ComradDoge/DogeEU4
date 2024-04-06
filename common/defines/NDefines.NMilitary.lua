@@ -52,7 +52,7 @@ NDefines.NMilitary.MERCENARY_COMPANY_LOW_MANPOWER_THRESHOLD = 0.1         -- At 
 NDefines.NMilitary.MERCENARY_TRADE_RANGE_MODIFIER = 1.0                   -- What fraction of trade range is used to determine mercenary recruitment range.
 NDefines.NMilitary.MERCENARY_COMPANY_BUILDING_TIME = 0.25                 -- Multiplies by the distance from company's home province in pixels to determine recruitment time in days.
 NDefines.NMilitary.MERCENARY_COMPANY_LOCAL_VIRTUAL_DISTANCE = 40          -- How many "pixels away" local companies pretend to be.
-NDefines.NMilitary.MERCENARY_COMPANY_ARMY_TRADITION = 40.0                -- 50, At what army tradition mercenary leaders are generated at.
+NDefines.NMilitary.MERCENARY_COMPANY_ARMY_TRADITION = 60.0                -- 50, At what army tradition mercenary leaders are generated at.
 
 -- War
 NDefines.NMilitary.WARGOAL_MAX_BONUS = 40 -- 25

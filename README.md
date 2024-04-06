@@ -14,7 +14,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Version: 1.36.2
 - Checksum: ?
 
-<h1>00/00/2024</h1>
+<h1>08/04/2024</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
@@ -23,9 +23,8 @@ from the original mod I took. After all I need to understand how they work, else
 - The policies can also be viewed in a spreadsheet located here: https://docs.google.com/spreadsheets/d/1UVH9Ju7uHwZhNgV_I_qliV4MXHAhFfGj7bFXS_BSsZg/edit?usp=sharing
 
 
-# - Heavenly Kingdom (China Formable) completely reworked. To trigger the entry event you need to border a Christian province while having Chinese culture group. (Yes, it's not limited to any region.)
+- Heavenly Kingdom (China Formable) slightly reworked.
 - Internal file cleanup for some performance improvements.
-- Mercenary generals are now generated at 60>40 army tradition.
 - Added back At-Cap Auto-Development button in decisions screen.
 - Mercenary maintenance cost per technology 0.08 > 0.1 increase.
 - Mercenary manpower reserve pool lowered (define value 2.0 > 1.0).
