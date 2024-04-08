@@ -1,0 +1,241 @@
+namespace = imperial_grace_mechanic_events
+
+country_event = {
+	id = imperial_grace_mechanic_events.1
+	title = imperial_grace_mechanic_events.EVTNAME1
+	desc = imperial_grace_mechanic_events.EVTDESC1
+	picture = ANGRY_MOB_eventPicture
+
+	trigger = {
+		has_government_mechanic = imperial_grace_mechanic
+		NOT = {
+			has_government_power = {
+				mechanic_type = imperial_grace_mechanic
+				power_type = imperial_grace_power
+				value = -75
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 60
+		modifier = {
+			factor = 0.75
+			NOT = {
+				has_government_power = {
+					mechanic_type = imperial_grace_mechanic
+					power_type = imperial_grace_power
+					value = -90
+				}
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				50 = {
+					set_country_flag = imperial_grace_mechanic_peasants
+				}
+				50 = {
+					set_country_flag = imperial_grace_mechanic_nobles
+				}
+			}
+			random_owned_province = {
+				save_event_target_as = rebel_province
+			}
+			random_owned_province = {
+				limit = {
+					controlled_by = ROOT
+					has_siege = no
+				}
+				save_event_target_as = rebel_province
+			}
+			random_owned_province = {
+				limit = {
+					is_island = no
+					controlled_by = ROOT
+					has_siege = no
+				}
+				save_event_target_as = rebel_province
+			}
+			random_owned_province = {
+				limit = {
+					is_island = no
+					is_capital = no
+					controlled_by = ROOT
+					has_siege = no
+				}
+				save_event_target_as = rebel_province
+			}
+			random_owned_province = {
+				limit = {
+					is_island = no
+					is_capital = no
+					is_in_capital_area = yes
+					controlled_by = ROOT
+					has_siege = no
+				}
+				save_event_target_as = rebel_province
+			}
+		}
+	}
+
+	option = {
+		name = imperial_grace_mechanic_events1.EVTOPT1
+
+		ai_chance = {
+			factor = 0.33
+			modifier = {
+				factor = 0.5
+				stability = -2
+				NOT = { stability = 1 }
+			}
+			modifier = {
+				factor = 0.5
+				stability = -2
+				NOT = { stability = 0 }
+			}
+			modifier = {
+				factor = 10
+				adm_power = 300
+				NOT = { stability = -2 }
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					has_government_power = {
+						mechanic_type = imperial_grace_mechanic
+						power_type = imperial_grace_power
+						value = -90
+					}
+				}
+			}
+		}
+
+		reduce_stability_or_adm_power = yes
+		add_government_power = {
+			mechanic_type = imperial_grace_mechanic
+			power_type = imperial_grace_power
+			value = 3
+		}
+	}
+
+	option = {
+		name = imperial_grace_mechanic_events1.EVTOPT2
+
+		ai_chance = {
+			factor = 0.33
+			modifier = {
+				factor = 0.75
+				NOT = { mil_power = 300 }
+			}
+			modifier = {
+				factor = 0.5
+				rebel_progress_at_least = { value = 40 }
+			}
+		}
+
+		add_mil_power = -50
+		add_rebel_progress = { value = 50 }
+	}
+
+	option = {
+		name = imperial_grace_mechanic_events1.EVTOPT3
+
+		goto = rebel_province
+
+		ai_chance = {
+			factor = 0.33
+			modifier = {
+				factor = 0.75
+				num_of_rebel_armies = 1
+			}
+			modifier = {
+				factor = 0.75
+				num_of_rebel_armies = 2
+			}
+			modifier = {
+				factor = 0.5
+				num_of_rebel_armies = 3
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					has_government_power = {
+						mechanic_type = imperial_grace_mechanic
+						power_type = imperial_grace_power
+						value = -90
+					}
+				}
+			}
+		}
+
+		trigger_switch = {
+			on_trigger = has_country_flag
+			imperial_grace_mechanic_peasants = {
+				event_target:rebel_province = {
+					anti_tax_rebels = 3
+				}
+			}
+			imperial_grace_mechanic_nobles = {
+				event_target:rebel_province = {
+					noble_rebels = 3
+				}
+			}
+		}
+		country_event = { id = imperial_grace_mechanic_events.2 tooltip = imperial_grace_mechanic_events.1.tt days = 50 }
+	}
+
+	option = {
+		name = imperial_grace_mechanic_events1.EVTOPT4
+
+		highlight = yes
+		trigger = {
+			OR = {
+				ruler_has_personality = charismatic_negotiator_personality
+				ruler_has_personality = silver_tongue_personality
+			}
+		}
+
+		ai_chance = {
+			factor = 100
+		}
+
+		add_adm_power = -25
+		add_government_power = {
+			mechanic_type = imperial_grace_mechanic
+			power_type = imperial_grace_power
+			value = 3
+		}
+	}
+
+	after = {
+		clr_country_flag = imperial_grace_mechanic_peasants
+		clr_country_flag = imperial_grace_mechanic_nobles
+	}
+}
+
+country_event = {
+	id = imperial_grace_mechanic_events.2
+	title = imperial_grace_mechanic_events.EVTNAME2
+	desc = imperial_grace_mechanic_events.EVTDESC2
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_government_mechanic = imperial_grace_mechanic
+		NOT = { num_of_rebel_armies = 1 }
+	}
+
+	option = {
+		name = imperial_grace_mechanic_events2.EVTOPT1
+
+		add_government_power = {
+			mechanic_type = imperial_grace_mechanic
+			power_type = imperial_grace_power
+			value = 5
+		}
+	}
+}
