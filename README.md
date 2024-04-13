@@ -20,6 +20,10 @@ from the original mod I took. After all I need to understand how they work, else
 
 - T11 government reform with a mechanic.
 - T1 Khmer government reform with a mechanic.
+- Theocracy now also has a Naval Organization level.
+- Added a new general T11 government reform with a mechanic.
+- Added new specific T1 Khmer government reform with a mechanic.
+- Some T5 Military Organization mercenary-related reforms were tweaked or removed.
 
 # TODO
 
