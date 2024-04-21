@@ -18,8 +18,6 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-- T11 government reform with a mechanic.
-- T1 Khmer government reform with a mechanic.
 - Theocracy now also has a Naval Organization tier.
 - Added a new general T11 government reform with a mechanic.
 - Added new specific T1 Khmer government reform with a mechanic.
