@@ -18,10 +18,11 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
+- Fixed Alpland reform elections not working.
 - Theocracy now also has a Naval Organization tier.
 - Added a new general T11 government reform with a mechanic.
 - Added new specific T1 Khmer government reform with a mechanic.
-- Frequent Elections reform no longer gives bonus stat to ruler. 
+- Frequent Elections reform no longer gives bonus stat to ruler.
 - Nobility Estate Republican tradition tiering is 1/0.5/-1 > 0.5/0.25/-0.5 now.
 - Some T5 Military Organization mercenary-related reforms were tweaked or removed.
 
