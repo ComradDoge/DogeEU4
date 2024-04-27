@@ -18,6 +18,7 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
+- Rhineland colour is now green.
 - Fixed Alpland reform elections not working.
 - Theocracy now also has a Naval Organization tier.
 - Added a new general T11 government reform with a mechanic.
@@ -25,11 +26,10 @@ from the original mod I took. After all I need to understand how they work, else
 - Frequent Elections reform no longer gives bonus stat to ruler.
 - Nobility Estate Republican tradition tiering is 1/0.5/-1 > 0.5/0.25/-0.5 now.
 - Some T5 Military Organization mercenary-related reforms were tweaked or removed.
-- Added option to remove the colonized greenland province in the Native removal decision.
+- Added option to remove the colonized greenland province in the native removal decision.
 
 # TODO
 
-# Test the cleaned election stuff + alpland mechanic
 
 # add maybe mission_to_crusade_reform from GE
 # Government mechanic for Heavenly Kingdom
