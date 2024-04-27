@@ -25,6 +25,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Frequent Elections reform no longer gives bonus stat to ruler.
 - Nobility Estate Republican tradition tiering is 1/0.5/-1 > 0.5/0.25/-0.5 now.
 - Some T5 Military Organization mercenary-related reforms were tweaked or removed.
+- Added option to remove the colonized greenland province in the Native removal decision.
 
 # TODO
 
