@@ -20,6 +20,7 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Rhineland colour is now green.
 - Fixed Alpland reform elections not working.
+- Centralisation and Decentralisation tweaked.
 - Theocracy now also has a Naval Organization tier.
 - Added a new general T11 government reform with a mechanic.
 - Added new specific T1 Khmer government reform with a mechanic.
