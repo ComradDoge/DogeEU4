@@ -20,10 +20,10 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Rhineland colour is now green.
 - Fixed Alpland reform elections not working.
-- Centralisation and Decentralisation tweaked.
 - Development Ideas event frequency decreased.
 - Theocracy now also has a Naval Organization tier.
 - Added a new general T11 government reform with a mechanic.
+- Centralisation and Decentralisation ideas slightly reworked.
 - Added new specific T1 Khmer government reform with a mechanic.
 - Frequent Elections reform no longer gives bonus stat to ruler.
 - Nobility Estate Republican tradition tiering is 1/0.5/-1 > 0.5/0.25/-0.5 now.
