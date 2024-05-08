@@ -13,7 +13,7 @@ tags={
 	"Ages"
 	"Formables"
 }
-supported_version="1.37.*.*"
+supported_version=="v1.37.*.*"
 picture = "thumbnail.png"
 path="mod/DogeEU4"
 remote_file_id="2152606065"
