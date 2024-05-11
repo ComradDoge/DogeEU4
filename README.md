@@ -11,8 +11,8 @@ from the original mod I took. After all I need to understand how they work, else
 
 # STEAM WORKSHOP DESCRIPTION
 
-- Version: 1.36.2
-- Checksum: 6a13
+- Version: 1.37.0
+- Checksum: x
 
 <h1>!/!/2024</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
@@ -29,10 +29,11 @@ from the original mod I took. After all I need to understand how they work, else
 - Nobility Estate Republican tradition tiering is 1/0.5/-1 > 0.5/0.25/-0.5 now.
 - Some T5 Military Organization mercenary-related reforms were tweaked or removed.
 - Added option to remove the colonized greenland province in the native removal decision.
+- Added a special_settings decision for more weird campaign settings, no guarantee that it won't break something. You are also free to suggest ideas and I might add them, especially if its some MP group.
 
 # TODO
 
-
+# special setting: aslong as Aztecs exist, they will always get a mythical conqueror
 # add maybe mission_to_crusade_reform from GE
 # Government mechanic for Heavenly Kingdom
 # solution for ai desire to max out forcelimit at expense of manpower
