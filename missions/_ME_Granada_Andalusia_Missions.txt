@@ -6,7 +6,10 @@ GRA_ADU_missions_1 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -198,16 +201,57 @@ GRA_ADU_missions_2 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
 	has_country_shield = yes
 	
+	GRA_civil_war = {
+		icon = mission_restore_faith_in_the_throne
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = GRA_the_disaster_happened
+					has_country_flag = granadan_civil_war_over
+				}
+				AND = {
+					adm = 2
+					dip = 2
+					mil = 2
+				}
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			add_legitimacy = 20
+			
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				custom_tooltip = " "
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 10
+				}
+			}
+		}
+	}
 	
 	GRA_stable_leadership = {
 		icon = mission_monarch_in_throne_room
-		required_missions = { GRA_secure_an_advantage }
+		required_missions = { GRA_civil_war }
 		position = 3
 		provinces_to_highlight = {
 		}
@@ -330,7 +374,10 @@ GRA_ADU_missions_3 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -338,7 +385,7 @@ GRA_ADU_missions_3 = {
 
 	GRA_secure_an_advantage = {
 		icon = mission_protect_granada
-		required_missions = { GRA_siege_mentality }
+		required_missions = { GRA_civil_war GRA_siege_mentality }
 		position = 2
 		provinces_to_highlight = {
 			OR = {
@@ -350,7 +397,7 @@ GRA_ADU_missions_3 = {
 			OR = {
 				owns_core_province = 225
 				war_with = CAS
-				#is_ahead_of_time_in_tech = { type = mil }
+				is_ahead_of_time_in_tech = { type = mil }
 				has_global_modifier_value = {
 					which = discipline
 					value = 0.05
@@ -491,7 +538,10 @@ GRA_ADU_missions_4 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -517,12 +567,8 @@ GRA_ADU_missions_4 = {
 				duration = -1
 				age = age_of_discovery
 			}
-			hidden_effect = {
-				set_country_flag = granadan_civil_war_over # in case its referenced
-			}
 			
 			ME_give_claims = { area = lower_andalucia_area }
-			ME_give_claims = { area = upper_andalucia_area }
 		}
 	}
 	
@@ -823,7 +869,10 @@ GRA_ADU_missions_5 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -838,9 +887,14 @@ GRA_ADU_missions_5 = {
 		}
 		trigger = {
 			stability = 1
-			estate_loyalty = {
-				estate = estate_church
-				loyalty = 55 
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church 
+					loyalty = 55
+				}
 			}
 			capital_scope = {
 				num_of_times_improved = 2
@@ -948,7 +1002,10 @@ ADU_missions_1 = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -978,9 +1035,14 @@ ADU_missions_1 = {
 			army_size_percentage = 0.8
 		}
 		effect = {
-			country_event = { id = ME_Granada_Events.34 } #pick your military style
+			#country_event = { id = ME_Granada_Events.34 } #pick your military style
 			
 			add_mil_power = 100
+			custom_tooltip = " "
+			enable_branching_mission_review = {
+				key = ADU
+				ai_event_id = ME_Granada_Events.34
+			}
 		}
 	}
 }
@@ -990,10 +1052,14 @@ ADU_missions_1_branching = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
-		NOT = { has_country_flag = GRA_chose_military_path }
+		NOT = { can_preview_mission_of_key = { key = ADU } }
+		NOT = { EE_has_locked_a_branch = yes }
 	}
 	has_country_shield = yes
 	
@@ -1054,7 +1120,10 @@ ADU_missions_1_western = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 		has_country_flag = GRA_western_military_flag
@@ -1068,9 +1137,7 @@ ADU_missions_1_western = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
 			num_of_artillery = 15
 			if = {
@@ -1114,9 +1181,7 @@ ADU_missions_1_western = {
 			}
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
 			OR = {
 				num_of_mercenaries = 20
@@ -1145,11 +1210,9 @@ ADU_missions_1_western = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
-			#is_ahead_of_time_in_tech = { type = mil }
+			is_ahead_of_time_in_tech = { type = mil }
 			
 			has_global_modifier_value = {
 				which = land_morale
@@ -1171,7 +1234,10 @@ ADU_missions_1_muslim = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 		has_country_flag = GRA_muslim_military_flag
@@ -1185,9 +1251,7 @@ ADU_missions_1_muslim = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
 			OR = {
 				slaves = 3
@@ -1221,9 +1285,7 @@ ADU_missions_1_muslim = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
 			num_of_artillery = 15
 			if = {
@@ -1256,13 +1318,11 @@ ADU_missions_1_muslim = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
 			army_size = 150
 			has_mil_advisor_3 = yes
-			#is_ahead_of_time_in_tech = { type = mil }
+			is_ahead_of_time_in_tech = { type = mil }
 			army_tradition = 80
 			num_of_generals = 4
 		}
@@ -1282,7 +1342,10 @@ ADU_missions_1_cont = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -1688,7 +1751,10 @@ ADU_missions_2 = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -1788,10 +1854,14 @@ ADU_missions_2_branching = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
-		NOT = { has_country_flag = GRA_chose_military_path }
+		NOT = { can_preview_mission_of_key = { key = ADU } }
+		NOT = { EE_has_locked_a_branch = yes }
 	}
 	has_country_shield = yes
 	
@@ -1835,7 +1905,10 @@ ADU_missions_2_muslim = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 		has_country_flag = GRA_muslim_military_flag
@@ -1849,9 +1922,7 @@ ADU_missions_2_muslim = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
 			OR = {
 				manpower_percentage = 0.6
@@ -1898,9 +1969,7 @@ ADU_missions_2_muslim = {
 			NOT = { has_forcelimit_building_trigger = yes }
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			OR = {
 				has_estate_privilege = estate_berbers_berber_settlements_gra_adu
 				estate_loyalty = { 
@@ -1938,7 +2007,10 @@ ADU_missions_2_western = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 		has_country_flag = GRA_western_military_flag
@@ -1955,9 +2027,7 @@ ADU_missions_2_western = {
 			NOT = { has_forcelimit_building_trigger = yes }
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
 			num_of_owned_provinces_with = {
 				NOT = { religion_group = ROOT }
@@ -2011,9 +2081,7 @@ ADU_missions_2_western = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			hidden_trigger = {
-				NOT = { has_country_flag = GRA_military_preview }
-			}
+			not_in_mission_preview_mode = { key = ADU }
 			
 			OR = {
 				custom_trigger_tooltip = {
@@ -2052,7 +2120,7 @@ ADU_missions_2_western = {
 				commandant = 1
 			}
 			
-			#is_ahead_of_time_in_tech = { type = mil }
+			is_ahead_of_time_in_tech = { type = mil }
 			
 			has_global_modifier_value = {
 				which = land_morale
@@ -2078,7 +2146,10 @@ ADU_missions_2_cont = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -2238,7 +2309,7 @@ ADU_missions_2_cont = {
 		provinces_to_highlight = {
 			if = {
 				limit = {
-					has_global_flag = MSA_muslim_center_flag
+					has_saved_global_event_target = ME_MSA_muslim_center_target
 				}
 				owner = {
 					owns = event_target:ME_MSA_muslim_center_target
@@ -2260,7 +2331,7 @@ ADU_missions_2_cont = {
 		trigger = {
 			if = {
 				limit = {
-					has_global_flag = MSA_muslim_center_flag
+					has_saved_global_event_target = ME_MSA_muslim_center_target
 					event_target:ME_MSA_muslim_center_target = {
 						religion_group = muslim
 					}
@@ -2297,9 +2368,14 @@ ADU_missions_2_cont = {
 			set_global_flag = GRA_spread_of_islam_will_accelerate
 			country_event = { id = ME_Granada_Events.36 }
 			
-			event_target:ME_MSA_muslim_center_target = {
-				owner = {
-					country_event = { id = ME_Granada_Events.37 } #give theologian
+			if = {
+				limit = {
+					has_saved_global_event_target = ME_MSA_muslim_center_target
+				}
+				event_target:ME_MSA_muslim_center_target = {
+					owner = {
+						country_event = { id = ME_Granada_Events.37 } #give theologian
+					}
 				}
 			}
 		}
@@ -2580,10 +2656,7 @@ ADU_missions_2_cont = {
 				NOT = { piety = -0.9 }
 			}
 			
-			OR = { 
-				NOT = { started_in = 1444.11.9 }
-				ME_can_become_caliphate_gov = yes
-			}
+			ME_can_become_caliphate_gov = yes
 			total_development = 800
 		}
 		effect = {
@@ -2602,7 +2675,10 @@ ADU_missions_3_catalonia = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -2640,7 +2716,10 @@ ADU_missions_3_branch = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = {
 			OR = {
 				has_country_flag = GRA_defeat_france_flag
@@ -2755,7 +2834,10 @@ ADU_missions_3_against_france = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 		has_country_flag = GRA_defeat_france_flag
@@ -2814,7 +2896,10 @@ ADU_missions_3_with_france= {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 		has_country_flag = GRA_ally_france_flag
@@ -2884,7 +2969,10 @@ ADU_missions_3_continued = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -3035,7 +3123,7 @@ ADU_missions_3_continued = {
 				monthly_mil = 14
 			}
 			
-			#is_ahead_of_time_in_tech = { type = any }
+			is_ahead_of_time_in_tech = { type = any }
 		}
 		effect = {
 			225 = {
@@ -3139,10 +3227,7 @@ ADU_missions_3_continued = {
 			ME_abbasid_caliph_pth = yes 
 		}
 		trigger = {
-			OR = { 
-				NOT = { started_in = 1444.11.9 }
-				ME_has_abbasid_caliph = yes
-			}
+			ME_has_abbasid_caliph = yes
 		}
 		effect = {
 			country_event = { id = ME_Granada_Events.40 }
@@ -3198,7 +3283,10 @@ ADU_missions_4 = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -3362,45 +3450,16 @@ ADU_missions_4 = {
 				continent = north_america
 				continent = south_america
 			}
-			if = {
-				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
-				}
-				OR = {
-					trade_goods = silver
-					trade_goods = gold
-				}
-			}
-			else = {
-				trade_goods = gold
-			}
+			trade_goods = gold
 		}
 		trigger = {
-			if = {
-				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					continent = north_america
+					continent = south_america
 				}
-				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-					OR = {
-						continent = north_america
-						continent = south_america
-					}
-					OR = {
-						trade_goods = silver
-						trade_goods = gold
-					}
-					value = 2
-				}
-			}
-			else = {
-				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
-					OR = {
-						continent = north_america
-						continent = south_america
-					}
-					trade_goods = gold 
-					value = 2
-				}
+				trade_goods = gold 
+				value = 2
 			}
 		}
 		effect = {
@@ -3603,7 +3662,7 @@ ADU_missions_4 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
-			#is_ahead_of_time_in_tech = { type = all }
+			is_ahead_of_time_in_tech = { type = all }
 		}
 		effect = {
 			set_country_flag = GRA_foreign_experts_flag
@@ -3891,7 +3950,10 @@ ADU_missions_5 = {
 	ai = yes
 	potential = {
 		tag = ADU
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		NOT = { has_country_flag = GRA_incident_castile }
 	}
@@ -3931,7 +3993,7 @@ ADU_missions_5 = {
 			
 			custom_tooltip = " "
 			
-			add_accepted_culture_or_dip_power = { culture = moroccan dip_reward = yes }
+			add_accepted_culture_or_dip_power = { culture = moroccan }
 			
 			custom_tooltip = " "
 			
@@ -4259,7 +4321,7 @@ ADU_missions_5 = {
 			NOT = { has_building = university }
 		}
 		trigger = {
-			#is_ahead_of_time_in_tech = { type = all }
+			is_ahead_of_time_in_tech = { type = all }
 			OR = {
 				innovativeness = 60
 				any_owned_province = {
@@ -4423,7 +4485,10 @@ GRA_ADU_missions_castile_incident_1 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		has_country_flag = GRA_incident_castile
 	}
@@ -4494,7 +4559,10 @@ GRA_ADU_missions_castile_incident_2 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		has_country_flag = GRA_incident_castile
 	}
@@ -4580,7 +4648,10 @@ GRA_ADU_missions_castile_incident_3 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		has_country_flag = GRA_incident_castile
 	}
@@ -4662,7 +4733,10 @@ GRA_ADU_missions_castile_incident_4 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		has_country_flag = GRA_incident_castile
 	}
@@ -4696,7 +4770,7 @@ GRA_ADU_missions_castile_incident_4 = {
 		trigger = {
 			NOT = { yearly_corruption_increase = 0.001 }
 			current_income_balance = 0.5
-			#is_ahead_of_time_in_tech = { type = any }
+			is_ahead_of_time_in_tech = { type = any }
 		}
 		effect = {
 			add_treasury = 150
@@ -4718,7 +4792,10 @@ GRA_ADU_missions_castile_incident_5 = {
 			tag = ADU
 			tag = GRA
 		}
-
+		OR = {
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			NOT = { has_dlc = "Golden Century" }
+		}
 		NOT = { has_country_flag = CRDB_mission_enabled }
 		has_country_flag = GRA_incident_castile
 	}

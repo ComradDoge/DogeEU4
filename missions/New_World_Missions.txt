@@ -1,6 +1,6 @@
 new_world_natives_missions_modernization_tag = {
 	slot = 1
-	generic = no
+	generic = yes
 	ai = no
 	potential = {
 		NOT = { tag = N01 } # DST
@@ -18,7 +18,10 @@ new_world_natives_missions_modernization_tag = {
 		position = 5
 		required_missions = { }
 		trigger = {
-			is_tribal = no
+			OR = {
+				is_tribal = no
+				has_reform = steppe_horde
+			}
 			NOT = {
 				government = native
 			}
@@ -34,14 +37,16 @@ new_world_natives_missions_modernization_tag = {
 		}
 		effect = {
 			add_innovativeness_big_effect = yes
-			add_prestige = 20
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
 		}
 	}
 }
 
 new_world_natives_missions_modernization = {
 	slot = 2
-	generic = no
+	generic = yes
 	ai = no
 	potential = {
 		NOT = { tag = N01 } # DST
@@ -59,6 +64,7 @@ new_world_natives_missions_modernization = {
 			technology_group = south_american
 			technology_group = mesoamerican
 		}
+		NOT = { has_new_aztec_inca_maya_mission_trigger = yes }
 		NOT = {
 			is_iroquois = yes
 			primary_culture = dakota
@@ -73,7 +79,10 @@ new_world_natives_missions_modernization = {
 		position = 1
 		required_missions = { }
 		trigger = {
-			is_tribal = no
+			OR = {
+				is_tribal = no
+				has_reform = steppe_horde
+			}
 			NOT = {
 				government = native
 			}
@@ -89,14 +98,16 @@ new_world_natives_missions_modernization = {
 		}
 		effect = {
 			add_innovativeness_big_effect = yes
-			add_prestige = 20
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
 		}
 	}
 }
 
 new_world_natives_missions_no_reg = {
 	slot = 3
-	generic = no
+	generic = yes
 	ai = no
 	potential = {
 		NOT = { tag = N01 } # DST
@@ -113,6 +124,7 @@ new_world_natives_missions_no_reg = {
 			technology_group = south_american
 			technology_group = mesoamerican
 		}
+		NOT = { has_new_aztec_inca_maya_mission_trigger = yes }
 	}
 	reform_religion = {
 		icon = mission_hands_praying
@@ -127,7 +139,9 @@ new_world_natives_missions_no_reg = {
 			is_religion_reformed = yes
 		}
 		effect = {
-			add_prestige = 20
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
 		}
 	}
 }
@@ -138,21 +152,27 @@ new_world_natives_missions_slot1 = {
 	ai = no
 	potential = {
 		NOT = { tag = N01 } # DST
-		NOT = { tag = INC }
-		capital_scope = {
-			OR = {
-				continent = north_america
-				continent = south_america
-				continent = new_world
-			}
-		}
 		OR = {
-			technology_group = andean
-			technology_group = north_american
-			technology_group = south_american
-			technology_group = mesoamerican
+			AND = {
+				capital_scope = {
+					OR = {
+						continent = north_america
+						continent = south_america
+						continent = new_world
+					}
+				}
+				OR = {
+					technology_group = andean
+					technology_group = north_american
+					technology_group = south_american
+					technology_group = mesoamerican
+				}
+			}
+			tag = CSU
 		}
+		NOT = { has_new_aztec_inca_maya_mission_trigger = yes }
 	}
+
 	native_income_mission = {
 		icon = mission_war_chest
 		position = 6
@@ -164,6 +184,13 @@ new_world_natives_missions_slot1 = {
 			add_country_modifier = {
 				name = "growing_economy"
 				duration = 9125 #25 years
+			}
+			define_advisor = {
+				type = treasurer
+				skill = 1
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
 			}
 		}
 	}
@@ -254,7 +281,6 @@ new_world_natives_missions_slot2 = {
 	ai = yes
 	potential = {
 		NOT = { tag = N01 } # DST
-		NOT = { tag = INC }
 		capital_scope = {
 			OR = {
 				continent = north_america
@@ -268,6 +294,7 @@ new_world_natives_missions_slot2 = {
 			technology_group = south_american
 			technology_group = mesoamerican
 		}
+		NOT = { has_new_aztec_inca_maya_mission_trigger = yes }
 	}
 	native_dev_capital = {
 		icon = mission_native_dev_capital
@@ -303,6 +330,7 @@ new_world_natives_missions_slot2 = {
 				name = "strong_treasury"
 				duration = 9125
 			}
+			add_corruption = -2
 		}
 	}
 	native_imperial_ambition_mission = {
@@ -313,10 +341,27 @@ new_world_natives_missions_slot2 = {
 			total_development = 1000
 		}
 		effect = {
-			add_prestige = 30
+			add_prestige_or_monarch_power = {
+				amount = 30
+			}
 			add_country_modifier = {
 				name = "imperial_ambition"
 				duration = 9125
+			}
+			custom_tooltip = perma_claim_neighbor_area
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						area = {
+							limit = {
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT    }
+								NOT = { is_core = ROOT    }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+				}
 			}
 		}
 	}
@@ -328,7 +373,6 @@ new_world_natives_missions_slot4 = {
 	ai = yes
 	potential = {
 		NOT = { tag = N01 } # DST
-		NOT = { tag = INC }
 		capital_scope = {
 			OR = {
 				continent = north_america
@@ -342,6 +386,7 @@ new_world_natives_missions_slot4 = {
 			technology_group = south_american
 			technology_group = mesoamerican
 		}
+		NOT = { has_new_aztec_inca_maya_mission_trigger = yes }
 	}
 	native_royal_marriage = {
 		icon = native_royal_marriage
@@ -351,6 +396,7 @@ new_world_natives_missions_slot4 = {
 			OR = {
 				num_of_royal_marriages = 3
 				federation_size = 3
+				num_of_cities = 20
 			}
 			prestige = 40
 		}
@@ -393,6 +439,9 @@ new_world_natives_missions_slot4 = {
 			add_country_modifier = {
 				name = "obedient_subjects"
 				duration = 9125 #25 years
+			}
+			every_subject_country = {
+				add_liberty_desire = -10
 			}
 		}
 	}
@@ -455,12 +504,39 @@ new_world_natives_missions_slot4 = {
 			}
 		}
 		effect = {
-			add_dip_power = 50
-			add_adm_power = 50
-			add_mil_power = 50
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 25
+			}
 			add_country_modifier = {
 				name = "hegemonic_ambition"
 				duration = 9125 #25 years
+			}
+			custom_tooltip = home_region_generic_reward
+			tooltip = {
+				add_nationalism = -10
+			}
+			custom_tooltip = " "
+			custom_tooltip = perma_claim_neighbor_area
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						area = {
+							limit = {
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT    }
+								NOT = { is_core = ROOT    }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+				}
+				every_owned_province = {
+					limit = {
+						region = capital
+					}
+					add_nationalism = -10
+				}
 			}
 		}
 	}
@@ -469,7 +545,10 @@ new_world_natives_missions_slot4 = {
 		position = 9
 		required_missions = { native_unite_home_region native_treasury }
 		trigger = {
-			is_tribal = no
+			OR = {
+				is_tribal = no
+				has_reform = steppe_horde
+			}
 			NOT = {
 				government = native
 			}
@@ -503,6 +582,7 @@ new_world_natives_missions_slot5 = {
 			technology_group = south_american
 			technology_group = mesoamerican
 		}
+		NOT = { has_new_aztec_inca_maya_mission_trigger = yes }
 	}
 	native_build_army_mission = {
 		icon = mission_native_build_army_mission
@@ -516,6 +596,19 @@ new_world_natives_missions_slot5 = {
 				name = "thriving_arms_industry"
 				duration = 9125 #25 years
 			}
+			custom_tooltip = claim_neighbor_province
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						limit = {
+							NOT = { owned_by = ROOT }
+							NOT = { is_permanent_claim = ROOT	}
+							NOT = { is_core = ROOT	}
+						}
+						add_claim = ROOT
+					}
+				}
+			}
 		}
 	}
 	native_assemble_an_army = {
@@ -526,6 +619,7 @@ new_world_natives_missions_slot5 = {
 			army_size = 80 
 		}
 		effect = {
+			add_army_tradition_or_mil_power = { amount = 20 }
 			add_country_modifier = {
 				name = "army_enthusiasm"
 				duration = 9125 #25 years
@@ -537,7 +631,10 @@ new_world_natives_missions_slot5 = {
 		position = 3
 		required_missions = { native_assemble_an_army }
 		trigger = {
-			is_tribal = no
+			OR = {
+				is_tribal = no
+				has_reform = steppe_horde
+			}
 			NOT = {
 				government = native
 			}
@@ -562,6 +659,21 @@ new_world_natives_missions_slot5 = {
 				name = "military_victory"
 				duration = 7300
 			}
+			custom_tooltip = perma_claim_neighbor_area
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						area = {
+							limit = {
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT    }
+								NOT = { is_core = ROOT    }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+				}
+			}
 		}
 	}
 	nw_sunset_invasion = {
@@ -575,6 +687,8 @@ new_world_natives_missions_slot5 = {
 			}
 		}
 		effect = {
+			change_technology_group = high_american
+			change_unit_type = high_american
 			add_adm_power = 100
 			add_dip_power = 100
 			add_mil_power = 100

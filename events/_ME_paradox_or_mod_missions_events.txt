@@ -1,0 +1,82 @@
+namespace = paradox_or_mod_missions_events
+
+# Choose whether to use Paradox' missions or ME missions
+country_event = {
+	id = paradox_or_mod_missions_events.2
+	title = paradox_or_mod_missions_events.EVTNAME2
+	desc = paradox_or_mod_missions_events.EVTDESC2
+	picture = DIPLOMACY_eventPicture
+
+	trigger = {
+		NOT = { has_country_flag = has_selected_missions_@ROOT }
+		OR = {
+			country_has_both_paradox_and_me_missions = yes
+			country_has_both_paradox_and_golden_bull_missions = yes
+		}
+		ai = yes
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = use_paradox_missions
+			clr_country_flag = use_missions_expanded_missions_instead_of_paradox
+			clr_country_flag = use_golden_bull_missions_instead_of_paradox
+			set_global_flag = EE_missions_event_fired
+		}
+	}
+
+	option = { # Choose ME missions
+		name = paradox_or_mod_missions_events2.EVTOPT1
+
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 0
+				OR = {
+				}
+			}
+		}
+
+		custom_tooltip = CHOOSE_ME_MISSIONS
+		hidden_effect = {
+			clr_country_flag = use_paradox_missions
+			clr_country_flag = use_golden_bull_missions_instead_of_paradox
+			set_country_flag = use_missions_expanded_missions_instead_of_paradox
+			swap_non_generic_missions = yes
+		}
+	}
+
+
+	option = { # Choose paradox' missions
+		name = paradox_or_mod_missions_events2.EVTOPT3
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+					}
+				}
+			}
+		}
+
+		custom_tooltip = CHOOSE_PARADOX_MISSIONS
+		hidden_effect = {
+			clr_country_flag = use_missions_expanded_missions_instead_of_paradox
+			clr_country_flag = use_golden_bull_missions_instead_of_paradox
+			set_country_flag = use_paradox_missions
+			swap_non_generic_missions = yes
+		}
+	}
+
+	after = {
+		# You can't swap missions again for the same country, but you may want to do it, if you changed tag to another country that has the choice:
+		if = {
+			limit = {
+				NOT = { has_country_flag = has_selected_missions_@ROOT }
+			}
+			set_country_flag = has_selected_missions_@ROOT
+		}
+	}
+}

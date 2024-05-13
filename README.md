@@ -14,22 +14,24 @@ from the original mod I took. After all I need to understand how they work, else
 - Version: 1.37.0
 - Checksum: x
 
-<h1>!/!/2024</h1>
+<h1>13/05/2024</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
+- 1.37 Update.
 - Rhineland colour is now green.
 - Fixed Alpland reform elections not working.
 - Development Ideas event frequency decreased.
 - Theocracy now also has a Naval Organization tier.
 - Added a new general T11 government reform with a mechanic.
 - Centralisation and Decentralisation ideas slightly reworked.
-- Added new specific T1 Khmer government reform with a mechanic.
 - Frequent Elections reform no longer gives bonus stat to ruler.
+- Added new specific T1 Khmer government reform with a mechanic.
 - Nobility Estate Republican tradition tiering is 1/0.5/-1 > 0.5/0.25/-0.5 now.
 - Some T5 Military Organization mercenary-related reforms were tweaked or removed.
 - Added option to remove the colonized greenland province in the native removal decision.
-- Added a special_settings decision for more weird campaign settings, no guarantee that it won't break something. You are also free to suggest ideas and I might add them, especially if its some MP group.
+- Mission reorganization with better EE integration, not final will continue to integrate more. Report issues.
+# - Added a special_settings decision for more weird campaign settings, no guarantee that it won't break something. You are also free to suggest ideas and I might add them, especially if its some MP group.
 
 # TODO
 

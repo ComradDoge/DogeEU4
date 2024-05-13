@@ -7,13 +7,13 @@ Mughal_missions_1 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
 	MUG_arabia_sea = {
 		icon = mission_advance_to_the_arabian_sea
-		required_missions = { MUG_sindh }
+		required_missions = { MUG_sindh_ME }
 		position = 3
 		provinces_to_highlight = {
 			province_id = 2999
@@ -57,13 +57,13 @@ Mughal_missions_1_locked = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
 		
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
 	MUG_indian_cloth_locked = {
 		icon = mission_locked_mission
-		required_missions = { MUG_gujarat }
+		required_missions = { MUG_gujarat_ME }
 		position = 5
 		trigger = {
 			custom_trigger_tooltip = {
@@ -126,7 +126,10 @@ Mughal_missions_1_locked = {
 				full_idea_group = trade_ideas
 				monthly_dip = 12
 			}
-			is_production_leader_of_any_trade_good = yes
+			OR = {
+				is_ahead_of_time_in_tech_dip = yes
+				is_production_leader_of_any_trade_good = yes
+			}
 			custom_trigger_tooltip = {
 				tooltip = selectable_mission_trigger_tt
 				always = no
@@ -161,13 +164,13 @@ Mughal_missions_1_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
 	MUG_indian_cloth = {
 		icon = mission_indian_stateman
-		required_missions = { MUG_gujarat }
+		required_missions = { MUG_gujarat_ME }
 		position = 5
 		trigger = {
 			num_of_owned_provinces_with = {
@@ -249,7 +252,10 @@ Mughal_missions_1_unlocked = {
 				full_idea_group = trade_ideas
 				monthly_dip = 12
 			}
-			is_production_leader_of_any_trade_good = yes
+			OR = {
+				is_ahead_of_time_in_tech_dip = yes
+				is_production_leader_of_any_trade_good = yes
+			}
 		}
 		
 		effect = {
@@ -294,7 +300,7 @@ Mughal_missions_1_military = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -323,7 +329,7 @@ Mughal_missions_1_branching = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		NOT = {
 			has_country_flag = me_mug_gunpowder_empire_flag
 			has_country_flag = me_mug_indian_army_flag
@@ -460,7 +466,7 @@ Mughal_missions_1_unlocked_gunpowder_empire = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = me_mug_gunpowder_empire_flag
 	}
 	has_country_shield = yes
@@ -482,7 +488,7 @@ Mughal_missions_1_unlocked_gunpowder_empire = {
 			add_age_modifier = {
 				name = me_mug_sepoy_infantry
 				duration = -1
-				age = age_of_enlightenment
+				age = age_of_absolutism
 			}
 		}
 	}
@@ -521,7 +527,7 @@ Mughal_missions_1_unlocked_indian_army = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = me_mug_indian_army_flag
 	}
 	has_country_shield = yes
@@ -615,7 +621,7 @@ Mughal_missions_1_1 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -649,7 +655,7 @@ Mughal_missions_1_1_locked = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
 		
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -809,7 +815,7 @@ Mughal_missions_1_1_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -866,7 +872,10 @@ Mughal_missions_1_1_unlocked = {
 		required_missions = { }
 		position = 15
 		provinces_to_highlight = {
-			province_id = event_target:ME_MSA_muslim_center_target
+			AND = {
+				has_saved_global_event_target = ME_MSA_muslim_center_target
+				province_id = event_target:ME_MSA_muslim_center_target
+			}
 		}
 		trigger = {
 			OR = {
@@ -876,19 +885,27 @@ Mughal_missions_1_1_unlocked = {
 						share = 15
 					}
 				}
-				custom_trigger_tooltip = {
-					tooltip = me_mug_muslim_cot
-					event_target:ME_MSA_muslim_center_target = {
-						religion_group = muslim
+				if = {
+					limit = {
+						has_saved_global_event_target = ME_MSA_muslim_center_target
 					}
-					event_target:ME_MSA_muslim_center_target = {
-						owner = {
-							has_opinion = {
-								who = ROOT
-								value = 125
+					custom_trigger_tooltip = {
+						tooltip = me_mug_muslim_cot
+						event_target:ME_MSA_muslim_center_target = {
+							religion_group = muslim
+						}
+						event_target:ME_MSA_muslim_center_target = {
+							owner = {
+								has_opinion = {
+									who = ROOT
+									value = 125
+								}
 							}
 						}
 					}
+				}
+				else = {
+					hidden_trigger = { always = no }
 				}
 			}
 		}
@@ -922,6 +939,7 @@ Mughal_missions_1_1_unlocked = {
 			hidden_effect = {
 				if = {
 					limit = {
+						has_saved_global_event_target = ME_MSA_muslim_center_target
 						event_target:ME_MSA_muslim_center_target = {
 							owner = {
 								has_opinion = {
@@ -997,7 +1015,7 @@ Mughal_missions_2 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -1042,7 +1060,7 @@ Mughal_missions_2 = {
 		}
 	}
 	
-	MUG_sindh = {
+	MUG_sindh_ME = {
 		icon = mission_conquer_sindh_mer
 		required_missions = { MUG_baluchistan }
 		position = 2
@@ -1071,7 +1089,7 @@ Mughal_missions_2 = {
 	
 	MUG_persia_border = {
 		icon = mission_arabian_fort
-		required_missions = { MUG_sindh }
+		required_missions = { MUG_sindh_ME }
 		position = 3
 		provinces_to_highlight = {
 			OR = {
@@ -1197,7 +1215,7 @@ Mughal_missions_2_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -1351,13 +1369,13 @@ Mughal_missions_2_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
-	MUG_gujarat = {
+	MUG_gujarat_ME = {
 		icon = mission_invade_gujarat
-		required_missions = { MUG_rajputana }
+		required_missions = { MUG_rajputana_ME }
 		position = 4
 		provinces_to_highlight = {
 			OR = {
@@ -1383,7 +1401,7 @@ Mughal_missions_2_unlocked = {
 		}
 	}
 	
-	MUG_bengal = {
+	MUG_bengal_ME = {
 		icon = mission_bengal_campaign
 		required_missions = { }
 		position = 5
@@ -1415,7 +1433,7 @@ Mughal_missions_2_unlocked = {
 	
 	MUG_bengal_industry = {
 		icon = mission_industrialize_bengal
-		required_missions = { MUG_bengal MUG_indian_cloth }
+		required_missions = { MUG_bengal_ME MUG_indian_cloth }
 		position = 6
 		provinces_to_highlight = {
 			OR = {
@@ -1522,7 +1540,7 @@ Mughal_missions_2_military = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		NOT = {
 			has_country_flag = me_mug_gunpowder_empire_flag
 			has_country_flag = me_mug_indian_army_flag
@@ -1725,7 +1743,7 @@ Mughal_missions_2_unlocked_gunpowder_empire = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = me_mug_gunpowder_empire_flag
 	}
 	has_country_shield = yes
@@ -1803,7 +1821,7 @@ Mughal_missions_2_unlocked_gunpowder_empire = {
 		}
 	}
 	
-	MUG_gunpowder_empire = {
+	MUG_gunpowder_empire_ME = {
 		icon = mission_gunpowder_warfare
 		required_missions = { MUG_ahadis MUG_artillery }
 		position = 9
@@ -1846,7 +1864,7 @@ Mughal_missions_2_unlocked_indian_army = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = me_mug_indian_army_flag
 	}
 	has_country_shield = yes
@@ -1939,7 +1957,7 @@ Mughal_missions_2_1 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -2016,7 +2034,7 @@ Mughal_missions_2_1_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -2253,7 +2271,7 @@ Mughal_missions_2_1_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -2555,7 +2573,7 @@ Mughal_missions_2_1_unlocked = {
 		}
 	}
 	
-	MUG_china = {
+	MUG_china_ME = {
 		icon = mission_asian_trader
 		required_missions = { MUG_burma_mission MUG_sea_conquest }
 		position = 17
@@ -2652,7 +2670,7 @@ Mughal_missions_3 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -2695,7 +2713,7 @@ Mughal_missions_3_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -2779,11 +2797,11 @@ Mughal_missions_3_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
-	MUG_rajputana = {
+	MUG_rajputana_ME = {
 		icon = mission_subdue_rajputana
 		required_missions = { MUG_sindh MUG_recruit_rajputs }
 		position = 3
@@ -2815,7 +2833,7 @@ Mughal_missions_3_unlocked = {
 	
 	MUG_indian_spice = {
 		icon = mission_rb_colonise_spice_islands
-		required_missions = { MUG_gujarat MUG_bahmanis }
+		required_missions = { MUG_gujarat_ME MUG_bahmanis }
 		position = 5
 		provinces_to_highlight = {
 			trade_goods = spices
@@ -2840,7 +2858,7 @@ Mughal_missions_3_unlocked = {
 	
 	MUG_true_heir_of_timur = {
 		icon = mission_indian_empire
-		required_missions = { MUG_bengal MUG_deccan }
+		required_missions = { MUG_bengal_ME MUG_deccan }
 		position = 6
 		provinces_to_highlight = {
 			superregion = india_superregion
@@ -2868,7 +2886,7 @@ Mughal_missions_3_1 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -2930,7 +2948,7 @@ Mughal_missions_3_1_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -2980,7 +2998,7 @@ Mughal_missions_3_1_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -3097,7 +3115,7 @@ Mughal_missions_3_2 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -3270,7 +3288,7 @@ Mughal_missions_3_2_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -3550,7 +3568,7 @@ Mughal_missions_3_2_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -3793,7 +3811,7 @@ Mughal_missions_3_2_unlocked = {
 	
 	MUG_sea_dominance = {
 		icon = sources_of_trade
-		required_missions = { MUG_europe MUG_china MUG_expanding_fleet }
+		required_missions = { MUG_europe MUG_china_ME MUG_expanding_fleet }
 		position = 18
 		trigger = {
 			OR = {
@@ -3834,7 +3852,7 @@ Mughal_missions_4 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -3906,7 +3924,7 @@ Mughal_missions_4_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -4037,7 +4055,7 @@ Mughal_missions_4_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -4092,7 +4110,7 @@ Mughal_missions_4_unlocked = {
 		}
 	}
 	
-	MUG_malwa = {
+	MUG_malwa_ME = {
 		icon = mission_subdue_malwa
 		required_missions = { MUG_hindustan }
 		position = 3
@@ -4126,7 +4144,7 @@ Mughal_missions_4_unlocked = {
 	
 	MUG_bahmanis = {
 		icon = mission_city_of_victory_bah
-		required_missions = { MUG_rajputana MUG_malwa }
+		required_missions = { MUG_rajputana_ME MUG_malwa_ME }
 		position = 4
 		provinces_to_highlight = {
 			OR = {
@@ -4197,7 +4215,7 @@ Mughal_missions_4_1 = {
 			tag = MUG
 			has_country_flag = me_tim_mughal_path
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -4243,7 +4261,7 @@ Mughal_missions_4_1_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -4509,11 +4527,11 @@ Mughal_missions_4_1_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
-	MUG_taj_mahal = {
+	MUG_taj_mahal_ME = {
 		icon = me_mission_mughals_taj_mahal
 		required_missions = { MUG_administration }
 		position = 9
@@ -4575,7 +4593,7 @@ Mughal_missions_4_1_unlocked = {
 	
 	MUG_monuments = {
 		icon = mission_early_modern_university
-		required_missions = { MUG_taj_mahal }
+		required_missions = { MUG_taj_mahal_ME }
 		position = 11
 		trigger = {
 			custom_trigger_tooltip = {
@@ -4798,7 +4816,7 @@ Mughal_missions_5_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -5223,11 +5241,11 @@ Mughal_missions_5_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
-	MUG_nepal = {
+	MUG_nepal_ME = {
 		icon = mission_persian_soldiers
 		required_missions = { MUG_delhi }
 		position = 2
@@ -5274,6 +5292,10 @@ Mughal_missions_5_unlocked = {
 						NOT = { local_autonomy = 25 }
 						has_manpower_building_trigger = yes
 					}
+					add_province_modifier = {
+						name = me_mug_himalayas_frontier
+						duration = -1
+					}
 				}
 			}
 		}
@@ -5304,9 +5326,9 @@ Mughal_missions_5_unlocked = {
 		}
 	}
 	
-	MUG_orissa = {
+	MUG_orissa_ME = {
 		icon = mission_conquer_orissa_mug
-		required_missions = { MUG_malwa }
+		required_missions = { MUG_malwa_ME }
 		position = 4
 		provinces_to_highlight = {
 			OR = {
@@ -5583,7 +5605,7 @@ Mughal_missions_5_unlocked = {
 	
 	MUG_agra_fort = {
 		icon = mission_fortify_mandu
-		required_missions = { MUG_taj_mahal MUG_architecture }
+		required_missions = { MUG_taj_mahal_ME MUG_architecture }
 		position = 10
 		provinces_to_highlight = {
 			province_id = 524
@@ -5657,7 +5679,7 @@ Mughal_missions_5_1 = {
 			has_country_flag = me_tim_mughal_path
 			tag = MUG
 		}
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -5688,7 +5710,7 @@ Mughal_missions_5_1_locked = {
 	potential = {
 		has_country_flag = me_tim_mughal_path
 		NOT = { tag = MUG }
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -5911,7 +5933,7 @@ Mughal_missions_5_1_unlocked = {
 	ai = yes
 	potential = {
 		tag = MUG
-		
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	

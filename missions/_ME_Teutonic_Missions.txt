@@ -3,15 +3,19 @@ TEU_Missions_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { has_dlc = "Lions of the North" }
 		OR = {
 			tag = TEU
 			AND = {
 				was_tag = TEU
 				tag = PRU
-				
+				NOT = { has_country_flag = use_paradox_missions }
 			}
 		}
+		OR = {
+			NOT = { has_dlc = "Lions of the North" }
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		}
+		
 	}
 	has_country_shield = yes
 
@@ -156,21 +160,38 @@ TEU_Missions_1 = {
 		}
 		trigger = {
 			OR = {
-				custom_trigger_tooltip = {
-					tooltip = TEU_curtailed_prussian_conf
-					has_country_flag = pru_confederation_curtailed
+				AND = {
+					stability = 1
+					NOT = { num_of_rebel_controlled_provinces = 1 }
+					NOT = {
+						has_spawned_rebels = particularist_rebels
+					}
+					OR = {
+						NOT = { has_estate = estate_burghers }
+						crown_land_share = 40
+					}
+					NOT = { has_estate_privilege = estate_burghers_prussian_confederation }
 				}
 				AND = {
-					custom_trigger_tooltip = {
-						tooltip = TEU_prussian_conf_fired
-						has_country_flag = pru_confederation_happened
-					}
-					is_at_war = no
+					NOT = { current_age = age_of_discovery }
+					NOT = { has_disaster = prussian_confederation_disaster }
+				}
+				custom_trigger_tooltip = {
+					tooltip = teu_handle_the_prussian_confederation_tt
+					has_country_flag = pru_confederation_happened
 				}
 			}
+			NOT = { has_estate_privilege = estate_burghers_prussian_confederation }
 		}
 		effect = {
-			add_stability_or_adm_power = yes
+			set_country_flag = pru_confederation_curtailed
+			custom_tooltip = curtail_prussian_confederation.tooltip
+			end_disaster = prussian_confederation_disaster
+			add_prestige_or_monarch_power = { amount = 10}
+			add_country_modifier = {
+				name = "pru_confederation_curtailed_modifier"
+				duration = 7300
+			}
 		}
 	}
 
@@ -242,14 +263,17 @@ TEU_Missions_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { has_dlc = "Lions of the North" }
 		OR  ={
 			tag = TEU
 			AND = {
 				was_tag = TEU
 				tag = PRU
-				
+				NOT = { has_country_flag = use_paradox_missions }
 			}
+		}
+		OR = {
+			NOT = { has_dlc = "Lions of the North" }
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		}
 	}
 	has_country_shield = yes
@@ -438,14 +462,17 @@ TEU_Missions_3 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { has_dlc = "Lions of the North" }
 		OR  ={
 			tag = TEU
 			AND = {
 				was_tag = TEU
 				tag = PRU
-				
+				NOT = { has_country_flag = use_paradox_missions }
 			}
+		}
+		OR = {
+			NOT = { has_dlc = "Lions of the North" }
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		}
 	}
 	has_country_shield = yes
@@ -639,14 +666,7 @@ TEU_Missions_3 = {
 							who = root
 							value = 100
 						}
-						has_opinion_modifier = {
-							who = root
-							modifier = insulted
-						}
-						has_opinion_modifier = {
-							who = root
-							modifier = scornfully_insulted
-						}
+						has_been_insulted_by_root = yes
 					}
 				}
 			}
@@ -760,7 +780,7 @@ TEU_Missions_3 = {
 				}
 			}
 			custom_tooltip = BRA_Prussian_modifier
-			#complete_prussian_ascendance_missions = yes
+			complete_prussian_ascendance_missions = yes
 		}
 	}
 
@@ -771,14 +791,17 @@ TEU_Missions_4 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { has_dlc = "Lions of the North" }
 		OR  ={
 			tag = TEU
 			AND = {
 				was_tag = TEU
 				tag = PRU
-				
+				NOT = { has_country_flag = use_paradox_missions }
 			}
+		}
+		OR = {
+			NOT = { has_dlc = "Lions of the North" }
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		}
 	}
 	has_country_shield = yes
@@ -991,14 +1014,17 @@ TEU_Missions_5 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { has_dlc = "Lions of the North" }
 		OR  ={
 			tag = TEU
 			AND = {
 				was_tag = TEU
 				tag = PRU
-				
+				NOT = { has_country_flag = use_paradox_missions }
 			}
+		}
+		OR = {
+			NOT = { has_dlc = "Lions of the North" }
+			has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		}
 	}
 	has_country_shield = yes
@@ -1047,17 +1073,9 @@ TEU_Missions_5 = {
 		required_missions = { TEU_teutonic_cities TEU_hanseatic_cities }
 		position = 4
 		provinces_to_highlight = {
-			if = {
-				limit = {
-					is_expanded_mod_active  = { mod = trade_goods }
-				}
-				trade_goods = amber
-			}
-			else = {
-				OR = {
-					province_id = 43
-					province_id = 41
-				}
+			OR = {
+				province_id = 43
+				province_id = 41
 			}
 		}
 		trigger = {
@@ -1065,34 +1083,17 @@ TEU_Missions_5 = {
 				who = HSA
 				value = 125
 			}
-			if = {
-				limit = {
-					is_expanded_mod_active  = { mod = trade_goods }
+			OR = {
+				development_in_provinces = {
+					OR = {
+						province_id = 43
+						province_id = 41
+					}
+					value = 40
 				}
-				OR = {
-					development_in_provinces = {
-						trade_goods = amber
-						value = 40
-					}
-					custom_trigger_tooltip = {
-						tooltip = TEU_faceting
-						always = no
-					}
-				}
-			}
-			else = {
-				OR = {
-					development_in_provinces = {
-						OR = {
-							province_id = 43
-							province_id = 41
-						}
-						value = 40
-					}
-					custom_trigger_tooltip = {
-						tooltip = TEU_faceting
-						always = no
-					}
+				custom_trigger_tooltip = {
+					tooltip = TEU_faceting
+					always = no
 				}
 			}
 		}
