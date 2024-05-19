@@ -24,13 +24,11 @@ from the original mod I took. After all I need to understand how they work, else
 - Bookmarks got beautified akin to how Anbennar has it.
 - Generic mission tweaks where some modifiers are now until end game.
 - Tweaked the sources of max_absolutism, with republics generally getting a nerf.
+- Added a special_settings decision for more weird campaign settings, no guarantee that it won't break something. You are also free to suggest ideas and I might add them, especially if its for some MP group.
 
 # TODO
 
-# why does mp shit dissapear
 
-# - Added a special_settings decision for more weird campaign settings, no guarantee that it won't break something. You are also free to suggest ideas and I might add them, especially if its some MP group.
-# special setting: aslong as Aztecs exist, they will always get a mythical conqueror
 # add maybe mission_to_crusade_reform from GE
 # Government mechanic for Heavenly Kingdom
 # solution for ai desire to max out forcelimit at expense of manpower
