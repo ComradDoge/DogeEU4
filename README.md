@@ -11,20 +11,22 @@ from the original mod I took. After all I need to understand how they work, else
 
 # STEAM WORKSHOP DESCRIPTION
 
-- Version: 1.37.0
+- Version: 1.37.1
 - Checksum: x
 
-<h1>13/05/2024</h1>
+<h1>20/05/2024</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
 - 1.37.1 Update.
 - Further mission fixing done.
-- Nizwa fort now grants Omani marines privilege.
 - Bookmarks got beautified akin to how Anbennar has it.
 - Generic mission tweaks where some modifiers are now until end game.
 - Tweaked the sources of max_absolutism, with republics generally getting a nerf.
+- Nizwa fort now grants Omani marines privilege, I know it's inland don't mention it.
 - Added a special_settings decision for more weird campaign settings, no guarantee that it won't break something. You are also free to suggest ideas and I might add them, especially if its for some MP group.
+# DONT FORGET TO ENABLE THE MISSION CHOOSER FOR AI IN ON ACTIONS
+
 
 # TODO
 
