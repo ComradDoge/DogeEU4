@@ -18,8 +18,11 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-- Bookmarks got pretty akin to how Anbennar has it.
-- Generic mission modifier duration slightly increased.
+- 1.37.1 Update.
+- Further mission fixing done.
+- Nizwa fort now grants Omani marines privilege.
+- Bookmarks got beautified akin to how Anbennar has it.
+- Generic mission tweaks where some modifiers are now until end game.
 - Tweaked the sources of max_absolutism, with republics generally getting a nerf.
 
 # TODO
