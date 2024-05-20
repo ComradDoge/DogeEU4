@@ -31,7 +31,6 @@ from the original mod I took. After all I need to understand how they work, else
 # TODO
 
 
-# add maybe mission_to_crusade_reform from GE
 # Government mechanic for Heavenly Kingdom
 # solution for ai desire to max out forcelimit at expense of manpower
 # at some point add the idea events to anbennar/vanilla kek
