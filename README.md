@@ -18,14 +18,13 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-- 1.37.1 Update.
+- 1.37.1 update cleanup.
 - Bookmarks got beautified akin to how Anbennar has it.
 - Generic mission tweaks where some modifiers are now until end game.
 - Tweaked the sources of max_absolutism, with republics generally getting a nerf.
 - Nizwa fort now grants Omani marines privilege, I know it's inland don't mention it.
 - Further mission fixing done, some shattered specific stuff might have been reset so report issues.
 - Added a special_settings decision for more weird campaign settings, no guarantee that it won't break something. You are also free to suggest ideas and I might add them, especially if its for some MP group.
-# DONT FORGET TO ENABLE THE MISSION CHOOSER FOR AI IN ON ACTIONS
 
 
 # TODO
