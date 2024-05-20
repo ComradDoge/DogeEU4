@@ -3,13 +3,7 @@ POL_Missions_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		OR = {
 			tag = POL
 			AND = {
@@ -44,14 +38,13 @@ POL_Missions_1 = {
 			}
 			else_if = {
 				limit = {
-					any_country = {
-						is_papal_controller = yes
+					papal_controller = {
+						exists = yes
 					}
 				}
 				OR = {
 					is_papal_controller = yes
-					any_country = {
-						is_papal_controller = yes
+					papal_controller = {
 						has_opinion = {
 							who = ROOT
 							value = 100
@@ -80,7 +73,7 @@ POL_Missions_1 = {
 						culture_group = latin
 						marriage_with = ROOT
 					}
-				}	
+				}
 				custom_tooltip = POL_if_we_have_rm_yes
 				hidden_effect =	{
 					capital_scope = {
@@ -440,7 +433,7 @@ POL_Missions_1 = {
 		position = 13
 		required_missions = { POL_collegium_nobili }
 		provinces_to_highlight = {
-			province_id = 262
+			province_id = 257
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { has_forcelimit_building_trigger = yes }
@@ -458,14 +451,14 @@ POL_Missions_1 = {
 				army_tradition = 60
 			}
 			has_mil_advisor_3 = yes
-			262 = {
+			257 = {
 				owned_by = ROOT
 				has_forcelimit_building_trigger = yes
 				has_manpower_building_trigger = yes
 			}
 		}
 		effect = {
-			262 = {
+			257 = {
 				add_province_modifier = {
 					name = POL_corps_of_cadets
 					duration = -1
@@ -481,20 +474,9 @@ POL_Missions_1 = {
 		required_missions = { }
 		provinces_to_highlight = {
 			OR = {
-				AND = {
-					is_expanded_mod_active = { mod = trade_goods }
-					trade_goods = amber
-				}
-				AND = {
-					NOT = {
-						is_expanded_mod_active = { mod = trade_goods }
-					}
-					OR = {
-						province_id = 43
-						province_id = 39
-						province_id = 41
-					}
-				}
+				province_id = 43
+				province_id = 39
+				province_id = 41
 			}
 		}
 		trigger = {
@@ -507,24 +489,13 @@ POL_Missions_1 = {
 						amount = 2
 					}
 				}
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = trade_goods }
+				development_in_provinces = {
+					OR = {
+						province_id = 43
+						province_id = 39
+						province_id = 41
 					}
-					development_in_provinces = {
-						trade_goods = amber
-						value = 50
-					}
-				}
-				else = {
-					development_in_provinces = {
-						OR = {
-							province_id = 43
-							province_id = 39
-							province_id = 41
-						}
-						value = 50
-					}
+					value = 50
 				}
 			}
 			else = {
@@ -559,10 +530,10 @@ POL_Missions_1 = {
 						change_variable = { which = area_var which = province_39 }
 						check_variable = { which = area_var value = 50 }
 					}
-				}	
+				}
 			}
 			262 = {
-				trade_share ={
+				trade_share = {
 					country = ROOT
 					share = 40
 				}
@@ -578,65 +549,40 @@ POL_Missions_1 = {
 				}
 			}
 			add_years_of_income = 0.5
-			if = {
-				limit = {
-					is_expanded_mod_active = { mod = trade_goods } 
-				}
-				custom_tooltip = POL_every_province_with_amber
-				tooltip = {
+			43 = {
+				if = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
 					add_province_modifier = {
 						name = POL_demand_for_amber
 						duration = 9125
 					}
 				}
-				hidden_effect = {
-					every_province = {
-						limit = {
-							trade_goods = amber
-							country_or_non_sovereign_subject_holds = ROOT
-						}
-						add_province_modifier = {
-							name = POL_demand_for_amber
-							duration = 9125
-						}
+			}
+			41 = {
+				if = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_province_modifier = {
+						name = POL_demand_for_amber
+						duration = 9125
 					}
 				}
 			}
-			else = {
-				43 = {
-					if = {
-						limit = {
-							country_or_non_sovereign_subject_holds = ROOT
-						}
-						add_province_modifier = {
-							name = POL_demand_for_amber
-							duration = 9125
-						}
+			39 = {
+				if = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
 					}
-				}
-				41 = {
-					if = {
-						limit = {
-							country_or_non_sovereign_subject_holds = ROOT
-						}
-						add_province_modifier = {
-							name = POL_demand_for_amber
-							duration = 9125
-						}
-					}
-				}
-				39 = {
-					if = {
-						limit = {
-							country_or_non_sovereign_subject_holds = ROOT
-						}
-						add_province_modifier = {
-							name = POL_demand_for_amber
-							duration = 9125
-						}
+					add_province_modifier = {
+						name = POL_demand_for_amber
+						duration = 9125
 					}
 				}
 			}
+			
 			custom_tooltip = POL_if_we_have_wroclaw
 			hidden_effect = {
 				if = {
@@ -669,9 +615,7 @@ POL_Missions_1 = {
 					owned_by = ROOT
 					NOT = { province_id = 4545}
 					OR = {
-						trade_goods = jewellery
 						trade_goods = gems
-						trade_goods = amber
 						trade_goods = cloth
 						trade_goods = dyes
 					}
@@ -689,24 +633,10 @@ POL_Missions_1 = {
 				development = 20
 				has_production_building_trigger = yes
 				has_manufactory_trigger = yes
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = trade_goods }
-					}
-					OR = {
-						trade_goods = jewellery
-						trade_goods = gems
-						trade_goods = amber
-						trade_goods = cloth
-						trade_goods = dyes
-					}
-				}
-				else = {
-					OR = {
-						trade_goods = gems
-						trade_goods = cloth
-						trade_goods = dyes
-					}
+				OR = {
+					trade_goods = gems
+					trade_goods = cloth
+					trade_goods = dyes
 				}
 				value = 3
 			}
@@ -740,47 +670,11 @@ POL_Missions_1 = {
 			NOT = { has_institution = enlightenment }
 		}
 		trigger = {
-			if = {
-				limit = {
-					government = monarchy
-				}
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = governments }
-					}
-					has_reform_on_level = 9
-				}
-				else = { has_reform_on_level = 7 }
-			}
-			else_if = {
-				limit = {
-					government = republic
-				}
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = governments }
-					}
-					has_reform_on_level = 11
-				}
-				else = { has_reform_on_level = 10 }
-			}
-			else_if = {
-				limit = {
-					government = theocracy
-				}
-				if = {
-					limit = {
-						is_expanded_mod_active = { mod = governments }
-					}
-					has_reform_on_level = 12
-				}
-				else = { has_reform_on_level = 8 }
-			}
-			else = { has_reform_on_level = 5 }
+			ME_has_completed_all_reforms = yes
 			has_adm_advisor_3 = yes
 			OR = {
 				current_age = age_of_revolutions
-				all_owned_province = { has_institution = enlightenment }
+				all_owned_province = { enlightenment = 100 }
 			}
 		}
 		effect = {
@@ -797,13 +691,7 @@ POL_Missions_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		OR = {
 			tag = POL
 			AND = {
@@ -1260,6 +1148,7 @@ POL_Missions_2 = {
 		provinces_to_highlight = {
 		}
 		trigger = {
+			is_ahead_of_time_in_tech = { type = all }
 			if = {
 				limit = {
 					has_dlc = "Rule Britannia"
@@ -1414,7 +1303,7 @@ POL_Missions_2 = {
 						else = { add_mil_power = 50 }
 					}
 					else = { add_mil_power = 25 }
-				}	
+				}
 			}
 		}
 	}
@@ -1425,13 +1314,7 @@ POL_Missions_3_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		OR = {
 			tag = POL
 			AND = {
@@ -1451,7 +1334,6 @@ POL_Missions_3_1 = {
 		trigger = {
 			OR = {
 				has_reform = elective_monarchy
-				has_reform = elective_monarchy_reform
 				has_regency = no
 			}
 		}
@@ -1568,13 +1450,7 @@ POL_Missions_3_Piast = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = POL_piast
 		OR = {
 			tag = POL
@@ -1609,7 +1485,7 @@ POL_Missions_3_Piast = {
 					key = POL_slovakia
 				}
 			}
-			add_accepted_culture_or_dip_power = { culture = slovak dip_reward = yes }
+			add_accepted_culture_or_dip_power = { culture = slovak }
 		}
 	}
 	
@@ -1636,7 +1512,7 @@ POL_Missions_3_Piast = {
 		}
 		effect = {
 			country_event = { id = ME_Poland_Events.37 } #Crown yourself as King of Bohemia?
-			add_accepted_culture_or_dip_power = { culture = czech dip_reward = yes }
+			add_accepted_culture_or_dip_power = { culture = czech }
 		}
 	}
 }
@@ -1646,13 +1522,7 @@ POL_Missions_3_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		OR = {
 			tag = POL
 			AND = {
@@ -1737,11 +1607,7 @@ POL_Missions_3_2 = {
 			NOT = { exists = LIT }
 		}
 		effect = {
-			add_casus_belli = {
-				target = LIV
-				type = cb_livonian_wars 
-				months = 1200
-			}
+			change_national_focus_effect = yes
 			add_country_modifier = {
 				name = POL_golden_age_of_a_power
 				duration = -1
@@ -1845,6 +1711,7 @@ POL_Missions_3_2 = {
 				trade_goods = livestock
 				trade_goods = grain
 			}
+			owned_by = ROOT
 			OR = {
 				NOT = { development = 8 }
 				NOT = { has_building = farm_estate }
@@ -1919,10 +1786,18 @@ POL_Missions_3_2 = {
 			owned_by = ROOT
 		}
 		trigger = {
-			num_of_owned_provinces_with = {
-				trade_goods = coal
-				has_building = furnace
-				value = 2
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				num_of_owned_provinces_with = {
+					trade_goods = coal
+					has_building = furnace
+					value = 2
+				}
+			}
+			else = {
+				has_institution = industrialization
 			}
 		}
 		effect = {
@@ -1943,13 +1818,7 @@ POL_Missions_4_Jagiellon = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		NOT = { has_country_flag = POL_piast }
 		OR = {
 			tag = POL
@@ -1993,13 +1862,7 @@ POL_Missions_4_Piast = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = POL_piast
 		OR = {
 			tag = POL
@@ -2041,13 +1904,7 @@ POL_Missions_4_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		OR = {
 			tag = POL
 			AND = {
@@ -2139,13 +1996,7 @@ POL_Missions_4_Jagiellon_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		NOT = { has_country_flag = POL_piast }
 		OR = {
 			tag = POL
@@ -2175,7 +2026,7 @@ POL_Missions_4_Jagiellon_2 = {
 			OR = {
 				NOT = { exists = BOH }
 				BOH = { is_subject_of = ROOT }
-			}	
+			}
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				OR = {
 					area = bohemia_area
@@ -2236,7 +2087,7 @@ POL_Missions_4_Jagiellon_2 = {
 						limit = {
 							OR = {
 								culture = czech
-								culture = silesian
+								culture = schlesian
 							}
 						}
 						add_nationalism = -10
@@ -2253,13 +2104,7 @@ POL_Missions_4_Piast_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = POL_piast
 		OR = {
 			tag = POL
@@ -2310,13 +2155,7 @@ POL_Missions_4_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		OR = {
 			tag = POL
 			AND = {
@@ -2492,6 +2331,7 @@ POL_Missions_4_2 = {
 			}
 		}
 		effect = {
+			country_event = { id = ME_Poland_Events.18 }
 			add_country_modifier = {
 				name = POL_cossack_host
 				duration = -1
@@ -2703,35 +2543,16 @@ POL_Missions_4_2 = {
 			}
 		}
 		trigger = {
-			if = {
-				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
+			development_in_provinces = {
+				value = 200
+				OR = {
+					trade_goods = grain
+					trade_goods = livestock
 				}
-				development_in_provinces = {
-					value = 150
-					OR = {
-						trade_goods = grain
-						trade_goods = livestock
-					}
-					OR = {
-						region = ruthenia_region
-						area = zaporizhia_area
-						area = yedisan_area
-					}
-				}
-			}
-			else = {
-				development_in_provinces = {
-					value = 200
-					OR = {
-						trade_goods = grain
-						trade_goods = livestock
-					}
-					OR = {
-						region = ruthenia_region
-						area = zaporizhia_area
-						area = yedisan_area
-					}
+				OR = {
+					region = ruthenia_region
+					area = zaporizhia_area
+					area = yedisan_area
 				}
 			}
 		}
@@ -2855,13 +2676,7 @@ POL_Missions_5_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		OR = {
 			tag = POL
 			AND = {
@@ -2994,13 +2809,7 @@ POL_Missions_5_Jagiellon = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		NOT = { has_country_flag = POL_piast }
 		OR = {
 			tag = POL
@@ -3158,46 +2967,54 @@ POL_Missions_5_Jagiellon = {
 			owned_by = HUN
 		}
 		trigger = {
-			variable_arithmetic_trigger = {
-				custom_tooltip = POL_larger_army_than_HUN
-				export_to_variable = {
-					variable_name = BRA_HUN_Army
-					value = army_size
-					who = HUN
+			OR = {
+				slovakia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
 				}
-				export_to_variable = {
-					variable_name = BRA_POL_Army
-					value = army_size
-					who = ROOT
-				}
-				multiply_variable = {
-					which = BRA_HUN_Army
-					value = 3
-				}
-				check_variable = {
-					which = BRA_POL_Army
-					which = BRA_HUN_Army
-				}
-			}
-			variable_arithmetic_trigger = {
-				custom_tooltip = POL_greater_development_than_HUN
-				export_to_variable = {
-					variable_name = BRA_HUN_Development
-					value = total_development
-					who = HUN
-				}
-				export_to_variable = {
-					variable_name = BRA_POL_Development
-					value = total_development
-					who = ROOT
-				}
-				multiply_variable = {
-					which = BRA_HUN_Development
-					value = 3
-				}
-				check_variable = {
-					which = BRA_POL_Development
-					which = BRA_HUN_Development
+				AND = {
+					variable_arithmetic_trigger = {
+						custom_tooltip = POL_larger_army_than_HUN
+						export_to_variable = {
+							variable_name = BRA_HUN_Army
+							value = army_size
+							who = HUN
+						}
+						export_to_variable = {
+							variable_name = BRA_POL_Army
+							value = army_size
+							who = ROOT
+						}
+						multiply_variable = {
+							which = BRA_HUN_Army
+							value = 3
+						}
+						check_variable = {
+							which = BRA_POL_Army
+							which = BRA_HUN_Army
+						}
+					}
+					variable_arithmetic_trigger = {
+						custom_tooltip = POL_greater_development_than_HUN
+						export_to_variable = {
+							variable_name = BRA_HUN_Development
+							value = total_development
+							who = HUN
+						}
+						export_to_variable = {
+							variable_name = BRA_POL_Development
+							value = total_development
+							who = ROOT
+						}
+						multiply_variable = {
+							which = BRA_HUN_Development
+							value = 3
+						}
+						check_variable = {
+							which = BRA_POL_Development
+							which = BRA_HUN_Development
+						}
+					}
 				}
 			}
 		}
@@ -3338,7 +3155,7 @@ POL_Missions_5_Jagiellon = {
 					}
 				}
 			}
-		}			
+		}
 		trigger = {
 			if = {
 				limit = {
@@ -3393,13 +3210,7 @@ POL_Missions_5_Piast = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = POL_piast
 		OR = {
 			tag = POL
@@ -3503,7 +3314,7 @@ POL_Missions_5_Piast = {
 				name = POL_reconquests_in_the_west
 				duration = 9125
 			}
-			add_accepted_culture_or_dip_power = { culture = sorbian dip_reward = yes }
+			add_accepted_culture_or_dip_power = { culture = sorbian }
 		}
 	}
 	
@@ -3538,13 +3349,7 @@ POL_Missions_5_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		OR = {
-			NOT = { started_in = 1444.11.9 }
-			AND = { 
-				started_in = 1444.11.9
-				NOT = { has_dlc = "Lions of the North" }
-			}
-		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		OR = {
 			tag = POL
 			AND = {
@@ -3596,7 +3401,7 @@ POL_Missions_5_2 = {
 					controls = 295
 					has_global_flag = POL_occupied_moscow_flag
 				}
-			}	
+			}
 			if = {
 				limit = {
 					exists = RUS
@@ -3753,7 +3558,7 @@ POL_Missions_5_2 = {
 					name = POL_kremlin
 					duration = 9125
 				}
-				add_accepted_culture_or_dip_power = { culture = russian dip_reward = yes }
+				add_accepted_culture_or_dip_power = { culture = russian }
 			}
 			hidden_effect = {
 				if = {
@@ -3770,7 +3575,7 @@ POL_Missions_5_2 = {
 						name = POL_kremlin
 						duration = 9125
 					}
-					add_accepted_culture_or_dip_power = { culture = russian dip_reward = yes }
+					add_accepted_culture_or_dip_power = { culture = russian }
 				}
 			}
 		}
@@ -3859,24 +3664,20 @@ POL_Missions_5_2 = {
 			}
 		}
 		effect = {
-			add_stability_or_adm_power = yes
-			add_church_power = 25
-			add_patriarch_authority = 0.05
-			add_fervor = 25
-			#if = {
-			#	limit = {
-			#		religion = catholic
-			#	}
-			#	country_event = { id = ME_Poland_Events.26 } #Union of brest
-			#	custom_tooltip = POL_east_slavic_provinces
-			#	set_country_flag = POL_unitary_church_flag
-			#}
-			#else = {
-			#	add_stability_or_adm_power = yes
-			#	add_church_power = 25
-			#	add_patriarch_authority = 0.05
-			#	add_fervor = 25
-			#}
+			if = {
+				limit = {
+					religion = catholic
+				}
+				country_event = { id = ME_Poland_Events.26 } #Union of brest
+				custom_tooltip = POL_east_slavic_provinces
+				set_country_flag = POL_unitary_church_flag
+			}
+			else = {
+				add_stability_or_adm_power = yes
+				add_church_power = 25
+				add_patriarch_authority = 0.05
+				add_fervor = 25
+			}
 		}
 	}
 	
@@ -3974,7 +3775,7 @@ POL_Missions_5_2 = {
 						area = sloboda_ukraine_area
 						area = podolia_volhynia_area
 					}
-				}		
+				}
 				value = 2
 			}
 		}
