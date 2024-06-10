@@ -19,10 +19,13 @@ from the original mod I took. After all I need to understand how they work, else
 
 
 - Fixed Eranshar missing national ideas.
+- Fixed Morocco missing some mission related triggered modifiers.
+- Fixed a little accident making ai development events show up. Oops.
+- Fixed Aztec ruler starting as general and obsidian sources missing.
 - Fixed Palembang, Ternate, Tidore, Austria-Hungary missing missions.
+- If Lotharingia is not of germanic culture group they can also form HRE.
 
 # TODO
-
 
 # Government mechanic for Heavenly Kingdom
 # solution for ai desire to max out forcelimit at expense of manpower
