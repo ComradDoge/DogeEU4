@@ -1702,7 +1702,13 @@ NED_3_1 = {
 		icon = leiden_university
 		position = 12
 		required_missions = { NED_universities }
-
+		provinces_to_highlight = {
+			province_id = 4383
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { development = 30 }
+			}
+		}
 		trigger = {  
 			4383 = {
 				country_or_non_sovereign_subject_holds = ROOT
@@ -2064,6 +2070,18 @@ NED_4 = {
 					}
 				"
 			}
+			hidden_effect = {
+				if = {
+					limit = {
+						12 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					country_event = {
+						id = dutch_mission_events.4
+					}
+				}
+			}
 		} 
 	}
 
@@ -2153,13 +2171,10 @@ NED_4_1 = {
 						exists = GBR
 					}
 				}
-				naval_strength = {
-					who = ENG
-					value = 1.1
-				}
-				has_spy_network_in = {
-					who = ENG
-					value = 30
+				naval_strength = { who = ENG value = 1.1 }
+				OR = {
+					ENG = { is_subject = yes }
+					has_spy_network_in = { who = ENG value = 30 }
 				}
 				total_development = ENG
 			}
@@ -2167,13 +2182,10 @@ NED_4_1 = {
 				limit = {
 					exists = GBR
 				}
-				naval_strength = {
-					who = GBR
-					value = 1.1
-				}
-				has_spy_network_in = {
-					who = GBR
-					value = 30
+				naval_strength = { who = GBR value = 1.1 }
+				OR = {
+					GBR = { is_subject = yes }
+					has_spy_network_in = { who = GBR value = 30 }
 				}
 				total_development = GBR
 			}
@@ -3061,10 +3073,21 @@ NED_5_1 = {
 		trigger = {  
 			crown_land_share = 50
 			NOT = { average_home_autonomy = 10 }
-			OR = {
-				full_idea_group = administrative_ideas
-				ruler_has_personality = lawgiver_personality
+			if = {
+				limit = {
+					has_parliament = yes
+				}
+				OR = {
+					full_idea_group = administrative_ideas
+					ruler_has_personality = lawgiver_personality
 					current_size_of_parliament = 10
+				}
+			}
+			else = {
+				OR = {
+					full_idea_group = administrative_ideas
+					ruler_has_personality = lawgiver_personality
+				}
 			}
 		} 
 

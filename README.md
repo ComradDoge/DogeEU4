@@ -11,19 +11,14 @@ from the original mod I took. After all I need to understand how they work, else
 
 # STEAM WORKSHOP DESCRIPTION
 
-- Version: 1.37.1
-- Checksum: 7dcb
+- Version: 1.37.2
+- Checksum: ?
 
-<h1>20/05/2024</h1>
+<h1>?/?/2024</h1>
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-- Fixed Eranshar missing national ideas.
-- Fixed Morocco missing some mission related triggered modifiers.
-- Fixed a little accident making ai development events show up. Oops.
-- Fixed Aztec ruler starting as general and obsidian sources missing.
-- Fixed Palembang, Ternate, Tidore, Austria-Hungary missing missions.
-- If Lotharingia is not of germanic culture group they can also form HRE.
+- 1.37.2 Fixes.
 
 # TODO
 
