@@ -18,7 +18,7 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
-- 1.37.2 Fixes.
+- Lombardy-Venetia no longer limited to Milan/Venice but only the relevant cultures.
 
 # TODO
 
