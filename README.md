@@ -19,6 +19,8 @@ from the original mod I took. After all I need to understand how they work, else
 
 
 - Lombardy-Venetia no longer limited to Milan/Venice but only the relevant cultures.
+- Added new loading screen "Richard, Duke of Gloucester, and the Lady Anne" by Abbey. It goes hard. Doge included.
+- Fixed Centralisation mechanic working incorrectly.
 
 # TODO
 
