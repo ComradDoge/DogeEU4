@@ -18,9 +18,12 @@ from the original mod I took. After all I need to understand how they work, else
 <img src=https://i.imgur.com/dAceBAG.png/>
 
 
+- Fixed Centralisation mechanic working incorrectly.
+- Minor fix to Mughal mission not properly referencing things.
+- Addded new special setting: Forts Capture Neighbouring Provinces.
+- Tweaked the Manufactory Scaling explanation icon for better visability.
 - Lombardy-Venetia no longer limited to Milan/Venice but only the relevant cultures.
 - Added new loading screen "Richard, Duke of Gloucester, and the Lady Anne" by Abbey. It goes hard. Doge included.
-- Fixed Centralisation mechanic working incorrectly.
 
 # TODO
 

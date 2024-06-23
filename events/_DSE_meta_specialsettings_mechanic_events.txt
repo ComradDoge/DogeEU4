@@ -1,0 +1,52 @@
+namespace = dse_meta_specialsettings_fortsiege_mechanic
+# Credit to Virox as their "fortress captures surrounding provinces" mod was the initial idea.
+province_event = {
+	id = dse_meta_specialsettings_fortsiege_mechanic.1
+	title = dse_meta_specialsettings_fortsiege_mechanic.1.t
+	desc = dse_meta_specialsettings_fortsiege_mechanic.1.d
+	picture = SIEGE_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {
+        owner = { has_global_flag = dse_meta_specialsettings_fortssiege_flag }
+		fort_level = 2
+		NOT = { controlled_by = owner }
+	}
+
+	immediate = {
+		hidden_effect = {
+			controller = {
+				save_event_target_as = conqueror_target
+			}
+			every_neighbor_province = {
+				limit = {
+					controlled_by = owner
+					NOT = { fort_level = 1 }
+					owner = { war_with = event_target:conqueror_target }
+                    NOT = { 
+                        num_of_units_in_province = { # If there are troops in the province it should not automatically flip. (Since there are troops after all)
+                            who = ROOT
+                            amount = 1
+                        }
+                    }
+                    NOT = {
+                        any_neighbor_province = {
+                            fort_level = 2
+                            controlled_by = owner
+                            owner = {
+                                war_with = event_target:conqueror_target
+                            }
+                        }
+                    }
+				}
+                change_controller = event_target:conqueror_target
+			}
+		}
+	}
+
+	option = {
+		name = "empty"
+	}
+}
