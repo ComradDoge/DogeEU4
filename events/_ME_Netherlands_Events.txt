@@ -1,0 +1,2423 @@
+namespace = ME_Dutch_Factionalism_Events
+
+country_event = {
+	id = ME_Dutch_Factionalism_Events.1
+	title = ME_Dutch_Factionalism_Events.1.t
+	desc = ME_Dutch_Factionalism_Events.1.d
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	
+	immediate = {
+		HOL = {
+			set_country_flag = NED_suffers_from_dutch_factionalism
+			
+			#poorer sympathised with hooks
+			NED_set_faction_support = { hook = yes by = artisans } 
+			NED_set_faction_support = { cod = yes by = traders }
+			NED_set_faction_support = { hook = yes by = poor }
+			NED_set_faction_support = { cod = yes by = rich }
+			NED_set_faction_support = { hook = yes by = independence }
+			NED_set_estate_privilege = { which = cods }
+			
+			country_event = { id = ME_Dutch_Factionalism_Events.2 }
+		}
+		FRI = {
+			set_country_flag = NED_suffers_from_dutch_factionalism
+			
+			NED_set_estate_privilege = { which = cods } #schwieringers
+			NED_set_faction_support = { hook = yes by = rich } #vetkopers coming from selling fat, basically pretty rich
+			NED_set_faction_support = { cod = yes by = poor } #more supportive of frisian freedom, poorer
+			
+			country_event = { id = ME_Dutch_Factionalism_Events.2 }
+			
+			# add_stability_or_adm_power = yes
+		}
+		EFR = {
+			set_country_flag = NED_suffers_from_dutch_factionalism
+			
+			NED_set_estate_privilege = { which = cods } #cods - cirksena
+			NED_set_faction_support = { hook = yes by = rich }
+			NED_set_faction_support = { cod = yes by = poor }
+			
+			country_event = { id = ME_Dutch_Factionalism_Events.2 }
+			
+			# add_stability_or_adm_power = yes
+		}
+		UTR = {
+			set_country_flag = NED_suffers_from_dutch_factionalism
+			
+			NED_set_faction_support = { hook = yes by = poor }
+			NED_set_faction_support = { cod = yes by = rich }
+			NED_set_faction_support = { hook = yes by = independence }
+			NED_set_faction_support = { hook = yes by = church }
+			NED_set_estate_privilege = { which = hooks } #not ruled by burgundians, wouldn't be too happy with it either
+			
+			country_event = { id = ME_Dutch_Factionalism_Events.2 }
+			
+			# add_stability_or_adm_power = yes
+			
+			set_ruler_flag = starting_utrecht_ruler
+		}
+	}
+	
+	option = {
+		name = ME_Dutch_Factionalism_Events.1.a
+		
+		ai_chance = { factor = 100 }
+		
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Factionalism_Events.2
+	title = ME_Dutch_Factionalism_Events.2.t
+	desc = ME_Dutch_Factionalism_Events.2.d
+	picture = COUNTRY_COLLAPSE_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = NED_factionalism_modifier
+				duration = -1
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Dutch_Factionalism_Events.2.a
+		
+		ai_chance = { factor = 100 }
+		
+		custom_tooltip = NED_explainer
+		
+		custom_tooltip = " "
+		
+		tooltip = {
+			add_country_modifier = {
+				name = NED_factionalism_modifier
+				duration = -1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Factionalism_Events.3
+	title = ME_Dutch_Factionalism_Events.3.t #a group withdraws support
+	desc = ME_Dutch_Factionalism_Events.3.d
+	picture = COUNTRY_COLLAPSE_eventPicture
+	
+	trigger = { 
+		has_country_flag = NED_suffers_from_dutch_factionalism
+		OR = { #A group may only withdraw support if there are at least two groups supporting it
+			has_global_modifier_value = {
+				which = dutch_cod_support
+				value = 2
+			}
+			has_global_modifier_value = {
+				which = dutch_hook_support
+				value = 2
+			}
+		}
+		NOT = { has_country_flag = fac_event_fired }
+	}
+	
+	immediate = {
+		set_country_flag = fac_event_fired
+		hidden_effect = {
+			random_list = {
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_cod_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = cod by = artisans }
+					}
+					set_country_flag = NED_fac_event_artisans
+					set_country_flag = NED_used_to_support_cod
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_cod_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = cod by = traders }
+					}
+					set_country_flag = NED_fac_event_traders
+					set_country_flag = NED_used_to_support_cod
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_cod_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = cod by = poor }
+					}
+					set_country_flag = NED_fac_event_poor
+					set_country_flag = NED_used_to_support_cod
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_cod_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = cod by = rich }
+					}
+					set_country_flag = NED_fac_event_rich
+					set_country_flag = NED_used_to_support_cod
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_cod_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = cod by = independence }
+					}
+					set_country_flag = NED_fac_event_independence
+					set_country_flag = NED_used_to_support_cod
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_cod_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = cod by = church }
+					}
+					set_country_flag = NED_fac_event_church
+					set_country_flag = NED_used_to_support_cod
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_hook_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = hook by = artisans }
+					}
+					set_country_flag = NED_fac_event_artisans
+					set_country_flag = NED_used_to_support_hook
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_hook_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = hook by = traders }
+					}
+					set_country_flag = NED_fac_event_traders
+					set_country_flag = NED_used_to_support_hook
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_hook_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = hook by = poor }
+					}
+					set_country_flag = NED_fac_event_poor
+					set_country_flag = NED_used_to_support_hook
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_hook_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = hook by = rich }
+					}
+					set_country_flag = NED_fac_event_rich
+					set_country_flag = NED_used_to_support_hook
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_hook_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = hook by = independence }
+					}
+					set_country_flag = NED_fac_event_independence
+					set_country_flag = NED_used_to_support_hook
+				}
+				1 = {
+					trigger = {
+						has_global_modifier_value = {
+							which = dutch_hook_support
+							value = 2
+						}
+						NED_faction_supported_by = { faction = hook by = church }
+					}
+					set_country_flag = NED_fac_event_church
+					set_country_flag = NED_used_to_support_hook
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	option = {
+		name = ME_Dutch_Factionalism_Events.3.a
+		
+		ai_chance = { factor = 100 }
+		
+		custom_tooltip = NED_no_more_support
+		
+		hidden_effect = {
+			trigger_switch = {
+				on_trigger = has_country_flag
+				NED_fac_event_artisans = {
+					NED_clear_faction_support = { by = artisans }
+				}
+				NED_fac_event_traders = {
+					NED_clear_faction_support = { by = traders }
+				}
+				NED_fac_event_poor = {
+					NED_clear_faction_support = { by = poor }
+				}
+				NED_fac_event_rich = {
+					NED_clear_faction_support = { by = rich }
+				}
+				NED_fac_event_independence = {
+					NED_clear_faction_support = { by = independence }
+				}
+				NED_fac_event_church = {
+					NED_clear_faction_support = { by = church }
+				}
+			}
+		}
+	}
+	
+	after = {
+		clr_country_flag = NED_used_to_support_hook
+		clr_country_flag = NED_used_to_support_cod
+		clr_country_flag = NED_fac_event_artisans
+		clr_country_flag = NED_fac_event_traders
+		clr_country_flag = NED_fac_event_poor
+		clr_country_flag = NED_fac_event_rich
+		clr_country_flag = NED_fac_event_independence
+		clr_country_flag = NED_fac_event_church
+		clr_country_flag = fac_event_fired
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Factionalism_Events.4
+	title = ME_Dutch_Factionalism_Events.4.t #a group gives support
+	desc = ME_Dutch_Factionalism_Events.4.d
+	picture = COUNTRY_COLLAPSE_eventPicture
+	
+	trigger = { 
+		has_country_flag = NED_suffers_from_dutch_factionalism
+		NOT = {
+			OR = {
+				has_global_modifier_value = {
+					which = dutch_cod_support
+					value = 3
+				}
+				has_global_modifier_value = {
+					which = dutch_hook_support
+					value = 3
+				}
+			}
+		}
+		NOT = { has_country_flag = fac_event_fired }
+	}
+
+	mean_time_to_happen = {
+		months = 60
+		modifier = {
+			factor = 2
+			OR = {
+				has_global_modifier_value = {
+					which = dutch_cod_support
+					value = 2
+				}
+				has_global_modifier_value = {
+					which = dutch_hook_support
+					value = 2
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_country_flag = fac_event_fired
+		hidden_effect = {
+			random_list = {
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_cod_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = cod by = artisans }
+						}
+					}
+					set_country_flag = NED_fac_event_artisans
+					set_country_flag = NED_used_to_support_cod #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_cod_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = cod by = traders }
+						}
+					}
+					set_country_flag = NED_fac_event_traders
+					set_country_flag = NED_used_to_support_cod
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_cod_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = cod by = poor }
+						}
+					}
+					set_country_flag = NED_fac_event_poor
+					set_country_flag = NED_used_to_support_cod #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_cod_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = cod by = rich }
+						}
+					}
+					set_country_flag = NED_fac_event_rich
+					set_country_flag = NED_used_to_support_cod #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_cod_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = cod by = independence }
+						}
+						is_subject = yes
+					}
+					set_country_flag = NED_fac_event_independence
+					set_country_flag = NED_used_to_support_cod #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_cod_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = cod by = church }
+						}
+					}
+					set_country_flag = NED_fac_event_church
+					set_country_flag = NED_used_to_support_cod #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_hook_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = hook by = artisans }
+						}
+					}
+					set_country_flag = NED_fac_event_artisans
+					set_country_flag = NED_used_to_support_hook #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_hook_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = hook by = traders }
+						}
+					}
+					set_country_flag = NED_fac_event_traders
+					set_country_flag = NED_used_to_support_hook
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_hook_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = hook by = poor }
+						}
+					}
+					set_country_flag = NED_fac_event_poor
+					set_country_flag = NED_used_to_support_hook #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_hook_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = hook by = rich }
+						}
+					}
+					set_country_flag = NED_fac_event_rich
+					set_country_flag = NED_used_to_support_hook #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_hook_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = hook by = independence }
+						}
+						is_subject = yes
+					}
+					set_country_flag = NED_fac_event_independence
+					set_country_flag = NED_used_to_support_hook #dont mind the name
+				}
+				1 = {
+					trigger = {
+						NOT = {
+							has_global_modifier_value = {
+								which = dutch_hook_support
+								value = 3
+							}
+						}
+						NOT = {
+							NED_faction_supported_by = { faction = hook by = church }
+						}
+					}
+					set_country_flag = NED_fac_event_church
+					set_country_flag = NED_used_to_support_hook #dont mind the name
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Dutch_Factionalism_Events.4.a
+		
+		ai_chance = { factor = 100 }
+		
+		custom_tooltip = NED_support_now_yay
+		
+		hidden_effect = {
+			trigger_switch = {
+				on_trigger = has_country_flag
+				NED_fac_event_artisans = {
+					NED_set_faction_support_event = { by = artisans }
+				}
+				NED_fac_event_traders = {
+					NED_set_faction_support_event = { by = traders }
+				}
+				NED_fac_event_poor = {
+					NED_set_faction_support_event = { by = poor }
+				}
+				NED_fac_event_rich = {
+					NED_set_faction_support_event = { by = rich }
+				}
+				NED_fac_event_independence = {
+					NED_set_faction_support_event = { by = independence }
+				}
+				NED_fac_event_church = {
+					NED_set_faction_support_event = { by = church }
+				}
+			}
+		}
+	}
+	
+	after = {
+		clr_country_flag = NED_used_to_support_hook
+		clr_country_flag = NED_used_to_support_cod
+		clr_country_flag = NED_fac_event_artisans
+		clr_country_flag = NED_fac_event_traders
+		clr_country_flag = NED_fac_event_poor
+		clr_country_flag = NED_fac_event_rich
+		clr_country_flag = NED_fac_event_independence
+		clr_country_flag = NED_fac_event_church
+		clr_country_flag = fac_event_fired
+	}
+}
+	
+country_event = {
+	id = ME_Dutch_Factionalism_Events.5
+	title = ME_Dutch_Factionalism_Events.5.t
+	desc = ME_Dutch_Factionalism_Events.5.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	major_trigger = {
+		OR = {
+			is_neighbor_of = ROOT
+			capital_scope = {
+				region = north_german_region
+				region = low_countries_region
+				region = france_region
+				region = british_isles_region
+			}
+		}
+	}
+	option = {
+		name = ME_Dutch_Factionalism_Events.5.a
+		
+		ai_chance = { factor = 100 }
+		
+		custom_tooltip = NED_no_more_factionalism
+	}
+}
+
+namespace = ME_Dutch_Revolt_Events
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.1
+	title = ME_Dutch_Revolt_Events.1.t
+	desc = ME_Dutch_Revolt_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		capital_scope = {
+			superregion = europe_superregion
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_global_flag = ME_dutch_revolt_flag
+			overlord = {
+				country_event = { id = ME_Dutch_Revolt_Events.2 }
+			}
+			
+			country_event = { id = ME_Dutch_Revolt_Events.3 days = 1825 }
+			save_global_event_target_as = ME_dutch_revolt_target
+		}
+	}
+
+	option = {
+		name = ME_Dutch_Revolt_Events.1.a
+		
+		ai_chance = { factor = 100 }
+		
+		add_liberty_desire = 25
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = NED_use_dutch_revolt_actions
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.2
+	title = ME_Dutch_Revolt_Events.2.t
+	desc = ME_Dutch_Revolt_Events.2.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Dutch_Revolt_Events.2.a
+		
+		ai_chance = { factor = 100 }
+		
+		custom_tooltip = NED_we_need_to_stop_them
+		
+		add_prestige = -10
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.3
+	title = ME_Dutch_Revolt_Events.3.t
+	desc = ME_Dutch_Revolt_Events.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {
+		has_global_flag = ME_dutch_revolt_flag
+	}
+	
+	immediate = {
+		country_event = { id = ME_Dutch_Revolt_Events.4 }
+	}
+	option = {
+		name = ME_Dutch_Revolt_Events.3.a
+		
+		ai_chance = { factor = 100 }
+		
+		
+	}
+}
+
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.4
+	title = ME_Dutch_Revolt_Events.4.t
+	desc = ME_Dutch_Revolt_Events.4.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			overlord = { country_event = { id = ME_Dutch_Revolt_Events.5 } }
+			clr_global_flag = ME_dutch_revolt_flag
+			clear_global_event_target = ME_dutch_revolt_target
+		}
+	}
+
+	option = {
+		name = ME_Dutch_Revolt_Events.4.a
+		
+		ai_chance = { factor = 100 }
+		
+		overlord = {
+			every_subject_country = {
+				limit = {
+					is_dutch_subject_trigger = yes
+					liberty_desire = 50
+					NOT = { has_country_flag = me_bur_reigned_in }
+				}
+				ROOT = { inherit = PREV }
+			}
+		}
+		tooltip = {
+			change_tag = NED
+		}
+		hidden_effect = {
+			NED_form_netherlands_effect = yes
+		}
+		declare_war_with_cb = {
+			who = overlord
+			casus_belli = cb_dutch_revolt_independence_war
+		}
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.5
+	title = ME_Dutch_Revolt_Events.5.t
+	desc = ME_Dutch_Revolt_Events.5.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Dutch_Revolt_Events.5.a
+		
+		ai_chance = { factor = 100 }
+		
+		add_country_modifier = {
+			name = NED_popular_support
+			duration = 7300
+		}
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.6
+	title = ME_Dutch_Revolt_Events.6.t
+	desc = ME_Dutch_Revolt_Events.6.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Dutch_Revolt_Events.6.a
+		
+		ai_chance = { factor = 100 }
+		
+		hidden_effect = {
+			clr_global_flag = ME_dutch_revolt_flag
+			clear_global_event_target = ME_dutch_revolt_target
+		}
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.7
+	title = ME_Dutch_Revolt_Events.7.t
+	desc = ME_Dutch_Revolt_Events.7.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	major_trigger = {
+		OR = {
+			overlord_of = event_target:temp_target
+			event_target:temp_target = {
+				overlord = {
+					ROOT = {
+						is_subject_of = PREV
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = NED_agitatation_arms
+				duration = 1825
+			}
+			save_event_target_as = temp_target
+		}
+	}
+
+	option = {
+		name = ME_Dutch_Revolt_Events.7.a
+		
+		ai_chance = { factor = 100 }
+		
+		tooltip = {
+			add_country_modifier = {
+				name = NED_agitatation_arms
+				duration = 1825
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.8
+	title = ME_Dutch_Revolt_Events.8.t
+	desc = ME_Dutch_Revolt_Events.8.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	major_trigger = {
+		OR = {
+			overlord_of = event_target:temp_target
+			event_target:temp_target = {
+				overlord = {
+					ROOT = {
+						is_subject_of = PREV
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = NED_subdued_cities
+				duration = 1825
+			}
+			save_event_target_as = temp_target
+		}
+	}
+
+	option = {
+		name = ME_Dutch_Revolt_Events.8.a
+		
+		ai_chance = { factor = 100 }
+		
+		tooltip = {
+			add_country_modifier = {
+				name = NED_subdued_cities
+				duration = 1825
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.9
+	title = ME_Dutch_Revolt_Events.9.t
+	desc = ME_Dutch_Revolt_Events.9.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	major_trigger = {
+		OR = {
+			overlord_of = event_target:temp_target
+			event_target:temp_target = {
+				overlord = {
+					ROOT = {
+						is_subject_of = PREV
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = NED_outraged_cities
+				duration = 1825
+			}
+			save_event_target_as = temp_target
+		}
+	}
+
+	option = {
+		name = ME_Dutch_Revolt_Events.9.a
+		
+		ai_chance = { factor = 100 }
+		
+		tooltip = {
+			add_country_modifier = {
+				name = NED_outraged_cities
+				duration = 1825
+			}
+		}
+		
+		add_opinion = {
+			who = overlord
+			modifier = NED_outraged_regents
+		}
+	}
+}
+
+country_event = {
+	id = ME_Dutch_Revolt_Events.10
+	title = ME_Dutch_Revolt_Events.10.t
+	desc = ME_Dutch_Revolt_Events.10.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	major_trigger = {
+		OR = {
+			overlord_of = event_target:temp_target
+			event_target:temp_target = {
+				overlord = {
+					ROOT = {
+						is_subject_of = PREV
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = ME_Dutch_Revolt_Events.10.a
+		
+		ai_chance = { factor = 100 }
+		
+		add_liberty_desire = 10
+	}
+}
+
+namespace = ME_Netherlands_Events
+
+country_event = {
+	id = ME_Netherlands_Events.1
+	title = ME_Netherlands_Events.1.t
+	desc = ME_Netherlands_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes 
+
+	option = {
+		name = ME_Netherlands_Events.1.a
+		
+		ai_chance = { factor = 100 }
+		
+		add_age_modifier = {
+			name = NED_early_netherlands
+			duration = -1
+			age = age_of_discovery
+			else = "
+				add_prestige_or_monarch_power = { amount = 50 }
+			"
+		}
+		
+		ME_override_country_name = { string = NED_united_provinces_name }
+		
+		custom_tooltip = " "
+		custom_tooltip = NED_no_more_tech_req_for_netherlands
+		set_country_flag = NED_no_more_tech_req_for_netherlands_flag
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.2
+	title = ME_Netherlands_Events.2.t
+	desc = ME_Netherlands_Events.2.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	# major = yes 
+
+	option = {
+		name = ME_Netherlands_Events.2.a
+		
+		ai_chance = { factor = 100 }
+		
+		custom_tooltip = NED_we_will_accept_all_3_cultures
+		hidden_effect = {
+			add_accepted_culture = dutch
+			add_accepted_culture = flemish
+			add_accepted_culture = frisian
+			if = {
+				limit = {
+					NOT = {
+						primary_culture = dutch
+					}
+				}
+				add_country_modifier = {
+					name = NED_dutch_slot
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						primary_culture = flemish
+					}
+				}
+				add_country_modifier = {
+					name = NED_flemish_slot
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						primary_culture = frisian
+					}
+				}
+				add_country_modifier = {
+					name = NED_frisian_slot
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.3
+	title = ME_Netherlands_Events.3.t
+	desc = ME_Netherlands_Events.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	# major = yes 
+
+	option = {
+		name = ME_Netherlands_Events.3.a
+		
+		ai_chance = { factor = 100 }
+		
+		if = {
+			limit = {
+				LUX = {
+					is_subject_of = ROOT
+				}
+			}
+			create_subject = {
+				subject = LUX
+				subject_type = ME_personal_union
+			}
+		}
+		else = {
+			94 = {
+				cede_province = LUX
+				add_core = LUX
+			}
+			create_subject = {
+				subject = LUX
+				subject_type = ME_personal_union
+			}
+		}
+		custom_tooltip = NED_free_subject
+		
+		LUX = {
+			add_country_modifier = {
+				name = NED_LUX_subject
+				duration = -1
+			}
+		}
+		
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.3.b
+		
+		ai_chance = { factor = 0 }
+		
+		add_prestige_or_monarch_power = { amount = 15 }
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.4
+	title = ME_Netherlands_Events.4.t
+	desc = ME_Netherlands_Events.4.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes 
+
+	option = {
+		name = ME_Netherlands_Events.4.a
+		
+		ai_chance = { factor = 0 }
+		
+		add_country_modifier = {
+			name = NED_belgium_nostrum
+			duration = -1
+		}
+		
+		add_prestige_or_monarch_power = { amount = 50 }
+		
+		custom_tooltip = " "
+		
+		complex_dynamic_effect = {
+			first_custom_tooltip = NED_if_we_have_land_of_commerce
+			first_limit = "
+				has_estate_privilege = estate_burghers_land_of_commerce
+			"
+			first_effect = "
+				change_estate_land_share = { 
+					estate = estate_burghers
+					share = -10
+				}
+			"
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.4.b
+		
+		ai_chance = { factor = 100 }
+		
+		ME_override_country_name = { string = ME_seventeen_provinces }
+		
+		custom_tooltip = " "
+		
+		add_country_modifier = {
+			name = NED_belgium_nostrum
+			duration = -1
+		}
+		
+		add_prestige_or_monarch_power = { amount = 50 }
+		
+		custom_tooltip = " "
+		
+		complex_dynamic_effect = {
+			first_custom_tooltip = NED_if_we_have_land_of_commerce
+			first_limit = "
+				has_estate_privilege = estate_burghers_land_of_commerce
+			"
+			first_effect = "
+				change_estate_land_share = { 
+					estate = estate_burghers
+					share = -10
+				}
+			"
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.5
+	title = ME_Netherlands_Events.5.t
+	desc = ME_Netherlands_Events.5.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes 
+	
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					senior_union_with = GBR
+				}
+				GBR = { save_event_target_as = glorious_revolution_target }
+			}
+			else = {
+				ENG = { save_event_target_as = glorious_revolution_target }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.5.a
+		
+		ai_chance = { factor = 50 }
+		
+		custom_tooltip = NED_make_it_a_free_pu
+		create_subject = {
+			subject_type = ME_personal_union
+			subject = event_target:glorious_revolution_target
+		}
+	}
+	option = {
+		name = ME_Netherlands_Events.5.b
+		
+		ai_chance = { factor = 50 }
+		
+		custom_tooltip = NED_make_it_a_75_off_pu
+		create_subject = {
+			subject_type = ME_personal_union_cheap
+			subject = event_target:glorious_revolution_target
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.6
+	title = ME_Netherlands_Events.6.t
+	desc = ME_Netherlands_Events.6.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.6.a
+		
+		ai_chance = { factor = 50 }
+		
+		97 = {
+			change_trade_goods = sugar
+		}
+		add_years_of_income = 1
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.6.b
+		
+		ai_chance = { factor = 50 }
+		
+		97 = {
+			change_trade_goods = gems
+			add_province_modifier = {
+				name = NED_jeweller
+				duration = -1
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.6.c
+		
+		ai_chance = { factor = 50 }
+		
+		add_mercantilism = 5
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.7
+	title = ME_Netherlands_Events.7.t
+	desc = ME_Netherlands_Events.7.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.7.a
+		
+		ai_chance = { factor = 50 }
+		
+		add_years_of_income = 0.5
+		add_mercantilism = 2
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.7.b
+		
+		ai_chance = { factor = 50 }
+		
+		12 = { remove_province_modifier = sound_toll }
+		12 = {
+			add_permanent_province_modifier = {
+				name = NED_sound_toll_abolished
+				duration = -1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.8
+	title = ME_Netherlands_Events.8.t
+	desc = ME_Netherlands_Events.8.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.8.a
+		
+		ai_chance = { factor = 50 }
+		
+		change_price = {
+			trade_goods = cloth
+			key = NED_high_quality_goods
+			value = 0.1
+			duration = 3650
+		}
+	}
+}
+
+
+country_event = {
+	id = ME_Netherlands_Events.9
+	title = ME_Netherlands_Events.9.t
+	desc = ME_Netherlands_Events.9.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			pick_best_provinces = {
+				5 = yes
+				scale = higher_development_than
+				scope = every_owned_province
+				global_trigger = "
+					religion = ROOT
+				"
+				event_target_name = ned_target
+			}
+			
+			pick_random_provinces = {
+				3 = yes
+				scope = random_province
+				global_trigger = "
+					NOT = { religion = ROOT }
+					religion_group = ROOT
+					continent = europe
+				"
+				event_target_name = ned_target_rel
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.9.a
+		
+		ai_chance = { factor = 50 }
+		
+		if = {
+			limit = {
+				has_saved_event_target = ned_target_3
+				has_saved_event_target = ned_target_rel_1
+			}
+			event_target:ned_target_3 = {
+				change_religion = event_target:ned_target_rel_1
+				add_province_modifier = {
+					name = NED_local_immigration
+					duration = 10950 
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_saved_event_target = ned_target_4
+				has_saved_event_target = ned_target_rel_2
+			}
+			event_target:ned_target_4 = {
+				change_religion = event_target:ned_target_rel_2
+				add_province_modifier = {
+					name = NED_local_immigration
+					duration = 10950 
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_saved_event_target = ned_target_5
+				has_saved_event_target = ned_target_rel_3
+			}
+			event_target:ned_target_5 = {
+				change_religion = event_target:ned_target_rel_3
+				add_province_modifier = {
+					name = NED_local_immigration
+					duration = 10950 
+				}
+			}
+		}
+		
+		custom_tooltip = NED_distribute_5_5_5_dev
+		hidden_effect = {
+			for = {
+				amount = 5
+				effect = "
+					random_owned_province = {
+						add_base_tax = 1
+					}
+				"
+			}
+			for = {
+				amount = 5
+				effect = "
+					random_owned_province = {
+						add_base_production = 1
+					}
+				"
+			}
+			for = {
+				amount = 5
+				effect = "
+					random_owned_province = {
+						add_base_manpower = 1
+					}
+				"
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.9.b
+		
+		ai_chance = { factor = 0 }
+		
+		custom_tooltip = NED_distribute_3_2_2_dev
+		hidden_effect = {
+			for = {
+				amount = 3
+				effect = "
+					random_owned_province = {
+						add_base_tax = 1
+					}
+				"
+			}
+			for = {
+				amount = 2
+				effect = "
+					random_owned_province = {
+						add_base_production = 1
+					}
+				"
+			}
+			for = {
+				amount = 2
+				effect = "
+					random_owned_province = {
+						add_base_manpower = 1
+					}
+				"
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.10
+	title = ME_Netherlands_Events.10.t
+	desc = ME_Netherlands_Events.10.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.10.a
+		
+		ai_chance = { factor = 50 }
+		
+		custom_tooltip = NED_upgrade_free_trade
+		set_country_flag = NED_upgrade_free_trade_flag
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = NED_expend_mercantilism
+		set_country_flag = NED_expend_mercantilism_flag
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.10.b
+		
+		ai_chance = { factor = 0 }
+		
+		define_advisor = {
+			type = ME_economic_mercantilist
+			skill = 3
+			culture = ROOT
+			religion = ROOT
+		}
+		custom_tooltip = POR_economic_mercantilist
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = NED_buff_the_mercantilism_priv
+		set_country_flag = NED_buff_the_mercantilism_priv_flag
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.11
+	title = ME_Netherlands_Events.11.t
+	desc = ME_Netherlands_Events.11.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = event_prev
+			ME_sale_pick_target = {
+				scale = prestige
+				id = art_ned
+				amount = "2"
+				name = prestige
+				global_trigger = "
+					capital_scope = {
+						continent = europe
+					}
+				"
+				prioritize_player = yes
+			}
+			ME_sale_pick_target = {
+				scale = total_development
+				id = art_ned
+				amount = "2"
+				name = dev
+				global_trigger = "
+					capital_scope = {
+						continent = europe
+					}
+					NOT = { alliance_with = ROOT }
+				"
+				prioritize_player = yes
+			}
+			ME_sale_pick_target = {
+				scale = total_development
+				id = art_ned
+				amount = "2"
+				name = dev_ally
+				global_trigger = "
+					capital_scope = {
+						continent = europe
+					}
+					alliance_with = ROOT
+				"
+				prioritize_player = yes
+			}
+			ME_sale_setup_variable = {
+				id = art_ned
+				num = 1
+				what = years_of_income
+				name = dev
+				extra = "
+					NED_add_effect_from_selling_art_efficiency = yes
+				"
+			}
+			ME_sale_setup_variable = {
+				id = art_ned
+				num = 2
+				what = years_of_income
+				name = dev
+				extra = "
+					NED_add_effect_from_selling_art_efficiency = yes
+				"
+			}
+			ME_sale_setup_variable = {
+				id = art_ned
+				num = 1
+				what = years_of_income
+				name = prestige
+				extra = "
+					NED_add_effect_from_selling_art_efficiency = yes
+				"
+			}
+			ME_sale_setup_variable = {
+				id = art_ned
+				num = 2
+				what = years_of_income
+				name = prestige
+				extra = "
+					NED_add_effect_from_selling_art_efficiency = yes
+				"
+			}
+			ME_sale_setup_variable = {
+				id = art_ned
+				num = 1
+				what = years_of_income
+				name = dev_ally
+				extra = "
+					NED_add_effect_from_selling_art_efficiency = yes
+				"
+			}
+			ME_sale_setup_variable = {
+				id = art_ned
+				num = 2
+				what = years_of_income
+				name = dev_ally
+				extra = "
+					NED_add_effect_from_selling_art_efficiency = yes
+				"
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.11.a
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			ME_sale_exists = {
+				id = art_ned
+				num = 1
+				name = dev
+			}
+		}
+		
+		ME_sale_effect_and_cost = {
+			name = dev
+			id = art_ned
+			num = 1
+			effect = "
+				NED_sell_art_effect = yes
+			"
+			event = ME_Netherlands_Events.12
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.11.b
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			ME_sale_exists = {
+				id = art_ned
+				num = 2
+				name = dev
+			}
+		}
+		
+		ME_sale_effect_and_cost = {
+			name = dev
+			id = art_ned
+			num = 2
+			effect = "
+				NED_sell_art_effect = yes
+			"
+			event = ME_Netherlands_Events.12
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.11.c
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			ME_sale_exists = {
+				id = art_ned
+				num = 1
+				name = dev_ally
+			}
+		}
+		
+		ME_sale_effect_and_cost = {
+			name = dev_ally
+			id = art_ned
+			num = 1
+			effect = "
+				NED_sell_art_effect = yes
+			"
+			event = ME_Netherlands_Events.12
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.11.e
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			ME_sale_exists = {
+				id = art_ned
+				num = 2
+				name = dev_ally
+			}
+		}
+		
+		ME_sale_effect_and_cost = {
+			name = dev_ally
+			id = art_ned
+			num = 2
+			effect = "
+				NED_sell_art_effect = yes
+			"
+			event = ME_Netherlands_Events.12
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.11.f
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			ME_sale_exists = {
+				id = art_ned
+				num = 1
+				name = prestige
+			}
+		}
+		
+		ME_sale_effect_and_cost = {
+			name = prestige
+			id = art_ned
+			num = 1
+			effect = "
+				NED_sell_art_effect = yes
+			"
+			event = ME_Netherlands_Events.12
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.11.g
+		
+		ai_chance = { factor = 1 }
+		
+		trigger = {
+			ME_sale_exists = {
+				id = art_ned
+				num = 2
+				name = prestige
+			}
+		}
+		
+		ME_sale_effect_and_cost = {
+			name = prestige
+			id = art_ned
+			num = 2
+			effect = "
+				NED_sell_art_effect = yes
+			"
+			event = ME_Netherlands_Events.12
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.11.h
+		
+		ai_chance = { factor = 1 }
+		add_prestige = -1
+	}
+	
+	after = {
+		ME_sale_cleanup = {
+			id = art_ned
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.12
+	title = ME_Netherlands_Events.12.t
+	desc = ME_Netherlands_Events.12.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		tag = event_target:event_prev
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.12.a
+		
+		ai_chance = { factor = 1 }
+		ME_sale_purchase = {
+			id = art_ned
+			effect = "
+				NED_sell_art_effect = yes
+			"
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.12.b
+		
+		ai_chance = { factor = 0 }
+		
+		add_opinion = {
+			who = FROM
+			modifier = NED_did_not_buy
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.13
+	title = ME_Netherlands_Events.13.t
+	desc = ME_Netherlands_Events.13.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Netherlands_Events.13.a
+		
+		ai_chance = { factor = 1 }
+		
+		define_advisor = {
+			type = GRA_polymath
+			name = "Christiaan Huygens"
+			skill = 3
+			culture = dutch
+			religion = ROOT
+			cost_multiplier = 0.5
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.14
+	title = ME_Netherlands_Events.14.t
+	desc = ME_Netherlands_Events.14.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Netherlands_Events.14.a
+		
+		ai_chance = { factor = 1 }
+		
+		add_country_modifier = {
+			name = NED_propaganda_usage
+			duration = 9125
+		}
+		
+		add_war_exhaustion = -0.5
+		
+		custom_tooltip = " "
+		
+		add_mil_power = 100
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.14.b
+		
+		ai_chance = { factor = 1 }
+		
+		add_country_modifier = {
+			name = NED_more_secular
+			duration = 9125
+		}
+		
+		change_government_reform_progress = 50
+		
+		custom_tooltip = " "
+		
+		add_dip_power = 100
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.15
+	title = ME_Netherlands_Events.15.t
+	desc = ME_Netherlands_Events.15.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Netherlands_Events.15.a
+		
+		ai_chance = { factor = 0 }
+		
+		add_years_of_income = -0.25
+		add_country_modifier = {
+			name = NED_far_company
+			duration = 9125
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.15.b
+		
+		ai_chance = { factor = 1 }
+		
+		add_dip_power = 25
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.16
+	title = ME_Netherlands_Events.16.t
+	desc = ME_Netherlands_Events.16.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = ME_Netherlands_Events.16.a
+		
+		custom_tooltip = NED_explain_VOC
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.17
+	title = ME_Netherlands_Events.17.t
+	desc = ME_Netherlands_Events.17.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = ME_Netherlands_Events.17.a
+		
+		custom_tooltip = NED_explain_WIC
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.18
+	title = ME_Netherlands_Events.18.t
+	desc = ME_Netherlands_Events.18.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		owns = 1177
+	}
+
+	option = {
+		name = ME_Netherlands_Events.18.a
+		
+		1177 = {
+			if = {
+				limit = {
+					NOT = { trade_goods = wine }
+				}
+				change_trade_goods = wine
+				custom_tooltip = " "
+			}
+			add_building = farm_estate
+			
+			custom_tooltip = " "
+			
+			add_permanent_province_modifier = {
+				name = NED_viticulture
+				duration = -1
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.18.b
+		
+		trigger = {
+			NOT = { 1177 = { trade_goods = wine } } 
+		}
+		1177 = {
+			add_or_upgrade_production_building = yes 
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.19
+	title = ME_Netherlands_Events.19.t
+	desc = ME_Netherlands_Events.19.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = ME_Netherlands_Events.19.a
+		
+		custom_tooltip = NED_look_into_4182
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.20
+	title = ME_Netherlands_Events.20.t
+	desc = ME_Netherlands_Events.20.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = ME_Netherlands_Events.20.a
+		
+		change_price = {
+			trade_goods = spices
+			key = NED_spice_monopoly
+			value = 0.15
+			duration = -1
+		}
+		change_price = {
+			trade_goods = cloves
+			key = NED_spice_monopoly
+			value = 0.33
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.21
+	title = ME_Netherlands_Events.21.t
+	desc = ME_Netherlands_Events.21.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	hidden = yes 
+	
+	trigger = {
+		tag = NVC
+		NOT = { num_of_cities = 15 }
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.5
+			mission_completed = NVC_raad
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			overlord = {
+				save_event_target_as = ned_ultimate
+			}
+			random_province = {
+				limit = {
+					is_empty = yes
+					NED_is_VOC_territory = yes
+					OR = {
+						has_port = yes
+						any_neighbor_province = {
+							country_or_non_sovereign_subject_holds = event_target:ned_ultimate
+						}
+					}
+				}
+				save_event_target_as = ned_nvc_target
+			}
+			if = {
+				limit = {
+					has_saved_event_target = ned_nvc_target
+				}
+				country_event = { id = ME_Netherlands_Events.22 }
+			}
+		}
+	}
+
+	option = {
+		name = ME_Netherlands_Events.21.a
+		
+		
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.22
+	title = ME_Netherlands_Events.22.t
+	desc = ME_Netherlands_Events.22.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		OR = {
+			capital_scope = {
+				NED_is_VOC_territory = yes
+			}
+			overlord_of = NVC
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.22.a
+		
+		event_target:ned_nvc_target = {
+			add_siberian_construction = 100
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.23
+	title = ME_Netherlands_Events.23.t
+	desc = ME_Netherlands_Events.23.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.23.a
+		
+		ai_chance = { factor = 1 }
+		
+		630 = {
+			move_capital_effect = yes
+			
+			custom_tooltip = " "
+			
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.23.b
+		
+		ai_chance = { factor = 0 }
+		
+		capital_scope = {
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.24
+	title = ME_Netherlands_Events.24.t
+	desc = ME_Netherlands_Events.24.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.24.a
+		
+		ai_chance = { factor = 1 }
+		
+		add_country_modifier = {
+			name = NED_compromise_of_nobles
+			duration = -1
+		}
+		
+		add_country_modifier = {
+			name = NED_improvised_marines
+			duration = -1
+		}
+		custom_tooltip = NED_can_be_removed_with_dutch_marines
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.24.b
+		
+		ai_chance = { factor = 0 }
+		
+		add_yearly_manpower = 1
+		add_yearly_sailors = 1
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.25
+	title = ME_Netherlands_Events.25.t
+	desc = ME_Netherlands_Events.25.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.25.a
+		
+		ai_chance = { factor = 1 }
+		
+		1881 = {
+			change_trade_goods = sugar
+			
+			add_permanent_province_modifier = {
+				name = NWC_sugar_boon
+				duration = 10950
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.25.b
+		
+		ai_chance = { factor = 0 }
+		
+		1881 = {
+			add_base_tax = 2
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.26
+	title = ME_Netherlands_Events.26.t
+	desc = ME_Netherlands_Events.26.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.26.a
+		
+		ai_chance = { factor = 1 }
+		
+		change_innovativeness = 3
+		
+		custom_tooltip = " "
+		
+		define_advisor = {
+			type = GRA_astronomer
+			name = "Georg Markgraf"
+			skill = 3
+			culture = saxon
+			religion = ROOT
+			cost_multiplier = 0.25
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.27
+	title = ME_Netherlands_Events.27.t
+	desc = ME_Netherlands_Events.27.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	hidden = yes
+	mean_time_to_happen = {
+		months = 60
+	}
+	trigger = {
+		OR = {
+			tag = NWC
+			tag = NVC 
+		}
+		is_subject = yes
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.27.a
+		
+		ai_chance = { factor = 1 }
+		
+		overlord = {
+			save_event_target_as = nwc_overlord
+		}
+		every_province = {
+			limit = {
+				has_discovered = event_target:nwc_overlord
+				NOT = { has_discovered = ROOT }
+			}
+			discover_country = ROOT
+		}
+		every_province = {
+			limit = {
+				sea_zone = {
+					has_discovered = event_target:nwc_overlord
+					NOT = { has_discovered = ROOT }
+				}
+			}
+			sea_zone = {
+				discover_country = ROOT
+			}
+		}
+	}
+}
+
+
+
+country_event = {
+	id = ME_Netherlands_Events.28
+	title = ME_Netherlands_Events.28.t
+	desc = ME_Netherlands_Events.28.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+
+	
+	option = {
+		name = ME_Netherlands_Events.28.a
+		
+		ai_chance = { factor = 1 }
+		
+		custom_tooltip = NED_preview_orangists_path
+		clr_country_flag = NED_statist_tree
+		set_country_flag = NED_orangist_tree
+		swap_non_generic_missions = yes
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.28.b
+		
+		ai_chance = {
+			factor = 1
+		}
+		
+		custom_tooltip = NED_preview_statists_path
+		set_country_flag = NED_statist_tree
+		clr_country_flag = NED_orangist_tree
+		swap_non_generic_missions = yes
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.28.c
+		trigger = {
+			OR = {
+				has_country_flag = NED_orangist_tree
+				has_country_flag = NED_statist_tree
+			}
+		}
+		
+		ai_chance = { factor = 1000 }
+		
+		custom_tooltip = NED_end_preview
+		clr_country_flag = NED_preview
+	}
+	
+	option = {
+		name = ME_Netherlands_Events.28.e
+		
+		ai_chance = { factor = 0 }
+		
+		
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.29
+	title = ME_Netherlands_Events.29.t
+	desc = ME_Netherlands_Events.29.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.29.a
+		
+		ai_chance = { factor = 1 }
+		
+		custom_tooltip = NED_upgrade_statist_by_mil
+		set_country_flag = NED_upgrade_statist_candidate_1
+		
+		custom_tooltip = " "
+		set_country_flag = NED_statists_spreading
+		
+		capital_scope = {
+			area = {
+				add_province_triggered_modifier = NED_republic_supporters
+			}
+		}
+		
+		custom_tooltip = NED_active_when_statists
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.30
+	title = ME_Netherlands_Events.30.t
+	desc = ME_Netherlands_Events.30.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Netherlands_Events.30.a
+		
+		ai_chance = { factor = 1 }
+		
+		if = {
+			limit = {
+				NED_has_statists_and_orangists = yes
+			}
+			custom_tooltip = NED_orangist_candidate_1_mana
+			set_country_flag = NED_orangist_candidate_1_mana_flag
+		}
+		
+		custom_tooltip = " "
+		
+		add_country_modifier = {
+			name = NED_monarchists
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = ME_Netherlands_Events.31
+	title = ME_Netherlands_Events.31.t
+	desc = ME_Netherlands_Events.31.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = ME_Netherlands_Events.31.a
+		
+		regenerate_government_mechanics = yes
+	}
+}
+# Afrikaner, boer events.
+# maurits

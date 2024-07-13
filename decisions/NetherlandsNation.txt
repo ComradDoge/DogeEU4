@@ -14,6 +14,10 @@ country_decisions = {
 				NOT = { exists = NED }
 				ai = no
 			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
 			NOT = { tag = PAP }
 			NOT = { tag = NED }
 			NOT = { tag = HLR }
@@ -64,7 +68,12 @@ country_decisions = {
 			}
 		}
 		allow = {
-			adm_tech = 10
+			if = {
+				limit = {
+					NOT = { has_country_flag = NED_no_more_tech_req_for_netherlands_flag }
+				}
+				adm_tech = 10
+			}
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
@@ -74,6 +83,15 @@ country_decisions = {
 			owns_core_province = 99 # Gelre
 			owns_core_province = 4383 # Den Haag
 			owns_core_province = 97 # Amsterdam
+			if = {
+				limit = {
+					NOT = { has_country_flag = GEL_holland_hegemony_destroyed }
+				
+				}
+				97 = {
+					is_state = yes
+				}
+			}
 			num_of_owned_provinces_with = {
 				value = 10
 				region = low_countries_region
@@ -87,137 +105,139 @@ country_decisions = {
 			}
 		}
 		effect = {
-			# General
-            custom_tooltip = tooltip_line_seperate_general
-			change_tag = NED
-			on_change_tag_effect = yes
-			swap_non_generic_missions = yes
-			add_prestige_or_monarch_power = { amount = 15 }
-
-
-            # Flags Hidden
-			set_country_flag = formed_netherlands_flag
-
-
-            # Other
-            custom_tooltip = tooltip_line_seperate_other
-			if = {
-				limit = {
-					tag = BUR
-					exists = FRA
-				}
-	  			france_region = {
-					limit = {
-						owned_by = BUR
-					}
-	  				remove_core = BUR
-	  				add_core = FRA
-	  				cede_province = FRA
-	  			}
-	  		}
-			if = {
-				limit = {
-					tag = BUR
-					exists = FRA
-					BUR = {
-						any_subject_country = {
-							france_region = {
-								owned_by = PREV
-							}
-						}
-					}
-				}
-				every_subject_country = {
-					limit = {
-						france_region = {
-							owned_by = PREV
-						}
-					}
-					france_region = {
-						limit = {
-							owned_by = PREV
-						}
-						remove_core = BUR
-						remove_core = PREV
-						add_core = FRA
-						cede_province = FRA
-					}
-				}
-	  		}
-
-            # Government
-            custom_tooltip = tooltip_line_seperate_government
-			if = {
-				limit = {
-					NOT = { government_rank = 2 }
-				}
-				set_government_rank = 2
-			}
-			if = {
-				limit = {
-					is_elector = no
-					is_emperor = no
-					OR = {
-						is_part_of_hre = yes
-						any_owned_province = {
-							is_part_of_hre = yes
-						}
-					}
-				}
-				set_in_empire = no
-				hidden_effect = {
-					every_owned_province = {
-						limit = {
-							is_part_of_hre = yes
-						}
-						set_in_empire = no
-					}
-				}
-			}
-
-            #### Gov Reform
-            #custom_tooltip = tooltip_line_seperate_gov_gap
-
-
-			# Culture
-			custom_tooltip = tooltip_line_seperate_culture
-	  		if = {
-	  			limit = {
-	  				tag = BUR
-	  			}
-	  			change_primary_culture = dutch
-				set_capital = 97
-			}
-
-			# Claims
-			custom_tooltip = tooltip_line_seperate_claims
-			low_countries_region = {
-				limit = {
-					NOT = { owned_by = ROOT }
-					NOT = { is_permanent_claim = ROOT }
-					NOT = { province_id = 1931 }
-				}
-				add_permanent_claim = NED
-			}
-
-			# Events
-			custom_tooltip = tooltip_line_seperate_events
-			if = {
-				limit = { has_custom_ideas = no NOT = { has_idea_group = NED_ideas } }
-				country_event = { id = ideagroups.1 } #Swap Ideas
-			}
-			country_event = { id = flavor_hol.3502 days = 1 }
-
-
-			# Modifiers
-			custom_tooltip = tooltip_line_seperate_modifiers
-			add_country_modifier = {
-				name = "centralization_modifier"
-				duration = 7300
-			}
+			NED_form_netherlands_effect = yes
 
             # Hidden Effects
-
+			## General
+            #custom_tooltip = tooltip_line_seperate_general
+			#change_tag = NED
+			#on_change_tag_effect = yes
+			#swap_non_generic_missions = yes
+			#add_prestige_or_monarch_power = { amount = 15 }
+			#
+			#
+            ## Flags Hidden
+			#set_country_flag = formed_netherlands_flag
+			#
+			#
+            ## Other
+            #custom_tooltip = tooltip_line_seperate_other
+			#if = {
+			#	limit = {
+			#		tag = BUR
+			#		exists = FRA
+			#	}
+	  		#	france_region = {
+			#		limit = {
+			#			owned_by = BUR
+			#		}
+	  		#		remove_core = BUR
+	  		#		add_core = FRA
+	  		#		cede_province = FRA
+	  		#	}
+	  		#}
+			#if = {
+			#	limit = {
+			#		tag = BUR
+			#		exists = FRA
+			#		BUR = {
+			#			any_subject_country = {
+			#				france_region = {
+			#					owned_by = PREV
+			#				}
+			#			}
+			#		}
+			#	}
+			#	every_subject_country = {
+			#		limit = {
+			#			france_region = {
+			#				owned_by = PREV
+			#			}
+			#		}
+			#		france_region = {
+			#			limit = {
+			#				owned_by = PREV
+			#			}
+			#			remove_core = BUR
+			#			remove_core = PREV
+			#			add_core = FRA
+			#			cede_province = FRA
+			#		}
+			#	}
+	  		#}
+			#
+            ## Government
+            #custom_tooltip = tooltip_line_seperate_government
+			#if = {
+			#	limit = {
+			#		NOT = { government_rank = 2 }
+			#	}
+			#	set_government_rank = 2
+			#}
+			#if = {
+			#	limit = {
+			#		is_elector = no
+			#		is_emperor = no
+			#		OR = {
+			#			is_part_of_hre = yes
+			#			any_owned_province = {
+			#				is_part_of_hre = yes
+			#			}
+			#		}
+			#	}
+			#	set_in_empire = no
+			#	hidden_effect = {
+			#		every_owned_province = {
+			#			limit = {
+			#				is_part_of_hre = yes
+			#			}
+			#			set_in_empire = no
+			#		}
+			#	}
+			#}
+			#
+            ##### Gov Reform
+            ##custom_tooltip = tooltip_line_seperate_gov_gap
+			#
+			#
+			## Culture
+			#custom_tooltip = tooltip_line_seperate_culture
+	  		#if = {
+	  		#	limit = {
+	  		#		tag = BUR
+	  		#	}
+	  		#	change_primary_culture = dutch
+			#	set_capital = 97
+			#}
+			#
+			## Claims
+			#custom_tooltip = tooltip_line_seperate_claims
+			#low_countries_region = {
+			#	limit = {
+			#		NOT = { owned_by = ROOT }
+			#		NOT = { is_permanent_claim = ROOT }
+			#		NOT = { province_id = 1931 }
+			#	}
+			#	add_permanent_claim = NED
+			#}
+			#
+			## Events
+			#custom_tooltip = tooltip_line_seperate_events
+			#if = {
+			#	limit = { has_custom_ideas = no NOT = { has_idea_group = NED_ideas } }
+			#	country_event = { id = ideagroups.1 } #Swap Ideas
+			#}
+			#country_event = { id = flavor_hol.3502 days = 1 }
+			#
+			#
+			## Modifiers
+			#custom_tooltip = tooltip_line_seperate_modifiers
+			#add_country_modifier = {
+			#	name = "centralization_modifier"
+			#	duration = 7300
+			#}
+			#
+            ## Hidden Effects
 		}
 
 		ai_will_do = {

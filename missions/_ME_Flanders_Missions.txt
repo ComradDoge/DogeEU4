@@ -1,0 +1,709 @@
+FLA_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		NED_is_or_was_tag = { tag = FLA }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	FLA_calais = {
+		icon = levee_the_arno
+		required_missions = { FLA_revolt_of_ghent }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 87
+		}
+		trigger = {
+			87 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = wallonian }
+			
+			custom_tooltip = " "
+			
+			87 = {
+				add_province_modifier = {
+					name = FLA_reconquered_country
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	FLA_northern_renaissance = {
+		icon = reaffirm_civil_values
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			ned_north_renaissance_pth = yes
+		}
+		trigger = {
+			ned_north_renaissance_trigger = yes
+		}
+		effect = {
+			ned_north_renaissance_effect = yes
+		}
+	}
+	
+	FLA_humanism = {
+		icon = me_mission_erasmus
+		required_missions = { FLA_northern_renaissance }
+		position = 5
+		provinces_to_highlight = {
+			ned_humanism_pth = yes
+		}
+		trigger = {
+			ned_humanism_trigger = yes
+		}
+		effect = {
+			ned_humanism_effect = yes
+		}
+	}
+}
+
+FLA_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = FLA }
+	}
+	has_country_shield = yes
+	
+	FLA_revolt_of_ghent = {
+		icon = friends_in_high_places
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 9 
+				army_size_percentage = 0.85
+			}
+			num_of_generals = 1
+			num_of_admirals = 1
+		}
+		effect = {
+			ME_give_claims = { id = 87 }
+			ME_give_claims = { area = holland_area }
+			ME_give_claims = { area = brabant_area }
+			ME_give_claims = { area = wallonia_area } #hainaut and namur?
+			ME_give_claims = { area = north_brabant_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = FLA_we_shant_tolerate_taxes
+				duration = 9125 
+			}
+			
+			if = {
+				limit = {
+					NOT = { is_part_of_hre = yes }
+				}
+				country_event_with_insight = {
+					id = ME_Flanders_Events.1
+					insight_tooltip = FLA_we_may_join_holy_roman_empire
+				}
+			}
+		}
+	}
+	
+	FLA_mechelen = {
+		icon = immaculate_government
+		required_missions = { FLA_revolt_of_ghent }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 92
+				province_id = 1744
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			92 = { country_or_non_sovereign_subject_holds = ROOT }
+			1744 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			change_government_reform_progress = 100
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = frisia_area }
+			
+			custom_tooltip = " "
+			
+			country_event_with_effect_insight = {
+				id = ME_Flanders_Events.3 
+				effect = "
+					if = {
+						limit = { has_estate = estate_burghers }
+						add_estate_loyalty = { estate = estate_burghers loyalty = 10 }
+						custom_tooltip = \" \"
+					}
+					
+					add_country_modifier = {
+						name = FLA_economic_independence
+						duration = 10950
+					}
+				"
+			}
+		}
+	}
+	
+	FLA_flemish_renaissance = {
+		icon = commission_the_mona_lisa
+		required_missions = { FLA_northern_renaissance }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			is_ahead_of_time_in_tech = { type = all }
+			
+			OR = {
+				artist = 1
+				philosopher = 1
+				has_adm_advisor_3 = yes
+			}
+			
+			prestige = 25
+		}
+		effect = {
+			# if we own 1 unit of paper or ally owns we will get idea cost
+			
+			custom_tooltip = FLA_upgrade_patronage_of_arts
+			set_country_flag = FLA_upgrade_patronage_of_arts_upgrade
+			
+			custom_tooltip = " "
+			
+			capital_scope = {
+				add_institution_embracement = {
+					which = printing_press
+					value = 75
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+}
+
+FLA_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = FLA }
+	}
+	has_country_shield = yes
+	
+	FLA_zeeland = {
+		icon = end_genoese_competition
+		required_missions = { FLA_revolt_of_ghent }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 96
+					NOT = { owned_by = ROOT }
+				}
+				# AND = {
+					# owned_by = HOL 
+					# NOT = {
+						# ROOT = {
+							# has_won_war_against = { who = HOL }
+						# }
+					# }
+				# }
+			}	
+		}
+		trigger = {
+			96 = { country_or_non_sovereign_subject_holds = ROOT }
+			# has_won_war_against = { who = HOL } #could be buggy
+		}
+		effect = {
+			96 = {
+				change_culture = flemish
+				add_core = ROOT
+				
+				custom_tooltip = " "
+				
+				add_base_tax = 1
+				add_base_production = 1
+				
+				custom_tooltip = " "
+				
+				add_local_autonomy = -50
+			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = frisia_area }
+		}
+	}
+	
+	FLA_maas = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { FLA_zeeland FLA_mechelen }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = frisia_area
+				area = holland_area
+			}
+			NOT = { province_id = 96 }
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = { 
+				OR = {
+					area = frisia_area
+					area = holland_area
+				}
+				NOT = { province_id = 96 }
+				value = 5
+			} 
+		}
+		effect = {
+			custom_tooltip = FLA_when_we_form_netherlands_we_will_get_power_projection
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = dutch }
+			
+			custom_tooltip = " "
+			
+			1269 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 10950
+					power = 15
+					key = FLA_crossed_the_river
+				}
+			}
+		}
+	}
+	
+	FLA_netherlands = {
+		icon = the_true_freedom
+		required_missions = { FLA_maas }
+		position = 5
+		provinces_to_highlight = {
+			NED_netherlands_pth = yes
+		}
+		trigger = {
+			NED_netherlands_trigger = yes
+		}
+		effect = {
+			NED_netherlands_reward = yes
+		}
+	}
+}
+	
+FLA_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = FLA }
+	}
+	has_country_shield = yes
+	
+	FLA_drapieries = {
+		icon = sponsor_the_arts
+		required_missions = { FLA_unite_the_cities }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT
+			trade_goods = cloth
+		}
+		trigger = {
+			OR = {
+				trading_part = {
+					trade_goods = cloth
+					value = 0.05
+				}
+				trade_goods_produced_amount = {
+					trade_goods = cloth 
+					amount = 5
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FLA_upgrade_cloth_priv_with_trade_value
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_province_modifier = FLA_weavers_supported
+					}
+					remove_province_modifier = FLA_weavers_supported
+					add_province_modifier = {
+						name = FLA_weavers_supported_2
+						duration = -1
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_years_of_owned_provinces_production_income = {
+				years = 10
+				trigger = {
+					trade_goods = cloth
+				}
+				custom_tooltip = FLA_prod_from_cloth
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = FLA_famous_flemish_merchants
+				duration = 9125
+			}
+		}
+	}
+	
+	FLA_supply = {
+		icon = mission_rb_conquer_wales
+		required_missions = { FLA_drapieries }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				owner = {
+					trade_goods_produced_amount = {
+						trade_goods = wool 
+						amount = 2
+					}
+				}
+				AND = {
+					trade_goods = wool
+					is_claim = ROOT
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				trade_goods_produced_amount = {
+					trade_goods = wool 
+					amount = 2
+				}
+				any_ally = {
+					trade_goods_produced_amount = {
+						trade_goods = wool 
+						amount = 2
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FLA_upgrade_cloth_privilege_with_wool
+		
+			custom_tooltip = " "
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = FLA_if_via_conquest
+				first_limit = "
+					trade_goods_produced_amount = {
+						trade_goods = wool 
+						amount = 2
+					}
+				"
+				first_effect = "
+					add_years_of_owned_provinces_production_income = {
+						years = 20
+						trigger = {
+							trade_goods = wool
+						}
+						custom_tooltip = FLA_prod_from_wool
+					}
+				"
+			}
+			complex_dynamic_effect = {
+				first_custom_tooltip = FLA_if_via_ally
+				first_limit = "
+					any_ally = {
+						trade_goods_produced_amount = {
+							trade_goods = wool 
+							amount = 2
+						}
+					}
+				"
+				first_effect = "
+					add_dip_power = 100 
+					
+					custom_tooltip = \" \"
+					
+					define_advisor = {
+						type = travelling_merchant
+						skill = 2
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.33
+					}
+				"
+			}
+		}
+	}
+	
+	FLA_strike_france = {
+		icon = king_of_france
+		required_missions = { FLA_supply }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = wine
+				owned_by = FRA 
+			}
+		}
+		trigger = {
+			OR = {
+				has_won_war_against = {
+					who = FRA
+				}
+				num_of_owned_provinces_with = {
+					trade_goods = wine
+					value = 3
+				}
+			}
+		}
+		effect = {
+			ME_add_power_projection = { amount = 40 }
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 20 }
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = commandant
+				skill = 3
+				culture = cosmopolitan_french
+				religion = ROOT
+				cost_multiplier = 0.33
+			}
+		}
+	}
+}
+
+FLA_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = FLA }
+	}
+	has_country_shield = yes
+	
+	FLA_unite_the_cities = {
+		icon = return_visby_to_the_league
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 60
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_burghers
+						value = 1
+					}
+					num_of_estate_privileges = {
+						estate = estate_burghers
+						value = 5
+					}
+				}
+			}
+			else = {
+				has_dip_advisor_2 = yes
+				stability = 1
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = FLA_town_cohesion
+				duration = 7300 
+			}
+			
+			90 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+					}
+					add_base_tax = 1
+				}
+			}
+			
+			1865 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+					}
+					add_base_tax = 1
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_dip_power = 50
+		}
+	}
+	
+	FLA_open_the_scheldt = {
+		icon = the_london_steelyard
+		required_missions = { FLA_unite_the_cities }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						province_id = 1744
+						province_id = 96
+					}
+					NOT = { 
+						controlled_by = ROOT
+					}
+				}
+				AND = {
+					OR = {
+						province_id = 90
+						province_id = 1865
+					}
+					OR = {
+						owned_by = ROOT
+						is_core = ROOT
+					}
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				controls = 1744
+				controls = 96
+			}
+			navy_size = 15
+			has_dip_advisor = yes
+			owns_core_province = 90
+			owns_core_province = 1865
+		}
+		effect = {
+			90 = {
+				add_province_triggered_modifier = FLA_open_scheldt_estuary
+			}
+			1865 = {
+				add_province_triggered_modifier = FLA_open_scheldt_estuary
+			}
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 5
+			
+			custom_tooltip = " "
+			
+			ME_add_years_of_trade_income = { years = 2 }
+		}
+	}
+	
+	FLA_wealth = {
+		icon = dominant_economy
+		required_missions = { FLA_open_the_scheldt FLA_supply }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 90
+				province_id = 92
+				province_id = 87
+				province_id = 1865
+				province_id = 1744
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = FLA_highlighted_area_is_owned
+				owns_core_province = 90
+				owns_core_province = 92
+				owns_core_province = 87
+				owns_core_province = 1865
+				owns_core_province = 1744
+			}
+			development_in_provinces = {
+				value = 150
+				custom_trigger_tooltip = {
+					tooltip = FLA_is_highlighted
+					OR = {
+						province_id = 90
+						province_id = 92
+						province_id = 87
+						province_id = 1865
+						province_id = 1744
+					}
+				}
+			}
+			
+			ME_production_income = { amount = 25 }
+			ME_trade_income = { amount = 25 }
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = FLA_highlighted_area
+			tooltip = { 
+				add_province_modifier = {
+					name = FLA_wealth_modifier
+					duration = -1
+				}
+			}
+			
+			hidden_effect = {
+				90 = {
+					add_province_modifier = {
+						name = FLA_wealth_modifier
+						duration = -1
+					}
+				}
+				92 = {
+					add_province_modifier = {
+						name = FLA_wealth_modifier
+						duration = -1
+					}
+				}
+				87 = {
+					add_province_modifier = {
+						name = FLA_wealth_modifier
+						duration = -1
+					}
+				}
+				1865 = {
+					add_province_modifier = {
+						name = FLA_wealth_modifier
+						duration = -1
+					}
+				}
+				1744 = {
+					add_province_modifier = {
+						name = FLA_wealth_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}

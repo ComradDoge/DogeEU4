@@ -15,6 +15,26 @@ country_event = {
 		ai_chance = { factor = 100 }
 
 		add_yearly_manpower = 0.5
+		
+		custom_tooltip = " "
+		
+		177 = {
+			if = {
+				limit = {
+					owned_by = ROOT
+				}
+				add_local_autonomy = -33
+			}
+		}
+		
+		1879 = {
+			if = {
+				limit = {
+					owned_by = ROOT
+				}
+				add_local_autonomy = -33
+			}
+		}
 	}
 }
 
@@ -29,28 +49,30 @@ country_event = { #A new Order
 
 	option = {
 		name = ME_England_Events.2.a
-
-		trigger = {
-			tag = ENG
-		}
+		
 		ai_chance = {
 			factor = 1
 		}
 
-		FRA = {
-			every_subject_country = {
-				limit = {
-					ai = yes
+		custom_tooltip = FRA_annexes_all_vassals
+		hidden_effect = {
+			FRA = {
+				every_subject_country = {
+					limit = {
+						ai = yes
+					}
+					FRA = { inherit = PREV }
 				}
-				FRA = { inherit = PREV }
-			}
-			every_subject_country = {
-				limit = {
-					ai = no
+				every_subject_country = {
+					limit = {
+						ai = no
+					}
+					ROOT = { vassalize = PREV }
 				}
-				ROOT = { vassalize = PREV }
 			}
 		}
+		
+		custom_tooltip = " "
 
 		poitou_area = {
 			limit = {
@@ -64,29 +86,47 @@ country_event = { #A new Order
 			}
 			cede_province = ROOT
 		}
-		set_country_flag = ENG_Angevin_Missions
+		
+		custom_tooltip = " "
+		
+		set_country_flag = ENG_angevin_path
 		set_country_flag = formed_great_britain_flag
 		set_country_flag = formed_england_flag
 		set_country_flag = formed_france_flag
+		
+		custom_tooltip = UKS_what_is_angevin_empire_and_what_it_stands_for
 		swap_non_generic_missions = yes
+		
+		custom_tooltip = " "
+		
+		add_government_reform = UKS_angevin_monarchy_reform
+		custom_tooltip = UKS_government_reform_mechanic_explanation
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = UKS_unlock_french_estate
+		
 		hidden_effect = {
-			#every_province = {
-			#	limit = {
-			#		culture = breton
-			#	}
-			#	change_culture = breton_celtic
-			#}
-			#every_country = {
-			#	limit = {
-			#		primary_culture = breton
-			#	}
-			#	change_primary_culture = breton_celtic
-			#}
-			set_variable = {
-				which = ENG_Patronized
-				value = 0
+			236 = {
+				add_province_triggered_modifier = ENG_color_changer
 			}
-			#country_event = { id = ME_United_Kingdoms_Events.17 days = 30 }
+		}
+		
+		ME_give_claims = { id = 178 }
+		ME_give_claims = { area = brittany_area }
+		
+		hidden_effect = {
+			FRA = {
+				add_opinion = {
+					who = ROOT
+					modifier = AVE_french_opinion
+				}
+			}
+			
+			add_country_modifier = {
+				name = AVE_hostile_estate
+				duration = -1
+			}
 		}
 	}
 
@@ -95,14 +135,6 @@ country_event = { #A new Order
 
 		ai_chance = {
 			factor = 0
-		}
-
-		brittany_area = {
-			limit = {
-				NOT = { is_core = ROOT }
-				NOT = { is_permanent_claim = ROOT }
-			}
-			add_permanent_claim = ROOT
 		}
 	}
 }
@@ -113,28 +145,30 @@ country_event = {
 	desc = ME_England_Events.3.d
 	picture = COUNTRY_COLLAPSE_eventPicture
 
+	fire_only_once = yes
+
 	trigger = {
 		tag = ENG
-		is_year = 1450
-		NOT = { mission_completed = ENG_demands_of_the_peasants }
-		NOT = { has_country_flag = ENG_Angevin_Missions }
+		is_year = 1454 #for gameplay
+		NOT = { has_country_flag = ENG_prevented_jack }
+	}
+	major = yes
+	major_trigger = { 
+		capital_scope = {
+			superregion = europe_superregion
+		}
 	}
 
 	mean_time_to_happen = {
 		months = 12
 	}
-
-	immediate = {
-		hidden_effect = {
-			complete_mission = ENG_demands_of_the_peasants
-		}
-	}
-
+	
 	option = {
 		name = ME_England_Events.3.a
 
 		ai_chance = { factor = 100 }
 
+		set_country_flag = ME_jack_cade
 		capital_scope = {
 			spawn_rebels = {
 				type = anti_tax_rebels
@@ -143,38 +177,66 @@ country_event = {
 			}
 		}
 	}
-}
-
-country_event = {
-	id = ME_England_Events.4 #Book of Common Prayers
-	title = ME_England_Events.4.t
-	desc = ME_England_Events.4.d
-	picture = RELIGION_eventPicture
-
-	is_triggered_only = yes
-
+	
 	option = {
-		name = ME_England_Events.4.a
+		name = ME_England_Events.3.b
 
-		ai_chance = { factor = 50 }
-
-		add_country_modifier = {
-			name = ENG_gradual_book_of_prayers
-			duration = 3650
+		ai_chance = { factor = 5 }
+		trigger = {
+			OR = { stability = 1 ai = yes }
 		}
-	}
 
-	option = {
-		name = ME_England_Events.4.b
-
-		ai_chance = { factor = 50 }
-
-		add_country_modifier = {
-			name = ENG_instant_book_of_prayers
-			duration = 3650
+		add_stability = -2
+		
+		if = {
+			limit = {
+				NOT = { government = republic }
+			}
+			change_government = republic
+		}
+		add_government_reform = peasants_republic
+		define_ruler = {
+			name = "Jack"
+			dynasty = "Cade"
+			adm = 1
+			dip = 3
+			mil = 4
+			age = 20
+			claim = 95
 		}
 	}
 }
+
+# country_event = {
+	# id = ME_England_Events.4 #Book of Common Prayers
+	# title = ME_England_Events.4.t
+	# desc = ME_England_Events.4.d
+	# picture = RELIGION_eventPicture
+
+	# is_triggered_only = yes
+
+	# option = {
+		# name = ME_England_Events.4.a
+
+		# ai_chance = { factor = 50 }
+
+		# add_country_modifier = {
+			# name = ENG_gradual_book_of_prayers
+			# duration = 3650
+		# }
+	# }
+
+	# option = {
+		# name = ME_England_Events.4.b
+
+		# ai_chance = { factor = 50 }
+
+		# add_country_modifier = {
+			# name = ENG_instant_book_of_prayers
+			# duration = 3650
+		# }
+	# }
+# }
 
 country_event = {
 	id = ME_England_Events.5 #Pilgrimage of Grace
@@ -307,51 +369,6 @@ country_event = {
 		set_country_flag = ENG_pilgrimage_of_grace_happened
 	}
 }
-
-country_event = {
-	id = ME_England_Events.6 #smth
-	title = ME_England_Events.6.t
-	desc = ME_England_Events.6.d
-	picture = RELIGIOUS_WARS_eventPicture
-
-	hidden = yes
-
-	trigger = {
-		has_country_modifier = eng_longbowmen
-		OR = {
-			AND = {
-				NOT = { current_age  = age_of_discovery }
-				NOT = { has_country_flag = eng_longbowmen_last_until_end_of_reformation }
-			}
-			AND = {
-				has_country_flag = eng_longbowmen_last_until_end_of_reformation
-				NOT = {
-					OR = {
-						current_age  = age_of_discovery
-						current_age  = age_of_reformation
-					}
-				}
-			}
-		}
-	}
-
-	mean_time_to_happen = {
-		months = 1
-	}
-
-	immediate = {
-		hidden_effect = {
-			remove_country_modifier = eng_longbowmen
-		}
-	}
-
-	option = {
-		name = ME_England_Events.6.a
-
-		ai_chance = { factor = 100 }
-	}
-}
-
 country_event = {
 	id = ME_England_Events.7 #Statutes of Iona
 	title = ME_England_Events.7.t
@@ -366,23 +383,25 @@ country_event = {
 		ai_chance = { factor = 50 }
 
 		highlands_area = {
+			limit = {
+				culture = highland_scottish
+			}
 			add_province_modifier = {
 				name = ENG_statutes_of_iona_adopted
 				duration = -1
 			}
 		}
-		4364 = {
+		kingdom_of_the_isles_area = {
+			limit = {
+				culture = highland_scottish
+			}
 			add_province_modifier = {
 				name = ENG_statutes_of_iona_adopted
 				duration = -1
 			}
 		}
-		253 = {
-			add_province_modifier = {
-				name = ENG_statutes_of_iona_adopted
-				duration = -1
-			}
-		}
+		
+		custom_tooltip = ENG_highland_provinces_with_the_modifier
 	}
 
 	option = {
@@ -394,45 +413,28 @@ country_event = {
 	}
 }
 
-country_event = {
-	id = ME_England_Events.8 #Surrender and Regrant
+province_event = {
+	id = ME_England_Events.8 #Iona policies
 	title = ME_England_Events.8.t
 	desc = ME_England_Events.8.d
 	picture = REFORM_eventPicture
 
-	is_triggered_only = yes
+	trigger = {
+		has_province_modifier = ENG_statutes_of_iona_adopted
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+	}
 
 	option = {
 		name = ME_England_Events.8.a
 
 		ai_chance = { factor = 50 }
 
-		highlands_area = {
-			add_province_modifier = {
-				name = ENG_statutes_of_iona_adopted
-				duration = -1
-			}
-		}
-		4364 = {
-			add_province_modifier = {
-				name = ENG_statutes_of_iona_adopted
-				duration = -1
-			}
-		}
-		253 = {
-			add_province_modifier = {
-				name = ENG_statutes_of_iona_adopted
-				duration = -1
-			}
-		}
-	}
-
-	option = {
-		name = ME_England_Events.8.b
-
-		ai_chance = { factor = 50 }
-
-		add_accepted_culture_or_dip_power = { culture = highland_scottish }
+		
+		change_culture = scottish
+		add_base_tax = 1
 	}
 }
 
@@ -454,6 +456,8 @@ country_event = {
 				which = printing_press
 				value = 50
 			}
+			add_base_tax = 1 
+			add_base_production = 1 
 		}
 	}
 }
@@ -528,9 +532,6 @@ country_event = {
 		ai_chance = { factor = 10 }
 
 		define_ruler = {
-			DIP = 0
-			ADM = 0
-			MIL = 0
 			claim = 100
 			culture = english
 		}
@@ -543,572 +544,1897 @@ country_event = {
 	}
 }
 
+# country_event = {
+	# id = ME_England_Events.11 #The Last Struggle
+	# title = ME_England_Events.11.t
+	# desc = ME_England_Events.11.d
+	# picture = GOOD_WITH_MONARCH_eventPicture
+
+	# fire_only_once = yes
+
+	# trigger = {
+		# tag = ENG
+		# exists = FRA
+		# is_year = 1450
+		# has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		# NOT = { mission_completed = ENG_Enforce_the_Union }
+		# is_at_war = no
+	# }
+
+	# mean_time_to_happen = {
+		# months = 24
+	# }
+
+	# option = {
+		# name = ME_England_Events.11.a
+
+		# ai_chance = { factor = 100 }
+
+		# add_casus_belli = {
+			# target = FRA
+			# type = cb_hundred_years_union
+			# months = 360
+		# }
+	# }
+# }
+
 country_event = {
-	id = ME_England_Events.11 #The Last Struggle
-	title = ME_England_Events.11.t
-	desc = ME_England_Events.11.d
+	id = ME_England_Events.12 #The Last Struggle
+	title = ME_England_Events.12.t
+	desc = ME_England_Events.12.d
 	picture = GOOD_WITH_MONARCH_eventPicture
 
-	fire_only_once = yes
-
-	trigger = {
-		tag = ENG
-		exists = FRA
-		is_year = 1450
-		has_country_flag = use_missions_expanded_missions_instead_of_paradox
-		NOT = { mission_completed = ENG_Enforce_the_Union }
-		is_at_war = no
-	}
-
-	mean_time_to_happen = {
-		months = 24
-	}
+	is_triggered_only = yes
+	major = yes
 
 	option = {
-		name = ME_England_Events.11.a
+		name = ME_England_Events.12.a
 
 		ai_chance = { factor = 100 }
 
-		add_casus_belli = {
-			target = FRA
-			type = cb_hundred_years_union
-			months = 360
+		ENG_add_war_modifier = {
+			name = ENG_king_of_france
+		}
+		
+		#add_legitimacy_or_reform_progress = { amount = 25 }
+		
+		if = {
+			limit = {
+				has_ruler_flag = henry_vi_lancaster
+			}
+			change_adm = 1
+			change_dip = 1
+			change_mil = 1
+			custom_tooltip = ENG_this_only_applies_to_henry
+			custom_tooltip = " "
+		}
+		
+		custom_tooltip = ENG_for_every_province_england_controls
+		hidden_effect = {
+			FRA = {
+				every_core_province = {
+					limit = {
+						controlled_by = ROOT
+					}
+					ROOT = {
+						add_manpower = 0.15
+						add_treasury = 10
+					}
+				}
+			}
 		}
 	}
 }
 
-# country_event = {
-	# id = ME_Trade_Company_Events.1 #Trade Company Conflict
-	# title = ME_Trade_Company_Events.1.t
-	# desc = ME_Trade_Company_Events.1.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.1.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 10
-		# }
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.1.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = -10
-		# }
-		# add_years_of_income = 1
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.2 #New Company Created
-	# title = ME_Trade_Company_Events.2.t
-	# desc = ME_Trade_Company_Events.2.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.2.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 15
-		# }
-		# add_estate_loyalty = {
-			# estate = estate_burghers
-			# loyalty = -10
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_new_trade_company
-			# influence = 10
-			# duration = 7300
-		# }
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.2.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_burghers
-			# loyalty = 5
-		# }
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.3 #Plans for a new company
-	# title = ME_Trade_Company_Events.3.t
-	# desc = ME_Trade_Company_Events.3.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.3.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 15
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_trade_company_funded
-			# influence = 10
-			# duration = 7300
-		# }
-		# add_years_of_income = -1
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.3.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_prestige = 10
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.4 #Plans for a new company
-	# title = ME_Trade_Company_Events.4.t
-	# desc = ME_Trade_Company_Events.4.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.4.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = -15
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_trade_companies_exposed
-			# influence = -5
-			# duration = 7300
-		# }
-		# add_corruption = 0.5
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.4.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_trade_companies_corrupted
-			# influence = 10
-			# duration = 7300
-		# }
-		# add_corruption = 1
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.5 #Trade Company going bankrupt
-	# title = ME_Trade_Company_Events.5.t
-	# desc = ME_Trade_Company_Events.5.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.5.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 5
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_trade_companies_crown_support
-			# influence = 10
-			# duration = 7300
-		# }
-		# add_years_of_income = -0.25
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.5.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_country_modifier = {
-			# name = ENG_trade_company_ruined
-			# duration = 3650
-		# }
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.6 #Speculation on Trade Company Stock
-	# title = ME_Trade_Company_Events.6.t
-	# desc = ME_Trade_Company_Events.6.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.6.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 5
-		# }
-		# add_treasury = -250
-		# random_list = {
-			# 20 = {}
-			# 20 = {
-				# add_treasury = 125
-			# }
-			# 20 = {
-				# add_treasury = 250
-			# }
-			# 20 = {
-				# add_treasury = 375
-			# }
-			# 20 = {
-				# add_treasury = 500
-			# }
-		# }
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.6.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_prestige = -10
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.7 #conflict over colony land
-	# title = ME_Trade_Company_Events.7.t
-	# desc = ME_Trade_Company_Events.7.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-		# any_owned_province = {
-			# is_owned_by_trade_company = yes
-			# NOT = { has_building = temple }
-			# NOT = { has_building = marketplace }
-		# }
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.7.a
-
-		# ai_chance = { factor = 50 }
-
-		# random_owned_province = {
-			# limit = {
-				# is_owned_by_trade_company = yes
-				# NOT = { has_building = temple }
-				# NOT = { has_building = marketplace }
-			# }
-			# add_building = marketplace
-		# }
-		# add_estate_loyalty = {
-			# estate = estate_church
-			# loyalty = -15
-		# }
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 15
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_supported_companies
-			# influence = 10
-			# duration = 7300
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_church
-			# desc = ENG_supported_companies2
-			# influence = -10
-			# duration = 7300
-		# }
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.7.b
-
-		# ai_chance = { factor = 50 }
-
-		# random_owned_province = {
-			# limit = {
-				# is_owned_by_trade_company = yes
-				# NOT = { has_building = temple }
-				# NOT = { has_building = marketplace }
-			# }
-			# add_building = temple
-		# }
-		# add_estate_loyalty = {
-			# estate = estate_church
-			# loyalty = 15
-		# }
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = -15
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_church
-			# desc = ENG_favored_church2
-			# influence = 10
-			# duration = 7300
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_favored_church
-			# influence = -10
-			# duration = 7300
-		# }
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.8 #trade companies demand rights
-	# title = ME_Trade_Company_Events.8.t
-	# desc = ME_Trade_Company_Events.8.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.8.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 15
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_rights
-			# influence = 10
-			# duration = 7300
-		# }
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.8.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = -15
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_rights
-			# influence = -10
-			# duration = 7300
-		# }
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.9 #rival nation
-	# title = ME_Trade_Company_Events.9.t
-	# desc = ME_Trade_Company_Events.9.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.9.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 10
-		# }
-		# add_mercantilism = 2
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.9.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = -5
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_Rivals
-			# influence = -10
-			# duration = 7300
-		# }
-		# add_dip_power = 100
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.10 #stock company crash
-	# title = ME_Trade_Company_Events.10.t
-	# desc = ME_Trade_Company_Events.10.d
-	# picture = DIPLOMACY_eventPicture
-
-	# trigger = {
-		# has_estate = estate_england_trade_company
-	# }
-
-	# mean_time_to_happen = {
-		# months = 600
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.10.a
-
-		# ai_chance = { factor = 50 }
-
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = 10
-		# }
-		# add_mercantilism = 2
-		# add_years_of_income = -1
-	# }
-
-	# option = {
-		# name = ME_Trade_Company_Events.10.b
-
-		# ai_chance = { factor = 50 }
-
-		# add_country_modifier = {
-			# name = ENG_market
-			# duration = 7300
-		# }
-		# add_estate_loyalty = {
-			# estate = estate_england_trade_company
-			# loyalty = -15
-		# }
-		# add_estate_influence_modifier = {
-			# estate = estate_england_trade_company
-			# desc = ENG_stock_crash
-			# influence = -10
-			# duration = 7300
-		# }
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.11 #start of disaster
-	# title = ME_Trade_Company_Events.11.t
-	# desc = ME_Trade_Company_Events.11.d
-	# picture = COUNTRY_COLLAPSE_eventPicture
-
-	# is_triggered_only = yes
-
-
-	# option = {
-		# name = ME_Trade_Company_Events.11.a
-
-		# ai_chance = { factor = 100 }
-
-		# add_stability = -3
-	# }
-# }
-
-# country_event = {
-	# id = ME_Trade_Company_Events.12 #end of disaster
-	# title = ME_Trade_Company_Events.12.t
-	# desc = ME_Trade_Company_Events.12.d
-	# picture = COUNTRY_COLLAPSE_eventPicture
-
-	# is_triggered_only = yes
-
-
-	# option = {
-		# name = ME_Trade_Company_Events.12.a
-
-		# ai_chance = { factor = 100 }
-
-		# add_stability_or_adm_power = yes
-	# }
-# }
+country_event = {
+	id = ME_England_Events.13 #HYW
+	title = ME_England_Events.13.t
+	desc = ME_England_Events.13.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = ME_England_Events.13.a
+
+		ai_chance = { factor = 100 }
+
+		custom_tooltip = ENG_hyw_incident_tt
+		set_country_flag = ENG_hyw_tree_incident
+		swap_non_generic_missions = yes
+	}
+	
+	option = {
+		name = ME_England_Events.13.b
+
+		ai_chance = { factor = 100 }
+
+		add_country_modifier = {
+			name = ENG_hyw_war_modifier
+			duration = 1825
+		}
+		
+		add_army_tradition_or_mil_power = { amount = 10 }
+	}
+}
+
+country_event = {
+	id = ME_England_Events.14 #HYW
+	title = ME_England_Events.14.t
+	desc = ME_England_Events.14.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	trigger = {
+		has_country_flag = ENG_hyw_tree_incident
+		NOT = {
+			is_in_war = {
+				casus_belli = cb_hundred_years_war
+			}
+		}
+	}
+
+	option = {
+		name = ME_England_Events.14.a
+
+		ai_chance = { factor = 100 }
+
+		ENG_end_incident = yes
+	}
+}
+
+country_event = {
+	id = ME_England_Events.15 #HYW
+	title = ME_England_Events.15.t
+	desc = ME_England_Events.15.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = ME_England_Events.15.a
+
+		ai_chance = { factor = 100 }
+
+		241 = {
+			area = {
+				add_province_triggered_modifier = ENG_wales_autonomy_ptm
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.16 #Statutes of Iona
+	title = ME_England_Events.16.t
+	desc = ME_England_Events.16.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = ME_England_Events.16.a
+
+		ai_chance = { factor = 90 }
+
+		custom_tooltip = ENG_surrender_and_regrant
+		set_country_flag = ENG_surrender_and_regrant_flag
+	}
+
+	option = {
+		name = ME_England_Events.16.b
+
+		ai_chance = { factor = 10 }
+
+		add_accepted_culture_or_dip_power = { culture = irish }
+	}
+}
+
+province_event = {
+	id = ME_England_Events.17 #Surrender and Regrant policies
+	title = ME_England_Events.17.t
+	desc = ME_England_Events.17.d
+	picture = REFORM_eventPicture
+
+	trigger = {
+		culture = irish
+		owner = {
+			has_country_flag = ENG_surrender_and_regrant_flag
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 480
+		modifier = {
+			factor = 0.5
+			owner = {
+				mission_completed = ENG_plantations 
+			}
+		}
+	}
+
+	option = {
+		name = ME_England_Events.17.a
+
+		ai_chance = { factor = 50 }
+
+		
+		change_culture = anglo_irish
+		add_base_manpower = 1
+	}
+}
+
+country_event = {
+	id = ME_England_Events.18 #Pastime with Good Company
+	title = ME_England_Events.18.t
+	desc = ME_England_Events.18.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_England_Events.18.a
+
+		ai_chance = { factor = 90 }
+
+		add_prestige_or_monarch_power = { amount = 20 }
+		
+		custom_tooltip = " "
+		
+		add_age_modifier = {
+			name = ENG_elizabethan_era
+			duration = -1
+			age = age_of_reformation
+		}
+		
+		if = {
+			limit = {
+				has_dlc = "Leviathan"
+			}
+			custom_tooltip = ENG_upgrade_globe_theatre
+			set_country_flag = ENG_upgrade_globe_theatre_flag
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.19
+	title = ME_England_Events.19.t
+	desc = ME_England_Events.19.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_England_Events.19.a
+
+		ai_chance = { factor = 25 }
+
+		add_country_modifier = {
+			name = ENG_oxford_support
+			duration = -1
+			desc = ENG_until_support_is_changed
+		}
+		
+		custom_tooltip = ENG_this_can_be_changed
+	}
+	
+	option = {
+		name = ME_England_Events.19.b
+
+		ai_chance = { factor = 25 }
+
+		add_country_modifier = {
+			name = ENG_cambridge_support
+			duration = -1
+			desc = ENG_until_support_is_changed
+		}
+		
+		custom_tooltip = ENG_this_can_be_changed
+	}
+	
+	after = {
+		set_country_flag = ENG_just_set_preference
+	}
+}
+
+country_event = {
+	id = ME_England_Events.20
+	title = ME_England_Events.20.t
+	desc = ME_England_Events.20.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_England_Events.20.a
+
+		ai_chance = { factor = 25 } #best for AI tbh
+
+		custom_tooltip = ENG_lineages_abso_tt
+		set_country_flag = ME_estate_nobles_ENG_new_lineages_abso_flag
+	}
+	
+	option = {
+		name = ME_England_Events.20.b
+
+		ai_chance = { factor = 0 }
+
+		custom_tooltip = ENG_lineages_dynasty_tt
+		set_country_flag = ME_estate_nobles_ENG_new_lineages_dynasty_flag
+	}
+	
+	option = {
+		name = ME_England_Events.20.c
+
+		ai_chance = { factor = 0 }
+
+		custom_tooltip = ENG_lineages_no_interference_tt
+		set_country_flag = ME_estate_nobles_ENG_new_lineages_no_interference_flag
+	}
+}
+
+country_event = {
+	id = ME_England_Events.21
+	title = ME_England_Events.21.t
+	desc = ME_England_Events.21.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.21.a
+
+		ai_chance = { factor = 25 }
+
+		add_country_modifier = {
+			name = ENG_bill_of_rights
+			duration = -1
+		}
+		
+		add_stability_or_adm_power = yes
+		
+		#TODO add abso interaction here ?
+	}
+	
+	option = {
+		name = ME_England_Events.21.b
+
+		ai_chance = { factor = 25 }
+		
+		add_country_modifier = {
+			name = ENG_powers_for_the_monarch
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.22
+	title = ME_England_Events.22.t
+	desc = ME_England_Events.22.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				save_event_target_as = ENG_i_need_port
+			}
+		}
+	}
+	
+	option = {
+		name = ME_England_Events.22.a
+
+		ai_chance = { factor = 25 }
+
+		add_treasury = -500
+		
+		if = {
+			limit = {
+				has_dlc = "Mandate of Heaven"
+			}
+			add_splendor = 400 
+		}
+		else = {
+			add_prestige_or_monarch_power = { amount = 40 }
+		}
+
+		event_target:ENG_i_need_port = {
+			ME_create_flagship = {
+				name = "Great Henry"
+				type = heavy_ship
+				mod_1 = ME_great_ship
+				mod_2 = ENG_gunports
+				mod_3 = mass_load_cannons 
+			}
+		}
+	}
+	
+	option = {
+		name = ME_England_Events.22.b
+
+		ai_chance = { factor = 25 }
+		
+		add_treasury = -100
+		
+		custom_tooltip = " "
+		
+		event_target:ENG_i_need_port = {
+			ME_create_flagship = {
+				name = "Mary Rose"
+				type = heavy_ship
+				mod_1 = ENG_gunports
+				mod_2 = mass_load_cannons
+				mod_3 = mortars 
+			}
+		}
+	}
+	
+	option = {
+		name = ME_England_Events.22.c
+
+		ai_chance = { factor = 25 }
+	
+		add_dip_power = 100
+	}
+}
+
+country_event = {
+	id = ME_England_Events.23
+	title = ME_England_Events.23.t
+	desc = ME_England_Events.23.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.23.a
+
+		ai_chance = { factor = 25 }
+
+		add_country_modifier = {
+			name = ENG_man_of_war_resistance
+			duration = -1
+		}
+	}
+	
+	option = {
+		name = ME_England_Events.23.b
+
+		ai_chance = { factor = 25 }
+		
+		add_country_modifier = {
+			name = ENG_man_of_war_attack
+			duration = -1
+		}
+	}
+	
+	option = {
+		name = ME_England_Events.23.c
+
+		ai_chance = { factor = 25 }
+	
+		add_country_modifier = {
+			name = ENG_man_of_war_maintenance
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.24
+	title = ME_England_Events.24.t
+	desc = flavor_eng.EVTDESC9127
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.24.a
+
+		ai_chance = { factor = 25 }
+
+		custom_tooltip = ENG_promote_mercantilism_will_not_take_absolutism_penalty
+		set_country_flag = ENG_promote_mercantilism_flag_no_abso
+	}
+	
+	option = {
+		name = ME_England_Events.24.b
+
+		ai_chance = { factor = 25 }
+		
+		custom_tooltip = ENG_promote_mercantilism_development_cost
+		set_country_flag = ENG_promote_mercantilism_flag_development
+	}
+	
+	option = {
+		name = ME_England_Events.24.c
+
+		ai_chance = { factor = 25 }
+		
+		custom_tooltip = ENG_promote_mercantilism_mercantilist_cost
+		set_country_flag = ENG_promote_mercantilism_flag_mercantilist_cost
+	}
+}
+
+country_event = {
+	id = ME_England_Events.25
+	title = ME_England_Events.25.t
+	desc = ME_England_Events.25.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.25.a
+
+		ai_chance = { factor = 25 }
+
+		custom_tooltip = ENG_we_have_a_conditional_modifier
+	}
+}
+
+country_event = {
+	id = ME_England_Events.26
+	title = ME_England_Events.26.t
+	desc = ME_England_Events.26.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.26.a
+
+		ai_chance = { factor = 25 }
+
+		add_country_modifier = {
+			name = ENG_development_of_sheep_pastures
+			duration = 10950
+		}
+		
+		custom_tooltip = ENG_double_amount_gained
+		set_country_flag = ENG_double_amount_gained_flag
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_upgrade_starting_priv
+		set_country_flag = ENG_upgrade_starting_priv_flag
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = ENG_wool_demand
+				}
+				remove_province_modifier = ENG_wool_demand
+				add_province_modifier = {
+					name = ENG_wool_demand_2
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.27
+	title = ME_England_Events.27.t
+	desc = ME_England_Events.27.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.27.a
+
+		ai_chance = { factor = 25 }
+		
+		define_explorer = {
+			name = "Francis Drake"
+			fire = 4
+			shock = 3
+			manuever = 4
+			siege = 0
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = NED_letters_of_marque_privilege
+		set_country_flag = estate_settlers_letters_of_marque
+	}
+}
+
+country_event = {
+	id = ME_England_Events.28
+	title = ME_England_Events.28.t
+	desc = ME_England_Events.28.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.28.a
+
+		ai_chance = { factor = 25 }
+		
+		define_explorer = {
+			name = "James Cook"
+			fire = 4
+			shock = 3
+			manuever = 6
+			siege = 0
+		}
+		
+		change_innovativeness = 3
+	}
+	
+	option = {
+		name = ME_England_Events.28.b
+
+		ai_chance = { factor = 25 }
+		
+		define_advisor = {
+			type = natural_scientist
+			name = "James Cook"
+			skill = 3
+			culture = english
+			religion = ROOT
+			cost_multiplier = 0.33
+		}
+		
+		change_innovativeness = 3
+	}
+}
+
+country_event = {
+	id = ME_England_Events.29
+	title = ME_England_Events.29.t
+	desc = ME_England_Events.29.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.29.a
+
+		ai_chance = { factor = 25 }
+		
+		change_price = {
+			trade_goods = tobacco
+			key = ENG_open_trade
+			value = 0.25
+			duration = 19500
+		}
+		change_price = {
+			trade_goods = fur
+			key = ENG_open_trade
+			value = 0.25
+			duration = 19500
+		}
+	}
+	
+	option = {
+		name = ME_England_Events.29.b
+
+		ai_chance = { factor = 25 }
+		
+		add_years_of_income = 0.5 
+		
+		change_price = {
+			trade_goods = tobacco
+			key = ENG_we_dumped
+			value = -0.2
+			duration = 19500
+		}
+		change_price = {
+			trade_goods = fur
+			key = ENG_we_dumped
+			value = -0.2
+			duration = 19500
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.30
+	title = ME_England_Events.30.t
+	desc = ME_England_Events.30.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.30.a
+
+		ai_chance = { factor = 25 }
+		
+		custom_tooltip = ENG_london_company_claims
+		tooltip = {
+			add_permanent_province_modifier = {
+				name = ENG_colonial_endorsement
+				duration = -1
+			}
+		}
+		hidden_effect = {
+			south_carolina_piedmont_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			carolinas_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			chesapeake_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			maryland_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			westsylvania_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			new_york_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			delaware_valley_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_England_Events.30.b
+
+		ai_chance = { factor = 25 }
+		
+		custom_tooltip = ENG_plymouth_company_claims
+		tooltip = {
+			add_permanent_province_modifier = {
+				name = ENG_colonial_endorsement
+				duration = -1
+			}
+		}
+		hidden_effect = {
+			new_york_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			delaware_valley_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			connecticut_valley_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			massachusetts_bay_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			great_woods_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			maine_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+			eastern_maine_area = {
+				add_permanent_province_modifier = {
+					name = ENG_colonial_endorsement
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.31
+	title = ME_England_Events.31.t
+	desc = ME_England_Events.31.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.31.a
+
+
+		ai_chance = { factor = 25 }
+		
+		custom_tooltip = ENG_EIC_explainer
+	}
+}
+
+country_event = {
+	id = ME_England_Events.32
+	title = ME_England_Events.32.t
+	desc = ME_England_Events.32.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	
+	option = {
+		name = ME_England_Events.32.a
+
+
+		ai_chance = { factor = 25 }
+		
+		change_price = {
+			trade_goods = spices
+			key = ENG_spice_boom
+			value = 0.2
+			duration = 19500
+		}
+		
+		change_price = {
+			trade_goods = cloves
+			key = ENG_spice_boom
+			value = 0.5
+			duration = 19500
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.33
+	title = ME_England_Events.33.t
+	desc = ME_England_Events.33.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.33.a
+
+		ai_chance = { factor = 25 }
+		
+		custom_tooltip = ENG_gain_opinion_of_reformed_and_protestant
+		hidden_effect = {
+			every_country = {
+				limit = {
+					OR = {
+						religion = anglican
+						religion = protestant
+						religion = reformed
+						religion = hussite
+					}
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = ENG_supporting_protestant_thought
+				}
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		change_innovativeness = 2
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_upgrade_dissolve_monasteries_and_deport_heretics
+		set_country_flag = ENG_upgrade_protestant_interactions
+	}
+	
+	option = {
+		name = ME_England_Events.33.b
+
+		ai_chance = { factor = 25 }
+		
+		custom_tooltip = ENG_upgrade_militarize_religious_icons_and_progress
+		set_country_flag = ENG_upgrade_catholic_interactions
+		
+		custom_tooltip = " "
+		
+		add_country_modifier = {
+			name = ENG_old_faith
+			duration = 10950
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.34
+	title = ME_England_Events.34.t
+	desc = ME_England_Events.34.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes 
+	trigger = {
+		NOT = { has_country_flag = ENG_henry_is_incompetent }
+	}
+	
+	option = {
+		name = ME_England_Events.34.a
+
+		ai_chance = { factor = 25 }
+		
+		set_country_flag = ENG_henry_is_incompetent
+		custom_tooltip = ENG_low_skills
+		add_legitimacy = -25
+	}
+}
+
+country_event = {
+	id = ME_England_Events.35
+	title = ME_England_Events.35.t
+	desc = ME_England_Events.35.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes 
+	
+	immediate = {
+		clr_country_flag = ENG_pretender_has_not_fired
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = supports_house_of_york }
+				}
+				if = {
+					limit = {
+						owns = 245		# Yorkshire
+						245 = {
+							NOT = { units_in_province = 1 }
+						}
+					}
+					245 = { save_event_target_as = eng_support }
+				}
+				else = {
+					random_owned_province = {
+						limit = {
+							region = british_isles_region
+							is_island = no
+							OR = {
+								NOT = {
+									root = {
+										any_owned_province = {
+											region = british_isles_region
+											NOT = { units_in_province = 1 }
+										}
+									}
+								}
+								NOT = { units_in_province = 1 }
+							}
+						}
+						save_event_target_as = eng_support
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						owns = 244		# Lancashire
+						244 = {
+							NOT = { units_in_province = 1 }
+						}
+					}
+					244 = {
+						save_event_target_as = eng_support
+					}
+				}
+				else = {
+					random_owned_province = {
+						limit = {
+							region = british_isles_region
+							is_island = no
+							OR = {
+								NOT = {
+									root = {
+										any_owned_province = {
+											region = british_isles_region
+											NOT = { units_in_province = 1 }
+										}
+									}
+								}
+								NOT = { units_in_province = 1 }
+							}
+						}
+						save_event_target_as = eng_support
+					}
+				}
+			}
+			event_target:eng_support = {
+				add_province_modifier = {
+					name = ENG_temp
+					duration = 2
+				}
+				if = {
+					limit = {
+						ROOT = {
+							NOT = { has_country_flag = supports_house_of_york }
+						}
+					}
+					area = {
+						add_core = YRK
+					}
+					add_province_modifier = {
+						name = wotr_local_support_for_york
+						duration = 3650
+					}
+					spawn_rebels = {
+						type = pretender_rebels
+						size = 5
+						leader = "Richard"
+						leader_dynasty = "York"
+						win = yes
+					}
+				}
+				else = {
+					area = {
+						add_core = LNC
+					}
+					add_province_modifier = {
+						name = wotr_local_support_for_lancaster
+						duration = 3650
+					}
+					spawn_rebels = {
+						type = pretender_rebels
+						size = 5
+						leader = "Edward"
+						leader_dynasty = "Lancaster"
+						win = yes
+					}
+				}
+				remove_province_modifier = ENG_temp
+			}
+		}
+	}
+	
+	option = {
+		name = ME_England_Events.35.a
+
+		ai_chance = { factor = 25 }
+		
+		custom_tooltip = ENG_large_rebellion_in_eng_support
+	}
+}
+
+country_event = {
+	id = ME_England_Events.36
+	title = ME_England_Events.36.t #Irish Plot
+	desc = ME_England_Events.36.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		eng_has_irish_province_trigger = yes
+		NOT = { has_country_flag = ENG_can_have_irish_confederate_revolt }
+	}
+
+	option = {
+		name = ME_England_Events.36.a
+
+		ai_chance = { factor = 25 }
+		
+		set_country_flag = ENG_can_have_irish_confederate_revolt
+		add_disaster_progress = {
+			disaster = ME_irish_confederate_revolt
+			value = 25
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.37
+	title = ME_England_Events.37.t #Proclamation of Dungannon
+	desc = ME_England_Events.37.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			leinster_area = {
+				add_core = IRE
+			}
+			munster_area = {
+				add_core = IRE
+			}
+			ulster_area = {
+				add_core = IRE
+			}
+			connacht_area = {
+				add_core = IRE
+			}
+		}
+	}
+	major = yes #major as heck
+
+	option = {
+		name = ME_England_Events.37.a #Treason!
+
+		ai_chance = { factor = 75 }
+		
+		hidden_effect = {
+			leinster_area = {
+				limit = {
+					culture = irish
+					country_or_non_sovereign_subject_holds = ROOT 
+					if = { 
+						limit = {
+							owner = { is_subject_of = ROOT }
+						}
+						owner = { ai = yes }
+					}
+				}
+				cede_province = ROOT
+			}
+			munster_area = {
+				limit = {
+					culture = irish
+					country_or_non_sovereign_subject_holds = ROOT 
+					if = { 
+						limit = {
+							owner = { is_subject_of = ROOT }
+						}
+						owner = { ai = yes }
+					}
+				}
+				cede_province = ROOT
+			}
+			ulster_area = {
+				limit = {
+					culture = irish
+					country_or_non_sovereign_subject_holds = ROOT 
+					if = { 
+						limit = {
+							owner = { is_subject_of = ROOT }
+						}
+						owner = { ai = yes }
+					}
+				}
+				cede_province = ROOT
+			}
+			connacht_area = {
+				limit = {
+					culture = irish
+					country_or_non_sovereign_subject_holds = ROOT 
+					if = { 
+						limit = {
+							owner = { is_subject_of = ROOT }
+						}
+						owner = { ai = yes }
+					}
+				}
+				cede_province = ROOT
+			}
+			if = {
+				limit = {
+					NOT = {
+						IRE = { num_of_cities = 5 }
+					}
+				}
+				munster_area = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT 
+						if = { 
+							limit = {
+								owner = { is_subject_of = ROOT }
+							}
+							owner = { ai = yes }
+						}
+					}
+					cede_province = ROOT
+				}
+				connacht_area = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT 
+						if = { 
+							limit = {
+								owner = { is_subject_of = ROOT }
+							}
+							owner = { ai = yes }
+						}
+					}
+					cede_province = ROOT
+				}
+			}
+		}
+		release = IRE
+		IRE = {
+			set_country_flag = IRE_confederate_ireland_flag
+			override_country_name = IRE_confederate_ireland
+			
+			change_religion = catholic
+			
+			add_country_modifier = {
+				name = ENG_revolt_against_england
+				duration = 5475
+			}
+			
+			capital_scope = {
+				build_to_forcelimit = {
+					infantry = 0.7
+					artillery = 0.3
+				}
+			}
+			
+			add_yearly_manpower = 5
+			
+			declare_war_with_cb = {
+				who = ROOT
+				casus_belli = cb_irish_confederate_revolt
+			}
+			
+			define_ruler = {
+				name = "Phelim"
+				dynasty = "O'Neill"
+				adm = 5
+				dip = 4
+				mil = 6
+				age = 20
+				claim = 95
+			}
+			
+			create_general = { tradition = 100 add_fire = 1 add_shock = 1 add_manuever = 1 add_siege = 1 }
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_occupied_provinces_in_ireland
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_beat_the_war
+		set_country_flag = ENG_condemn
+	}
+	
+	option = {
+		name = ME_England_Events.37.b # Let us negotiate
+
+		ai_chance = { factor = 25 }
+		
+		add_country_modifier = {
+			name = ENG_chickened_out_ireland_penalty
+			duration = -1
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_endure_rebels
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_it_ends_with_other_disaster
+		
+		set_country_flag = ENG_supported_rebels
+	}
+}
+
+country_event = {
+	id = ME_England_Events.38
+	title = ME_England_Events.38.t #End of the Confederate war
+	desc = ME_England_Events.38.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	major = yes #major as heck
+
+	option = {
+		name = ME_England_Events.38.a
+
+		ai_chance = { factor = 75 }
+	
+		munster_area = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_local_autonomy = 25
+		}
+		ulster_area = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_local_autonomy = 25
+		}
+		leinster_area = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_local_autonomy = 25
+		}
+		connacht_area = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_local_autonomy = 25
+		}
+		
+		custom_tooltip = " "
+		
+		ME_add_power_projection = { amount = 15 }
+	}
+}
+
+country_event = {
+	id = ME_England_Events.39
+	title = ME_England_Events.39.t #End of the Confederate war
+	desc = ME_England_Events.39.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		eng_has_irish_province_trigger = yes
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_province = {
+				limit = {
+					eng_is_in_ireland_trigger = yes
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				save_event_target_as = eng_revolt_prov
+			}
+		}
+	}
+
+	option = {
+		name = ME_England_Events.39.a
+
+		ai_chance = { factor = 75 }
+	
+		event_target:eng_revolt_prov = {
+			if = {
+				limit = {
+					ROOT = { has_country_flag = supports_parliamentarians }
+				}
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 2
+				}
+			}
+			else = {
+				spawn_rebels = {
+					type = parliamentarians_rebels
+					size = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.40
+	title = ME_England_Events.40.t #change of ownership
+	desc = ME_England_Events.40.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = ENG_condemn
+		any_owned_province = {
+			eng_is_in_ireland_trigger = yes
+			controlled_by = IRE
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					eng_is_in_ireland_trigger = yes
+					controlled_by = IRE
+				}
+				save_event_target_as = eng_we_are_irish_now
+			}
+		}
+	}
+	
+	major = yes
+	major_trigger = {
+		war_with = ROOT
+	}
+	
+	option = {
+		name = ME_England_Events.40.a # Let us negotiate
+
+		ai_chance = { factor = 25 }
+		
+		event_target:eng_we_are_irish_now = {
+			cede_province = IRE
+			set_local_autonomy = 0
+		}
+		IRE = {	
+			add_yearly_manpower = 2
+		}
+	}
+}
+
+
+country_event = {
+	id = ME_England_Events.41
+	title = ME_England_Events.41.t #Signing of the National Covenant
+	desc = ME_England_Events.41.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			lowlands_area = {
+				add_core = SCO
+			}
+			highlands_area = {
+				add_core = SCO
+			}
+			kingdom_of_the_isles_area = {
+				add_core = SCO
+			}
+		}
+	}
+	major = yes #major as heck
+
+	option = {
+		name = ME_England_Events.41.a #Treason!
+
+		ai_chance = { factor = 75 }
+		
+		hidden_effect = {
+			lowlands_area = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT 
+					if = { 
+						limit = {
+							owner = { is_subject_of = ROOT }
+						}
+						owner = { ai = yes }
+					}
+				}
+				cede_province = ROOT
+			}
+			highlands_area = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT 
+					if = { 
+						limit = {
+							owner = { is_subject_of = ROOT }
+						}
+						owner = { ai = yes }
+					}
+				}
+				cede_province = ROOT
+			}
+			kingdom_of_the_isles_area = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT 
+					if = { 
+						limit = {
+							owner = { is_subject_of = ROOT }
+						}
+						owner = { ai = yes }
+					}
+				}
+				cede_province = ROOT
+			}
+		}
+		release = SCO
+		SCO = {
+			set_country_flag = IRE_convenanter_scotland_flag
+			override_country_name = SCO_national_covenant
+			change_country_color = {
+				color = { 0 94 183 }
+			}
+			custom_tooltip = " "
+			change_government = theocracy
+			set_country_flag = has_overriden_color_flag
+			
+			add_country_modifier = {
+				name = ENG_revolt_against_england
+				duration = 5475
+			}
+			
+			capital_scope = {
+				build_to_forcelimit = {
+					infantry = 0.7
+					artillery = 0.3
+				}
+			}
+			
+			declare_war_with_cb = {
+				who = ROOT
+				casus_belli = cb_scottish_covenant_war
+			}
+			
+			add_yearly_manpower = 5
+			
+			create_general = { tradition = 100 add_fire = 1 add_shock = 1 add_manuever = 1 add_siege = 1 }
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_beat_the_war
+		set_country_flag = ENG_condemn_scots
+	}
+	
+	option = {
+		name = ME_England_Events.37.b # Let us negotiate
+
+		ai_chance = { factor = 25 }
+		
+		add_country_modifier = {
+			name = ENG_chickened_out_scotland_penalty
+			duration = -1
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_endure_rebels
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_it_ends_with_other_disaster
+		
+		set_country_flag = ENG_supported_rebels_scots
+	}
+}
+
+country_event = {
+	id = ME_England_Events.42
+	title = ME_England_Events.42.t #End of the Scottish Insurgency
+	desc = ME_England_Events.42.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	major = yes #major as heck
+
+	option = {
+		name = ME_England_Events.42.a
+
+		ai_chance = { factor = 75 }
+	
+		lowlands_area = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_local_autonomy = -25
+			
+			add_province_modifier = {
+				name = ENG_convert_the_scots
+				duration = -1
+			}
+		}
+		highlands_area = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_local_autonomy = -25
+			
+			add_province_modifier = {
+				name = ENG_convert_the_scots
+				duration = -1
+			}
+		}
+		kingdom_of_the_isles_area = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_local_autonomy = -25
+			
+			add_province_modifier = {
+				name = ENG_convert_the_scots
+				duration = -1
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		ME_add_power_projection = { amount = 15 }
+	}
+}
+
+country_event = {
+	id = ME_England_Events.43
+	title = ME_England_Events.43.t #Revolt for Scotland
+	desc = ME_England_Events.43.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		eng_has_scottish_province_trigger = yes
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_province = {
+				limit = {
+					eng_is_in_scotland_trigger = yes
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				save_event_target_as = eng_revolt_prov
+			}
+		}
+	}
+
+	option = {
+		name = ME_England_Events.39.a
+
+		ai_chance = { factor = 75 }
+	
+		event_target:eng_revolt_prov = {
+			if = {
+				limit = {
+					ROOT = { has_country_flag = supports_parliamentarians }
+				}
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 2
+				}
+			}
+			else = {
+				spawn_rebels = {
+					type = parliamentarians_rebels
+					size = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.44
+	title = ME_England_Events.44.t #Tudor Monarchy
+	desc = ME_England_Events.44.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.44.a
+
+		ai_chance = { factor = 100 }
+	
+		custom_tooltip = ENG_unlock_plantagenet_monarchy
+		
+		add_government_reform = tudor_monarchy
+	}
+	
+	option = {
+		name = ME_England_Events.44.b
+
+		ai_chance = { factor = 0 }
+	
+		custom_tooltip = ENG_unlock_plantagenet_monarchy
+	}
+}
+
+country_event = {
+	id = ME_England_Events.45
+	title = ME_England_Events.45.t #Generic English Mission Tree - pick your destiny
+	desc = ME_England_Events.45.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.45.a #Our rule should be backed by the parliament
+
+		ai_chance = { factor = 33 }
+	
+		trigger = {
+			has_parliament_dlc_trigger = yes
+		}
+		
+		custom_tooltip = LNC_unlock_the_parliament_estate
+		set_country_flag = enable_parliament_estate
+	}
+	
+	option = {
+		name = ME_England_Events.45.b #Our rule will be backed by the nobility
+
+		ai_chance = { factor = 33 }
+		trigger = {
+			has_estate = estate_nobles
+		}
+	
+		#custom_tooltip = LNC_unlock_new_lineages_the_noble_version
+		custom_tooltip = ENG_enable_new_lineages_estate_privilege
+		
+		complete_mission = ENG_new_men 
+	
+		custom_tooltip = " "
+		
+		custom_tooltip = ENG_lineages_no_interference_tt
+		set_country_flag = ME_estate_nobles_ENG_new_lineages_no_interference_flag
+	}
+	
+	
+	option = {
+		name = ME_England_Events.45.c #Our rule will be backed by the commons
+
+		ai_chance = { factor = 33 }
+	
+		add_country_modifier = {
+			name = LNC_support_of_commons
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.46
+	title = ME_England_Events.46.t #Adventurers of London
+	desc = ME_England_Events.46.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.46.a
+
+		ai_chance = { factor = 100 }
+	
+		define_advisor = {
+			type = travelling_merchant
+			skill = 3
+			culture = english
+			religion = ROOT
+			cost_multiplier = 0.33
+		}
+		
+		custom_tooltip = " "
+		
+		1271 = {
+			add_trade_modifier = {
+				power = 25
+				duration = 18250
+				key = LNC_adventurers
+				who = ROOT
+			}
+		}
+		45 = {
+			add_trade_modifier = {
+				power = 25
+				duration = 18250
+				key = LNC_adventurers
+				who = ROOT
+			}
+		}
+		43 = {
+			add_trade_modifier = {
+				power = 25
+				duration = 18250
+				key = LNC_adventurers
+				who = ROOT
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_England_Events.47
+	title = ME_England_Events.47.t #Positive Villeinage
+	desc = ME_England_Events.47.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.47.a
+
+		ai_chance = { factor = 0 }
+	
+		set_estate_privilege = estate_nobles_english_villeinage
+		
+		custom_tooltip = LNC_temporary_better_villeinage
+	}
+	
+	option = {
+		name = ME_England_Events.47.b
+
+		ai_chance = { factor = 100 }
+	
+		add_country_modifier = {
+			name = LNC_evolution_of_villeinage
+			duration = 9125
+		}
+	}
+}
+
+province_event = {
+	id = ME_England_Events.48
+	title = ME_England_Events.47.t #delayed event
+	desc = ME_England_Events.47.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	hidden = yes
+	
+	immediate = {
+		back_current_issue = yes
+	}
+	
+	option = {
+		name = ME_England_Events.47.b
+
+		ai_chance = { factor = 100 }
+	
+		
+	}
+}
+
+country_event = {
+	id = ME_England_Events.49
+	title = ME_England_Events.49.t #delayed event
+	desc = ME_England_Events.49.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_England_Events.49.a
+
+		ai_chance = { factor = 100 }
+	
+		custom_tooltip = ENG_upgrade_concede_prerogative
+		set_country_flag = ENG_upgraded_prerogative
+		
+		custom_tooltip = " "
+		
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+	}
+	
+	option = {
+		name = ME_England_Events.49.b
+
+		ai_chance = { factor = 100 }
+	
+		custom_tooltip = ENG_winning_debates_will_now_give_power_projection
+		set_country_flag = ENG_winning_debates_will_now_give_power_projection_flag
+		
+		custom_tooltip = " "
+		
+		add_prestige_or_monarch_power = { amount = 15 }
+	}
+	
+	option = {
+		name = ME_England_Events.49.c
+
+		ai_chance = { factor = 100 }
+	
+		custom_tooltip = ENG_give_the_abso_priv_less_abso
+		set_country_flag = ENG_give_less_abso
+		
+		custom_tooltip = " "
+		
+		add_absolutism = -5
+	}
+}

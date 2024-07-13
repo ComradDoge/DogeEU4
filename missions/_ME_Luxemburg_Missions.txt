@@ -1,0 +1,849 @@
+# Thanks to Penguboy for his suggestions for Luxemburg
+
+LUX_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = LUX
+	}
+	has_country_shield = yes
+	
+	LUX_burgundy = { #cancel purchase
+		icon = conquer_burgundy
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 6
+				army_size_percentage = 1
+			}
+		}
+		effect = {
+			add_yearly_manpower = 2
+			
+			custom_tooltip = " "
+
+			custom_tooltip = LUX_pig_farmers_merc_company
+			set_country_flag = LUX_pig_farmers_merc_company_flag
+			
+			custom_tooltip = " "
+			
+			94 = {
+				add_province_triggered_modifier = LUX_pig_farmer_conscription
+			}
+			
+			custom_tooltip = LUX_only_active
+		}
+	}
+	
+	LUX_brandenburg_potential = {
+		icon = ansbach_succession
+		required_missions = { LUX_von_luxemburg }
+		position = 3
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = PRU
+					PRU = {
+						NOT = { is_subject = yes }
+					}
+				}
+				owned_by = PRU
+			}
+			else_if = {
+				limit = {
+					exists = BRA
+				}
+				owned_by = BRA
+			}
+			else = {
+				province_id = 50
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = PRU
+					PRU = {
+						NOT = { is_subject = yes }
+					}
+				}
+				OR = {
+					army_size = PRU
+					total_own_and_non_tributary_subject_development = PRU
+					reverse_has_opinion = {
+						who = PRU
+						value = 135
+					}
+					50 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+			else_if = {
+				limit = {
+					exists = BRA
+				}
+				OR = {
+					army_size = BRA
+					total_own_and_non_tributary_subject_development = BRA
+					reverse_has_opinion = {
+						who = BRA
+						value = 135
+					}
+					50 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+			else = {
+				50 = { country_or_non_sovereign_subject_holds = ROOT } 
+			}
+		}
+		effect = {
+			ME_give_claims = { area = neumark_area }
+			ME_give_claims = { area = lower_saxony_area }
+			ME_give_claims = { area = vorpommern_area }
+			ME_give_claims = { area = mecklenburg_area }
+			ME_give_claims = { area = hinter_pommern_area }
+			ME_give_claims = { area = mittelmark_area }
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					exists = PRU
+					PRU = {
+						NOT = { is_subject = yes }
+					}
+				}
+				complex_dynamic_effect = {
+					first_custom_tooltip = LUX_if_target
+					first_limit = "
+						valid_for_personal_unions_trigger = yes
+						PRU = {
+							valid_for_personal_unions_trigger = yes
+						}
+					"
+					first_effect = "
+						LUX_cb_on = { who = PRU }
+					"
+				}
+			}
+			else = {
+				complex_dynamic_effect = {
+					first_custom_tooltip = LUX_if_target
+					first_limit = "
+						valid_for_personal_unions_trigger = yes
+						BRA = {
+							valid_for_personal_unions_trigger = yes
+						}
+					"
+					first_effect = "
+						LUX_cb_on = { who = BRA }
+					"
+				}
+			}
+		}
+	}
+	
+	LUX_brandenburg = {
+		icon = electorate_of_brandenburg
+		required_missions = { LUX_brandenburg_potential }
+		position = 4
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = PRU
+					PRU = {
+						NOT = { is_subject = yes }
+					}
+				}
+				owned_by = PRU
+			}
+			else_if = {
+				limit = {
+					exists = BRA
+				}
+				owned_by = BRA
+			}
+			else = {
+				province_id = 50
+			}
+		}
+		trigger = {
+			OR = {
+				senior_union_with = PRU
+				senior_union_with = BRA 
+				50 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = LUX_prussian_traditions
+				duration = -1
+				# age = age_of_discovery
+				# else = "
+					# create_general = { tradition = 80 }
+				# "
+			}
+			
+			complex_dynamic_effect= {
+				first_custom_tooltip = LUX_if_we_did_pu
+				first_limit = "
+					OR = {
+						senior_union_with = PRU
+						senior_union_with = BRA 
+					}
+				"
+				first_effect = "
+					LUX_event_2_effect = yes
+				"
+			}
+		}
+	}
+}
+
+LUX_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = LUX
+	}
+	has_country_shield = yes
+	
+	LUX_von_luxemburg = {
+		icon = invest_in_the_provinces
+		required_missions = { LUX_burgundy }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {	
+			is_subject = no
+			diplomatic_reputation = 0.75
+			has_dip_advisor = yes
+		}
+		effect = {
+			add_country_modifier = {
+				name = LUX_new_dynasty
+				duration = 10950
+			}
+			
+			country_event_with_option_insight = {
+				id = ME_Luxemburg_Events.1
+				option_1 = "
+					if = {
+						limit = {
+							NOT = { government = monarchy } 
+						}
+						change_government_to_monarchy = yes
+					}
+					
+					define_ruler = {
+						dynasty = \"von Luxemburg\"
+						change_adm = 4
+						change_dip = 4
+						change_mil = 4
+						age = 20
+						claim = 75
+					}
+				"
+				option_2 = "
+					change_government_reform_progress = 100
+		
+					custom_tooltip = LUX_cannot_do_tree_without_monarchy
+				"
+				
+			}
+		}
+	}
+	
+	LUX_bohemia_potential = {
+		icon = defenestrate_the_heretics
+		required_missions = { LUX_von_luxemburg }
+		position = 3
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = BOH
+				}
+				owned_by = BOH
+			}
+			else = {
+				province_id = 266
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = BOH
+				}
+				OR = {
+					army_size = BOH
+					total_own_and_non_tributary_subject_development = BOH
+					reverse_has_opinion = {
+						who = BOH
+						value = 135
+					}
+					266 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+			else = {
+				266 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		effect = {
+			ME_give_claims = { area = bohemia_area }
+			ME_give_claims = { area = erzgebirge_area }
+			ME_give_claims = { area = lusatia_area }
+			ME_give_claims = { area = moravia_area }
+			ME_give_claims = { area = silesia_area }
+		
+			custom_tooltip = " "
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = LUX_if_target
+				first_limit = "
+					valid_for_personal_unions_trigger = yes
+					BOH = {
+						valid_for_personal_unions_trigger = yes
+					}
+				"
+				first_effect = "
+					add_casus_belli = {
+						type = cb_restore_personal_union
+						months = 300
+						target = BOH
+					}
+				"
+			}
+		}
+	}
+	
+	LUX_bohemia = {
+		icon = hussite_regency
+		required_missions = { LUX_bohemia_potential }
+		position = 4
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = BOH
+				}
+				owned_by = BOH
+			}
+			else = {
+				province_id = 266
+			}
+		}
+		trigger = {
+			OR = {
+				senior_union_with = BOH
+				266 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = LUX_bohemia_modifier 
+				duration = -1
+			}
+			
+			complex_dynamic_effect= {
+				first_custom_tooltip = LUX_if_we_did_pu
+				first_limit = "
+					senior_union_with = BOH
+				"
+				first_effect = "
+					LUX_event_3_effect = yes
+				"
+			}
+		}
+	}
+	
+	LUX_glory_to_von_luxemburg = {
+		icon = glory_to_von_habsburg
+		required_missions = { LUX_bohemia LUX_hungary LUX_brandenburg }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				is_emperor = yes
+				government_rank = 3
+				total_own_and_non_tributary_subject_development = 1500
+			}
+		}
+		effect = {
+			custom_tooltip = LUX_merge_modifiers
+			hidden_effect = {
+				remove_country_modifier = LUX_bohemia_modifier
+				remove_country_modifier = LUX_hungarian_modifier
+				remove_country_modifier = LUX_prussian_traditions
+				add_country_modifier = {
+					name = LUX_glory_of_von_luxemburg
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = LUX_enable_interaction
+			set_country_flag = LUX_enable_interaction_flag
+		}
+	}
+}
+
+LUX_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = LUX
+	}
+	has_country_shield = yes
+	
+	LUX_tall = {
+		icon = reform_the_monte
+		required_missions = { LUX_sublime_city }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 94
+		}
+		trigger = {
+			94 = {
+				owned_by = ROOT
+				development = 18
+				has_production_building_trigger = yes
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			94 = {
+				add_or_upgrade_tax_building = yes
+				add_or_upgrade_production_building = yes
+				
+				custom_tooltip = " "
+				
+				add_province_triggered_modifier = LUX_tall_buff
+			}
+		}
+	}
+	
+	LUX_hungary_potential = {
+		icon = the_hungarian_succession
+		required_missions = { LUX_von_luxemburg }
+		position = 3
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = HUN
+				}
+				owned_by = HUN
+			}
+			else = {
+				province_id = 153
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = HUN
+				}
+				OR = {
+					army_size = HUN
+					total_own_and_non_tributary_subject_development = HUN
+					reverse_has_opinion = {
+						who = HUN
+						value = 135
+					}
+					153 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+			else = {
+				153 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		effect = {
+			ME_give_claims = { area = slovakia_area }
+			ME_give_claims = { area = transdanubia_area }
+			ME_give_claims = { area = slavonia_area }
+			ME_give_claims = { area = alfold_area }
+			ME_give_claims = { area = transylvania_area }
+			ME_give_claims = { area = southern_transylvania_area }
+		
+			custom_tooltip = " "
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = LUX_if_target
+				first_limit = "
+					valid_for_personal_unions_trigger = yes
+					HUN = {
+						valid_for_personal_unions_trigger = yes
+					}
+				"
+				first_effect = "
+					add_casus_belli = {
+						type = cb_restore_personal_union
+						months = 300
+						target = HUN
+					}
+				"
+			}
+		}
+	}
+	
+	LUX_hungary = {
+		icon = king_of_hungary
+		required_missions = { LUX_hungary_potential }
+		position = 4
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = HUN
+				}
+				owned_by = HUN
+			}
+			else = {
+				province_id = 153
+			}
+		}
+		trigger = {
+			OR = {
+				senior_union_with = HUN
+				153 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = LUX_hungarian_modifier 
+				duration = -1
+			}
+			
+			complex_dynamic_effect= {
+				first_custom_tooltip = LUX_if_we_did_pu
+				first_limit = "
+					senior_union_with = HUN
+				"
+				first_effect = "
+					LUX_event_4_effect = yes
+				"
+			}
+		}
+	}
+}
+
+LUX_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = LUX
+	}
+	has_country_shield = yes
+	
+	LUX_sublime_city = {
+		icon = levee_the_arno
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 94
+		}
+		trigger = {
+			94 = {
+				owned_by = ROOT
+				num_of_times_improved = 2
+			}
+		}
+		effect = {
+			94 = {
+				add_province_modifier = {
+					name = LUX_small_city
+					duration = -1
+				}
+			}
+			
+			add_years_of_income = 2 #nice starting income like the yearly manpower
+		}
+	}
+	
+	LUX_bock = {
+		icon = fortify_the_passes
+		required_missions = { LUX_sublime_city }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 94
+		}
+		trigger = {
+			94 = {
+				fort_level = 2
+				base_manpower = 7
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			94 = {
+				add_permanent_province_modifier = {
+					name = LUX_bock_modifier
+					duration = -1
+				}
+			}
+			
+			add_country_modifier = {
+				name = LUX_to_defend_luxemburg
+				duration = -1
+			}
+		}
+	}
+	
+	LUX_fontaine = {
+		icon = brest_dockyards
+		required_missions = { LUX_bock }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 94
+		}
+		trigger = {
+			94 = {
+				has_manpower_building_trigger = yes
+				base_manpower = 7
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			94 = {
+				add_or_upgrade_manpower_building = yes
+				
+				custom_tooltip = " "
+				
+				add_permanent_province_modifier = {
+					name = LUX_castle
+					duration = -1
+				}
+			}
+			
+			define_advisor = {
+				type = muscovy_architect
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+}
+
+LUX_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = LUX
+	}
+	has_country_shield = yes
+	
+	LUX_exploit_via_regia = {
+		icon = interest_of_holland
+		required_missions = { LUX_sublime_city }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 94
+		}
+		trigger = {
+			94 = {
+				has_trade_building_trigger = yes
+				base_production = 6
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			94 = {
+				add_or_upgrade_trade_building = yes
+				
+				custom_tooltip = " "
+				
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_Luxemburg_Events.5
+				option_1 = "
+					94 = {
+						change_trade_goods = salt
+						
+						custom_tooltip = \" \"
+						
+						add_base_manpower = 3
+					}
+				"
+				option_2 = "
+					ME_add_years_of_trade_income = { years = 2 }
+		
+					custom_tooltip = \" \"
+				
+					94 = {
+						add_base_tax = 2
+						add_base_production = 2
+					}
+				"
+			}
+		}
+	}
+	
+	LUX_moselle = {
+		icon = develop_the_po_valley
+		required_missions = { LUX_exploit_via_regia }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 94
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { province_trade_power = 30 }
+					}
+				}
+				AND = {
+					province_id = 1760
+					AND = {
+						owner = {
+							NOT = { tag = ROOT }
+						}
+						owner = {
+							has_opinion = {
+								who = ROOT
+								value = 75
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			94 = {
+				owned_by = ROOT 
+				province_trade_power = 30
+			}
+			OR = {
+				diplomatic_reputation = 2
+				1760 = {
+					owner = {
+						OR = {
+							tag = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 75
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			1876 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 35
+					key = LUX_moselle_trade
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = travelling_merchant
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+	
+	LUX_thungen = {
+		icon = develop_konigsberg
+		required_missions = { LUX_bock }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 94
+		}
+		trigger = {
+			94 = {
+				fort_level = 2
+				base_manpower = 7
+				owned_by = ROOT
+				has_forcelimit_building_trigger = yes
+				if = {
+					limit = {
+						has_dlc = "Leviathan"
+					}
+					has_great_project = {
+						type = the_bock
+						tier = 2
+					}
+				}
+			}
+		}
+		effect = {
+			94 = {
+				add_or_upgrade_forcelimit_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				custom_tooltip = LUX_upgrade_bock_level_3
+				set_country_flag = LUX_bock_flag
+			}
+			else = {
+				add_country_modifier = {
+					name = LUX_bock_level_3_no_dlc
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	LUX_gibraltar = {
+		icon = negotiate_for_avignon
+		required_missions = { LUX_fontaine LUX_thungen }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 94
+		}
+		trigger = {
+			94 = {
+				fort_level = 4
+				base_manpower = 10
+				owned_by = ROOT
+				has_courthouse_building_trigger = yes
+				if = {
+					limit = {
+						has_dlc = "Leviathan"
+					}
+					has_great_project = {
+						type = the_bock
+						tier = 3
+					}
+				}
+			}
+		}
+		effect = {
+			94 = {
+				add_or_upgrade_courthouse_building = yes
+				
+				add_permanent_province_modifier = {
+					name = LUX_gibraltar_of_the_north
+					duration = -1
+				}
+			}
+			
+			#custom_tooltip = LUX_unlock_siege_ability
+			#set_country_flag = LUX_unlock_siege_ability_flag
+		}
+	}
+}

@@ -1,43 +1,284 @@
 country_decisions = {
-	#eng_check = {
-	#	potential = {
-	#		ai = no
-	#		check_variable = {
-	#			which = ENG_Culture
-	#			value = 1
-	#		}
-	#		NOT = {
-	#			check_variable = {
-	#				which = ENG_Culture
-	#				value = 11
-	#			}
-	#		}
-	#		mission_completed = UKS_cultures_of_France
-	#	}
-	#	allow = {
-	#		always = yes
-	#	}
-	#	effect = {
-	#		country_event = { id = ME_United_Kingdoms_Events.3 }
-	#	}
-	#}
-	#
-	#fund_great_palace = {
-	#	potential = {
-	#		mission_completed = UKS_bromance
-	#		NOT = {
-	#			has_country_flag = UKS_place
-	#		}
-	#	}
-	#	allow = {
-	#		treasury = 2500
-	#	}
-	#	effect = {
-	#		country_event = { id = ME_United_Kingdoms_Events.5 }
-	#		set_country_flag = UKS_place
-	#	}
-	#	ai_will_do = {
-	#		factor = 1
-	#	}
-	#}
+	ENG_end_incident = {
+		potential = {
+			has_country_flag = ENG_hyw_tree_incident
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			ENG_end_incident = yes
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	ENG_change_support = {
+		potential = {
+			OR = {
+				has_country_modifier = ENG_cambridge_support
+				has_country_modifier = ENG_oxford_support
+			}
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = ENG_10_years_passed
+				had_country_flag = {
+					flag = ENG_just_set_preference
+					days = 3650
+				}
+			}
+		}
+		effect = {
+			country_event_with_option_insight = {
+				id = ME_England_Events.19
+				option_1 = "
+					add_country_modifier = {
+						name = ENG_oxford_support
+						duration = -1
+						desc = ENG_until_support_is_changed
+					}
+					
+					custom_tooltip = ENG_this_can_be_changed
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = ENG_cambridge_support
+						duration = -1
+						desc = ENG_until_support_is_changed
+					}
+					
+					custom_tooltip = ENG_this_can_be_changed
+				"
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	ENG_inno_decision = {
+		potential = {
+			mission_completed = ENG_english_enlightenment
+			has_dlc = "Rule Britannia"
+		}
+		allow = {
+			innovativeness = 100 
+			NOT = { has_country_modifier = ENG_extra_inno }
+		}
+		effect = {
+			change_innovativeness = -50
+			add_country_modifier = {
+				name = ENG_extra_inno
+				duration = 10950 
+			}
+			# ME_pt_feedback_requested = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	ENG_jack_cade_decision = {
+		potential = {
+			NOT = { has_country_flag = ENG_prevented_jack }
+			NOT = { has_country_flag = ME_jack_cade }
+			tag = ENG
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 235
+				province_id = 4371
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_times_improved = 2 }
+			}
+		}
+		major = yes
+		allow = {
+			235 = {
+				num_of_times_improved = 2
+				owned_by = ROOT
+			}
+			4371 = {
+				num_of_times_improved = 2
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			set_country_flag = ENG_prevented_jack
+			custom_tooltip = ENG_jack_cade_rebellion_will_not_happen
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	LNC_defeat_pretenders = {
+		potential = {
+			has_country_flag = LNC_enable_decision_to_purge_pretenders
+			NOT = {
+				check_variable = {
+					which = LNC_amount_of_pretenders_defeated
+					value = 5
+				}
+			}
+		}
+		allow = {
+			mil_power_cost = 75
+		}
+		effect = {
+			mil_power_cost = 75
+			
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { num_of_units_in_province = { amount = 1 } }
+					}
+				}
+				random_owned_province = {
+					limit = {
+						NOT = { num_of_units_in_province = { amount = 1 } }
+					}
+					spawn_rebels = {
+						type = pretender_rebels
+						size = 1
+					}
+				}
+			}
+			else = {
+				random_owned_province = {
+					spawn_rebels = {
+						type = pretender_rebels
+						size = 1
+					}
+				}
+			}
+			
+			add_legitimacy_or_reform_progress = { amount = 20 }
+			hidden_effect = {
+				change_variable = {
+					which = LNC_amount_of_pretenders_defeated
+					value = 1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = {
+						manpower_percentage = 0.8
+					}
+					num_of_rebel_armies = 1
+				}
+			}
+		}
+	}
+	
+	EIC_exploit_the_raj = {
+		potential = {
+			has_country_flag = EIC_unlock_exploit_the_raj_decision_flag
+		}
+		allow = {
+			overlord_of = EIC
+			custom_trigger_tooltip = {
+				tooltip = QAR_demote_tribal_chiefs_cooldown_tt
+				OR = {
+					NOT = { has_country_flag = EIC_exploit_the_raj_cooldown }
+					had_country_flag = {
+						flag = EIC_exploit_the_raj_cooldown
+						days = 3650
+					}
+				}
+			}
+		}
+		effect = {
+			EIC = { add_years_of_income = -2 }
+			hidden_effect = {
+				export_to_variable = {
+					which = Eic_years_of_income
+					value = years_of_income
+					who = EIC
+				}
+				multiply_variable = {
+					which = Eic_years_of_income
+					value = 2
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = Eic_years_of_income
+							value = 10
+						}
+					}
+					FROM = {
+						add_treasury = 10
+					}
+					ROOT = {
+						add_treasury = -10
+					}
+					change_variable = {
+						which = Eic_years_of_income
+						value = -10
+					}
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = Eic_years_of_income
+							value = 1
+						}
+					}
+					FROM = {
+						add_treasury = 1
+					}
+					ROOT = {
+						add_treasury = -1
+					}
+					change_variable = {
+						which = Eic_years_of_income
+						value = -1
+					}
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = Eic_years_of_income
+							value = 0.1
+						}
+					}
+					FROM = {
+						add_treasury = 0.1
+					}
+					ROOT = {
+						add_treasury = -0.1
+					}
+					change_variable = {
+						which = Eic_years_of_income
+						value = -0.1
+					}
+				}
+				set_variable = {
+					which = Eic_years_of_income
+					value = 0
+				}
+			}
+			
+			custom_tooltip = EIC_this_will_be_transferred_to_ENG
+		
+			EIC = {
+				every_owned_province = {
+					add_devastation = 5
+				}
+			}
+			set_country_flag = EIC_exploit_the_raj_cooldown
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }

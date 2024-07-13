@@ -1,0 +1,947 @@
+ENG_add_war_modifier = {
+	add_country_modifier = {
+		name = $name$
+		duration = -1
+		desc = ENG_until_incident_is_over
+	}
+}
+
+ENG_end_incident = {
+	custom_tooltip = ENG_end_incident_tt
+	clr_country_flag = ENG_hyw_tree_incident
+	swap_non_generic_missions = yes
+	hidden_effect = {
+		remove_country_modifier = ENG_resilience
+		remove_country_modifier = ENG_open_floodgates
+		remove_country_modifier = ENG_hyw_war_modifier
+		remove_country_modifier = ENG_seeking_peace
+		remove_country_modifier = ENG_gateway_to_paris
+		remove_country_modifier = ENG_loot_france
+		remove_country_modifier = ENG_king_of_france
+	}
+}
+
+
+ENG_tally_french_deaths = {
+	if = {
+		limit = {
+			has_country_flag = ENG_hyw_tree_incident
+			FROM = {
+				check_variable = {
+					which = land_units_killed
+					value = 1
+				}
+			}
+			FROM = {
+				war_with = ROOT
+				OR = {
+					is_in_war = {
+						attacker_leader = FRA
+					}
+					is_in_war = {
+						defender_leader = FRA
+					}
+				}
+			}
+		}
+		FROM = {
+			set_variable = {
+				which = eng_needed_casualties
+				which = land_units_killed
+			}
+		}
+		change_variable = {
+			which = eng_needed_casualties
+			which = FROM
+		}
+	}
+}
+
+ENG_13_event = {
+	country_event_with_option_insight = {
+		id = ME_England_Events.13
+		option_1 = "
+			custom_tooltip = ENG_hyw_incident_tt
+			swap_non_generic_missions = yes
+		"
+		option_2 = "
+			add_country_modifier = {
+				name = ENG_hyw_war_modifier
+				duration = 1825
+			}
+			
+			add_army_tradition_or_mil_power = { amount = 10 }
+		"
+	}
+}
+
+ENG_2_event = {
+	country_event_with_insight = {
+		id = ME_England_Events.2
+		insight_tooltip = ENG_we_will_be_able_to_form
+	}
+}
+
+ENG_give_frontier_or_claim = {
+	$id$ = {
+		if = {
+			limit = {
+				is_empty = yes
+			}
+			add_siberian_construction = 100 
+		}
+		else_if = {
+			limit = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		else = { }
+	}
+}
+
+
+
+ENG_establish_EIC = {
+	every_province = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			ENG_is_EIC_territory = yes
+		}
+		if = {
+			limit = {
+				is_core = owner
+			}
+			remove_core = owner
+			add_core = EIC
+		}
+		cede_province = EIC
+	}
+	create_subject = {
+		subject_type = commercial_enterprise
+		subject = EIC
+	}
+	EIC = {
+		change_government = republic
+		add_government_reform = trade_company_government
+		change_religion = ROOT
+		change_primary_culture = ROOT
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		add_treasury = 300
+		add_manpower = 10
+		set_prestige_to_zero = yes
+		add_republican_tradition = 100
+		# add_idea_group = expansion_ideas
+		country_event = { id = company_transfer_event.3 days = 1 }
+		if = {
+			limit = {
+				any_owned_province = {
+					has_port = yes
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				heavy_ship = EIC
+				heavy_ship = EIC
+				heavy_ship = EIC
+				transport = EIC
+				transport = EIC
+				transport = EIC
+				transport = EIC
+				transport = EIC
+				transport = EIC
+				transport = EIC
+				transport = EIC
+				transport = EIC
+				transport = EIC
+				light_ship = EIC
+				light_ship = EIC
+				light_ship = EIC
+				light_ship = EIC
+				light_ship = EIC
+			}
+		}
+	}
+}
+
+eng_form_complete_missions = {
+	complete_mission = ENG_appeal_of_commons_of_kent
+	complete_mission = ENG_hyw
+	complete_mission = ENG_war_of_the_roses
+	set_country_flag = ENG_gave_up_maine_flag
+}
+
+ENG_if_we_have_economic_ideas = {
+	complex_dynamic_effect = {
+		first_custom_tooltip = ENG_if_we_have_national_bank
+		first_limit = "
+			economic_ideas = 4
+		"
+		first_effect = "
+			add_adm_power = 400
+			add_years_of_income = 0.25
+		"
+	}
+}
+
+WLS_turn_province_welsh = {
+	if = {
+		limit = {
+			owner = {
+				culture_group = gaelic
+			}
+		}
+		change_culture = welsh_celtic
+	}
+	else = {
+		change_culture = welsh
+	}
+}
+
+WLS_eisett_pick_flag_for = {
+	random_list = {
+		5 = { set_country_flag = WLS_eisett_army_trad_$which$ }
+		5 = { 
+			trigger = {
+				has_dlc = "Mandate of Heaven"
+			}
+			set_country_flag = WLS_eisett_splendor_$which$
+		}
+		5 = { set_country_flag = WLS_eisett_idea_cost_$which$ }
+		5 = { set_country_flag = WLS_eisett_culture_$which$ }
+		5 = { set_country_flag = WLS_eisett_dip_rep_$which$ }
+		5 = { set_country_flag = WLS_eisett_corruption_$which$ }
+		5 = { 
+			trigger = {
+				has_dlc = "Rule Britannia"
+			}
+			set_country_flag = WLS_eisett_innovativeness_$which$
+		}
+		5 = { set_country_flag = WLS_eisett_reform_progress_$which$ }
+		5 = {
+			trigger = {
+				mission_completed = WLS_celtic_revival
+			}
+			set_country_flag = WLS_eisett_core_creation_$which$
+		}
+		5 = {
+			trigger = {
+				mission_completed = WLS_celtic_revival
+			}
+			set_country_flag = WLS_eisett_technology_cost_$which$
+		}
+		5 = {
+			trigger = {
+				mission_completed = WLS_celtic_revival
+			}
+			set_country_flag = WLS_eisett_improve_relation_modifier_$which$
+		}
+	}
+}
+
+WLS_bonus_for = {
+	trigger_switch = {
+		on_trigger = has_country_flag
+		WLS_eisett_army_trad_$which$ = {
+			set_country_flag = WLS_eisett_army_trad_selected
+			custom_tooltip = WLS_eisett_army_trad_tt
+		}
+		WLS_eisett_splendor_$which$ = {
+			set_country_flag = WLS_eisett_splendor_selected
+			custom_tooltip = WLS_eisett_splendor_tt
+		}
+		WLS_eisett_idea_cost_$which$ = {
+			set_country_flag = WLS_eisett_idea_cost_selected
+			custom_tooltip = WLS_eisett_idea_cost_tt
+		}
+		WLS_eisett_culture_$which$ = {
+			set_country_flag = WLS_eisett_culture_selected
+			custom_tooltip = WLS_eisett_culture_tt
+		}
+		WLS_eisett_dip_rep_$which$ = {
+			set_country_flag = WLS_eisett_dip_rep_selected
+			custom_tooltip = WLS_eisett_dip_rep_tt
+		}
+		WLS_eisett_corruption_$which$ = {
+			set_country_flag = WLS_eisett_corruption_selected
+			custom_tooltip = WLS_eisett_corruption_tt
+		}
+		WLS_eisett_innovativeness_$which$ = {
+			set_country_flag = WLS_eisett_innovativeness_selected
+			custom_tooltip = WLS_eisett_innovativeness_tt
+		}
+		WLS_eisett_reform_progress_$which$ = {
+			set_country_flag = WLS_eisett_reform_progress_selected
+			custom_tooltip = WLS_eisett_reform_progress_tt
+		}
+		WLS_eisett_core_creation_$which$ = {
+			set_country_flag = WLS_eisett_core_creation_selected
+			custom_tooltip = WLS_eisett_core_creation_tt
+		}
+		WLS_eisett_technology_cost_$which$ = {
+			set_country_flag = WLS_eisett_technology_cost_selected
+			custom_tooltip = WLS_eisett_technology_cost_tt
+		}
+		WLS_eisett_improve_relation_modifier_$which$ = {
+			set_country_flag = WLS_eisett_improve_relation_modifier_selected
+			custom_tooltip = WLS_eisett_improve_relation_modifier_tt
+		}
+	}
+}
+
+WLS_eisett_clean_flags_for = {
+	clr_country_flag = WLS_eisett_army_trad_$which$
+	clr_country_flag = WLS_eisett_splendor_$which$
+	clr_country_flag = WLS_eisett_idea_cost_$which$
+	clr_country_flag = WLS_eisett_culture_$which$
+	clr_country_flag = WLS_eisett_dip_rep_$which$
+	clr_country_flag = WLS_eisett_corruption_$which$
+	clr_country_flag = WLS_eisett_innovativeness_$which$
+	clr_country_flag = WLS_eisett_reform_progress_$which$
+	clr_country_flag = WLS_eisett_core_creation_$which$
+	clr_country_flag = WLS_eisett_technology_cost_$which$
+	clr_country_flag = WLS_eisett_improve_relation_modifier_$which$
+}
+
+ENG_change_colors = {
+	ENG_change_colors_$which$ = yes 
+}
+
+ENG_change_colors_0 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 0
+        }
+        change_country_color = {
+            color = {
+                187
+                25
+                23
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                23
+                48
+                209
+            }
+        }
+    }
+}
+ENG_change_colors_1 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 1
+        }
+        change_country_color = {
+            color = {
+                182
+                23
+                31
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                26
+                45
+                208
+            }
+        }
+    }
+}
+ENG_change_colors_2 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 2
+        }
+        change_country_color = {
+            color = {
+                176
+                22
+                40
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                29
+                42
+                206
+            }
+        }
+    }
+}
+ENG_change_colors_3 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 3
+        }
+        change_country_color = {
+            color = {
+                170
+                21
+                48
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                32
+                40
+                205
+            }
+        }
+    }
+}
+ENG_change_colors_4 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 4
+        }
+        change_country_color = {
+            color = {
+                164
+                20
+                57
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                35
+                38
+                204
+            }
+        }
+    }
+}
+ENG_change_colors_5 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 5
+        }
+        change_country_color = {
+            color = {
+                159
+                18
+                65
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                38
+                35
+                202
+            }
+        }
+    }
+}
+ENG_change_colors_6 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 6
+        }
+        change_country_color = {
+            color = {
+                153
+                17
+                74
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                41
+                32
+                201
+            }
+        }
+    }
+}
+ENG_change_colors_7 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 7
+        }
+        change_country_color = {
+            color = {
+                147
+                16
+                82
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                44
+                30
+                200
+            }
+        }
+    }
+}
+ENG_change_colors_8 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 8
+        }
+        change_country_color = {
+            color = {
+                142
+                14
+                91
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                47
+                28
+                199
+            }
+        }
+    }
+}
+ENG_change_colors_9 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 9
+        }
+        change_country_color = {
+            color = {
+                136
+                13
+                100
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                50
+                25
+                198
+            }
+        }
+    }
+}
+ENG_change_colors_10 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 10
+        }
+        change_country_color = {
+            color = {
+                130
+                12
+                108
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                52
+                22
+                196
+            }
+        }
+    }
+}
+ENG_change_colors_11 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 11
+        }
+        change_country_color = {
+            color = {
+                125
+                10
+                117
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                55
+                20
+                195
+            }
+        }
+    }
+}
+ENG_change_colors_12 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 12
+        }
+        change_country_color = {
+            color = {
+                119
+                9
+                125
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                58
+                18
+                194
+            }
+        }
+    }
+}
+ENG_change_colors_13 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 13
+        }
+        change_country_color = {
+            color = {
+                113
+                8
+                134
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                61
+                15
+                192
+            }
+        }
+    }
+}
+ENG_change_colors_14 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 14
+        }
+        change_country_color = {
+            color = {
+                108
+                6
+                142
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                64
+                12
+                191
+            }
+        }
+    }
+}
+ENG_change_colors_15 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 15
+        }
+        change_country_color = {
+            color = {
+                102
+                5
+                151
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                67
+                10
+                190
+            }
+        }
+    }
+}
+ENG_change_colors_16 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 16
+        }
+        change_country_color = {
+            color = {
+                96
+                4
+                159
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                70
+                8
+                189
+            }
+        }
+    }
+}
+ENG_change_colors_17 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 17
+        }
+        change_country_color = {
+            color = {
+                90
+                3
+                168
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                73
+                5
+                188
+            }
+        }
+    }
+}
+ENG_change_colors_18 = {
+    ENG = {
+        set_variable = {
+            which = ENG_current_color
+            value = 18
+        }
+        change_country_color = {
+            color = {
+                85
+                1
+                176
+            }
+        }
+    }
+    FRA = {
+        change_country_color = {
+            color = {
+                76
+                2
+                186
+            }
+        }
+    }
+}
+
+AVE_1_effect_1 = {
+	lorraine_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			NOT = { owned_by = FRA }
+		}
+		cede_province = FRA 
+	}
+	bourgogne_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			NOT = { owned_by = FRA }
+		}
+		cede_province = FRA 
+	}
+	west_burgundy_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			NOT = { owned_by = FRA }
+		}
+		cede_province = FRA 
+	}
+	champagne_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			NOT = { owned_by = FRA }
+		}
+		cede_province = FRA 
+	}
+	
+	custom_tooltip = " "
+	
+	FRA = {
+		add_country_modifier = {
+			name = AVE_rightful_inheritance
+			duration = -1
+		}
+	}
+	add_country_modifier = {
+		name = AVE_inheritance_granted
+		duration = -1
+	}
+}
+
+AVE_1_effect_2 = {
+	bourgogne_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			NOT = { owned_by = ROOT }
+		}
+		cede_province = ROOT 
+	}
+	west_burgundy_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT 
+			NOT = { owned_by = ROOT }
+		}
+		cede_province = ROOT 
+	}
+	
+	custom_tooltip = " "
+	
+	add_country_modifier = {
+		name = AVE_burgundy_for_the_english
+		duration = -1
+	}
+}
+
+AVE_9_effect = {
+	ME_give_claims = { area = holland_area }
+	ME_give_claims = { area = frisia_area }
+	ME_give_claims = { area = flanders_area }
+	ME_give_claims = { area = north_brabant_area }
+	ME_give_area_claims = { group = brabant_area tag = FRA } 
+	ME_give_area_claims = { group = wallonia_area tag = FRA } 
+	
+	custom_tooltip = " "
+	
+	add_country_modifier = {
+		name = AVE_the_dutch_ordeal
+		duration = 10950
+	}
+	
+	FRA = {
+		add_country_modifier = {
+			name = AVE_the_dutch_ordeal
+			duration = 10950
+		}
+	}
+}
+
+AVE_10_effect = {
+	catalonia_area = { 
+		add_core = ROOT
+	}
+	provence_area = {
+		add_core = ROOT
+	}
+	
+	custom_tooltip = " "
+	
+	languedoc_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT 
+			NOT = { owned_by = ROOT }
+			NOT = {
+				owner = { ai = no }
+			}
+		}
+		cede_province = ROOT
+	}
+	guyenne_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT 
+			NOT = { owned_by = ROOT }
+			NOT = {
+				owner = { ai = no }
+			}
+		}
+		cede_province = ROOT
+	}
+	
+	custom_tooltip = " "
+	
+	add_government_power = {
+		mechanic_type = francien_integration_mechanic
+		power_type = francien_integration
+		value = -100
+	}
+	
+	add_accepted_culture_or_dip_power = { culture = occitain }
+}
+
+AVE_every_road_province = {
+	custom_tooltip = AVE_every_highlighted_province
+	tooltip = {
+		$effect$
+	}
+	hidden_effect = {
+		245 = { $effect$ }
+		4785 = { $effect$ }
+		1861 = { $effect$ }
+		4376 = { $effect$ }
+		4370 = { $effect$ }
+		234 = { $effect$ }
+		239 = { $effect$ }
+		4371 = { $effect$ }
+		4372 = { $effect$ }
+		87 = { $effect$ }
+		88 = { $effect$ }
+		182 = { $effect$ }
+		183 = { $effect$ }
+		185 = { $effect$ }
+		4390 = { $effect$ }
+		187 = { $effect$ }
+		192 = { $effect$ }
+		1877 = { $effect$ }
+		203 = { $effect$ }
+		4391 = { $effect$ }
+		202 = { $effect$ }
+		201 = { $effect$ }
+		4696 = { $effect$ }
+		184 = { $effect$ }
+		4776 = { $effect$ }
+		4389 = { $effect$ }
+		180 = { $effect$ }
+		4387 = { $effect$ }
+		174 = { $effect$ }
+		173 = { $effect$ }
+		175 = { $effect$ }
+		196 = { $effect$ }
+		2753 = { $effect$ }
+		200 = { $effect$ }
+		186 = { $effect$ }
+		236 = { $effect$ }
+	}
+}

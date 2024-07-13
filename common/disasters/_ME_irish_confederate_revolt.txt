@@ -1,0 +1,121 @@
+ME_irish_confederate_revolt = {
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		has_country_flag = ENG_can_have_irish_confederate_revolt
+		has_disaster = english_civil_war
+		OR = {
+			NOT = { exists = IRE }
+			IRE = { is_subject_of = ROOT }
+		}
+		eng_has_irish_province_trigger = yes 
+	}
+	
+	can_start = {
+		has_disaster = english_civil_war
+	}
+	
+	can_stop = { 
+		NOT = {
+			eng_has_irish_province_trigger = yes
+		}
+	}
+	
+	
+	progress = {
+		modifier = {
+			factor = 2
+			NOT = { legitimacy_equivalent = 95 }
+		}
+		modifier = {
+			factor = -1
+			stability = 2
+		}
+		modifier = {
+			factor = 10
+			has_disaster = ME_scottish_covenanters
+		}
+		modifier = {
+			factor = 1
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				eng_is_in_ireland_trigger = yes
+				culture = anglo_irish
+				value = 2
+			}
+		}
+		modifier = {
+			factor = 2
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				eng_is_in_ireland_trigger = yes
+				culture = anglo_irish
+				value = 3
+			}
+		}
+		modifier = {
+			factor = 3
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				eng_is_in_ireland_trigger = yes
+				culture = anglo_irish
+				value = 4
+			}
+		}
+		modifier = {
+			factor = 2
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				eng_is_in_ireland_trigger = yes
+				NOT = { religion = ROOT }
+				value = 2
+			}
+		}
+		modifier = {
+			factor = 4
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				eng_is_in_ireland_trigger = yes
+				NOT = { religion = ROOT }
+				value = 4
+			}
+		}
+		modifier = {
+			factor = 6
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				eng_is_in_ireland_trigger = yes
+				NOT = { religion = ROOT }
+				value = 6
+			}
+		}
+	}
+	
+	can_end = {
+		if = {
+			limit = {
+				has_country_flag = ENG_supported_rebels
+			}
+			NOT = { has_disaster = english_civil_war }
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ENG_condemn
+			}
+			NOT = { war_with = IRE }
+		}
+		else = { always = no }
+	}
+	
+
+	modifier = {
+		promote_culture_cost = 1
+		advisor_cost = 0.1
+	}
+	
+	on_start = ME_England_Events.37
+	on_end = ME_England_Events.38
+	
+	on_monthly = {
+		events = {
+		}
+		random_events = {
+			360 = 0
+			20 = ME_England_Events.39 # rebels in case of no revolt
+			40 = ME_England_Events.40 #province changes ownership
+		}
+	}
+}

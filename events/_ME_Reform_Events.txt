@@ -1,6 +1,9 @@
 namespace = ME_Reform_Events
+namespace = ME_Peasant_Republics_Events
 
-# New Ruler for Caliphate
+# New Ruler for Arabian Caliphate
+
+#Written by claivin, and it will remain as event for Arabian Caliphate
 country_event = {
 	id = ME_Reform_Events.1
 	title = ME_Reform_Events.EVTNAME1
@@ -10,7 +13,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		has_reform = caliphate_reform_sunni
+		has_reform = ME_caliphate_reform_sunni_arabian
 		NOT = { has_country_flag = new_caliphate_ruler_selection }
 	}
 
@@ -87,7 +90,7 @@ country_event = {
 		ai_chance = { factor = 0 }
 
 		custom_tooltip = CALIPHATE_CURRENT_RULER_STAYS
-		add_legitimacy = -20
+		add_legitimacy_equivalent = { amount = -20 republican_tradition = -10 }
 		add_prestige = -10
 		random_list = {
 			30 = {
@@ -107,5 +110,122 @@ country_event = {
 
 	after = {
 		clr_country_flag = new_caliphate_ruler_selection
+	}
+}
+
+country_event = {
+	id = ME_Peasant_Republics_Events.1
+	title = ME_Peasant_Republics_Events.1.t
+	desc = ME_Peasant_Republics_Events.1.d
+	picture = BATTLE_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		OR = {
+			alliance_with = event_target:peasant_republic_temp
+			war_with = event_target:peasant_republic_temp
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = peasant_republic_temp
+		}
+	}
+	
+	option = {
+		name = ME_Peasant_Republics_Events.1.d
+
+		ai_chance = { factor = 0.33 }
+
+		add_government_power = {
+			mechanic_type = peasant_vigour_mechanic
+			power_type = peasant_vigour
+			value = 50
+		}
+	}
+}
+
+country_event = {
+	id = ME_Peasant_Republics_Events.2
+	title = ME_Peasant_Republics_Events.2.t #Peasant Republic is eliminated
+	desc = ME_Peasant_Republics_Events.2.d
+	picture = COURT_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		has_government_mechanic = peasant_vigour_mechanic
+	}
+	
+	option = {
+		name = ME_Peasant_Republics_Events.2.a
+
+		ai_chance = { factor = 0.33 }
+
+		custom_tooltip = ME_Peasant_Republics_loses_vigour
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					has_government_mechanic = peasant_vigour_mechanic
+				}
+				add_government_power = {
+					mechanic_type = peasant_vigour_mechanic
+					power_type = peasant_vigour
+					value = -10
+				}
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		add_prestige_or_monarch_power = { amount = 5 }
+	}
+}
+
+country_event = {
+	id = ME_Peasant_Republics_Events.3
+	title = ME_Peasant_Republics_Events.3.t #Peasants Take Over - peace deal
+	desc = ME_Peasant_Republics_Events.3.d
+	picture = REFORM_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		OR = {
+			tag = event_target:Peasant_temp_from
+			is_neighbor_of = event_target:Peasant_temp_root
+		}
+	}
+	
+	option = {
+		name = ME_Peasant_Republics_Events.3.d
+
+		ai_chance = { factor = 0.33 }
+
+		FROM = {
+			add_government_power = {
+				mechanic_type = peasant_vigour_mechanic
+				power_type = peasant_vigour
+				value = 15
+			}
+			if = {
+				limit = {
+					has_country_flag = FRI_upgrade_guillotine_the_nobility
+				}
+				add_power_projection = {
+					type = FRI_guillotine_the_nobility
+					amount = 10
+				}
+			}
+		}
+		set_country_flag = great_peasants_war_peasant_republic
+		if = {
+			limit = {
+				NOT = { government = republic }
+			}
+			change_government = republic
+		}
+		add_government_reform = peasants_republic
 	}
 }

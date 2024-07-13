@@ -1,0 +1,845 @@
+NWC_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = NWC
+	}
+	has_country_shield = yes
+	
+	NWC_new_holland = {
+		icon = trade_with_the_natives
+		required_missions = { NWC_nieuw_amsterdam }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 2566
+		}
+		trigger = {
+			2566 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			2566 = {
+				add_province_modifier = {
+					name = NWC_seized_colony
+					duration = -1
+				}
+				
+				change_province_name = "Nova Hollandia"
+			}
+			
+			custom_tooltip = " "
+			
+			create_admiral = { tradition = 70 }
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_army_tradition_or_mil_power = { amount = 15 }
+				"
+			}
+		}
+	}
+}
+
+NWC_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = NWC
+	}
+	has_country_shield = yes
+
+	NWC_nieuw_amsterdam = {
+		icon = settle_north_america
+		required_missions = { NWC_to_and_fro }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 965
+		}
+		trigger = {
+			965 = {
+				owned_by = ROOT
+				num_of_times_improved = 1
+			}
+		}
+		effect = {
+			NED_give_frontier_or_claim = { id = 2560 } 
+			NED_give_frontier_or_claim = { id = 2639 } 
+			NED_give_frontier_or_claim = { id = 963 }
+
+			custom_tooltip = " "
+			
+			ME_give_claims = { region = northeast_america_region }
+			
+			custom_tooltip = " "
+			
+			define_explorer = {
+				name = "Jan Corneliszoon May"
+				fire = 3
+				shock = 2
+				manuever = 4
+				siege = 0
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					define_advisor = {
+						type = ME_colonial_governor
+						skill = 3
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.5
+					}
+				"
+			}
+		}
+	}
+
+	NWC_new_netherland = {
+		icon = mission_rb_the_thirteen_colonies
+		required_missions = { NWC_nieuw_amsterdam }
+		position = 4
+		provinces_to_highlight = {
+			region = northeast_america_region
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = northeast_america_region
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = NWC_new_netherland_colony
+				duration = -1
+			}
+			
+			capital_scope = {
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 1
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					custom_tooltip = NVC_colonial_managers_may_rarely_appear_in_overlord
+				"
+			}
+		}
+	}
+}
+
+NWC_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = NWC
+	}
+	has_country_shield = yes
+	
+	NWC_to_and_fro = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			OR = {
+				navy_size = 20
+				navy_size_percentage = 0.85
+				capital_scope = {
+					has_shipyard_building_trigger = yes
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = NWC_enable_cb
+			
+			custom_tooltip = " "
+		
+			ME_give_claims = { area = leeward_islands_area }
+			ME_give_claims = { area = greater_antilles_area }
+			ME_give_claims = { area = suriname_area }
+			ME_give_claims = { area = guyana_area }
+			ME_give_claims = { area = ceara_area }
+			ME_give_claims = { area = pernambuco_area }
+			ME_give_claims = { area = bahia_area }
+			ME_give_claims = { area = piaui_area }
+			ME_give_claims = { area = maranhao_area }
+			ME_give_claims = { area = west_africa_coast_area }
+			ME_give_claims = { area = guinea_coast_area }
+			ME_give_claims = { id = 965 }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = NWC_random_colonies
+			hidden_effect = {
+				overlord = { save_event_target_as = Nwc_overlord }
+			}
+			hidden_effect = {
+				random_province = {
+					limit = {
+						OR = {
+							continent = north_america
+							continent = south_america
+						}
+						has_port = yes
+						is_empty = yes
+						OR = {
+							has_discovered = ROOT
+							has_discovered = event_target:Nwc_overlord
+						}
+					}
+					add_siberian_construction = 100
+				}
+				random_province = {
+					limit = {
+						OR = {
+							continent = north_america
+							continent = south_america
+						}
+						has_port = yes
+						is_empty = yes
+						OR = {
+							has_discovered = ROOT
+							has_discovered = event_target:Nwc_overlord
+						}
+					}
+					add_siberian_construction = 100
+				}
+			}
+		}
+	}
+
+	NWC_sint_marteen = {
+		icon = end_genoese_competition
+		required_missions = { NWC_to_and_fro }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 1881
+		}
+		trigger = {
+			1881 = {
+				is_city = yes
+				owned_by = ROOT
+				has_production_building_trigger = yes
+			}
+		}
+		effect = {
+			1881 = {
+				add_or_upgrade_production_building = yes
+				
+				if = {
+					limit = {
+						has_dlc = "Mandate of Heaven"
+					}
+					custom_tooltip = " "
+				
+					add_prosperity = 75
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					ROOT = {
+						is_subject = yes
+					}
+				}
+				overlord = {
+					country_event_with_option_insight = {
+						id = ME_Netherlands_Events.25
+						option_1 = "
+							1881 = {
+								change_trade_goods = sugar
+								
+								add_permanent_province_modifier = {
+									name = NWC_sugar_boon
+									duration = 10950
+								}
+							}
+						"
+						option_2 = "
+							1881 = {
+								add_base_tax = 2
+								add_base_production = 1
+								add_base_manpower = 1
+							}
+						"
+					}
+				}
+			}
+			else = {
+				country_event_with_option_insight = {
+					id = ME_Netherlands_Events.25
+					option_1 = "
+						1881 = {
+							change_trade_goods = sugar
+							
+							add_permanent_province_modifier = {
+								name = NWC_sugar_boon
+								duration = 10950
+							}
+						}
+					"
+					option_2 = "
+						1881 = {
+							add_base_tax = 2
+							add_base_production = 1
+							add_base_manpower = 1
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	NWC_grow_new_amsterdam = {
+		icon = mission_rb_the_bank_of_scotland
+		required_missions = { NWC_nieuw_amsterdam }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 965
+		}
+		trigger = {
+			965 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				province_trade_power = 25
+				development = 30 
+			}
+		}
+		effect = {
+			965 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+				add_or_upgrade_trade_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = NWC_every_province_with_fur
+			tooltip = {
+				add_province_modifier = {
+					name = NWC_beaver_trade
+					duration = 9125
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						trade_goods = fur
+					}
+					add_province_modifier = {
+						name = NWC_beaver_trade
+						duration = 9125
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+		
+			custom_tooltip = NWC_rename_hudson_river_estuary
+			hidden_effect = {
+				965 = {
+					remove_province_modifier = hudson_estuary_modifier
+					add_permanent_province_modifier = {
+						name = NWC_mauritius_estuary
+						duration = -1
+					}
+				}
+			}
+		
+			ME_overlord_effect = {
+				effect = "
+					1500 = {
+						add_trade_modifier = {
+							who = PREV
+							duration = -1
+							power = 33
+							key = NED_new_netherland
+						}
+					}
+				"
+			}
+		}
+	}
+}
+
+NWC_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = NWC
+	}
+	has_country_shield = yes
+	
+	NWC_curacao = {
+		icon = mission_claim_hispaniola
+		required_missions = { NWC_to_and_fro }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 491
+		}
+		trigger = {
+			491 = {
+				is_city = yes
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			491 = {
+				add_or_upgrade_trade_building = yes
+				
+				custom_tooltip = " "
+				
+				set_center_level_2_center_of_trade = yes 
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					1516 = {
+						add_trade_modifier = {
+							who = PREV
+							duration = -1
+							power = 50
+							key = NED_caribbean
+						}
+					}
+				"
+			}
+		}
+	}
+	
+	NWC_caribbean = {
+		icon = mission_caribbean_cn
+		required_missions = { NWC_curacao NWC_sint_marteen }
+		position = 3
+		provinces_to_highlight = {
+			region = carribeans_region
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = carribeans_region
+				value = 5
+			}
+		}
+		effect = {
+			add_tariff_value = 0.25
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = NWC_our_overlord_will_get_tariff_efficiency
+		
+			custom_tooltip = " "
+			
+			add_years_of_income = 1
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					define_advisor = {
+						type = trader
+						skill = 3
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.33
+					}
+				"
+			}
+		}
+	}
+	
+	NWC_plantations = {
+		icon = mission_pacify_the_berbers
+		required_missions = { NWC_suriname }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = coffee
+				trade_goods = cotton
+				trade_goods = sugar
+				trade_goods = tobacco
+				trade_goods = tea
+				trade_goods = cocoa
+			}
+			OR = {
+				NOT = { has_building = plantations }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_building = plantations
+				has_production_building_trigger = yes
+				value = 3
+			}
+		}
+		effect = {
+			custom_tooltip = NWC_3_most_developed_provinces
+			tooltip = {
+				add_or_upgrade_production_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes
+					scale = higher_development_than
+					scope = every_owned_province
+					global_trigger = "
+						has_building = plantations
+						has_production_building_trigger = yes
+					"
+					event_target_name = nwc_target
+				}
+				event_target:nwc_target_1 = {
+					add_or_upgrade_production_building = yes
+				}
+				event_target:nwc_target_2 = {
+					add_or_upgrade_production_building = yes
+				}
+				event_target:nwc_target_3 = {
+					add_or_upgrade_production_building = yes
+				}
+			}
+			
+			custom_tooltip = NWC_we_will_gain_additional_10_base_production
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								has_building = plantations
+							}
+							add_base_production = 1
+						}
+					"
+				}
+			}
+			custom_tooltip = " "
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = NWC_if_we_or_our_overlord_has_a_slave_province
+				first_limit = "
+					OR = {
+						slaves = 1
+						overlord = {
+							slaves = 1
+						}
+					}
+				"
+				first_effect = "
+					custom_tooltip = NWC_we_will_gain_additional_5_base_production
+					hidden_effect = {
+						for = {
+							amount = 5
+							effect = \"
+								random_owned_province = {
+									limit = {
+										has_building = plantations
+									}
+									add_base_production = 1
+								}
+							\"
+						}
+					}
+				"
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_years_of_income = 0.25
+				"
+			}
+		}
+	}
+
+	NWC_chile = {
+		icon = alpine_fortifications
+		required_missions = { NWC_seize_brazil }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 2873
+		}
+		trigger = {
+			2873 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			2873 = {
+				change_province_name = "Brouwershaven"
+			}
+			
+			NED_give_frontier_or_claim = { id = 2874 } 
+			NED_give_frontier_or_claim = { id = 783 } 
+			NED_give_frontier_or_claim = { id = 784 } 
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 100
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					define_explorer = {
+						name = \"Hendrik Brouwer\"
+						fire = 3
+						shock = 1
+						manuever = 6
+						siege = 0
+					}
+				"
+			}
+		}
+	}
+}
+
+NWC_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = NWC
+	}
+	has_country_shield = yes
+
+	NWC_ivory_coast = {
+		icon = mission_west_african_ports
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				area = west_africa_coast_area
+				area = guinea_coast_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_city = yes }
+			}
+		}
+		trigger = {
+			OR = {
+				west_africa_coast_area = {
+					owned_by = ROOT
+					is_city = yes
+				}
+				guinea_coast_area = {
+					owned_by = ROOT
+					is_city = yes
+				}
+			}
+		}
+		effect = {
+			add_mercantilism = 3
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = NWC_if_possible_get_another_colony
+			hidden_effect = {
+				random_province = {
+					limit = {
+						is_empty = yes
+						any_neighbor_province = {
+							region = guinea_region
+							owned_by = ROOT 
+						}
+					}
+					add_siberian_construction = 100 
+				}
+			}
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					ME_add_years_of_trade_income = { years = 1 }
+				"
+			}
+		}
+	}
+
+	NWC_suriname = {
+		icon = mission_found_havana
+		required_missions = { NWC_ivory_coast }
+		position = 3
+		provinces_to_highlight = {
+			area = suriname_area
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_city = yes }
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				amount = 2
+				suriname_area = {
+					type = all
+					AND = {
+						owned_by = ROOT
+						is_city = yes
+					}
+				}
+			}
+		}
+		effect = {
+			NED_give_frontier_or_claim = { id = 743 } 
+			NED_give_frontier_or_claim = { id = 744 } 
+			NED_give_frontier_or_claim = { id = 745 } 
+			NED_give_frontier_or_claim = { id = 746 } 
+			NED_give_frontier_or_claim = { id = 2973 } 
+			
+			custom_tooltip = " "
+			
+			add_years_of_income = 0.5
+		
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_adm_power = 50
+					
+					custom_tooltip = \" \"
+					
+					add_mercantilism = 2
+				"
+			}
+		}
+	}
+
+	NWC_seize_brazil = {
+		icon = colonize_brazil
+		required_missions = { NWC_suriname }
+		position = 4
+		provinces_to_highlight = {
+			region = brazil_region
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = brazil_region
+				value = 10
+			}
+		}
+		effect = {	
+			ME_give_claims = { region = brazil_region }
+			
+			custom_tooltip = " "
+			
+			create_general_with_pips = {
+				tradition = 60
+				add_shock = 2
+				add_fire = 1
+				add_manuever = 2
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = NWC_victory_in_brazil
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+
+	NWC_entrenchtment_in_brazil = {
+		icon = mission_conquer_algiers
+		required_missions = { NWC_seize_brazil }
+		position = 5
+		provinces_to_highlight = {
+			region = brazil_region
+			owned_by = ROOT
+			OR = {
+				local_autonomy = 10
+				nationalism = 5
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = brazil_region
+				NOT = { local_autonomy = 10 }
+				NOT = { nationalism = 5 }
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = NWC_goods_produced
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					NWC_naturalist_effect = yes
+				"
+			}
+		}
+	}
+}
+
+NWC_missions_100_ai = {
+	slot = 100
+	generic = no
+	ai = yes
+	potential = {
+		tag = NWC
+	}
+	has_country_shield = yes
+	
+	NWC_ai = {
+		icon = chater_the_voc
+		required_missions = { }
+		position = 1
+		ai_weight = {
+			factor = 500
+		}
+		provinces_to_highlight = {
+			NED_is_WIC_territory = yes
+		}
+		trigger = {
+			north_america = {
+				owned_by = ROOT
+				type = all
+			}
+			south_america = {
+				owned_by = ROOT
+				type = all
+			}
+			guinea_region = {
+				owned_by = ROOT
+				type = all
+			}
+			kongo_region = {
+				owned_by = ROOT
+				type = all
+			}
+			always = no
+		}
+		effect = {
+		}
+	}
+}

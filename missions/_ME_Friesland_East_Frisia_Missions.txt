@@ -1,0 +1,719 @@
+FRI_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			AND = {
+				tag = FRI
+				has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			}
+			tag = EFR
+			AND = {
+				tag = NED
+				OR = {
+					was_tag = FRI
+					was_tag = EFR
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	FRI_woe_at_westphalia = {
+		icon = lead_the_empire
+		required_missions = { FRI_protect_frisian_values }
+		position = 2
+		provinces_to_highlight = {
+			culture_group = germanic
+			NOT = { culture = dutch }
+			NOT = { culture = flemish }
+			NOT = { culture = frisian }
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				culture_group = germanic
+				NOT = { culture = dutch }
+				NOT = { culture = flemish }
+				NOT = { culture = frisian }
+				value = 5
+			}
+		}
+		effect = {
+			ME_give_claims = { area = westphalia_area }
+			ME_give_claims = { area = braunschweig_area }
+			ME_give_claims = { area = lower_saxony_area }
+			ME_give_claims = { area = holstein_area }
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 15 }
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_Frisia_Events.3 
+				option_1 = "
+					custom_tooltip = FRI_throw_shackles_of_the_empire
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = FRI_combat_imperial_encroachment
+						duration = 5475
+					}
+				"
+			}
+		}
+	}
+	
+	FRI_hoofdelingen = {
+		icon = empower_the_junkers
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = all
+				loyalty = 50
+			}
+			num_of_owned_provinces_with = {
+				num_of_times_improved = 5
+				value = 3
+			}
+			share_of_starting_income = 2
+		}
+		effect = {
+			#Readopt nobles at a landowners name and with less privs and less peasant vigour?
+			country_event_with_option_insight = {
+				id = ME_Frisia_Events.4
+				option_1 = "
+					custom_tooltip = FRI_enable_nobles_estate_under_hoofdelingen_name
+				"
+				option_2 = "
+					custom_tooltip = FRI_upgrade_the_clergy_land_rights
+				"
+				option_3 = "
+					custom_tooltip = FRI_upgrade_the_burghers_land_rights
+				"
+			}
+		}
+	}
+	
+	FRI_grietmannen = {
+		icon = adjust_the_general_means
+		required_missions = { FRI_hoofdelingen }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT 
+			local_autonomy = 25
+		}
+		trigger = {
+			NOT = { average_autonomy = 25 }
+			has_adm_advisor_3 = yes
+		}
+		effect = {
+			custom_tooltip = FRI_every_province_loses_10_autonomy
+			hidden_effect = {
+				every_owned_province = {
+					add_local_autonomy = -10
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = FRI_if_we_chose_clergy
+				first_limit = "
+					has_country_flag = FRI_upgrade_clergy_land_rights
+				"
+				first_effect = "
+					custom_tooltip = FRI_unlock_clergy_priv
+					set_country_flag = FRI_unlock_clergy_priv
+				"
+			}
+			complex_dynamic_effect = {
+				first_custom_tooltip = FRI_if_we_chose_burghers
+				first_limit = "
+					has_country_flag = FRI_upgrade_burghers_land_rights
+				"
+				first_effect = "
+					custom_tooltip = FRI_unlock_burghers_priv
+					set_country_flag = FRI_unlock_burghers_priv
+				"
+			}
+			complex_dynamic_effect = {
+				first_custom_tooltip = FRI_if_we_chose_nobles
+				first_limit = "
+					has_country_flag = hoofdelingen_estate
+				"
+				first_effect = "
+					custom_tooltip = FRI_unlock_nobles_priv
+					set_country_flag = FRI_unlock_nobles_priv
+				"
+			}
+		}
+	}
+}
+
+FRI_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			AND = {
+				tag = FRI
+				has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			}
+			tag = EFR
+			AND = {
+				tag = NED
+				OR = {
+					was_tag = FRI
+					was_tag = EFR
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	FRI_protect_frisian_values = {
+		icon = fu_likedeelers
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 9 
+				army_size_percentage = 0.85
+			}
+		}
+		effect = {
+			ME_give_claims = { area = holland_area }
+			ME_give_claims = { area = frisia_area }
+			ME_give_claims = { area = north_westphalia_area }
+			ME_give_claims = { area = weser_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = FRI_defy_the_counts
+				duration = 9125
+			}
+		}
+	}
+	
+	FRI_discredit_hollander_claims = {
+		icon = regents_contracts
+		required_missions = { FRI_protect_frisian_values }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 97
+				owned_by = HOL
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			97 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			OR = {
+				has_won_war_against = { who = HOL }
+				4383 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		effect = {
+			97 = {
+				change_province_name = "West-Fryslan"
+				change_culture = frisian 
+				add_local_autonomy = -50
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = FRI_defeated_the_counts
+				duration = 10950
+			}
+		}
+	}
+	
+	FRI_around_ijsselmeer = {
+		icon = mission_retake_ceuta
+		required_missions = { FRI_discredit_hollander_claims }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 98
+				province_id = 99
+				province_id = 4381
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			98 = { country_or_non_sovereign_subject_holds = ROOT }
+			99 = { country_or_non_sovereign_subject_holds = ROOT }
+			4381 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			create_general_with_pips = { tradition = 60 add_manuever = 2 }
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = north_brabant_area }
+			ME_give_claims = { area = brabant_area }
+			ME_give_claims = { area = flanders_area }
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = dutch } 
+		}
+	}
+}
+
+FRI_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			AND = {
+				tag = FRI
+				has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			}
+			tag = EFR
+			AND = {
+				tag = NED
+				OR = {
+					was_tag = FRI
+					was_tag = EFR
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	FRI_unite_friesland = {
+		icon = develop_the_po_valley
+		required_missions = { FRI_protect_frisian_values }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 100
+				province_id = 1931
+				province_id = 4382
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			100 = { owned_by = ROOT }
+			1931 = { owned_by = ROOT }
+			4382 = { owned_by = ROOT }
+		}
+		effect = {
+			change_government_reform_progress = 100
+		
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = FRI_united_friesland
+				duration = -1
+			}
+			
+			custom_tooltip = FRI_ending_factional_strife_will_be_made_easier
+		}
+	}
+	
+	FRI_magna_frisia = {
+		icon = secure_our_rule
+		required_missions = { FRI_unite_friesland FRI_discredit_hollander_claims }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 100
+				province_id = 1931
+				province_id = 4382
+				area = holland_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			100 = { owned_by = ROOT }
+			1931 = { owned_by = ROOT }
+			4382 = { owned_by = ROOT }
+			holland_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			country_event_with_effect_insight = {
+				id = ME_Frisia_Events.1
+				effect = "
+					override_country_name = FRI_magna_frisia
+					custom_tooltip = \" \"
+					if = {
+						limit = {
+							NOT = { government_rank = 2 }
+						}
+						set_government_rank = 2
+						custom_tooltip = \" \"
+					}
+					add_age_modifier = {
+						name = FRI_the_frisian_kingdom
+						duration = -1
+						age = age_of_discovery
+					}
+				"
+			}
+		}
+	}
+	
+	FRI_netherlands = {
+		icon = the_true_freedom
+		required_missions = { FRI_magna_frisia FRI_around_ijsselmeer }
+		position = 5
+		provinces_to_highlight = {
+			NED_netherlands_pth = yes
+		}
+		trigger = {
+			NED_netherlands_trigger = yes
+		}
+		effect = {
+			NED_netherlands_reward = yes
+		}
+	}
+}
+
+FRI_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			AND = {
+				tag = FRI
+				has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			}
+			tag = EFR
+			AND = {
+				tag = NED
+				OR = {
+					was_tag = FRI
+					was_tag = EFR
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	FRI_upstalbeam = {
+		icon = fu_hemmingsteadt
+		required_missions = { FRI_spread_frisian_freedom }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_government_mechanic = peasant_vigour_mechanic
+				}
+				has_government_power = {
+					mechanic_type = peasant_vigour_mechanic
+					power_type = peasant_vigour
+					value = 50
+				}
+			}
+			else = {
+				num_of_battles_won = { amount = 50 }
+			}
+			
+			stability = 2
+			reform_level = 2
+		}
+		effect = {
+			add_country_modifier = {
+				name = FRI_rather_dead_than_slaves
+				duration = 14600
+			}
+			
+			custom_tooltip = FRI_peasant_vigour_will_also_now_provide_scaling_stability_cost
+			set_country_flag = FRI_opstalboom_vigour_buff
+		}
+	}
+	
+	FRI_potestaat = {
+		icon = fu_peasants_field
+		required_missions = { FRI_upstalbeam }
+		position = 3
+		provinces_to_highlight = {
+			is_capital_of = ROOT 
+			NOT = { has_courthouse_building_trigger = yes }
+		}
+		trigger = {
+			total_development = 100
+			NOT = { has_country_modifier = NED_factionalism_modifier }
+			reform_level = 4
+			legitimacy_equivalent = 95
+			capital_scope = {
+				has_courthouse_building_trigger = yes
+			}
+		}
+		effect = {
+			custom_tooltip = FRI_change_naming
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = FRI_potestaat_modifier
+				duration = -1
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				custom_tooltip = FRI_ability_to_gain_special_monarch_personality
+			}
+			set_country_flag = fri_hero_of_the_people_flag
+		}
+	}
+	
+	FRI_north_renaissance = {
+		icon = reaffirm_civil_values
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			ned_north_renaissance_pth = yes
+		}
+		trigger = {
+			ned_north_renaissance_trigger = yes
+		}
+		effect = {
+			ned_north_renaissance_effect = yes
+		}
+	}
+	
+	FRI_humanism = {
+		icon = me_mission_erasmus
+		required_missions = { FRI_north_renaissance }
+		position = 5
+		provinces_to_highlight = {
+			ned_humanism_pth = yes
+		}
+		trigger = {
+			ned_humanism_trigger = yes
+		}
+		effect = {
+			ned_humanism_effect = yes
+		}
+	}
+}
+
+FRI_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			AND = {
+				tag = FRI
+				has_country_flag = use_missions_expanded_missions_instead_of_paradox
+			}
+			tag = EFR
+			AND = {
+				tag = NED
+				OR = {
+					was_tag = FRI
+					was_tag = EFR
+				}
+			}
+		}
+	}
+	has_country_shield = yes
+	
+	FRI_spread_frisian_freedom = {
+		icon = fu_peasant_leader
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_government_mechanic = peasant_vigour_mechanic
+				}
+				has_government_power = {
+					mechanic_type = peasant_vigour_mechanic
+					power_type = peasant_vigour
+					value = 25
+				}
+			}
+			else = {
+				num_of_battles_won = { amount = 20 }
+			}
+		}
+		effect = {
+			custom_tooltip = FRI_upgrade_guillotine_the_nobility
+			set_country_flag = FRI_upgrade_guillotine_the_nobility
+			
+			custom_tooltip = " "
+			
+			add_yearly_manpower = 1
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 100
+		}
+	}
+	
+	FRI_arumer_swarte_heap = {
+		icon = gory_to_the_black_army #kappa
+		required_missions = { FRI_upstalbeam FRI_spread_frisian_freedom }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			army_size = 20
+			has_global_modifier_value = {
+				which = land_morale
+				value = 0.25
+			}
+			
+			if = {
+				limit = {
+					has_government_mechanic = peasant_vigour_mechanic
+				}
+				has_government_power = {
+					mechanic_type = peasant_vigour_mechanic
+					power_type = peasant_vigour
+					value = 40
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FRI_enable_the_black_army_mercenary_company
+			set_country_flag = FRI_black_army_flag
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_Frisia_Events.2 
+				option_1 = "
+					define_general = {
+						fire = 3
+						shock = 2
+						manuever = 3
+						siege = 0
+						trait = cross_of_the_dutchmen
+						name = \"Greate Pier\"
+					}
+					custom_tooltip = FRI_cross_of_the_dutchmen_personality
+				"
+				option_2 = "
+					define_admiral = {
+						fire = 3
+						shock = 4
+						manuever = 4
+						siege = 0
+						trait = cross_of_the_dutchmen
+						name = \"Greate Pier\"
+					}
+					custom_tooltip = FRI_cross_of_the_dutchmen_personality
+				"
+			}
+		}
+	}
+	
+	FRI_groningen = {
+		icon = unite_the_league
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 4382
+		}
+		trigger = {
+			4382 = {
+				owned_by = ROOT
+				num_of_times_improved = 7
+				num_of_buildings_in_province = 2
+			}
+		}
+		effect = {
+			4382 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+				
+				custom_tooltip = " "
+				
+				add_institution_embracement = {
+					which = global_trade
+					value = 50
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 2
+		}
+	}
+	
+	FRI_hanseatic_ties = {
+		icon = defend_the_city
+		required_missions = { FRI_groningen }
+		position = 5
+		provinces_to_highlight = {
+			is_capital_of = ROOT 
+		}
+		trigger = {
+			num_of_light_ship = 15
+			home_trade_node = {
+				trade_share = {
+					country = ROOT
+					share = 20
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = FRI_hanseatic_ties_modifier
+				duration = 9125
+			}	
+			
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				add_estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 10
+				}
+				custom_tooltip = " "
+			}
+		
+			complex_dynamic_effect = {
+				first_custom_tooltip = FRI_if_we_have_improved_relations_with_HSA
+				first_limit = "
+					HSA = {
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+				"
+				first_effect = "
+					define_advisor = {
+						type = travelling_merchant
+						skill = 3
+						cost_multiplier = 0.4
+						culture = HSA
+						religion = HSA
+					}
+				"
+			}
+		}
+	}
+}

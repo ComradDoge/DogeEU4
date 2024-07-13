@@ -1,0 +1,425 @@
+# Hi!
+# These functions are created to make the process of creating "sale" events like the sale of silk for Granada or optics of Rhineland.
+
+#	ME_sale_pick_target = {
+#		scale = ""
+#		id = "ned_art_sale"
+#		prioritize_player = yes #checks if present
+#		global_trigger = ""
+#		amount = <int>
+#		name = "" #event target name that is combined with id
+#	}
+
+
+ME_sale_pick_target = {
+	ME_sale_pick_best_tags = {
+		scale = $scale$
+		event_target_name = $id$_$name$
+		$amount$ = "yes"
+		exclusion = $id$
+		global_trigger = "$global_trigger$"
+		scope = every_known_country
+		[[prioritize_player] prioritize_player = "_player" ]
+	}
+}
+
+#	ME_sale_setup_variable = {
+#		scale = ""
+#		id = "ned_art_sale"
+#		num = 1
+#	}
+
+ME_sale_pay = {
+	hidden_effect = {
+		while = {
+			limit = {
+				check_variable = {
+					which = ME_sale_cost_$id$
+					value = 100
+				}
+			}
+			subtract_variable = {
+				which = ME_sale_cost_$id$
+				value = 100
+			}
+			add_treasury = -100
+			FROM = {
+				add_treasury = 100
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ME_sale_cost_$id$
+					value = 10
+				}
+			}
+			subtract_variable = {
+				which = ME_sale_cost_$id$
+				value = 10
+			}
+			add_treasury = -10
+			FROM = {
+				add_treasury = 10
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ME_sale_cost_$id$
+					value = 1
+				}
+			}
+			subtract_variable = {
+				which = ME_sale_cost_$id$
+				value = 1
+			}
+			add_treasury = -1
+			FROM = {
+				add_treasury = 1
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ME_sale_cost_$id$
+					value = 0.1
+				}
+			}
+			subtract_variable = {
+				which = ME_sale_cost_$id$
+				value = 0.1
+			}
+			add_treasury = -0.1
+			FROM = {
+				add_treasury = 0.1
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ME_sale_cost_$id$
+					value = 0.01
+				}
+			}
+			subtract_variable = {
+				which = ME_sale_cost_$id$
+				value = 0.01
+			}
+			add_treasury = -0.01
+			FROM = {
+				add_treasury = 0.01
+			}
+		}
+	}
+}
+
+ME_sale_setup_variable = {
+	if = {
+		limit = {
+			ME_sale_exists = { id = $id$ num = $num$ name = $name$ }
+		}
+		event_target:$id$_$name$_$num$ = {
+			export_to_variable = {
+				variable_name = ME_sale_cost_$id$
+				value = $what$
+			}
+			[[extra] $extra$ ]
+		}
+	}
+}
+
+ME_sale_effect_and_cost = {
+	event_target:$id$_$name$_$num$ = {
+		custom_tooltip = ME_sale_$id$_tt
+		tooltip = {
+			$effect$
+		}
+		
+		custom_tooltip = " "
+		
+		country_event = {
+			id = $event$
+		}
+	}
+}
+
+ME_sale_purchase = {
+	custom_tooltip = ME_sale_$id$_purchase_tt
+	
+	custom_tooltip = " "
+	hidden_effect = {
+		ME_sale_pay = { id = $id$ }
+	}
+	
+	$effect$
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# tweaked pick best tags for this very purpose
+
+ME_sale_pick_best_tags = {
+	[[1]
+		if = {
+			limit = { always = $1$ }
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 1
+				exclusion = $exclusion$
+			}
+		}
+	]
+	[[2]
+		if = {
+			limit = { always = $2$ }
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 1
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 2
+				exclusion = $exclusion$
+			}
+		}
+	]
+	[[3]
+		if = {
+			limit = { always = $3$ }
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 1
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 2
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 3
+				exclusion = $exclusion$
+			}
+		}
+	]
+	[[4]
+		if = {
+			limit = { always = $4$ }
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 1
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 2
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 3
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 4
+				exclusion = $exclusion$
+			}
+		}
+	]
+	[[5]
+		if = {
+			limit = { always = $5$ }
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 1
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 2
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 3
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 4
+				exclusion = $exclusion$
+			}
+			ME_sale_pick_best_tag$prioritize_player$ = {
+				scale = "$scale$"
+				scope = $scope$
+				global_trigger = "$global_trigger$"
+				event_target_name = "$event_target_name$"
+				number = 5
+				exclusion = $exclusion$
+			}
+		}
+	]
+}
+
+ME_sale_pick_best_tag = {
+	random_known_country = { 
+		limit = {
+			[[global_trigger] $global_trigger$ ]
+			NOT = { has_country_flag = $exclusion$_exclude }
+			NOT = { war_with = ROOT }
+		}
+		save_event_target_as = $event_target_name$_$number$
+	}
+	if = {
+		limit = {
+			has_saved_event_target = $event_target_name$_$number$
+		}
+		$scope$ = {
+			limit = {
+				[[global_trigger] $global_trigger$ ]
+				$scale$ = event_target:$event_target_name$_$number$
+				NOT = { has_country_flag = $exclusion$_exclude }
+				NOT = { war_with = ROOT }
+			}
+			save_event_target_as = $event_target_name$_$number$
+		}
+		event_target:$event_target_name$_$number$ = {
+			set_country_flag = $exclusion$_exclude
+		}
+	}
+}
+
+ME_sale_pick_best_tag_player = {
+	random_known_country = { 
+		limit = {
+			[[global_trigger] $global_trigger$ ]
+			NOT = { has_country_flag = $exclusion$_exclude }
+			ai = no
+			NOT = { war_with = ROOT }
+		}
+		save_event_target_as = $event_target_name$_$number$
+	}
+	if = { #success! There is at least one player fulfilling this, proceed!
+		limit = {
+			has_saved_event_target = $event_target_name$_$number$
+		}
+		set_global_flag = ME_cease_rest
+		$scope$ = {
+			limit = {
+				[[global_trigger] $global_trigger$ ]
+				$scale$ = event_target:$event_target_name$_$number$
+				NOT = { has_country_flag = $exclusion$_exclude }
+				ai = no
+				NOT = { war_with = ROOT }
+			}
+			save_event_target_as = $event_target_name$_$number$
+		}
+		event_target:$event_target_name$_$number$ = {
+			set_country_flag = $exclusion$_exclude
+		}
+	}
+	
+	if = {
+		limit = {
+			NOT = { has_global_flag = ME_cease_rest } #either player was not prioritized or no player was found, find best ai targets
+		}
+		random_known_country = { 
+			limit = {
+				[[global_trigger] $global_trigger$ ]
+				NOT = { has_country_flag = $exclusion$_exclude }
+				NOT = { war_with = ROOT }
+			}
+			save_event_target_as = $event_target_name$_$number$
+		}
+		if = {
+			limit = {
+				has_saved_event_target = $event_target_name$_$number$
+			}
+			$scope$ = {
+				limit = {
+					[[global_trigger] $global_trigger$ ]
+					$scale$ = event_target:$event_target_name$_$number$
+					NOT = { has_country_flag = $exclusion$_exclude }
+					NOT = { war_with = ROOT }
+				}
+				save_event_target_as = $event_target_name$_$number$
+			}
+			event_target:$event_target_name$_$number$ = {
+				set_country_flag = $exclusion$_exclude
+			}
+		}
+	}
+	
+	
+	clr_global_flag = ME_cease_rest
+}
+
+ME_sale_cleanup = {
+	every_country = {
+		limit = {
+			has_country_flag = $id$_exclude
+		}
+		clr_country_flag = $id$_exclude
+	}
+}

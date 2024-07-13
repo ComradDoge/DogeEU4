@@ -1615,7 +1615,9 @@ on_startup = {
 	361 = { 
 		province_event = { id = ME_Abbasid_Events.1 }
 	}
-	
+	REB = {
+		country_event = { id = ME_Dutch_Factionalism_Events.1 }
+	}	
 }
 
 on_add_pasha = {	
@@ -1971,6 +1973,36 @@ on_siege_won_province = {
 		controller = {
 			ROOT = { save_event_target_as = Tunis_the_province }
 			country_event = { id = ME_Tunis_Events.13 }
+		}
+	}
+	if = {
+		limit = {
+			controller = {
+				has_government_mechanic = peasant_vigour_mechanic
+			}
+		}
+		export_to_variable = {
+			which = ME_temp_peasant_effect
+			value = trigger_value:base_tax
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ME_temp_peasant_effect
+					value = 1
+				}
+			}
+			controller = {
+				add_government_power = {
+					mechanic_type = peasant_vigour_mechanic
+					power_type = peasant_vigour
+					value = 0.1
+				}
+			}
+			change_variable = {
+				which = ME_temp_peasant_effect
+				value = -1
+			}
 		}
 	}
 }
@@ -2450,4 +2482,105 @@ on_monarch_death = {
 		country_event = { id = ME_Timurid_Princes_Event.12 }
 	}
 	else = { } #don't complain error log.
+}
+
+
+# ROOT = Tag that captured the flagship, FROM = Tag that lost the flagship
+on_flagship_captured = {
+	#if = {
+	#	limit = {
+	#		FROM = {
+	#			tag = TUR
+	#		}
+	#		has_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
+	#	}
+	#	clr_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
+	#	add_country_modifier = {
+	#		name = "EE_spa_naval_triumph"
+	#		duration = 7300
+	#	}
+	#}
+	
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = ME_naval_professionalism_mechanic
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = ME_naval_professionalism_mechanic
+				power_type = naval_professionalism_power
+				value = 10
+			}
+		}
+	}
+}
+
+# ROOT = Tag that destroyed the flagship, FROM = Tag that lost the flagship
+on_flagship_destroyed = {
+	#if = {
+	#	limit = {
+	#		FROM = {
+	#			tag = TUR
+	#		}
+	#		has_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
+	#	}
+	#	clr_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
+	#	add_country_modifier = {
+	#		name = "EE_spa_naval_triumph"
+	#		duration = 7300
+	#	}
+	#}
+	
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = ME_naval_professionalism_mechanic
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = ME_naval_professionalism_mechanic
+				power_type = naval_professionalism_power
+				value = 10
+			}
+		}
+	}
+}
+
+# country
+on_admiral_recruited = {
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = ME_naval_professionalism_mechanic
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = ME_naval_professionalism_mechanic
+				power_type = naval_professionalism_power
+				value = 1
+			}
+		}
+	}
+}
+
+# country
+on_explorer_recruited = {
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = ME_naval_professionalism_mechanic
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = ME_naval_professionalism_mechanic
+				power_type = naval_professionalism_power
+				value = 1
+			}
+		}
+	}
 }

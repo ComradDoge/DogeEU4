@@ -1,0 +1,891 @@
+LNC_missions_1 = { #utilizing Lancaster Tag
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = LNC #lancaster
+			#tag = YRK #York
+			tag = NOL #Northumberland
+
+			tag = EAL
+			tag = MRC
+			tag = LOD
+			tag = WSX
+		}
+	}
+	has_country_shield  = yes
+
+	LNC_eclipse = {
+		icon = mission_rb_invade_england
+		required_missions = { LNC_war_of_the_roses }
+		position = 2
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = ENG
+				}
+				owned_by = ENG
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					tag = ENG
+				}
+				legitimacy = 90
+			}
+			else_if = {
+				limit = {
+					exists = ENG
+				}
+				OR = {
+					total_development = ENG
+					has_won_war_against = { who = ENG }
+					army_size = ENG
+				}
+			}
+			else = {
+				army_size = 15 
+				grown_by_development = 60
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = LNC_stronger_than_england
+				duration = 10950
+			}
+			
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			ME_add_power_projection = { amount = 10 }
+		}
+	}
+
+	LNC_parliament = {
+		icon = mission_rb_the_education_acts
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_parliament_dlc_trigger = yes
+				}
+				if = {
+					limit = {
+						has_parliament = yes
+					}
+					num_of_issues_passed = { amount = 2 }
+				}
+				else = {
+					custom_trigger_tooltip = {
+						tooltip = LNC_consider_getting_plantagenet_monarchy_it_will_be_better_lmao_also_have_1_stability
+						stability = 1
+					}
+					num_of_provinces_developed = { amount = 8 } 
+				}
+			}
+			else = {
+				stability = 1
+				num_of_provinces_developed = { amount = 8 } 
+			}
+		}
+		effect = {
+			add_adm_power = 100
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_parliament = yes
+				}
+				add_country_modifier = {
+					name = LNC_parliament_seats
+					duration = -1
+				}
+				
+				unlock_issue = {
+					issue = LNC_claim_the_throne_of_england_act
+				}
+				tooltip = {
+					custom_tooltip = LNC_gain_core_on_every_english_province
+				}
+			}
+			else = { 
+				add_country_modifier = {
+					name = LNC_parliament_no_actual_parliament_sadge
+					duration = -1
+				}
+				
+				add_stability_or_adm_power = yes 
+			}
+		}
+	}
+
+	LNC_parliament_2 = {
+		icon = mission_rb_the_bank_of_scotland
+		required_missions = { LNC_parliament }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				has_seat_in_parliament = yes
+				num_of_times_improved = 3
+			}
+			NOT = {
+				AND = {
+					has_seat_in_parliament = yes
+					num_of_times_improved = 3
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_parliament = yes
+				}
+				num_of_owned_provinces_with = {
+					has_seat_in_parliament = yes
+					num_of_times_improved = 3
+					value = 3
+				}
+			}
+			else = {
+				has_adm_advisor_2 = yes
+				OR = {
+					monthly_adm = 10
+					national_focus = adm
+					adm = 5
+				}
+				has_dip_advisor_2 = yes
+				OR = {
+					monthly_dip = 10
+					national_focus = dip
+					dip = 5
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_parliament = yes
+				}
+				custom_tooltip = LNC_every_area_with_a_parliament_seat
+				tooltip = {
+					add_province_modifier = {
+						name = LNC_turbo_province_bcs_thats_how_mafia_works
+						duration = 10950
+					}
+				}
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							has_seat_in_parliament = yes
+						}
+						area = {
+							limit = {
+								owned_by = ROOT
+							}
+							add_province_modifier = {
+								name = LNC_turbo_province_bcs_thats_how_mafia_works
+								duration = 10950
+							}
+						}
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = LNC_turbo_parliament
+					duration = 10950
+				}
+			}
+			
+			define_advisor = {
+				type = statesman
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5 
+			}
+		}
+	}
+}
+
+LNC_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = LNC #lancaster
+			#tag = YRK #York
+			tag = NOL #Northumberland
+
+			tag = EAL
+			tag = MRC
+			tag = LOD
+			tag = WSX
+		}
+	}
+	has_country_shield  = yes
+	
+	LNC_war_of_the_roses = {
+		icon = mission_rb_war_of_the_roses
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				war_with = ENG
+				army_size = 8
+				army_size_percentage = 0.85
+			}
+		}
+		effect = {
+			ME_give_claims = { area = home_counties_area }
+			ME_give_claims = { area = wessex_area }
+			ME_give_claims = { area = wales_area }
+			ME_give_claims = { area = east_anglia_area }
+			ME_give_claims = { area = west_midlands_area }
+			ME_give_claims = { area = east_midlands_area }
+			ME_give_claims = { area = yorkshire_area }
+			ME_give_claims = { area = scottish_marches_area }
+			
+			custom_tooltip = " " 
+			
+			custom_tooltip = LNC_enable_decision_to_purge_pretenders
+			set_country_flag = LNC_enable_decision_to_purge_pretenders
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 100
+		}
+	}
+	
+	LNC_new_england = {
+		icon = mission_rb_empire
+		required_missions = { LNC_war_of_the_roses }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = home_counties_area
+				area = wessex_area
+				area = wales_area
+				area = east_anglia_area
+				area = west_midlands_area
+				area = east_midlands_area
+				area = yorkshire_area
+				area = scottish_marches_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = home_counties_area
+					area = wessex_area
+					area = wales_area
+					area = east_anglia_area
+					area = west_midlands_area
+					area = east_midlands_area
+					area = yorkshire_area
+					area = scottish_marches_area
+				}
+				value = 10
+			}
+		}
+		effect = {
+			change_government_reform_progress = 50
+			
+			custom_tooltip = " "
+		
+			country_event_with_option_insight = {
+				id = ME_England_Events.45
+				option_1 = "
+					custom_tooltip = LNC_this_option_requires_parliament
+					
+					custom_tooltip = \" \"
+					
+					custom_tooltip = LNC_unlock_the_parliament_estate
+					set_country_flag = enable_parliament_estate
+				"
+				option_2 = "
+					custom_tooltip = LNC_this_option_requires_nobility
+					
+					custom_tooltip = \" \"
+					
+					custom_tooltip = ENG_enable_new_lineages_estate_privilege
+		
+					complete_mission = ENG_new_men 
+				
+					custom_tooltip = \" \"
+					
+					custom_tooltip = ENG_lineages_no_interference_tt
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = LNC_support_of_commons
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+	
+	LNC_form_england = {
+		icon = mission_rb_angevin_kingdom
+		required_missions = { LNC_new_england LNC_parliament_2 }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 237
+				province_id = 234
+				province_id = 235
+				province_id = 238
+				province_id = 236
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				owns_core_province = 237		# Oxfordshire
+				owns_core_province = 234		# Wessex
+				owns_core_province = 235		# Kent
+				owns_core_province = 238		# East Anglia
+				owns_core_province = 236		# London
+				amount = 4
+			}
+		}
+		effect = {
+			add_war_exhaustion = -2
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = LNC_out_with_the_old_in_with_the_new
+				duration = -1
+				age = age_of_discovery
+				else = "
+					add_stability_or_adm_power = yes
+				"
+			}
+		}
+	}
+}
+
+LNC_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = LNC #lancaster
+			#tag = YRK #York
+			tag = NOL #Northumberland
+
+			tag = EAL
+			tag = MRC
+			tag = LOD
+			tag = WSX
+		}
+	}
+	has_country_shield  = yes
+	
+	LNC_seize_london = {
+		icon = mission_rb_scottish_conquer_london
+		required_missions = { LNC_war_of_the_roses }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 236
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			236 = {
+				owned_by = ROOT 
+			}
+		}
+		effect = {
+			236 = {
+				set_center_level_2_center_of_trade = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_legitimacy_or_reform_progress = { amount = 15 }
+			
+			custom_tooltip = " "
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+	
+	LNC_merchant_adventurers = {
+		icon = mission_rb_control_the_hansa
+		required_missions = { LNC_seize_london LNC_english_channel }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 236
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_trade_building_trigger = yes }
+			}
+		}
+		trigger = {
+			236 = {
+				has_trade_building_trigger = yes
+				owned_by = ROOT
+			}
+			num_ships_protecting_trade = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = LNC_company_of_adventurer_merchants
+				duration = 9125
+			}
+			country_event_with_effect_insight = {
+				id = ME_England_Events.46 
+				effect = "
+					define_advisor = {
+						type = travelling_merchant skill = 3 culture = english religion = ROOT cost_multiplier = 0.33
+					}
+					custom_tooltip = \" \"
+					1271 = { add_trade_modifier = { power = 25 duration = 18250 key = LNC_adventurers who = ROOT } }
+					45 = { add_trade_modifier = { power = 25 duration = 18250 key = LNC_adventurers who = ROOT } }
+					43 = { add_trade_modifier = { power = 25 duration = 18250 key = LNC_adventurers who = ROOT } }
+				"
+			}
+		}
+	}
+	
+	LNC_cloth = {
+		icon = purely_for_commerce
+		required_missions = { LNC_merchant_adventurers LNC_wool }
+		position = 4
+		provinces_to_highlight = {
+			trade_goods = cloth
+			owned_by = ROOT 
+			NOT = { has_production_building_trigger = yes }
+			NOT = { num_of_times_improved = 4 }
+		}
+		trigger = {
+			OR = {
+				trading_part = {
+					trade_goods = cloth
+					value = 0.1
+				}
+				num_of_owned_provinces_with = {
+					trade_goods = cloth
+					OR = { 
+						has_production_building_trigger = yes 
+						num_of_times_improved = 4
+					}
+					value = 3 
+				}
+			}
+			
+			wool = 3
+		}
+		effect = {
+			custom_tooltip = ENG_distribute_10_random_development_in_cloth_provs
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								trade_goods = wool
+							}
+							add_random_development = 1
+						}
+					"
+				}
+			}
+		
+			custom_tooltip = " "
+		
+			complex_dynamic_effect = {
+				first_custom_tooltip = LNC_if_via_trading_part
+				first_limit = "
+					trading_part = {
+						trade_goods = cloth
+						value = 0.1
+					}
+				"
+				first_effect = "
+					if = {
+						limit = {
+							trade_income_percentage = 0.01
+						}
+						ME_add_years_of_trade_income = { years = 0.5 }
+					}
+				"
+				second_custom_tooltip = LNC_if_via_production
+				second_limit = "
+					num_of_owned_provinces_with = {
+						trade_goods = cloth
+						OR = { 
+							has_production_building_trigger = yes 
+							num_of_times_improved = 4
+						}
+						value = 3 
+					}
+				"
+				second_effect = "
+					add_years_of_owned_provinces_production_income = {
+						years = 10
+						trigger = {
+							trade_goods = cloth
+						}
+						custom_tooltip = FLA_prod_from_cloth
+					}
+				"
+			}
+		}
+	}
+}
+
+LNC_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = LNC #lancaster
+			#tag = YRK #York
+			tag = NOL #Northumberland
+
+			tag = EAL
+			tag = MRC
+			tag = LOD
+			tag = WSX
+		}
+	}
+	has_country_shield  = yes
+
+	LNC_english_channel = {
+		icon = mission_rb_monopolize_the_channel
+		required_missions = { }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 236
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = { 
+						tag = LOD
+						tag = ENG
+					}
+				}
+				236 = {
+					trade_share = {
+						country = ROOT
+						share = 15
+					}
+				}
+			}
+			else = {
+				236 = {
+					trade_share = {
+						country = ROOT
+						share = 10
+					}
+				}
+			}
+		}
+		effect = {
+			define_advisor = {
+				type = treasurer
+				name = "John Smith" #not a real person, I just think the default name from wiki is funny
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5 
+			}
+		
+			custom_tooltip = " "
+		
+			add_mercantilism = 3
+			
+			custom_tooltip = " "
+		
+			complex_dynamic_effect = {
+				first_custom_tooltip = LNC_if_we_have_naval_commander
+				first_limit = "
+					naval_reformer = 1 
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = LNC_trade_ship_upgrade_cuz_y_not
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+
+	LNC_wool = {
+		icon = mission_rb_conquer_wales
+		required_missions = { LNC_english_channel }
+		position = 3
+		provinces_to_highlight = {
+			trade_goods = wool
+			owned_by = ROOT
+			NOT = { num_of_times_improved = 3 }
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				trade_goods = wool
+				OR = {
+					num_of_times_improved = 3 
+					has_tax_building_trigger = yes 
+				}
+				value = 4
+			}
+		}
+		effect = {
+			custom_tooltip = LNC_every_owned_province_with_wool_and_tax
+			tooltip = {
+				add_province_modifier = {
+					name = LNC_sheep_payed_for_all
+					duration = 10950
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						trade_goods = wool
+						has_tax_building_trigger = yes
+					}
+					add_province_modifier = {
+						name = LNC_sheep_payed_for_all
+						duration = 10950
+					}
+				}
+			}
+			
+			add_years_of_income = 0.25
+			
+			custom_tooltip = " "
+			
+			add_dip_power = 75
+		}
+	}
+}
+
+LNC_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			#tag = LNC #lancaster
+			#tag = YRK #York
+			tag = NOL #Northumberland
+
+			tag = EAL
+			tag = MRC
+			tag = LOD
+			tag = WSX
+		}
+	}
+	has_country_shield  = yes
+
+	LNC_manor_tenure = {
+		icon = mission_rb_control_electors
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 65
+					}
+					num_of_estate_privileges = {
+						estate = estate_nobles
+						value = 5
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles 
+						value = 2
+					}
+				}
+			}
+		}
+		effect = {
+			add_yearly_manpower = 0.5
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_dlc = "Domination"
+				}
+				country_event_with_option_insight = {
+					id = ME_England_Events.47
+					option_1 = "
+						set_estate_privilege = estate_nobles_english_villeinage
+		
+						custom_tooltip = LNC_temporary_better_villeinage
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = LNC_evolution_of_villeinage
+							duration = 9125
+						}
+					"
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = LNC_evolution_of_villeinage
+					duration = 9125
+				}
+			} #villeinage but it's good until you form england?
+		}
+	}
+
+	LNC_pretenders = {
+		icon = mission_empire
+		required_missions = { LNC_manor_tenure }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = LNC_defeat_pretenders_3_times
+				check_variable = {
+					which = LNC_amount_of_pretenders_defeated
+					value = 3
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = ENG_yearly_legitimacy_trigger
+				has_global_modifier_value = {
+					which = legitimacy
+					value = 1
+				}
+			}
+		}
+		effect = {
+			set_country_flag = had_war_of_the_roses
+			custom_tooltip = LNC_no_more_war_of_the_roses
+			
+			custom_tooltip = " "
+			
+			add_prestige_or_monarch_power = { amount = 15 }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = LNC_war_of_the_roses_is_over
+				duration = 10950
+			}
+		}
+	}
+
+	LNC_poor_laws = {
+		icon = catholic_confraternity
+		required_missions = { LNC_pretenders LNC_wool }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_provinces_developed = { amount = 20 }
+			num_of_owned_provinces_with = {
+				num_of_buildings_in_province = 2
+				value = 3
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_parliament = yes
+				}
+				unlock_issue = {
+					issue = LNC_poor_law_act
+				}
+				tooltip = {
+					custom_tooltip = LNC_distribute_12_base_tax_prioritizing_provinces_under_8_development
+				
+					if = {
+						limit = {
+							has_estate = estate_burghers
+						}
+						custom_tooltip = " "
+					
+						add_estate_loyalty_modifier = {
+							estate = estate_burghers
+							desc = LNC_poor_laws
+							loyalty = 5
+							duration = -1
+						}
+					}
+				}
+			}
+			else = {
+				custom_tooltip = LNC_distribute_12_base_tax_prioritizing_provinces_under_8_development
+		
+				hidden_effect = {
+					for = {
+						amount = 12
+						effect = "
+							if = {
+								limit = {
+									any_owned_province = {
+										NOT = { development = 8 }
+									}
+								}
+								random_owned_province = { 
+									limit = { 
+										NOT = { development = 8 }
+									}
+									add_base_tax = 1
+								}
+							}
+							else = {
+								random_owned_province = {
+									add_base_tax = 1
+								}
+							}
+						"
+					}
+				}
+				
+				if = {
+					limit = {
+						has_estate = estate_burghers
+					}
+					custom_tooltip = " "
+				
+					add_estate_loyalty_modifier = {
+						estate = estate_burghers
+						desc = LNC_poor_laws
+						loyalty = 5
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}

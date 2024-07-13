@@ -19,11 +19,30 @@ from the original mod I took. After all I need to understand how they work, else
 
 
 - Fixed Centralisation mechanic working incorrectly.
+- Brandenburg/Prussia fix to not being able to progress.
+- Added various content from Europa Expanded 1.13 update.
+- Fixed some of tribal land staying when removing natives.
 - Minor fix to Mughal mission not properly referencing things.
 - Addded new special setting: Forts Capture Neighbouring Provinces.
 - Tweaked the Manufactory Scaling explanation icon for better visability.
-- Lombardy-Venetia no longer limited to Milan/Venice but only the relevant cultures.
+- Lombardy-Venetia no longer limited to Milan/Venice tags, still limited to the relevant cultures.
 - Added new loading screen "Richard, Duke of Gloucester, and the Lady Anne" by Abbey. It goes hard. Doge included.
+- Added or updated some missions from recent Europa Expanded update: Luxembourg, Netherlands (Holland, Friesland, Brabant, Flanders, Gelre/Utrecht), England/Britain (Northumberland, London, Wessex, Mercia, East Anglia)
+
+Navarra (replaced)
+Maan (choice) /// The Isles (choice)
+Wales (choice)
+Scotland (choice (vanilla))
+Cornwall (choice)
+
+Brittany (added)
+Switzerland (added (vanilla))
+
+Achen (added)
+
+generic French (for all, northern ones get a choice)
+generic iberian (poggers)
+
 
 # TODO
 

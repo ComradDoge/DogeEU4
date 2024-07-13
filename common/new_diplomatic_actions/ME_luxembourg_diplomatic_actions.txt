@@ -1,0 +1,136 @@
+luxemburg_spread_von_luxemburg = {
+	category = influence
+
+	alert_index = 6
+	alert_tooltip = ME_tributary_state_interaction_tooltip
+
+	require_acceptance = yes
+
+	is_visible = {
+		has_country_flag = LUX_enable_interaction_flag
+		FROM = { 
+			government = monarchy 
+		}
+		FROM = {
+			religion_group = christian 
+		}
+	}
+
+	is_allowed = {
+		FROM = {
+			has_heir = no
+			is_subject = no
+		}
+	}
+
+	on_accept = {
+		FROM = {
+			define_heir = {
+				male = yes
+				dynasty = ROOT
+				claim = 75
+				change_adm = 1
+				change_dip = 1
+				change_mil = 1
+			}
+		}
+	}
+
+	on_decline = {
+		#nothing
+	}
+
+	ai_acceptance = {
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				which = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			divide_variable = { which = ai_value value = 4 }
+		}
+		add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				which = ai_value
+				value = -50
+			}
+		}
+		add_entry = {
+			name = MODIFIER_DIPLO_SKILL
+			export_to_variable = {
+				which = ai_value
+				value = modifier:diplomatic_reputation
+			}
+			multiply_variable = { which = ai_value value = 2 }
+		}
+		add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+	}
+
+	ai_will_do = {
+		always = yes # Oh yes, spread it!
+	}
+}

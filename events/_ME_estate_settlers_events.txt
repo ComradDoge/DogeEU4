@@ -1,0 +1,1605 @@
+namespace = estate_settlers_events
+
+country_event = {
+	id = estate_settlers_events.1
+	title = estate_settlers_events.1.t
+	desc = estate_settlers_events.1.d
+	picture = CONQUISTADORS_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = estate_settlers_events.1.a 
+		
+		remove_estate_privilege = estate_settlers_employ_conquistadores
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.2
+	title = estate_settlers_events.2.t
+	desc = estate_settlers_events.2.d
+	picture = ENLIGHTENMENT_eventPicture
+
+	is_triggered_only = yes
+	trigger = {
+		any_owned_province = {
+			NOT = { is_overseas = yes }
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+		}
+		OR = {
+			any_owned_province = {
+				is_overseas = yes
+			}
+			any_subject_country = {
+				is_colonial_nation_of = ROOT
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					NOT = { is_overseas = yes }
+					base_tax = 2
+					base_production = 2
+					base_manpower = 2
+				}
+				save_event_target_as = estate_settlers_brain
+			}
+			random_list = {
+				50 = {
+					trigger = {
+						any_owned_province = {
+							is_overseas = yes
+						}
+					}
+					random_owned_province = {
+						limit = {
+							is_overseas = yes
+						}
+						save_event_target_as = estate_settlers_drain
+					}
+				}
+				50 = {
+					trigger = {
+						any_subject_country = {
+							is_colonial_nation_of = ROOT
+						}
+					}
+					random_subject_country = {
+						limit = {
+							is_colonial_nation_of = ROOT
+						}
+						random_owned_province = {
+							save_event_target_as = estate_settlers_drain
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = estate_settlers_events.2.a 
+		
+		event_target:estate_settlers_drain = {
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.3
+	title = estate_settlers_events.3.t
+	desc = estate_settlers_events.3.d
+	picture = GLOBAL_TRADE_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		set_country_flag = settler_estate_in_power
+	}
+	
+	option = {
+		name = estate_settlers_events.3.a
+		
+		add_stability = -1
+		custom_tooltip = estate_settlers_events.3.a.tt
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.4
+	title = estate_settlers_events.4.t
+	desc = estate_settlers_events.4.d
+	picture = ECONOMICALLY_TALENTED_RULER_eventPicture
+
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = estate_settlers_events.4.a
+		
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.5
+	title = estate_settlers_events.5.t
+	desc = estate_settlers_events.5.d
+	picture = MISSIONARES_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_a_colonial_nation_trigger = yes
+		has_estate = estate_settlers
+		has_estate = estate_church
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_ENCROACH_ON_CHURCH_DENIED
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_church
+				modifier = EST_SETTLERS_ENCROACH_ON_CHURCH
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_subject_country = {
+				limit = {
+					is_colonial_nation_of = ROOT
+				}
+				random_owned_province = {
+					save_event_target_as = estate_settler_target
+				}
+				random_owned_province = {
+					limit = {
+						any_neighbor_province = {
+							is_empty = yes
+						}
+					}
+					save_event_target_as = estate_settler_target
+				}
+			
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.5.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2 
+				estate_settlers_would_rather_influence_went_down = yes
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = 10
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -5
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_ENCROACH_ON_CHURCH_DENIED
+			influence = -10
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.5.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				estate_influence = {
+					estate = estate_church
+					influence = 75
+				}
+			}
+		}
+		
+		event_target:estate_settler_target = {
+			add_base_tax = -1
+			add_base_production = 1
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 5
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = -10
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_church
+			desc = EST_SETTLERS_ENCROACH_ON_CHURCH
+			influence = -5
+			duration = 5475
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.6
+	title = estate_settlers_events.6.t
+	desc = estate_settlers_events.6.d
+	picture = PORT_BLOCKADED_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		has_estate = estate_burghers
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_CONFIRMED_MONOPOLIES
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_church
+				modifier = EST_SETTLERS_DENIED_MONOPOLIES
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.6.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				estate_settlers_does_not_want_any_more_influence = yes
+			}
+			modifier = {
+				factor = 0 
+				estate_settlers_influence_gain_is_unnegotiable = yes
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = -10
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 5
+		}
+		
+		add_mercantilism = 2
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_CONFIRMED_MONOPOLIES
+			influence = 5
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.6.b
+				
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 50 
+				estate_settlers_would_rather_influence_went_down = yes
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 10
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -10
+		}
+		
+		add_years_of_income = 0.2
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_DENIED_MONOPOLIES
+			influence = -10
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.6.c
+		
+		trigger = {
+			ruler_has_personality = entrepreneur_personality
+		}
+		highlight = yes
+		
+		ai_chance = {
+			factor = 100
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 10
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 10
+		}
+		
+		add_years_of_income = 0.2
+		add_mercantilism = 2
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.7
+	title = estate_settlers_events.7.t
+	desc = estate_settlers_events.7.d
+	picture = NOBLE_ESTATE_DEMANDS_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		has_estate = estate_nobles
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_nobles
+				modifier = EST_SETTLERS_ENFORCED_SERFDOM
+			}
+		}
+		NOT = {
+			has_estate_loyalty_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_DEFENDED_FROM_NOBLES
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.7.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.75
+				is_absolutism_active = yes
+			}
+			modifier = {
+				factor = 0.5
+				estate_influence = {
+					estate = estate_nobles
+					influence = 70
+				}
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 10
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -10
+		}
+		
+		add_absolutism = -2.5 # reduce absolutism if applicable
+		
+		add_estate_influence_modifier = {
+			estate = estate_nobles
+			desc = EST_SETTLERS_ENFORCED_SERFDOM
+			influence = 5
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.7.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2 
+				estate_settlers_would_rather_influence_went_down = yes
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -5
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 15
+		}
+		
+		add_estate_loyalty_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_DEFENDED_FROM_NOBLES
+			loyalty = 10
+			duration = 5475
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.8
+	title = estate_settlers_events.8.t
+	desc = estate_settlers_events.8.d
+	picture = NOBLE_ESTATE_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		has_estate = estate_nobles
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_nobles
+				modifier = EST_SETTLERS_SOCIAL_MOBILITY_LIMITED
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_SOCIAL_MOBILITY
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.8.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+				estate_settlers_does_not_want_any_more_influence = yes
+			}
+			modifier = {
+				factor = 0 
+				estate_settlers_influence_gain_is_unnegotiable = yes
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 10
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_SOCIAL_MOBILITY
+			influence = 15
+			duration = 5475
+		}
+		
+		custom_tooltip = estate_settlers_social_mobility
+		hidden_effect = {
+			if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 100
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 10
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 90
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 9
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 80
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 8
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 70
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 7
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 60
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 6
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 50
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 5
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 40
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 4
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 30
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 3
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 20
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 2
+				}
+			}
+			else_if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 10
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 1
+				}
+			}
+			else = { }
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.8.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				estate_influence = {
+					estate = estate_nobles
+					influence = 70
+				}
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 10
+		}
+	
+		add_estate_influence_modifier = {
+			estate = estate_nobles
+			desc = EST_SETTLERS_SOCIAL_MOBILITY_LIMITED
+			influence = 5
+			duration = 5475
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.9
+	title = estate_settlers_events.9.t
+	desc = estate_settlers_events.9.d
+	picture = BURGHER_ESTATE_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_RISING_INFLUENCE
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.9.a
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_RISING_INFLUENCE
+			influence = 10
+			duration = 5475
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.10
+	title = estate_settlers_events.10.t
+	desc = estate_settlers_events.10.d
+	picture = OVEREXTENSION_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_WANING_INFLUENCE
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.10.a
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_WANING_INFLUENCE
+			influence = -10
+			duration = 5475
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.11
+	title = estate_settlers_events.11.t
+	desc = estate_settlers_events.11.d
+	picture = BURGHER_ESTATE_DEMANDS_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		has_a_colonial_nation_trigger = yes
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_subject_country = {
+				limit = {
+					is_colonial_nation = yes
+				}
+				save_event_target_as = estate_settlers_target
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.11.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				NOT = { years_of_income = 0.33 } 
+			}
+			
+			modifier = {
+				factor = 2
+				NOT = { current_income_balance = 1 } 
+			}
+			
+			modifier = {
+				factor = 2
+				estate_loyalty = {
+					estate = estate_settlers
+					loyalty = 65
+				}
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -15
+		}
+		event_target:estate_settlers_target = {
+			add_tariff_value = 0.1
+		}
+		
+		add_years_of_income = 0.25
+	}
+	
+	option = {
+		name = estate_settlers_events.11.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 3
+				NOT = {
+					estate_loyalty = {
+						estate = estate_settlers
+						loyalty = 30
+					}
+				}
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 10
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.12
+	title = estate_settlers_events.12.t
+	desc = estate_settlers_events.12.d
+	picture = SIERRA_DE_LA_PLATA_eventPicture
+
+	is_triggered_only = yes
+	
+	trigger = {
+		has_estate = estate_settlers
+		any_owned_province = {
+			is_colony = yes 
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_colony = yes
+				}
+				save_event_target_as = estate_settlers_target
+			}
+			
+			export_to_variable = {
+				which = estate_settlers_temp_variable
+				value = trigger_value:development
+				who = event_target:estate_settlers_target
+			}
+			multiply_variable = {
+				which = estate_settlers_temp_variable
+				value = 15
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.12.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { treasury = 200 }
+			}
+		}
+		
+		event_target:estate_settlers_target = {
+			add_base_tax = 1
+		}
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 10
+		}
+		
+		custom_tooltip = estate_settlers_pay_temp_var
+		hidden_effect = {
+			while = {
+				limit = {
+					check_variable = {
+						which = estate_settlers_temp_variable
+						value = 10
+					}
+				}
+				subtract_variable = {
+					which = estate_settlers_temp_variable
+					value = 10
+				}
+				add_treasury = -10
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = estate_settlers_temp_variable
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = estate_settlers_temp_variable
+					value = 1
+				}
+				add_treasury = -1
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.12.b
+		
+		ai_chance = {
+			factor = 0.25
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -10
+		}
+		event_target:estate_settlers_target = {
+			add_colonysize = -200
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.12.c
+		
+		ai_chance = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = { treasury = 200 }
+				NOT = { adm_power = 100 }
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 15
+		}
+		
+		add_adm_power = -50
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_GENEROUS_DONATIONS
+			influence = 10
+			duration = 5475
+		}
+		
+		event_target:estate_settlers_target = {
+			add_colonysize = 200
+			add_base_tax = 2
+		}
+		
+		custom_tooltip = estate_settlers_pay_temp_var
+		hidden_effect = {
+			while = {
+				limit = {
+					check_variable = {
+						which = estate_settlers_temp_variable
+						value = 10
+					}
+				}
+				subtract_variable = {
+					which = estate_settlers_temp_variable
+				 	value = 10
+				}
+				add_treasury = -10
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = estate_settlers_temp_variable
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = estate_settlers_temp_variable
+					value = 1
+				}
+				add_treasury = -1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.13
+	title = estate_settlers_events.13.t
+	desc = estate_settlers_events.13.d
+	picture = REBELLION_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		has_a_colonial_nation_trigger = yes 
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_STOPPED_COLONIAL_REBELLION
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_EXECUTED_COLONIAL_REBELS
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_IGNORED_COLONIAL_REBELS
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_subject_country = {
+				limit = {
+					is_colonial_nation_of = ROOT
+				}
+				save_event_target_as = estate_settler_target
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.13.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2 
+				estate_settlers_would_rather_influence_went_down = yes
+			}
+		}
+		
+		event_target:estate_settler_target = {
+			add_liberty_desire = -10
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -15
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_EXECUTED_COLONIAL_REBELS
+			influence = -10
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.13.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2 
+				estate_settlers_would_rather_influence_went_down = yes
+			}
+		}
+		
+		event_target:estate_settler_target = {
+			add_tariff_value = -0.1
+		}
+		
+		add_dip_power = -100
+	
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_STOPPED_COLONIAL_REBELLION
+			influence = -5
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.13.c	
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				estate_settlers_does_not_want_any_more_influence = yes
+			}
+			modifier = {
+				factor = 0 
+				estate_settlers_influence_gain_is_unnegotiable = yes
+			}
+		}
+		
+		event_target:estate_settler_target = {
+			add_liberty_desire = 15
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_IGNORED_COLONIAL_REBELS
+			influence = 5
+			duration = 5475
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.14
+	title = estate_settlers_events.14.t
+	desc = estate_settlers_events.14.d
+	picture = BURGHER_ESTATE_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_FOUGHT_AGAINST_CORRUPTION
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_CORRUPTION
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.14.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2 
+				estate_settlers_would_rather_influence_went_down = yes
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -15
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_FOUGHT_AGAINST_CORRUPTION
+			influence = -5
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.14.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				estate_settlers_does_not_want_any_more_influence = yes
+			}
+			modifier = {
+				factor = 0 
+				estate_settlers_influence_gain_is_unnegotiable = yes
+			}
+			
+			modifier = {
+				factor = 3
+				NOT = { years_of_income = 0.5 }
+			}
+			
+			modifier = {
+				factor = 3
+				NOT = { current_income_balance = 1 }
+			}
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_CORRUPTION
+			influence = 10
+			duration = 5475
+		}
+		
+		add_years_of_income = 1
+		
+		add_corruption = 0.5
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.15
+	title = estate_settlers_events.15.t
+	desc = estate_settlers_events.15.d
+	picture = TRADE_GOODS_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_EASED_MERCANTILIST_POLICIES
+			}
+		}
+		NOT = {
+			has_estate_influence_modifier = {
+				estate = estate_settlers
+				modifier = EST_SETTLERS_MERCANTILIST_POLICY
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.15.a
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2 
+				estate_settlers_would_rather_influence_went_down = yes
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -10
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_MERCANTILIST_POLICY
+			influence = -10
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.15.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+				estate_settlers_does_not_want_any_more_influence = yes
+			}
+			modifier = {
+				factor = 0 
+				estate_settlers_influence_gain_is_unnegotiable = yes
+			}
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_EASED_MERCANTILIST_POLICIES
+			influence = 5
+			duration = 5475
+		}
+		
+		add_mercantilism = -2
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 10
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.16
+	title = estate_settlers_events.16.t
+	desc = estate_settlers_events.16.d
+	picture = MERCHANTS_TALKING_eventPicture
+
+	is_triggered_only = yes
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		estate_loyalty = {
+			estate = estate_settlers
+			loyalty = 70
+		}
+		
+		NOT = { has_country_modifier = estate_settlers_happy_colonist }
+	}
+		
+	
+	option = {
+		name = estate_settlers_events.16.a
+		
+		add_country_modifier = {
+			name = estate_settlers_happy_colonist
+			duration = 5475
+		}
+		
+		custom_tooltip = estate_settlers_70_loyalty
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.17
+	title = estate_settlers_events.17.t
+	desc = estate_settlers_events.17.d
+	picture = EXPLORERS_eventPicture
+
+	is_triggered_only = yes
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	trigger = {
+		has_estate = estate_settlers
+		any_subject_country = {
+			is_colonial_nation = yes
+			any_owned_province = {
+				any_neighbor_province = {
+					is_empty = yes
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_subject_country = {
+				limit = {
+					is_colonial_nation = yes
+					any_owned_province = {
+						any_neighbor_province = {
+							is_empty = yes
+						}
+					}
+				}
+				random_owned_province = {
+					limit = {
+						any_neighbor_province = {
+							is_empty = yes
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							is_empty = yes
+						}
+						save_event_target_as = estate_settler_target
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.17.a
+		
+		ai_chance = {
+			factor = 2 #ai should want free colonies :)
+			modifier = {
+				factor = 0.5
+				estate_settlers_does_not_want_any_more_influence = yes
+			}
+			modifier = {
+				factor = 0 
+				estate_settlers_influence_gain_is_unnegotiable = yes
+			}
+		}
+		
+		event_target:estate_settler_target = {
+			add_siberian_construction = 10
+		}
+		
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_EXPEDITION_SUPPORTED
+			influence = 10
+			duration = 5475
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.17.b
+		
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2 
+				estate_settlers_would_rather_influence_went_down = yes
+			}
+		}
+		
+		add_estate_loyalty = {
+			estate = estate_settlers
+			loyalty = -5
+		}
+		
+		add_estate_influence_modifier = {
+			estate = estate_settlers
+			desc = EST_SETTLERS_DISAPPOINTED
+			influence = -5
+			duration = 5475
+		}
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.18
+	title = estate_settlers_events.18.t
+	desc = estate_settlers_events.18.d
+	picture = CONQUISTADORS_eventPicture
+
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	fire_only_once = yes 
+	
+	trigger = {
+		is_year = 1520
+		owns = 1
+		OR = {
+			NOT = {
+				calc_true_if = {
+					europe_superregion = {
+						type = all
+						owner = {
+							potential_colonizer = yes
+						}
+					}
+					amount = 40
+				}
+			}
+			NOT = {
+				calc_true_if = {
+					all_country = {
+						OR = {
+							has_idea_group = exploration_ideas
+							has_idea_group = expansion_ideas
+						}
+					}
+					amount = 4
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		pick_best_tags = {
+			scale = num_of_ports
+			scope = every_country
+			global_trigger = "
+				capital_scope = {
+					continent = europe
+				}
+			"
+			event_target_name = estate_settler_target
+			1 = yes
+		}
+		event_target:estate_settler_target_1 = {
+			country_event = { id = estate_settlers_events.19 }
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.18.a 
+		
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.19
+	title = estate_settlers_events.19.t
+	desc = estate_settlers_events.19.d
+	picture = CONQUISTADORS_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	
+	option = {
+		name = estate_settlers_events.19.a 
+		
+		custom_tooltip = EE_more_colonizers_tt
+		set_global_flag = EE_more_colonizers
+		
+		custom_tooltip = " "
+		
+		create_explorer = { tradition = 60 }
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.20
+	title = estate_settlers_events.20.t
+	desc = estate_settlers_events.20.d
+	picture = CONQUISTADORS_eventPicture
+
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	fire_only_once = yes 
+	
+	trigger = {
+		is_year = 1520
+		owns = 1
+		calc_true_if = {
+			north_america = {
+				type = all
+				is_city = yes
+			}
+			south_america = {
+				type = all
+				is_city = yes
+			}
+			amount = 650
+		}
+	}
+	
+	immediate = {
+		pick_best_tags = {
+			scale = num_of_cities
+			scope = every_country
+			global_trigger = "
+				capital_scope = {
+					OR = {
+						continent = north_america
+						continent = south_america
+					}
+				}
+			"
+			event_target_name = estate_settler_target
+			1 = yes
+		}
+		event_target:estate_settler_target_1 = {
+			country_event = { id = estate_settlers_events.21 }
+		}
+	}
+	
+	option = {
+		name = estate_settlers_events.18.a 
+		
+	}
+}
+
+country_event = {
+	id = estate_settlers_events.21
+	title = estate_settlers_events.21.t
+	desc = estate_settlers_events.21.d
+	picture = CONQUISTADORS_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	
+	option = {
+		name = estate_settlers_events.21.a 
+		
+		custom_tooltip = EE_no_more_colonizers_tt
+		set_global_flag = EE_america_filled_out
+		
+		custom_tooltip = " "
+		
+		add_mercantilism = 3 
+		
+		custom_tooltip = " "
+		
+		add_years_of_income = 0.1
+	}
+}

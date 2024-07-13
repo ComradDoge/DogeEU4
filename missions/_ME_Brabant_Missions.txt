@@ -1,0 +1,559 @@
+BRB_missions_1 = {
+	slot = 1
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = BRB }
+	}
+	has_country_shield = yes
+
+	BRB_northern_renaissance = {
+		icon = reaffirm_civil_values
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			ned_north_renaissance_pth = yes
+		}
+		trigger = {
+			ned_north_renaissance_trigger = yes
+		}
+		effect = {
+			ned_north_renaissance_effect = yes
+		}
+	}
+	
+	BRB_humanism = {
+		icon = me_mission_erasmus
+		required_missions = { BRB_northern_renaissance }
+		position = 3
+		provinces_to_highlight = {
+			ned_humanism_pth = yes
+		}
+		trigger = {
+			ned_humanism_trigger = yes
+		}
+		effect = {
+			ned_humanism_effect = yes
+		}
+	}
+	
+	BRB_leuven = {
+		icon = wittenberg_university
+		required_missions = { BRB_expand_antwerpen }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 92
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+				NOT = { num_of_times_improved = 3 }
+			}
+		}
+		trigger = {
+			92 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+				num_of_times_improved = 3 
+			}
+		}
+		effect = {
+			92 = {
+				add_or_upgrade_university_building = yes
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = BRB_universita_lovaniensis
+					duration = -1
+				}
+			}
+			
+			define_advisor = {
+				type = theologian
+				name = "Adriaan Florensz Boeyens"
+				skill = 3
+				culture = dutch
+				religion = catholic
+				cost_multiplier = 0.33
+			}
+		}
+	}
+}
+	
+BRB_missions_2 = {
+	slot = 2
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = BRB }
+	}
+	has_country_shield = yes
+
+	BRB_flanders = {
+		icon = promote_urbanization
+		required_missions = { BRB_forcelimit }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 90
+				province_id = 1865
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			90 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1865 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			90 = {
+				add_local_autonomy = -50
+				add_nationalism = -10
+			}
+			1865 = {
+				add_local_autonomy = -50
+				add_nationalism = -10
+			}
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 25 }
+		}
+	}
+	
+	BRB_expand_antwerpen = {
+		icon = expand_the_arsenal
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 1744
+		}
+		trigger = {
+			1744 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				development = 20
+			}
+		}
+		effect = {
+			1744 = {
+				add_or_upgrade_trade_building = yes
+				
+				add_prosperity = 100
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = BRB_growth_of_antwerpen
+					duration = -1
+				}
+			}
+			
+			add_navy_tradition = 15
+		}
+	}
+	
+	BRB_richest_province = {
+		icon = mission_entrepot_of_india
+		required_missions = { BRB_expand_antwerpen }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 1744
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 25 }
+					}
+				}
+				AND = {
+					province_id = 92
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 30 }
+						NOT = { has_production_building_trigger = yes }
+						NOT = { higher_development_than = 97 }
+					}
+				}
+			}
+		}
+		trigger = {
+			1744 = {
+				owned_by = ROOT
+				development = 25
+			}
+			92 = {
+				owned_by = ROOT
+				development = 30
+				has_production_building_trigger = yes
+				higher_development_than = 97
+			}
+		}
+		effect = {
+			92 = {
+				add_or_upgrade_production_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_years_of_income = 1
+	
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = BRB_richest_province_modifier
+				duration = 9125
+			}
+		}
+	}
+}
+
+BRB_missions_3 = {
+	slot = 3
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = BRB }
+	}
+	has_country_shield = yes
+
+	BRB_forcelimit = {
+		icon = mercenary_companies
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 9 
+				army_size_percentage = 0.85
+			}
+			num_of_generals = 1
+		}
+		effect = {
+			ME_give_claims = { area = flanders_area }
+			ME_give_claims = { area = frisia_area }
+			ME_give_claims = { area = holland_area }
+			ME_give_claims = { area = brabant_area }
+			ME_give_claims = { area = north_brabant_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = BRB_army_of_the_duke
+				duration = 10950
+			}
+		}
+	}
+	
+	BRB_maas = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { BRB_forcelimit }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = frisia_area
+				area = holland_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = { 
+				OR = {
+					area = frisia_area
+					area = holland_area
+				}
+				value = 6
+			} 
+		}
+		effect = {
+			custom_tooltip = FLA_when_we_form_netherlands_we_will_get_power_projection
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = dutch }
+			
+			custom_tooltip = " "
+			
+			1269 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 10950
+					power = 15
+					key = FLA_crossed_the_river
+				}
+			}
+		}
+	}
+	
+	BRB_united_provinces = {
+		icon = the_true_freedom
+		required_missions = { BRB_maas }
+		position = 5
+		provinces_to_highlight = {
+			NED_netherlands_pth = yes
+		}
+		trigger = {
+			NED_netherlands_trigger = yes
+		}
+		effect = {
+			NED_netherlands_reward = yes
+		}
+	}
+}
+
+BRB_missions_4 = {
+	slot = 4
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = BRB }
+	}
+	has_country_shield = yes
+	
+	BRB_loon = {
+		icon = connect_further_austria
+		required_missions = { BRB_forcelimit }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 2974
+		}
+		trigger = {
+			2974 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			2974 = {
+				add_nationalism = -10
+				add_local_autonomy = -50
+			}
+			
+			custom_tooltip = " "
+			
+			add_war_exhaustion = -1
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = BRB_victory_over_liege
+				duration = 7300
+			}
+		}
+	}
+	
+	
+	BRB_atrecht = {
+		icon = neapolitan_govenance
+		required_missions = { BRB_center_of_lowlands }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			crown_land_share = 30
+			OR = {
+				if = {
+					limit = {
+						is_subject = yes
+					}
+					overlord = {
+						has_opinion = {
+							who = ROOT 
+							value = 150
+						}
+					}
+				}
+				else = {
+					hidden_trigger = { always = no }
+				}
+				if = {
+					limit = {
+						has_estate = estate_nobles
+					}
+					num_of_estate_agendas_completed = { estate = estate_nobles value = 2 }
+				}
+				else = {
+					hidden_trigger = { always = no }
+				}
+				AND = {
+					num_of_cities = 5
+					NOT = { average_autonomy_above_min = 10 }
+				}
+				num_of_provinces_developed = { amount = 20 }
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Emperor"
+				}
+				#upgrade supremacy of the crown
+				custom_tooltip = BRB_upgrade_supremacy_of_the_crown
+			}
+			else = {
+				custom_tooltip = BRB_may_call_diet_if_there_is_agenda
+			}
+			
+			custom_tooltip = " "
+			
+			add_estate_loyalty = {
+				estate = all
+				loyalty = 15
+			}
+		}
+	}
+	
+	BRB_great_hall = {
+		icon = unite_the_wittelsbachs
+		required_missions = { BRB_mechelen BRB_atrecht }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 92
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				92 = {
+					has_great_project = {
+						type = ME_aula_magna
+						tier = 2
+					}
+					development = 30
+					has_courthouse_building_trigger = yes
+				}
+			}
+			else = {
+				92 = {
+					development = 40
+					has_courthouse_building_trigger = yes
+					num_of_buildings_in_province = 3
+				}
+			}
+		}
+		effect = {
+			92 = {
+				add_or_upgrade_courthouse_building = yes
+			}
+		
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				custom_tooltip = BRB_upgrade_aula_magna
+				custom_tooltip = " "
+			}
+			else = {
+				add_country_modifier = {
+					name = BRB_grote_raad
+					duration = -1
+				}
+			}
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+}
+
+BRB_missions_5 = {
+	slot = 5
+	ai = yes
+	potential = {
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NED_is_or_was_tag = { tag = BRB }
+	}
+	has_country_shield = yes
+
+	BRB_center_of_lowlands = {
+		icon = appease_the_estates
+		required_missions = { }
+		position = 2
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			total_development = HOL 
+			total_development = FLA
+			OR = {
+				has_dip_advisor = yes
+				capital_scope = {
+					development = 22
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BRB_french_language_in_courts
+				duration = 9125
+			}
+			
+			custom_tooltip = BRB_upgrade_the_priv_with_10_land_forcelimit_modifier
+			
+			custom_tooltip = " "
+			
+			add_years_of_income = 0.25
+		}
+	}
+	
+	BRB_mechelen = {
+		icon = hand-picked_bureaucrats
+		required_missions = { BRB_center_of_lowlands BRB_atrecht }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			is_ahead_of_time_in_tech = { type = any }
+			has_adm_advisor_2 = yes
+			has_dip_advisor_2 = yes
+			has_mil_advisor_2 = yes
+			
+			OR = {
+				has_adm_advisor_3 = yes
+				has_dip_advisor_3 = yes
+				has_mil_advisor_3 = yes
+			}
+		}
+		effect = {
+			change_government_reform_progress = 50
+			
+			custom_tooltip = " "
+		
+			country_event_with_option_insight = {
+				id = ME_Brabant_Events.1
+				option_1 = "
+					define_advisor = {
+						type = ME_historian
+						skill = 3
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.75
+					}
+				"
+				option_2 = "
+					define_advisor = {
+						type = GRA_astronomer
+						skill = 3
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.75
+					}
+				"
+				option_3 = "
+					define_advisor = {
+						type = ME_mercenary_commander
+						skill = 3
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.75
+					}
+				"
+			}
+		}
+	}
+}

@@ -1,0 +1,1200 @@
+estate_settlers_land_rights = {
+	icon = privilege_grant_autonomy
+	land_share = 5
+	max_absolutism = -5
+	loyalty = 0.05
+	influence = 0.05
+	can_select = {
+	}
+	on_granted = {
+	}
+	modifier_by_land_ownership = {
+		
+	}
+	penalties = {
+	}
+	benefits = {
+		governing_capacity = 100
+	}
+	ai_will_do = {
+		factor = 0 #ai has other privs for that
+	}
+}
+
+estate_settlers_kings_charter = {
+	icon = privilege_give_money
+	land_share = 0
+	max_absolutism = -10
+	influence = 0
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	loyalty_scaled_conditional_modifier = {
+		trigger = { 
+			NOT = { has_country_flag = NED_upgrade_the_kings_charter_privilege_flag }
+		}
+		modifier = { colony_cost_modifier = -0.25 }
+	}
+	loyalty_scaled_conditional_modifier = {
+		trigger = { 
+			OR = {
+				has_country_flag = NED_upgrade_the_kings_charter_privilege_flag
+				has_country_flag = ENG_upgrade_kings_charter_flag
+			}
+		}
+		modifier = { colony_cost_modifier = -0.4 }
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = NED_upgrade_the_kings_charter_privilege_flag
+		}
+		modifier = {
+			max_absolutism = 10
+		}
+	}
+	
+	on_granted = {
+		if = {
+			limit = {
+				has_country_flag = ENG_upgrade_kings_charter_flag
+			}
+			custom_tooltip = ENG_give_5_navy_trad
+		}
+	}
+	ai_will_do = {
+		factor = 25
+		
+		modifier = {
+			factor = 0
+			NOT = { num_of_colonies = 1 } #when the estate is gained it should not try to give this priv.
+		}
+		modifier = {
+			factor = 0
+			is_absolutism_active = yes
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_expel_overseas = {
+	icon = privilege_recruit_minister
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.05
+	loyalty = -0.05
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			NOT = { has_country_flag = ENG_upgrade_convicts_privilege_flag }
+		}
+		modifier = {
+			global_colonial_growth = 10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = ENG_upgrade_convicts_privilege_flag
+		}
+		modifier = {
+			global_colonial_growth = 30
+		}
+	}
+	penalties = {
+		reduced_liberty_desire = -25
+		reduced_liberty_desire_on_same_continent = 25
+	}
+	
+	ai_will_do = {
+		factor = 10
+		modifier = {
+			factor = 1.5 
+			estate_settlers_wants_more_colonial_growth = yes
+		}
+		
+		modifier = {
+			factor = 0
+			estate_settlers_early_colonial_period_is_over = yes
+		}
+		
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_jesuits = {
+	icon = privilege_new_world_mission
+	land_share = 0
+	max_absolutism = -10
+	influence = -0.05
+	loyalty = -0.1
+	is_valid = {
+		religion = catholic
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	on_granted = {
+		custom_tooltip = estate_settlers_colonist_placement_adds_500_natives_in_americas
+	}
+	benefits = {
+		native_assimilation = 0.5
+		church_loyalty_modifier = 0.1
+		church_influence_modifier = 0.05
+	}
+	conditional_modifier = {
+		trigger = { has_country_flag = ME_FRA_buff_jesuits_priv }
+		modifier = { settlers_loyalty_modifier = 0.1 }
+	}
+	conditional_modifier = {
+		trigger = {
+			culture_group = iberian
+			has_dlc = "Golden Century"
+		}
+		modifier = {
+			establish_order_cost = -0.25
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				culture_group = iberian
+				has_dlc = "Golden Century"
+			}
+		}
+		modifier = {
+			papal_influence = 1
+		}
+	}
+		
+	
+	ai_will_do = {
+		factor = 0.75
+		
+		modifier = {
+			factor = 1.5
+			estate_settlers_would_rather_influence_went_down = yes
+		}
+		
+		modifier = {
+			factor = 0.5
+			estate_influence = {
+				estate = estate_church
+				influence = 65
+			}
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_religious_missions = {
+	icon = privilege_new_world_mission
+	land_share = 0
+	max_absolutism = -10
+	influence = -0.1
+	loyalty = -0.05
+	is_valid = {
+		NOT = { religion = catholic }
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	on_granted = {
+		custom_tooltip = estate_settlers_colonist_placement_adds_500_natives_in_americas
+	}
+	
+	benefits = {
+		native_assimilation = 0.5
+		tolerance_own = 1
+	}
+	
+	ai_will_do = {
+		factor = 0.75
+		
+		modifier = {
+			factor = 1.5
+			estate_settlers_would_rather_influence_went_down = yes
+		}
+		
+		modifier = {
+			factor = 0.5
+			estate_influence = {
+				estate = estate_church
+				influence = 65
+			}
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_east_india_company = {
+	icon = privilege_legitimacy
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.1
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		technology_group = western
+	}
+	can_select = {
+		has_discovered = 1340
+		has_discovered = 1460
+		has_discovered = 1469
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		merchants = 1
+		monthly_economic_decline = -0.03
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			OR = {
+				has_country_flag = POR_indian_priv_upgrade
+				mission_completed = ENG_EIC
+			}
+		}
+		modifier = {
+			global_ship_trade_power = 0.1
+		}
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = NED_upgrade_the_east_india_company_privilege_flag
+		}
+		modifier = {
+			global_ship_trade_power = 0.1
+			sailors_recovery_speed = 0.1
+		}
+	}
+	
+	
+	ai_will_do = {
+		factor = 15
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_patron_of_exploration = {
+	icon = privilege_explorer
+	land_share = 0
+	max_absolutism = -5
+	influence = 0
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		#exploration_ideas = 5 #not too early, then exploration is too easy
+		if = {
+			limit = {
+				NOT = { mission_completed = ENG_john_cabot }
+			}
+			has_idea = vice_roys  
+		}
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		range = 0.25
+	}
+	penalties = {
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			NOT = { has_country_flag = NED_upgrade_explorers_privilege_flag }
+		}
+		modifier = {
+			free_navy_leader_pool = -1
+		}
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			NOT = { has_country_flag = POR_remove_ship_cost_patronage }
+		}
+		modifier = {
+			global_ship_cost = 0.05
+		}
+	}
+	
+	on_granted = {
+		custom_tooltip = estate_settlers_if_we_have_at_least_1_explorer
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			num_of_explorers = 1
+		}
+		modifier = {
+			navy_tradition = 0.5
+		}
+	}
+	
+	ai_will_do = {
+		factor = 12.5
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		modifier = {
+			factor = 0
+			is_year = 1565 #most of the world is probably explored
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_trade_monopolies = {
+	icon = privilege_diplo_power
+	land_share = 0
+	max_absolutism = -10
+	influence = 0.15
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = ENG_no_more_abso_penalty_for_contracts
+		}
+		modifier = {
+			max_absolutism = 10
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = { has_country_flag = POR_buff_exclusive_contracts }
+		}
+		modifier = {
+			placed_merchant_power = 8
+			global_foreign_trade_power = 0.1
+			monthly_economic_decline = -0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = POR_buff_exclusive_contracts
+		}
+		modifier = {
+			placed_merchant_power = 16
+			global_foreign_trade_power = 0.2
+			monthly_economic_decline = -0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = NED_upgrade_the_distribute_exclusive_contracts_flag
+		}
+		modifier = {
+			placed_merchant_power = 16
+			global_foreign_trade_power = 0.1
+			monthly_economic_decline = -0.05
+			trade_efficiency = 0.1
+		}
+	}
+	
+	penalties = {
+	}
+	
+	ai_will_do = {
+		factor = 15 #I Like money
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_establish_colonial_governments = {
+	icon = privilege_admin_power
+	land_share = 0
+	max_absolutism = -10
+	influence = 0.05
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		has_dlc = "Leviathan"
+	}
+	can_select = {
+		colony = 1
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		colonial_type_change_cost_modifier = -0.9
+		colonial_subject_type_upgrade_cost_modifier = -0.5
+	}
+	conditional_modifier = {
+	 	trigger = {
+			mission_completed = ENG_thirteen_colonies
+		}
+		modifier = {
+			reduced_liberty_desire_on_other_continent = 10
+			native_assimilation = 0.25
+		}
+	}
+	loyalty_scaled_conditional_modifier = {
+		trigger = {
+		   mission_completed = fra_colonial_empire
+	   }
+	   modifier = {
+		   reduced_liberty_desire_on_other_continent = 25
+	   }
+   }
+	penalties = {
+	}
+	
+	ai_will_do = {
+		factor = 7.5
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		
+		modifier = {
+			factor = 2
+			estate_settlers_early_colonial_period_is_over = yes
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_expel_minorities = {
+	icon = privilege_grant_new_world_charter #should be upgraded by a british mission
+	land_share = 0
+	max_absolutism = 0 
+	influence = 0.05
+	loyalty = 0
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		has_dlc = "Golden Century"
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		expel_minorities_cost = -0.5
+		same_culture_advisor_cost = -0.1
+	}
+	penalties = {
+	}
+	
+	on_granted = {
+		custom_tooltip = estate_settlers_provinces_expelled_from
+		if = {
+			limit = {
+				mission_completed = ENG_plymouth_colony
+			}
+			custom_tooltip = ENG_we_get_1_dev
+		}
+	}
+	
+	ai_will_do = {
+		factor = 5
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_employ_conquistadores = {
+	icon = privilege_conquistador
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		
+	}
+	penalties = {
+	}
+	
+	on_granted = {
+		#custom_tooltip = estate_settlers_recruit_conquistador_decision
+		
+		if = {
+			limit = {
+				has_country_flag = POR_employ_conquistadors_buff_flag
+			}
+			create_conquistador = { tradition = 40 }
+		}
+		else = {
+			create_conquistador = { tradition = 20 }
+		}
+		
+		if = {
+			limit = {
+				has_country_flag = NAV_conquistador_priv_buff
+			}
+			custom_tooltip = NAV_if_at_least_1_conquistador
+		}
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = NAV_conquistador_priv_buff
+			num_of_conquistadors = 1
+		}
+		modifier = {
+			army_tradition = 0.25
+		}
+	}
+	cooldown_years = 20
+ 	on_cooldown_expires = { 
+		country_event = { id = estate_settlers_events.1 }
+	}
+	
+	ai_will_do = {
+		factor = 3
+		modifier = {
+            factor = 0
+            estate_settlers_early_colonial_period_is_over = yes
+        }
+		modifier = {
+			factor = 5
+			estate_settlers_would_accept_a_conquistador = yes
+			# NOT = { num_of_conquistadors = 1 }
+			# any_province = {
+				# has_discovered = ROOT
+				# OR = {
+					# continent = north_america
+					# continent = south_america
+				# }
+			# }
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_settler_grants = {
+	icon = privilege_grant_new_world_charter
+	land_share = 10
+	max_absolutism = 0 
+	influence = 0.1
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		global_colonial_growth = 5
+		global_tariffs = -0.25
+	}
+	influence_scaled_conditional_modifier = {
+		trigger = {
+			NOT = { has_country_flag = NAV_upgrade_settler_grants }
+		}
+		modifier = { colonist_placement_chance = 0.1 }
+	}
+	influence_scaled_conditional_modifier = {
+		trigger = {
+			has_country_flag = NAV_upgrade_settler_grants
+		}
+		modifier = { colonist_placement_chance = 0.2 }
+	}
+	penalties = {
+		monthly_economic_decline = 0.05
+	}
+	
+	on_granted = {
+		if = {
+			limit = {
+				has_dlc = "Mandate of Heaven"
+			}
+			custom_tooltip = estate_settlers_colonies_get_prosperity_growth
+		}
+	}
+	
+	ai_will_do = {
+		factor = 10
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		modifier = {
+            factor = 3
+            estate_settlers_wants_more_colonial_growth = yes
+        }
+		
+		modifier = {
+            factor = 0
+            estate_settlers_early_colonial_period_is_over = yes
+        }
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_export_focus = {
+	icon = privilege_grant_new_world_charter
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.1
+	loyalty = 0.05
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			OR = {
+				has_dlc = "Golden Century"
+				has_dlc = "El Dorado"
+			}
+		}
+		modifier = {
+			treasure_fleet_income = 0.2
+			global_tariffs = 0.05
+			monthly_economic_decline = 0.05
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				OR = {
+					has_dlc = "Golden Century"
+					has_dlc = "El Dorado"
+				}
+			}
+		}
+		modifier = {
+			global_tariffs = 0.15
+			monthly_economic_decline = 0.05
+		}
+	}
+	
+	on_granted = {
+		add_mercantilism = 5
+		
+		custom_tooltip = estate_settlers_extra_merc_cost#if we have at least 3 colonial subjects; get mercantilism cost
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			colony = 3
+		}
+		modifier = {
+			mercantilism_cost = -0.2
+		}
+	}
+	
+	on_revoked = {
+		add_mercantilism = -5
+	}
+	on_invalid = {
+		add_mercantilism = -5
+	}
+	
+	ai_will_do = {
+		factor = 7.5
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		
+		modifier = {
+			factor = 2
+			estate_settlers_early_colonial_period_is_over = yes
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_give_trade_companies_more_independence = {
+	icon = privilege_monopoly_of_goods_gems
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.15
+	loyalty = 0.05
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		OR = {
+			has_dlc = "Wealth of Nations"
+			has_dlc = "Dharma"
+		}
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	influence_scaled_conditional_modifier = {
+		trigger = {
+			always = yes
+		}
+		modifier = { trade_company_governing_cost = -0.15 }
+	}
+	
+	on_granted = {
+		custom_tooltip = estate_settlers_trade_companies_now_get_less_autonomy
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_owned_by_trade_company = yes
+				}
+				add_province_modifier = {
+					name = estate_settlers_local_autonomy
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = estate_settlers_local_autonomy
+			}
+		}
+	}
+	
+	on_revoked = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = estate_settlers_local_autonomy
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 10
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		
+		modifier = {
+			factor = 0.25
+			estate_settlers_does_not_want_trade_company_privileges = yes
+		}
+		modifier = {
+			factor = 1.5
+			estate_settlers_wants_trade_company_privileges = yes
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_sponsor_trade_companies = {
+	icon = privilege_recruit_minister
+	land_share = 0
+	max_absolutism = -5 
+	influence = 0.1
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		has_dlc = "Dharma"
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			NOT = { mission_completed = ENG_ivory_coast }
+			NOT = { has_country_flag = fra_buff_trade_companies_privilege_flag }
+		}
+		modifier = {
+			trade_company_investment_cost = -0.25
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			mission_completed = ENG_ivory_coast
+		}
+		modifier = {
+			trade_company_investment_cost = -0.35
+			max_absolutism = 5
+		}
+	}
+	conditional_modifier = {
+		trigger = {
+			has_country_flag = fra_buff_trade_companies_privilege_flag
+		}
+		modifier = {
+			trade_company_investment_cost = -0.5
+		}
+	}
+	
+	on_granted = {
+	}
+	
+	ai_will_do = {
+		factor = 10
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		
+		modifier = {
+			factor = 0.25
+			estate_settlers_does_not_want_trade_company_privileges = yes
+		}
+		modifier = {
+			factor = 1.5
+			estate_settlers_wants_trade_company_privileges = yes
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_fund_lost_city_expeditions = {
+	icon = privilege_recruit_minister
+	land_share = 0
+	max_absolutism = -5 
+	influence = 0.1
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		has_dlc = "Conquest of Paradise"
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		
+	}
+	
+	on_granted = {
+		custom_tooltip = ME_DOUBLE_CHANCES_TO_FIND_LOST_CITIES
+	}
+
+	conditional_modifier = {
+		trigger = { 
+			any_subject_country = {
+				any_owned_province = {
+					has_great_project = {
+						type = EE_fountain_of_youth
+						tier = 2
+					}
+					NOT = {
+						has_great_project = {
+							type = EE_fountain_of_youth
+							tier = 3
+						}
+					}
+				}
+			}
+		}
+		modifier = { 
+			monarch_lifespan = 0.25
+		}
+	}
+
+	conditional_modifier = {
+		trigger = { 
+			any_subject_country = {
+				any_owned_province = {
+					has_great_project = {
+						type = EE_fountain_of_youth
+						tier = 3
+					}
+				}
+			}
+		}
+		modifier = { 
+			monarch_lifespan = 0.5
+		}
+	}
+
+	conditional_modifier = {
+		trigger = { 
+			any_subject_country = {
+				any_owned_province = {
+					has_great_project = {
+						type = EE_city_of_the_caesars
+						tier = 2
+					}
+					NOT = {
+						has_great_project = {
+							type = EE_city_of_the_caesars
+							tier = 3
+						}
+					}
+				}
+			}
+		}
+		modifier = { 
+			mercantilism_cost = -0.05 
+		}
+	}
+
+	conditional_modifier = {
+		trigger = { 
+			any_subject_country = {
+				any_owned_province = {
+					has_great_project = {
+						type = EE_city_of_the_caesars
+						tier = 3
+					}
+				}
+			}
+		}
+		modifier = { 
+			mercantilism_cost = -0.1
+		}
+	}
+
+	conditional_modifier = {
+		trigger = { 
+			any_subject_country = {
+				any_owned_province = {
+					has_great_project = {
+						type = EE_sierra_de_la_plata
+						tier = 3
+					}
+				}
+			}
+		}
+		modifier = { 
+			global_tax_modifier = 0.1
+		}
+	}
+	
+	ai_will_do = {
+		factor = 10
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+	}
+}
+
+estate_settlers_issue_letters_of_marque = {
+	icon = privilege_limited_war_support
+	land_share = 0
+	max_absolutism = -5 
+	influence = 0.1
+	loyalty = 0
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		has_country_flag = estate_settlers_letters_of_marque
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		privateer_efficiency = 0.25
+	}
+	
+	on_granted = {
+		custom_tooltip = estate_settlers_we_will_get_naval_morale_at_war
+	}
+	
+	conditional_modifier = {
+		modifier = {
+			naval_morale = 0.1
+		}
+		trigger = {
+			is_at_war = yes
+		}
+	}
+	
+	ai_will_do = {
+		factor = 5 #meh
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_NED_nation_of_traders = {
+	icon = privilege_grant_new_world_charter
+	land_share = 0
+	max_absolutism = -5 
+	influence = 0
+	loyalty = 0.1
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		has_country_flag = NED_enable_the_privilege_for_settlers_nation_of_traders_flag
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		global_unrest = -3
+		stability_cost_modifier = -0.15
+	}	
+	penalties = {
+		trade_efficiency = -0.2
+	}
+	
+	
+	ai_will_do = {
+		factor = 0
+	}
+}

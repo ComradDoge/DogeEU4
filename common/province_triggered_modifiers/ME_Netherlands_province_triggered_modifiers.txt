@@ -1,0 +1,408 @@
+UTR_utrechter_dom = {
+	potential = {
+	}
+
+	trigger = {
+		has_owner_religion = yes
+		owner = {
+			stability = 2
+		}
+	}
+	
+	tax_income = 3
+	local_prosperity_growth = 2
+	prestige = 0.25
+	
+	#Province scope
+	on_activation = {
+		
+	}
+	
+	on_deactivation = {
+	
+	}
+	
+}
+
+FLA_open_scheldt_estuary = {
+	potential = {
+	}
+
+	trigger = {
+		owner = {
+			navy_size = 15
+		}
+		higher_development_than = 96
+		higher_development_than = 1744
+	}
+	
+	province_trade_power_value = 5
+	province_trade_power_modifier = 0.25
+	local_development_cost = -0.05
+	
+	#Province scope
+	on_activation = {
+		
+	}
+	
+	on_deactivation = {
+	
+	}
+	
+}
+
+HOL_herring_fleets = {
+	potential = {
+		owner = {
+			mission_completed = HOL_herring
+		}
+	}
+
+	trigger = {
+		owner = {
+			1975 = {
+				trade_share = { country = ROOT share = 10 }
+			}
+		}
+	}
+	
+	trade_value = 4
+	navy_tradition = 0.25
+	
+	#Province scope
+	on_activation = {
+		
+	}
+	
+	on_deactivation = {
+	
+	}
+	
+}
+
+
+NED_baltic_port = {
+	potential = {
+		has_saved_global_event_target = NED_netherlands_for_grain_target
+	}
+
+	trigger = {
+		owner = {
+			has_opinion = {
+				who = event_target:NED_netherlands_for_grain_target
+				value = 125
+			}
+		}
+		
+		trade_share = {
+			country = event_target:NED_netherlands_for_grain_target
+			share = 20
+		}
+		has_trader = event_target:NED_netherlands_for_grain_target
+	}
+	
+	trade_goods_size = 1
+	global_trade_goods_size_modifier = 0.05
+	
+	#Province scope
+	on_activation = {
+		event_target:NED_netherlands_for_grain_target = {
+			add_country_modifier = {
+				name = NED_grain_from_baltic
+				duration = -1
+			}
+		}
+	}
+	
+	on_deactivation = {
+		event_target:NED_netherlands_for_grain_target = {
+			remove_country_modifier = NED_grain_from_baltic
+		}
+	}
+	
+}
+
+NED_japanese_outpost = {
+	potential = {
+		has_saved_global_event_target = NED_japanese_outpost_target
+	}
+
+	trigger = {
+		owner = {
+			has_opinion = {
+				who = event_target:NED_japanese_outpost_target
+				value = 100
+			}
+		}
+		owner = {
+			reverse_has_opinion = {
+				who = event_target:NED_japanese_outpost_target
+				value = -50
+			}
+		}
+	}
+	
+	hidden = yes
+	
+	#technology_cost = -0.1
+	
+	#Province scope
+	on_activation = {
+		1376 = {
+			add_trade_modifier = {
+				who = event_target:NED_japanese_outpost_target
+				duration = -1
+				power = 100
+				key = NED_japanese_outpost_active
+			}
+		}
+		
+		add_permanent_province_modifier = {
+			name = NED_dutch_outpost_active
+			duration = -1
+		}
+		remove_province_modifier = NED_dutch_outpost_inactive
+
+	}
+	
+	on_deactivation = {
+		1376 = {
+			remove_trade_modifier = {
+				who = event_target:NED_japanese_outpost_target
+				key = NED_japanese_outpost_active
+			}
+		}
+		
+		remove_province_modifier = NED_dutch_outpost_active
+		add_permanent_province_modifier = {
+			name = NED_dutch_outpost_inactive
+			duration = -1
+		}
+	}
+	
+}
+
+NED_100_admiralty = {
+	potential = {
+		always = yes
+	}
+
+	trigger = {
+		owner = {
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Wealth of Nations"
+						has_dlc = "Mare Nostrum"
+						has_dlc = "Golden Century"
+						has_dlc = "Lions of the North"
+						has_dlc = "El Dorado"
+					}
+				}
+				num_ships_privateering = 50
+			}
+			else = {
+				
+			}
+		}
+	}
+	
+	navy_tradition = 0.2
+}
+
+NED_97_admiralty_1 = {
+	potential = {
+		always = yes
+	}
+
+	trigger = {
+		owner = {
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				num_of_admirals_with_traits = 1
+			}
+			else = {
+				num_of_admirals = 3
+			}
+		}
+	}
+	
+	navy_tradition = 0.2
+}
+
+NED_97_admiralty_2 = {
+	potential = {
+		always = yes
+	}
+
+	trigger = {
+		owner = {
+			num_ships_protecting_trade = 200
+		}
+	}
+	
+	navy_tradition = 0.2
+}
+
+NED_4383_admiralty = {
+	potential = {
+		always = yes
+	}
+
+	trigger = {
+		owner = {
+			#TODO naval professionalism trigger
+		}
+	}
+	
+	navy_tradition = 0.2
+}
+
+NED_96_admiralty = {
+	potential = {
+		always = yes
+	}
+
+	trigger = {
+		owner = {
+			is_ahead_of_time_in_specific_tech = { type = dip }
+		}
+	}
+	
+	navy_tradition = 0.2
+}
+
+NED_republic_supporters = {
+	potential = {
+		owner = {
+			has_country_flag = NED_statists_spreading
+		}
+	}
+
+	trigger = {
+		owner = {
+			is_statists_in_power = yes
+		}
+	}
+	
+	local_production_efficiency = 0.2
+	local_unrest = -3
+}
+
+LUX_pig_farmer_conscription = {
+	potential = {
+		owner = {
+			has_country_flag = LUX_pig_farmers_merc_company_flag
+		}
+	}
+
+	trigger = {
+		owner = {
+			any_hired_mercenary_company = {
+				template = merc_lux_pig_farmers
+			}
+		}
+	}
+	
+	trade_goods_size = -0.25
+	trade_goods_size_modifier = -0.25
+	local_tax_modifier = -0.5
+}
+
+LUX_tall_buff = {
+	potential = {
+		owner = {
+			mission_completed = LUX_tall
+		}
+	}
+
+	trigger = {
+		owner = {
+			NOT = { num_of_cities = 6 }
+		}
+	}
+	
+	land_forcelimit = 10
+	global_regiment_cost = -0.33
+	tax_income = 24
+}
+
+
+LIE_liegian_advocatus_rights = {
+	potential = {
+		always = yes 
+	}
+
+	trigger = {
+		owner = {
+			has_saved_global_event_target = prov_92
+			has_saved_global_event_target = prov_93
+			has_saved_global_event_target = prov_1742
+		}
+		if = {
+			limit = {
+				province_id = event_target:prov_92
+			}
+			NOT = { higher_development_than = event_target:prov_93 }
+		}
+		else = {
+			NOT = { higher_development_than = event_target:prov_1742 }
+		}
+		NOT = {
+			owner = {
+				stability = 2 
+			}
+		}
+		event_target:prov_93 = {
+			owner = { has_estate_privilege = ME_estate_church_LIE_advocatus_brabanconne }
+		}
+	}
+	
+	tax_income = -1
+	local_manpower_modifier = -0.25
+	liberty_desire = 5
+	
+	on_activation = {
+		set_province_flag = LIE_advocacy_active
+	}
+	on_deactivation = {
+		clr_province_flag = LIE_advocacy_active
+	}
+}
+
+LIE_liege_adj_fervor = {
+	potential = {
+		always = yes 
+	}
+
+	trigger = {
+		OR = {
+			controller = {
+				tag = BUR
+				is_subject_of = BUR 
+				alliance_with = BUR 
+				NOT = { war_with = BUR }
+			}
+		}
+	}
+	
+	tax_income = 12
+	discipline = 0.05 
+	war_exhaustion = -0.1 
+	
+	on_activation = {
+	}
+	on_deactivation = {
+		if = {
+			limit = {
+				war_with = BUR 
+			}
+			BUR = {
+				country_event = { id = ME_Liege_Events.8 }
+			}
+		}
+		remove_province_triggered_modifier = LIE_liege_adj_fervor
+	}
+}

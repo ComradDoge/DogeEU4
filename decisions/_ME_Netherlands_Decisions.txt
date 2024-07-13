@@ -1,0 +1,435 @@
+country_decisions = {
+	NED_end_factionalism = {
+		major = yes
+		potential = {
+			has_country_modifier = NED_factionalism_modifier
+		}
+		allow = {
+			if = {
+				limit = {
+					NOT = { has_country_modifier = FRI_united_friesland }
+				}
+				OR = {
+					reform_level = 3
+					AND = {
+						stability = 3
+						reform_level = 2
+					}
+				}
+			}
+			stability = 2
+			has_adm_advisor = yes
+			NOT = { corruption = 0.05 }
+		}
+		effect = {
+			remove_country_modifier = NED_factionalism_modifier
+			clr_country_flag = NED_suffers_from_dutch_factionalism
+			
+			custom_tooltip = NED_privileges_will_be_revoked
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	UTR_petition_pope = {
+		major = yes
+		potential = {
+			capital_scope = { continent = europe }
+			religion = catholic
+			NOT = { has_global_flag = UTR_catholic_reorganized }
+			OR = {
+				primary_culture = dutch
+				primary_culture = flemish
+				primary_culture = frisian
+				num_of_owned_provinces_with = {
+					OR = {
+						culture = dutch
+						culture = flemish
+						culture = frisian
+					}
+					value = 5
+				}
+			}
+		}
+		allow = {
+			PAP = {
+				has_opinion = {
+					who = ROOT
+					value = 100
+				}
+			}
+			
+			OR = {
+				has_adm_advisor_3 = yes
+				theologian = 2
+			}
+			
+			if = {
+				limit = {
+					has_country_flag = UTR_petition_denied
+					NOT = {
+						had_country_flag = {
+							flag = UTR_petition_denied
+							days = 3650
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = UTR_petition_denied_tt
+					always = no
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = UTR_we_will_request_the_pope
+			PAP = {
+				country_event = { id = ME_Gelre_Utrecht_Events.1 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	UTR_pope_do_the_thing = {
+		major = yes
+		potential = {
+			tag = PAP
+			NOT = { has_global_flag = UTR_catholic_reorganized }
+		}
+		allow = {
+			reform_desire = 0.5
+			has_adm_advisor_2 = yes
+			if = {
+				limit = {
+					has_dlc = "Emperor"
+				}
+				curia_treasury_size = 1000
+			}
+			else = {
+				treasury = 300
+			}
+		}
+		effect = {
+			country_event_with_effect_insight = {
+				id = ME_Gelre_Utrecht_Events.2
+				effect = "
+					if = {
+						limit = { has_dlc = \"Emperor\" }
+						add_curia_treasury = 1000
+					}
+					else = { add_treasury = 300 }
+					custom_tooltip = \" \"
+					add_reform_desire = -0.05
+					custom_tooltip = \" \"
+					custom_tooltip = UTR_3_cardinals
+					custom_tooltip = \" \"
+					custom_tooltip = UTR_no_more_penalty
+				"
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					any_ally = {
+						OR = {
+							primary_culture = dutch
+							primary_culture = flemish
+							primary_culture = frisian
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	NED_dutch_revolt = {
+		major = yes
+		potential = {
+			is_dutch_subject_trigger = yes
+			NOT = { has_global_flag = ME_dutch_revolt_flag }
+		}
+		allow = {
+			if = {
+				limit = {
+					has_global_flag = gamerule_dutch_revolt_1
+				}
+				liberty_desire = 60
+			}
+			else_if = {
+				limit = {
+					has_global_flag = gamerule_dutch_revolt_2
+				}
+				liberty_desire = 90
+			}
+			liberty_desire = 75
+			overlord = {
+				NOT = { was_player = yes }
+			}
+		}
+		effect = {
+			country_event_with_insight = {
+				id = ME_Dutch_Revolt_Events.1
+				insight_tooltip = NED_what_is_dutch_revolt
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	NED_quell_dutch_revolt = {
+		major = yes
+		potential = {
+			has_global_flag = ME_dutch_revolt_flag
+			if = {
+				limit = {
+					has_saved_global_event_target = ME_dutch_revolt_target
+				}
+				overlord_of = event_target:ME_dutch_revolt_target
+			}
+			else = {
+				hidden_trigger = { always = no }
+			}
+		}
+		allow = {
+			if = {
+				limit = {
+					has_saved_global_event_target = ME_dutch_revolt_target
+				}
+				event_target:ME_dutch_revolt_target = {
+					NOT = { liberty_desire = 40 }
+				}
+			}
+			else = {
+				hidden_trigger = { always = no }
+			}
+			stability = 2
+		}
+		effect = {
+			custom_tooltip = NED_revolt_will_end
+			event_target:ME_dutch_revolt_target = {
+				country_event = { id = ME_Dutch_Revolt_Events.6 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	NED_dutch_channel_decision = {
+		major = yes
+		potential = {
+			has_country_flag = NED_dutch_channel_flag
+		}
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			any_trade_node_member_province = {
+				province_id = 1269
+			}
+		}
+		allow = {
+			1269 = {
+				all_trade_node_member_province = {
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						is_sea = yes
+					}
+				}
+				trade_share = {
+					country = ROOT
+					share = 90
+				}
+			}
+		}
+		effect = {
+			clr_country_flag = NED_dutch_channel_flag
+			custom_tooltip = NED_every_coastal_prov_in_english_channel_node
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = NED_coast_of_the_channel
+					duration = -1
+				}
+			}
+			
+			hidden_effect = {
+				1269 = {
+					every_trade_node_member_province = {
+						limit = {
+							has_port = yes
+						}
+						add_permanent_province_modifier = {
+							name = NED_coast_of_the_channel
+							duration = -1
+						}
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			1272 = { change_province_name = "Het Nauw van Kales" }
+			
+			custom_tooltip = " "
+			
+			ME_add_years_of_trade_income = { years = 1 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	NED_promote_free_trade = {
+		major = yes
+		potential = {
+			has_country_flag = NED_expend_mercantilism_flag
+		}
+		allow = {
+			mercantilism = 5
+			custom_trigger_tooltip = {
+				tooltip = NED_this_action_has_15_year_cooldown
+				OR = {
+					NOT = { has_country_flag = NED_free_trade_cooldown }
+					had_country_flag = {
+						flag = NED_free_trade_cooldown
+						days = 5475
+					}
+				}
+			}
+		}
+		effect = {
+			add_mercantilism = -5
+			set_country_flag = NED_free_trade_cooldown
+			custom_tooltip = " "
+			
+			custom_tooltip = NED_gain_25_trade_power
+			hidden_effect = {
+				every_province = {
+					limit = {
+						province_is_trade_node_center_province = yes
+						has_trader = ROOT
+					}
+					add_trade_modifier = {
+						who = ROOT
+						duration = 5475
+						power = 25
+						key = NED_promoting_free_trade
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	NED_sell_art_decision = {
+		major = yes
+		potential = {
+			mission_completed = NED_flowering
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = NED_this_action_has_15_year_cooldown
+				OR = {
+					NOT = { has_country_flag = NED_sell_art_cooldown }
+					had_country_flag = {
+						flag = NED_sell_art_cooldown
+						days = 5475
+					}
+				}
+			}
+		}
+		effect = {
+			set_country_flag = NED_sell_art_cooldown
+			
+			country_event_with_effect_insight = {
+				id = ME_Netherlands_Events.11
+				effect = "
+					custom_tooltip = NED_sell_art_insight
+				"
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	NED_illustrious_court_dec = {
+		major = yes
+		potential = {
+			has_country_flag = NED_illustrious_court
+		}
+		allow = {
+			is_ahead_of_time_in_tech = { type = all }
+		}
+		effect = {
+			clr_country_flag = NED_illustrious_court
+			
+			add_country_modifier = {
+				name = NED_illustrious_court
+				duration = 1825
+			}
+			
+			custom_tooltip = NED_onetime
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	NED_upgrade_oostindisch_huis = {
+		major = yes
+		potential = {
+			has_country_flag = NED_oostindischhuis_flag
+		}
+		allow = {
+			97 = {
+				owned_by = ROOT 
+				if = {
+					limit = {
+						has_dlc = "Leviathan"
+					}
+					has_great_project = {
+						type = fu_amsterdam_stock_exchange
+						tier = 3 
+					}
+				}
+			}
+			
+			treasury = 7500
+		}
+		effect = {
+			clr_country_flag = NED_oostindischhuis_flag
+			add_treasury = -7500
+			
+			add_country_modifier = {
+				name = NED_oostindischhuis_benefit
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	NED_preview_decision = {
+		major = yes
+		potential = {
+			has_country_flag = NED_preview
+			OR = {
+				has_country_flag = NED_orangist_tree
+				has_country_flag = NED_statist_tree
+			}
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			country_event = { id = ME_Netherlands_Events.28 }
+		}
+	}
+}

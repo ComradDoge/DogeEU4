@@ -1,0 +1,639 @@
+namespace = ME_Gelre_Utrecht_Events
+
+country_event = {
+	id = ME_Gelre_Utrecht_Events.1
+	title = ME_Gelre_Utrecht_Events.1.t
+	desc = ME_Gelre_Utrecht_Events.1.d
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	is_triggered_only = yes 
+	major = yes
+	major_trigger = {
+		OR = {
+			capital_scope = {
+				region = low_countries_region
+			}
+			tag = event_target:event_origin
+		}
+	}
+	
+	immediate = {
+		hidden_effect = { 
+			FROM = {
+				save_event_target_as = event_origin
+			}
+		}
+	}
+	
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.1.a
+		
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				FROM = {
+					statesman = 1
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					invested_papal_influence = 10
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROM = {
+					invested_papal_influence = 10
+				}
+			}
+			modifier = {
+				factor =  1.5
+				FROM = {
+					invested_papal_influence = 20
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROM = {
+					invested_papal_influence = 30
+				}
+			}
+			modifier = {
+				factor = 1.25
+				FROM = {
+					invested_papal_influence = 40
+				}
+			}
+			modifier = {
+				factor = 1.25
+				FROM = {
+					invested_papal_influence = 50
+				}
+			}
+		}
+		
+		country_event_with_effect_insight = {
+			id = ME_Gelre_Utrecht_Events.2
+			effect = "
+				if = {
+					limit = { has_dlc = \"Emperor\" }
+					add_curia_treasury = -1000
+				}
+				else = { add_treasury = -300 }
+				custom_tooltip = \" \"
+				add_reform_desire = -0.05
+				custom_tooltip = \" \"
+				custom_tooltip = UTR_3_cardinals
+				custom_tooltip = \" \"
+				custom_tooltip = UTR_no_more_penalty
+			"
+		}
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.1.b
+		
+		ai_chance = { factor = 50 }
+		
+		every_country = {
+			limit = {
+				capital_scope = { continent = europe }
+				NOT = { has_global_flag = UTR_catholic_reorganized }
+				OR = {
+					primary_culture = dutch
+					primary_culture = flemish
+					primary_culture = frisian
+					num_of_owned_provinces_with = {
+						OR = {
+							culture = dutch
+							culture = flemish
+							culture = frisian
+						}
+						value = 5
+					}
+				}
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = ned_refused_to_accept_petition
+			}
+		}
+		
+		add_prestige = -10
+		add_reform_desire = 0.01
+		
+		hidden_effect = {
+			FROM = {
+				set_country_flag = UTR_petition_denied
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Gelre_Utrecht_Events.2
+	title = ME_Gelre_Utrecht_Events.2.t
+	desc = ME_Gelre_Utrecht_Events.2.d
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	is_triggered_only = yes 
+	major = yes
+	major_trigger = {
+		religion = catholic
+	}
+	immediate = {
+		hidden_effect = {
+			pick_best_provinces = {
+				3 = yes
+				scope = low_countries_region
+				scale = higher_development_than
+				global_trigger = "
+					religion = catholic
+					NOT = { has_cardinal = yes }
+				"
+				event_target_name = gelre_utrecht_target
+			}
+			set_global_flag = UTR_catholic_reorganized
+		}
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.2.a
+		
+		ai_chance = {
+			factor = 50
+		}
+		if = {
+			limit = {
+				has_dlc = "Emperor"
+			}
+			add_curia_treasury = -1000
+		}
+		else = {
+			add_treasury = -300
+		}
+		
+		custom_tooltip = " "
+		
+		add_reform_desire = -0.05
+		
+		custom_tooltip = " "
+		
+		if = {
+			limit = {
+				has_saved_event_target = gelre_utrecht_target_1
+			}
+			event_target:gelre_utrecht_target_1 = {
+				add_cardinal = yes
+			}
+			if = {
+				limit = {
+					has_saved_event_target = gelre_utrecht_target_2
+				}
+				event_target:gelre_utrecht_target_2 = {
+					add_cardinal = yes
+				}
+				if = {
+					limit = {
+						has_saved_event_target = gelre_utrecht_target_3
+					}
+					event_target:gelre_utrecht_target_3 = {
+						add_cardinal = yes
+					}
+				}
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = UTR_no_more_penalty
+	}
+}
+
+country_event = {
+	id = ME_Gelre_Utrecht_Events.3
+	title = ME_Gelre_Utrecht_Events.3.t
+	desc = ME_Gelre_Utrecht_Events.3.d
+	picture = POPE_PREACHING_eventPicture
+	
+	trigger = {
+		tag = BUR
+		exists = UTR
+		UTR = {
+			is_subject = no
+			is_at_war = no
+			NOT = { has_ruler_flag = starting_utrecht_ruler }
+		}
+	}
+	
+	fire_only_once = yes
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.3.a
+		
+		ai_chance = {
+			factor = 60
+		}
+		
+		add_country_modifier = {
+			name = UTR_pulling_favors_in_the_holy_see
+			duration = 9125
+		}
+		
+		custom_tooltip = UTR_this_will_compel_utrecht_to_elect_david
+		
+		UTR = {
+			country_event = { id = ME_Gelre_Utrecht_Events.4 }
+		}
+		
+		custom_tooltip = UTR_if_we_complete_a_mission #TODO
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.3.b
+		
+		ai_chance = {
+			factor = 30
+		}
+		
+		add_casus_belli = {
+			target = UTR
+			type = cb_vassalize_mission
+			months = 120
+		}
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.3.c
+		
+		ai_chance = {
+			factor = 10
+		}
+		
+		add_country_modifier = {
+			name = UTR_backed_down
+			duration = 10950
+		}
+	}
+}
+
+country_event = {
+	id = ME_Gelre_Utrecht_Events.4
+	title = ME_Gelre_Utrecht_Events.4.t
+	desc = ME_Gelre_Utrecht_Events.4.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		OR = {
+			capital_scope = {
+				OR = {
+					region = north_german_region
+					region = low_countries_region
+					region = france_region
+					region = british_isles_region
+				}
+			}
+			tag = BUR
+		}
+	}
+
+	option = {
+		name = ME_Gelre_Utrecht_Events.4.a
+		
+		ai_chance = {
+			factor = 80
+		}
+		
+		FROM = {
+			create_subject = {
+				subject_type = dutch_vassal
+				subject = ROOT 
+			}
+		}
+		
+		custom_tooltip = " "
+		
+		define_heir = {
+			name = "David"
+			dynasty = FROM
+			adm = 5
+			dip = 5
+			mil = 2
+			birth_date = 1426.2.1
+			claim = 95
+		}
+		kill_ruler = yes
+		
+		custom_tooltip = " "
+		
+		capital_scope = {
+			catholic_rebels = 3
+		}
+		
+		custom_tooltip = " "
+		
+		custom_tooltip = UTR_hooks_will_now_support_independence
+		NED_set_faction_support = { hook = yes by = independence }
+		custom_tooltip = " "
+		custom_tooltip = UTR_we_will_now_support_cods
+		
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_modifier = NED_factionalism_modifier
+					has_estate_privilege = ME_estate_burghers_NED_support_hooks
+				}
+				NED_set_estate_privilege = { which = cods }
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.4.b
+		
+		ai_chance = {
+			factor = 20
+			#modifier = {
+			#	factor = 0 
+			#	PREV = {
+			#		mission_completed = ME_bur_dutch_monument
+			#	}
+			#}
+		}
+		
+		add_reform_desire = 0.02
+		
+		custom_tooltip = " "
+		
+		FROM = {
+			add_casus_belli = {
+				target = ROOT
+				type = cb_vassalize_mission
+				months = 120
+			}
+		}
+		
+		add_country_modifier = {
+			name = UTR_defying_papal_will
+			duration = 10950
+		}
+	}
+}
+
+country_event = {
+	id = ME_Gelre_Utrecht_Events.5
+	title = ME_Gelre_Utrecht_Events.5.t
+	desc = ME_Gelre_Utrecht_Events.5.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Gelre_Utrecht_Events.5.a
+		
+		ai_chance = {
+			factor = 50
+		}
+		
+		change_estate_land_share = {
+			estate = estate_nobles
+			share = 5
+		}
+		
+		custom_tooltip = " "
+		
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 20
+		}
+
+		custom_tooltip = " "
+
+		add_yearly_manpower = 1
+		
+		custom_tooltip = " "
+		
+		100 = { add_base_tax = 1 }
+		4382 = { add_base_tax = 1 }
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.5.b
+		
+		ai_chance = {
+			factor = 50
+		}
+		
+		add_years_of_income = 0.5
+		
+		custom_tooltip = " "
+		
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 5
+		}
+	}
+}
+
+
+country_event = {
+	id = ME_Gelre_Utrecht_Events.6
+	title = ME_Gelre_Utrecht_Events.6.t
+	desc = ME_Gelre_Utrecht_Events.6.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Gelre_Utrecht_Events.6.a
+		
+		ai_chance = {
+			factor = 50
+		}
+		
+		define_advisor = {
+			type = ME_historian
+			name = "Gerard Geldenhouwer"
+			skill = 2
+			culture = ROOT
+			religion = ROOT
+			cost_multiplier = 0.5
+		}
+		
+		custom_tooltip = " "
+		
+		add_country_modifier = {
+			name = UTR_batavians
+			duration = 7300 
+		}
+	}
+}
+
+country_event = {
+	id = ME_Gelre_Utrecht_Events.7
+	title = ME_Gelre_Utrecht_Events.7.t
+	desc = ME_Gelre_Utrecht_Events.7.d
+	picture = POPE_PREACHING_eventPicture
+	
+	fire_only_once = yes
+	trigger = {
+		tag = GEL
+		OR = {
+			is_year = 1465
+			UTR = { is_subject_of = BUR }
+		}
+		is_subject = no
+		exists = BUR
+		BUR = {
+			total_own_and_non_tributary_subject_development = 300
+		}
+	}
+	
+	mean_time_to_happen = { months = 30 }
+	immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				variable_name = gelre_tempvar
+				value = years_of_income
+				who = BUR
+			}
+		}
+	}
+
+	option = {
+		name = ME_Gelre_Utrecht_Events.7.a
+		
+		ai_chance = {
+			factor = 75
+		}
+		
+		custom_tooltip = GEL_if_burgundy_accepts
+		
+		tooltip = {
+			custom_tooltip = GEL_we_gain
+			BUR = {
+				custom_tooltip = GEL_they_pay
+			}
+			
+			custom_tooltip = GEL_when_our_ruler_dies
+			BUR = {
+				create_subject = {
+					subject_type = dutch_vassal 
+					subject = ROOT
+				}
+			}
+		}
+		
+		BUR = {
+			country_event = { id = ME_Gelre_Utrecht_Events.8 }
+		}
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.7.b
+		
+		ai_chance = {
+			factor = 25
+		}
+		
+		add_stability = -1
+	}
+}
+
+country_event = {
+	id = ME_Gelre_Utrecht_Events.8
+	title = ME_Gelre_Utrecht_Events.8.t
+	desc = ME_Gelre_Utrecht_Events.8.d
+	picture = POPE_PREACHING_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		OR = {
+			alliance_with = HOL
+			overlord_of = HOL
+			capital_scope = {
+				region = low_countries_region
+			}
+		}
+	}
+
+	option = {
+		name = ME_Gelre_Utrecht_Events.8.a
+		
+		ai_chance = {
+			factor = 75
+		}
+		
+		
+		custom_tooltip = GEL_they_pay
+		FROM = {
+			custom_tooltip = GEL_we_gain
+		}
+		
+		hidden_effect = {
+			while = {
+				limit = {
+					GEL = {
+						check_variable = {
+							which = gelre_tempvar
+							value = 0.01
+						}
+					}
+				}
+				GEL = {
+					subtract_variable = {
+						which = gelre_tempvar
+						value = 0.01
+					}
+					add_treasury = 0.01
+				}
+				add_treasury = -0.01
+			}
+		}
+
+		custom_tooltip = GEL_when_our_ruler_dies
+		FROM = {
+			set_country_flag = GEL_become_subject_soon
+		}
+		hidden_effect = {
+			save_global_event_target_as = GEL_we_will_take_over_gelre
+		}
+		tooltip = {
+			BUR = {
+				create_subject = {
+					subject_type = dutch_vassal 
+					subject = FROM
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Gelre_Utrecht_Events.8.b
+		
+		ai_chance = {
+			factor = 0
+		}
+		
+		add_prestige_or_monarch_power = { amount = 20 }
+	}
+}

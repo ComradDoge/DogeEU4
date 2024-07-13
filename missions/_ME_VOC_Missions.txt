@@ -1,0 +1,781 @@
+NVC_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = NVC
+	}
+	has_country_shield = yes
+	
+	NVC_incursion_into_spice = {
+		icon = mission_sail_to_the_east_indies
+		required_missions = { NVC_navy }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				region = indonesia_region
+				region = malaya_region
+				region = moluccas_region
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			OR = {
+				indonesia_region = {
+					owned_by = ROOT
+				}
+				malaya_region = {
+					owned_by = ROOT
+				}
+				moluccas_region = {
+					owned_by = ROOT
+				}
+			}
+		}
+		effect = {
+			MSA_claims_malaya = yes
+			MSA_claims_java = yes
+			MSA_claims_spice_islands = yes
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_navy_tradition = 10
+				"
+			}
+		}
+	}
+	
+	NVC_malacca = {
+		icon = conquer_malacca
+		required_missions = { NVC_incursion_into_spice }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 596
+		}
+		trigger = {
+			596 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			MSA_claims_sumatra = yes
+			ME_give_claims = { area = taiwan_area }
+			
+			custom_tooltip = " "
+			
+			596 = {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = NVC_conquest_of_malacca
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_army_tradition_or_mil_power = { amount = 10 }
+				"
+			}
+		}
+	}
+	
+	NVC_formosa = {
+		icon = dutch_formosa
+		required_missions = { NVC_malacca }
+		position = 5
+		provinces_to_highlight = {
+			area = taiwan_area
+		}
+		trigger = {
+			taiwan_area = {
+				owned_by = ROOT
+				is_city = yes
+				if = {
+					limit = {
+						ROOT = {
+							overlord = { ai = no }
+						}
+					}
+					has_shipyard_building_trigger = yes
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					taiwan_area = {
+						is_empty = yes
+					}
+				}
+				taiwan_area = {
+					limit = { 
+						is_empty = yes
+					}
+					add_siberian_construction = 100 #TODO might not have a tooltip ? 
+				}
+				custom_tooltip = " "
+			}
+			create_general_with_pips = {
+				tradition = 75
+				add_fire = 1
+				add_manuever = 2
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_mil_power = 100
+				"
+			}
+		}
+	}
+}
+
+NVC_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = NVC
+	}
+	has_country_shield = yes
+	
+	NVC_navy = {
+		icon = mission_rb_scottish_north_sea_trade
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_port = yes
+			NOT = { has_shipyard_building_trigger = yes }
+		}
+		trigger = {
+			OR = {
+				any_owned_province = {
+					has_shipyard_building_trigger = yes
+				}
+				num_of_cities = 7
+				navy_size = 10
+				navy_size_percentage = 0.85
+			}
+		}
+		effect = {
+			custom_tooltip = NVC_enable_cb
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = NVC_sporadically_an_event_might_fire_giving_us_a_colony
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { id = 646 }
+			ME_give_claims = { id = 388 }
+		}
+	}
+	
+	NVC_batavia = {
+		icon = found_batavia
+		required_missions = { NVC_incursion_into_spice NVC_navy }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 630
+		}
+		trigger = {
+			630 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = NVC_fitting_capital_for_an_enterprise
+				duration = -1
+			}
+			
+			country_event_with_option_insight = {
+				id = ME_Netherlands_Events.23
+				option_1 = "
+					630 = {
+						move_capital_effect = yes
+						
+						custom_tooltip = \" \"
+						
+						add_base_tax = 1
+						add_base_production = 1
+						add_base_manpower = 1
+					}
+				"
+				option_2 = "
+					capital_scope = {
+						add_base_tax = 1
+						add_base_production = 1
+						add_base_manpower = 1
+					}
+				"
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					custom_tooltip = NED_upgrade_VOC_merchant
+				"
+			}
+		}
+	}
+	
+	NVC_spice = {
+		icon = mission_dominate_persian_gulf
+		required_missions = { NVC_batavia }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				trade_goods = cloves
+				trade_goods = spices
+			}
+			NOT = { has_production_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_production_building_trigger = yes
+				OR = {
+					trade_goods = cloves
+					trade_goods = spices
+				}
+				value = 5
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = VOC_the_producer
+				duration = -1
+			}
+		
+			ME_overlord_effect = {
+				effect = "
+					add_mercantilism = 3
+					
+					custom_tooltip = \" \"
+					
+					add_years_of_income = 0.2
+				"
+			}
+		}
+	}
+	
+	NVC_dejima = {
+		icon = secure_dejima
+		required_missions = { NVC_malacca }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 4182
+		}
+		trigger = {
+			OR = {
+				AND = {
+					overlord = {
+						mission_completed = NED_nagasaki
+					}
+					NOT = {
+						4182 = {
+							owned_by = ROOT
+						}
+					}
+				}
+				4182 = {
+					owned_by = ROOT
+					has_trade_building_trigger = yes
+				}
+			}
+		}
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = NED_if_done_via_conquest
+				first_limit = "
+					4182 = {
+						owned_by = ROOT
+						has_trade_building_trigger = yes
+					}
+				"
+				first_effect = "
+					4182 = {
+						add_or_upgrade_trade_building = yes
+						create_or_add_center_of_trade_level = { level = 1 }
+					}
+					
+					ME_overlord_effect = {
+						effect = \"
+							add_dip_power = 75
+							add_mercantilism = 2
+						\"
+					}
+				"
+				second_custom_tooltip = VOC_if_done_via_subject
+				second_limit = "
+					overlord = {
+						mission_completed = NED_nagasaki
+					}
+					NOT = {
+						4182 = {
+							owned_by = ROOT
+						}
+					}
+				"
+				second_effect = "
+					1389 = {
+						light_ship = ROOT
+						light_ship = ROOT
+						light_ship = ROOT
+						light_ship = ROOT
+						light_ship = ROOT
+						light_ship = ROOT
+						light_ship = ROOT
+						light_ship = ROOT
+						light_ship = ROOT
+						light_ship = ROOT
+					}
+					
+					add_country_modifier = {
+						name = NED_VOC_involvement
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+}
+
+NVC_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = NVC
+	}
+	has_country_shield = yes
+	
+	NVC_india = {
+		icon = mission_prosperity_in_bengal
+		required_missions = { NVC_navy }
+		position = 2
+		provinces_to_highlight = {
+			superregion = india_superregion
+			is_claim = ROOT
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				superregion = india_superregion
+				value = 5
+			}
+		}
+		effect = {
+			ME_give_claims = { region = coromandel_region }
+			ME_give_claims = { region = deccan_region }
+			
+			custom_tooltip = " "
+			
+			add_adm_power = 100 
+		
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					1340 = {
+						add_trade_modifier = {
+							who = PREV
+							duration = -1
+							power = 100
+							key = NVC_control_over_the_route_to_india
+						}
+					}
+				"
+			}
+		}
+	}
+	
+	NVC_raad = {
+		icon = strengthen_the_vroedschappen
+		required_missions = { NVC_batavia }
+		position = 4
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			total_development = 100
+			capital_scope = {
+				has_courthouse_building_trigger = yes
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_or_upgrade_courthouse_building = yes
+			}
+		
+			custom_tooltip = " "
+			
+			custom_tooltip = NED_joint_venture_may_happen_more_often
+			
+			custom_tooltip = " "
+		
+			ME_overlord_effect = {
+				effect = "
+					custom_tooltip = NVC_colonial_managers_may_rarely_appear_in_overlord
+				"
+			}
+		}
+	}
+}
+
+NVC_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = NVC
+	}
+	has_country_shield = yes
+	
+	NVC_cultivate_port = {
+		icon = colonize_the_cape
+		required_missions = { NVC_kaap }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 1177
+		}
+		trigger = {
+			1177 = {
+				owned_by = ROOT
+				development = 25
+				has_manpower_building_trigger = yes
+				has_shipyard_building_trigger = yes
+				has_courthouse_building_trigger = yes
+			}
+		}
+		effect = {
+			1177 = {
+				add_or_upgrade_manpower_building = yes
+				add_or_upgrade_shipyard_building = yes
+				add_or_upgrade_courthouse_building = yes
+				
+				custom_tooltip = " "
+				
+				add_permanent_province_modifier = {
+					name = NVC_developed_port
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					1177 = {
+						add_trade_modifier = {
+							who = PREV
+							duration = -1
+							power = 100
+							key = NVC_control_over_the_route_to_india
+						}
+					}
+				"
+			}
+		}
+	}
+	
+	NVC_monopolize_malabar = {
+		icon = mission_embassy_to_the_west
+		required_missions = { NVC_india }
+		position = 3
+		provinces_to_highlight = {
+			area = malabar_area
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			malabar_area = {
+				owned_by = ROOT
+				type = all
+			}
+		}
+		effect = {
+			add_years_of_income = 1
+			
+			custom_tooltip = " "
+			
+			add_yearly_manpower = 0.5
+			
+			custom_tooltip = " " 
+			
+			ME_overlord_effect = {
+				effect = "
+					ME_add_years_of_trade_income = { years = 1 }
+				"
+			}
+		}
+	}
+}
+
+NVC_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = NVC
+	}
+	has_country_shield = yes
+	
+	NVC_kaap = {
+		icon = mission_rb_increase_our_reach
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 1177
+		}
+		trigger = {
+			1177 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				trade_share = {
+					country = ROOT
+					share = 25
+				}
+			}
+		}
+		effect = {
+			1177 = {
+				add_or_upgrade_trade_building = yes
+				
+				custom_tooltip = " "
+				
+				add_base_tax = 1
+				add_base_production = 1
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = NVC_development_of_the_cape
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = NVC_VOC_enroots_in_the_cape
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+	
+	NVC_trekboers = {
+		icon = support_the_bulk_trades
+		required_missions = { NVC_kaap }
+		position = 2
+		provinces_to_highlight = {
+			region = south_africa_region
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			development_in_provinces = {
+				region = south_africa_region
+				value = 30
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					south_africa_region = {
+						is_empty = yes
+					}
+				}
+				south_africa_region = {
+					limit = { 
+						is_empty = yes
+					}
+					add_permanent_province_modifier = {
+						name = NVC_trekboer_settlers
+						duration = -1
+					}
+				}
+			}
+			
+			custom_tooltip = NVC_if_possible_get_2_siberian_frontiers
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						region = south_africa_region
+						any_neighbor_province = {
+							is_empty = yes
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							is_empty = yes
+						}
+						add_siberian_construction = 100
+					}
+				}
+				random_owned_province = {
+					limit = {
+						region = south_africa_region
+						any_neighbor_province = {
+							is_empty = yes
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							is_empty = yes
+						}
+						add_siberian_construction = 100
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = NVC_rush_for_cape
+						duration = 9125
+					}
+					
+					add_mil_power = 75
+				"
+			}
+		}
+	}
+	
+	NVC_aden = {
+		icon = mission_dharma_mission_arabian_trade
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 388
+		}
+		trigger = {
+			388 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			388 = {
+				add_or_upgrade_trade_building = yes
+			}
+			
+			add_mercantilism = 5
+			
+			custom_tooltip = NVC_perma_claim_on_aden_and_hormuz_node
+			hidden_effect = {
+				1331 = {
+					every_trade_node_member_province = {
+						limit = {
+							NOT = { is_permanent_claim = ROOT }
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+				1334 = {
+					every_trade_node_member_province = {
+						limit = {
+							NOT = { is_permanent_claim = ROOT }
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					1331 = {
+						add_trade_modifier = {
+							who = PREV
+							duration = -1
+							power = 25
+							key = NED_VOC_in_aden
+						}
+					}
+				"
+			}
+		}
+	}
+	
+	NVC_arabia = {
+		icon = mission_arabian_fort
+		required_missions = { NVC_aden }
+		position = 5
+		provinces_to_highlight = {
+			region = arabia_region
+			province_has_center_of_trade_of_level = 1
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = { 
+				region = arabia_region
+				province_has_center_of_trade_of_level = 1
+				value = 3
+			}	
+		}
+		effect = {
+			add_country_modifier = {
+				name = NVC_arabia_modifier
+				duration = -1
+			}
+		
+			ME_overlord_effect = {
+				effect = "
+					custom_tooltip = NVC_we_give_merchant_and_cot_cost
+				"
+			}
+		}
+	}
+}
+
+NVC_missions_100_ai = {
+	slot = 100
+	generic = no
+	ai = yes
+	potential = {
+		tag = NVC
+	}
+	has_country_shield = yes
+	
+	NVC_ai = {
+		icon = chater_the_voc
+		required_missions = { }
+		position = 1
+		ai_weight = {
+			factor = 500
+		}
+		provinces_to_highlight = {
+			NED_is_VOC_territory = yes
+		}
+		trigger = {
+			india_superregion = {
+				owned_by = ROOT
+				type = all
+			}
+			east_indies_superregion = {
+				owned_by = ROOT
+				type = all
+			}
+			south_africa_region = {
+				owned_by = ROOT
+				type = all
+			}
+			always = no
+		}
+		effect = {
+		}
+	}
+}

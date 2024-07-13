@@ -1,0 +1,500 @@
+estate_french_improve_opinion = {
+	can_select = {
+		exists = FRA 
+		senior_union_with = FRA
+		NOT = {
+			FRA = {
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+	}
+	selection_weight = {
+		factor = 1
+		modifier = {
+			factor = 2
+			NOT = {
+				FRA = {
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				FRA = {
+					has_opinion = {
+						who = ROOT
+						value = 50
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				FRA = {
+					has_opinion = {
+						who = ROOT
+						value = 10
+					}
+				}
+			}
+		}
+	}
+	task_requirements = {
+		if = {
+			limit = {
+				exists = FRA
+			}
+			FRA = {
+				has_opinion = {
+					who = ROOT
+					value = 190
+				}
+			}
+		}
+		else = {
+			owns = 183
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_french
+		}
+		add_estate_loyalty = {
+			estate = estate_french
+			loyalty = 10
+		}
+		
+		if = {
+			limit = {
+				has_country_modifier = AVE_relations
+			}
+			extend_country_modifier = {
+				name = AVE_relations
+				duration = 9125
+			}
+			add_dip_power = 25
+		}
+		else = {
+			add_country_modifier = {
+				name = AVE_relations
+				duration = 7300
+			}
+		}
+	}
+	fail_if = {	
+		always = no
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_french
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+    }
+}
+
+estate_french_develop_capital_fallback = {
+	can_select = {
+		always = yes
+	}
+	selection_weight = {
+		factor = 0.001
+	}
+	pre_effect = {
+		capital_scope = {
+			save_event_target_as = agenda_province
+		}
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					check_variable = {
+						which = province_dev_var
+						value = 1
+					}
+				}
+				set_variable = {
+					which = province_dev_var
+					value = 0
+				}
+			}
+			export_to_variable = {
+				which = province_dev_var
+				value = trigger_value:base_manpower
+			}
+			change_variable = {
+				which = province_dev_var
+				value = 2
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+	task_requirements = {
+		event_target:agenda_province = {
+			base_manpower = "province_dev_var"
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_french
+		}
+		add_estate_loyalty = {
+			estate = estate_french
+			loyalty = 15
+		}
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_french
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+    }
+}
+
+estate_french_develop_french_prov = {
+	can_select = {
+		any_owned_province = { AVE_is_french_culture = yes }
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					AVE_is_french_culture = yes
+				}
+				save_event_target_as = agenda_province
+				random_list = {
+					33 = { set_province_flag = estate_french_adm_dev }
+					33 = { set_province_flag = estate_french_dip_dev }
+					33 = { set_province_flag = estate_french_mil_dev }
+				}
+			}
+			
+			event_target:agenda_province = {
+				if = {
+					limit = {
+						check_variable = {
+							which = province_dev_var
+							value = 1
+						}
+					}
+					set_variable = {
+						which = province_dev_var
+						value = 0
+					}
+				}
+				trigger_switch = {
+					on_trigger = has_province_flag
+					estate_french_adm_dev = {
+						export_to_variable = {
+							which = province_dev_var
+							value = trigger_value:base_tax
+						}
+					}
+					estate_french_dip_dev = {
+						export_to_variable = {
+							which = province_dev_var
+							value = trigger_value:base_production
+						}
+					}
+					estate_french_mil_dev = {
+						export_to_variable = {
+							which = province_dev_var
+							value = trigger_value:base_manpower
+						}
+					}
+				}
+				change_variable = {
+					which = province_dev_var
+					value = 2
+				}
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+	task_requirements = {
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					has_province_flag = estate_french_adm_dev
+				}
+				base_tax = "province_dev_var"
+			}
+			if = {
+				limit = {
+					has_province_flag = estate_french_dip_dev
+				}
+				base_production = "province_dev_var"
+			}
+			if = {
+				limit = {
+					has_province_flag = estate_french_mil_dev
+				}
+				base_manpower = "province_dev_var"
+			}
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_french
+		}
+		add_estate_loyalty = {
+			estate = estate_french
+			loyalty = 15
+		}
+		
+		if = {
+			limit = {
+				has_dlc = "Mandate of Heaven"
+			}
+			event_target:agenda_province = {
+				add_prosperity = 50
+			}
+		}
+		hidden_effect = {
+			event_target:agenda_province = {
+				clr_province_flag = estate_french_mil_dev
+				clr_province_flag = estate_french_adm_dev
+				clr_province_flag = estate_french_dip_dev
+			}
+		}
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_french
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		hidden_effect = {
+			event_target:agenda_province = {
+				clr_province_flag = estate_french_mil_dev
+				clr_province_flag = estate_french_adm_dev
+				clr_province_flag = estate_french_dip_dev
+			}
+		}
+    }
+}
+
+estate_french_construct_a_building = {
+	can_select = {
+		adm_tech = 6
+		dip_tech = 6
+		mil_tech = 6
+		any_owned_province = { AVE_is_french_culture = yes }
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				AVE_is_french_culture = yes
+				NOT = { num_of_buildings_in_province = 3 }
+			}
+			save_event_target_as = agenda_province
+			if = {
+				limit = {
+					NOT = { num_of_buildings_in_province = 1 }
+				}
+				set_variable = {
+					which = province_build_var
+					value = 0
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { num_of_buildings_in_province = 2 }
+				}
+				set_variable = {
+					which = province_build_var
+					value = 1
+				}
+			}
+			else = {
+				set_variable = {
+					which = province_build_var
+					value = 2
+				}
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+	task_requirements = {
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					check_variable = {
+						which = province_build_var
+						value = 2
+					}
+				}
+				num_of_buildings_in_province = 4
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = province_build_var
+						value = 1
+					}
+				}
+				num_of_buildings_in_province = 3
+			}
+			else = {
+				num_of_buildings_in_province = 2
+			}
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_french
+		}
+		add_estate_loyalty = {
+			estate = estate_french
+			loyalty = 10
+		}
+		
+		event_target:agenda_province = {
+			add_random_development = 1
+		}
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_french
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+    }
+}
+
+estate_french_hire_a_french_advisor = {
+	can_select = {
+		NOT = {
+			AVE_employing_french_advisor = yes
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				AVE_is_french_culture = yes
+				NOT = { num_of_buildings_in_province = 3 }
+			}
+			save_event_target_as = agenda_province
+			if = {
+				limit = {
+					NOT = { num_of_buildings_in_province = 1 }
+				}
+				set_variable = {
+					which = province_build_var
+					value = 0
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { num_of_buildings_in_province = 2 }
+				}
+				set_variable = {
+					which = province_build_var
+					value = 1
+				}
+			}
+			else = {
+				set_variable = {
+					which = province_build_var
+					value = 2
+				}
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	fail_if = {
+		event_target:agenda_province = {
+			NOT = { owned_by = root }
+		}
+	}
+	task_requirements = {
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					check_variable = {
+						which = province_build_var
+						value = 2
+					}
+				}
+				num_of_buildings_in_province = 4
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = province_build_var
+						value = 1
+					}
+				}
+				num_of_buildings_in_province = 3
+			}
+			else = {
+				num_of_buildings_in_province = 2
+			}
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_french
+		}
+		add_estate_loyalty = {
+			estate = estate_french
+			loyalty = 10
+		}
+		
+		event_target:agenda_province = {
+			add_random_development = 1
+		}
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_french
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+    }
+}

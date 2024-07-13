@@ -1,0 +1,54 @@
+convert_to_a_peasant_interaction = {
+	category = influence
+
+	alert_index = 17
+	alert_tooltip = sell_indulgence_alert_tooltip
+
+	require_acceptance = no
+
+	is_visible = {
+		has_government_mechanic = peasant_vigour_mechanic
+		FROM = {
+			NOT = { has_government_mechanic = peasant_vigour_mechanic }
+			NOT = { has_reform = peasants_republic }
+			is_subject_of = ROOT 
+		}
+	}
+	is_allowed = {
+		FROM = {
+			NOT = { liberty_desire = 10 }
+		}
+	}
+	on_accept = {
+		FROM = {
+			add_liberty_desire = 50
+			if = {
+				limit = {
+					NOT = { government = republic }
+				}
+				change_government = republic 
+			}
+			add_government_reform = peasants_republic
+		}
+		
+		add_government_power = {
+			mechanic_type = peasant_vigour_mechanic
+			power_type = peasant_vigour
+			value = 10
+		}
+	}
+	on_decline = {
+	}
+
+	ai_acceptance = { #no need.
+	}
+
+	ai_will_do = { 
+		FROM = {
+			ai = yes 
+		} 
+		FROM = {
+			NOT = { liberty_desire = 1 }
+		}
+	}
+}

@@ -1,0 +1,910 @@
+UTR_GEL_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = UTR
+			tag = GEL
+			AND = {
+				tag = NED
+				OR = {
+					was_tag = UTR
+					was_tag = GEL
+				}
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	UTR_forcelimit = {
+		icon = the_italian_league
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 9 
+				army_size_percentage = 0.85
+			}
+			num_of_generals = 1
+		}
+		effect = {
+			ME_give_claims = { area = frisia_area }
+			ME_give_claims = { area = holland_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = UTR_fear_of_burgundy
+				duration = 10950
+			}
+		}
+	}
+	
+	UTR_frisia = {
+		icon = fu_hemmingsteadt
+		required_missions = { UTR_forcelimit }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 100
+				province_id = 4382
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			100 = { country_or_non_sovereign_subject_holds = ROOT }
+			4382 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			100 = {
+				add_province_modifier = {
+					name = UTR_feudalization
+					duration = 10950
+				}
+			}
+			4382 = {
+				add_province_modifier = {
+					name = UTR_feudalization
+					duration = 10950
+				}
+			}
+			
+			if = {
+				limit = {
+					has_estate = estate_nobles
+					has_estate = estate_burghers
+				}
+				custom_tooltip = " "
+				
+				country_event_with_option_insight = {
+					id = ME_Gelre_Utrecht_Events.5
+					option_1 = "
+						change_estate_land_share = {
+							estate = estate_nobles
+							share = 5
+						}
+						custom_tooltip = \" \"
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 20
+						}
+						custom_tooltip = \" \"
+						add_yearly_manpower = 1
+						custom_tooltip = \" \"
+						100 = { add_base_tax = 1 }
+						4382 = { add_base_tax = 1 }
+					"
+					option_2 = "
+						add_years_of_income = 0.5
+						custom_tooltip = \" \"
+						add_estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 5
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	UTR_north_renaissance = {
+		icon = reaffirm_civil_values
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			ned_north_renaissance_pth = yes
+		}
+		trigger = {
+			ned_north_renaissance_trigger = yes
+		}
+		effect = {
+			ned_north_renaissance_effect = yes
+		}
+	}
+	
+	UTR_humanism = {
+		icon = me_mission_erasmus
+		required_missions = { UTR_north_renaissance }
+		position = 5
+		provinces_to_highlight = {
+			ned_humanism_pth = yes
+		}
+		trigger = {
+			ned_humanism_trigger = yes
+		}
+		effect = {
+			ned_humanism_effect = yes
+		}
+	}
+}
+
+UTR_GEL_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = UTR
+			tag = GEL
+			AND = {
+				tag = NED
+				OR = {
+					was_tag = UTR
+					was_tag = GEL
+				}
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	UTR_conquer_the_other = {
+		icon = mission_unite_home_region
+		required_missions = { UTR_forcelimit }
+		position = 2
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					ROOT = { tag = UTR }
+				}
+				province_id = 99
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			else_if = {
+				limit = {
+					ROOT = { tag = GEL }
+				}
+				province_id = 98
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			else = { #fallback
+				OR = {
+					province_id = 99
+					province_id = 98
+				}
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					tag = UTR
+				}
+				99 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			else_if = {
+				limit = {
+					tag = GEL
+				}
+				98 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			else = { #fallback
+				99 = { country_or_non_sovereign_subject_holds = ROOT }
+				98 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					tag = UTR
+				}
+				add_country_modifier = {
+					name = UTR_resolving_the_feuds
+					duration = 10950
+				}
+				
+				add_devotion = 25
+				
+				custom_tooltip = " "
+			}
+			else_if = {
+				limit = {
+					tag = GEL
+				}
+				add_country_modifier = {
+					name = UTR_support_in_our_neighbor
+					duration = 9125
+				}
+			}
+			else = { } #nothing
+			
+			add_adm_power = 100
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = flanders_area }
+			ME_give_claims = { area = brabant_area }
+			ME_give_claims = { area = north_brabant_area }
+		}
+	}
+	
+	UTR_resist_the_cross = {
+		icon = conquer_burgundy
+		required_missions = { UTR_conquer_the_other UTR_frisia }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = BUR
+		}
+		trigger = {
+			OR = {
+				war_with = BUR
+				total_development = BUR
+			}
+		}
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = UTR_if_we_did_via_war
+				first_limit = "
+					war_with = BUR
+				"
+				first_effect = "
+					create_general_with_pips = { 
+						tradition = 80
+						add_shock = 2
+						add_fire = 2
+						add_siege = 1
+					}
+					
+					custom_tooltip = \" \"
+					add_country_modifier = {
+						name = UTR_resist_invasion
+						duration = 7300
+					}
+				"
+			}
+			complex_dynamic_effect = {
+				first_custom_tooltip = UTR_if_we_did_via_total_dev
+				first_limit = "
+					total_development = BUR
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = UTR_stood_the_test_of_time
+						duration = 10950
+					}
+					ME_add_power_projection = { amount = 15 }
+				"
+			}
+		}
+	}
+}
+
+UTR_GEL_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = UTR
+			tag = GEL
+			AND = {
+				tag = NED
+				OR = {
+					was_tag = UTR
+					was_tag = GEL
+				}
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	UTR_curb_hollander_influence = {
+		icon = regents_contracts
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = HOL
+				}
+				owned_by = HOL
+			}
+			else = {
+				province_id = 4383
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = HOL
+				}
+				has_won_war_against = { who = HOL }
+				army_size = HOL
+			}
+			else = {
+				4383 = { country_or_non_sovereign_subject_holds = ROOT  }
+			}
+		}
+		effect = {
+			ME_add_power_projection = { amount = 25 }
+			
+			custom_tooltip = " "
+		
+			add_country_modifier = {
+				name = GEL_hollander_rival
+				duration = 9125
+			}
+			
+			custom_tooltip = GEL_we_will_not_need_amsterdam_in_a_state
+			set_country_flag = GEL_holland_hegemony_destroyed
+		}
+	}
+	
+	# UTR_north_netherlands = {
+		# icon = je_maintiendrai
+		# required_missions = { UTR_curb_hollander_influence UTR_resist_the_cross }
+		# position = 4
+		# provinces_to_highlight = {
+		# }
+		# trigger = {
+		# }
+		# effect = {
+		# }
+	# }
+	
+	UTR_netherlands = {
+		icon = the_true_freedom
+		required_missions = { UTR_resist_the_cross UTR_curb_hollander_influence }
+		position = 5
+		provinces_to_highlight = {
+			NED_netherlands_pth = yes
+		}
+		trigger = {
+			NED_netherlands_trigger = yes
+		}
+		effect = {
+			NED_netherlands_reward = yes
+		}
+	}
+}
+
+UTR_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		NED_is_or_was_tag = { tag = UTR }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	UTR_expand_utrechter_dom = {
+		icon = mission_european_church
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 98
+		}
+		trigger = {
+			98 = {
+				has_tax_building_trigger = yes
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			98 = {
+				add_or_upgrade_tax_building = yes
+				
+				custom_tooltip = " "
+				
+				add_province_triggered_modifier = UTR_utrechter_dom
+			}
+		}
+	}
+	
+	UTR_duurstede_castle = {
+		icon = negotiate_for_avignon
+		required_missions = { UTR_expand_utrechter_dom UTR_appoint_new_schout }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 99
+		}
+		trigger = {
+			has_institution = renaissance
+			98 = {
+				fort_level = 2
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			99 = {
+				add_province_modifier = {
+					name = UTR_seat_of_the_bishops
+					duration = -1
+				}
+			}
+			
+			define_advisor = {
+				type = artist
+				name = "Jan Gossaert"
+				skill = 2
+				cost_multiplier = 0.25
+				culture = cosmopolitan_french
+				religion = catholic
+			}
+		}
+	}
+	
+	UTR_papal_legate = {
+		icon = control_the_church
+		required_missions = { UTR_deal_with_hooks_and_cods UTR_duurstede_castle }
+		position = 4
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					ROOT = {
+						NOT = { religion = catholic }
+					}
+				}
+				NOT = { religion = ROOT }
+				owned_by = ROOT
+			}
+			else = {
+				always = no
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					religion = catholic
+				}
+				OR = {
+					is_papal_controller = yes
+					invested_papal_influence = 40
+				}
+			}
+			else = { #bruh
+				num_of_provinces_converted = { amount = 10 }
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					religion = catholic
+				}
+				add_country_modifier = {
+					name = UTR_pope_adriaan
+					duration = -1
+				}
+				
+				add_papal_influence = 50 
+			}
+			else = {
+				add_stability_or_adm_power = yes #obvious fallback
+			}
+			
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				custom_tooltip = " "
+				
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 15
+				}
+			}
+		}
+	}
+}
+
+UTR_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		NED_is_or_was_tag = { tag = UTR }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	UTR_appoint_new_schout = {
+		icon = adjust_the_general_means
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			stability = 1
+			any_owned_province = {
+				num_of_times_improved = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = UTR_new_provincial_administrators
+				duration = 10950
+			}
+			
+			change_government_reform_progress = 50
+		}
+	}
+
+	UTR_deal_with_hooks_and_cods = {
+		icon = mission_rb_cod_wars
+		required_missions = { UTR_appoint_new_schout }
+		position = 3
+		provinces_to_highlight = {
+			owned_by = ROOT
+			unrest = -1
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = UTR_got_rid_of_factionalism
+				NOT = { has_country_modifier = NED_factionalism_modifier }
+			}
+			NOT = { average_unrest = -1 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = UTR_recovering_from_the_hook_and_cods
+				duration = 7300
+			}
+			
+			add_estate_loyalty = {
+				estate = all
+				loyalty = 10
+			}
+		}
+	}
+	
+	UTR_reorganize_the_dutch_provinces = {
+		icon = show_piety
+		required_missions = { UTR_deal_with_hooks_and_cods }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 5
+			}
+			if = {
+				limit = {
+					religion = catholic
+				}
+				custom_trigger_tooltip = {
+					tooltip = UTR_pope_has_reorganized_dutch_provinces
+					has_global_flag = UTR_catholic_reorganized
+				}
+			}
+		}
+		effect = {
+			98 = {
+				add_permanent_province_modifier = {
+					name = UTR_centre_of_religiosity
+					duration = -1
+				}
+			}
+			
+			add_papal_influence = 50
+		}
+	}
+}
+
+GEL_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		NED_is_or_was_tag = { tag = GEL }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	GEL_gelderhouwer = {
+		icon = expand_the_confederacy
+		required_missions = { GEL_appoint_new_schout }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			is_ahead_of_time_in_specific_tech = { type = adm }
+			num_of_provinces_developed = { amount = 5 }
+			OR = {
+				monthly_adm = 10
+				monthly_dip = 10
+				monthly_mil = 10
+			}
+		}
+		effect = {
+			country_event_with_effect_insight = {
+				id = ME_Gelre_Utrecht_Events.6
+				effect = "
+					define_advisor = {
+						type = ME_historian
+						name = \"Gerard Geldenhouwer\"
+						skill = 2
+						culture = ROOT
+						religion = ROOT
+						cost_multiplier = 0.5
+					}
+					
+					custom_tooltip = \" \"
+					
+					add_country_modifier = {
+						name = UTR_batavians
+						duration = 7300 
+					}
+				"
+			}
+		}
+	}
+	
+	GEL_signeuralism = {
+		icon = rein_in_the_nobles
+		required_missions = { GEL_protect_noble_interests }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			farm_estate = 5
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				OR = {
+					num_of_estate_agendas_completed = { estate = estate_nobles value = 3 }
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 80
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = GEL_promote_political_bannerheren
+			set_country_flag = GEL_promote_political_bannerheren_flag
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = 10_base_tax_distributed_among_farm_estates
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								has_building = farm_estate
+							}
+							add_base_tax = 1
+						}
+					"
+				}
+			}
+		}
+	}
+}
+
+GEL_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		NED_is_or_was_tag = { tag = GEL }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	GEL_appoint_new_schout = {
+		icon = adjust_the_general_means
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			stability = 1
+			any_owned_province = {
+				num_of_times_improved = 3
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = UTR_new_provincial_administrators
+				duration = 10950
+			}
+			
+			change_government_reform_progress = 50
+		}
+	}
+	
+	GEL_protect_noble_interests = {
+		icon = the_hungarian_question
+		required_missions = { GEL_appoint_new_schout }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				OR = {
+					num_of_estate_agendas_completed = { estate = estate_nobles value = 2 }
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 75
+					}
+				}
+			}
+			else = {
+				num_of_owned_provinces_with = {
+					OR = {
+						trade_goods = livestock
+						trade_goods = grain
+					}
+					development = 20
+					value = 3
+				}
+			}
+		}
+		effect = {
+			add_legitimacy_equivalent = {
+				amount = 25
+				republican_tradition = 10
+			}
+			
+			custom_tooltip = " "
+			
+			capital_scope = {
+				add_base_tax = 3
+			}
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				custom_tooltip = GEL_get_25_mil_power_for_every_privilege
+			
+				hidden_effect = {
+					if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 8
+							}
+						}
+						add_mil_power = 200
+					}
+					else_if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 7
+							}
+						}
+						add_mil_power = 175
+					}
+					else_if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 6
+							}
+						}
+						add_mil_power = 150
+					}
+					else_if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 5
+							}
+						}
+						add_mil_power = 125
+					}
+					else_if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 4
+							}
+						}
+						add_mil_power = 100
+					}
+					else_if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 3
+							}
+						}
+						add_mil_power = 75
+					}
+					else_if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 2
+							}
+						}
+						add_mil_power = 50
+					}
+					else_if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 1
+							}
+						}
+						add_mil_power = 25
+					}
+					else = { }
+				}
+			}
+		}
+	}
+	
+	GEL_noble_republic = {
+		icon = imperial_capitals
+		required_missions = { GEL_protect_noble_interests }
+		position = 5
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			capital_scope = {
+				development = 20
+				has_tax_building_trigger = yes
+				has_production_building_trigger = yes 
+			}
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 60
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_burghers
+						value = 2
+					}
+				}
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_or_upgrade_tax_building = yes
+				add_or_upgrade_production_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = GEL_city_reconciliation
+				duration = -1
+			}
+		}
+	}
+}

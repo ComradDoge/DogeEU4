@@ -1,0 +1,380 @@
+estate_parliament_develop_seat_of_parliament = {
+	can_select = {
+		any_owned_province = {
+			has_seat_in_parliament = yes
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		random_owned_province = {
+			limit = {
+				has_seat_in_parliament = yes
+				NOT = { has_province_modifier = ENG_parliament_development_efficiency }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				has_seat_in_parliament = yes
+				NOT = { has_province_modifier = ENG_parliament_development_efficiency }
+				NOT = { development = 20 }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				has_seat_in_parliament = yes
+				NOT = { has_province_modifier = ENG_parliament_development_efficiency }
+				NOT = { development = 15 }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				has_seat_in_parliament = yes
+				NOT = { has_province_modifier = ENG_parliament_development_efficiency }
+				NOT = { development = 10 }
+			}
+			save_event_target_as = agenda_province
+		}
+		random_owned_province = {
+			limit = {
+				has_seat_in_parliament = yes
+				NOT = { has_province_modifier = ENG_parliament_development_efficiency }
+				NOT = { development = 7 }
+			}
+			save_event_target_as = agenda_province
+		}
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					check_variable = {
+						which = province_dev_var
+						value = 1
+					}
+				}
+				set_variable = {
+					which = province_dev_var
+					value = 0
+				}
+			}
+			export_to_variable = {
+				which = province_dev_var
+				value = trigger_value:base_tax
+			}
+			change_variable = {
+				which = province_dev_var
+				value = 3
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	task_requirements = {
+		event_target:agenda_province = {
+			base_tax = "province_dev_var"
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_parliament
+		}
+		add_estate_loyalty = {
+			estate = estate_parliament
+			loyalty = 10
+		}
+		event_target:agenda_province = {
+			add_province_modifier = {
+				name = ENG_parliament_development_efficiency
+				duration = 10950
+			}
+		}
+	}
+	fail_if = {	
+		event_target:agenda_province = {
+			NOT = { owned_by = ROOT }
+		}
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_parliament
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+    }
+}
+
+
+estate_parliament_fallback_capital_dev = {
+	can_select = {
+		always = yes
+	}
+	selection_weight = {
+		factor = 0.001 #this is a fallback
+	}
+	pre_effect = {
+		capital_scope = {
+			save_event_target_as = agenda_province
+		}
+		event_target:agenda_province = {
+			if = {
+				limit = {
+					check_variable = {
+						which = province_dev_var
+						value = 1
+					}
+				}
+				set_variable = {
+					which = province_dev_var
+					value = 0
+				}
+			}
+			export_to_variable = {
+				which = province_dev_var
+				value = trigger_value:base_tax
+			}
+			change_variable = {
+				which = province_dev_var
+				value = 2
+			}
+		}
+	}
+	provinces_to_highlight = {
+		province_id = event_target:agenda_province
+	}
+	task_requirements = {
+		event_target:agenda_province = {
+			base_tax = "province_dev_var"
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_parliament
+		}
+		add_estate_loyalty = {
+			estate = estate_parliament
+			loyalty = 10
+		}
+		change_government_reform_progress = 25
+	}
+	fail_if = {	
+		event_target:agenda_province = {
+			NOT = { owned_by = ROOT }
+		}
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_parliament
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+    }
+}
+
+estate_parliament_push_issue = {
+	can_select = {
+		NOT = { has_active_debate = yes }
+		NOT = { has_country_modifier = estate_parliament_parliamentary_enthusiasm }
+	}
+	selection_weight = {
+		factor = 1
+	}
+	pre_effect = {
+		set_country_flag = estate_parliament_push_issue_active
+	}
+	provinces_to_highlight = {
+	}
+	task_requirements = {
+		custom_trigger_tooltip = {
+			tooltip = estate_parliament_pushed_an_issue
+			has_country_flag = estate_parliament_just_succeeded_a_debate
+			NOT = {
+				had_country_flag = {
+					flag = estate_parliament_just_succeeded_a_debate
+					days = 30
+				}
+			}
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_parliament
+		}
+		add_estate_loyalty = {
+			estate = estate_parliament
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = estate_parliament_parliamentary_enthusiasm
+			duration = 5475
+		}
+		clr_country_flag = estate_parliament_just_succeeded_a_debate
+		clr_country_flag = estate_parliament_just_failed_a_debate
+	}
+	fail_if = {	
+		custom_trigger_tooltip = {
+			tooltip = estate_parliament_failed_an_issue
+			has_country_flag = estate_parliament_just_failed_a_debate
+			NOT = {
+				had_country_flag = {
+					flag = estate_parliament_just_failed_a_debate
+					days = 30
+				}
+			}
+		}
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_parliament
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		clr_country_flag = estate_parliament_just_succeeded_a_debate
+		clr_country_flag = estate_parliament_just_failed_a_debate
+    }
+}
+
+estate_parliament_push_our_issue_through = {
+	can_select = {
+		NOT = { has_country_modifier = estate_parliament_pleased }
+	}
+	selection_weight = {
+		factor = 1
+	}
+	provinces_to_highlight = {
+	}
+	pre_effect = {
+		start_debate = estate_parliament_support_act
+	}
+	task_requirements = {
+		custom_trigger_tooltip = {
+			tooltip = estate_parliament_pushed_the_special_debate
+			has_country_flag = estate_parliament_support_act_passed
+			NOT = {
+				had_country_flag = {
+					flag = estate_parliament_support_act_passed
+					days = 30
+				}
+			}
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_parliament
+		}
+		add_estate_loyalty = {
+			estate = estate_parliament
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = estate_parliament_pleased
+			duration = 9125
+		}
+		clr_country_flag = estate_parliament_support_act_passed
+	}
+	fail_if = {	
+		NOT = { current_debate = estate_parliament_support_act }
+		NOT = { has_country_flag = estate_parliament_support_act_passed }
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_parliament
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		clr_country_flag = estate_parliament_support_act_passed
+    }
+}
+
+estate_parliament_give_more_seats = {
+	can_select = {
+		num_of_owned_provinces_with = {
+			NOT = { has_seat_in_parliament = yes }
+			value = 3
+		}
+	}
+	selection_weight = {
+		factor = 1
+	}
+	provinces_to_highlight = {
+		owned_by = ROOT 
+		NOT = { has_seat_in_parliament = yes }
+	}
+	pre_effect = {
+		hidden_effect = {
+			# set_variable = {
+				# which = agenda_amount_of_seats
+				# value = 0
+			# }
+			# every_owned_province = {
+				# limit = {
+					# has_seat_in_parliament = yes
+				# }
+				# ROOT = {
+					# change_variable = { 
+						# which = agenda_amount_of_seats
+						# value = 1
+					# }
+				# }
+			# }
+			# set_variable = {
+				# which = agenda_needed_seats
+				# which = agenda_amount_of_seats
+			# }
+			# change_variable = {
+				# which = 
+		}
+		set_country_flag = estate_parliament_give_more_seats
+	}
+	task_requirements = {
+		custom_trigger_tooltip = {
+			tooltip = estate_parliament_gave_3_seats
+			check_variable = {
+				which = estate_parliament_seat_amount
+				value = 3
+			}
+		}
+	}
+	task_completed_effect = {
+		on_completed_agenda_effect = {
+			estate = estate_parliament
+		}
+		add_estate_loyalty = {
+			estate = estate_parliament
+			loyalty = 10
+		}
+		
+		clr_country_flag = estate_parliament_give_more_seats
+		hidden_effect = {
+			set_variable = {
+				which = estate_parliament_seat_amount
+				value = 0
+			}
+		}
+	}
+	fail_if = {	
+		always = no
+	}
+    failing_effect = {
+        add_estate_loyalty_modifier = {
+            estate = estate_parliament
+			desc = EST_VAL_AGENDA_DENIED
+			loyalty = -5
+			duration = 7300
+        }
+		clr_country_flag = estate_parliament_give_more_seats
+		hidden_effect = {
+			set_variable = {
+				which = estate_parliament_seat_amount
+				value = 0
+			}
+		}
+    }
+}

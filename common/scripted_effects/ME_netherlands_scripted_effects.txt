@@ -1,0 +1,761 @@
+NED_set_faction_support = {
+	[[hook]
+		set_country_flag = hook_supported_by_$by$
+		clr_country_flag = cod_supported_by_$by$
+	]
+	[[cod]
+		set_country_flag = cod_supported_by_$by$
+		clr_country_flag = hook_supported_by_$by$
+	]
+}
+
+NED_clear_faction_support = {
+	clr_country_flag = hook_supported_by_$by$
+	clr_country_flag = cod_supported_by_$by$
+}
+
+NED_set_estate_privilege = {
+	set_country_flag = NED_no_stab_hit
+	set_estate_privilege = ME_estate_burghers_NED_support_$which$
+	clr_country_flag = NED_no_stab_hit
+}
+
+NED_set_faction_support_event = {
+	if = {
+		limit = {
+			has_country_flag = NED_used_to_support_hook
+		}
+		set_country_flag = hook_supported_by_$by$
+		clr_country_flag = cod_supported_by_$by$
+	}
+	else_if = {
+		limit = {
+			has_country_flag = NED_used_to_support_cod
+		}
+		set_country_flag = cod_supported_by_$by$
+		clr_country_flag = hook_supported_by_$by$
+	}
+}
+
+NED_auxilliary_effect = {
+	add_age_modifier = {
+		name = NED_early_netherlands
+		duration = -1
+		age = age_of_discovery
+		else = "
+			add_prestige_or_monarch_power = { amount = 50 }
+		"
+	}
+	ME_override_country_name = { string = NED_united_provinces_name }
+	custom_tooltip = " "
+	custom_tooltip = NED_no_more_tech_req_for_netherlands
+	set_country_flag = NED_no_more_tech_req_for_netherlands_flag
+}
+
+NED_netherlands_reward = {
+	country_event_with_effect_insight = {
+		id = ME_Netherlands_Events.1
+		effect = "
+			NED_auxilliary_effect = yes
+		"
+	}
+	
+	NED_complete_dutch_missions = yes
+}
+
+NED_complete_dutch_missions = {
+	hidden_effect = {
+		complete_mission = BRB_united_provinces
+		complete_mission = HOL_united_provinces
+		complete_mission = FRI_netherlands
+		complete_mission = FLA_netherlands
+		complete_mission = UTR_netherlands
+	}
+}
+
+ned_north_renaissance_effect = { 
+	add_country_modifier = {
+		name = NED_imitation_of_christ
+		duration = 7300
+	}
+	
+	capital_scope = {
+		add_base_tax = 1
+		add_prosperity = 100
+	}
+}
+#custom_tooltip = \" \"
+
+#dont ask what happened below. what counts is that it works
+NED_give_erasmus_pls = { #it doesn\t work?
+	define_advisor = {
+		type = ME_philosopher_erasmus
+		name = "Erasmus"
+		culture = dutch
+		religion = catholic
+		skill = 2
+	}
+}
+#custom_tooltip = \" \"
+NED_space = { custom_tooltip = " " }
+NED_humanism_unique_effect = {
+	country_event_with_effect_insight = {
+		id = flavor_hol.5120
+		effect = "
+			add_dip_power = 100
+			
+			NED_space = yes
+			
+			NED_give_erasmus_pls = yes
+		"
+	}
+}
+
+NED_transfer_province_to_VOC_or_WIC = {
+	if = {
+		limit = {
+			is_city = yes
+		}
+		if = {
+			limit = {
+				owner = {
+					has_estate_privilege = estate_settlers_NED_oost_compagnie
+				}
+				NED_is_VOC_territory = yes
+			}
+			if = {
+				limit = {
+					is_core = owner
+				}
+				remove_core = owner
+				add_core = NVC
+			}
+			cede_province = NVC
+		}
+		else_if = {
+			limit = {
+				owner = {
+					has_estate_privilege = estate_settlers_NED_west_compagnie
+				}
+				NED_is_WIC_territory = yes
+			}
+			if = {
+				limit = {
+					is_core = owner
+				}
+				remove_core = owner
+				add_core = NWC
+			}
+			cede_province = NWC
+		}
+		else_if = {
+			limit = {
+				owner = {
+					has_estate_privilege = estate_settlers_ENG_EIC_company
+				}
+				ENG_is_EIC_territory = yes
+			}
+			if = {
+				limit = {
+					is_core = owner
+				}
+				remove_core = owner
+				add_core = EIC
+			}
+			cede_province = EIC
+		}
+		else = { }
+	}
+}
+
+ned_humanism_effect = { 
+	if = {
+		limit = {
+			has_dlc = "Rule Britannia"
+		}
+		change_innovativeness = 3
+	}
+	else = {
+		add_adm_power = 50
+		add_dip_power = 50
+		add_mil_power = 50
+	}
+	
+	custom_tooltip = " "
+	
+	add_age_modifier = {
+		name = NED_humanism_modifier
+		duration = -1
+		age = age_of_discovery
+	}
+	
+	complex_dynamic_effect = {
+		first_custom_tooltip = NED_if_we_are_first_to_complete_this_mission
+		first_limit = "
+			NOT = { has_global_flag = ned_humanism_happened }
+		"
+		first_effect = "
+			NED_humanism_unique_effect = yes
+		"
+	}
+	set_global_flag = ned_humanism_happened
+}
+
+NED_reduce_autonomy_and_separism = {
+	home_counties_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		add_local_autonomy = -25
+		add_nationalism = -10
+	}
+	wessex_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		add_local_autonomy = -25
+		add_nationalism = -10
+	}
+	wales_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		add_local_autonomy = -25
+		add_nationalism = -10
+	}
+	east_anglia_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		add_local_autonomy = -25
+		add_nationalism = -10
+	}
+	west_midlands_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		add_local_autonomy = -25
+		add_nationalism = -10
+	}
+	east_midlands_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		add_local_autonomy = -25
+		add_nationalism = -10
+	}
+	yorkshire_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		add_local_autonomy = -25
+		add_nationalism = -10
+	}
+	scottish_marches_area = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+		add_local_autonomy = -25
+		add_nationalism = -10
+	}
+}
+
+NED_form_netherlands_effect = { #from decision
+	if = {
+		limit = {
+			is_elector = no
+			is_emperor = no
+			OR = {
+				is_part_of_hre = yes
+				any_owned_province = {
+					is_part_of_hre = yes
+				}
+			}
+		}
+		set_in_empire = no
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_part_of_hre = yes
+				}
+				set_in_empire = no
+			}
+		}
+	}
+	if = {
+		limit = {
+			tag = BUR
+		}
+		change_primary_culture = dutch
+		97 = {
+			move_capital_effect = yes
+		}
+	}
+	#if = { #No one likes this
+	#	limit = {
+	#		tag = BUR
+	#		exists = FRA
+	#	}
+	#	france_region = {
+	#		limit = {
+	#			owned_by = BUR
+	#		}
+	#		remove_core = BUR
+	#		add_core = FRA
+	#		cede_province = FRA
+	#	}
+	#}
+	#if = {
+	#	limit = {
+	#		tag = BUR
+	#		exists = FRA
+	#		BUR = {
+	#			any_subject_country = {
+	#				france_region = {
+	#					owned_by = PREV
+	#				}
+	#			}
+	#		}
+	#	}
+	#	every_subject_country = {
+	#		limit = {
+	#			france_region = {
+	#				owned_by = PREV
+	#			}
+	#		}
+	#		france_region = {
+	#			limit = {
+	#				owned_by = PREV
+	#			}
+	#			remove_core = BUR
+	#			remove_core = PREV
+	#			add_core = FRA
+	#			cede_province = FRA
+	#		}
+	#	}
+	#}
+    custom_tooltip = tooltip_line_seperate_general
+	change_tag = NED
+	on_change_tag_effect = yes
+	restore_country_name = yes
+	swap_non_generic_missions = yes
+	low_countries_region = {
+		limit = {
+			NOT = { owned_by = ROOT }
+			NOT = { is_permanent_claim = ROOT }
+			# NOT = { province_id = 1931 }
+		}
+		add_permanent_claim = NED
+	}
+	if = {
+		limit = {
+			NOT = {
+				government_rank = 2
+			}
+		}
+		NED = { set_government_rank = 2 }
+	}
+	set_country_flag = formed_netherlands_flag
+	add_prestige_or_monarch_power = { amount = 15 }
+
+
+	if  = {
+		limit = {
+			has_country_flag = GEL_holland_hegemony_destroyed 
+		}
+		capital_scope = {
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+	}
+
+	if = {
+		limit = {
+			OR = {
+				mission_completed = FLA_maas
+				mission_completed = BRB_maas
+			}
+		}
+		ME_add_power_projection = { amount = 25 }
+	}
+
+	if = {
+		limit = {
+			has_country_flag = HOL_unifying_netherlands_will_distribute_5_development_in_dutch_provinces_in_frisia_and_holland_area_flag
+		}
+		clr_country_flag = HOL_unifying_netherlands_will_distribute_5_development_in_dutch_provinces_in_frisia_and_holland_area_flag 
+		
+		custom_tooltip = HOL_5_dev_distribute
+		
+		hidden_effect = {
+			for = {
+				amount = 5
+				effect = "
+					random_owned_province = {
+						limit = {
+							OR = {
+								area = frisia_area
+								area = holland_area
+							}
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	
+	# Events
+	custom_tooltip = tooltip_line_seperate_events
+	if = {
+		limit = { has_custom_ideas = no NOT = { has_idea_group = NED_ideas } }
+		country_event = { id = ideagroups.1 } #Swap Ideas
+	}
+	country_event = { id = flavor_hol.3502 days = 1 }
+}
+
+NED_add_effect_from_selling_art_efficiency = {
+	multiply_variable = {
+		which = ME_sale_cost_art_ned
+		value = 0.25 #nerf
+	}
+	export_to_variable = {
+		variable_name = temp_var
+		value = modifier:art_selling_efficiency
+		who = ROOT
+	}
+	change_variable = {
+		which = temp_var
+		value = 1
+	}
+	multiply_variable = {
+		which = ME_sale_cost_art_ned
+		which = temp_var
+	}
+}
+
+NED_sell_art_effect = {
+	add_stability_or_adm_power = yes
+	
+	custom_tooltip = " "
+	
+	add_prestige_or_monarch_power = { amount = 30 }
+	
+	custom_tooltip = " "
+	
+	add_splendor = 400
+}
+
+NED_establish_VOC = {
+	every_province = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			NED_is_VOC_territory = yes
+		}
+		if = {
+			limit = {
+				is_core = owner
+			}
+			remove_core = owner
+			add_core = NVC
+		}
+		cede_province = NVC
+	}
+	create_subject = {
+		subject_type = dutch_commercial_enterprise
+		subject = NVC
+	}
+	NVC = {
+		change_government = republic
+		add_government_reform = trade_company_government
+		change_religion = ROOT
+		change_primary_culture = ROOT
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		add_treasury = 300
+		add_manpower = 10
+		set_prestige_to_zero = yes
+		add_republican_tradition = 100
+		# add_idea_group = expansion_ideas
+		country_event = { id = company_transfer_event.2 days = 1 }
+		if = {
+			limit = {
+				any_owned_province = {
+					has_port = yes
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				heavy_ship = NVC
+				heavy_ship = NVC
+				heavy_ship = NVC
+				transport = NVC
+				transport = NVC
+				transport = NVC
+				transport = NVC
+				transport = NVC
+				transport = NVC
+				transport = NVC
+				transport = NVC
+				transport = NVC
+				transport = NVC
+				light_ship = NVC
+				light_ship = NVC
+				light_ship = NVC
+				light_ship = NVC
+				light_ship = NVC
+			}
+		}
+	}
+}
+
+NED_establish_WIC = {
+	every_province = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			NED_is_WIC_territory = yes
+		}
+		if = {
+			limit = {
+				is_core = owner
+			}
+			remove_core = owner
+			add_core = NWC
+		}
+		cede_province = NWC
+	}
+	create_subject = {
+		subject_type = dutch_commercial_enterprise
+		subject = NWC
+	}
+	NWC = {
+		change_government = republic
+		add_government_reform = trade_company_government
+		change_religion = ROOT
+		change_primary_culture = ROOT
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		add_treasury = 300
+		add_manpower = 10
+		set_prestige_to_zero = yes
+		add_republican_tradition = 100
+		# add_idea_group = expansion_ideas
+		country_event = { id = company_transfer_event.2 days = 1 }
+		if = {
+			limit = {
+				any_owned_province = {
+					has_port = yes
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				heavy_ship = NWC
+				heavy_ship = NWC
+				heavy_ship = NWC
+				transport = NWC
+				transport = NWC
+				transport = NWC
+				transport = NWC
+				transport = NWC
+				transport = NWC
+				transport = NWC
+				transport = NWC
+				transport = NWC
+				transport = NWC
+				light_ship = NWC
+				light_ship = NWC
+				light_ship = NWC
+				light_ship = NWC
+				light_ship = NWC
+			}
+		}
+	}
+}
+
+NED_15_event = {
+	country_event_with_option_insight = { 
+		id = ME_Netherlands_Events.15
+		option_1 = "
+			add_years_of_income = -0.25
+			add_country_modifier = {
+				name = NED_far_company
+				duration = 9125
+			}
+		"
+		option_2 = " add_dip_power = 25 "
+	}
+}
+
+NED_give_frontier_or_claim = {
+	$id$ = {
+		if = {
+			limit = {
+				is_empty = yes
+			}
+			add_siberian_construction = 100 
+		}
+		else_if = {
+			limit = {
+				NOT = { owned_by = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		else = { }
+	}
+}
+
+NWC_naturalist_effect_2 = {
+	change_innovativeness = 3
+		
+	custom_tooltip = " "
+	
+	define_advisor = {
+		type = GRA_astronomer
+		name = "Georg Markgraf"
+		skill = 3
+		culture = saxon
+		religion = ROOT
+		cost_multiplier = 0.25
+	}
+
+}
+NWC_naturalist_effect = {
+	country_event_with_effect_insight = {
+		id = ME_Netherlands_Events.26
+		effect = "
+			NWC_naturalist_effect_2 = yes
+		"
+	}
+}
+
+NED_branch_effect = {
+	custom_tooltip = NED_branch_effect
+}
+
+LUX_event_2_effect = {
+	country_event_with_option_insight = {
+		id = ME_Luxemburg_Events.2
+		option_1 = "
+			if = {
+				limit = { senior_union_with = BRA }
+				create_subject = {
+					subject = BRA
+					subject_type = LUX_personal_union
+				}
+			}
+			else_if = {
+				limit = { senior_union_with = PRU }
+				create_subject = {
+					subject = PRU
+					subject_type = LUX_personal_union
+				}
+			}
+			else = {
+				create_subject = {
+					subject = BRA
+					subject_type = LUX_personal_union
+				}
+			}
+			custom_tooltip = LUX_what_is_a_luxembourg_realm
+		"
+		option_2 = "
+			if = {
+				limit = { senior_union_with = BRA }
+				create_subject = {
+					subject = BRA
+					subject_type = ME_personal_union_cheap
+				}
+			}
+			else_if = {
+				limit = { senior_union_with = PRU }
+				create_subject = {
+					subject = PRU
+					subject_type = ME_personal_union_cheap
+				}
+			}
+			else = {
+				create_subject = {
+					subject = BRA
+					subject_type = ME_personal_union_cheap
+				}
+			}
+			custom_tooltip = NED_make_it_a_75_off_pu
+		"
+	}
+}
+
+LUX_event_3_effect = {
+	country_event_with_option_insight = {
+		id = ME_Luxemburg_Events.3
+		option_1 = "
+			create_subject = {
+				subject = BOH
+				subject_type = LUX_personal_union
+			}
+			custom_tooltip = LUX_what_is_a_luxembourg_realm
+		"
+		option_2 = "
+			create_subject = {
+				subject = BOH
+				subject_type = ME_personal_union_cheap
+			}
+			custom_tooltip = NED_make_it_a_75_off_pu
+		"
+	}
+}
+
+LUX_event_4_effect = {
+	country_event_with_option_insight = {
+		id = ME_Luxemburg_Events.4
+		option_1 = "
+			create_subject = {
+				subject = HUN
+				subject_type = LUX_personal_union
+			}
+			custom_tooltip = LUX_what_is_a_luxembourg_realm
+		"
+		option_2 = "
+			create_subject = {
+				subject = HUN
+				subject_type = ME_personal_union_cheap
+			}
+			custom_tooltip = NED_make_it_a_75_off_pu
+		"
+	}
+}
+
+LUX_cb_on = {
+	add_casus_belli = {
+		type = cb_restore_personal_union
+		months = 300
+		target = $who$
+	}
+}
+
+LUX_pls_stop_crashing = {
+	if = {
+		limit = {
+			exists = PRU
+			PRU = {
+				NOT = { is_subject = yes }
+			}
+		}
+		LUX_cb_on = { who = PRU }
+	}
+	else = {
+		BRA = {
+			reverse_add_casus_belli = {
+				type = cb_restore_personal_union
+				months = 300
+				target = ROOT
+			}
+		}
+	}
+}

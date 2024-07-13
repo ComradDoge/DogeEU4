@@ -1,0 +1,378 @@
+namespace = ME_Liege_Events
+
+country_event = {
+	id = ME_Liege_Events.1
+	title = ME_Liege_Events.1.t
+	picture = MERCHANT_TALKING_eventPicture
+	desc = ME_Liege_Events.1.d
+
+	is_triggered_only = yes
+	major = yes 
+	
+	option = {
+		name = ME_Liege_Events.1.a
+	
+		ai_chance = { factor = 100 }
+		
+		change_government = republic
+		add_government_reform = oligarchy_reform
+		
+		add_stability_or_adm_power = yes 
+	}
+	
+	option = {
+		name = ME_Liege_Events.1.b
+		
+		ai_chance = { factor = 0 }
+		
+		add_country_modifier = {
+			name = LIE_against_the_catholics
+			duration = 10950
+		}
+	}
+}
+
+country_event = {
+	id = ME_Liege_Events.2
+	title = ME_Liege_Events.2.t
+	picture = TRADE_GOODS_eventPicture
+	desc = ME_Liege_Events.2.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Liege_Events.2.a
+	
+		ai_chance = { factor = 85 }
+		
+		93 = {
+			change_trade_goods = iron
+			add_building = weapons
+		
+			custom_tooltip = " "
+		
+			add_permanent_province_modifier = {
+				name = LIE_weapon_manufactoring_modifier
+				duration = -1
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Liege_Events.2.b
+		
+		ai_chance = { factor = 15 }
+		
+		93 = {
+			add_permanent_province_modifier = {
+				name = LIE_tax_focus
+				duration = -1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Liege_Events.3
+	title = ME_Liege_Events.3.t
+	picture = CONQUEST_eventPicture
+	desc = ME_Liege_Events.3.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Liege_Events.3.a
+	
+		ai_chance = { factor = 85 }
+		
+		add_permanent_power_projection = {
+			amount = 5 
+			type = LIE_belgium
+		}
+		
+		custom_tooltip = " "
+		
+		add_age_modifier = {
+			name = LIE_belgicus_modifier
+			duration  = -1
+			age = age_of_reformation
+			else = "
+				add_adm_power = 100
+				add_dip_power = 100 
+				add_mil_power = 100
+			"
+		}
+	}
+}
+
+country_event = {
+	id = ME_Liege_Events.4
+	title = ideagroups.1.t
+	desc = ideagroups.1.d
+	picture = ADVISOR_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ideagroups.1.a #Yes Please!
+		ai_chance = { factor = 1 }
+		trigger = { has_custom_ideas = no }
+		
+		swap_free_idea_group = yes		#keep progress
+	
+		custom_tooltip = LIE_belgian_ideas
+	}
+	option = {
+		name = ideagroups.1.b #No, we cannot abandon our roots.
+		#No Effect
+		ai_chance = { factor = 0 }
+	}
+}
+
+country_event = {
+	id = ME_Liege_Events.5 # BUR influences pope to put guy on liege
+	title = ME_Liege_Events.5.t
+	picture = CONQUEST_eventPicture
+	desc = ME_Liege_Events.5.d
+	
+	fire_only_once = yes
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	trigger = {
+		is_year = 1453
+		tag = BUR 
+		exists = LIE 
+		LIE = { is_neighbor_of = ROOT }
+		NOT = { war_with = LIE }
+		NOT = { truce_with = LIE }
+		LIE = { is_at_war = no }
+		PAP = {
+			has_opinion = {
+				who = ROOT 
+				value = 50
+			}
+		}
+		NOT = { has_global_flag = LIE_liege_resolution }
+	}
+	
+	option = {
+		name = ME_Liege_Events.5.a
+	
+		ai_chance = { factor = 85 }
+		
+		LIE = {
+			country_event_with_option_insight = {
+				id = ME_Liege_Events.6
+				option_1 = "
+					ROOT = {
+						create_subject = {
+							subject = LIE 
+							subject_type = vassal
+						}
+					}
+					LIE = {
+						define_ruler = {
+							name = \"Louis\"
+							dynasty = \"de Bourgogne\"
+							adm = 2 
+							dip = 2 
+							mil = 1 #captured in battle
+							age = 15
+						}
+						add_liberty_desire = 50
+					}
+				"
+				option_2 = "
+					LIE = {	
+						add_country_modifier = {
+							name = BUR_rally_to_the_perron
+							duration = 10950
+						}
+						
+						every_owned_province = {
+							add_core = BUR 
+						}
+					}
+				"
+			}
+		}
+	}
+	option = {
+		name = ME_Liege_Events.5.b #we need this not
+	
+		ai_chance = { factor = 15 }
+		
+		add_adm_power = 100 
+	}
+}
+
+country_event = {
+	id = ME_Liege_Events.6 # BUR influences pope to put guy on liege
+	title = ME_Liege_Events.6.t
+	picture = CONQUEST_eventPicture
+	desc = ME_Liege_Events.6.d
+	
+	is_triggered_only = yes 
+	major = yes 
+	major_trigger = {
+		OR = {
+			is_part_of_hre = yes 
+			is_emperor = yes 
+			capital_scope = {
+				OR = {
+					region = france_region
+					region = low_countries_region
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Liege_Events.6.a
+	
+		ai_chance = { factor = 65 }
+		
+		FROM = {
+			create_subject = {
+				subject = ROOT
+				subject_type = vassal
+			}
+		}
+		define_ruler = {
+			name = "Louis"
+			dynasty = "de Bourgogne"
+			adm = 2 
+			dip = 2 
+			mil = 1 #captured in battle
+			age = 15
+		}
+		add_liberty_desire = 50
+	}
+	
+	option = {
+		name = ME_Liege_Events.6.b
+	
+		ai_chance = { factor = 35 }
+		
+		add_country_modifier = {
+			name = BUR_rally_to_the_perron
+			duration = 10950
+		}
+		
+		every_owned_province = {
+			add_core = FROM
+		}
+	}
+}
+
+country_event = {
+	id = ME_Liege_Events.7 # Liege wars
+	title = ME_Liege_Events.7.t
+	picture = CONQUEST_eventPicture
+	desc = ME_Liege_Events.7.d
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	fire_only_once = yes
+	trigger = {
+		tag = LIE 
+		OR = {
+			defensive_war_with = BUR 
+			AND = {
+				offensive_war_with = BUR 
+				is_in_war = {
+					casus_belli = cb_independence_war 
+				}
+			}
+		}
+		owns_core_province = 93 
+	}
+	major = yes 
+	major_trigger = {
+		OR = {
+			is_part_of_hre = yes 
+			is_emperor = yes 
+			capital_scope = {
+				OR = {
+					region = france_region
+					region = low_countries_region
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_global_flag = LIE_liege_resolution
+			
+			93 = {
+				add_province_triggered_modifier = LIE_liege_adj_fervor #I wont even pretend I can spell liegeois or whatever
+			}
+		}
+	}
+	
+	option = {
+		name = ME_Liege_Events.7.a
+		
+		ai_chance = { factor = 35 }
+		
+		custom_tooltip = LIE_for_as_long_liege_is_held
+		tooltip = {
+			BUR = {
+				ME_add_power_projection = { amount = 15 } 
+				
+				add_treasury = 163.95
+			}
+			93 = {
+				add_base_tax = -1
+				add_base_production = -1
+				add_base_manpower = -1
+				add_devastation = 75 
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Liege_Events.8 # Sack of Liege
+	title = ME_Liege_Events.8.t
+	picture = CONQUEST_eventPicture
+	desc = ME_Liege_Events.8.d
+	
+	is_triggered_only = yes 
+	major = yes 
+	major_trigger = {
+		OR = {
+			is_part_of_hre = yes 
+			is_emperor = yes 
+			tag = LIE
+			capital_scope = {
+				OR = {
+					region = france_region
+					region = low_countries_region
+				}
+			}
+			owns_core_province = 93 # should be liege
+		}
+	}
+	
+	
+	option = {
+		name = ME_Liege_Events.8.a
+		
+		ai_chance = { factor = 100 }
+		
+		ME_add_power_projection = { amount = 15 } 
+		
+		add_treasury = 163.95
+		93 = {
+			add_base_tax = -1
+			add_base_production = -1
+			add_base_manpower = -1
+			add_devastation = 75 
+		}
+	}
+}
