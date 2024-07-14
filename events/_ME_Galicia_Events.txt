@@ -1,0 +1,294 @@
+namespace = ME_Galicia_Events
+
+country_event = {
+	id = ME_Galicia_Events.1
+	title = ME_Galicia_Events.1.t
+	desc = ME_Galicia_Events.1.d
+	picture = CONQUEST_eventPicture
+	
+	fire_only_once = yes
+
+	trigger = {
+		always = no # Don't need this event
+		tag = GAL
+	}
+	
+	option = {
+		name = ME_Galicia_Events.1.a
+		
+		ai_chance = { factor = 1 }
+		custom_tooltip = ME_GALICIA_STARTING_TOOLTIP
+	}
+}
+
+country_event = {
+	id = ME_Galicia_Events.2
+	title = ME_Galicia_Events.2.t
+	desc = ME_Galicia_Events.2.d
+	picture = CONQUEST_eventPicture
+	
+	fire_only_once = yes
+	major = yes
+
+	trigger = {
+		tag = GAL
+		junior_union_with = CAS
+		is_year = 1450
+	}
+	
+	option = {
+		name = ME_Galicia_Events.2.a
+		
+		ai_chance = { factor = 1 }
+
+		capital_scope = {
+			spawn_rebels = {
+				size = 3
+				type = anti_tax_rebels
+			}
+		}
+
+		custom_tooltip = SEPERATOR_TOOLTIP
+
+		custom_tooltip = ME_GAL_START_REVOLT
+		set_country_flag = me_gal_start_of_revolt
+		set_country_flag = GAL_subject_tree
+		hidden_effect = {
+			set_variable = {
+				which = civil_war_contribution
+				value = 0
+			}
+			set_variable = {
+				which = galcivil_war_contribution
+				value = 0
+			}
+			set_variable = {
+				which = cascivil_war_contribution
+				value = 0
+			}
+			set_variable = {
+				which = porcivil_war_contribution
+				value = 0
+			}
+			POR = {
+				country_event = { id = ME_Galicia_Events.4 }
+			}
+			set_country_flag = GAL_subject_tree
+			swap_non_generic_missions = yes
+			hidden_effect = {
+				overlord = {
+					country_event = { id = ME_Galicia_Events.5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Galicia_Events.3
+	title = ME_Galicia_Events.3.t
+	desc = ME_Galicia_Events.3.d
+	picture = CONQUEST_eventPicture
+	
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		clr_country_flag = me_gal_start_of_revolt
+	}
+	
+	option = {
+		name = ME_Galicia_Events.3.a
+
+		if = {
+			limit = {
+				check_variable = {
+					which = galcivil_war_contribution
+					which = porcivil_war_contribution
+				}
+				check_variable = {
+					which = galcivil_war_contribution
+					which = cascivil_war_contribution
+				}
+			}
+			overlord = {
+				break_union = ROOT
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = porcivil_war_contribution
+					which = galcivil_war_contribution
+				}
+				check_variable = {
+					which = porcivil_war_contribution
+					which = cascivil_war_contribution
+				}
+			}
+			overlord = {
+				break_union = ROOT
+			}
+			POR = {
+				create_union = ROOT
+			}
+			change_country_color = {
+				color = { 89 136 218 }
+			}
+			clr_country_flag = GAL_subject_tree
+			swap_non_generic_missions = yes
+		}
+		else = {
+			CAS = {
+				inherit = ROOT
+			}
+		}
+		
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { #Notification for the nations there
+	id = ME_Galicia_Events.4
+	title = ME_Galicia_Events.4.t
+	desc = ME_Galicia_Events.4.d
+	picture = CONQUEST_eventPicture
+	
+	is_triggered_only = yes
+
+	immediate = {
+		clr_country_flag = me_gal_start_of_revolt
+	}
+	
+	option = {
+		name = ME_Galicia_Events.4.a
+
+		custom_tooltip = EE_GAL_ALLOWS_MEDDLING_IN_CIVIL_WAR
+		
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = ME_Galicia_Events.5
+	title = ME_Galicia_Events.5.t
+	desc = ME_Galicia_Events.5.d
+	picture = CONQUEST_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Galicia_Events.5.a
+		
+		ai_chance = { factor = 1 }
+		
+		custom_tooltip = GAL_we_have_subject_oriented_mission_tree
+	}
+}
+
+country_event = {
+	id = ME_Galicia_Events.6
+	title = ME_Galicia_Events.6.t
+	desc = ME_Galicia_Events.6.d
+	picture = CONQUEST_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = ME_Galicia_Events.6.a
+		
+		ai_chance = { 
+			factor = 50
+			modifier = {
+				factor = 0.1
+				OR = {
+					POR = {
+						ai = no
+					}
+					CAS = {
+						ai = no
+					}
+				}
+			}
+		}
+		
+		hidden_effect = {
+			change_variable = {
+				which = civil_war_contribution
+				value = 10
+			}
+		}
+		change_variable = {
+			which = galcivil_war_contribution
+			value = 10
+		}
+
+		add_stability = 1
+	}
+
+	option = {
+		name = ME_Galicia_Events.6.b
+		
+		ai_chance = { 
+			factor = 50
+			modifier = {
+				factor = 2
+				POR = {
+					ai = no
+				}
+			}
+		}
+		
+		hidden_effect = {
+			change_variable = {
+				which = civil_war_contribution
+				value = 10
+			}
+		}
+		change_variable = {
+			which = porcivil_war_contribution
+			value = 10
+		}
+
+		add_years_of_income = 4
+	}
+
+	option = {
+		name = ME_Galicia_Events.6.c
+		
+		ai_chance = { 
+			factor = 75
+			modifier = {
+				factor = 3
+				CAS = {
+					ai = no
+				}
+			}
+		}
+		
+		hidden_effect = {
+			change_variable = {
+				which = civil_war_contribution
+				value = 10
+			}
+		}
+		change_variable = {
+			which = cascivil_war_contribution
+			value = 10
+		}
+
+		add_yearly_manpower = 5
+	}
+
+	after = {
+		if = {
+			limit = {
+				check_variable = {
+					which = civil_war_contribution
+					value = 100
+				}
+			}
+			country_event = { id = ME_Galicia_Events.3 }
+		}
+	}
+}

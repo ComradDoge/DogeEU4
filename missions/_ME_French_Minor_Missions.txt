@@ -1,0 +1,587 @@
+BOU_missions_1 = { #Bourbonnais is namespace, nice
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {	
+		ME_has_french_minor_missions = yes
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	BOU_the_rebirth = {
+		icon = florentine_renaissance
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_institution = renaissance
+		}
+		effect = {
+			define_advisor = {
+				culture = ROOT 
+				religion = ROOT 
+				type = ME_historian
+				skill = 1 
+				cost_multiplier = 0.5
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = BOU_rebirth_of_culture
+				duration = 10950
+			}
+		}
+	}
+	
+	BOU_illuminated_manuscripts = {
+		icon = france_antarctique
+		required_missions = { BOU_the_rebirth BOU_patronage_of_arts }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			prestige = 60 
+			OR = {
+				has_institution = printing_press
+				monthly_dip = 11
+			}
+			reform_level = 3
+		}
+		effect = {
+			add_age_modifier = {
+				name = BOU_illuminated_manuscripts_modifier
+				duration = -1
+				age = age_of_reformation
+			}
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = BOU_if_we_are_first_to_complete_this_mission
+				first_limit = "
+					NOT = { has_global_flag = BOU_illuminated_manuscripts_flag }
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = BOU_tres_riches_heures
+						duration = 10950
+					}
+					
+					set_global_flag = BOU_illuminated_manuscripts_flag
+					define_advisor = {
+						culture = ROOT 
+						religion = ROOT 
+						type = artist
+						name = \"Jean Colombe\"
+						skill = 2
+						cost_multiplier = 0.25
+					}
+				"
+			}
+		}
+	}
+	
+	BOU_support_abbots = {
+		icon = catholic_confraternity
+		required_missions = { BOU_ducal_fief }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = ROOT 
+			base_tax = 4 
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes 
+				base_tax = 4
+				value = 3 
+			}
+			
+		}
+		effect = {
+			custom_tooltip = BOU_most_developed_province
+			tooltip = {
+				add_or_upgrade_tax_building = yes 
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = BOU_local_abbot_pleased
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				pick_best_provinces = {
+					1 = yes 
+					scope = every_owned_province
+					scale = higher_development_than
+					event_target_name = bour_target
+					global_trigger = ""
+				}
+				if = {
+					limit = {
+						has_saved_event_target = bour_target_1
+					}
+					event_target:bour_target_1 = {
+						add_or_upgrade_tax_building = yes 
+				
+						add_province_modifier = {
+							name = BOU_local_abbot_pleased
+							duration = -1
+						}
+					}
+				}
+			}
+			
+			add_stability_or_adm_power = yes 
+		}
+	}
+}
+
+BOU_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {	
+		ME_has_french_minor_missions = yes
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	BOU_patronage_of_arts = {
+		icon = hand-picked_bureaucrats
+		required_missions = { BOU_the_rebirth }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			stability = 2 
+			OR = {
+				stability = 3 
+				has_estate_privilege = estate_burghers_patronage_of_the_arts
+			}
+			OR = {
+				monthly_adm = 9
+				monthly_dip = 9 
+				monthly_mil = 9 
+				prestige = 40 
+			}
+		}
+		effect = {
+			change_government_reform_progress = 50 
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = BOU_late_gothic_and_early_renaissance
+				duration = 9125
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				
+				custom_tooltip = BOU_higher_chance_for_patron_of_arts
+			}
+		}
+	}
+	
+	BOU_ducal_fief = {
+		icon = reclaim_the_ducal_lands
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			owned_by = ROOT 
+			local_autonomy = 10 
+		}
+		trigger = {
+			num_of_provinces_developed = { amount = 5 }
+			NOT = { average_autonomy = 10 }
+			NOT = { average_unrest = 0 }
+		}
+		effect = {
+			custom_tooltip = BOU_enable_priv_for_ducal_fiefs_tt
+			set_country_flag = BOU_enable_priv_for_ducal_fiefs
+			
+			custom_tooltip = " "
+			
+			change_estate_land_share = {
+				estate = all
+				share = -5
+			}
+		}
+	}
+	
+	BOU_exploit_trade_routes = {
+		icon = purely_for_commerce
+		required_missions = { BOU_ducal_fief }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT 
+			province_has_center_of_trade_of_level = 1 
+		}
+		trigger = {
+			any_owned_province = {
+				province_has_center_of_trade_of_level = 1 
+				has_trade_building_trigger = yes 
+			}
+			home_trade_node = {
+				trade_share = {
+					country = ROOT 
+					share = 10 
+				}
+			}
+		}
+		effect = {
+			ME_add_years_of_trade_income = { years = 2 }
+			
+			custom_tooltip = " "
+			
+			add_dip_power = 100
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 2
+		}
+	}
+}
+
+BOU_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {	
+		ME_has_french_minor_missions = yes
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	BOU_resolve_old_disputes = {
+		icon = mercenary_companies
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size_percentage = 0.85 
+				army_size = 7 
+			}
+		}
+		effect = {
+			custom_tooltip = BOU_perma_claims_on_all_areas_bordering_our_provinces
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						area = {
+							limit = {
+								NOT = { is_permanent_claim = ROOT }
+								NOT = { is_core = ROOT }
+							}
+							add_permanent_claim = ROOT 
+						}
+					}
+				}
+			}
+				
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = BOU_disputes_of_yore_resurface
+				duration = 9125 
+			}
+		}
+	}
+	
+	BOU_peerage = {
+		icon = dreams_of_grandeur
+		required_missions = { BOU_resolve_old_disputes }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				num_of_cities = 8
+				grown_by_development = 50
+			}
+		}
+		effect = {
+			ME_give_claims = { region = france_region } 
+			
+			custom_tooltip = " "
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = BOU_if_subject
+				first_limit = "
+					is_subject = yes 
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = BOU_promotion_to_peerage
+						duration = -1
+						desc = BOU_until_no_longer_subject
+					}
+				"
+				second_custom_tooltip = BOU_if_independent
+				second_limit = "
+					is_subject = no 
+				"
+				second_effect = "
+					ME_add_power_projection = { amount = 10 }
+					
+					custom_tooltip = \" \"
+					
+					add_adm_power = 100
+					add_dip_power = 100
+					add_mil_power = 100 
+				"
+			}
+		}
+	}
+	
+	BOU_ancien_regime = {
+		icon = mission_the_french_menace
+		required_missions = { BOU_peerage }
+		position = 5
+		provinces_to_highlight = {
+			region = france_region
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			calc_true_if = {
+				owns_core_province = 184	# Orleannais
+				owns_core_province = 186	# Champagne
+				owns_core_province = 183	# Ile-de-France
+				amount = 2 
+			}
+			num_of_owned_provinces_with = {
+				region = france_region
+				value = 12
+			}
+		}
+		effect = {
+			country_event_with_effect_insight = {
+				id = ME_French_Minors_Events.1
+				effect = "
+					add_country_modifier = {
+						name = BOU_a_new_regime
+						duration = -1
+					}
+					
+					ME_add_power_projection = { amount = 40 }
+					
+					custom_tooltip = \" \"
+					
+					add_dip_power = 100 
+				"
+			}
+		}
+	}
+}
+
+BOU_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {	
+		ME_has_french_minor_missions = yes
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	BOU_domain = {
+		icon = mission_unite_home_region
+		required_missions = { BOU_resolve_old_disputes }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				is_claim = ROOT 
+				is_permanent_claim = ROOT 
+				is_core = ROOT 
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			grown_by_development = 15
+		}
+		effect = {
+			add_country_modifier = {
+				name = BOU_new_demesne
+				duration = 10950
+			}
+			
+			add_adm_power = 100
+			
+			custom_tooltip = " "
+			
+			capital_scope = { add_base_tax = 2 }
+		}
+	}
+	
+	BOU_blood_tax = {
+		icon = protect_against_austria
+		required_missions = { BOU_seigneur }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_battles_won = { amount = 15 }
+		}
+		effect = {
+			custom_tooltip = BOU_unlock_blood_tax_estate_privilege
+			set_country_flag = BOU_unlock_blood_tax_estate_privilege_flag
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 15 }
+		}
+	}
+	
+	BOU_right_to_rebel = {
+		icon = end_the_habsburgs
+		required_missions = { BOU_peerage }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			is_subject = no
+			OR = {
+				army_size_percentage = 0.9
+				army_size = 10 
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BOU_march_against_the_tyrant
+				duration = 3650
+			}
+			
+			create_general_with_pips = {
+				tradition = 80
+				add_siege = 1
+			}
+		}
+	}
+}
+
+BOU_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {	
+		ME_has_french_minor_missions = yes
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	BOU_seigneur = {
+		icon = the_hundred_years_war
+		required_missions = { }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				capital_scope = { base_manpower = 6 }
+				num_of_provinces_developed = { amount = 8 }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BOU_manorialism
+				duration = 10950
+			}
+			
+			add_years_of_income = 0.5
+			
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				custom_tooltip = " "
+				
+				complex_dynamic_effect = {
+					first_custom_tooltip = FRA_if_loyal_nobles
+					first_limit = "
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 60 
+						}
+					"
+					first_effect = "
+						capital_scope = { add_base_tax = 1 add_base_production = 1 }
+					"
+				}
+			}
+		}
+	}
+	
+	BOU_splendid = {
+		icon = les_invalides
+		required_missions = { BOU_seigneur }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_adm_advisor = yes 
+			has_dip_advisor = yes 
+			has_mil_advisor = yes 
+			OR = {
+				has_adm_advisor_2 = yes 
+				has_dip_advisor_2 = yes 
+				has_mil_advisor_2 = yes 
+			}
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				num_of_age_rewards_taken = { amount = 1 }
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = BOU_model_court
+				duration = 9125
+			}
+			
+			change_government_reform_progress = 25 
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_French_Minors_Events.2 
+				option_1 = "
+					define_advisor = {
+						type = GRA_mathematician
+						skill = 2
+						culture = tuscan
+						religion = ROOT
+						cost_multiplier = 0.75
+					}
+				"
+				option_2 = "
+					define_advisor = {
+						type = GRA_alchemist
+						skill = 2
+						culture = occitain
+						religion = ROOT
+						cost_multiplier = 0.75
+					}
+				"
+				option_3 = "
+					define_advisor = {
+						type = ME_crusader_knight
+						skill = 2
+						culture = leonese
+						religion = ROOT
+						cost_multiplier = 0.75
+					}
+				"
+			}
+		}
+	}
+}
