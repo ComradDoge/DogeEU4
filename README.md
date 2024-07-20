@@ -26,6 +26,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Addded new special setting: Forts Capture Neighbouring Provinces.
 - Vodka of the Crown now also takes in account Maize, Rice and Potatos.
 - Tweaked the Manufactory Scaling explanation icon for better visability.
+- Added new special setting: Change every African nation with Tech 2 to Tech 3.
 - Lombardy-Venetia no longer limited to Milan/Venice tags, still limited to the relevant cultures.
 - Added new loading screen "Richard, Duke of Gloucester, and the Lady Anne" by Abbey. It goes hard. Doge included.
 - Added or updated some missions from recent Europa Expanded update: Luxembourg, Netherlands (Holland, Friesland, Brabant, Flanders, Gelre/Utrecht), England/Britain, Generic English (Northumberland, London, Wessex, Mercia, East Anglia), Navarra, Generic Iberian (Galicia, Asturias, Leon), Generic French (most of them)
