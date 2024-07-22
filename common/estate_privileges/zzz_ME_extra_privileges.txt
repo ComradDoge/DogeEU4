@@ -2985,65 +2985,6 @@ ME_BUR_great_privilege = {
 	}
 }
 
-estate_settlers_ENG_EIC_company = {
-	icon = me_privilege_VOC
-	land_share = 0
-	max_absolutism = -10
-	influence = 0.1
-	loyalty = 0.05
-	is_valid = {
-		has_country_flag = ENG_unlocked_eic_company
-	}
-	can_select = {
-		num_of_colonists = 1
-		any_owned_province = {
-			ENG_is_EIC_territory = yes
-		}
-	}
-	
-	can_revoke = {
-		current_age = age_of_revolutions
-	}
-	
-	on_granted = {
-		custom_tooltip = ENG_EIC_explainer
-		
-		hidden_effect = {
-			ENG_establish_EIC = yes
-			
-			country_event = { id = ME_England_Events.31 }
-		}
-	}
-	
-	on_revoked = {
-		inherit = EIC
-	}
-	
-	conditional_modifier = {
-		trigger = {
-			NOT = { has_country_flag = EIC_reduce_penalty_from }
-		}
-		modifier = {
-			trade_efficiency = -0.15
-		}
-		is_bad = yes
-	}
-	conditional_modifier = {
-		trigger = {
-			has_country_flag = EIC_reduce_penalty_from
-		}
-		modifier = {
-			trade_efficiency = -0.05
-		}
-		is_bad = yes
-	}
-
-	ai_will_do = {
-		factor = 10000
-	}
-}
-
-
 ME_estate_burghers_ENG_wool_production = {
 	icon = privilege_monopoly_of_goods_cloth
 	land_share = 0
@@ -3539,5 +3480,161 @@ ME_estate_burghers_ducal_privileges = {
 	
 	ai_will_do = {
 		factor = 25
+	}
+}
+
+
+ME_estate_burghers_CRN_permit_piracy = {
+	icon = privilege_fort
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.05
+	loyalty = 0.0
+	is_valid = {
+		mission_completed = CRN_facilitate_piracy
+	}
+	
+	benefits = {
+		may_perform_slave_raid_on_same_religion = yes
+	}
+	penalties = {
+		coast_raid_range = -1
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			mission_completed = CRN_raiding
+		}
+		modifier = {
+			max_absolutism = 5
+			available_province_loot = 0.5
+		}
+	}
+	
+	ai_will_do = {
+		factor = 25
+	}
+}
+
+ME_estate_nobles_CRN_tin_mining_privileges = {
+	icon = privilege_fort
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.10
+	loyalty = 0.05
+	is_valid = {
+		mission_completed = CRN_kings_stannary
+	}
+	
+	on_granted = {
+		custom_tooltip = CRN_every_province_with_copper
+		tooltip = {
+			add_province_modifier = {
+				name = CRN_tin_mining_privileges
+				duration = -1
+			}
+		}
+		custom_tooltip = CRN_every_province_without_copper
+		tooltip = {
+			add_province_modifier = {
+				name = CRN_tin_mining_favoritism
+				duration = -1
+			}
+		}
+	}
+	
+	on_granted_province = {
+		if = {
+			limit = {
+				OR = { 
+					trade_goods = tin
+					trade_goods = copper
+				}
+			}
+			add_province_modifier = {
+				name = CRN_tin_mining_privileges
+				duration = -1
+			}
+		}
+		else = {
+			add_province_modifier = {
+				name = CRN_tin_mining_favoritism
+				duration = -1
+			}
+		}
+	}
+	on_revoked = {
+		every_owned_province = {
+			remove_province_modifier = CRN_tin_mining_favoritism
+			remove_province_modifier = CRN_tin_mining_privileges
+		}
+	}
+	on_invalid = {
+		every_owned_province = {
+			remove_province_modifier = CRN_tin_mining_favoritism
+			remove_province_modifier = CRN_tin_mining_privileges
+		}
+	}
+	
+	ai_will_do = {
+		factor = 25
+		modifier = {
+			factor = 0 
+			NOT = {
+				any_owned_province = {
+					OR = { 
+						trade_goods = copper
+						trade_goods = tin
+					}
+				}
+			}
+		}
+	}
+}
+
+estate_settlers_KOI_permit_trade_companies = {
+	icon = privilege_explorer
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.15
+	loyalty = 0
+	is_valid = {
+		has_country_flag = KOI_unlock_settler_priv
+		OR = {
+			NOT = { has_any_colonist_idea = yes }
+			has_estate_privilege = estate_settlers_KOI_permit_trade_companies 
+		}
+	}
+	benefits = {
+		colonists = 1
+		may_explore = yes
+		colonist_placement_chance = -0.075
+	}
+	
+	can_revoke = {
+		has_any_colonist_idea = yes 
+	}
+	
+
+	ai_will_do = {
+		factor = 10000
+	}
+}
+
+estate_settlers_KOI_enforce_recruitment_quota = {
+	icon = privilege_army_tradition
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.0
+	loyalty = -0.05
+	is_valid = {
+		mission_completed = KOI_new_world
+	}
+	on_granted = {
+		custom_tooltip = KOI_every_colonial_subject
+	}
+
+	ai_will_do = {
+		factor = 10000
 	}
 }

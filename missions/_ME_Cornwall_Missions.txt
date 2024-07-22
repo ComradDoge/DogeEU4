@@ -1,0 +1,816 @@
+# Cornwall was actually pretty fascinating!
+
+CRN_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRN
+	}
+	has_country_shield = yes
+	
+	CRN_facilitate_piracy = {
+		icon = mission_pirate_fleet
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			capital_scope = {
+				OR = {
+					has_shipyard_building_trigger = yes 
+					has_dock_building_trigger = yes
+					num_of_times_improved = 5
+				}
+			}
+			OR = {
+				navy_size = 15
+				num_of_heavy_ship = 2
+			}
+		}
+		effect = {
+			custom_tooltip = CRN_permit_piracy_privilege
+			
+			custom_tooltip = " "
+			
+			add_navy_tradition = 15 
+		}
+	}
+	
+	CRN_raiding = {
+		icon = mission_pirate_flag
+		required_missions = { CRN_facilitate_piracy }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = { 
+				limit = {
+					OR = {
+						has_dlc = "Golden Century"
+						has_dlc = "Mare Nostrum"
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = TLC_provinces_raided
+					check_variable = {
+						which = NumOfRaidedCoasts
+						value = 60
+					}
+				}
+			}
+			else = {
+				navy_size = 40
+			}
+			num_of_admirals = 2
+		}
+		effect = {
+			ME_add_power_projection = { amount = 10 }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = CRN_upgrade_prev_priv
+		}
+	}
+	
+	CRN_kings_stannary = {
+		icon = mission_iron_and_copper
+		required_missions = { }
+		position = 4
+		provinces_to_highlight = {
+			OR = { 
+				trade_goods = copper
+				trade_goods = tin
+			}
+			owned_by = ROOT
+			OR = {
+				NOT = { num_of_times_improved = 5 }
+				AND = {
+					NOT = { base_production = 4 }
+					NOT = { has_production_building_trigger = yes }
+				}
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				OR = { 
+					trade_goods = copper
+					trade_goods = tin
+				}
+				num_of_times_improved = 5
+				OR = {
+					base_production = 4
+					has_production_building_trigger = yes 
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = CRN_unlock_tin_mining_privileges
+			
+			custom_tooltip = " "
+			
+			add_years_of_owned_provinces_production_income = {
+				years = 20
+				trigger = {
+					OR = { 
+						trade_goods = copper
+						trade_goods = tin
+					}
+				}
+				custom_tooltip = CRN_20_prod_from_copper
+			}
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 2
+		}
+	}
+	
+	CRN_stannary_parliament = {
+		icon = mission_rb_the_education_acts
+		required_missions = { CRN_kings_stannary }
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			current_size_of_parliament = 2
+			num_of_issues_passed = { amount = 2 }
+		}
+		effect = {
+			change_government_reform_progress = 75
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = CRN_stannary_parliament
+				duration = -1
+			}
+		
+			unlock_issue = { issue = CRN_favor_stannaries }
+			tooltip = {
+				custom_tooltip = CRN_two_copper_provs_gain_random_dev
+			
+				custom_tooltip = " " 
+		
+				custom_tooltip = CRN_every_province_with_copper
+				add_province_modifier = {
+					name = CRN_parliament_legislative_independence
+					duration = 3650
+				}
+			}
+		}
+	}
+}
+
+CRN_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRN
+	}
+	has_country_shield = yes
+	
+	CRN_english = {
+		icon = mission_rb_empire
+		required_missions = { CRN_army }
+		position = 2
+		provinces_to_highlight = {
+			OR = {				
+				area = wessex_area
+				area = home_counties_area
+				area = west_midlands_area
+				area = east_midlands_area
+				area = east_anglia_area
+				area = yorkshire_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {				
+					area = wessex_area
+					area = home_counties_area
+					area = west_midlands_area
+					area = east_midlands_area
+					area = east_anglia_area
+					area = yorkshire_area
+				}
+				value = 10
+			}
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = english }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = CRN_cornish_right_to_self_determination
+				duration = 10950 
+			}
+			
+			create_general_with_pips = {
+				tradition = 60
+				add_shock = 1
+				add_fire = 1
+			}
+		}
+	}
+	
+	CRN_dumnonia = {
+		icon = mission_unite_home_region
+		required_missions = { CRN_english CRN_wales }
+		position = 4
+		provinces_to_highlight = {
+			OR = {				
+				area = wessex_area
+				area = home_counties_area
+				area = west_midlands_area
+				area = east_midlands_area
+				area = east_anglia_area
+				area = yorkshire_area
+				area = wales_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {				
+					area = wessex_area
+					area = home_counties_area
+					area = west_midlands_area
+					area = east_midlands_area
+					area = east_anglia_area
+					area = yorkshire_area
+					area = wales_area
+				}
+				value = 22
+			}
+		}
+		effect = {
+			ME_give_claims = { area = lowlands_area } 
+			ME_give_claims = { area = highlands_area } 
+			ME_give_claims = { area = kingdom_of_the_isles_area } 
+		
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_Cornwall_Events.2
+				option_1 = "
+					ME_override_country_name = { string = CRN_DUMNONIA }
+					custom_tooltip = CRN_adopt_dumonian_ideas
+				"
+				option_2 = "
+					ME_override_country_name = { string = CRN_DUMNONIA }
+				"
+				option_3 = "
+					custom_tooltip = QIR_nothing_will_happen
+				"
+			}
+		}
+	}
+	
+	CRN_copper_cannons = {
+		icon = mission_cannons_firing
+		required_missions = { CRN_kings_stannary }
+		position = 5
+		provinces_to_highlight = {
+			trade_goods = copper 
+			OR = {
+				owned_by = ROOT 
+				is_permanent_claim = ROOT
+				is_claim = ROOT 
+			}
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = copper 
+				amount = 3
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = CRN_early_cannon_dominance #this is either bad or OP. I am sure someone will find this out and report to me :p
+				duration = -1 
+				age = age_of_discovery
+				else = "
+					create_general_with_pips = {
+						tradition = 40 
+						add_siege = 2
+					}
+				"
+			}
+			
+			if = {
+				limit = { NOT = { mil_tech = 7 } }
+				capital_scope = {
+					large_cast_bronze_mortar = ROOT
+					large_cast_bronze_mortar = ROOT
+					large_cast_bronze_mortar = ROOT
+					large_cast_bronze_mortar = ROOT
+					large_cast_bronze_mortar = ROOT
+				}
+			}
+			else = {
+				capital_scope = {
+					artillery = ROOT
+					artillery = ROOT
+					artillery = ROOT
+					artillery = ROOT
+					artillery = ROOT
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 25 
+		}
+	}
+}
+
+CRN_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRN
+	}
+	has_country_shield = yes
+	
+	CRN_army = {
+		icon = mercenary_companies
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 6
+				army_size_percentage = 1
+			}
+			num_of_generals = 1
+		}
+		effect = {
+			ME_give_claims = { area = wales_area }
+			ME_give_claims = { area = wessex_area }
+			ME_give_claims = { area = home_counties_area }
+			ME_give_claims = { area = west_midlands_area }
+			ME_give_claims = { area = east_midlands_area }
+			ME_give_claims = { area = east_anglia_area }
+			ME_give_claims = { area = yorkshire_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = CRN_support_of_stannaries
+				duration = 7300 
+			}
+			
+			add_mil_power = 50
+		}
+	}
+	
+	CRN_wales = {
+		icon = mission_rb_conquer_wales
+		required_missions = { CRN_army }
+		position = 3
+		provinces_to_highlight = {
+			area = wales_area
+		}
+		trigger = {
+			wales_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = welsh }
+		
+			custom_tooltip = " "
+		
+			wales_area = {
+				add_random_development = 1
+			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = leinster_area }
+			ME_give_claims = { area = munster_area }
+			ME_give_claims = { area = ulster_area }
+			ME_give_claims = { area = connacht_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = CRN_reunited_brotherly_nations
+				duration = -1
+			}
+		}
+	}
+	
+	CRN_brittany = {
+		icon = mission_rb_conquer_brittany
+		required_missions = { CRN_wales }
+		position = 4
+		provinces_to_highlight = {
+			area = brittany_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			brittany_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = breton }
+		
+			custom_tooltip = " "
+			
+			brittany_area = { 
+				add_random_development = 1 
+			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = normandy_area }
+			ME_give_claims = { area = picardy_area }
+			#others need claim fabrication
+		}
+	}
+	
+	CRN_great_power = {
+		icon = mission_european_politics
+		required_missions = { CRN_brittany CRN_dumnonia }
+		position = 5
+		provinces_to_highlight = {
+			region = british_isles_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = british_isles_region
+				value = 40
+			}
+			total_own_and_non_tributary_subject_development = 650
+			# ME_pt_feedback_requested = yes 
+		}
+		effect = {
+			country_event_with_effect_insight = {
+				id = ME_Cornwall_Events.4 
+				effect = "
+					#custom_tooltip = CRN_may_form_celtica #TODO make functional
+			
+					custom_tooltip = \" \"
+					
+					add_permanent_power_projection = {
+						type = CRN_great_power_pp
+						amount = 10
+					}
+				"
+			}
+		}
+	}
+}
+
+CRN_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRN
+	}
+	has_country_shield = yes
+	
+	CRN_glasney_college = {
+		icon = mission_rb_trinity_college_dublin
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 233 
+		}
+		trigger = {
+			233 = {
+				has_tax_building_trigger = yes
+				base_tax = 5
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			233 = {
+				add_or_upgrade_tax_building = yes
+				add_or_upgrade_university_building = yes 
+				
+				custom_tooltip = " "
+				
+				add_province_triggered_modifier = CRN_glasney_college_modifier
+			}
+		}
+	}
+	
+	CRN_patron_saints = {
+		icon = pontifical_universities
+		required_missions = { CRN_glasney_college CRN_support_clergy }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT 
+			NOT = { has_owner_religion = yes }
+		}
+		trigger = {
+			religious_unity = 0.9
+			num_of_provinces_converted = { amount = 5 } #after reformation
+			OR = {
+				theologian = 1
+				inquisitor = 1
+				has_adm_advisor_2 = yes
+			}
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_church
+					value = 2 
+				}
+			}
+		}
+		effect = {
+			#if = {
+			#	limit = {
+			#		has_estate = estate_church
+			#	}
+			#	custom_tooltip = CRN_completing_estate_church_agendas_gives_reform_progress
+			#	custom_tooltip = " "
+			#}
+			
+			add_country_modifier = {
+				name = CRN_patron_saints_modifier
+				duration = -1
+			}
+			
+			add_stability_or_adm_power = yes 
+		}
+	}
+	
+	CRN_welsh_briton = {
+		icon = mission_rb_rein_in_the_highland_clans
+		required_missions = { CRN_wales CRN_language }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					culture = welsh
+					NOT = { 
+						ROOT = {
+							development_in_provinces = {
+								culture = welsh
+								value = 60
+							}
+						}
+					}
+				}
+				AND = {
+					culture = cornish
+					NOT = { 
+						ROOT = {
+							development_in_provinces = {
+								culture = cornish
+								value = 60
+							}
+						}
+					}
+				}
+				AND = {
+					culture = breton
+					NOT = { 
+						ROOT = {
+							development_in_provinces = {
+								culture = breton
+								value = 60
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			development_in_provinces = {
+				culture = welsh
+				value = 60
+			}
+			development_in_provinces = {
+				culture = breton
+				value = 60
+			}
+			development_in_provinces = {
+				culture = cornish
+				value = 60
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_Cornwall_Events.3 
+				option_1 = "
+				" #TODO: move culture group
+				option_2 = " 
+				" #accept without slot
+			}	
+		}
+	}
+	
+	CRN_new_era_for_cornish = {
+		icon = renaissance_city
+		required_missions = { CRN_welsh_briton CRN_acts_and_plays CRN_great_power }
+		position = 6
+		provinces_to_highlight = {
+			owned_by = ROOT 
+			NOT = { culture_group = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture_group = ROOT 
+				value = 40
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = CRN_cornish_renaissance
+				duration = -1 
+				age = age_of_discovery
+			}
+			
+			add_adm_power = 100
+			add_dip_power = 100 
+			add_mil_power = 100
+		}
+	}
+}
+
+CRN_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRN
+	}
+	has_country_shield = yes
+	
+	CRN_support_clergy = {
+		icon = catholic_confraternity
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				monthly_adm = 8
+				adm = 3
+			}
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 60
+					}
+					num_of_estate_privileges = {
+						estate = estate_church
+						value = 5
+					}
+				}
+			}		
+		}
+		effect = {
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				add_estate_loyalty = { 
+					estate = estate_church
+					loyalty = 10
+				}
+				
+				custom_tooltip = " "
+			}
+			else = {
+				add_adm_power = 100
+				custom_tooltip = " "
+			}
+			
+			add_country_modifier = {
+				name = CRN_backing_of_the_clergy
+				duration = 5475
+			}
+			
+			capital_scope = {
+				add_base_tax = 2 
+			}
+		}
+	}
+	
+	CRN_language = {
+		icon = personal_diplomacy
+		required_missions = { CRN_support_clergy }
+		position = 3
+		provinces_to_highlight = {
+			is_capital_of = ROOT 
+		}
+		trigger = {
+			OR = {
+				has_estate_privilege = estate_church_one_faith_one_culture
+				AND = {
+					capital_scope = {
+						num_of_times_improved = 20
+					}
+					monthly_dip = 8 
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = CRN_cornish_revival
+				duration = -1
+			}
+			
+			add_dip_power = 100
+			
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				complex_dynamic_effect = {
+					first_custom_tooltip = CRN_if_we_have_religious_culture
+					first_limit = "
+						has_estate_privilege = estate_church_one_faith_one_culture
+					"
+					first_effect = "
+						change_estate_land_share = {
+							estate = estate_church
+							share = -5
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	CRN_acts_and_plays = {
+		icon = the_viennese_waltz
+		required_missions = { CRN_language }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT 
+			culture = cornish
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = cornish
+				value = 8
+			}
+			OR = {
+				prestige = 80
+				has_estate_privilege = estate_burghers_patronage_of_the_arts
+			}
+		}
+		effect = {
+			custom_tooltip = CRN_distribute_10_development
+			hidden_effect = {
+				for = {
+					amount = 10 
+					effect = "
+						random_owned_province = {	
+							limit = {
+								culture = cornish
+							}
+							add_random_development = 1 
+						}
+					"
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = CRN_beunans_meriasek
+				duration = -1
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				add_splendor = 200
+			}
+			else = {
+				add_prestige_or_monarch_power = { amount = 25 }
+			}
+		}
+	}
+}
