@@ -16,7 +16,7 @@ NDefines.NMilitary.CAVALRY_COST = 25                                      -- Def
 --NDefines.NMilitary.COMBAT_DICE_SIDE = 12
 NDefines.NMilitary.CANNOT_RETREAT_DAYS = 12 -- 12
 
-NDefines.NMilitary.MAX_COMBAT_WIDTH = 40
+NDefines.NMilitary.MAX_COMBAT_WIDTH = 40    -- 40
 
 -- Professionalism
 NDefines.NMilitary.SLACKEN_AP_DROP = 0.02 --Defines how much AP is lost when activating slacken toggle.
@@ -27,7 +27,7 @@ NDefines.NMilitary.SLACKEN_MAX_MP_PERCENTAGE = 0.80 --Defines how much manpower 
 BATTLE_DAILY_MORALE_DAMAGE = 0.01				-- Default 1%. Deployed troops take this fraction of their maximum morale as damage
 RESERVE_DAILY_MORALE_DAMAGE = 0.02				-- Default 2%. Reserve troops take this fraction of their maximum morale as damage (modified by reserves_organisation)
 
-NDefines.NMilitary.GALLEY_COMBAT_WIDTH = 1
+NDefines.NMilitary.GALLEY_COMBAT_WIDTH = 1      -- 1
 
 
 -- Breakthrough: An experimental feature that when you defeat an enemy regiment with artillery behind it,
@@ -37,7 +37,7 @@ NDefines.NMilitary.CAVALRY_BREAKTHROUGH = 0.0			    -- Between 0 and 1
 
 -- Mercenaries
 
-NDefines.NEconomy.LAND_TECH_MERC_MAINTENANCE_IMPACT = 0.1                -- 0.08 How much mercenary maintenance increases per military tech.
+NDefines.NEconomy.LAND_TECH_MERC_MAINTENANCE_IMPACT = 0.1                 -- 0.08 How much mercenary maintenance increases per military tech.
 NDefines.NMilitary.PARTICIPATION_SCORE_MERC_MULT = 0.50                   -- How much less war participation you get from fighting using mercenaries.
 NDefines.NMilitary.MERCENARY_REINFORCE_COST_MULTIPLIER = -1.0             -- Modifies the reinforcement cost for mercenaries.
 NDefines.NMilitary.MERCENARY_BASE_COST = 30.0                             -- 10, Increased hiring cost per regiment in the mercenary company.
@@ -55,4 +55,5 @@ NDefines.NMilitary.MERCENARY_COMPANY_LOCAL_VIRTUAL_DISTANCE = 40          -- How
 NDefines.NMilitary.MERCENARY_COMPANY_ARMY_TRADITION = 60.0                -- 50, At what army tradition mercenary leaders are generated at.
 
 -- War
-NDefines.NMilitary.WARGOAL_MAX_BONUS = 40 -- 25
+NDefines.NMilitary.WARGOAL_MAX_BONUS = 40                                 -- 25
+-- NDefines.NMilitary.DEFAULT_WARGOAL_TICKINGWARSCORE_BONUS = 0.4         -- 0.4
