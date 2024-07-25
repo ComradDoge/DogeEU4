@@ -27,6 +27,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Vodka of the Crown now also takes in account Maize, Rice and Potatos.
 - Tweaked the Manufactory Scaling explanation icon for better visability.
 - Added new special setting: Change every African nation with Tech 2 to Tech 3.
+- Added a new special setting: Disable professionalism cost from all mercenaries.
 - Mountains and Deserts have an innate -50% local institution spread. Let's see how this goes.
 - Lombardy-Venetia no longer limited to Milan/Venice tags, still limited to the relevant cultures.
 - Added new loading screen "Richard, Duke of Gloucester, and the Lady Anne" by Abbey. It goes hard. Doge included.
@@ -39,7 +40,6 @@ As always, report any issues.
 Liege/Belgium
 Switzerland (added (vanilla))
 Achen (added)
-# - Added a new special setting: Disable professionalism cost from mercenaries.
 
 # TODO
 
