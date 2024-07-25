@@ -1,0 +1,199 @@
+EE_Celtica_Designate_Center_Union = {
+	category = influence
+	require_acceptance = no
+	is_visible = { has_country_flag = EE_CLT_add_diplo_actions }
+	is_allowed = {
+		tag = CEE
+		FROM = {
+			OR = {
+				tag = BRI
+				tag = WLS
+			}
+			is_subject_of_type = EE_CLT_Celtic_Dominion 
+		}
+	}
+	on_accept = {
+		if = {
+			limit = { has_country_modifier = EE_CLT_Irish_Identity_1 }
+			remove_country_modifier = EE_CLT_Irish_Identity_1
+		}
+		if = {
+			limit = {
+				FROM = { tag = BRI }
+			}
+			add_country_modifier = {
+				name = EE_CLT_Breton_Identity_1
+				duration = -1
+			}
+			BRI = {
+				add_country_modifier = {
+					name = EE_CLT_Breton_Identity_1
+					duration = -1
+				}
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = EE_CLT_Welsh_Identity_1
+				duration = -1
+			}
+			WLS = {
+				add_country_modifier = {
+					name = EE_CLT_Welsh_Identity_1
+					duration = -1
+				}
+			}
+		}
+	}
+	ai_will_do = { }
+}
+
+EE_Celtica_Remove_Center_Union = {
+	category = influence
+	require_acceptance = no
+	is_visible = { has_country_flag = EE_CLT_add_diplo_actions }
+	is_allowed = {
+		tag = CEE
+		FROM = {
+			OR = {
+				tag = BRI
+				tag = WLS
+			}
+			is_subject_of_type = EE_CLT_Celtic_Dominion
+			OR = {
+				has_country_modifier = EE_CLT_Breton_Identity_1
+				has_country_modifier = EE_CLT_Welsh_Identity_1
+			}
+		}
+	}
+	on_accept = {
+		if = {
+			limit = { 
+				NOT = { has_country_modifier = EE_CLT_Irish_Identity_1 }
+			}
+			add_country_modifier = {
+				name = EE_CLT_Irish_Identity_1
+				duration = -1
+			} 
+		}
+		if = {
+			limit = {
+				FROM = { tag = BRI }
+			}
+			remove_country_modifier = EE_CLT_Breton_Identity_1
+			BRI = { remove_country_modifier = EE_CLT_Breton_Identity_1 }
+		}
+		else = { 
+			remove_country_modifier = EE_CLT_Welsh_Identity_1
+			WLS = { remove_country_modifier = EE_CLT_Welsh_Identity_1 }
+		}
+	}
+	ai_will_do = { }
+}
+
+EE_Celtica_Sway_Electors = {
+	category = economy
+	alert_index = 39 
+	alert_tooltip = unlawful_territory
+	require_acceptance = yes
+	is_visible = { has_country_flag = EE_CLT_diplo_path }
+	is_allowed = {
+		FROM = { 
+			is_elector = yes
+			custom_trigger_tooltip = {
+				tooltip = EE_CLT_not_swayed_before
+				NOT = { has_country_flag = EE_CLT_swayed_elector } 
+			}
+		}
+		treasury = 200
+	}
+	on_accept = {
+		FROM = { set_country_flag = EE_CLT_swayed_elector }
+		random_country = {
+			limit = { has_country_flag = EE_CLT_prince_to_elect_flag }
+			add_country_modifier = {
+				name = EE_CLT_support_emperorship
+				duration = -1
+			}
+		}
+		add_treasury = -200
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+		}
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = diplomatic_reputation
+			limit = { }
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 2
+			}
+		}
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = {
+				variable_name = ai_value
+				value = stability
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = -25
+			}
+		}
+	}
+	ai_will_do = { }
+}

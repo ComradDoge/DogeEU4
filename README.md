@@ -20,7 +20,6 @@ from the original mod I took. After all I need to understand how they work, else
 
 - Fixed Centralisation mechanic working incorrectly.
 - Brandenburg/Prussia fix to not being able to progress.
-- Added various content from Europa Expanded 1.13 update.
 - Fixed some of tribal land staying when removing natives.
 - Reduced amount of num_accepted_cultures in dip tech to two.
 - Minor fix to Mughal mission not properly referencing things.
@@ -28,20 +27,19 @@ from the original mod I took. After all I need to understand how they work, else
 - Vodka of the Crown now also takes in account Maize, Rice and Potatos.
 - Tweaked the Manufactory Scaling explanation icon for better visability.
 - Added new special setting: Change every African nation with Tech 2 to Tech 3.
-- Mountains and Deserts have an innate -50% institution spread. Let's see how this goes.
+- Mountains and Deserts have an innate -50% local institution spread. Let's see how this goes.
 - Lombardy-Venetia no longer limited to Milan/Venice tags, still limited to the relevant cultures.
 - Added new loading screen "Richard, Duke of Gloucester, and the Lady Anne" by Abbey. It goes hard. Doge included.
-- Added or updated some missions from recent Europa Expanded update: Luxembourg, Netherlands (Holland, Friesland, Brabant, Flanders, Gelre/Utrecht), England/Britain, Generic English (Northumberland, London, Wessex, Mercia, East Anglia), Navarra, Generic Iberian (Galicia, Asturias, Leon), Generic French (most of them), Cornwall
+- Added or updated some missions from recent Europa Expanded update: Luxembourg, Netherlands (Holland, Friesland, Brabant, Flanders, Gelre/Utrecht), England/Britain, Generic English (Northumberland, London, Wessex, Mercia, East Anglia), Navarra, Generic Iberian (Galicia, Asturias, Leon), Generic French (most of them), Cornwall, Wales, Brittany, Tir na Celtigh, Mann/The Isles, Scotland
 
-Maan (choice) /// The Isles (choice)
-Wales
-Scotland (choice (vanilla))
+As always, report any issues.
+
+
+
 Liege/Belgium
-
-Brittany (added)
 Switzerland (added (vanilla))
-
 Achen (added)
+# - Added a new special setting: Disable professionalism cost from mercenaries.
 
 # TODO
 

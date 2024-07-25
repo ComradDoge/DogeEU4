@@ -1,0 +1,387 @@
+namespace = EE_Scotland_Events
+
+# Hidden event to remove modifier
+country_event = {
+	id = EE_Scotland_Events.1
+	title = EE_Scotland_Events.1.t
+	desc = EE_Scotland_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+	fire_only_once = yes
+	trigger = {
+		has_country_modifier = EE_SCO_hidden_extra_slot
+		NOT = { alliance_with = FRA }
+	}
+	option = {
+		name = EE_Scotland_Events.1.OPT1
+		remove_country_modifier = EE_SCO_hidden_extra_slot
+	}
+}
+
+# Hidden event to add 10,000 manpower
+country_event = {
+	id = EE_Scotland_Events.2
+	title = EE_Scotland_Events.2.t
+	desc = EE_Scotland_Events.2.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = EE_SCO_manpower_when_war
+		OR = {
+			war_with = ENG
+			war_with = GBR
+		}
+	}
+	option = {
+		name = EE_Scotland_Events.2.OPT1
+		add_manpower = 10
+	}
+}
+
+# English Ireland
+country_event = {
+	id = EE_Scotland_Events.3
+	title = EE_Scotland_Events.3.t
+	desc = EE_Scotland_Events.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = EE_Scotland_Events.3.OPT1
+		if = {
+			limit = {
+				ENG = {
+					any_subject_country = { primary_culture = irish }
+				}
+			}
+			ENG = {
+				every_subject_country = {
+					limit = { primary_culture = irish }
+					add_liberty_desire = 75
+				}
+			}
+		}
+		custom_tooltip = " "
+		if = {
+			limit = {
+				ENG = {
+					num_of_owned_provinces_with = {
+						value = 1
+						OR = {
+							area = munster_area
+							area = ulster_area
+							area = connacht_area
+							area = leinster_area
+						}
+					}
+				}
+			}
+			ENG = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							area = munster_area
+							area = ulster_area
+							area = connacht_area
+							area = leinster_area
+						}
+					}
+					spawn_rebels = {
+						size = 1
+						type = EE_SCO_nationalist_rebels
+					}
+				}
+			}
+			custom_tooltip = EE_SCO_change_sides_3_months_tt
+			ENG = {
+				country_event = {
+					id = EE_Scotland_Events.4
+				}
+			}
+		}
+		if = {
+			limit = {
+				GBR = {
+					any_subject_country = { primary_culture = irish }
+				}
+			}
+			GBR = {
+				every_subject_country = {
+					limit = { primary_culture = irish }
+					add_liberty_desire = 75
+				}
+			}
+		}
+		if = {
+			limit = {
+				GBR = {
+					num_of_owned_provinces_with = {
+						value = 1
+						OR = {
+							area = munster_area
+							area = ulster_area
+							area = connacht_area
+							area = leinster_area
+						}
+					}
+				}
+			}
+			GBR = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							area = munster_area
+							area = ulster_area
+							area = connacht_area
+							area = leinster_area
+						}
+					}
+					spawn_rebels = {
+						size = 3
+						type = EE_SCO_nationalist_rebels
+					}
+				}
+			}
+			custom_tooltip = EE_SCO_change_sides_3_months_tt
+			GBR = {
+				country_event = {
+					id = EE_Scotland_Events.4
+				}
+			}
+		}
+	}
+}
+
+# Irish Rebellions
+country_event = {
+	id = EE_Scotland_Events.4
+	title = EE_Scotland_Events.4.t
+	desc = EE_Scotland_Events.4.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = { 
+		name = EE_Scotland_Events.4.OPT1
+		custom_tooltip = EE_SCO_change_Sides_tt
+	}
+}
+
+# Braveheart (Vanilla)
+province_event = {
+	id = 960
+	title = "EVTNAME960"
+	desc = "EVTDESC960"
+	picture = ANGRY_MOB_eventPicture
+	fire_only_once = yes
+	trigger = {
+		area = highlands_area
+		owner = {
+			NOT = { has_country_flag = EE_SCO_Braveheart_happened_flag } #This flag is set in the vanilla Braveheart event that I editted#
+		}
+		NOT = { is_year = 1500 }
+		owner = {
+			tag = SCO
+			has_country_flag = EE_SCO_highlanders_arrive_modify
+			NOT = { has_country_modifier = braveheart }
+			is_free_or_tributary_trigger = yes
+			war_with = ENG
+			owns = 252
+			controls = 252
+		}
+		controlled_by = owner
+	}
+	option = {
+		name = "EVTOPTA960"
+		infantry = ROOT
+		infantry = ROOT
+		infantry = ROOT
+		cavalry = ROOT
+	}
+}
+
+# Hidden event to remove country flag
+country_event = {
+	id = EE_Scotland_Events.5
+	title = EE_Scotland_Events.5.t
+	desc = EE_Scotland_Events.5.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+	trigger = {
+		had_country_flag = {
+			flag = EE_SCO_autonomy_mechanic_flag
+			days = 18250
+		}
+	}
+	option = {
+		name = EE_Scotland_Events.5.OPT1
+		clr_country_flag = EE_SCO_autonomy_mechanic_flag
+	}
+}
+
+# A Nation's Fate in Hand
+country_event = {
+	id = EE_Scotland_Events.6
+	title = EE_Scotland_Events.6.t
+	desc = EE_Scotland_Events.6.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	major = yes
+	is_triggered_only = yes
+	immediate = { set_country_flag = EE_SCO_Nation's_Fate_happened }
+	option = {
+		name = EE_Scotland_Events.6.OPT1
+		ai_chance = { factor = 25 }
+		custom_tooltip = EE_SCO_nations_fate_tt
+		if = {
+			limit = { has_country_flag = EE_SCO_new_future_flag }
+			clr_country_flag = EE_SCO_new_future_flag
+		}
+		set_country_flag = EE_SCO_clans_scotland_flag
+		set_country_flag = formed_great_britain_flag
+		set_country_flag = EE_SCO_disallow_britain_formation_flag
+		if = {
+			limit = { has_country_flag = EE_SCO_preview_missions }
+			clr_country_flag = EE_SCO_preview_missions
+		}
+		add_estate_loyalty = {
+			estate = estate_clans
+			loyalty = 5
+		}
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -5
+		}
+		highlands_area = { add_base_production = 1 }
+		lowlands_area = { add_base_production = 1 }
+		custom_tooltip = " "
+		swap_non_generic_missions = yes
+		
+	}
+	option = {
+		name = EE_Scotland_Events.6.OPT2
+		ai_chance = { factor = 75 }
+		if = {
+			limit = { has_country_flag = EE_SCO_clans_scotland_flag }
+			clr_country_flag = EE_SCO_clans_scotland_flag
+		}
+		set_country_flag = EE_SCO_new_future_flag
+		if = {
+			limit = { has_country_flag = EE_SCO_preview_missions }
+			clr_country_flag = EE_SCO_preview_missions
+		}
+		custom_tooltip = EE_SCO_crownlands_if_privilege
+		hidden_effect = {
+			if = {
+				limit = { has_estate_privilege = estate_nobles_nobility_primacy }
+				change_estate_land_share = {
+					estate = all
+					share = -5
+				}
+			}
+		}
+		add_estate_loyalty = {
+			estate = estate_clans
+			loyalty = -5
+		}
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 5
+		}
+		custom_tooltip = " "
+		swap_non_generic_missions = yes
+	}
+}
+
+# A New Deal
+country_event = {
+	id = EE_Scotland_Events.7
+	title = EE_Scotland_Events.7.t
+	desc = EE_Scotland_Events.7.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EE_Scotland_Events.7.OPT1
+		every_owned_province = {
+			limit = { area = north_atlantic_area }
+			cede_province = FROM
+		}
+		add_treasury = 100
+		hidden_effect = {
+			SCO = { add_treasury = -100 }
+		}
+	}
+	option = {
+		name = EE_Scotland_Events.7.OPT2
+	}
+}
+
+# Hidden event to remove modifier once tag changes
+country_event = {
+	id = EE_Scotland_Events.9
+	title = EE_Scotland_Events.9.t
+	desc = EE_Scotland_Events.9.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+	trigger = {
+		was_tag = SCO
+		has_country_flag = fra_courthouse_bonus_flag
+		any_owned_province = { has_province_modifier = fra_improved_court_houses_modifier }
+	}
+	option = {
+		name = EE_Scotland_Events.9.OPT1
+		every_owned_province = {
+			limit = { has_province_modifier = fra_improved_court_houses_modifier }
+			remove_province_modifier = fra_improved_court_houses_modifier
+		}
+		clr_country_flag = fra_courthouse_bonus_flag
+	}
+}
+
+# Preview Event
+country_event = {
+	id = EE_Scotland_Events.10
+	title = EE_Scotland_Events.10.t
+	desc = EE_Scotland_Events.10.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	option = { #Preview England
+		name = EE_Scotland_Events.10.OPT1
+		if = {
+			limit = { has_country_flag = EE_SCO_clans_scotland_flag }
+			clr_country_flag = EE_SCO_clans_scotland_flag
+		}
+		set_country_flag = EE_SCO_new_future_flag
+		set_country_flag = EE_SCO_preview_missions
+		swap_non_generic_missions = yes
+	}
+	option = { #Preview Celts
+		name = EE_Scotland_Events.10.OPT2
+		if = {
+			limit = { has_country_flag = EE_SCO_new_future_flag }
+			clr_country_flag = EE_SCO_new_future_flag
+		}
+		set_country_flag = EE_SCO_clans_scotland_flag
+		set_country_flag = EE_SCO_preview_missions
+		swap_non_generic_missions = yes
+	}
+}
+
+# A Final Ultimatum
+country_event = {
+	id = EE_Scotland_Events.11
+	title = EE_Scotland_Events.11.t
+	desc = EE_Scotland_Events.11.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EE_Scotland_Events.11.OPT1
+		ai_chance = { factor = 4 }
+		SCO = { inherit = LOI }
+	}
+	option = {
+		name = EE_Scotland_Events.11.OPT2
+		declare_war_with_cb = {
+			casus_belli = cb_independence_war
+			who = FROM
+		}
+	}
+}

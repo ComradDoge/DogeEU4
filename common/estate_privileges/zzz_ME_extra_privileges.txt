@@ -3595,7 +3595,7 @@ ME_estate_nobles_CRN_tin_mining_privileges = {
 estate_settlers_KOI_permit_trade_companies = {
 	icon = privilege_explorer
 	land_share = 0
-	max_absolutism = -5
+	max_absolutism = -10
 	influence = 0.15
 	loyalty = 0
 	is_valid = {
@@ -3624,7 +3624,7 @@ estate_settlers_KOI_permit_trade_companies = {
 estate_settlers_KOI_enforce_recruitment_quota = {
 	icon = privilege_army_tradition
 	land_share = 0
-	max_absolutism = -5
+	max_absolutism = -10
 	influence = 0.0
 	loyalty = -0.05
 	is_valid = {
@@ -3636,5 +3636,496 @@ estate_settlers_KOI_enforce_recruitment_quota = {
 
 	ai_will_do = {
 		factor = 10000
+	}
+}
+
+estate_clans_LOI_council_of_the_isles = {
+	icon = privilege_royal_authority
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.2
+	loyalty = 0.05
+	is_valid = {
+		OR = {
+			tag = LOI
+			was_tag = LOI
+		}
+	}
+	benefits = {
+		same_culture_advisor_cost = -0.075
+		advisor_pool = 1
+	}
+	penalties = {
+		nobles_influence_modifier = 0.1
+	}
+
+	ai_will_do = {
+		factor = 10000
+	}
+}
+
+
+EE_SCO_estate_nobles_scottish_highlanders = {
+	icon = privilege_autonomy
+	max_absolutism = -10
+	influence = 0.1
+	is_valid = {
+		tag = SCO
+		NOT = { was_tag = SCO }
+	}
+	can_revoke = {
+	}
+	penalties = {
+	}
+	on_granted = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = EE_SCO_buff_scottish_highlanders }
+			}
+			custom_tooltip = EE_SCO_highlands_get_malus_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EE_SCO_scottish_highlands
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = { 
+						has_terrain = highlands
+						region = british_isles_region
+					}
+					add_province_modifier = {
+						name = EE_SCO_scottish_highlands
+						duration = -1
+					}
+				}
+			}
+		}
+		else = {
+			custom_tooltip = EE_SCO_highlands_get_buff_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EE_SCO_clans_cooperation
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = { 
+						has_terrain = highlands
+						region = british_isles_region
+					}
+					add_province_modifier = {
+						name = EE_SCO_clans_cooperation
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+	benefits = {
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+EE_SCO_estate_nobles_regent_nobles = {
+	icon = privilege_empty_throne
+	max_absolutism = -5
+	influence = 0.15
+	land_share = 5
+	is_valid = {
+		tag = SCO
+	}
+	can_revoke = {
+	}
+	penalties = {
+	}
+	on_granted = {
+		custom_tooltip = EE_SCO_buff_regency_tt
+		if = {
+			limit = {
+				has_estate_led_regency = {
+					estate = estate_nobles
+				}
+			}
+			add_ruler_modifier = {
+				name = empowered_regency_modifier
+				duration = -1
+			}
+		}
+	}
+	benefits = {
+		global_tax_modifier = -0.15
+		no_stability_loss_on_monarch_death = yes
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+EE_SCO_estate_nobles_levies = {
+	icon = privilege_demand_more_troops
+	max_absolutism = -5
+	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes NOT = { has_government_attribute = free_noble_levies } } modifier = { max_absolutism = 1 } }
+	influence = 0.1
+	loyalty = 0.1
+	is_valid = {
+		NOT = { has_estate_privilege = estate_nobles_golden_liberty }
+		has_country_flag = EE_SCO_buff_prvivilege_and_NI_flag
+		NOT = { was_tag = SCO }
+	}
+	can_select = {
+		NOT = { has_estate_privilege = estate_nobles_golden_liberty }
+		if = {
+			limit = {
+				has_estate = estate_maratha
+			}
+			NOT = { has_estate_privilege = estate_maratha_levies }
+		}
+		if = {
+			limit = {
+				has_estate = estate_maratha
+			}
+			NOT = { has_estate_privilege = estate_maratha_levies_for_muslims }
+		}
+	}
+	modifier_by_land_ownership = {
+		global_manpower_modifier = 0.5
+	}
+	mechanics = {
+		exempt_from_seize_land
+	}
+	conditional_modifier = {
+		trigger = {
+			has_government_attribute = free_noble_levies
+		}
+		modifier = {
+			max_absolutism = 5
+			nobles_influence_modifier = -0.1
+		}
+	}
+	conditional_modifier = {
+		trigger = { has_country_flag = EE_CLT_reduce_absolutism_nobles }
+		modifier = { max_absolutism = 5 }
+	}
+	conditional_modifier = {
+		trigger = { has_government_mechanic = russian_modernization_mechanic }
+		modifier = { monthly_russian_modernization = -0.05 }
+	}
+	#conditional_modifier = {
+	#	trigger = { has_government_mechanic = ottoman_decadence_mechanic }
+	#	modifier = { monthly_ottoman_decadence = 0.02 }
+	#}
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 1.5
+			any_rival_country = {
+				army_strength = {
+					who = root
+					value = 1.5
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			has_idea_group = quantity_ideas
+		}
+		modifier = {
+			factor = 0.5
+			max_manpower = 200
+		}
+		modifier = {
+			factor = 0.75
+			NOT = {
+				estate_territory = {
+					estate = estate_nobles
+					territory = 15
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			NOT = {
+				estate_territory = {
+					estate = estate_nobles
+					territory = 10
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			NOT = {
+				estate_territory = {
+					estate = estate_nobles
+					territory = 5
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { current_income_balance = 5 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { current_income_balance = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			is_absolutism_active = yes
+		}
+	}
+}
+EE_SCO_estate_burghers_patronage_of_the_arts = {
+	icon = privilege_build_jain_temple
+	max_absolutism = -5
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		OR = {
+			has_country_flag = EE_SCO_buff_patroange
+			has_country_flag = EE_IRE_buff_patronage
+		}
+		if = {
+			limit = {
+				NOT = { tag = IRE }
+			}
+			NOT = { was_tag = SCO }
+		}
+		if = {
+			limit = {
+				NOT = { tag = SCO }
+			}
+			NOT = { was_tag = IRE }
+		}
+	}
+	penalties = {
+	}
+	benefits = {
+		prestige = 1
+	}
+	cooldown_years = 10
+	on_granted = {
+		if = {
+			limit = { prestige = 50 }
+			add_prestige = 10
+		}
+		else_if = {
+			limit = { prestige = 0 }
+			add_prestige = 15
+		}
+		else_if = {
+			limit = { prestige = -25 }
+			add_prestige = 20
+		}
+		else_if = {
+			limit = { prestige = -50 }
+			add_prestige = 25
+		}
+		else = {
+			add_prestige = 30
+		}
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+
+EE_BRI_estate_church_papal_emissary = {
+	icon = privilege_send_emissary_to_pope
+	max_absolutism = -5
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		religion = catholic
+		NOT = { tag = PAP }
+		has_country_flag = EE_BRI_empowered_clergy_privilege
+	}
+	can_select = {
+	}
+	on_granted = {
+	}
+	penalties = {
+	}
+	benefits = {
+		papal_influence = 1
+	}
+	ai_will_do = {
+		factor = 10
+		modifier = {
+			factor = 0
+			is_part_of_hre = yes
+			is_emperor = no
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				tag = SWE
+				tag = ENG
+				tag = GBR
+			}
+		}
+		modifier = {
+			factor = 0
+			is_absolutism_active = yes
+		}
+		modifier = {
+			factor = 0.75
+			NOT = {
+				reverse_has_opinion = {
+					who = PAP
+					value = 50
+				}
+			}
+		}
+	}
+}
+EE_BRI_estate_church_one_faith_one_culture = {
+	icon = privilege_one_faith_one_culture
+	max_absolutism = -5
+	influence = 0.2
+	loyalty = 0.1
+	is_valid = {
+		NOT = { was_tag = BRI }
+		NOT = { was_tag = SCO }
+		NOT = { was_tag = IRE }
+		has_country_flag = EE_Improved_religious_culture
+	}
+	can_select = {
+	}
+	on_granted = {
+		custom_tooltip = EE_estate_church_one_faith_one_culture_gta
+		custom_tooltip = EE_estate_church_one_faith_one_culture_gtb
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				OR = {
+					religion = ROOT
+					AND = {
+						religion = THIS
+						owner = {
+							has_harmonized_with = PREV
+						}
+					}
+					AND = {
+						religion = THIS
+						owner = {
+							secondary_religion = PREV
+						}
+					}
+				}
+				OR = {
+					has_owner_accepted_culture = yes
+					culture_group = ROOT
+				}
+			}
+			add_province_modifier = {
+				name = EE_estate_church_united_faith_and_culture
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = EE_estate_church_united_faith_and_culture
+			}
+			remove_province_modifier = EE_estate_church_united_faith_and_culture
+		}
+		if = {
+			limit = {
+				NOT = { culture_group = ROOT }
+				has_owner_accepted_culture = no
+			}
+			add_province_modifier = {
+				name = estate_church_false_culture
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = estate_church_false_culture
+			}
+			remove_province_modifier = estate_church_false_culture
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_church_one_faith_one_culture_rta
+		custom_tooltip = estate_church_one_faith_one_culture_rtb
+	}
+	on_revoked_province = {
+		if = {
+			limit = {
+				has_province_modifier = EE_estate_church_united_faith_and_culture
+			}
+			remove_province_modifier = EE_estate_church_united_faith_and_culture
+		}
+		if = {
+			limit = {
+				has_province_modifier = estate_church_false_culture
+			}
+			remove_province_modifier = estate_church_false_culture
+		}
+	}
+	on_invalid = {
+		custom_tooltip = estate_church_one_faith_one_culture_rta
+		custom_tooltip = estate_church_one_faith_one_culture_rtb
+	}
+	on_invalid_province = {
+		if = {
+			limit = {
+				has_province_modifier = EE_estate_church_united_faith_and_culture
+			}
+			remove_province_modifier = EE_estate_church_united_faith_and_culture
+		}
+		if = {
+			limit = {
+				has_province_modifier = estate_church_false_culture
+			}
+			remove_province_modifier = estate_church_false_culture
+		}
+	}
+	penalties = {
+		tolerance_heathen = -2
+		tolerance_heretic = -2
+	}
+	benefits = {
+		global_missionary_strength = 0.01
+	}
+	conditional_modifier = {
+		trigger = { has_government_attribute = free_religious_culture }
+		modifier = {
+			church_influence_modifier = -0.2
+		}
+	}
+	cooldown_years = 15
+	ai_will_do = {
+		factor = 10
+		modifier = {
+			factor = 0
+			NOT = { dominant_religion = ROOT }
+		}
+		modifier = {
+			factor = 0
+			NOT = { dominant_culture = ROOT }
+		}
+		modifier = {
+			factor = 0
+			NOT = { religion = confucianism }
+		}
+		modifier = {
+			factor = 0
+			NOT = { religion = confucianism }
+		}
+		modifier = {
+			factor = 100
+			NOT = { average_autonomy = 15 }
+			dominant_religion = ROOT
+			dominant_culture = ROOT
+		}
+		modifier = {
+			factor = 0.1
+			is_absolutism_active = yes
+		}
 	}
 }

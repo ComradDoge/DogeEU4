@@ -1,806 +1,1265 @@
-Mann_missions_1 = {
+KOI_missions_1 = {
 	slot = 1
 	generic = no
 	ai = yes
 	potential = {
 		tag = KOI
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
-	Mann_Tax = {
-		icon = mission_war_chest
+	KOI_house_of_keys = {
+		icon = mission_rb_the_education_acts
 		required_missions = { }
 		position = 1
 		provinces_to_highlight = {
-			province_id = 4365
-			OR = {
-				NOT = { country_or_non_sovereign_subject_holds = ROOT }
-				AND = {
-					has_dlc = "Common Sense"
-					NOT = { base_tax = 5 }
-				}
-				AND = {
-					NOT = { has_dlc = "Common Sense" }
-					OR = {
-						AND = {
-							NOT = { has_building = workshop }
-							NOT = { has_building = counting_house }
-						}
-						AND = {
-							NOT = { has_building = temple }
-							NOT = { has_building = cathedral }
-						}
-					}
-				}
-			}
 		}
 		trigger = {
-			4365 = {
-				country_or_non_sovereign_subject_holds = ROOT
-				if = {
-					limit = {
-						has_dlc = "Common Sense"
-					}
-					base_tax = 5
-				}
-				else = {
-					OR = {
-						has_building = workshop
-						has_building = counting_house
-					}
-					OR = {
-						has_building = temple
-						has_building = cathedral
-					}
-				}
-			}
+			current_size_of_parliament = 2
+			num_of_issues_passed = { amount = 2 }
 		}
 		effect = {
-			4365 = {
-				add_base_tax = 1
+			add_country_modifier = {
+				name = KOI_parliament_buff
+				duration = -1
 			}
+			
+			change_government_reform_progress = 100
 		}
 	}
 	
-	Mann_Production = {
-		icon = mission_galleys_in_port
-		required_missions = { Mann_Tax }
-		position = 2
-		provinces_to_highlight = {
-			province_id = 4365
-			OR = {
-				NOT = { country_or_non_sovereign_subject_holds = ROOT }
-				AND = {
-					has_dlc = "Common Sense"
-					NOT = { base_production = 5 }
-				}
-				AND = {
-					NOT = { has_dlc = "Common Sense" }
-					has_no_manufactory_trigger = yes
-				}
-			}
-		}
-		trigger = {
-			4365 = {
-				country_or_non_sovereign_subject_holds = ROOT
-				if = {
-					limit = {
-						has_dlc = "Common Sense"
-					}
-					base_production = 5
-				}
-				else = {
-					has_manufactory_trigger = yes
-				}
-			}
-		}
-		effect = {
-			4365 = {
-				add_base_production = 1
-			}
-		}
-	}
-	
-	Mann_Manpower = {
-		icon = mission_assemble_an_army
-		required_missions = { Mann_Production }
+	KOI_courthouse = {
+		icon = mission_rb_the_bank_of_scotland
+		required_missions = { KOI_house_of_keys }
 		position = 3
 		provinces_to_highlight = {
 			province_id = 4365
-			OR = {
-				NOT = { country_or_non_sovereign_subject_holds = ROOT }
-				AND = {
-					has_dlc = "Common Sense"
-					NOT = { base_manpower = 5 }
-				}
-				AND = {
-					NOT = { has_dlc = "Common Sense" }
-					OR = {
-						AND = {
-							NOT = { has_building = barracks }
-							NOT = { has_building = training_fields }
-						}
-						AND = {
-							NOT = { has_building = regimental_camp }
-							NOT = { has_building = conscription_center }
-						}
-					}
-				}
-			}
 		}
 		trigger = {
-			4365 = {
-				country_or_non_sovereign_subject_holds = ROOT
-				if = {
-					limit = {
-						has_dlc = "Common Sense"
-					}
-					base_manpower = 5
-				}
-				else = {
-					OR = {
-						has_building = barracks
-						has_building = training_fields
-					}
-					OR = {
-						has_building = regimental_camp
-						has_building = conscription_center
-					}
-				}
+			4365 = { 
+				owned_by = ROOT
+				has_courthouse_building_trigger = yes
 			}
+			
+			num_of_issues_passed = { amount = 4 }
 		}
 		effect = {
 			4365 = {
-				add_base_manpower = 1
+				add_or_upgrade_courthouse_building = yes
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = KOI_trivialize_gov_cap
+					duration = -1
+				}
 			}
 		}
 	}
-
-	Mann_breton_staging_ground = {
-		icon = mission_unite_home_region
-		required_missions = { }
+	
+	KOI_rights_of_man = {
+		icon = mission_rb_trinity_college_dublin
+		required_missions = { KOI_courthouse }
 		position = 5
 		provinces_to_highlight = {
-			OR = {
-			province_id = 170
-			province_id = 206
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { is_core = ROOT }
-			}
 		}
 		trigger = {
-			owns_core_province = 170
-			owns_core_province = 206
+			num_of_issues_passed = { amount = 10 }
+			reform_level = 5
 		}
 		effect = {
-			corsica_sardinia_area = {
-				limit = {
-					NOT = { owned_by = ROOT	}
-					NOT = { is_core = ROOT	}
+			halves_parliament_bribe_costs = yes
+			
+			custom_tooltip = " " 
+			
+			unlock_issue = { issue = KOI_act_of_settlement }
+			tooltip = {
+				add_country_modifier = {
+					name = KOI_act_of_settlement_modifier
+					duration = -1
 				}
-				add_permanent_claim = ROOT
 			}
-			western_sicily_area = {
-				limit = {
-					NOT = { owned_by = ROOT	}
-					NOT = { is_core = ROOT	}
+			unlock_issue = { issue = KOI_act_of_revestment }
+			tooltip = {
+				4365 = {
+					add_base_tax = 3
+					add_base_production = 3
+					add_base_manpower = 3
 				}
-				add_permanent_claim = ROOT
-			}
-			sicily_area = {
-				limit = {
-					NOT = { owned_by = ROOT	}
-					NOT = { is_core = ROOT	}
-				}
-				add_permanent_claim = ROOT
-			}
-			baleares_area = {
-				if = {
-					limit = {
-						NOT = { owned_by = ROOT	}
-						NOT = { is_core = ROOT	}
-					}
-					add_permanent_claim = ROOT
-				}
+				custom_tooltip = gain_10_crownland_tt
 			}
 		}
 	}
-
-	Mann_form_ireland = {
-		icon = mission_invade_island
-		required_missions = {}
+	
+	KOI_prosperity = {
+		icon = mission_rb_hanseatic_east
+		required_missions = { }
 		position = 6
 		provinces_to_highlight = {
-			OR = {
-				area = connacht_area
-				area = munster_area
-				area = leinster_area
-				area = ulster_area
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { is_core = ROOT }
-			}
+			province_id = 4365
 		}
 		trigger = {
-			NOT = { tag = IRE }
-			connacht_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			munster_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			leinster_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			ulster_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			4365 = { 
+				owned_by = ROOT
+				num_of_times_improved = 3
+				num_of_buildings_in_province = 1
 			}
 		}
-
 		effect = {
-			if = {
-				limit = { ai = no }
-				change_tag = IRE
-			}
-			#change_tag = IRE
-			#swap_non_generic_missions = yes
-			country_event = { id = ideagroups.1 } #Swap Ideas
-			remove_non_electors_emperors_from_empire_effect = yes
+			#expand chronicle of mann
 			add_country_modifier = {
-				name = "centralization_modifier"
-				duration = 7300
+				name = KOI_renew_chronicle_of_mann
+				duration = 10950
 			}
-			set_country_flag = formed_ireland_flag
-			if = {
-				limit = { has_custom_ideas = no }
-				country_event = { id = ideagroups.1 } #Swap Ideas
+			
+			define_advisor = {
+				type = ME_historian
+				culture = ROOT
+				religion = ROOT
+				skill = 1
+				cost_multiplier = 0.5
 			}
-			if = {
-				limit = {
-					NOT = { government_rank = 2 }
+			
+			custom_tooltip = " "
+			
+			add_prestige_or_monarch_power = { amount = 15 }
+		}
+	}
+	
+	KOI_rushen = {
+		icon = a_strong_government
+		required_missions = { KOI_prosperity }
+		position = 7
+		provinces_to_highlight = {
+			province_id = 4365
+		}
+		trigger = {
+			4365 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+			}
+		}
+		effect = {
+			4365 = {
+				add_or_upgrade_fort_building = yes
+				
+				custom_tooltip = " "
+				
+				add_permanent_province_modifier = {
+					name = KOI_castle_rushen
+					duration = -1
 				}
-				set_government_rank = 2
+			}
+			
+			add_splendor = 200
+		}
+	}
+}
+
+LOI_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = LOI
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	LOI_resist_the_stuarts = {
+		icon = mission_rb_scottish_conquer_london
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				NOT = { is_subject_of = SCO }
+				war_with = SCO
+			}
+		}
+		effect = {
+			4363 = { add_core = ROOT }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = LOI_resist_the_kings
+				duration = -1
+			}
+			
+			add_estate_loyalty = {
+				estate = estate_clans
+				loyalty = 10
 			}
 		}
 	}
-
+	
+	LOI_clans_of_mainland = {
+		icon = fortress_of_belgrade
+		required_missions = { LOI_resist_the_stuarts }
+		position = 3
+		provinces_to_highlight = {
+			culture = highland_scottish
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = highland_scottish
+				value = 5
+			}
+		}
+		effect = {
+			custom_tooltip = LOI_distribute_5_base_manpower
+			
+			hidden_effect = {
+				for = {
+					amount = 5
+					effect = "
+						random_owned_province = {
+							limit = {
+								culture = highland_scottish
+							}
+							add_base_manpower = 1
+						}
+					"
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_adm_power = 100
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = LOI_gain_5_army_trad_for_each
+			hidden_effect = {
+				if = {
+					limit = {
+						num_of_estate_privileges = {
+							estate = estate_clans
+							value = 1
+						}
+					}
+					add_army_tradition_or_mil_power = { amount = 5 }
+					if = {
+						limit = {
+							num_of_estate_privileges = {
+								estate = estate_clans
+								value = 2
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 5 }
+						if = {
+							limit = {
+								num_of_estate_privileges = {
+									estate = estate_clans
+									value = 3
+								}
+							}
+							add_army_tradition_or_mil_power = { amount = 5 }
+							if = {
+								limit = {
+									num_of_estate_privileges = {
+										estate = estate_clans
+										value = 4
+									}
+								}
+								add_army_tradition_or_mil_power = { amount = 5 }
+								if = {
+									limit = {
+										num_of_estate_privileges = {
+											estate = estate_clans
+											value = 5
+										}
+									}
+									add_army_tradition_or_mil_power = { amount = 5 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	LOI_treaty_of_westminster = {
+		icon = a_strong_government
+		required_missions = { LOI_clans_of_mainland }
+		position = 5
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = GBR
+				}
+				OR = {
+					owned_by = GBR 
+					AND = {
+						area = scottish_marches_area
+						NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = ENG
+				}
+				OR = {
+					owned_by = ENG 
+					AND = {
+						area = scottish_marches_area
+						NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					}
+				}
+			}
+			else = {
+				AND = {
+					area = scottish_marches_area
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					exists = GBR
+				}
+				OR = {
+					alliance_with = GBR
+					has_won_war_against = { who = GBR }
+					scottish_marches_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = ENG
+				}
+				OR = {
+					alliance_with = ENG
+					has_won_war_against = { who = ENG }
+					scottish_marches_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+			else = {
+				scottish_marches_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						exists = GBR
+						exists = ENG
+					}
+				}
+				complex_dynamic_effect = {
+				first_custom_tooltip = LOI_if_we_beat_up
+					first_limit = " 
+						if = {
+							limit = {
+								exists = GBR
+							}
+							OR = {
+								has_won_war_against = { who = GBR }
+								scottish_marches_area = {
+									type = all
+									country_or_non_sovereign_subject_holds = ROOT
+								}
+							}
+						}
+						else = {
+							OR = {
+								has_won_war_against = { who = ENG }
+								scottish_marches_area = {
+									type = all
+									country_or_non_sovereign_subject_holds = ROOT
+								}
+							}
+						}
+					"
+					first_effect = "
+						add_age_modifier = {
+							name = LOI_resolution_of_hostilities
+							duration = -1
+							age = age_of_reformation
+						}
+					"
+					second_custom_tooltip = LOI_if_we_ally
+					second_limit = " 
+						if = {
+							limit = {
+								exists = GBR
+							}
+							alliance_with = GBR
+						}
+						else = {
+							alliance_with = ENG
+						}
+					"
+					second_effect = "
+						add_age_modifier = {
+							name = LOI_eternal_alliance
+							duration = -1
+							age = age_of_reformation
+						}
+					"
+				}
+			}
+		}
+	}
+	
+	LOI_norse_heritage = {
+		icon = mission_longships
+		required_missions = { }
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			navy_size = 20
+			OR = {
+				num_of_admirals = 2
+				navy_tradition = 40
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Domination"
+				}
+				add_country_modifier = {
+					name = LOI_evolution_of_naval_tech
+					duration = -1
+				}
+				add_country_modifier = {
+					name = LOI_nice_galleass
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = LOI_longships
+					duration = -1
+				}
+				
+				create_admiral = { tradition = 65 }
+				
+				custom_tooltip = " "
+			}
+			
+			add_mil_power = 100 
+		}
+	}
+	
+	LOI_norse = {
+		icon = mission_modernized_vikings
+		required_missions = { LOI_norse_heritage }
+		position = 7
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_battles_won = { amount = 20 }
+			
+			navy_size = 25
+			army_size = 25
+		}
+		effect = {
+			add_army_tradition_or_mil_power = { amount = 15 }
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Lions of the North"
+						has_dlc = "Golden Century"
+						has_dlc = "Mare Nostrum"
+					}
+				}
+				country_event_with_option_insight = {
+					id = ME_Mann_Events.7
+					option_1 = "
+						add_country_modifier = {
+							name = LOI_go_on_raid_range
+							duration = -1
+						}
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = LOI_go_on_raid
+							duration = -1
+						}
+					"
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = LOI_me_like_loot
+					duration = -1
+				}
+			}
+		}
+	}
 }
 
-Mann_missions_2 = {
+KOI_missions_2 = {
 	slot = 2
 	generic = no
 	ai = yes
 	potential = {
-		tag = KOI
+		OR = {
+			tag = KOI
+			tag = LOI
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
-	Mann_Parliament = {
-		icon = mission_alliances
-		required_missions = { }
-		position = 1
+	KOI_eire = {
+		icon = mission_rb_into_ireland
+		required_missions = { KOI_forcelimit }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = leinster_area
+				area = ulster_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
 		trigger = {
-			treasury = 100
-			adm_power = 200
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = leinster_area
+					area = ulster_area
+				}
+				value = 4
+			}
 		}
 		effect = {
-			add_adm_power = -200
-			add_country_modifier = {
-				name = "mann_parliament"
-				duration = -1
+			ME_give_claims = { area = connacht_area }
+			ME_give_claims = { area = munster_area }
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = irish }
+			
+			custom_tooltip = " "
+			
+			ME_add_power_projection = { amount = 15 }
+		}
+	}
+	
+	KOI_ireland = {
+		icon = mission_rb_conquer_leinster
+		required_missions = { KOI_eire }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = leinster_area
+				area = ulster_area
+				area = munster_area
+				area = connacht_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = leinster_area
+					area = ulster_area
+					area = munster_area
+					area = connacht_area
+				}
+				value = 11
+			}
+		}
+		effect = {
+			#unlock privilege for the clans
+			#major event
+			country_event_with_effect_insight = {
+				id = ME_Mann_Events.4
+				effect = "
+					custom_tooltip = KOI_upgrade_brehons
+					set_country_flag = KOI_upgrade_brehons
+					
+					custom_tooltip = \" \"
+					
+					add_country_modifier = {
+						name = KOI_allegiance_of_irish_clans
+						duration = -1
+					}
+					
+					add_stability_or_adm_power = yes
+				"
 			}
 		}
 	}
 	
-	Mann_Munster = {
-		icon = mission_cannons_firing
-		required_missions = { Mann_Leinster }
-		position = 3
+	KOI_new_world = {
+		icon = mission_rb_the_thirteen_colonies
+		required_missions = { KOI_iceland }
+		position = 6
 		provinces_to_highlight = {
-			area = munster_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			continent = north_america
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
 		}
 		trigger = {
-			munster_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				continent = north_america
+				is_city = yes
+				value = 15
 			}
 		}
 		effect = {
-			375 = {
-				if = {
-					limit = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
+			#privilege for gaining manpower per colonial subject
+			
+			custom_tooltip = KOI_enable_privilege_for_manpower_quota
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = KOI_colonial_boom
+				duration = -1
+				age = age_of_reformation
 			}
 		}
 	}
 }
 
-Mann_missions_3 = {
+KOI_missions_3 = {
 	slot = 3
 	generic = no
 	ai = yes
 	potential = {
-		tag = KOI
+		OR = {
+			tag = KOI
+			tag = LOI
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
-	Mann_Leinster = {
-		icon = mission_invade_island
-		required_missions = { Mann_Isles }
-		position = 2
-		provinces_to_highlight = {
-			area = leinster_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			leinster_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
-			munster_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			ulster_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
-	Mann_Ulster = {
-		icon = mission_monarch_in_throne_room
-		required_missions = { Mann_Leinster }
-		position = 3
-		provinces_to_highlight = {
-			area = ulster_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			ulster_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
-			376 = {
-				if = {
-					limit = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-			4119 = {
-				if = {
-					limit = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
-			}
-		}
-	}	
-	
-	Mann_Connacht = {
-		icon = mission_conquer_50_development
-		required_missions = { Mann_Ulster Mann_Munster }
-		position = 4
-		provinces_to_highlight = {
-			area = connacht_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			connacht_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
-			add_prestige = 50
-		}
-	}
-	
-	Mann_Midlands = {
-		icon = mission_cannons_firing
-		required_missions = { Mann_Wales }
-		position = 6
-		provinces_to_highlight = {
-			OR = {
-				area = east_midlands_area
-				area = west_midlands_area
-			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			east_midlands_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			west_midlands_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
-			wessex_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
-	Mann_Hampshire = {
-		icon = mission_build_up_to_force_limit
-		required_missions = { Mann_Midlands }
-		position = 7
-		provinces_to_highlight = {
-			area = wessex_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			wessex_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
-			add_prestige = 50
-		}
-	}
-}
-
-Mann_missions_4 = {
-	slot = 4
-	generic = no
-	ai = yes
-	potential = {
-		tag = KOI
-	}
-	has_country_shield = yes
-	
-	Mann_Isles = {
+	KOI_forcelimit = {
 		icon = mission_invade_island
 		required_missions = { }
 		position = 1
 		provinces_to_highlight = {
-			area = kingdom_of_the_isles_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			kingdom_of_the_isles_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			OR = {
+				army_size = 6
+				army_size_percentage = 0.9 
+				capital_scope = {
+					has_manpower_building_trigger = yes
+				}
 			}
 		}
 		effect = {
-			leinster_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
+			ME_give_claims = { area = ulster_area }
+			ME_give_claims = { area = leinster_area }
+			ME_give_claims = { area = kingdom_of_the_isles_area }
+			ME_give_claims = { area = highlands_area }
+			ME_give_claims = { area = lowlands_area }
+			ME_give_claims = { area = north_atlantic_area }
+			ME_give_claims = { area = scottish_marches_area }
+			ME_give_claims = { area = yorkshire_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = KOI_united_under_lord_of_mann
+				duration = 10950
 			}
-			highlands_area = {
+			
+			create_general = { tradition = 60 }
+			
+			if = {
 				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
+					tag = KOI
+					capital_scope = {
+						has_port = yes
+					}
 				}
-				add_permanent_claim = ROOT
+				capital_scope = {
+					build_to_forcelimit = {
+						transport = 0.5
+						galley = 0.5
+					}
+				}
 			}
 		}
 	}
 	
-	Mann_west_scotia = {
-		icon = mission_cannons_firing
-		required_missions = { Mann_Isles }
+	KOI_rex_insular = {
+		icon = mission_empire
+		required_missions = { KOI_forcelimit }
 		position = 2
 		provinces_to_highlight = {
-			area = highlands_area
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			highlands_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
+			OR = {
+				province_id = 253
+				province_id = 4365
+				province_id = 4364
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
 			}
 		}
+		trigger = {
+			owns_core_province = 253
+			owns_core_province = 4365
+			owns_core_province = 4364
+		}
 		effect = {
-			lowlands_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
+			#Major Event
+			country_event_with_effect_insight = {
+				id = ME_Mann_Events.1
+				effect = "
+					add_country_modifier = {
+						name = ENG_rex
+						duration = -1
+					}
+					
+					add_legitimacy_or_reform_progress = { amount = 20 }
+					
+					custom_tooltip = \" \"
+					
+					add_army_tradition_or_mil_power = { amount = 10 }
+				"
 			}
 		}
 	}
 	
-	Mann_east_scotia = {
-		icon = mission_alliances
-		required_missions = { Mann_west_scotia }
+	KOI_orkney = {
+		icon = mission_retake_ceuta
+		required_missions = { KOI_scotland }
 		position = 3
 		provinces_to_highlight = {
-			OR = {
-				area = lowlands_area
+			OR = { 
+				province_id = 369
+				province_id = 1978
+				province_id = 1979
 			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			lowlands_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+			369 = { country_or_non_sovereign_subject_holds = ROOT }
+			1978 = { country_or_non_sovereign_subject_holds = ROOT }
+			1979 = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		effect = {
-			wales_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
+			ME_give_claims = { area = northern_norway }
+			ME_give_claims = { area = western_norway }
+			ME_give_claims = { area = eastern_norway }
+			
+			custom_tooltip = " "
+			
+			369 = {
+				add_nationalism = -25
+				add_local_autonomy = -10
+			}
+			1978 = {
+				add_nationalism = -25
+				add_local_autonomy = -10
+			}
+			1979 = {
+				add_nationalism = -25
+				add_local_autonomy = -10
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = KOI_rival_scandinavian
+				duration = 10950
 			}
 		}
 	}
 	
-	Mann_Wales = {
-		icon = mission_invade_island
-		required_missions = { Mann_east_scotia }
+	KOI_iceland = {
+		icon = mission_exploration
+		required_missions = { KOI_orkney }
 		position = 5
 		provinces_to_highlight = {
-			area = wales_area
+			OR = { 
+				province_id = 370
+				province_id = 371
+			}
 			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		trigger = {
-			wales_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+			370 = { country_or_non_sovereign_subject_holds = ROOT }
+			371 = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 		effect = {
-			east_midlands_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			west_midlands_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			yorkshire_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-			246 = {
-				if = {
-					limit = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
+			ME_give_claims = { region = australia_region }
+			ME_give_claims = { region = northeast_america_region }
+			
+			custom_tooltip = " "
+			
+			add_mercantilism = 2
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_Mann_Events.2
+				option_1 = "
+					custom_tooltip = KOI_unlock_the_settler_estate
+		
+					custom_tooltip = \" \"
+					
+					set_country_flag = KOI_unlock_settler_priv
+					set_estate_privilege = estate_settlers_KOI_permit_trade_companies
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = KOI_call_of_the_seas
+						duration = 14600
 					}
-					add_permanent_claim = ROOT
-				}
-			}
-			247 = {
-				if = {
-					limit = {
-						NOT = { owned_by = ROOT }
-						NOT = { is_core = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
+					
+					add_navy_tradition = 10
+				"
 			}
 		}
 	}
 	
-	Mann_Northumbria = {
-		icon = mission_build_up_to_force_limit
-		required_missions = { Mann_Wales }
+	KOI_mann_at_work = {
+		icon = colonize_australia
+		required_missions = { KOI_iceland }
 		position = 6
 		provinces_to_highlight = {
-			OR = {
-				area = yorkshire_area
-				province_id = 247
-				province_id = 246
-			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			colonial_region = colonial_australia
+			is_empty = yes
 		}
 		trigger = {
-			yorkshire_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			247 = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			246 = {
-				country_or_non_sovereign_subject_holds = ROOT
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				colonial_region = colonial_australia
+				is_city = yes
+				value = 7
 			}
 		}
 		effect = {
-			east_anglia_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
+			#land down under reference
+			
+			add_country_modifier = {
+				name = KOI_cant_you_hear_the_thunder
+				duration = 9125
 			}
-			home_counties_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
-			}
-		}
-	}
-	
-	Mann_Anglia = {
-		icon = mission_assemble_an_army
-		required_missions = { Mann_Northumbria }
-		position = 7
-		provinces_to_highlight = {
-			OR = {
-				area = east_anglia_area
-				area = home_counties_area
-			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-		trigger = {
-			east_anglia_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			home_counties_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-		}
-		effect = {
-			add_prestige = 50
+			
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			add_yearly_manpower = 1
 		}
 	}
 }
 
-Mann_missions_5 = {
+KOI_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = KOI
+			tag = LOI
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	KOI_scotland = {
+		icon = mission_rb_conquer_scotland
+		required_missions = { KOI_forcelimit }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = highlands_area
+				area = lowlands_area
+				area = kingdom_of_the_isles_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = highlands_area
+					area = lowlands_area
+					area = kingdom_of_the_isles_area
+				}
+				value = 10
+			}
+		}
+		effect = {
+			add_yearly_manpower = 1
+			
+			custom_tooltip = " "
+			
+			# clans of scotland event with another privilege for da clans
+			country_event_with_effect_insight = {
+				id = ME_Mann_Events.3
+				effect = "
+					custom_tooltip = KOI_upgrade_the_oigh
+					set_country_flag = KOI_upgrade_the_oigh
+					
+					custom_tooltip = \" \"
+					
+					add_country_modifier = {
+						name = KOI_the_scottish_loyalty
+						duration = -1
+					}
+					
+					ME_add_power_projection = { amount = 15 }
+				"
+			}
+		}
+	}
+	
+	KOI_scandinavia = {
+		icon = mission_conquer_sweden
+		required_missions = { KOI_jorvik KOI_orkney }
+		position = 4
+		provinces_to_highlight = {
+			region = scandinavia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = scandinavia_region
+				value = 15
+			}
+		}
+		effect = {
+			ME_give_claims = { region = scandinavia_region }
+			
+			custom_tooltip = " " 
+			
+			add_adm_power = 75
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				name = KOI_scandinavia_modifier
+				duration = -1
+				age = age_of_discovery
+			}
+		}
+	}
+	
+	KOI_north_sea_empire = {
+		icon = mission_north_sea_empire
+		required_missions = { KOI_scandinavia KOI_england }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				region = british_isles_region
+				region = scandinavia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns_core_province = 1		# Uppland
+			owns_core_province = 12		# Sjaelland		
+			owns_core_province = 17		# Akershus		
+			owns_core_province = 236    # London
+			owns_core_province = 246    # Northumberland	
+			owns_core_province = 240    # Shrewsbury
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = british_isles_region
+					region = scandinavia_region
+				}
+				value = 50
+			}
+			total_development = 500
+			army_size = 100
+		}
+		effect = {
+			
+			#some global event with rename
+			country_event_with_effect_insight = {
+				id = ME_Mann_Events.5
+				effect = "
+					set_government_rank = 3
+		
+					custom_tooltip = \" \" 
+					
+					add_country_modifier = {
+						name = KOI_north_sea_empire_modifier
+						duration = -1
+					}
+					
+					change_tag = NSE
+					country_event = { id = ideagroups.1 }
+
+				"
+					#custom_tooltip = KOI_we_may_change_name
+			}
+		}
+	}
+	
+	KOI_recognize_clansman = {
+		icon = mission_rb_rein_in_the_highland_clans
+		required_missions = { KOI_clans }
+		position = 7
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_estate_agendas_completed = {
+				estate = estate_clans
+				value = 3
+			}
+			estate_loyalty = {
+				estate = estate_clans
+				loyalty = 65
+			}
+		}
+		effect = {
+			custom_tooltip = KOI_upgrade_clann_assembly
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = GRA_military_writer
+				skill = 2
+				cost_multiplier = 0.25
+				culture = highland_scottish
+				religion = ROOT
+			}
+		}
+	}
+}
+
+KOI_missions_5 = {
 	slot = 5
 	generic = no
 	ai = yes
 	potential = {
-		tag = KOI
+		OR = {
+			tag = KOI
+			tag = LOI
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
-	Mann_King_Isles = {
-		icon = mission_have_two_subjects
-		required_missions = { Mann_Isles }
-		position = 2
+	KOI_boy_to_man = {
+		icon = mission_rb_control_electors
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
 		trigger = {
-			prestige = 15
-			legitimacy_equivalent = 15
+			OR = {
+				grown_by_development = 25
+				share_of_starting_income = 1.5
+			}
 		}
 		effect = {
 			add_country_modifier = {
-				name = "mann_isles"
-				duration = -1
+				name = KOI_nation_of_mann_is_a_man
+				duration = 10950
 			}
+			
+			add_adm_power = 25
+			add_dip_power = 25
+			add_mil_power = 25
 		}
 	}
 	
-	Mann_King_Scotland = {
-		icon = mission_monarch_in_throne_room
-		required_missions = { Mann_east_scotia Mann_King_Isles }
+	KOI_jorvik = {
+		icon = mission_rb_into_england
+		required_missions = { KOI_boy_to_man }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = yorkshire_area
+				area = scottish_marches_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = yorkshire_area
+					area = scottish_marches_area
+				}
+				value = 5
+			}
+		}
+		effect = {
+			ME_give_claims = { area = west_midlands_area }
+			ME_give_claims = { area = east_midlands_area }
+			ME_give_claims = { area = wales_area }
+			ME_give_claims = { area = home_counties_area }
+			ME_give_claims = { area = wessex_area }
+			ME_give_claims = { area = east_anglia_area }
+			
+			ME_give_claims = { area = denmark_area }
+			ME_give_claims = { area = jutland_area }
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = english }
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 15 }
+		}
+	}
+	
+	KOI_england = {
+		icon = mission_rb_angevin_kingdom
+		required_missions = { KOI_jorvik }
 		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = west_midlands_area
+				area = east_midlands_area
+				area = wales_area
+				area = home_counties_area
+				area = wessex_area
+				area = east_anglia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
 		trigger = {
-			prestige = 30
-			legitimacy_equivalent = 30
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = west_midlands_area
+					area = east_midlands_area
+					area = wales_area
+					area = home_counties_area
+					area = wessex_area
+					area = east_anglia_area
+				}
+				value = 19
+			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = "mann_scotland"
-				duration = -1
+			country_event_with_effect_insight = {
+				id = ME_Mann_Events.6 
+				effect = "
+					if = {
+						limit = {
+							has_dlc = \"Rule Britannia\"
+						}
+						custom_tooltip = KOI_unlock_wooden_wall
+						custom_tooltip = \" \"
+					}
+					ME_add_power_projection = { amount = 40 }
+					custom_tooltip = \" \" 
+					if = {
+						limit = {
+							has_parliament = yes
+						}
+						unlock_issue = { issue = KOI_welsh_brotherhood_act }
+					}
+					custom_tooltip = ENG_unlock_the_welsh_longbowmen
+					custom_tooltip = \" \"
+					custom_tooltip = KOI_culture_welsh
+				"
 			}
 		}
 	}
 	
-	Mann_King_Ireland = {
-		icon = mission_alliances
-		required_missions = { Mann_Connacht Mann_King_Scotland }
-		position = 5
-		trigger = {
-			prestige = 45
-			legitimacy_equivalent = 45
-		}
-		effect = {
-			add_country_modifier = {
-				name = "mann_ireland"
-				duration = -1
-			}
-		}
-	}
-	
-	Mann_King_Wales = {
-		icon = mission_monarch_in_throne_room
-		required_missions = { Mann_Wales Mann_King_Ireland }
+	KOI_clans = {
+		icon = mission_rb_conquer_the_highlands
+		required_missions = { }
 		position = 6
+		provinces_to_highlight = {
+		}
 		trigger = {
-			prestige = 60
-			legitimacy_equivalent = 60
+			OR = {
+				num_of_estate_agendas_completed = {
+					estate = estate_clans
+					value = 1
+				}
+				estate_loyalty = {
+					estate = estate_clans
+					loyalty = 60
+				}
+			}
 		}
 		effect = {
-			add_country_modifier = {
-				name = "mann_wales"
-				duration = -1
+			custom_tooltip = KOI_all_provinces_of_highland
+			
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							culture = irish
+							culture = highland_scottish
+						}
+					}
+					add_nationalism = -10
+				}
 			}
+			
+			custom_tooltip = " "
+			
+			add_yearly_manpower = 0.5
 		}
 	}
 	
-	Mann_King_England = {
-		icon = mission_alliances
-		required_missions = { Mann_Anglia Mann_Hampshire Mann_King_Wales }
-		position = 8
-		trigger = {
-			prestige = 75
-			legitimacy_equivalent = 75
+	KOI_recruit_clans = {
+		icon = mission_rb_unite_the_clans
+		required_missions = { KOI_clans }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				culture = irish
+				culture = highland_scottish
+			}
+			base_manpower = 3
+			NOT = { has_manpower_building_trigger = yes }
 		}
-		effect = {
-			add_country_modifier = {
-				name = "mann_england"
-				duration = -1
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					culture = irish
+					culture = highland_scottish
+				}
+				has_manpower_building_trigger = yes
+				base_manpower = 3
+				value = 7
 			}
 		}
-	}
-	
-	Mann_Emperor_Brittannia = {
-		icon = mission_empire
-		required_missions = { Mann_King_England }
-		position = 9
-		trigger = {
-			prestige = 100
-			legitimacy_equivalent = 100
-		}
 		effect = {
-			remove_country_modifier = mann_england
-			remove_country_modifier = mann_isles
-			remove_country_modifier = mann_wales
-			remove_country_modifier = mann_ireland
-			remove_country_modifier = mann_scotland
-			add_country_modifier = {
-				name = "mann_britannia"
-				duration = -1
+			create_general_with_pips = {
+				tradition = 85
+				add_shock = 2
 			}
+			
+			custom_tooltip = " "
+			
+			#upgrade priv or grant manpower
+			
+			add_years_of_owned_provinces_manpower = {
+				years = 0.5
+				trigger = {
+					OR = {
+						culture = irish
+						culture = highland_scottish
+					}
+				}
+				custom_tooltip = KOI_irish_and_highlander
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = KOI_upgrade_gallowglasses
 		}
 	}
 }

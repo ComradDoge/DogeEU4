@@ -1,0 +1,902 @@
+WLS_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = WLS
+	}
+	has_country_shield = yes
+
+	#WLS_sanction_for_independence = {
+	#	icon = sway_the_pope
+	#	required_missions = { }
+	#	position = 1
+	#	provinces_to_highlight = {
+	#		owned_by = PAP
+	#	}
+	#	trigger = {
+	#		OR = {
+	#			PAP = {
+	#				has_opinion = {
+	#					who = ROOT 
+	#					value = 100 
+	#				}
+	#			}
+	#			is_subject = no
+	#		}
+	#	}
+	#	effect = {
+	#		complex_dynamic_effect = {
+	#			first_custom_tooltip = WLS_if_done_via_papal_opinion
+	#			first_limit = "
+	#				PAP = {
+	#					has_opinion = {
+	#						who = ROOT 
+	#						value = 100 
+	#					}
+	#				}
+	#			"
+	#			first_effect = "
+	#				add_country_modifier = {
+	#					name = WLS_papal_intervention
+	#					duration = 7300
+	#				}
+	#				
+	#				add_papal_influence = 20
+	#			"
+	#			second_custom_tooltip = WLS_if_done_via_independence
+	#			second_limit = "is_subject = no"
+	#			second_effect = "
+	#				add_country_modifier = {
+	#					name = WLS_fight_for_life
+	#					duration = 10950
+	#				}
+	#				
+	#				add_dip_power = 50
+	#			"
+	#		}
+	#	}
+	#}
+
+	WLS_princeps_walliae = {
+		icon = mission_rb_conquer_wales
+		required_missions = { WLS_legacy_of_owain }
+		position = 2
+		provinces_to_highlight = {
+			area = wales_area
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			total_development = 150
+			army_size = 20
+			wales_area = {
+				type = all
+				owned_by = ROOT 
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = WLS_tywysog_cymru
+				duration = -1
+			}
+			
+			wales_area = {
+				add_permanent_province_modifier = {
+					name = WLS_the_cambrian_main
+					duration = -1
+				}
+			}
+			
+			add_adm_power = 75 
+			add_dip_power = 75 
+			add_mil_power = 75
+		}
+	}
+
+	WLS_navy = {
+		icon = mission_rb_a_mighty_fleet
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 241
+		}
+		trigger = {
+			OR = {
+				241 = {
+					owned_by = ROOT
+					has_dock_building_trigger = yes
+					has_shipyard_building_trigger = yes
+				}
+				AND = {
+					navy_size = 10
+					num_of_admirals = 1
+				}
+			}
+		}
+		effect = {
+			ME_give_claims = { area = leinster_area }
+			ME_give_claims = { area = munster_area }
+			ME_give_claims = { area = ulster_area }
+			ME_give_claims = { area = connacht_area }
+			
+			custom_tooltip = " "
+			
+			create_admiral = {
+				tradition = 60
+				culture = cosmopolitan_french
+			}
+			custom_tooltip = WLS_admiral_will_bear_a_french_name
+			
+			custom_tooltip = " "
+			
+			add_navy_tradition = 10 
+		}
+	}
+
+	WLS_ireland = {
+		icon = mission_rb_into_ireland
+		required_missions = { WLS_navy }
+		position = 4
+		provinces_to_highlight = {
+			OR = {				
+				area = leinster_area
+				area = connacht_area
+				area = ulster_area
+				area = munster_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {				
+					area = leinster_area
+					area = connacht_area
+					area = ulster_area
+					area = munster_area
+				}
+				value = 10
+			}
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = irish }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = WLS_submission_of_the_irish
+				duration = -1
+			}
+		}
+	}
+}
+
+WLS_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = WLS
+	}
+	has_country_shield = yes
+
+	WLS_legacy_of_owain = {
+		icon = mission_rb_control_electors
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				army_size = 8
+				army_size_percentage = 0.9
+			}
+		}
+		effect = {
+			ME_give_claims = { area = wessex_area }
+			ME_give_claims = { area = home_counties_area }
+			ME_give_claims = { area = west_midlands_area }
+			ME_give_claims = { area = east_midlands_area }
+			ME_give_claims = { area = east_anglia_area }
+			ME_give_claims = { area = yorkshire_area }
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 10 }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = WLS_revolt_against_the_english
+				duration = 10950 
+			}
+		}
+	}
+
+	WLS_conquer_dumnonia = {
+		icon = mercenary_companies
+		required_missions = { WLS_legacy_of_owain }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 233 
+				province_id = 4373 
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			233 = { country_or_non_sovereign_subject_holds = ROOT }
+			4373 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			add_country_modifier = {
+				name = WLS_cornish_brotherhood
+				duration = -1
+			}
+			
+			233 = {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1 
+			}
+			
+			4373 = {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1 
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = WLS_turn_cornish_welsh
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture = cornish
+					}
+					WLS_turn_province_welsh = yes
+				}
+			}
+		}
+	}
+
+	WLS_pendragon = {
+		icon = mission_unite_home_region
+		required_missions = { WLS_conquer_dumnonia WLS_scotland WLS_ireland }
+		position = 5
+		provinces_to_highlight = {
+			region = british_isles_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = british_isles_region
+				value = 40
+			}
+			total_own_and_non_tributary_subject_development = 650
+			# ME_pt_feedback_requested = yes 
+		}
+		effect = {
+			hidden_effect = {
+				remove_country_modifier = WLS_cornish_brotherhood
+				remove_country_modifier = WLS_submission_of_the_irish
+				remove_country_modifier = WLS_scottish_clans
+				add_country_modifier = {
+					name = WLS_pen_draic
+					duration = -1 
+				}
+			}
+			custom_tooltip = WLS_merge_modifiers
+		
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					NOT = { government_rank = 3 }
+				}	
+				set_government_rank = 3
+				
+				custom_tooltip = " "
+			}
+			
+			custom_tooltip = WLS_title_of_our_ruler_will_be_pendragon
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_Wales_Events.3
+				option_1 = "
+					ME_override_country_name = { string = WLS_CAMBRIA }
+				"
+				option_2 = "
+					ME_override_country_name = { string = WLS_CYMRU }
+				"
+				option_3 = "
+					ME_override_country_name = { string = WLS_PRYDAIN }
+				"
+				option_4 = "
+					custom_tooltip = QIR_nothing_will_happen
+				"
+			}
+		}
+	}
+}
+
+WLS_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = WLS
+	}
+	has_country_shield = yes
+	
+	WLS_england = {
+		icon = mission_rb_empire
+		required_missions = { WLS_legacy_of_owain }
+		position = 2
+		provinces_to_highlight = {
+			OR = {				
+				area = wessex_area
+				area = home_counties_area
+				area = west_midlands_area
+				area = east_midlands_area
+				area = east_anglia_area
+				area = yorkshire_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {				
+					area = wessex_area
+					area = home_counties_area
+					area = west_midlands_area
+					area = east_midlands_area
+					area = east_anglia_area
+					area = yorkshire_area
+				}
+				value = 18
+			}
+		}
+		effect = {
+			ME_give_claims = { area = lowlands_area } 
+			ME_give_claims = { area = highlands_area } 
+			ME_give_claims = { area = kingdom_of_the_isles_area }
+			
+			custom_tooltip = " "
+			
+			define_general = {
+				shock = 4
+				fire = 2
+				manuever = 3
+				siege = 2
+				name = "Rhys ap Thomas"
+			}
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = ME_Wales_Events.2
+				option_1 = "
+					custom_tooltip = WLS_two_random_english_provs
+					
+					custom_tooltip = \" \"
+					
+					add_country_modifier = {
+						name = WLS_laws_in_lleogr_act
+						duration = -1
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = WLS_battle_of_menedd_hyddgen
+						duration = -1
+					}
+					
+					add_prestige_or_monarch_power = { amount = 20 }
+				"
+			}
+		}
+	}
+	
+	WLS_scotland = {
+		icon = mission_rb_conquer_scotland
+		required_missions = { WLS_england }
+		position = 4
+		provinces_to_highlight = {
+			OR = {				
+				area = kingdom_of_the_isles_area
+				area = highlands_area
+				area = lowlands_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {				
+					area = kingdom_of_the_isles_area
+					area = highlands_area
+					area = lowlands_area
+				}
+				value = 10
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = WLS_scottish_clans
+				duration = -1
+			}
+			
+			add_accepted_culture_or_dip_power = { culture = highland_scottish }
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 100
+		}
+	}
+	
+	WLS_clans = {
+		icon = mission_rb_unite_the_clans
+		required_missions = { WLS_cyfraith_hywel }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit  = {
+					has_estate = estate_clans
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_clans
+						loyalty = 60 
+					}
+					num_of_estate_privileges = {
+						estate = estate_clans
+						value = 4 
+					}
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_clans
+					value = 2 
+				}
+			}
+			else_if = { 
+				limit = {
+					has_estate = estate_nobles
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_nobles
+					value = 3
+				}
+			}
+			else = {
+				OR = {
+					monthly_mil = 10
+					has_mil_advisor_3 = yes
+				}
+				NOT = { average_autonomy_above_min = 10 }
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_estate = estate_clans
+				}
+				country_event_with_option_insight = {
+					id = ME_Wales_Events.8
+					option_1 = "
+						add_country_modifier = {
+							name = WLS_clans_loyalty
+							duration = -1
+						}
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = WLS_clans_influence
+							duration = -1
+						}
+					"
+					option_3 = "
+						add_country_modifier = {
+							name = WLS_clans_privilege_slot
+							duration = -1
+						}
+					"
+				}
+			}
+			else_if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				custom_tooltip = WLS_buff_increased_levies_priv
+				set_country_flag = WLS_buff_increased_levies_priv_flag
+				
+				custom_tooltip = " "
+				
+				add_mil_power = 100 
+			}
+			else = {
+				add_stability_or_adm_power = yes
+				
+				custom_tooltip = " "
+				
+				define_advisor = {
+					type = quartermaster
+					cost_multiplier = 0.33
+					skill = 2
+					culture = ROOT
+					religion = ROOT
+				}
+			}
+		}
+	}
+}
+
+WLS_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = WLS
+	}
+	has_country_shield = yes
+
+	WLS_nobles = {
+		icon = mission_rb_conquer_the_highlands
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 60
+					}
+					num_of_estate_agendas_completed = {
+						estate = estate_nobles
+						value = 1
+					}
+					num_of_estate_privileges = {
+						estate = estate_nobles
+						value = 5 
+					}
+				}
+			}
+			else = {
+				stability = 2
+				has_mil_advisor = yes
+			}
+		}
+		effect = {
+			country_event_with_effect_insight = {
+				id = ME_Wales_Events.5
+				effect = "
+					add_manpower = 5.154 #random number that seems immersive
+					
+					custom_tooltip = \" \"
+					
+					add_country_modifier = {
+						name = WLS_great_rebellion
+						duration = 7300
+					}
+				"
+			}
+		}
+	}
+
+	WLS_repeal_statutes = {
+		icon = english_alliance #ironic
+		required_missions = { }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				OR = {
+					is_subject = no
+					overlord = { 
+						reverse_has_opinion = {
+							who = ROOT
+							value = 200 
+						}
+					}
+				}
+			}
+			else = {
+				is_subject = no 
+			}
+			reform_level = 2
+			OR = {
+				monthly_dip = 9
+				has_dip_advisor_2 = yes 
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = WLS_stattutum_valiae_repealed
+				duration = 10950
+			}
+			
+			add_legitimacy_or_reform_progress = { amount = 25 }
+			
+			custom_tooltip = " "
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+
+	WLS_cyfraith_hywel = {
+		icon = mission_rb_college_of_justice
+		required_missions = { WLS_repeal_statutes }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = all
+				loyalty = 55 
+			}
+			OR = {
+				reform_level = 3	
+				has_adm_advisor_2 = yes
+			}
+			capital_scope = {
+				has_courthouse_building_trigger = yes 
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_province_modifier = {
+					name = WLS_welsh_law_upheld
+					duration = -1
+				}
+			}
+			
+			country_event_with_option_insight = {
+				id = ME_Wales_Events.7
+				option_1 = "
+					set_country_flag = WLS_enable_clans_estate
+					custom_tooltip = WLS_enable_clans_estate_tt
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = WLS_estates_modifier
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+
+	WLS_senedd = {
+		icon = mission_rb_the_bank_of_scotland
+		required_missions = { WLS_cyfraith_hywel }
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_issues_passed = { 
+				amount = 4
+				alternative_trigger = "
+					stability = 3 
+				"
+			}
+			
+			reform_level = 4
+		}
+		effect = {
+			add_adm_power = 100
+			
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_tooltip = " "
+				capital_scope = { add_prosperity = 100 }
+			}
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_parliament = yes 
+				}
+				country_event_with_option_insight = {
+					id = ME_Wales_Events.6
+					option_1 = "
+						set_country_flag = WLS_senedd_benefit_reform_flag
+						custom_tooltip = WLS_senedd_benefit_reform_flag_tt
+						
+						custom_tooltip = \" \"
+						
+						change_government_reform_progress = 10 
+					"
+					option_2 = "
+						set_country_flag = WLS_senedd_benefit_loyalty_flag
+						custom_tooltip = WLS_senedd_benefit_loyalty_flag_tt
+						
+						custom_tooltip = \" \"
+						
+						add_estate_loyalty = {	
+							estate = all 
+							loyalty = 10
+						}
+					"
+				}
+			}
+			else = {
+				add_estate_loyalty = {
+					estate = all 
+					loyalty = 25
+				}
+				
+				custom_tooltip = " "
+				
+				change_government_reform_progress = 25 
+			}
+		}
+	}
+}
+
+WLS_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = WLS
+	}
+	has_country_shield = yes
+
+	WLS_welsh_longbowmen = {
+		icon = protect_against_austria
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			owned_by = ROOT
+			culture = ROOT
+			NOT = { has_manpower_building_trigger = yes }
+			NOT = { base_manpower = 4 }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture = ROOT 
+				OR = {
+					has_manpower_building_trigger = yes
+					base_manpower = 4 
+				}
+				value = 3
+			}
+			OR = {
+				army_tradition = 30
+				has_mil_advisor_2 = yes
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = WLS_longbowmen
+				duration = -1
+				age = age_of_discovery
+				else = "
+					create_general_with_pips = { 
+						tradition = 50
+						add_fire = 2 
+					}
+				"
+			}
+			
+			add_yearly_manpower = 1
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 25
+		}
+	}
+
+	WLS_land_of_castles = {
+		icon = mission_conquer_mewar
+		required_missions = { WLS_welsh_longbowmen WLS_nobles }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				fortification_expert = 1
+				has_mil_advisor_2 = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = NED_gains_05_army_trad
+				has_global_modifier_value = {
+					which = fort_bonus_check_influence
+					value = 0.5
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = WLS_defend_the_interior
+				duration = -1
+			}
+			
+			define_advisor = {
+				type = fortification_expert
+				cost_multiplier = 0.33
+				skill = 2
+				culture = ROOT 
+				religion = ROOT 
+			}
+			
+			custom_tooltip = " "
+			
+			capital_scope = { add_base_manpower = 2 }
+		}
+	}
+	
+	WLS_language = {
+		icon = mission_vedic_education
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			culture = ROOT
+		}
+		trigger = {
+			development_in_provinces = {
+				culture = ROOT
+				value = 25
+			}
+		}
+		effect = {
+			define_advisor = {
+				name = "Dafydd ab Edmwnd"
+				type = ME_bard
+				skill = 1
+				cost_multiplier = 0.33
+				culture = ROOT
+				religion = ROOT
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = WLS_hold_eisteddfod
+		}
+	}
+	
+	WLS_celtic_revival = {
+		icon = personal_diplomacy
+		required_missions = { WLS_cyfraith_hywel WLS_language }
+		position = 5
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { culture = ROOT }
+		}
+		trigger = {
+			num_of_provinces_culture_converted = { amount = 10 }
+			custom_trigger_tooltip = {
+				tooltip = WLS_3_eisteddfods
+				check_variable = {
+					which = num_of_eisteddfods_held
+					value = 3
+				}
+			}
+			OR = {
+				ME_bard = 2
+				has_adm_advisor_3 = yes 
+			}
+		}
+		effect = {
+			custom_tooltip = WLS_unlock_new_options_for_eisteddfod
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = WLS_unlock_bardic_system_privilege
+		}
+	}
+}

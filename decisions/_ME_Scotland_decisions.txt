@@ -1,0 +1,153 @@
+country_decisions = {
+	EE_SCO_unlock_purchase_north_atlantic_decision = {
+		potential = { 
+			tag = SCO
+			has_country_flag = EE_SCO_unlock_purchase_north_atlantic_decision_flag
+			north_atlantic_area = {
+				type = all
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				OR = {
+					owned_by = DAN
+					owned_by = NOR
+				}
+			}
+		}
+		provinces_to_highlight = { area = north_atlantic_area }
+		allow = { treasury = 100 }
+		effect = {
+			north_atlantic_area = {
+				owner = {
+					country_event = {
+						id = EE_Scotland_Events.7
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	EE_SCO_CLT_formable = {
+		potential = { 
+			mission_completed = EE_Scotland_formalize_union
+			tag = SCO
+		}
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { culture = english }
+			NOT = { culture = cornish }
+			OR = {
+				region = british_isles_region
+				area = brittany_area
+			}
+		}
+		allow = {
+			NOT = { exists = CLT }
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			legitimacy_equivalent = 100
+			373 = { owned_by = ROOT }
+			british_isles_region = {
+				NOT = { culture = english }
+				NOT = { culture = cornish }
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			if = {
+				limit = {
+					BRI = { is_subject_of = ROOT }
+				}
+				BRI = { 
+					NOT = { num_of_cities = 6 }
+				}
+			}
+			if = {
+				limit = {
+					WLS = { is_subject_of = ROOT }
+				}
+				WLS = {
+					NOT = { num_of_cities = 6 }
+				}
+			}
+		}
+		effect = {
+			change_tag = CLT
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { government_rank = 1 }
+				set_government_rank = 2
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			if = {
+				limit = { 
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			if = {
+				limit = {
+					NOT = { culture_group = gaelic }
+				}
+				change_primary_culture = irish
+			}
+			country_event = {
+				id = EE_Celtica_Events.1
+			}
+			clr_country_flag = EE_BRI_empowered_clergy_privilege
+			set_country_flag = formed_ireland_flag
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	EE_SCO_preview_decision = {
+		potential = {
+			tag = SCO
+			NOT = { has_country_flag = EE_SCO_clans_scotland_flag }
+			NOT = { has_country_flag = EE_SCO_new_future_flag }
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			country_event = {
+				id = EE_Scotland_Events.10
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EE_SCO_preview_decision_final = {
+		potential = {
+			tag = SCO
+			OR = {
+				has_country_flag = EE_SCO_clans_scotland_flag
+				has_country_flag = EE_SCO_new_future_flag
+			}
+			NOT = { has_country_flag = EE_SCO_Nation's_Fate_happened }
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			custom_tooltip = EE_BRI_preview_mode_stops
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = EE_SCO_clans_scotland_flag }
+					clr_country_flag = EE_SCO_clans_scotland_flag
+				}
+				else = { clr_country_flag = EE_SCO_new_future_flag }
+				clr_country_flag = EE_BRI_preview_missions
+				swap_non_generic_missions = yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

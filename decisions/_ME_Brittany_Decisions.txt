@@ -1,0 +1,307 @@
+country_decisions = {
+	EE_BRI_New_Britain = {
+		potential = {
+			always = no # 
+			tag = BRI
+			mission_completed = EE_Brittany_Crown_Britain 
+		}
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			region = british_isles_region
+		}
+		allow = {
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			legitimacy_equivalent = 100
+			NOT = { exists = GBR }
+			british_isles_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			OR = {
+				AND = {
+					exists = ENG
+					ENG = {
+						is_subject_of = ROOT
+						NOT = { num_of_cities = 41 }
+					}
+				}
+				NOT = { exists = ENG }
+			}
+			OR = {
+				AND = {
+					exists = SCO
+					SCO = {
+						is_subject_of = ROOT
+						NOT = { num_of_cities = 15 }
+					}
+				}
+				NOT = { exists = SCO }
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					SCO = { is_subject_of = ROOT }
+				}
+				inherit = SCO
+			}
+			if = {
+				limit = {
+					ENG = { is_subject_of = ROOT }
+				}
+				inherit = ENG
+			}
+			change_tag = GBR
+			restore_country_name = yes
+			swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { government_rank = 1 }
+				set_government_rank = 2
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			if = {
+				limit = { 
+					has_custom_ideas = no
+					NOT = { has_idea_group = GBR_ideas }
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			hidden_effect = {
+				complete_mission = eng_mighty_army
+				complete_mission = conquer_scotland
+				complete_mission = eng_rb_war_of_roses	
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	EE_BRI_CLT_formable = {
+		potential = {
+			always = no
+			NOT = { tag = CEE }
+			tag = BRI
+			mission_completed = EE_Brittany_Unite_Celts 
+		}
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { culture = english }
+			NOT = { culture = cornish }
+			OR = {
+				region = british_isles_region
+				area = brittany_area
+			}
+		}
+		allow = {
+			NOT = { exists = CEE }
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			373 = { owned_by = ROOT }
+			british_isles_region = {
+				NOT = { culture = english }
+				NOT = { culture = cornish }
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			change_tag = CEE
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { government_rank = 1 }
+				set_government_rank = 2
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			#if = {
+			#	limit = { 
+			#		has_custom_ideas = no
+			#		NOT = { has_idea_group = CLT_ideas }
+			#	}
+			#	country_event = { id = ideagroups.1 } #Swap Ideas
+			#}
+			country_event = {
+				id = EE_Celtica_Events.1
+			}
+			clr_country_flag = EE_BRI_empowered_clergy_privilege
+			set_country_flag = formed_ireland_flag
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	EE_BRI_preview_decision = {
+		potential = { 
+			tag = BRI
+			NOT = { has_country_flag = EE_BRI_chose_France }
+			NOT = { has_country_flag = EE_BRI_chose_England }
+			NOT = { has_country_flag = EE_BRI_chose_own_path }
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			country_event = {
+				id = EE_Brittany_Events.21
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EE_BRI_preview_decision_final = {
+		potential = {
+			tag = BRI
+			OR = {
+				has_country_flag = EE_BRI_chose_France
+				has_country_flag = EE_BRI_chose_England
+				has_country_flag = EE_BRI_chose_own_path
+			}
+			NOT = { has_country_flag = EE_BRI_Lesser_of_2_evils_event_choice }
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			custom_tooltip = EE_BRI_preview_mode_stops
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = EE_BRI_chose_France }
+					clr_country_flag = EE_BRI_chose_France
+				}
+				if = {
+					limit = { has_country_flag = EE_BRI_chose_England }
+					clr_country_flag = EE_BRI_chose_England
+				}
+				else = { clr_country_flag = EE_BRI_chose_own_path }
+				clr_country_flag = EE_BRI_preview_missions
+				swap_non_generic_missions = yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EE_Loire_Valley_Deal = {
+		potential = { 
+			has_country_flag = EE_BRI_EE_Brittany_Uphold_Deal_completed
+			177 = {
+				NOT = { owned_by = BRI }
+			}
+			4389 = {
+				NOT = { owned_by = BRI }
+			} 
+		}
+		allow = { treasury = 150 }
+		effect = {
+			177 = {
+				owner = {
+					country_event = {
+						id = EE_Brittany_Events.4
+					}
+				}
+			}
+			4389 = {
+				owner = {
+					country_event = {
+						id = EE_Brittany_Events.4
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	ME_BRI_unlock_decision_move_fort_decision = {
+		potential = {
+			has_country_flag = ME_BRI_unlock_decision_move_fort
+			170 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+			}
+			171 = {
+				owned_by = ROOT
+				NOT = { has_fort_building_trigger = yes }
+			}
+		}
+		allow = {
+			170 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+			}
+			171 = {
+				owned_by = ROOT
+				NOT = { has_fort_building_trigger = yes }
+			}
+		}
+		effect = {
+			clr_country_flag = ME_BRI_unlock_decision_move_fort
+			if = {
+				limit = {
+					170 = { has_building = fort_15th }
+				}
+				170 = { remove_building = fort_15th }
+				171 = { 
+					add_building = fort_15th
+					add_province_modifier = {
+						name = ME_BRI_bastion
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					170 = { has_building = fort_16th }
+				}
+				170 = { remove_building = fort_16th }
+				171 = { 
+					add_building = fort_16th
+					add_province_modifier = {
+						name = ME_BRI_bastion
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					170 = { has_building = fort_17th }
+				}
+				170 = { remove_building = fort_17th }
+				171 = { 
+					add_building = fort_17th 
+					add_province_modifier = {
+						name = ME_BRI_bastion
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					170 = { has_building = fort_18th }
+				}
+				170 = { remove_building = fort_18th }
+				171 = { 
+					add_building = fort_18th 
+					add_province_modifier = {
+						name = ME_BRI_bastion
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

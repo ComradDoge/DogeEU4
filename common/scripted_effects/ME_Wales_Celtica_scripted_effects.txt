@@ -1,0 +1,886 @@
+EE_CLT_on_province_owner_change_government_effect = {
+	if = {
+		limit = {
+			OR = {
+				has_province_modifier = workshop_bonus_prod
+				has_province_modifier = counting_house_bonus_prod
+			}
+			FROM = { has_reform = EE_modernize_industrial_sector }
+			NOT = { owner = { has_reform = EE_modernize_industrial_sector } }
+		}
+		remove_province_modifier = workshop_bonus_prod
+		remove_province_modifier = counting_house_bonus_prod
+	}
+	if = {
+		limit = {
+			NOT = {
+				OR = {
+					has_province_modifier = workshop_bonus_prod
+					has_province_modifier = counting_house_bonus_prod
+				}
+			}
+			owner = { has_reform = EE_modernize_industrial_sector }
+			NOT = { FROM = { has_reform = EE_modernize_industrial_sector } }
+		}
+		hidden_effect = {
+			if = {
+				limit = { has_building = workshop }
+				add_province_modifier = { 
+					name = workshop_bonus_prod
+					duration = -1
+					hidden = yes
+				}
+			}
+			if = {
+				limit = { has_building = counting_house }
+				add_province_modifier = { 
+					name = counting_house_bonus_prod
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+	}
+}
+
+EE_CLT_1st_complex_effect = {
+	custom_tooltip = EE_CLT_if_NOT_cath_tt_1
+	add_country_modifier = {
+		name = EE_CLT_state_sponsored_conversions
+		duration = 9125
+	}
+	hidden_effect = {
+		if = {
+			limit = { religion = protestant }
+			capital_scope = { add_reform_center = protestant }
+		}
+		else_if = {
+			limit = { religion = anglican }
+			capital_scope = { add_reform_center = anglican }
+		}
+		else_if = {
+			limit = { religion = reformed }
+			capital_scope = { add_reform_center = reformed }
+		}
+	}	
+}
+
+EE_CLT_2nd_complex_effect = {
+	custom_tooltip = EE_CLT_if_subject_colonial_tt_1
+	add_years_of_income = 0.5
+	hidden_effect = {
+		if = {
+			limit = {
+				any_subject_country = {
+					is_colonial_nation = yes
+					num_of_owned_provinces_with = {
+						value = 1
+						region = hudson_bay_region
+					}
+					colonial_parent = {
+						is_subject_other_than_tributary_trigger = yes
+						is_subject_of = ROOT
+						capital_scope = { has_province_modifier = EE_CLT_colonial_rush }
+					}
+				}
+			}
+			every_subject_country = {
+				limit = {
+					colony = 1
+					is_subject_other_than_tributary_trigger = yes
+					is_subject_of = ROOT
+					capital_scope = { has_province_modifier = EE_CLT_colonial_rush }
+				}
+				capital_scope = {
+					extend_province_modifier = {
+						name = EE_CLT_colonial_rush
+						duration = 9125
+					}
+				}
+			}
+		}
+		else = {
+			every_subject_country = {
+				limit = {
+					colony = 1
+					is_subject_other_than_tributary_trigger = yes
+					is_subject_of = ROOT
+					capital_scope = { has_province_modifier = EE_CLT_colonial_rush }
+				}
+				capital_scope = {
+					add_province_modifier = {
+						name = EE_CLT_colonial_rush
+						duration = 9125
+					}
+				}
+			}
+		}
+	}	
+}
+
+EE_CLT_3_complex_effect = {
+	custom_tooltip = EE_CLT_reward_if_direct_tt_11
+	tooltip = {
+		create_colony = 200
+		add_province_modifier = {
+			name = EE_CLT_colonial_ventures
+			duration = 9125
+		}
+	}
+	hidden_effect = {
+		newfoundland_area = {
+			random_empty_neighbor_province = {
+				create_colony = 200
+				hidden_effect = {
+					set_province_flag = EE_CLT_colony_created
+				}
+				add_province_modifier = {
+					name = EE_CLT_colonial_ventures
+					duration = 9125
+				}
+			}
+			random_empty_neighbor_province = {
+				limit = {
+					NOT = { has_province_flag = EE_CLT_colony_created }
+				}
+				create_colony = 200
+				add_province_modifier = {
+					name = EE_CLT_colonial_ventures
+					duration = 9125
+				}
+			}
+		}
+	}	
+}
+
+EE_CLT_4_complex_effect = {
+	custom_tooltip = EE_CLT_reward_if_direct_tt_1_1
+	tooltip = {
+		add_province_modifier = {
+			name = EE_CLT_colonial_rush
+			duration = 9125
+		}
+	}
+	hidden_effect = {
+		random_province = {
+			limit = {
+				area = newfoundland_area
+				owner = {
+					is_subject_other_than_tributary_trigger = yes
+					overlord = {
+						is_subject_other_than_tributary_trigger = yes
+						is_subject_of = ROOT
+					}
+				}
+			}
+			owner = {
+				overlord = {
+					capital_scope = {
+						add_province_modifier = {
+							name = EE_CLT_colonial_rush
+							duration = 9125
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+EE_CLT_4.1_complex_effect = {
+	custom_tooltip = EE_CLT_reward_if_direct_tt_1_1
+	tooltip = {
+		add_province_modifier = {
+			name = EE_CLT_colonial_rush
+			duration = 9125
+		}
+	}
+	hidden_effect = {
+		random_province = {
+			limit = {
+				area = newfoundland_area
+				owner = {
+					is_subject_other_than_tributary_trigger = yes
+					overlord = {
+						tag = ROOT
+					}
+				}
+			}
+			owner = {
+				overlord = {
+					capital_scope = {
+						add_province_modifier = {
+							name = EE_CLT_colonial_rush
+							duration = 9125
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+EE_CLT_5_complex_effect = {
+	#tooltip = {
+	#	random_province = {
+	#		limit = {
+	#			area = newfoundland_area
+	#			is_empty = yes
+	#		}
+	#		create_colony = 200
+	#		add_province_modifier = {
+	#			name = EE_CLT_colonial_ventures
+	#			duration = 9125
+	#		}
+	#	}
+	#}
+	custom_tooltip = EE_CLT_random_colony_in_newfundland
+	hidden_effect = {
+		random_province = {
+			limit = {
+				area = newfoundland_area
+				is_empty = yes
+			}
+			create_colony = 200
+			add_province_modifier = {
+				name = EE_CLT_colonial_ventures
+				duration = 9125
+			}
+		}
+	}
+}
+
+EE_CLT_6_complex_effect = {
+	custom_tooltip = EE_CLT_different_rewards_western_hemisphere_1_1
+	tooltip = {
+		add_country_modifier = {
+			name = EE_CLT_colonial_empire
+			duration = -1
+		}
+	}
+	hidden_effect = {
+		every_subject_country = {
+			limit = {
+				OR = {
+					has_subject_of_type = colony
+					has_subject_of_type = crown_colony
+					has_subject_of_type = self_governing_colony
+				}
+			}
+			add_country_modifier = {
+				name = EE_CLT_colonial_empire
+				duration = -1
+			}
+		}
+	}	
+}
+
+EE_CLT_7_complex_effect = {
+	custom_tooltip = EE_CLT_journey_east_reward_tt_2
+	tooltip = {
+		create_colony = 200
+		add_province_modifier = {
+			name = EE_CLT_colonial_ventures
+			duration = 9125
+		}
+	}
+	hidden_effect = {
+		if = {
+			limit = {
+				any_province = {
+					OR = {
+						area = benin_area
+						area = west_africa_coast_area
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			if = {
+				limit = {
+					any_province = { 
+						area = benin_area 
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				benin_area = {
+					random_empty_neighbor_province = {
+						create_colony = 200
+						set_province_flag = EE_CLT_benin_colony
+						add_province_modifier = {
+							name = EE_CLT_colonial_ventures
+							duration = 9125
+						}
+					}
+					random_empty_neighbor_province = {
+						limit = {
+							NOT = { has_province_flag = EE_CLT_benin_colony }
+						}
+						create_colony = 200
+						add_province_modifier = {
+							name = EE_CLT_colonial_ventures
+							duration = 9125
+						}
+					}
+				}
+			}
+			else = {
+				west_africa_coast_area = {
+					random_empty_neighbor_province = {
+						create_colony = 200
+						set_province_flag = EE_CLT_west_africa_colony
+						add_province_modifier = {
+							name = EE_CLT_colonial_ventures
+							duration = 9125
+						}
+					}
+					random_empty_neighbor_province = {
+						limit = {
+							NOT = { has_province_flag = EE_CLT_west_africa_colony }
+						}
+						create_colony = 200
+						add_province_modifier = {
+							name = EE_CLT_colonial_ventures
+							duration = 9125
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+EE_CLT_8_complex_effect = {
+	custom_tooltip = EE_CLT_journey_east_reward_tt_11
+	tooltip = {
+		add_country_modifier = {
+			name = EE_CLT_scramble_africa
+			duration = 9125
+		}
+	}
+	hidden_effect = {
+		random_country = {
+			limit = {
+				is_subject_other_than_tributary_trigger = yes
+				overlord = {
+					is_subject_other_than_tributary_trigger = yes
+					is_subject_of = ROOT
+				}
+				any_owned_province = {
+					OR = {
+						area = benin_area
+						area = west_africa_coast_area
+					}
+				}
+			}
+			add_country_modifier = {
+				name = EE_CLT_scramble_africa
+				duration = 9125
+			}
+		}
+	}
+}
+
+ME_CLT_add_federation_points_effect = {
+	if = {
+		limit = { has_government_mechanic = ME_Celtica_federation_mechanic }
+		add_government_power = {
+			mechanic_type = ME_Celtica_federation_mechanic
+			power_type = ME_Celtica_tribal_allegiance
+			value = 1
+		}
+	}
+}
+
+ME_CLT_3rd_option_tt = {
+	yorkshire_area = {
+		add_province_modifier = {
+			name = EE_CLT_Back_Celtic_Fold
+			duration = 18250
+		}
+	}
+	east_midlands_area = {
+		add_province_modifier = {
+			name = EE_CLT_Back_Celtic_Fold
+			duration = 18250
+		}
+	}
+	east_anglia_area = {
+		add_province_modifier = {
+			name = EE_CLT_Back_Celtic_Fold
+			duration = 18250
+		}
+	}
+	home_counties_area = {
+		add_province_modifier = {
+			name = EE_CLT_Back_Celtic_Fold
+			duration = 18250
+		}
+	}
+}
+
+ME_CLT_move_capital_unified_on_action_effect = {
+	if = {
+		limit = {
+			owner = { has_country_flag = EE_CLT_start_move_effect }
+		}
+		owner = {
+			every_owned_province = {
+				limit = { has_province_modifier = EE_CLT_Itinerant_capital }
+				remove_province_modifier = EE_CLT_Itinerant_capital
+			}
+		}
+		add_province_modifier = {
+			name = EE_CLT_Itinerant_capital
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = { has_country_flag = EE_CLT_start_move_effect }
+			culture = breton_celtic
+		}
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = EE_CLT_Irish_Identity_1
+					has_province_modifier = EE_CLT_ScotsGaels_Identity_1
+					has_province_modifier = EE_CLT_highlander_Identity_1
+					has_province_modifier = EE_CLT_Welsh_Identity_1
+				}
+			}
+			remove_province_modifier = EE_CLT_Irish_Identity_1
+			remove_province_modifier = EE_CLT_ScotsGaels_Identity_1
+			remove_province_modifier = EE_CLT_highlander_Identity_1
+			remove_province_modifier = EE_CLT_Welsh_Identity_1
+		}
+		add_province_modifier = {
+			name = EE_CLT_Breton_Identity_1
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			owner = { has_country_flag = EE_CLT_start_move_effect }
+			culture = irish
+		}
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = EE_CLT_Breton_Identity_1
+					has_province_modifier = EE_CLT_ScotsGaels_Identity_1
+					has_province_modifier = EE_CLT_highlander_Identity_1
+					has_province_modifier = EE_CLT_Welsh_Identity_1
+				}
+			}
+			remove_province_modifier = EE_CLT_Breton_Identity_1
+			remove_province_modifier = EE_CLT_ScotsGaels_Identity_1
+			remove_province_modifier = EE_CLT_highlander_Identity_1
+			remove_province_modifier = EE_CLT_Welsh_Identity_1
+		}
+		add_province_modifier = {
+			name = EE_CLT_Irish_Identity_1
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			owner = { has_country_flag = EE_CLT_start_move_effect }
+			culture = scottish_celtic
+		}
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = EE_CLT_Breton_Identity_1
+					has_province_modifier = EE_CLT_Irish_Identity_1
+					has_province_modifier = EE_CLT_highlander_Identity_1
+					has_province_modifier = EE_CLT_Welsh_Identity_1
+				}
+			}
+			remove_province_modifier = EE_CLT_Breton_Identity_1
+			remove_province_modifier = EE_CLT_Irish_Identity_1
+			remove_province_modifier = EE_CLT_highlander_Identity_1
+			remove_province_modifier = EE_CLT_Welsh_Identity_1
+		}
+		add_province_modifier = {
+			name = EE_CLT_ScotsGaels_Identity_1
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			owner = { has_country_flag = EE_CLT_start_move_effect }
+			culture = highland_scottish
+		}
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = EE_CLT_Breton_Identity_1
+					has_province_modifier = EE_CLT_Irish_Identity_1
+					has_province_modifier = EE_CLT_ScotsGaels_Identity_1
+					has_province_modifier = EE_CLT_Welsh_Identity_1
+				}
+			}
+			remove_province_modifier = EE_CLT_Breton_Identity_1
+			remove_province_modifier = EE_CLT_Irish_Identity_1
+			remove_province_modifier = EE_CLT_ScotsGaels_Identity_1
+			remove_province_modifier = EE_CLT_Welsh_Identity_1
+		}
+		add_province_modifier = {
+			name = EE_CLT_highlander_Identity_1 
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			owner = { has_country_flag = EE_CLT_start_move_effect }
+			culture = welsh_celtic
+		}
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = EE_CLT_Breton_Identity_1
+					has_province_modifier = EE_CLT_Irish_Identity_1
+					has_province_modifier = EE_CLT_ScotsGaels_Identity_1
+					has_province_modifier = EE_CLT_highlander_Identity_1 
+				}
+			}
+			remove_province_modifier = EE_CLT_Breton_Identity_1
+			remove_province_modifier = EE_CLT_Irish_Identity_1
+			remove_province_modifier = EE_CLT_ScotsGaels_Identity_1
+			remove_province_modifier = EE_CLT_highlander_Identity_1
+		}
+		add_province_modifier = {
+			name = EE_CLT_Welsh_Identity_1
+			duration = -1
+		}
+	}
+}
+
+ME_CLT_move_capital_unified_effect = {
+	if = {
+		limit = {
+			capital_scope = { culture = breton_celtic }
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = EE_CLT_Breton_Identity_1
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			capital_scope = { culture = irish }
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = EE_CLT_Irish_Identity_1
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			capital_scope = { culture = scottish_celtic }
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = EE_CLT_ScotsGaels_Identity_1
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			capital_scope = { culture = highland_scottish }
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = EE_CLT_highlander_Identity_1
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			capital_scope = { culture = welsh_celtic }
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = EE_CLT_Welsh_Identity_1
+				duration = -1
+			}
+		}
+	}
+	capital_scope = {
+		add_province_modifier = {
+			name = EE_CLT_Itinerant_capital
+			duration = -1
+		}
+	}
+}
+
+ME_CLT_monarchy_reform_reward_tt = {
+	custom_tooltip = ME_CLT_bureacrats_monarchy_reward_explain
+	hidden_effect = {
+		set_country_flag = EE_CLT_buff_regional_councils
+		if = {
+			limit = { has_reform = regional_council_reform }
+			remove_government_reform = regional_council_reform
+			add_government_reform = EE_regional_council_reform
+		}
+		set_country_flag = EE_CLT_buff_decentralized_bureaucracy
+		if = {
+			limit = { has_reform = decentralize_reform }
+			remove_government_reform = decentralize_reform
+			add_government_reform = EE_decentralize_reform
+		}
+	}
+}
+
+ME_CLT_republic_reform_reward_tt = {
+	custom_tooltip = EE_CLT_Model_State_reward_tt_4
+	hidden_effect = {
+		set_country_flag = EE_CLT_buff_strengthen_executive_powers_reform
+		if = {
+			limit = { has_reform = strengthen_executive_powers_reform }
+			remove_government_reform = strengthen_executive_powers_reform
+			add_government_reform = EE_strengthen_executive_powers_reform
+		}
+		set_country_flag = EE_CLT_buff_reinforce_republican_virtues
+		if = {
+			limit = { has_reform = reinforce_republican_values_reform }
+			remove_government_reform = reinforce_republican_values_reform
+			add_government_reform = EE_reinforce_republican_values_reform
+		}
+		set_country_flag = EE_CLT_buff_federal_senate
+		if = {
+			limit = { has_reform = federal_senate_reform }
+			remove_government_reform = federal_senate_reform
+			add_government_reform = EE_federal_senate_reform
+		}
+	}
+}
+
+ME_CLT_industrial_evolution_complex_effect = {
+	custom_tooltip = EE_CLT_timed_reward_tt_2
+	tooltip = {
+		add_province_modifier = {
+			name = EE_CLT_Proto_Industrialization
+			duration = 9125
+		}
+	}
+	hidden_effect = {
+		every_owned_province = {
+			limit = { has_province_modifier = EE_CLT_industrial_foundation }
+			remove_province_modifier = EE_CLT_industrial_foundation
+			add_province_modifier = {
+				name = EE_CLT_Proto_Industrialization
+				duration = 9125
+			}
+		}
+	}
+}
+
+ME_CLT_readd_CB_effect = {
+	custom_tooltip = ME_CLT_readd_CB_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = FRA
+					tag = SPA
+					tag = CAS
+					tag = ARA
+					tag = POR
+				}
+				NOT = { is_subject_of = ROOT }
+			}
+			remove_casus_belli = {
+				type = EE_CLT_unguarded_celtic_frontier
+				target = ROOT
+			}
+			reverse_add_casus_belli = {
+				type = EE_CLT_unguarded_celtic_frontier
+				target = ROOT
+				months = 600
+			}
+		}
+		set_country_flag = ME_CLT_CB_timer
+	}
+}
+
+ME_CLT_PIC_effect = {
+	custom_tooltip = ME_CLT_release_Galli
+	custom_tooltip = EE_CLT_French_Approval
+	hidden_effect = {
+		every_owned_province = {
+			limit = { area = picardy_area }
+			cede_province = PIC
+		}
+		PIC = { override_country_name = EE_CLT_gaulois }
+		if = {
+			limit = { has_country_flag = EE_CLT_fire_vassal_swarm_variant_flag }
+			create_subject = {
+				subject_type = EE_CLT_Gaulois_subject
+				who = PIC
+			}
+		}
+		else = {
+			create_subject = {
+				subject_type = personal_union
+				who = PIC
+			}
+		}
+	}
+	custom_tooltip = EE_CLT_unguarded_celtic_frontier_tt_1
+	hidden_effect = {
+		PIC = {
+			every_country = {
+				limit = {
+					any_owned_province = { region = france_region }
+					NOT = { tag = ROOT }
+					NOT = { is_subject_of = ROOT }
+				}
+				reverse_add_casus_belli = {
+					type = EE_CLT_unguarded_celtic_frontier_1
+					target = PIC
+					months = 600
+				}
+			}
+		}
+	}
+}
+
+ME_CLT_dev_removes_unaccepted_culture_effect = {
+	if = {
+		limit = {
+			owner = {
+				OR = {
+					AND = {
+						tag = CEE
+						has_country_flag = EE_CLT_all_germanic_CLT
+					}
+					AND = {
+						is_subject_of = CEE
+						overlord = {
+							has_country_flag = EE_CLT_all_germanic_CLT
+						}
+					}
+				}
+			}
+			OR = {
+				culture_group = french
+				culture_group = iberian
+			}
+		}
+		random = {
+			chance = 25
+			if = {
+				limit = { culture_group = french }
+				change_culture = gallic
+			}
+			else_if = {
+				limit = { culture_group = iberian }
+				change_culture = galleaci
+			}
+		}
+	}
+}
+
+ME_CLT_celtiberi_effect = {
+	custom_tooltip = EE_CLT_GAL_tt
+	hidden_effect = {
+		every_province = {
+			limit = { area = galicia_area } 
+			cede_province = GAL
+		}
+		GAL = { override_country_name = EE_CLT_gallaeci }
+	}
+	if = {
+		limit = { has_country_flag = EE_CLT_fire_vassal_swarm_variant_flag }
+		custom_tooltip = ME_CLT_make_GAL_dom
+		hidden_effect = {
+			create_subject = {
+				subject_type = EE_CLT_Celtic_Dominion
+				who = GAL
+			}
+		}
+	}
+	else = {
+		custom_tooltip = ME_CLT_make_GAL_PU
+		hidden_effect = {
+			create_subject = {
+				subject_type = ME_personal_union
+				who = GAL
+			}
+		}
+	}
+	tooltip = {
+		add_country_modifier = {
+			name = ME_CLT_celtiberi_modifier
+			duration = -1
+			desc = as_long_as_subject
+		}
+	}
+}
+
+ME_CLT_celtiberi_2_effect = {
+	custom_tooltip = EE_CLT_industry_expanded_tt
+	hidden_effect = {
+		ME_distribute_development = {
+			type = tax
+			amount = 5
+			limit = "
+				area = leon_area
+				area = galicia_area
+				area = beieras_area
+				area = alentejo_area
+			"
+		}
+		ME_distribute_development = {
+			type = production
+			amount = 5
+			limit = "
+				area = leon_area
+				area = galicia_area
+				area = beieras_area
+				area = alentejo_area
+			"
+		}
+		ME_distribute_development = {
+			type = manpower
+			amount = 5
+			limit = "
+				area = leon_area
+				area = galicia_area
+				area = beieras_area
+				area = alentejo_area
+			"
+		}
+	}
+	leon_area = {
+		add_province_modifier = {
+			name = EE_CLT_industry_expanded
+			duration = 18250
+		}
+	}
+	galicia_area = {
+		add_province_modifier = {
+			name = EE_CLT_industry_expanded
+			duration = 18250
+		}
+	}
+	beieras_area = {
+		add_province_modifier = {
+			name = EE_CLT_industry_expanded
+			duration = 18250
+		}
+	}
+	alentejo_area = {
+		add_province_modifier = {
+			name = EE_CLT_industry_expanded
+			duration = 18250
+		}
+	}
+}

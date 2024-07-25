@@ -1,0 +1,181 @@
+ME_Celtica_federation_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 5
+	available = {
+		OR = {
+			has_dlc = "Cradle of Civilization"
+			has_dlc = "King of Kings"
+		}
+	}
+	powers = {
+		ME_Celtica_tribal_allegiance = {
+			max = 100
+			reset_on_new_ruler = no
+			base_monthly_growth = 0
+			scaled_modifier = {
+				modifier = {
+					ME_Celtica_tribal_allegiance_gain_modifier = -0.01
+					infantry_shock = 0.05
+					estate_clans_loyalty_modifier = 0.05
+				}
+			}
+		}
+	}
+	interactions = {
+		ME_CLT_enlist_general = {
+			icon = GFX_enlist_general_interaction
+			cost_type = ME_Celtica_tribal_allegiance
+			cost = 50
+			trigger = {
+			}
+			effect = {
+				custom_tooltip = ME_CLT_enlist_general_tt
+				if = {
+					limit = { army_tradition = 75 }
+					create_general = {
+						tradition = 100
+						add_shock = 3
+						add_manuever = 3
+					}
+				}
+				else_if = {
+					limit = { 
+						army_tradition = 50
+						NOT = { army_tradition = 75 }
+					}
+					create_general = {
+						tradition = 75
+						add_shock = 2
+						add_manuever = 2
+					}
+				}
+				else_if = {
+					limit = { 
+						army_tradition = 25
+						NOT = { army_tradition = 50 }
+					}
+					create_general = {
+						tradition = 50
+						add_shock = 1
+						add_manuever = 1
+					}
+				}
+				else = {
+					create_general = { tradition = 25 }
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 0
+					is_at_war = no
+				}
+				modifier = {
+					factor = 10
+					is_in_important_war = yes
+					has_government_power = {
+						mechanic_type = ME_Celtica_federation_mechanic
+						power_type = ME_Celtica_tribal_allegiance
+						value = 95
+					}
+				}
+				modifier = {
+					factor = 2
+					not = { 
+						has_leaders = {
+							value = 1
+							type = general
+							include_monarch = no
+							include_heir = no
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					not = { 
+						has_leaders = {
+							value = 2
+							type = general
+							include_monarch = no
+							include_heir = no
+						}
+					}
+				}
+				modifier = {
+					factor = 2
+					not = { 
+						has_leader_with = {
+							general = yes
+							total_pips = 6
+						}
+					}
+				}
+				modifier = {
+					factor = 0.1
+					has_leader_with = {
+						general = yes
+						total_pips = 11
+					}
+				}
+			}
+		}
+		clann_conscription = {
+			icon = GFX_clann_conscription_interaction
+			cost_type = ME_Celtica_tribal_allegiance
+			cost = 30
+			trigger = {
+				NOT = { has_country_modifier = ME_CLT_clann_conscription }
+			}
+			effect = {
+				add_country_modifier = {
+					name = ME_CLT_clann_conscription
+					duration = 3650
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 0
+					is_at_war = no
+				}
+				modifier = {
+					factor = 0
+					NOT = { manpower_percentage = 0.8 }
+				}
+				modifier = {
+					factor = 1
+					NOT = { army_size_percentage = 1 }
+				}
+				modifier = {
+					factor = 10
+					is_in_important_war = yes
+					has_government_power = {
+						mechanic_type = ME_Celtica_federation_mechanic
+						power_type = ME_Celtica_tribal_allegiance
+						value = 95
+					}
+				}
+			}
+		}
+		encourage_loyalty = {
+			icon = GFX_encourage_loyalty_interaction
+			cost_type = ME_Celtica_tribal_allegiance
+			cost = 0
+			trigger = {
+			}
+			effect = {
+				add_government_power = {
+					mechanic_type = ME_Celtica_federation_mechanic
+					power_type = ME_Celtica_tribal_allegiance
+					value = 20
+				}
+			}
+			cooldown_years = 5
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+}
