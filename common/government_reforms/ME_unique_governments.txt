@@ -607,6 +607,100 @@ EE_synthetic_monarchy_militarized = {
 	}
 }
 
+EE_modernize_industrial_sector = {
+	icon = "peasant_republic"
+	allow_normal_conversion = yes
+	potential = { has_country_flag = EE_CLT_modernize_industrial_sector_reform }
+	trigger = { has_country_flag = EE_CLT_modernize_industrial_sector_reform }
+	modifiers = {
+		build_time = -0.15
+		build_cost = -0.1
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				if = {
+					limit = { has_building = workshop }
+					add_province_modifier = { 
+						name = workshop_bonus_prod
+						duration = -1
+						hidden = yes
+					}
+				}
+				if = {
+					limit = { has_building = counting_house }
+					add_province_modifier = { 
+						name = counting_house_bonus_prod
+						duration = -1
+						hidden = yes
+					}
+				}
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						has_province_modifier = workshop_bonus_prod
+						has_province_modifier = counting_house_bonus_prod
+					}
+				}
+				remove_province_modifier = workshop_bonus_prod
+				remove_province_modifier = counting_house_bonus_prod
+			}
+		}
+	}
+	custom_attributes = {
+		enable_industrialization_mechanic = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+EE_Modernize_economy = {
+	icon = "trading_city"
+	allow_normal_conversion = yes
+	potential = { has_reform = EE_Modernize_economy }
+	modifiers = {
+		production_efficiency = 0.1
+		build_cost = -0.15
+	}
+	effect = { enable_development_on_buildings_built = yes }
+}
+
+EE_Global_Celtic_Empire = {
+	icon = "english_monarchy"
+	allow_normal_conversion = yes
+	potential = { has_reform = EE_Global_Celtic_Empire }
+	modifiers = {
+		no_stability_loss_on_monarch_death = yes
+	}
+	effect = {
+		hidden_effect = { 
+			set_country_flag = EE_CLT_Reduce_OE_events
+			every_owned_province = {
+				limit = { culture_group = gaelic }
+				add_province_modifier = {
+					name = EE_CLT_reduce_gaelic_governing_cost
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+	}
+	custom_attributes = {
+		enable_celtic_governors = yes
+		enable_overextension_control = yes
+		locked_government_type = yes
+	}
+	ai = {
+		factor = 2.5
+	}
+}
+
 EE_Unleash_Tribal_Horde = {
 	icon = "black_army_reform"
 	lock_level_when_selected = yes
@@ -632,6 +726,23 @@ EE_Unleash_Tribal_Horde = {
 	}
 }
 
+EE_Celtic_Union = {
+	icon = "council"
+	allow_normal_conversion = no
+	potential = { has_country_flag = EE_CLT_Celtic_Union_flag }
+	modifiers = {
+		diplomatic_reputation = 2
+		advisor_pool = 1
+		max_absolutism = 10
+	}
+	custom_attributes = {
+		enable_celtic_dominion_modifiers = yes
+	}
+	ai = {
+		factor = 2.5
+	}
+}
+
 ME_Celtica_tribal_federation = {
 	icon = "chieftain"
 	allow_normal_conversion = yes
@@ -648,5 +759,35 @@ ME_Celtica_tribal_federation = {
 	}
 	ai = {
 		factor = 0
+	}
+}
+
+FRX_frankish_monarchy = {
+	icon = "crown_highlighted"
+	allow_normal_conversion = no
+	valid_for_nation_designer = yes
+	nation_designer_cost = 100
+	nation_designer_trigger = {
+		
+	}
+	potential = {
+		OR = {
+			tag = FRX
+			has_country_flag = formed_francia_flag
+			has_reform = FRX_frankish_monarchy
+		}
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		max_absolutism = 10
+		unjustified_demands = -0.25
+	}
+
+	government_abilities = {
+		frankish_chivalry_mechanic
+	}
+
+	ai = {
+		factor = 1
 	}
 }

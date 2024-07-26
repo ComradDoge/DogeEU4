@@ -3,22 +3,46 @@
 #########
 
 country_decisions = {
-
+	AAC_enable_monarchy_decision_dec = {
+		major = yes
+		potential = {
+			has_country_flag = AAC_enable_monarchy_decision
+			NOT = { government = monarchy }
+		}
+		provinces_to_highlight = {
+			
+		}
+		allow = {
+			republican_tradition = 90
+			stability = 2
+			dip_power_cost = 100
+		}
+		effect = {
+			change_government = monarchy
+			clr_country_flag = AAC_enable_monarchy_decision
+			
+			custom_tooltip = " "
+			
+			add_stability = -1
+			
+			custom_tooltip = " "
+			
+			dip_power_cost = 100
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = AAC_disable_forming_rhineland 
+			set_country_flag = formed_rheinland_flag
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	reform_francia = {
 		major = yes
 		potential = {
-			always = no # Completely disabled, aka removed. Basicaly a France 2.0 but with no difference. Just bloat.
-			OR = { 
-				has_country_flag = can_form_francia
-				NOT = { has_country_flag = can_form_francia }
-			}
-			capital_scope = {
-				OR = {  
-				region = france_region
-				region = low_countries_region
-				}
-			}
 			normal_or_historical_nations = yes
+			has_country_flag = can_form_francia
 			NOT = { has_country_flag = formed_francia_flag }
 			OR = {
 				ai = no
@@ -29,7 +53,6 @@ country_decisions = {
 			NOT = { tag = GER }
 			NOT = { tag = AVE }
 			NOT = { tag = PRU }
-			#NOT = { tag = OCC }
 			is_colonial_nation = no			
 			OR = {
 				is_former_colonial_nation = no
@@ -43,6 +66,7 @@ country_decisions = {
 			OR = {
 				AND = {
 					OR = {
+						province_id = 2957
 						province_id = 1876
 						province_id = 183
 						province_id = 1878
@@ -70,13 +94,13 @@ country_decisions = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
-			#OR = {
-			#	custom_trigger_tooltip = {
-			#		tooltip = frx_empire_dismantled.tooltip
-			#		NOT = { hre_size = 1 }
-			#	}
-			#	is_emperor = yes
-			#}
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = frx_empire_dismantled.tooltip
+					NOT = { hre_size = 1 }
+				}
+				is_emperor = yes
+			}
 			legitimacy_equivalent = 100
 			prestige = 50
 		}
@@ -98,101 +122,53 @@ country_decisions = {
             custom_tooltip = tooltip_line_seperate_government
 			if = {
 				limit = {
-					NOT = { government_rank = 2 }
+					NOT = { government = monarchy }
 				}
-				set_government_rank = 2
+				change_government = monarchy
 			}
-			
+			add_government_reform = FRX_frankish_monarchy
+			if = {
+				limit = {
+					is_part_of_hre = no
+				}
+				set_government_rank = 3
+			}
             #### Gov Reform
             #custom_tooltip = tooltip_line_seperate_gov_gap
 
 			# Culture
 			custom_tooltip = tooltip_line_seperate_culture
+			change_primary_culture = frankish
+			set_ruler_culture = frankish
+			if = {
+				limit = {
+					has_heir = yes
+				}
+				set_heir_culture = frankish
+			}
+			if = {
+				limit = {
+					has_consort = yes
+				}
+				set_consort_culture = frankish
+			}
+			1878 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+					}
+					change_culture = frankish
+				}
+			}
 			every_owned_province = {
 				limit = {
-					has_owner_culture = yes
+					has_province_flag = AAC_convert_to_frank
 				}
 				change_culture = frankish
 			}
-			change_primary_culture = frankish
-			if = {
-				limit = { NOT = { accepted_culture = cosmopolitan_french } }
-				add_accepted_culture_or_dip_power = { culture = cosmopolitan_french dip_reward = yes }
-			}
-			if = {
-				limit = { NOT = { accepted_culture = burgundian } }
-				add_accepted_culture_or_dip_power = { culture = burgundian dip_reward = yes }
-			}
 
 			# Claims
-			custom_tooltip = tooltip_line_seperate_claims
-			lower_rhineland_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = FRX
-			}
-			wallonia_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = FRX
-			}
-			flanders_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = FRX
-			}
-			netherlands_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = FRX
-			}
-			north_rhine_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = FRX
-			}
-			hesse_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = FRX
-			}
-			thuringia_area = {
-				limit = {
-					NOT = { is_core = ROOT }
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = FRX
-			}
-			82 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = FRX
-				}
-			}
-			2972 = {
-				if = {
-					limit = {
-						NOT = { is_core = ROOT }
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = FRX
-				}
-			}
+			#custom_tooltip = tooltip_line_seperate_claims
 
 			# Events
 			custom_tooltip = tooltip_line_seperate_events

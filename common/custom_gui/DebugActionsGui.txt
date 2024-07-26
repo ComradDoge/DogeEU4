@@ -1,3 +1,98 @@
+custom_window = {
+	name = debugging_custom_window
+	potential = {
+		OR = {
+			FROM = { has_country_flag = debug_mode_active }
+		}
+	}
+}
+
+custom_window = {
+	name = debugging_custom_window_buildings
+	potential = {
+		OR = {
+			FROM = { has_country_flag = debug_building_menu_active }
+		}
+	}
+}
+
+custom_window = {
+	name = debugging_custom_window_convert
+	potential = {
+		OR = {
+			FROM = { has_country_flag = debug_convert_menu_active }
+		}
+	}
+}
+
+custom_window = {
+	name = debugging_custom_window_goods
+	potential = {
+		OR = {
+			FROM = { has_country_flag = debug_goods_menu_active }
+		}
+	}
+}
+
+custom_shield = {
+	name = debugging_target_shield
+    potential = {
+		#has_saved_global_event_target = debugging_target_country
+		FROM = { has_country_flag = debug_mode_active }
+		FROM = { has_country_flag = debug_menu_active }
+	}
+	trigger = {
+		#has_saved_global_event_target = imperial_chaplain
+	}
+    #effect = { }
+    global_event_target = debugging_target_country
+    open_country = yes
+}
+
+custom_button = {
+	name = debugging_target_set
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	}
+	trigger = {
+		owner = { exists = yes }
+		NOT = { is_empty = yes }
+	}
+	effect = { 
+		hidden_effect = {
+			owner = {
+				save_global_event_target_as = debugging_target_country
+			}
+		}
+	}
+	tooltip = "Set province owner as target"
+}
+
+custom_button = {
+	name = debugging_target_reset
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+	}
+	trigger = {
+	}
+	effect = { 
+		hidden_effect = {
+			FROM = {
+				save_global_event_target_as = debugging_target_country
+			}
+		}
+	}
+	tooltip = "Reset target to self"
+}
+
 custom_icon = {
     name = debug_toggle_raise_lower_dev_indicator #Must match a scripted iconType in a .gui file
     potential = {
@@ -59,11 +154,72 @@ custom_text_box = {
 }
 
 custom_button = {
+	name = debug_menu_close_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			OR = {
+				FROM = { has_country_flag = debug_mode_active }
+				FROM = {
+					AND = {
+						has_leaders = {
+							value = 1
+							type = general
+							include_monarch = no
+							include_heir = no
+						}
+						NOT = {
+							has_leaders = {
+								value = 2
+								type = general
+								include_monarch = no
+								include_heir = no
+							}
+						}
+						any_army = {
+							general_with_steam_name = yes
+						}
+						OR = {
+							has_leader = "LiaLunare"
+							has_leader = "LordVarangian"
+							has_leader = "Stiopa866"
+							has_leader = "GrumpyKing"
+						}
+					}
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+	}
+	effect = { 
+		hidden_effect = {
+			FROM = {
+				set_country_flag = debug_mode_active
+				save_global_event_target_as = debugging_target_country
+				if = {
+					limit = {
+						has_country_flag = debug_menu_active
+					}
+					clr_country_flag = debug_menu_active
+				}
+				else = {
+					set_country_flag = debug_menu_active
+				}
+			}
+		}
+	}
+	tooltip = "Toggle the Debug Menu"
+}
+
+custom_button = {
 	name = debug_menu_open_button
 	potential = {
 		AND = {
 			FROM = { ai = no }
 			FROM = { has_country_flag = debug_mode_active }
+			always = no
 			#FROM = { NOT = { has_country_flag = debug_menu_active } }
 		}
 	}
@@ -89,28 +245,6 @@ custom_button = {
 }
 
 custom_button = {
-	name = debug_menu_close_button
-	potential = {
-		AND = {
-			FROM = { ai = no }
-			FROM = { has_country_flag = debug_mode_active }
-			FROM = { has_country_flag = debug_menu_active }
-		}
-	}
-	trigger = {
-		hidden_trigger = { FROM = { ai = no } }
-	}
-	effect = { 
-		hidden_effect = {
-			FROM = {
-				clr_country_flag = debug_menu_active
-			}
-		}
-	}
-	tooltip = debug_menu_close_text_tooltip
-}
-
-custom_button = {
 	name = debug_transfer_occupation_button
 	potential = {
 		AND = {
@@ -129,23 +263,94 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
-		ROOT = { NOT = { controlled_by = FROM } }
+		NOT = { is_empty = yes }
+		#ROOT = { NOT = { controlled_by = FROM } }
 	}
 	effect = { 
 		if = {
 			limit = {
+				event_target:debugging_target_country = { exists = yes }
+			}
+		}
+		else = {
+			FROM = { save_global_event_target_as = debugging_target_country }
+		}
+		if = {
+			limit = {
 				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
 			}
-			change_controller = FROM
+			change_controller = event_target:debugging_target_country
 		}
 		else = {
 			area = {
-				change_controller = FROM
+				change_controller = event_target:debugging_target_country
 			}
 		}
 		
 	}
 	tooltip = debug_transfer_occupation_text_tooltip
+}
+
+custom_button = {
+	name = debug_claim_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
+		#ROOT = { 
+		#	OR = {
+		#		NOT = { is_state_core = FROM } 
+		#	}
+		#}
+	}
+	effect = { 
+		if = {
+			limit = {
+				event_target:debugging_target_country = { exists = yes }
+			}
+		}
+		else = {
+			FROM = { save_global_event_target_as = debugging_target_country }
+		}
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			if = {
+				limit = { is_claim = event_target:debugging_target_country NOT = { is_permanent_claim = event_target:debugging_target_country } }
+				add_permanent_claim = event_target:debugging_target_country
+			}
+			else = {
+				add_claim = event_target:debugging_target_country
+			}
+		}
+		else = {
+			area = {
+				if = {
+					limit = { is_claim = event_target:debugging_target_country NOT = { is_permanent_claim = event_target:debugging_target_country } }
+					add_permanent_claim = event_target:debugging_target_country
+				}
+				else = {
+					add_claim = event_target:debugging_target_country
+				}
+			}
+		}
+	}
+	tooltip = "Add Claim"
 }
 
 custom_button = {
@@ -167,27 +372,86 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
-		ROOT = { 
-			OR = {
-				NOT = { is_state_core = FROM } 
-			}
-		}
+		NOT = { is_empty = yes }
+		#ROOT = { 
+		#	OR = {
+		#		NOT = { is_state_core = FROM } 
+		#	}
+		#}
 	}
 	effect = { 
-		
+		if = {
+			limit = {
+				event_target:debugging_target_country = { exists = yes }
+			}
+		}
+		else = {
+			FROM = { save_global_event_target_as = debugging_target_country }
+		}
 		if = {
 			limit = {
 				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
 			}
-			add_core = FROM
+			add_core = event_target:debugging_target_country
 		}
 		else = {
 			area = {
-				add_core = FROM
+				add_core = event_target:debugging_target_country
 			}
 		}
 	}
 	tooltip = debug_core_text_tooltip
+}
+
+custom_button = {
+	name = debug_own_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
+		#ROOT = { 
+		#	OR = {
+		#		NOT = { owned_by = FROM } 
+		#		NOT = { is_state_core = FROM } 
+		#	}
+		#}
+	}
+	effect = { 
+		if = {
+			limit = {
+				event_target:debugging_target_country = { exists = yes }
+			}
+		}
+		else = {
+			FROM = { save_global_event_target_as = debugging_target_country }
+		}
+		if = {
+			limit = {
+				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
+			}
+			cede_province = event_target:debugging_target_country
+		}
+		else = {
+			area = {
+				cede_province = event_target:debugging_target_country
+			}
+		}
+	}
+	tooltip = "Own province"
 }
 
 custom_button = {
@@ -209,26 +473,34 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
-		ROOT = { 
-			OR = {
-				NOT = { owned_by = FROM } 
-				NOT = { is_state_core = FROM } 
-			}
-		}
+		NOT = { is_empty = yes }
+		#ROOT = { 
+		#	OR = {
+		#		NOT = { owned_by = FROM } 
+		#		NOT = { is_state_core = FROM } 
+		#	}
+		#}
 	}
 	effect = { 
-		
+		if = {
+			limit = {
+				event_target:debugging_target_country = { exists = yes }
+			}
+		}
+		else = {
+			FROM = { save_global_event_target_as = debugging_target_country }
+		}
 		if = {
 			limit = {
 				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
 			}
-			add_core = FROM
-			cede_province = FROM
+			add_core = event_target:debugging_target_country
+			cede_province = event_target:debugging_target_country
 		}
 		else = {
 			area = {
-				add_core = FROM
-				cede_province = FROM
+				add_core = event_target:debugging_target_country
+				cede_province = event_target:debugging_target_country
 			}
 		}
 	}
@@ -254,23 +526,42 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
-		is_empty = no
+		OR = {
+			is_empty = yes
+			AND = {
+				is_city = no
+				owned_by = event_target:debugging_target_country
+			}
+		}
 	}
 	effect = { 
-		
+		if = {
+			limit = {
+				event_target:debugging_target_country = { exists = yes }
+			}
+		}
+		else = {
+			FROM = { save_global_event_target_as = debugging_target_country }
+		}
 		if = {
 			limit = {
 				FROM = { NOT = { has_country_flag = debug_using_state_scope } }
 			}
-			decolonize = THIS
+			create_colony_mission_reward_province = {
+				country = event_target:debugging_target_country
+			}
+			add_siberian_construction = 600
 		}
 		else = {
 			area = {
-				decolonize = THIS
+				create_colony_mission_reward_province = {
+					country = event_target:debugging_target_country
+				}
+				add_siberian_construction = 600
 			}
 		}
 	}
-	tooltip = debug_decolonize_text_tooltip
+	tooltip = "Colonize the province."
 }
 
 custom_button = {
@@ -292,6 +583,7 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
 		has_owner_culture = no
 	}
 	effect = { 
@@ -404,6 +696,7 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
 	}
 	effect = { 
 		FROM = { clr_country_flag = debug_convert_menu_active }
@@ -490,7 +783,7 @@ custom_button = {
 						limit = {
 							NOT = { has_country_flag = debug_change_dev_decrease }
 						}
-						PREV = { add_base_tax = 1 }
+						PREV = { add_base_tax = 1 on_development_effect = { type = adm } }
 					}
 					else = { PREV = { add_base_tax = -1 } }
 				}
@@ -504,7 +797,7 @@ custom_button = {
 							limit = {
 								NOT = { has_country_flag = debug_change_dev_decrease }
 							}
-							PREV = { add_base_tax = 1 }
+							PREV = { add_base_tax = 1 on_development_effect = { type = adm } }
 						}
 						else = { PREV = { add_base_tax = -1 } }
 					}
@@ -546,7 +839,7 @@ custom_button = {
 						limit = {
 							NOT = { has_country_flag = debug_change_dev_decrease }
 						}
-						PREV = { add_base_production = 1 }
+						PREV = { add_base_production = 1 on_development_effect = { type = dip } }
 					}
 					else = { PREV = { add_base_production = -1 } }
 				}
@@ -560,7 +853,7 @@ custom_button = {
 							limit = {
 								NOT = { has_country_flag = debug_change_dev_decrease }
 							}
-							PREV = { add_base_production = 1 }
+							PREV = { add_base_production = 1 on_development_effect = { type = dip } }
 						}
 						else = { PREV = { add_base_production = -1 } }
 					}
@@ -602,7 +895,7 @@ custom_button = {
 						limit = {
 							NOT = { has_country_flag = debug_change_dev_decrease }
 						}
-						PREV = { add_base_manpower = 1 }
+						PREV = { add_base_manpower = 1 on_development_effect = { type = mil } }
 					}
 					else = { PREV = { add_base_manpower = -1 } }
 				}
@@ -616,7 +909,7 @@ custom_button = {
 							limit = {
 								NOT = { has_country_flag = debug_change_dev_decrease }
 							}
-							PREV = { add_base_manpower = 1 }
+							PREV = { add_base_manpower = 1 on_development_effect = { type = mil } }
 						}
 						else = { PREV = { add_base_manpower = -1 } }
 					}
@@ -680,12 +973,13 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
 	}
-	effect = { 
+	effect = {
 		build_to_forcelimit = {
-			infantry = 0.7
-			cavalry = 0.1
-			artillery = 0.2
+			infantry = 0.5
+			cavalry = 0.2
+			artillery = 0.3
 		}
 	}
 	tooltip = debug_build_to_force_land_text_tooltip
@@ -711,12 +1005,13 @@ custom_button = {
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
 		has_port = yes
+		NOT = { is_empty = yes }
 	}
-	effect = { 
+	effect = {
 		build_to_forcelimit = {
 			heavy_ship = 0.5
-			light_ship = 0.5
-			transport = 0.0
+			light_ship = 0.3
+			transport = 0.2
 		}
 	}
 	tooltip = debug_build_to_force_sea_text_tooltip
@@ -748,6 +1043,7 @@ custom_button = {
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
 		ROOT = { NOT = { owned_by = FROM } }
+		NOT = { is_empty = yes }
 	}
 	effect = { 
 		FROM = {
@@ -786,6 +1082,7 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
 	}
 	effect = { 
 		FROM = { clr_country_flag = debug_building_menu_active }
@@ -835,6 +1132,7 @@ custom_button = {
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
 		ROOT = { NOT = { owned_by = FROM } }
+		NOT = { is_empty = yes }
 	}
 	effect = { 
 		owner = {
@@ -870,6 +1168,7 @@ custom_button = {
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
 		ROOT = { NOT = { owned_by = FROM } }
+		NOT = { is_empty = yes }
 	}
 	effect = { 
 		owner = {
@@ -888,9 +1187,11 @@ custom_button = {
 						}
 					}
 				}
-				set_variable = {            
-					which = debug_menu_page_variable
-					value = 0
+				hidden_effect = {
+					set_variable = {            
+						which = debug_menu_page_variable
+						value = 0
+					}
 				}
 			}
 			else_if = {
@@ -908,9 +1209,11 @@ custom_button = {
 						}
 					}
 				}
-				set_variable = {            
-					which = debug_menu_page_variable
-					value = 1
+				hidden_effect = {
+					set_variable = {            
+						which = debug_menu_page_variable
+						value = 1
+					}
 				}
 			}
 			else_if = {
@@ -928,9 +1231,11 @@ custom_button = {
 						}
 					}
 				}
-				set_variable = {            
-					which = debug_menu_page_variable
-					value = 2
+				hidden_effect = {
+					set_variable = {            
+						which = debug_menu_page_variable
+						value = 2
+					}
 				}
 			}
 			if = {
@@ -944,6 +1249,7 @@ custom_button = {
 			FROM = {
 				clr_country_flag = debug_mode_active
 				clr_country_flag = debug_menu_active
+				clr_country_flag = debug_using_state_scope
 				clr_country_flag = debug_convert_menu_active
 				clr_country_flag = debug_goods_menu_active
 				clr_country_flag = debug_building_menu_active

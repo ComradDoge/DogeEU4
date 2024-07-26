@@ -1521,6 +1521,11 @@ ME_distribute_development = {
 		}
 	}
 	custom_tooltip = $type$_$amount$
+	custom_tooltip = " "
+	[[tooltip]
+		custom_tooltip = $tooltip$
+		custom_tooltip = " "
+	]
 }
 
 # ME_remove_development_distributed = {
@@ -1677,6 +1682,39 @@ EE_change_variable = {
 	]
 }
 
+ME_add_stat_or_25_monarch_power = {
+    tooltip = {
+        change_$stat$ = $amount$
+    }
+    custom_tooltip = EE_ADD_STAT_OR_POWER_$stat$
+    hidden_effect = {
+		set_variable = {
+			which = ForLoopCounter
+			value = $amount$
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ForLoopCounter
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { $stat$ = 6 }
+				}
+				change_$stat$ = 1
+			}
+			else = {
+				add_$stat$_power = 25
+			}
+			subtract_variable = {
+				which = ForLoopCounter
+				value = 1
+			}
+		}
+    }
+}
 
 ME_create_flagship = {
 	hidden_effect = {
@@ -1879,4 +1917,10 @@ enable_grand_crusade = {
 
 ME_set_decision_cooldown = {
 	set_country_flag = $flag$
+}
+
+ME_on_colony_finished_effect = {
+	NED_transfer_province_to_VOC_or_WIC = yes
+	set_province_flag = set_for_dutch_transfer
+	owner = { country_event = { id = company_transfer_event.1 days = 1 } }
 }

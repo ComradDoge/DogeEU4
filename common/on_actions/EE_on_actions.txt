@@ -284,3 +284,410 @@ on_raze = {
 		set_province_flag = me_tim_wasteland
 	}
 }
+
+# Changing reforms in an already unlocked tier 
+on_reform_changed = {
+	if = {
+		limit = {
+			has_country_flag = EE_CLT_free_divert_trade
+			NOT = { has_reform = merchants_reform }
+		}
+		remove_country_modifier = EE_CLT_Ceilteach_Trade_League
+		every_subject_country = {
+			limit = { is_subject_of_type = EE_CLT_Celtic_Dominion }
+			remove_country_modifier = EE_CLT_Ceilteach_Trade_League_subject
+		}
+	}
+}
+
+on_emperor_elected = {
+	if = {
+		limit = { has_country_flag = EE_CLT_superior_emperor_flag }
+		add_imperial_influence = 25
+		add_country_modifier = {
+			name = EE_CLT_superior_emperor
+			duration = 9125
+		}
+	}
+	
+	if = {
+		limit = {
+			1878 = {
+				owner = {
+					has_estate_privilege = ME_estate_burghers_AAC_karlsprivileg
+				}
+			}
+		}
+		1878 = {
+			owner = {
+				country_event = { id = ME_Aachen_Events.3 }
+			}
+		}
+	}
+}
+
+on_defender_of_faith_claim = {
+	if = {
+		limit = {
+			has_government_mechanic = papal_factionalism_mechanic
+		}
+		add_government_power = {
+			mechanic_type = papal_factionalism_mechanic
+			power_type = papal_factionalism
+			value = -10
+		}
+	}
+}
+
+on_alliance_broken = { #ROOT - Original alliance creator, FROM - Alliance accepter
+	if = {
+		limit = {
+			has_country_modifier = me_pope_mutual_economic_aid
+			FROM = {
+				has_country_modifier = me_pope_mutual_economic_aid
+			}
+		}
+		remove_country_modifier = me_pope_mutual_economic_aid
+		FROM = {
+			remove_country_modifier = me_pope_mutual_economic_aid
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = me_pap_french_technological_aid
+			FROM = {
+				has_country_modifier = me_pap_seal_of_approval
+			}
+		}
+		remove_country_modifier = me_pap_french_technological_aid
+		FROM = {
+			remove_country_modifier = me_pap_seal_of_approval
+		}
+	}
+}
+
+
+on_alliance_created = { #ROOT - Alliance sender, FROM - Alliance accepter
+	if = {
+		limit = {
+			mission_completed = ME_pap_french_economic_aid
+			FROM = {
+				tag = FRA
+			}
+		}
+		FROM = {
+			add_country_modifier = {
+				name = me_pope_mutual_economic_aid
+				duration = -1
+			}
+		}
+		add_country_modifier = {
+			name = me_pope_mutual_economic_aid
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			mission_completed = ME_pap_solidify_french_relations
+			FROM = {
+				tag = FRA
+			}
+		}
+		FROM = {
+			add_country_modifier = {
+				name = me_pap_seal_of_approval
+				duration = -1
+			}
+		}
+		add_country_modifier = {
+			name = me_pap_french_technological_aid
+			duration = -1
+		}
+	}
+}
+
+on_colonist_boosting_colony = {
+	#on_colonist_boosting_colony_effect = yes
+	if = {
+		limit = {
+			FROM = {
+				OR = {
+					has_estate_privilege = estate_settlers_jesuits
+					has_estate_privilege = estate_settlers_religious_missions
+				}
+			}
+			OR = {
+				continent = north_america
+				continent = south_america
+			}
+			NOT = { native_size = 50 }
+			native_size = 1
+		}
+		change_native_size = 1
+		while = {
+			limit = {
+				native_size = 50
+			}
+			change_native_size = -1
+		}
+	}
+}
+
+on_colony_finished = { #ROOT - Province
+	ME_on_colony_finished_effect = yes
+}
+
+# FROM = Previous Country, ROOT = Province
+on_company_chartered = {
+	if = {
+		limit = {
+			OR = {
+				region = bengal_region
+				region = hindusthan_region
+				region = west_india_region
+				region = deccan_region
+				region = coromandel_region
+			}
+		}
+		ROOT = {
+			owner = {
+				set_country_flag = the_coin_is_stronger_than_the_sword
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = ENG_british_malaya
+			}
+		}
+		create_or_add_center_of_trade_level = { level = 1 }
+	}
+	NVC = { overlord = { save_global_event_target_as = nvc_overlord } }
+	NWC = { overlord = { save_global_event_target_as = nwc_overlord } }
+	EIC = { overlord = { save_global_event_target_as = eic_overlord } }
+	if = {
+		limit = {
+			event_target:nwc_overlord = { is_core = PREV }
+			NWC = { is_subject_of = event_target:nwc_overlord }
+			NED_is_WIC_territory = yes
+		}
+		cede_province = event_target:nwc_overlord
+		cede_province = NWC
+	}
+	if = {
+		limit = {
+			event_target:nvc_overlord = { is_core = PREV }
+			NVC = { is_subject_of = event_target:nvc_overlord }
+			NED_is_VOC_territory = yes
+		}
+		cede_province = event_target:nvc_overlord
+		cede_province = NVC
+	}
+	if = {
+		limit = {
+			event_target:eic_overlord = { is_core = PREV }
+			EIC = { is_subject_of = event_target:eic_overlord }
+			ENG_is_EIC_territory = yes
+		}
+		cede_province = event_target:eic_overlord
+		cede_province = EIC
+	}
+	clear_global_event_target = nvc_overlord
+	clear_global_event_target = nwc_overlord
+	clear_global_event_target = eic_overlord
+}
+
+on_conquistador_native = {
+	FROM = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_settlers_provinces_to_explore
+					value = 1
+				}
+			}
+			subtract_variable = {
+				which = estate_settlers_provinces_to_explore
+				value = 1
+			}
+		}
+	}
+	random_events = {
+		10 = seven_cities_events.300
+		10 = seven_cities_events.301
+		10 = seven_cities_events.303
+		10 = seven_cities_events.304
+		10 = seven_cities_events.305
+		10 = seven_cities_events.306
+		10 = seven_cities_events.307
+		10 = seven_cities_events.308
+		10 = seven_cities_events.309
+		10 = seven_cities_events.310
+
+		250 = 0
+	}
+}
+
+on_conquistador_empty = {
+	FROM = {
+		if = {
+			limit = {
+				check_variable = {
+					which = estate_settlers_provinces_to_explore
+					value = 1
+				}
+			}
+			subtract_variable = {
+				which = estate_settlers_provinces_to_explore
+				value = 1
+			}
+		}
+	}
+	random_events = {
+		10 = seven_cities_events.1
+		10 = seven_cities_events.2
+		10 = seven_cities_events.3
+		10 = seven_cities_events.4
+		10 = seven_cities_events.5
+		10 = seven_cities_events.6
+		10 = seven_cities_events.7
+		10 = seven_cities_events.8
+
+		10 = seven_cities_events.100
+		10 = seven_cities_events.101
+		10 = seven_cities_events.102
+		10 = seven_cities_events.103
+		10 = seven_cities_events.104
+		10 = seven_cities_events.105
+
+		50 = seven_cities_events.200
+		50 = seven_cities_events.201
+		50 = seven_cities_events.202
+		50 = seven_cities_events.203
+		50 = seven_cities_events.204
+		50 = seven_cities_events.205
+		50 = seven_cities_events.206
+		50 = seven_cities_events.207
+		50 = seven_cities_events.208
+		50 = seven_cities_events.209
+		50 = seven_cities_events.210
+		50 = seven_cities_events.211
+		50 = seven_cities_events.212
+		50 = seven_cities_events.213
+		50 = seven_cities_events.214
+		50 = seven_cities_events.215
+		50 = seven_cities_events.216
+		50 = seven_cities_events.217
+		50 = seven_cities_events.218
+		50 = seven_cities_events.219
+		50 = seven_cities_events.220
+		50 = seven_cities_events.221
+		50 = seven_cities_events.222
+		50 = seven_cities_events.223
+
+		10 = seven_cities_events.302
+		10 = seven_cities_events.303
+		10 = seven_cities_events.308
+		10 = seven_cities_events.309
+
+		10 = seven_cities_events.400
+		10 = seven_cities_events.401
+		10 = seven_cities_events.402
+		10 = seven_cities_events.405
+		10 = seven_cities_events.406
+		10 = seven_cities_events.407
+		10 = seven_cities_events.408
+		10 = seven_cities_events.409
+		10 = seven_cities_events.410
+		10 = seven_cities_events.413
+		10 = seven_cities_events.414
+
+		1000 = 0
+	}
+}
+
+#ROOT = province that was expanded in, FROM = country that did it
+on_expanded_infrastructure = {
+	if = {
+		limit = {
+			owner = {
+				mission_completed = ME_pap_develop_rome
+			}
+			province_id = 118
+		}
+		add_base_production = 1
+		add_base_manpower = 1
+		add_base_tax = 1
+	}
+}
+
+on_hre_dismantled = {
+	if = {
+		limit = {
+			has_country_flag = NED_give_modifier_when_dismantled
+		}
+		add_country_modifier = {
+			name = NED_destruction_of_the_empire
+			duration = -1
+		}
+		clr_country_flag = NED_give_modifier_when_dismantled
+	}
+}
+
+# When a minority is expelled to a colony
+# THIS = Colony, ROOT = Colony, FROM = Home province
+on_minority_expelled = {
+	FROM = {
+		remove_province_modifier = religious_zeal_at_conv
+		if = {
+			limit = {
+				owner = {
+					has_estate_privilege = estate_settlers_expel_minorities
+				}
+			}
+			if = {
+				limit = {
+					owner = {
+						mission_completed = ENG_plymouth_colony
+					}
+				}
+				ROOT = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+			}
+			add_local_autonomy = -25
+			add_permanent_province_modifier = {
+				name = expelled_minority_home
+				duration = 14600
+			}
+		}
+		else = {
+			add_permanent_province_modifier = {
+				name = expelled_minority_home
+				duration = 7300
+			}
+		}
+	}
+}
+
+# country
+on_parliament_debate_succeeded = {
+	ME_on_parliament_debate_succeeded_effect = yes
+}
+
+#province
+on_parliament_seat_given = {
+	ME_on_parliament_seat_given_effect = yes
+}
+
+#province
+on_parliament_seat_lost = {
+	ME_on_parliament_seat_lost_effect = yes
+}
+
+on_parliament_debate_failed = {
+	ME_on_parliament_debate_failed_effect = yes
+}

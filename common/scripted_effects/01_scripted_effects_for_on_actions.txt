@@ -3221,6 +3221,37 @@ on_development_effect = {
 # THIS = Province, FROM = Country, ROOT = Merc Unit
 on_mercenary_recruited_effect = {
 	if = {
+		limit = {
+			OR = {
+				template = ME_merc_knights_cyprus
+				template = ME_merc_knights_hospitaller
+				template = ME_merc_knights_of_calatrava
+				template = ME_merc_knights_of_santiago
+				template = ME_merc_brotherhood_of_the_holy_sepulchre
+				template = ME_merc_livonia_order
+			}
+			FROM = {
+				religion = catholic
+			}
+		}
+		if = {
+			limit = {
+				template = ME_merc_knights_of_santiago
+				FROM = {
+					has_country_flag = ee_kept_luna_alive
+				}
+			}
+			FROM = {
+				add_papal_influence = -5
+			}
+		}
+		else = {
+			FROM = {
+				add_papal_influence = -15
+			}
+		}
+	}
+	if = {
         limit = {
             FROM = { 
                 has_country_flag = hun_no_prof_black_army
@@ -3568,17 +3599,20 @@ on_change_tag_effect = {
 		#Europa Expanded
 		if = {
 			limit = {
-				OR = {
-					has_country_flag = unified_islam
-					AND = {
-						religion = sunni
-						any_owned_province = {
-							province_id = event_target:Caliph_province
-						}
+				has_country_flag = unified_islam
+			}
+			save_global_event_target_as = ME_caliphate_tag
+			save_global_event_target_as = Caliph_province_holder
+		}
+		if = {
+			limit = {
+				AND = {
+					religion = sunni
+					any_owned_province = {
+						province_id = event_target:Caliph_province
 					}
 				}
 			}
-			save_global_event_target_as = ME_caliphate_tag
 			save_global_event_target_as = Caliph_province_holder
 		}
 		#Shattered

@@ -1,0 +1,2274 @@
+AAC_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+	
+	AAC_political_center = {
+		icon = immaculate_government
+		required_missions = { AAC_karlsschrein }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 1878
+		}
+		trigger = {
+			has_dip_advisor_2 = yes
+			1878 = {
+				development = 25
+				owned_by = ROOT 
+			}
+			
+			num_of_allies = 3 
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_advisor_cost
+				duration = 10950
+			}
+			
+			custom_tooltip = AAC_5_favors_with_every_ally
+			hidden_effect = {
+				every_ally = {
+					ROOT = { add_favors = { who = PREV amount = 5 } }
+				}
+			}
+		}
+	}
+	
+	AAC_holy_roman_empire = {
+		icon = centralized_empire
+		required_missions = { AAC_political_center AAC_coronation_privilege }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1878
+				owned_by = emperor
+			}
+		}
+		trigger = {
+			1878 = {
+				owned_by = ROOT
+				num_of_buildings_in_province = 5
+				development = 30
+				custom_trigger_tooltip = {
+					tooltip = AAC_most_developed_province_in_hre
+					NOT = {
+						europe = {
+							is_part_of_hre = yes
+							NOT = { province_id = 1878 }
+							higher_development_than = 1878
+						}
+					}
+				}
+			}
+			
+			ME_tax_income = { amount = 10 }
+			
+			OR = {
+				emperor = {
+					alliance_with = ROOT
+				}
+				is_emperor = yes
+				ME_HRE_does_not_exist = yes
+			}
+		}
+		effect = {
+			1878 = {
+				add_permanent_province_modifier = {
+					name = AAC_capital_of_holy_roman_empire
+					duration = -1
+				}
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Domination"
+				}
+				custom_tooltip = AAC_buff_the_city_expansion_priv
+			}
+		}
+	}
+}
+
+AAC_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+	
+	AAC_karlsschrein = {
+		icon = show_piety
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 1878
+		}
+		trigger = {
+			1878 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+		}
+		effect = {
+			1878 = {
+				add_or_upgrade_tax_building = yes
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = AAC_palatine_chapel_and_the_remains_of_charlemagne
+					duration = -1
+				}
+			}
+			
+			# if = { 
+				# limit = {
+					# }} I was considering making it so an allied emperor can gain IA but that would be obscure... and honestly fits better for Austria
+		}
+	}
+	
+	AAC_coronation_privilege = {
+		icon = holy_state
+		required_missions = { AAC_karlsschrein }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 1878
+		}
+		trigger = {
+			estate_loyalty = {
+				estate = all
+				loyalty = 50
+			}
+			1878 = {
+				owned_by = ROOT
+				has_courthouse_building_trigger = yes
+			}
+		}
+		effect = {
+			custom_tooltip = AAC_whenever_holy_roman_emperor_is_enacted
+			set_country_flag = AAC_roman_emperor_buff
+			
+			custom_tooltip = " "
+			
+			1878 = {
+				add_or_upgrade_courthouse_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_coronation_privilege 
+				duration = -1
+			}
+		}
+	}
+}
+
+AAC_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+	
+	AAC_realizing_our_destiny = {
+		icon = connect_further_austria
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			OR = {
+				army_size = 7
+				capital_scope = {
+					development = 18
+				}
+				has_mil_advisor = yes
+			}
+		}
+		effect = {
+			custom_tooltip = AAC_gain_permanent_claim_on_capital_area
+			hidden_effect = {
+				capital_scope = {
+					area = {
+						every_neighbor_province = {
+							area = {
+								add_permanent_claim = ROOT
+							}
+						}
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_one_goal_in_mind
+				duration = 9125
+			}
+		}
+	}
+	
+	AAC_petit_kingdom = {
+		icon = take_the_bishoprics
+		required_missions = { AAC_realizing_our_destiny }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				is_core = ROOT
+				is_claim = ROOT
+				is_permanent_claim = ROOT 
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			grown_by_development = 35
+			num_of_cities = 3
+		}
+		effect = {
+			custom_tooltip = RHN_perma_Claims
+			hidden_effect = {
+				every_province = {
+					limit = {
+						culture = hessian
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			
+			ME_add_power_projection = { amount = 10 }
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { amount = 10 }
+		}
+	}
+	
+	AAC_heart_of_an_empire = {
+		icon = the_imperial_border
+		required_missions = { AAC_petit_kingdom }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				is_core = ROOT
+				is_claim = ROOT
+				is_permanent_claim = ROOT 
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			num_of_cities = 10
+			total_development = 150
+		}
+		effect = {
+			custom_tooltip = AAC_enable_monarchy_decision
+			set_country_flag = AAC_enable_monarchy_decision
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = flanders_area }
+			ME_give_claims = { area = picardy_area }
+			ME_give_claims = { area = wallonia_area }
+			ME_give_claims = { area = brabant_area }
+			ME_give_claims = { area = north_brabant_area }
+			ME_give_claims = { area = lorraine_area }
+			ME_give_claims = { area = alsace_area }
+			ME_give_claims = { area = franconia_area }
+			ME_give_claims = { area = upper_franconia_area }
+			
+			custom_tooltip = " "
+			
+			add_accepted_culture_or_dip_power = { culture = hessian }
+		}
+	}
+	
+	AAC_austrasia = {
+		icon = invest_in_the_provinces
+		required_missions = { AAC_heart_of_an_empire }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				area = flanders_area
+				area = picardy_area
+				area = wallonia_area
+				area = brabant_area
+				area = north_brabant_area
+				area = lorraine_area
+				area = alsace_area
+				area = franconia_area
+				area = upper_franconia_area
+				area = lower_rhineland_area
+				area = north_rhine_area
+				area = hesse_area
+				area = palatinate_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = flanders_area
+					area = picardy_area
+					area = wallonia_area
+					area = brabant_area
+					area = north_brabant_area
+					area = lorraine_area
+					area = alsace_area
+					area = franconia_area
+					area = upper_franconia_area
+					area = lower_rhineland_area
+					area = north_rhine_area
+					area = hesse_area
+					area = palatinate_area
+				}
+				value = 25
+			}
+		}
+		effect = {
+			country_event = { id = ME_Aachen_Events.5 }
+			
+			custom_tooltip = AAC_event_insight
+			tooltip = {
+				add_age_modifier = {
+					name = AAC_frankish_dream
+					duration = -1
+					age = age_of_discovery
+				}
+			}
+			
+			custom_tooltip = AAC_unlock_the_reform_francia_decision
+			set_country_flag = can_form_francia
+			
+			custom_tooltip = " "
+			
+			#Magna Frisia
+			ME_give_claims = { area = holland_area }
+			ME_give_claims = { area = frisia_area }
+			#Neustria (To France)
+			ME_give_claims = { area = champagne_area }
+			ME_give_claims = { area = ile_de_france_area }
+			ME_give_claims = { area = orleans_area }
+			ME_give_claims = { area = normandy_area }
+			ME_give_claims = { area = loire_area }
+			ME_give_claims = { area = brittany_area }
+			#Allemanni
+			ME_give_claims = { area = upper_rhineland_area }
+			ME_give_claims = { area = lower_swabia_area }
+			ME_give_claims = { area = upper_swabia_area }
+			ME_give_claims = { area = switzerland_area }
+			ME_give_claims = { area = thuringia_area }
+		}
+	}
+}
+
+AAC_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+	
+	AAC_gaffelbrief = {
+		icon = medici_bank_ledgers
+		required_missions = { AAC_imperial_immediacy }
+		position = 2
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_adm_advisor_2 = yes 
+			OR = {
+				adm = 4
+				monthly_adm = 12
+			}
+			
+			stability = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_a_constitution
+				duration = 10950
+			}
+			
+			custom_tooltip = AAC_if_we_have_2_stability
+			tooltip = {
+				add_corruption = -2
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						stability = 2
+					}
+					add_corruption = -2
+				}
+			}
+		}
+	}
+	
+	AAC_kronik = {
+		icon = geneva_conventions
+		required_missions = { AAC_gaffelbrief }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			reform_level = 3
+			
+			stability = 2
+			
+			has_institution = renaissance
+		}
+		effect = {
+			define_advisor = {
+				type = ME_historian
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
+
+			custom_tooltip = " "
+
+			change_national_focus_effect = yes
+
+			custom_tooltip = " "
+			
+			add_adm_power = 50
+		}
+	}
+}
+
+AAC_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+	
+	AAC_imperial_immediacy = {
+		icon = switzerland_and_the_empire
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 1878
+		}
+		trigger = {
+			1878 = {
+				owned_by = ROOT
+				development = 18
+			}
+			
+			OR = {
+				emperor = {
+					has_opinion = {
+						who = ROOT
+						value = 75 
+					}
+				}
+				has_dip_advisor = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_answers_only_to_emperor
+				duration = 10950
+			}
+		}
+	}
+	
+	AAC_market_town = {
+		icon = sway_cologne
+		required_missions = { AAC_imperial_immediacy }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 1878
+		}
+		trigger = {
+			1878 = {
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
+				owned_by = ROOT
+				num_of_times_improved = 3
+			}
+		}
+		effect = {
+			1878 = {
+				add_or_upgrade_trade_building = yes
+				add_or_upgrade_production_building = yes
+			
+				custom_tooltip = " "
+				
+				create_or_add_center_of_trade_level = { level = 1 }
+				
+				custom_tooltip = " "
+				
+				province_event = { id = ME_Aachen_Events.2 }
+			}
+		}
+	}
+	
+	AAC_masters_of_cloth = {
+		icon = purely_for_commerce
+		required_missions = { AAC_kronik AAC_market_town }
+		position = 4
+		provinces_to_highlight = {
+			trade_goods = cloth
+			OR = {
+				owned_by = ROOT
+				area_for_scope_province = {
+					any_neighbor_province = {
+						owned_by = ROOT
+					}
+				}
+			}
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = cloth
+				amount = 5
+			}
+			# ME_pt_feedback_requested = yes
+			
+			ME_production_income = { amount = 25 }
+		}
+		effect = {
+			custom_tooltip = AAC_upgrade_the_privilege_monopoly_on_textile
+			set_country_flag = AAC_monopoly_on_textiles_flag
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				add_estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 15
+				}
+				custom_tooltip = " "
+			}
+			
+			add_mercantilism = 3
+		}
+	}
+}
+
+FRX_conq_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+
+	AAC_aquitaine = {
+		icon = end_the_habsburgs
+		required_missions = { AAC_to_france }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = poitou_area
+				area = pyrenees_area
+				area = guyenne_area
+				area = massif_central_area
+				area = languedoc_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = poitou_area
+					area = pyrenees_area
+					area = guyenne_area
+					area = massif_central_area
+					area = languedoc_area
+				}
+				value = 15
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_aquitaine 
+				duration = -1
+			}
+			
+			add_adm_power = 100
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = catalonia_area }
+			ME_give_claims = { area = aragon_area }
+			ME_give_claims = { area = basque_country }
+		}
+	}
+}
+
+FRX_conq_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+
+	AAC_to_france = {
+		icon = mission_the_french_menace
+		required_missions = { AAC_austrasia }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = champagne_area
+				area = ile_de_france_area
+				area = orleans_area
+				area = normandy_area
+				area = loire_area
+				area = brittany_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			AAC_early_conquest_trigger = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = champagne_area
+					area = ile_de_france_area
+					area = orleans_area
+					area = normandy_area
+					area = loire_area
+					area = brittany_area
+				}
+				value = 16
+			}
+		}
+		effect = {
+			ME_give_claims = { region = france_region }
+			ME_give_claims = { area = romandie_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_conquest_of_neustria
+				duration = -1
+			}
+		}
+	}
+}
+
+FRX_conq_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+
+	AAC_magna_frisia = {
+		icon = renaissance_city
+		required_missions = { AAC_austrasia }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = holland_area
+				area = frisia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			AAC_early_conquest_trigger = yes
+			
+			holland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			frisia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_conquered_the_naval_people
+				duration = 9125
+			}
+			
+			add_accepted_culture_or_dip_power = { culture = dutch }
+			
+			custom_tooltip = " "
+			
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				build_to_forcelimit = {
+					light_ship = 0.5
+					heavy_ship = 0.1
+					transport = 0.25
+				}
+			}
+		}
+	}
+	
+	AAC_burgundy = {
+		icon = conquer_burgundy
+		required_missions = { AAC_to_france }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = bourgogne_area
+				area = west_burgundy_area
+				area = romandie_area
+				area = savoy_dauphine_area
+				area = provence_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = bourgogne_area
+					area = west_burgundy_area
+					area = romandie_area
+					area = savoy_dauphine_area
+					area = provence_area
+				}
+				value = 14
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_burgundy_modifier
+				duration = -1
+			}
+			
+			add_stability_or_adm_power = yes
+		}
+	}
+}
+
+FRX_conq_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+
+	AAC_alemanni = {
+		icon = protect_against_austria
+		required_missions = { AAC_austrasia }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = upper_rhineland_area
+				area = lower_swabia_area
+				area = upper_swabia_area
+				area = switzerland_area
+				area = thuringia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			AAC_early_conquest_trigger = yes
+			
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = upper_rhineland_area
+					area = lower_swabia_area
+					area = upper_swabia_area
+					area = switzerland_area
+					area = thuringia_area
+				}
+				value = 11
+			}
+		}
+		effect = {
+			#Saxons
+			ME_give_claims = { area = westphalia_area }
+			ME_give_claims = { area = north_westphalia_area }
+			ME_give_claims = { area = weser_area }
+			ME_give_claims = { area = braunschweig_area }
+			ME_give_claims = { area = lower_saxony_area }
+			ME_give_claims = { area = northern_saxony_area }
+			ME_give_claims = { area = westphalia_area }
+			
+			#Frontier
+			ME_give_claims = { area = upper_bavaria_area }
+			ME_give_claims = { area = lower_bavaria_area }
+			ME_give_claims = { area = east_bavaria_area }
+			ME_give_claims = { area = tirol_area }
+			ME_give_claims = { area = inner_austria_area }
+			ME_give_claims = { area = austria_proper_area }
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = ME_mercenary_commander
+				skill = 3
+				culture = swabian
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
+		}
+	}
+	
+	AAC_extend_the_frontier = {
+		icon = claim_tirol
+		required_missions = { AAC_alemanni }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = upper_bavaria_area
+				area = lower_bavaria_area
+				area = east_bavaria_area
+				area = tirol_area
+				area = inner_austria_area
+				area = austria_proper_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = upper_bavaria_area
+					area = lower_bavaria_area
+					area = east_bavaria_area
+					area = tirol_area
+					area = inner_austria_area
+					area = austria_proper_area
+				}
+				value = 18
+			}
+		}
+		effect = {
+			ME_give_claims = { area = piedmont_area }
+			ME_give_claims = { area = liguria_area }
+			ME_give_claims = { area = venetia_area }
+			ME_give_claims = { area = po_valley_area }
+			ME_give_claims = { area = emilia_romagna_area }
+			ME_give_claims = { area = tuscany_area }
+			
+			custom_tooltip = " "
+			
+			create_general_with_pips = { tradition = 50 add_siege = 1 }
+		}
+	}
+}
+
+FRX_conq_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {	
+		OR = {
+			tag = FRX
+			tag = AAC
+		}
+	}
+	has_country_shield = yes
+
+	AAC_saxons = {
+		icon = defender_of_the_faith
+		required_missions = { AAC_alemanni }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = westphalia_area
+				area = north_westphalia_area
+				area = weser_area
+				area = braunschweig_area
+				area = lower_saxony_area
+				area = northern_saxony_area
+				area = westphalia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = westphalia_area
+					area = north_westphalia_area
+					area = weser_area
+					area = braunschweig_area
+					area = lower_saxony_area
+					area = northern_saxony_area
+					area = westphalia_area
+				}
+				value = 20
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_pacify_the_saxons
+				duration = 14600
+			}
+			
+			ME_add_power_projection = { amount = 10 }
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 50 
+		}
+	}
+}
+
+FRX_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {	
+		tag = FRX
+	}
+	has_country_shield = yes
+	
+	# AAC_ = { #would be a mission about Brittany but scrapped atm. Might become a mission about Paris or something! or Paris might be below "To France"
+		# icon = king_of_kings
+		# required_missions = { AAC_alemanni }
+		# position = 8
+		# provinces_to_highlight = {
+		# }
+		# trigger = {
+		# }
+		# effect = {
+		# }
+	# }
+	
+	AAC_stargazers = {
+		icon = innovative_missions_icon
+		required_missions = { AAC_new_renaissance }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			reform_level = 4
+			stability = 3
+			is_ahead_of_time_in_specific_tech = { type = adm }
+		}
+		effect = {
+			define_advisor = {
+				type = GRA_astronomer
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5 
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = no_more_comet_sighted_event_tt
+			hidden_effect = {
+				set_country_flag = no_more_comet_sighted_event
+			}
+			
+			# custom_tooltip = " "
+			
+			# custom_tooltip = AAC_great_comet it's a one-year event
+		}
+	}
+	
+	AAC_chivalry = {
+		icon = chivalry_is_not_dead
+		required_missions = { }
+		position = 13
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_government_power = {
+				mechanic_type = frankish_chivalry_mechanic
+				power_type = frankish_chivalry
+				value = 20
+			}
+		}
+		effect = {
+			custom_tooltip = AAC_rename_nobles_to_knights
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_revival_of_chivalry
+				duration = 9125
+			}
+		}
+	}
+	
+	AAC_rise_of_a_hero = {
+		icon = league_of_the_public_weal
+		required_missions = { AAC_chivalry }
+		position = 15
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_government_power = {
+				mechanic_type = frankish_chivalry_mechanic
+				power_type = frankish_chivalry
+				value = 80
+			}
+			
+			army_tradition = 60
+			
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				num_of_generals_with_traits = 1
+			}
+			else = {
+				num_of_generals = 2
+			}
+		}
+		effect = {
+			add_mil_power = 75
+			
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Aachen_Events.4 } #Rise of a Hero
+			
+			custom_tooltip = AAC_event_insight
+			tooltip = {
+				define_general = {
+					shock = 5
+					fire = 3
+					manuever = 4
+					siege = 3
+					trait = ME_heir_of_roland
+				}
+			}
+		}
+	}
+}
+
+FRX_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {	
+		tag = FRX
+	}
+	has_country_shield = yes
+	
+	AAC_beyond_pyrenees = {
+		icon = alpine_fortifications
+		required_missions = { AAC_burgundy AAC_aquitaine }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = catalonia_area
+				area = basque_country
+				area = aragon_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = basque_country
+					area = aragon_area
+				}
+				value = 4 
+			}
+			catalonia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_knights_of_tarragona
+				duration = 9125
+			}
+			
+			add_government_power = {
+				mechanic_type = frankish_chivalry_mechanic
+				power_type = frankish_chivalry
+				value = 15
+			}
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { region = iberia_region }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = AAC_custom_cb_on_all_muslims
+		}
+	}
+	
+	AAC_tours = {
+		icon = take_the_littoral
+		required_missions = { AAC_beyond_pyrenees }
+		position = 9
+		provinces_to_highlight = {
+			owner = {
+				religion_group = muslim
+				capital_scope = {
+					OR = {
+						region = mashriq_region
+						region = maghreb_region
+						region = iberia_region
+						region = egypt_region
+					}
+				}
+			}	
+		}
+		trigger = {
+			OR = {
+				any_known_country = {
+					religion_group = muslim
+					capital_scope = {
+						OR = {
+							region = mashriq_region
+							region = maghreb_region
+							region = iberia_region
+							region = egypt_region
+						}
+					}
+					PREV = { has_won_war_against = { who = PREV max_years_since = 5 }}
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					OR = {
+						region = mashriq_region
+						region = maghreb_region
+						region = iberia_region
+						region = egypt_region
+					}
+					value = 10
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = AAC_5_percent_province
+			
+			custom_tooltip = " "
+			
+			country_event = { id = ME_Aachen_Events.8 }
+			custom_tooltip = AAC_event_insight
+			tooltip = {
+				add_army_tradition_or_mil_power = { amount = 25 }
+				ME_add_power_projection = { amount = 25 }
+			}
+		}
+	}
+	
+	AAC_new_renaissance = {
+		icon = florentine_renaissance
+		required_missions = { }
+		position = 10
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_institution = renaissance
+		}
+		effect = {
+			tooltip = {
+				add_country_modifier = {
+					name = AAC_the_beautiful
+					duration = 7300
+				}
+			}
+			
+			custom_tooltip = AAC_if_we_have_a_philosopher
+			hidden_effect = {
+				if = {
+					limit = {
+						advisor = philosopher
+					}
+					add_country_modifier = {
+						name = AAC_the_beautiful_reform
+						duration = 7300
+					}
+				}
+				else_if = {
+					limit = {
+						advisor = artist
+					}
+					add_country_modifier = {
+						name = AAC_the_beautiful
+						duration = 10950
+					}
+				}
+				else_if = {
+					limit = {
+						advisor = natural_scientist
+					}
+					add_country_modifier = {
+						name = AAC_the_beautiful_tech
+						duration = 7300
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = AAC_the_beautiful
+						duration = 7300
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_prestige_or_monarch_power = { amount = 15 }
+		}
+	}
+	
+	AAC_wisdom_of_the_kings = {
+		icon = continue_the_renaissance
+		required_missions = { AAC_new_renaissance }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			monthly_adm = 11
+			monthly_dip = 11
+			monthly_mil = 11
+			
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				OR = {
+					full_idea_group = innovativeness_ideas
+					innovativeness = 60
+					is_ahead_of_time_in_tech = { type = all }
+				}
+			}
+			else = {
+				OR = {
+					full_idea_group = innovativeness_ideas
+					is_ahead_of_time_in_tech = { type = all }
+				}
+			}
+		}
+		effect = {
+			country_event = { id = ME_Aachen_Events.1 } #pick policy slot
+			custom_tooltip = AAC_insight_1
+			
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				custom_tooltip = " "
+				custom_tooltip = AAC_patron_of_arts_more_prevalent
+			}
+		}
+	}
+	
+	AAC_mirror_mirror = {
+		icon = sponsor_the_arts
+		required_missions = { AAC_stargazers AAC_larger_than_life AAC_wisdom_of_the_kings }
+		position = 12
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_and_controlled_institutions = 2
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = AAC_chivalry_will_now_give_mil_tech_cost
+		
+			custom_tooltip = " "
+			
+			custom_tooltip = AAC_we_will_no_longer_get_hunting_accidents
+			set_country_flag = AAC_no_hunting_accident
+		}
+	}
+	
+	AAC_dawn_of_victory = {
+		icon = develop_our_capital
+		required_missions = { AAC_chivalry }
+		position = 14
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_battles_won = { amount = 150 }
+			
+			calc_true_if = {
+				all_country = {
+					PREV = {
+						has_won_war_against = { who = PREV }
+					}
+				}
+				amount = 20
+			}
+			
+			has_mil_advisor = yes
+		}
+		effect = {
+			country_event = { id = ME_Aachen_Events.6 }
+			
+			custom_tooltip = AAC_event_insight
+			custom_tooltip = AAC_option_1
+			tooltip = {
+				add_country_modifier = {
+					name = AAC_gloria_perpetua
+					duration = -1
+				}
+			}
+			custom_tooltip = AAC_option_2
+			tooltip = {
+				add_country_modifier = {
+					name = AAC_focus_on_rebuilding
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	AAC_gates_of_glory = {
+		icon = capture_adriatic_ports
+		required_missions = { AAC_dawn_of_victory AAC_rise_of_a_hero }
+		position = 16
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				OR = {
+					army_professionalism = 0.25
+					num_of_battles_won = { amount = 250 }
+				}
+			}
+			else = {
+				num_of_battles_won = { amount = 250 }
+			}
+			
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.1
+			}
+			
+			is_ahead_of_time_in_specific_tech = { type = mil }
+		}
+		effect = {
+			custom_tooltip = AAC_buff_the_order_interaction
+			
+			custom_tooltip = " "
+			
+			add_age_modifier = {
+				age = age_of_reformation
+				duration = -1
+				name = AAC_glory
+				else = "
+					create_general_with_pips = { tradition = 80 add_fire = 1 add_shock = 1 }
+				"
+			}
+		}
+	}
+}
+
+FRX_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {	
+		tag = FRX
+	}
+	has_country_shield = yes
+
+	AAC_trade_ports = {
+		icon = crusader_fleet
+		required_missions = { AAC_iron_crown AAC_beyond_pyrenees }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				province_id = 201
+				province_id = 101
+				province_id = 115
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_trade_building_trigger = yes }
+				NOT = { has_shipyard_building_trigger = yes }
+			}
+		}
+		trigger = {
+			1298 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+			201 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				has_shipyard_building_trigger = yes
+			}
+			101 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				has_shipyard_building_trigger = yes
+			}
+			115 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				has_shipyard_building_trigger = yes
+			}
+		}
+		effect = {
+			201 = {
+				add_or_upgrade_trade_building = yes
+				add_or_upgrade_shipyard_building = yes
+			}
+			101 = {
+				add_or_upgrade_trade_building = yes
+				add_or_upgrade_shipyard_building = yes
+			}
+			115 = {
+				add_or_upgrade_trade_building = yes
+				add_or_upgrade_shipyard_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_ports
+				duration = 10950
+			}
+		}
+	}
+	
+	AAC_this_cross_will_lead_to_light = {
+		icon = spread_piety
+		required_missions = { AAC_protectors_of_rome AAC_tours }
+		position = 10
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = palestine_area
+					NOT = { owned_by = ROOT }
+				}
+				AND = {
+					region = maghreb_region
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				palestine_area = {
+					type = all
+					owned_by = ROOT
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					region = maghreb_region
+					value = 8
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = AAC_reward_if_done_via_maghreb
+			tooltip = {
+				add_country_modifier = {
+					name = AAC_crusade_into_maghreb
+					duration = 10950
+				}
+				
+				add_yearly_manpower = 1
+			}
+			custom_tooltip = AAC_reward_if_done_via_palestine
+			tooltip = {
+				add_country_modifier = {
+					name = AAC_into_holy_land
+					duration = 10950
+				}
+			
+				custom_tooltip = AAC_if_koj_doesnt_exist
+				country_event = { id = ME_Aachen_Events.10 }
+				
+				custom_tooltip = AAC_we_may_release_a_march_with
+				tooltip = {
+					KOJ = {
+						add_country_modifier = {
+							name = AAC_jerusalem_march
+							duration = -1
+						}
+					}
+				}
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+							region = maghreb_region
+							value = 8
+						}
+					}
+					add_country_modifier = {
+						name = AAC_crusade_into_maghreb
+						duration = 10950
+					}
+					
+					add_yearly_manpower = 1	
+				}
+				else = {
+					add_country_modifier = {
+						name = AAC_into_holy_land
+						duration = 10950
+					}
+			
+					if = {
+						limit = {
+							NOT = { exists = KOJ }
+						}
+						country_event = { id = ME_Aachen_Events.10 }
+					}
+				}
+			}
+		}
+	}
+	
+	AAC_larger_than_life = {
+		icon = dreams_of_grandeur
+		required_missions = { AAC_new_renaissance }
+		position = 11
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_and_controlled_institutions = 1 
+			
+			prestige = 80
+			
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_trigger_tooltip = {
+					tooltip = AAC_has_5_prestige
+					has_global_modifier_value = {
+						which = monthly_splendor
+						value = 5
+					}
+				}
+			}
+		}
+		effect = {
+			#stop bad reputation from firing
+			custom_tooltip = AAC_no_more_bad_reputation
+			set_country_flag = ME_no_more_bad_reputation_overextension_event
+			
+			custom_tooltip = " "
+			
+			set_country_flag = no_stability_loss_on_monarch_death
+			custom_tooltip = AAC_no_stability_loss_on_monarch_death
+			
+			custom_tooltip = " "
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = AAC_if_finished_court_ideas
+				first_limit = "
+					court_ideas = 7
+				"
+				first_effect = "
+					add_stability_or_adm_power = yes 
+					add_dip_power = 200
+				"
+			}
+		}
+	}
+	
+	AAC_big_ship_little_ship = {
+		icon = crusader_fleet
+		required_missions = { AAC_legion_of_the_seas }
+		position = 13
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_galley = 20
+			num_of_transport = 40
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_little_ship
+				duration = -1
+			}
+			
+			custom_tooltip = " "
+			
+			create_admiral = { tradition = 40 }
+		}
+	}
+	
+	AAC_glory_to_the_brave = {
+		icon = mercenary_companies
+		required_missions = { AAC_dawn_of_victory }
+		position = 15
+		provinces_to_highlight = {
+			owned_by = ROOT
+			base_manpower = 5
+			NOT = { has_manpower_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_manpower_building_trigger = yes
+				base_manpower = 5
+				value = 10
+			}
+		}
+		effect = {
+			custom_tooltip = AAC_buff_the_chanson_de_geste_interaction
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_none_of_your_deeds
+				duration = 10950
+			}
+		}
+	}
+	
+	AAC_tall = {
+		icon = a_question_of_spain
+		required_missions = { AAC_palace }
+		position = 17
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				NOT = { development = 28 }
+				NOT = { has_tax_building_trigger = yes }
+				NOT = { has_production_building_trigger = yes }
+				NOT = { has_manpower_building_trigger = yes }
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				development = 28
+				has_tax_building_trigger = yes
+				has_production_building_trigger = yes
+				has_manpower_building_trigger = yes
+				value = 8
+			}
+			
+			num_of_provinces_developed = { amount = 100 }
+		}
+		effect = {
+			custom_tooltip = AAC_5_most_developed_provinces
+			tooltip = {
+				add_or_upgrade_tax_building = yes
+				add_or_upgrade_production_building = yes
+				add_or_upgrade_manpower_building = yes
+			}
+			hidden_effect = {
+				pick_best_provinces = {
+					5 = yes
+					scope = every_owned_province
+					scale = higher_development_than
+					event_target_name = "Frx_target"
+					global_trigger = "
+						development = 28
+						has_tax_building_trigger = yes
+						has_production_building_trigger = yes
+						has_manpower_building_trigger = yes
+					"
+				}
+				event_target:Frx_target_1 = {
+					add_or_upgrade_tax_building = yes
+					add_or_upgrade_production_building = yes
+					add_or_upgrade_manpower_building = yes
+				}
+				event_target:Frx_target_2 = {
+					add_or_upgrade_tax_building = yes
+					add_or_upgrade_production_building = yes
+					add_or_upgrade_manpower_building = yes
+				}
+				event_target:Frx_target_3 = {
+					add_or_upgrade_tax_building = yes
+					add_or_upgrade_production_building = yes
+					add_or_upgrade_manpower_building = yes
+				}
+				event_target:Frx_target_4 = {
+					add_or_upgrade_tax_building = yes
+					add_or_upgrade_production_building = yes
+					add_or_upgrade_manpower_building = yes
+				}
+				event_target:Frx_target_5 = {
+					add_or_upgrade_tax_building = yes
+					add_or_upgrade_production_building = yes
+					add_or_upgrade_manpower_building = yes
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = FRX_new_wave_of_urbanization
+				duration = 7300
+			}
+		}
+	}
+}
+
+FRX_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {	
+		tag = FRX
+	}
+	has_country_shield = yes
+	
+	AAC_iron_crown = {
+		icon = kingdom_of_lombardy
+		required_missions = { AAC_extend_the_frontier }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				area = piedmont_area
+				area = liguria_area
+				area = venetia_area
+				area = po_valley_area
+				area = emilia_romagna_area
+				area = tuscany_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = piedmont_area
+					area = liguria_area
+					area = venetia_area
+					area = po_valley_area
+					area = emilia_romagna_area
+					area = tuscany_area
+				}
+				value = 24
+			}
+		}
+		effect = {
+			ME_give_claims = { region = italy_region }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_iron_crown_of_lombardy
+				duration = -1
+			}
+			
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+		}
+	}
+	
+	AAC_protectors_of_rome = {
+		icon = sway_the_pope
+		required_missions = { AAC_iron_crown AAC_new_form_of_paganism }
+		position = 9
+		provinces_to_highlight = {
+			province_id = 118
+		}
+		trigger = {
+			118 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			if = {
+				limit = {
+					religion = catholic
+				}
+				invested_papal_influence = 30
+			}
+			else_if = {
+				limit = {
+					religion = protestant
+				}
+				num_of_aspects = 3
+			}
+			religious_unity = 0.75
+		}
+		effect = {
+			custom_tooltip = AAC_holding_rome_will_no_longer_penalize_us
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_protectors_of_rome_mod
+				duration = -1
+			}
+		}
+	}
+	
+	AAC_roma_secunda = {
+		icon = negotiate_for_avignon
+		required_missions = { AAC_protectors_of_rome AAC_verdict_of_verden }
+		position = 11
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1878
+				AND = {
+					province_id = 118
+					NOT = {
+						1878 = {
+							higher_development_than = 118
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			1878 = {
+				higher_development_than = 118
+				owned_by = ROOT
+				development = 36
+			}
+		}
+		effect = {
+			1878 = {
+				add_province_triggered_modifier = AAC_roma_secunda
+			}
+			
+			add_legitimacy_or_reform_progress = { amount = 20 }
+		}
+	}
+	
+	AAC_legion_of_the_seas = {
+		icon = support_the_bulk_trades
+		required_missions = { }
+		position = 12
+		provinces_to_highlight = {
+		}
+		trigger = {
+			navy_size = 10
+			num_of_admirals = 1
+		}
+		effect = {
+			custom_tooltip = AAC_unlock_privilege_for_burghers
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = AAC_marines
+				duration = -1
+			}
+		}
+	}
+	
+	AAC_flag_in_the_ground = {
+		icon = mission_rb_colonise_canada
+		required_missions = { AAC_legion_of_the_seas }
+		position = 14
+		provinces_to_highlight = {
+			colonial_region_for_scope_province = {
+				NOT = {
+					owner = {
+						is_colonial_nation_of = ROOT
+					}
+				}
+			}
+		}
+		trigger = {
+			colony = 2
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_great_unknown
+				duration = 10950
+			}
+		}
+	}
+	
+	AAC_palace = {
+		icon = carolingian_empire
+		required_missions = { AAC_carolingian_renaissance }
+		position = 16
+		provinces_to_highlight = {
+			province_id = 1878
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				1878 = {
+					has_great_project = {
+						type = ME_aachen_palace
+						tier = 3
+					}
+				}
+			}
+			else = {
+				1878 = {
+					has_courthouse_building_trigger = yes
+					development = 24
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				custom_tooltip = AAC_aachen_palace_buff
+				
+				custom_tooltip = " "
+				
+				define_advisor = {
+					type = muscovy_architect
+					skill = 3
+				}
+			}
+			else = {
+				1878 = {
+					add_or_upgrade_courthouse_building = yes
+				}
+				
+				add_province_modifier = {
+					name = AAC_aachen_palace
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	AAC_fortunes = {
+		icon = appease_the_estates
+		required_missions = { AAC_palace }
+		position = 17
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_manufactory_no_custom_tooltip_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_manufactory_combined_trigger = { amount = 20 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_rich
+				duration = 9125
+			}
+			
+			add_adm_power = 100
+		}
+	}
+	
+	AAC_frankish_peace = {
+		icon = prosper_in_piedmont
+		required_missions = { AAC_fortunes AAC_tall AAC_to_be_frank }
+		position = 18
+		provinces_to_highlight = {
+			AND = {
+				has_dlc = "Mandate of Heaven"
+				owned_by = ROOT 
+				NOT = { is_prosperous = yes }
+			}
+		}
+		trigger = {
+			has_idea = FRX_idea_7
+			num_of_provinces_developed = { amount = 200 }
+			
+			stability = 3
+			
+			ME_has_completed_all_reforms = yes
+			
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				num_of_owned_provinces_with = {
+					value = 100
+					custom_trigger_tooltip = {
+						tooltip = IS_PROSPEROUS
+						is_prosperous = yes
+					}
+				}
+			}
+			
+			monthly_income = 200
+		}
+		effect = {
+			add_age_modifier = {
+				age = age_of_reformation
+				name = AAC_frankish_peace_modifier
+				duration = -1
+				else = "
+					add_adm_power = 100
+					add_dip_power = 100 
+					add_mil_power = 100
+				"
+			}
+	
+			
+			custom_tooltip = AAC_distribute_10_10_5
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							add_base_tax = 1
+						}
+					"
+				}
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							add_base_production = 1
+						}
+					"
+				}
+				for = {
+					amount = 5
+					effect = "
+						random_owned_province = {
+							add_base_manpower = 1
+						}
+					"
+				}
+			}
+			
+			if = {
+				limit = {
+					has_idea = FRX_idea_1
+				}
+				custom_tooltip = " "
+				
+				custom_tooltip = AAC_upgrade_new_frankish_renaissance
+				set_country_flag = FRX_upgrade_ideas
+				hidden_effect = { swap_free_idea_group = yes }
+			}
+		}
+	}
+}
+
+FRX_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {	
+		tag = FRX
+	}
+	has_country_shield = yes
+	
+	AAC_new_form_of_paganism = {
+		icon = join_the_reformation
+		required_missions = { }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = FKN_protestant_enabled
+					had_global_flag = {
+						flag = reformation_started
+						days = 9125
+					}
+				}
+				num_of_provinces_converted = { amount = 5 }
+			}
+			
+			religious_unity = 0.9
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_new_wave_of_religious_strife
+				duration = 9125
+			}
+			
+			define_advisor = {
+				type = inquisitor
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+	
+	AAC_verdict_of_verden = {
+		icon = crush_heretic_strongholds
+		required_missions = { AAC_new_form_of_paganism }
+		position = 10
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				inquisitor = 3
+				theologian = 3
+				has_adm_advisor_2 = yes
+			}
+			
+			stability = 3
+			reform_level = 4 #state an relgion
+		}
+		effect = {
+			custom_tooltip = AAC_unlock_the_verdict_of_verden
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					religion = catholic
+				}
+				add_papal_influence = 50
+			}
+			else_if = {
+				limit = {
+					OR = {
+						religion = protestant
+						religion = hussite
+						religion = anglican
+					}
+				}
+				add_church_power = 50
+			}
+			else_if = {
+				limit = {
+					religion = reformed
+				}
+				add_fervor = 100
+			}
+			else = { }
+		}
+	}
+	
+	# AAC_the_final_crusade = {
+		# icon = the_latin_empire
+		# required_missions = { AAC_verdict_of_verden }
+		# position = 12
+		# provinces_to_highlight = {
+		# }
+		# trigger = {
+			
+		# }
+		# effect = {
+		# }
+	# }
+	
+	AAC_magnetic_north = {
+		icon = indonesian_trade
+		required_missions = { AAC_legion_of_the_seas }
+		position = 13
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_heavy_ship = 10
+			num_of_light_ship = 30
+			OR = {
+				navy_size = 100
+				navy_size_percentage = 0.9
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_set_the_course
+				duration = 10950
+			}
+			
+			add_navy_tradition = 10
+		}
+	}
+	
+	AAC_carolingian_renaissance = {
+		icon = public_works
+		required_missions = { }
+		position = 15
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_provinces_culture_converted = { amount = 5 }
+			num_of_provinces_developed = { amount = 25 }
+			has_dip_advisor_2 = yes 
+		}
+		effect = {
+			custom_tooltip = AAC_every_province_of_french_and_germanic_culture_group
+			tooltip = {
+				add_province_modifier = {
+					name = AAC_frankish_transition
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							culture_group = germanic
+							culture_group = french
+						}
+					}
+					add_province_modifier = {
+						name = AAC_frankish_transition
+						duration = -1
+					}
+				}
+			}
+			
+			add_country_modifier = {
+				name = AAC_new_carolingian_renaissance
+				duration = 7300
+			}
+		}
+	}
+	
+	AAC_to_be_frank = {
+		icon = catholic_confraternity
+		required_missions = { AAC_carolingian_renaissance }
+		position = 17
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { culture = ROOT }
+		}
+		trigger = {
+			num_of_provinces_culture_converted = { amount = 50 }
+		}
+		effect = {
+			add_country_modifier = {
+				name = AAC_primary_culture_buffs
+				duration = -1
+			}
+			
+			add_stability_or_adm_power = yes
+			
+			custom_tooltip = AAC_culture_conversion_gives_2_reform_progress
+		}
+	}
+}
