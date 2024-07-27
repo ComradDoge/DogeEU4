@@ -1,0 +1,136 @@
+namespace = EE_bishops_curia_event
+
+#A Bishop's Blessing
+country_event = {
+	id = EE_bishops_curia_event.1
+	title = EE_bishops_curia_event.1.t
+	desc = EE_bishops_curia_event.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	option = { #Bishopric Sanctions for Increased Taxes
+		name = EE_bishops_curia_event.1.OPT1
+		trigger = {
+			NOT = { has_country_modifier = EE_bishops_tax_sanction }
+		}
+		add_country_modifier = {
+			name = EE_bishops_tax_sanction
+			duration = 7300
+		}
+	}
+	option = { #Bishopric Blessing
+		name = EE_bishops_curia_event.1.OPT2
+		trigger = {
+			NOT = { has_country_modifier = EE_bishops_blessing }
+		}
+		add_country_modifier = {
+			name = EE_bishops_blessing
+			duration = 7300
+		}
+	}
+	option = { #Bishopric Saction for our Dynasty
+		name = EE_bishops_curia_event.1.OPT3
+		trigger = {
+			NOT = { has_country_modifier = EE_bishops_dynasty_sanction }
+		}
+		add_country_modifier = {
+			name = EE_bishops_dynasty_sanction
+			duration = 7300
+		}
+	}
+	option = { #Forgive Usury
+		name = EE_bishops_curia_event.1.OPT4
+		trigger = {
+			NOT = { has_country_modifier = EE_bishops_usury_forgiveness }
+		}
+		add_country_modifier = {
+			name = EE_bishops_usury_forgiveness
+			duration = 7300
+		}
+	}
+	option = { #Proclaim Holy War
+		name = EE_bishops_curia_event.1.OPT5
+		trigger = {
+			OR = {
+				NOT = { has_country_modifier = EE_bishops_war_sanction }
+				is_at_war = yes
+			}
+		}
+		add_country_modifier = {
+			name = EE_bishops_war_sanction
+			duration = 7300
+		}
+	}
+}
+
+#Hidden Event to remove modifiers if no longer restraints in appeal
+country_event = {
+	id = EE_bishops_curia_event.2
+	title = EE_bishops_curia_event.2.t
+	desc = EE_bishops_curia_event.2.d
+	hidden = yes
+	picture = GOOD_WITH_MONARCH_eventPicture
+	trigger = {
+		NOT = { has_country_modifier = the_statue_in_restraint_of_appeals }
+		OR = {
+			has_country_modifier = EE_bishops_tax_sanction
+			has_country_modifier = EE_bishops_blessing
+			has_country_modifier = EE_bishops_dynasty_sanction
+			has_country_modifier = EE_bishops_usury_forgiveness
+			has_country_modifier = EE_bishops_war_sanction
+		}
+	}
+	option = { #Remove Blessing
+		name = EE_bishops_curia_event.2.OPT1
+		if = {
+			limit = {
+				has_country_modifier = EE_bishops_tax_sanction
+			}
+			remove_country_modifier = EE_bishops_tax_sanction
+		}
+		else_if = {
+			limit = {
+				has_country_modifier = EE_bishops_blessing
+			}
+			remove_country_modifier = EE_bishops_blessing
+		}
+		else_if = {
+			limit = {
+				has_country_modifier = EE_bishops_dynasty_sanction
+			}
+			remove_country_modifier = EE_bishops_dynasty_sanction
+		}
+		else_if = {
+			limit = {
+				has_country_modifier = EE_bishops_usury_forgiveness
+			}
+			remove_country_modifier = EE_bishops_usury_forgiveness
+		}
+		else = {
+			remove_country_modifier = EE_bishops_war_sanction
+		}
+	}
+}
+
+#Reinstating the Blessing
+country_event = {
+	id = EE_bishops_curia_event.3
+	title = EE_bishops_curia_event.3.t
+	desc = EE_bishops_curia_event.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	option = { #Reapply the privilege
+		name = EE_bishops_curia_event.3.OPT1
+		custom_tooltip = EE_extend_curia_privilege_tt
+		hidden_effect = {
+			remove_estate_privilege = EE_bishops_curia
+			set_estate_privilege = EE_bishops_curia
+		}
+	}
+	option = { #Revoke the Curia
+		name = EE_bishops_curia_event.3.OPT2
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = -5
+		}
+	}
+}

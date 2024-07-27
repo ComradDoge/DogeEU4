@@ -1,0 +1,293 @@
+namespace = ME_Papal_Missions_Events
+
+country_event = {
+	id = ME_Papal_Missions_Events.1
+	title = "ME_Papal_Missions_Events.1.t"
+	desc = "ME_Papal_Missions_Events.1.d"
+	picture = COURT_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = { #Accept Mission
+		name = "ME_Papal_Missions_Events.1.a"
+		
+		ai_chance = { 
+			factor = 100
+			modifier = {
+				factor = 0.5
+				is_great_power = yes
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					ruler_has_personality = zealot_personality
+					has_full_religious_idea_groups = yes
+				}
+			}
+			modifier = {
+				factor = 3
+				OR = {
+					ruler_has_personality = tolerant_personality
+					full_idea_group = humanist_ideas
+				}
+			}
+			modifier = {
+				factor = 0.75
+				inquisitor = 1
+			}
+			modifier = {
+				factor = 1.5
+				catholic = 1
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { catholic = -1 }
+			}
+			modifier = {
+				factor = 0.1
+				isolationism = 3
+			}
+		}
+		
+		custom_tooltip = ME_PAP_PROCEED_MISSION
+		
+		add_country_modifier = {
+			name = me_pap_accepted_christian_missionaries
+			duration = -1
+			desc = UNTIL_MISSION_IS_OVER
+		}
+		
+		hidden_effect = {
+			country_event = { id = ME_Papal_Missions_Events.2 days = 31 random = 31}
+		}
+	}
+	
+	option = { #Reject Mission
+		name = "ME_Papal_Missions_Events.1.b"
+
+        custom_tooltip = ME_PAP_REJECT_MISSION
+		
+		add_opinion = {
+			who = PAP
+			modifier = me_pap_rejected_missionaries
+		}
+		
+		add_prestige_or_monarch_power = { amount = 10 }
+		
+		hidden_effect = {
+			PAP = {
+				country_event = { id = ME_Papal_Missions_Events.10 }
+			}
+		}
+		
+		ai_chance = { factor = 100 }
+	}
+}
+
+country_event = {
+	id = ME_Papal_Missions_Events.2
+	title = "ME_Papal_Missions_Events.2.t"
+	desc = "ME_Papal_Missions_Events.2.d"
+	picture = COURT_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "ME_Papal_Missions_Events.2.a"
+		
+		ai_chance = { factor = 50 }
+		
+		custom_tooltip = ME_PAP_PROCEED_MISSION
+		
+		define_advisor = {
+			type = theologian
+			skill = 2
+			culture = umbrian
+			religion = catholic
+			discount = 0.5
+		}
+		random_owned_province = {
+			limit = {
+				NOT = {
+					religion = catholic
+				}
+			}
+			change_religion = catholic
+		}
+		hidden_effect = {
+			country_event = { id = ME_Papal_Missions_Events.3 days = 31 random = 31}
+		}
+	}
+	
+	option = { #Reject Mission
+		name = "ME_Papal_Missions_Events.2.b"
+
+        custom_tooltip = ME_PAP_REJECT_MISSION
+		
+		add_opinion = {
+			who = PAP
+			modifier = me_pap_rejected_missionaries
+		}
+		remove_country_modifier = me_pap_accepted_christian_missionaries
+		hidden_effect = {
+			PAP = {
+				country_event = { id = ME_Papal_Missions_Events.10 }
+			}
+		}
+		
+		ai_chance = { factor = 0 }
+	}
+	
+	option = {
+		name = "ME_Papal_Missions_Events.2.c"
+		highlight = yes
+		trigger = {
+			ruler_has_personality = tolerant_personality
+		}
+
+        set_ruler_religion = catholic
+		
+		random_owned_province = {
+			limit = {
+				NOT = {
+					religion = catholic
+				}
+			}
+			change_religion = catholic
+		}
+		random_owned_province = {
+			limit = {
+				NOT = {
+					religion = catholic
+				}
+			}
+			change_religion = catholic
+		}
+		random_owned_province = {
+			limit = {
+				NOT = {
+					religion = catholic
+				}
+			}
+			change_religion = catholic
+		}
+		
+		custom_tooltip = ME_PAP_ALL_MAIN_RELIGION_PROVINCES_GAIN_UNREST
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					NOT = {
+						religion = catholic
+					}
+				}
+				add_unrest = 3
+			}
+		}
+		custom_tooltip = " "
+		add_ruler_modifier = {
+			name = me_pap_reinforced_missionaries
+			duration = -1
+		}
+		hidden_effect = {
+			country_event = { id = ME_Papal_Missions_Events.3 days = 31 random = 31}
+		}
+		ai_chance = { 
+			factor = 25
+			modifier = {
+				factor = 0
+				is_emperor_of_china = yes
+			}
+			modifier = {
+				factor = 4
+				full_idea_group = humanist_ideas
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ME_Papal_Missions_Events.3
+	title = "ME_Papal_Missions_Events.3.t"
+	desc = "ME_Papal_Missions_Events.3.d"
+	picture = COURT_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "ME_Papal_Missions_Events.3.a"
+		
+		ai_chance = { factor = 33 }
+		
+		custom_tooltip = ME_PAP_CONCLUDE_MISSION
+		custom_tooltip = " "
+		hidden_effect = {
+			PAP = {
+				country_event = { id = ME_Papal_Missions_Events.11 }
+			}
+		}
+		remove_country_modifier = me_pap_accepted_christian_missionaries
+		random_owned_province = {
+			limit = {
+				NOT = {
+					religion = catholic
+				}
+			}
+			change_religion = catholic
+			add_base_tax = 1
+			add_base_production = 1
+		}
+		random_owned_province = {
+			limit = {
+				NOT = {
+					religion = catholic
+				}
+			}
+			change_religion = catholic
+			add_base_tax = 1
+			add_base_production = 1
+		}
+	}
+}
+
+country_event = {
+	id = ME_Papal_Missions_Events.10
+	title = "ME_Papal_Missions_Events.10.t"
+	desc = "ME_Papal_Missions_Events.10.d"
+	picture = COURT_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = { #Informed of rejected mission
+		name = "ME_Papal_Missions_Events.10.a"
+		
+		ai_chance = { factor = 1 }
+		
+		custom_tooltip = ME_PAP_MISSION_IN_FROM_FAILED
+	}
+}
+
+country_event = {
+	id = ME_Papal_Missions_Events.11
+	title = "ME_Papal_Missions_Events.11.t"
+	desc = "ME_Papal_Missions_Events.11.d"
+	picture = COURT_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = { #Informed of rejected mission
+		name = "ME_Papal_Missions_Events.11.a"
+		
+		ai_chance = { factor = 1 }
+		
+		custom_tooltip = ME_PAP_MISSION_IN_FROM_SUCCESS
+		custom_tooltip = " "
+		if = {
+			limit = {
+				mission_completed = ME_pap_word_of_god
+			}
+			add_adm_power = 50
+			add_mil_power = 50
+			add_dip_power = 50
+		}
+	}
+}

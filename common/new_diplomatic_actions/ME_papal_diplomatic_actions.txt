@@ -1,0 +1,479 @@
+cancel_crusader_march =  {
+	category = influence
+	require_acceptance = no
+	is_visible = {
+		overlord_of = FROM
+		FROM = {
+			is_subject_of_type = ME_crusader_march
+		}
+	}
+	is_allowed = {
+		always = yes
+	}
+	on_accept = {
+		add_trust = {
+			who = FROM
+			value = -100
+			mutual = yes
+		}
+		FROM = {
+			grant_independence = yes
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+create_crusader_march =  {
+	category = influence
+	require_acceptance = no
+	is_visible = {
+		mission_completed = ME_pap_crusader_marches
+		overlord_of = FROM
+		FROM = {
+			NOT = {
+				is_subject_of_type = ME_crusader_march
+			}
+		}
+	}
+	is_allowed = {
+		always = yes
+	}
+	on_accept = {
+		create_subject = {
+			subject_type = ME_crusader_march
+			subject = FROM
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+convert_country_to_catholic = {
+	category = relation
+	require_acceptance = yes
+	is_visible = {
+		has_country_flag = allow_peaceful_heretic_conversion
+		FROM = {
+			religion_group = christian
+			NOT = {
+				OR = {
+					religion = catholic
+					religion = orthodox
+					religion = coptic
+				}
+			}
+		}
+	}
+	is_allowed = {
+		OR = {
+			FROM = {
+				NOT = {
+					has_country_flag = pap_requested_conversion
+				}
+				had_country_flag = {
+					flag = pap_requested_conversion
+					days = 3650
+				}
+			}
+		}
+	}
+	on_accept = {
+		FROM = {
+			change_religion = catholic
+			capital_scope = {
+				change_religion = catholic
+			}
+			set_ruler_religion = catholic
+			set_heir_religion = catholic
+			clr_country_flag = pap_requested_conversion
+			set_country_flag = pap_requested_conversion
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+		}
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = diplomatic_reputation
+			limit = { }
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 2
+			multiply_variable = {
+				which = ai_value
+				value = 2
+			}
+		}
+		add_entry = {
+			name = IS_ZEALOT
+			limit = {
+				FROM = {
+					ruler_has_personality = zealot_personality
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = COMPLETED_HUMANIST
+			limit = {
+				FROM = {
+					full_idea_group = humanist_ideas
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 50
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+send_mission =  {
+	category = influence
+	require_acceptance = no
+	is_visible = {
+		FROM = {
+			NOT = {
+				religion_group = christian
+				religion_group = muslim
+				religion_group = jewish_group
+			}
+			capital_scope = {
+				NOT = {
+					continent = europe
+				}
+			}
+		}
+		mission_completed = ME_pap_overseas_missions
+	}
+	is_allowed = {
+		OR = {
+			NOT = {
+				has_country_flag = me_pap_sent_mission
+				had_country_flag = {
+					flag = me_pap_sent_mission
+					days = 1825
+				}
+			}
+		}
+	}
+	on_accept = {
+		FROM = {
+			country_event = { id = ME_Papal_Missions_Events.1 }
+		}
+		clr_country_flag = me_pap_sent_mission
+		set_country_flag = me_pap_sent_mission
+		EE_change_variable = {
+			which = me_pap_established_mission
+			add = 1
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+# Sell indulgence
+sell_indulgence_theocracy = {
+	category = economy
+
+	alert_index = 17
+	alert_tooltip = sell_indulgence_alert_tooltip
+
+	require_acceptance = yes # Whether the recipient gets an option to decline
+
+	is_visible = {
+		government = theocracy
+		has_global_flag = me_pap_unlocks_selling_indulgences_for_theocracies
+		NOT = {
+			tag = RIG
+			tag = PAP
+		}
+		religion = catholic
+	}
+	is_allowed = {
+		if = {
+			limit = { FROM = { NOT = { religion = catholic } } }
+			custom_trigger_tooltip = {
+				tooltip = sell_indulgence_catholic
+				FROM = { religion = catholic }
+			}
+		}
+		if = {
+			limit = { FROM = { tag = PAP } }
+			custom_trigger_tooltip = {
+				tooltip = sell_indulgence_pope
+				FROM = { NOT = { tag = PAP } }
+			}
+		}
+		if = {
+			limit = { FROM = { is_subject_other_than_tributary_trigger = yes } }
+			custom_trigger_tooltip = {
+				tooltip = sell_indulgence_subject
+				FROM = { is_free_or_tributary_trigger = yes }
+			}
+		}
+		if = {
+			limit = { NOT = { papal_influence = 50 } NOT = { tag = PAP } }
+			custom_trigger_tooltip = {
+				tooltip = sell_indulgence_pi
+				papal_influence = 50
+			}
+		}
+		if = {
+			limit = { war_with = FROM }
+			custom_trigger_tooltip = {
+				tooltip = sell_indulgence_war
+				NOT = { war_with = FROM }
+			}
+		}
+		FROM = {
+				years_of_income = 1
+		}
+	}
+	on_accept = {
+		if = {
+			limit = { NOT = { tag = PAP } }
+			add_papal_influence = -50
+		}
+		else = {
+			add_corruption = 0.5
+		}
+		add_reform_desire = 0.0025
+		FROM = {
+			add_stability = 1
+			add_prestige = 10
+			export_to_variable = {
+				which = FROM_years_of_income
+				value = years_of_income
+			}
+			EE_change_variable = {
+                which = FROM_years_of_income
+                multiply = 1.5
+            }
+			export_to_variable = {
+				which = FROM_years_of_income2
+				value = years_of_income
+			}
+			EE_change_variable = {
+                which = FROM_years_of_income
+                multiply = 0.8
+            }
+			EE_change_variable = {
+                which = FROM_years_of_income2
+                multiply = 0.2
+            }
+			save_global_event_target_as = buyer
+		}
+		country_event = { id = ME_Papal_Events.21 }
+	}
+	on_decline = {
+	}
+
+	ai_acceptance = { # This works similarly to variable_arithmetic_trigger, but does not support triggers generally. Instead, "limit" will be evaluated first and the rest ignored if it isn't passed.
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+		}
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = diplomatic_reputation
+			limit = { }
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 2
+			multiply_variable = {
+				which = ai_value
+				value = 2
+			}
+		}
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = {
+				variable_name = ai_value
+				value = stability
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = -25
+			}
+		}
+	}
+
+	ai_will_do = { # this is a trigger
+		has_opinion = {
+			who = FROM
+			value = 50
+		}
+		FROM = {
+			NOT = { stability = 2 }
+		}
+		NOT = { is_rival = FROM }
+		NOT = { is_enemy = FROM }
+		trust = {
+			who = FROM
+			value = 65
+		}
+	}
+}
+
+pulling_favors_in_the_curia_interaction = {
+	category = papacy
+
+	alert_index = 17
+	alert_tooltip = sell_indulgence_alert_tooltip
+
+	require_acceptance = no
+
+	is_visible = {
+		has_dlc = "The Cossacks"
+		FROM = {
+			tag = PAP
+			religion = catholic
+		}
+		religion = catholic
+	}
+	is_allowed = {
+		alliance_with = PAP
+		has_opinion = {
+			who = PAP
+			value = 100 
+		}
+		FROM = {
+			owes_favors = { 
+				who = ROOT
+				value = 10
+			}
+		}
+	}
+	on_accept = {
+		add_favors = { 
+			who = FROM
+			amount = -10
+		}
+		add_papal_influence = 5
+	}
+	on_decline = {
+	}
+
+	ai_acceptance = { #no need.
+	}
+
+	ai_will_do = { 
+		always = no #we can't tell the ai logic for using favors. 
+	}
+}

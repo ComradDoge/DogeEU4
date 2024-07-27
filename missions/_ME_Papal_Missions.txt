@@ -1,0 +1,3165 @@
+ME_pap_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_mercenaries = {
+		icon = mission_italian_condottiere
+		position = 2
+		required_missions = { ME_pap_papal_guard } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				num_of_mercenaries = 30
+				full_idea_group = mercenary0
+				has_reform = condottieri_contracts_reform
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "me_pap_condotierii_of_italy"
+				duration = 7300
+			}
+			custom_tooltip = ME_PAP_ITALIAN_MERCS_WILL_COST_LESS_AP
+		}
+	}
+
+	ME_pap_south_italy_bases = {
+		icon = mission_galleys_in_port
+		position = 4
+		required_missions = { ME_pap_rebuild_naples } 
+		provinces_to_highlight = {  
+			OR = {
+				area = naples_area
+				area = apulia_area
+				area = calabria_area
+				province_id = 120
+			}
+			has_port = yes
+			NOT = {
+				has_dock_building_trigger = yes
+				has_shipyard_building_trigger = yes
+			}
+		} 
+
+		trigger = { 
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = naples_area
+					area = apulia_area
+					area = calabria_area
+					province_id = 120
+				}
+				development = 10
+				has_port = yes
+				has_dock_building_trigger = yes
+				has_shipyard_building_trigger = yes
+				value = 5
+			} 
+		} 
+
+		effect = {  
+			add_navy_tradition = 15
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_5_SOUTH_ITALY_PROVINCES_GAIN_FOLLOWING
+			tooltip = {
+				add_province_modifier = {
+					name = me_pap_naval_base_of_the_south
+					duration = -1
+				}
+				add_base_production = 1
+			}
+			pick_random_provinces = {
+				5 = yes
+				scope = random_owned_province
+				event_target_name = "italian_port_province"
+				global_trigger = "
+					OR = {
+						area = naples_area
+						area = apulia_area
+						area = calabria_area
+						province_id = 120
+					}
+					has_port = yes
+					development = 10
+					has_dock_building_trigger = yes
+					has_shipyard_building_trigger = yes
+				"
+			  }
+			hidden_effect = {
+				event_target:italian_port_province = {
+					add_province_modifier = {
+						name = me_pap_naval_base_of_the_south
+						duration = -1
+					}
+					add_base_production = 1
+				}
+				event_target:italian_port_province = {
+					add_province_modifier = {
+						name = me_pap_naval_base_of_the_south
+						duration = -1
+					}
+					add_base_production = 1
+				}
+				event_target:italian_port_province = {
+					add_province_modifier = {
+						name = me_pap_naval_base_of_the_south
+						duration = -1
+					}
+					add_base_production = 1
+				}
+				event_target:italian_port_province = {
+					add_province_modifier = {
+						name = me_pap_naval_base_of_the_south
+						duration = -1
+					}
+					add_base_production = 1
+				}
+				event_target:italian_port_province = {
+					add_province_modifier = {
+						name = me_pap_naval_base_of_the_south
+						duration = -1
+					}
+					add_base_production = 1
+				}
+			}
+		} 
+	}
+}
+
+ME_pap_1_avi_branch = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP
+		NOT = {
+			has_country_flag = me_pap_alliance_path
+			has_country_flag = me_pap_conquest_path
+			has_country_flag = pap_preview_alliance_path
+			has_country_flag = pap_preview_conquest_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_branching2 = {
+		icon = mission_unknown_mission
+		position = 6
+		required_missions = { ME_pap_avignon } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_FRENCH_BRANCH
+				always = no
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_FRENCH_BRANCH
+		} 
+	}
+}
+
+ME_pap_1_avi_branch_conquest = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_conquest_path
+			has_country_flag = pap_preview_conquest_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_conquer_provence = {
+		icon = mission_humiliate_provence
+		position = 6
+		required_missions = { ME_pap_avignon } 
+		provinces_to_highlight = {  
+			area = provence_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = pap_preview_conquest_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			provence_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = { 
+			country_event_with_option_insight = {
+				id = ME_Papal_Events.14
+				option_1 = "
+					202 = {
+						add_base_production = 3
+						add_base_tax = 2
+						center_of_trade = 2
+					}
+					201 = {
+						add_base_tax = -1
+						add_base_production = -1
+					}
+				"
+				option_2 = "
+					201 = {
+						custom_tooltip = ME_PAP_BUFF_RHONE_ESTUARY
+					}
+				"
+			}
+			ME_give_claims = { area = languedoc_area }
+			ME_give_claims = { area = savoy_dauphine_area }
+		} 
+	}
+}
+
+ME_pap_1_avi_branch_alliance = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		OR = {
+			has_country_flag = me_pap_alliance_path
+			has_country_flag = pap_preview_alliance_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_french_mercenaries = {
+		icon = establish_the_musketeers
+		position = 6
+		required_missions = { ME_pap_avignon }
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = pap_preview_alliance_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			has_mil_advisor_3 = yes
+			OR = {
+				monthly_mil = 10
+				mil = 5
+				full_idea_group = mercenary0
+			}
+			if = {
+				limit = {
+					has_dlc = "The Cossacks"
+				}
+				FRA = {
+					trust = {
+						who = ROOT
+						value = 65
+					}
+				}
+			}
+		} 
+
+		effect = { 
+			custom_tooltip = ME_PAP_ALLOWS_CREATION_OF_20_MAX_MUSKETEERS_THROUGH_DECISION
+			add_country_modifier = {
+				name = me_pap_french_papal_guard
+				duration = -1
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = me_pap_unlock_musketeers
+					duration = -1
+					hidden = yes
+				}
+			}
+			custom_tooltip = " "
+			add_army_tradition_or_mil_power = { amount = 10 }
+		} 
+	}
+}
+
+ME_pap_1_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_renaissance = {
+		icon = florentine_renaissance
+		position = 8
+
+		trigger = {  
+			has_institution = renaissance
+			118 = {
+				owned_by = ROOT
+			}
+		} 
+
+		effect = {  
+			set_country_flag = vatican_library_mission_flag
+			country_event_with_option_insight = {
+				id = papacy_events.11
+				option_1 = "
+					add_estate_loyalty = {
+						estate = estate_church
+						loyalty = 10
+					}
+					118 = {
+						add_province_triggered_modifier = adm_vatican_library
+					}
+				"
+				option_2 = "
+					add_ruler_personality = charismatic_negotiator_personality
+					118 = {
+						add_province_triggered_modifier = dip_vatican_library
+					}
+				"
+				option_3 = "
+					add_army_tradition_or_mil_power = { amount = 10 }
+					118 = {
+						add_province_triggered_modifier = mil_vatican_library
+					}
+				"
+			}
+		} 
+	}
+
+	ME_pap_religious_zeal = {
+		icon = mission_hands_praying
+		position = 9
+
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+			OR = {
+				AND = {
+					devotion = 100
+					reform_level = 2
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = PAP_ttf_tooltip
+						has_global_modifier_value = {
+							which = tolerance_own
+							value = 8
+						}
+					}
+					calc_true_if = {
+						all_known_country = {
+							religion = catholic
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+						}
+						amount = 3
+					}
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = ME_PAP_BUFF_RELIGIOUS_DIPLOMATS
+			custom_tooltip = " "
+			set_country_flag = me_pap_buffed_religious_diplomats
+			add_stability_or_adm_power = yes
+		}
+	}
+}
+ME_pap_1_branching2 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		NOT = { has_country_flag = me_pap_battle_pope } 
+		NOT = { has_country_flag = me_pap_peaceful_pope_path } 
+		NOT = {
+			has_country_flag = me_pap_previewing_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_branching13 = {
+		icon = mission_unknown_mission
+		position = 11
+		required_missions = { ME_pap_expand_the_army } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_KOG_BRANCH
+				always = no
+			}
+		 } 
+
+		effect = {  
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_KOG_BRANCH
+		} 
+	}
+}
+ME_pap_1_battle_pope2 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_battle_pope
+			has_country_flag = me_pap_preview_battle_pope
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_crusader_marches = {
+		icon = mission_teutonic_knights
+		position = 11
+		required_missions = { ME_pap_expand_the_army } 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = me_pap_previewing_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			OR = {
+				has_full_religious_idea_groups = yes
+				monthly_mil = 9
+			}
+			OR = {
+				has_mil_advisor_3 = yes
+				army_size_percentage = 0.8
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_UNLOCK_CRUSADER_MARCHES
+			custom_tooltip = " "
+			add_army_tradition_or_mil_power = { amount = 10 }
+		} 
+	}
+}
+ME_pap_1_peaceful_pope2 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_peaceful_pope_path
+			has_country_flag = me_pap_preview_peaceful_pope_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_control_of_churches = {
+		icon = control_the_church
+		position = 11
+		required_missions = { ME_pap_expand_the_army } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = me_pap_previewing_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			num_of_cardinals = 7
+			if = {
+				limit = {
+					has_dlc = "The Cossacks"
+				}
+				calc_true_if = {
+					all_country = {
+						religion = catholic
+						owes_favors = {
+							who = ROOT
+							value = 30
+						}
+					}
+					amount = 4
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_EXCOMMUNICATE_ANYONE
+			custom_tooltip = " "
+			ME_add_power_projection = {
+				amount = 15
+			}
+		} 
+	}
+}
+ME_pap_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_papal_guard = {
+		icon = form_the_swiss_guard
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			army_size_percentage = 1
+			num_of_generals = 1
+		}
+
+		effect = {
+			ME_give_claims = { area = naples_area } 
+			ME_give_claims = { area = apulia_area } 
+			ME_give_claims = { area = calabria_area } 
+			ME_give_claims = { province = 120 } 
+			add_country_modifier = {
+				name = "ME_pap_raised_papal_guard"
+				duration = 5475
+			}
+			custom_tooltip = ME_NEXT_MERC_COMPANY_WILL_NOT_COST_AP
+			set_country_flag = me_free_mercenary_company
+		}
+	}
+
+	ME_pap_fall_of_naples = {
+		icon = king_of_naples
+		position = 2
+		required_missions = { ME_pap_papal_guard } 
+		provinces_to_highlight = {
+			OR = {
+				area = naples_area
+				area = apulia_area
+				area = calabria_area
+				province_id = 120
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = naples_area
+					area = apulia_area
+					area = calabria_area
+					province_id = 120
+				}
+				value = 7
+			}
+			121 = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		effect = { 
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_PAP_OF_NAP_SUBJECT
+				first_limit = "
+					NAP = {
+						is_subject_of = ROOT
+					}
+				"
+				first_effect = "
+					NAP = {
+						add_liberty_desire = -50
+						add_opinion = {
+							who = PAP
+							modifier = me_pap_subduing_neapolitans
+						}
+					}
+				"
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = ME_Papal_Events.1
+				option_1 = "
+					121 = {
+						add_base_tax = 2
+						add_center_of_trade_level = 1
+						if = {
+							limit = {
+								has_dlc = \"Leviathan\"
+							}
+							add_great_project_tier = {
+								type = royal_palace_caserta
+								tier = 1
+							}
+						}
+					}
+				"
+				option_2 = "
+					add_adm_power = 50
+					add_dip_power = 50
+					add_mil_power = 50
+					add_curia_treasury = 150
+					add_army_tradition_or_mil_power = { amount = 5 }
+				"
+			}
+		} 
+	}
+
+	
+
+	ME_pap_rebuild_naples = {
+		icon = renaissance_city
+		position = 3
+		required_missions = {
+			ME_pap_fall_of_naples
+			ME_pap_integrate_vassals
+		}
+		provinces_to_highlight = {
+			province_id = 121
+			NOT = { devastation = 0.01 } 
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		trigger = {
+			121 = {
+				NOT = { devastation = 0.01 } 
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = {
+					development = 25
+					num_of_buildings_in_province = 3
+					if = {
+						limit = {
+							has_dlc = Leviathan
+						}
+						has_great_project = {
+							type = royal_palace_caserta
+							tier = 2
+						}
+					}
+					else = {
+						hidden_trigger = {
+							always = no
+						}
+					}
+				}
+			}
+		}
+
+		effect = {  
+			if = {
+				limit = {
+					has_dlc = Leviathan
+				}
+				custom_tooltip = ME_PAP_UNLOCK_ROYAL_PALACE_CONDITIONAL_MODIFIER
+				custom_tooltip = " "
+			}
+			121 = {
+				add_or_upgrade_tax_building = yes
+				add_or_upgrade_courthouse_building = yes
+			}
+		} 
+	}
+
+	ME_pap_avignon = {
+		icon = negotiate_for_avignon
+		position = 5
+
+		trigger = {  
+			OR = {
+				FRA = {
+					has_opinion = {
+						who = ROOT
+						value = 120
+					}
+				}
+				202 = {
+					country_or_non_sovereign_subject_holds = ROOT
+					development = 15
+				}
+			}
+		} 
+
+		effect = {  
+			country_event_with_option_insight = {
+				id = ME_Papal_Events.13
+				option_1 = "
+					custom_tooltip = ME_PAP_IF_WE_LOCK_TO_PATH
+					tooltip = {
+						202 = {
+							cede_province = FRA
+							add_core = FRA
+						}
+						ME_distribute_development = {
+							type = tax
+							amount = 5
+						}
+					}
+				"
+				option_2 = "
+					custom_tooltip = ME_PAP_IF_WE_LOCK_TO_PATH
+					tooltip = {
+						ME_give_claims = { area = provence_area }
+						add_country_modifier = {
+							name = me_pap_fabricantion_of_french_claims
+							duration = 3650
+						}
+					}
+				"
+			}
+		} 
+	}
+}
+
+ME_pap_2_avi_branch = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP
+		NOT = {
+			has_country_flag = me_pap_alliance_path
+			has_country_flag = me_pap_conquest_path
+			has_country_flag = pap_preview_alliance_path
+			has_country_flag = pap_preview_conquest_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_branching1 = {
+		icon = mission_unknown_mission
+		position = 6
+		required_missions = { ME_pap_avignon } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_FRENCH_BRANCH
+				always = no
+			}
+		} 
+
+		effect = { 
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_FRENCH_BRANCH
+		} 
+	}
+	
+
+	ME_pap_branching4 = {
+		icon = mission_unknown_mission
+		position = 7
+		required_missions = {
+			ME_pap_branching1
+			ME_pap_branching3
+			ME_pap_branching2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_FRENCH_BRANCH
+				always = no
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_FRENCH_BRANCH
+		} 
+	}
+}
+
+ME_pap_2_avi_branch_conquest = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_conquest_path
+			has_country_flag = pap_preview_conquest_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_develop_palace_of_popes = {
+		icon = sway_the_pope
+		position = 6
+		required_missions = { ME_pap_avignon } 
+		provinces_to_highlight = {  
+			province_id = 202
+			NOT = {
+				has_great_project = {
+					type = palace_of_the_popes
+					tier = 2
+				}
+				num_of_buildings_in_province = 2
+				development = 20
+			}
+		} 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = pap_preview_conquest_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			202 = {
+				owned_by = ROOT
+				OR = {
+					has_great_project = {
+						type = palace_of_the_popes
+						tier = 2
+					}
+					num_of_buildings_in_province = 2
+					development = 20
+				}
+			}
+		} 
+
+		effect = { 
+			202 = {
+				add_province_modifier = {
+					name = me_pap_old_seat_of_popes
+					duration = -1
+				}
+			}
+			ME_add_loyalty_for_privilege = {
+				estate = church
+			}
+			ME_give_claims = { area = pyrenees_area }
+			ME_give_claims = { area = guyenne_area }
+		} 
+	}
+	
+
+	ME_pap_expand_french_holdings = {
+		icon = king_of_the_franks
+		position = 7
+		required_missions = {
+			ME_pap_conquer_provence
+			ME_pap_develop_palace_of_popes
+			ME_pap_southern_france
+		}
+		provinces_to_highlight = {  
+			region = france_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = me_pap_conquest_path
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 35
+				region = france_region
+			}
+		} 
+
+		effect = {  
+			country_event_with_effect_insight = {
+				id = ME_Papal_Events.15
+				effect = "
+					custom_tooltip = ME_PAP_ALLOWS_CREATION_OF_20_MAX_MUSKETEERS_THROUGH_DECISION
+					add_country_modifier = {
+						name = me_pap_french_papal_guard
+						duration = -1
+					}
+				"
+			}
+		} 
+	}
+}
+
+ME_pap_2_avi_branch_alliance = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		OR = {
+			has_country_flag = me_pap_alliance_path
+			has_country_flag = pap_preview_alliance_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_french_economic_aid = {
+		icon = mission_alliances
+		position = 6
+		required_missions = { ME_pap_avignon }
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = pap_preview_alliance_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			FRA = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = sent_gift
+				}
+			}
+			101 = {
+				owned_by = ROOT
+				province_has_center_of_trade_of_level = 3
+				development = 30
+				trade_share = {
+					country = ROOT
+					share = 60
+				}
+			}
+		} 
+
+		effect = { 
+			add_country_modifier = {
+				name = me_pope_mutual_economic_aid
+				duration = -1
+				desc = until_alliance_is_broken
+			}
+			FRA = {
+				add_country_modifier = {
+					name = me_pope_mutual_economic_aid
+					duration = -1
+					desc = until_alliance_is_broken
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_CONTROL_OVER_MONATERY_POLICY_DEBUFF_CHANGED
+		} 
+	}
+
+
+	ME_pap_move_palace_of_popes = {
+		icon = mission_colonial
+		position = 7
+		required_missions = {
+			ME_pap_french_mercenaries
+			ME_pap_french_economic_aid
+			ME_pap_solidify_french_relations
+		}
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = pap_preview_alliance_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			
+			FRA = {
+				if = {
+					limit = {
+						has_dlc = "The Cossacks"
+					}
+					trust = {
+						who = ROOT
+						value = 90
+					}
+				}
+				has_opinion = {
+					who = ROOT
+					value = 200
+				}
+			}
+			202 = {
+				owned_by = FRA
+				if = {
+					limit = {
+						has_dlc = "Leviathan"
+					}
+					has_great_project = {
+						type = palace_of_the_popes
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				custom_tooltip = ME_PAP_PALACE_OF_POPES_WILL_MOVE_TO_CAPITAL #Transform this to an event
+				FRA = {
+					country_event = {
+						id = ME_Papal_Events.12
+					}
+				}
+			}
+			else = {
+				capital_scope = {
+					add_permanent_province_modifier = {
+						name = me_pap_old_seat_of_popes
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+}
+
+ME_pap_2_1 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_council_of_trent = {
+		icon = join_the_reformation
+		position = 9
+		required_missions = {
+			ME_pap_nepotism
+			ME_pap_renaissance
+		}
+
+		trigger = {  
+			is_all_concessions_in_council_taken = yes
+			OR = {
+				full_idea_group = humanist_ideas
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_CONCILATORY_LEVEL_3
+					ME_council_of_trent_concilatory_level = { level = 3 }
+				}
+				num_of_provinces_converted = { amount = 35 }
+				has_full_religious_idea_groups = yes
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HARSH_LEVEL_3
+					ME_council_of_trent_harsh_level = { level = 3 }
+				}
+				calc_true_if = {
+					all_country = {
+						OR = {
+							religion = protestant
+							religion = reformed
+							religion = anglican
+							religion = hussite
+						}
+						has_opinion = {
+							who = ROOT
+							value = 140
+						}
+						if = {
+							limit = {
+								has_dlc = "The Cossacks"
+							}
+							trust = {
+								who = ROOT
+								value = 65
+							}
+						}
+					}
+					amount = 3
+				}
+			}
+		} 
+
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_PAP_IF_IF_HARSH
+				first_limit = "
+					ME_pap_harsh_trigger = yes
+					NOT = {
+						ME_pap_trent_concilatory_trigger = yes
+					}
+				"
+				first_effect = "
+					custom_tooltip = ME_PAP_CAN_CALL_CRUSADES_ON_HERETICS
+					set_country_flag = allow_crusades_vs_heretics
+					add_country_modifier = {
+						name = me_pap_crushing_the_heretics
+						duration = 7300
+					}
+					change_ruler_stat = {
+						type = mil
+						amount = 1
+					}
+				"
+				second_custom_tooltip = ME_PAP_IF_IF_CONCILATORY
+				second_limit = "
+					ME_pap_trent_concilatory_trigger = yes
+					NOT = {
+						ME_pap_harsh_trigger = yes
+					}
+				"
+				second_effect = "
+					custom_tooltip = ME_PAP_CAN_PEACEFULLY_CONVERT_HERETICS_TO_CATHOLIC
+					set_country_flag = allow_peaceful_heretic_conversion
+					change_ruler_stat = {
+						type = dip
+						amount = 2
+					}
+				"
+				third_custom_tooltip = ME_PAP_IF_IF_BOTH
+				third_limit = "
+					ME_pap_harsh_trigger = yes
+					ME_pap_trent_concilatory_trigger = yes
+				"
+				third_effect = "
+					ME_pap_trent_3rd_reward = yes
+				"
+			}
+		} 
+	}
+
+	ME_pap_expand_the_army = {
+		icon = me_mission_crusade_cross
+		position = 10
+		required_missions = {
+			ME_pap_papal_army
+			ME_pap_religious_zeal
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				calc_true_if = {
+					all_known_country = {
+						has_reform = monastic_order_reform
+						religion = catholic
+						has_opinion = {
+							who = ROOT
+							value = 120
+						}
+					}
+					amount = 3
+				}
+				num_of_wars_won_against_heathens = {
+					amount = 3
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = ME_PAP_GAIN_MIL_POWER_PER_NATION_THAT_FULFILS_REQUIREMENT
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_UNLOCK_CLERGY_OFFICERS_PRIVILEGE
+			hidden_effect = {
+				every_known_country = {
+					limit = {
+						has_reform = monastic_order_reform
+						religion = catholic
+						has_opinion = {
+							who = ROOT
+							value = 120
+						}
+					}
+					PAP = { add_mil_power = 25 } 
+				}
+			}
+		}
+	}
+}
+ME_pap_2_branching2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		NOT = { has_country_flag = me_pap_battle_pope } 
+		NOT = { has_country_flag = me_pap_peaceful_pope_path } 
+		NOT = {
+			has_country_flag = me_pap_previewing_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_branching14 = {
+		icon = mission_unknown_mission
+		position = 12
+		required_missions = {
+			ME_pap_branching12
+			ME_pap_branching13
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_KOG_BRANCH
+				always = no
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_KOG_BRANCH
+		} 
+	}
+}
+
+ME_pap_2_battle_pope2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_battle_pope
+			has_country_flag = me_pap_preview_battle_pope
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_warrior_popes = {
+		icon = mission_knight
+		position = 12
+		required_missions = { 
+			ME_pap_crusader_marches 
+			ME_pap_militarization
+		} 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = me_pap_previewing_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			num_of_battles_won = {
+				amount = 150
+			}
+			has_global_modifier_value = {
+				which = land_morale
+				value = 0.2
+			}
+			army_size = 150
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_MAKING_RULER_TO_GENERAL_HAS_EXTRA_PIPS
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = ME_pap_battle_pope_modifier
+				duration = -1
+			}
+		} 
+	}
+}
+
+ME_pap_2_peaceful_pope2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_peaceful_pope_path
+			has_country_flag = me_pap_preview_peaceful_pope_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_grand_crusades = {
+		icon = mission_crusade_for_varna
+		position = 12
+		required_missions = { 
+			ME_pap_control_of_churches
+			ME_pap_overseas_missions 
+		} 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = me_pap_previewing_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			is_papal_controller = yes
+			num_of_wars_won_against_heathens = {
+				amount = 15
+			}
+			OR = {
+				diplomatic_reputation = 6
+				monthly_dip = 11
+				has_dip_advisor_3 = yes
+			}
+		} 
+
+		effect = {  
+			add_country_modifier = {
+				name = ME_pap_leader_of_catholicism
+				duration = -1
+			}
+			custom_tooltip = " "
+			enable_grand_crusade = yes
+		} 
+	}
+}
+
+ME_pap_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_integrate_vassals = {
+		icon = expand_the_confederacy
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2976
+				province_id = 2977
+			}
+			NOT = { owned_by = ROOT } 
+		}
+
+		trigger = {
+			OR = {
+				AND = {
+					PGA = {
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+						NOT = {
+							num_of_cities = 3
+						}
+					}
+					URB = {
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+						NOT = {
+							num_of_cities = 3
+						}
+					}
+				}
+				AND = {
+					2976 = { owned_by = ROOT } 
+					2977 = { owned_by = ROOT } 
+				}
+			}
+		}
+
+		effect = {
+			ME_give_claims = { area = emilia_romagna_area } 
+			ME_give_claims = { area = venetia_area } 
+			ME_give_claims = { area = liguria_area } 
+			ME_give_claims = { area = lombardy_area } 
+			ME_give_claims = { area = po_valley_area } 
+			custom_tooltip = " "
+			simple_dynamic_effect = {
+				first_custom_tooltip = ME_IF_COMPLETED_BY_ANNEXING
+				first_limit = "
+					2976 = {
+						owned_by = ROOT
+					}
+					2977 = {
+						owned_by = ROOT
+					}
+				"
+				first_effect = "
+					define_advisor = {
+						type = ME_mercenary_commander
+						name = \"Federico da Montefeltro\"
+						skill = 2
+						culture = umbrian
+						religion = catholic
+						cost_multiplier = 0.25
+					}
+					add_prestige_or_monarch_power = { amount = 10 }
+				"
+				second_custom_tooltip = ME_IF_COMPLETED_BY_OPINION
+				second_limit = "
+					PGA = {
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+						NOT = {
+							num_of_cities = 3
+						}
+					}
+					URB = {
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+						NOT = {
+							num_of_cities = 3
+						}
+					}
+				"
+				second_effect = "
+					add_dip_power = 50
+					custom_tooltip = ME_OUR_VASSALS_WILL_BE_ASKED_TO_BE_ANNEXED
+				"
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						PGA = {
+							has_opinion = {
+								who = ROOT
+								value = 190
+							}
+							NOT = {
+								num_of_cities = 3
+							}
+						}
+						URB = {
+							has_opinion = {
+								who = ROOT
+								value = 190
+							}
+							NOT = {
+								num_of_cities = 3
+							}
+						}
+					}
+				}
+				PGA = {
+					country_event = { id = ME_Papal_Events.18 }
+				}
+				URB = {
+					country_event = { id = ME_Papal_Events.18 }
+				}
+			}
+		}
+	}
+
+	ME_pap_central_italy = {
+		icon = seize_lombardy
+		position = 3
+		required_missions = { ME_pap_integrate_vassals } 
+		provinces_to_highlight = {
+			OR = {
+				area = emilia_romagna_area
+				area = po_valley_area
+				area = lombardy_area
+				area = liguria_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 8
+				OR = {
+					area = emilia_romagna_area
+					area = po_valley_area
+					area = lombardy_area
+					area = liguria_area
+				}
+			}
+		}
+
+		effect = {
+			ME_give_claims = { region = italy_region } 
+			if = {
+				limit = { 104 = { NOT = { country_or_non_sovereign_subject_holds = ROOT }  }  } 
+				add_country_modifier = {
+					name = "ME_pap_seized_crown_of_lombardy"
+					duration = 7300
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = ME_pap_seized_crown_of_lombardy_buffed
+					duration = 7300
+				}
+			}
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_PAP_IF_MILAN_IS_OWNED_BY_US
+				first_limit = "
+					104 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				"
+				first_effect = "
+					custom_tooltip = EE_BUFF_CROWN_LOMBARDY_MODIFIER
+				"
+			}
+		}
+	}
+
+	ME_pap_kog = {
+		icon = shield_of_christendom
+		position = 4
+		required_missions = {
+			ME_pap_central_italy
+			ME_pap_venice
+			ME_pap_rebuild_naples
+		}
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = italy_region
+				value = 40
+			}
+		}
+
+		effect = { 
+			custom_tooltip = ME_PAP_ALLOWS_KOG_DECISION 
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_ALLOWS_SEIZING_CURIA_CONTROLLER_THROUGH_PO
+		} 
+	}
+
+	ME_pap_latinokratia = {
+		icon = me_mission_byzantium_fourth_crusade
+		position = 5
+		required_missions = { ME_pap_fleet } 
+		provinces_to_highlight = {  
+			region = balkan_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			151 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			BYZ = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = balkan_region
+				value = 15
+			}
+		} 
+
+		effect = {  
+			ME_give_claims = { region = anatolia_region }
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_CAN_MEND_THE_SCHISM
+			custom_tooltip = " "
+			country_event_with_option_insight = { 
+				id = ME_Papal_Events.9
+				option_1 = "
+					ME_pap_release_latin_empire = yes
+				"
+				option_2 = "
+					add_great_project_tier = {
+						type = hagia_sophia
+						tier = 1
+					}
+					add_stat_or_monarch_power = {
+						stat = adm
+						amount = 1
+					}
+					add_stat_or_monarch_power = {
+						stat = dip
+						amount = 1
+					}
+					add_stat_or_monarch_power = {
+						stat = mil
+						amount = 1
+					}
+				"
+			}
+		} 
+	}
+}
+
+ME_pap_3_avi_branch = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP
+		NOT = {
+			has_country_flag = me_pap_alliance_path
+			has_country_flag = me_pap_conquest_path
+			has_country_flag = pap_preview_alliance_path
+			has_country_flag = pap_preview_conquest_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_branching3 = {
+		icon = mission_unknown_mission
+		position = 6
+		required_missions = { ME_pap_avignon } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_FRENCH_BRANCH
+				always = no
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_FRENCH_BRANCH
+		} 
+	}
+}
+
+ME_pap_3_avi_branch_conquest = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_conquest_path
+			has_country_flag = pap_preview_conquest_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_southern_france = {
+		icon = develop_provence
+		position = 6
+		required_missions = { ME_pap_avignon } 
+		provinces_to_highlight = {  
+			OR = {
+				area = savoy_dauphine_area
+				area = pyrenees_area
+				area = guyenne_area
+				area = languedoc_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = pap_preview_conquest_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = savoy_dauphine_area
+					area = pyrenees_area
+					area = guyenne_area
+					area = languedoc_area
+				}
+				value = 6
+			}
+		} 
+
+		effect = { 
+			ME_add_power_projection = { amount = 20 }
+			add_stat_or_monarch_power = {
+				amount = 1
+				stat = mil
+			}
+			custom_tooltip = " "
+			ME_give_claims = {
+				region = france_region
+			}
+		} 
+	}
+}
+
+ME_pap_3_avi_branch_alliance = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		OR = {
+			has_country_flag = me_pap_alliance_path
+			has_country_flag = pap_preview_alliance_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_solidify_french_relations = {
+		icon = fra_golden_march
+		position = 6
+		required_missions = { ME_pap_avignon }
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = pap_preview_alliance_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			FRA = {
+				if = {
+					limit = {
+						has_dlc =  "The Cossacks"
+					}
+					trust = {
+						who = ROOT
+						value = 75
+					}
+				}
+				has_opinion = {
+					who = ROOT
+					value = 160
+				}
+			}
+		} 
+
+		effect = { 
+			FRA = {
+				add_country_modifier = {
+					name = me_pap_seal_of_approval
+					duration = -1
+					desc = me_pap_as_long_as_alliance_is_maintained
+				}
+			}
+			add_stability_or_adm_power = yes
+			add_country_modifier = {
+				name = me_pap_french_technological_aid
+				duration = -1
+				desc = me_pap_as_long_as_alliance_is_maintained
+			}
+		} 
+	}
+}
+
+ME_pap_3_1 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_caliph = {
+		icon = mission_the_caliph
+		position = 7
+		required_missions = { ME_pap_jerusalem } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			ME_abbasid_caliph_mission_trigger = yes
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_DEMAND_CONVERSION_OF_MUSLIM_NATIONS
+			hidden_effect = {
+				every_known_country = {
+					limit = {
+						religion = sunni
+					}
+					country_event = { id = ME_Papal_Events.11 }
+				}
+			}
+		} 
+	}
+
+	ME_pap_nepotism = {
+		icon = control_the_church
+		position = 8
+
+		trigger = {  
+			has_adm_advisor_2 = yes
+			has_dip_advisor_2 = yes
+			has_mil_advisor_2 = yes
+			reform_level = 4
+			stability = 2
+			NOT = { corruption = 1 }
+		} 
+
+		effect = {
+			add_adm_power = 100
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_UNLOCKS_DECISIONS_TO_SWING_BALANCE_OF_POWER
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_AGE_OF_REF_PAPAL_BULL
+		} 
+	}
+
+	ME_pap_papal_army = {
+		icon = swiss_mercenaries
+		position = 9
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			army_size = 35
+			OR = {
+				num_of_battles_won = { amount = 30 } 
+				monthly_mil = 9
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "me_pap_expanded_army"
+				duration = 7300
+			}
+			add_army_professionalism = 0.05
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_PAP_MILITARY_LIBRARY
+				first_limit = "
+					118 = {
+						OR = {
+							country_or_non_sovereign_subject_holds = ROOT
+							owned_by = PAP
+						}
+						has_province_modifier = mil_vatican_library
+					}
+				"
+				first_effect = "
+					118 = {
+						add_base_manpower = 3
+					}
+				"
+			}
+		}
+	}
+
+	ME_pap_swiss_guard = {
+		icon = expand_the_swiss_guard
+		position = 10
+		required_missions = {
+			ME_pap_papal_army
+			ME_pap_papal_treasury
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				any_country = {
+					capital_scope = {
+						OR = {
+							area = switzerland_area
+							area = romandie_area
+						}
+					}
+					has_opinion = {
+						who = ROOT
+						value = 125
+					}
+				}
+				development_in_provinces = {
+					culture = swiss
+					value = 30
+				}
+			}
+		}
+
+		effect = {
+			set_country_flag = pap_swiss_guard_mission_flag
+			custom_tooltip = emp_pap_swiss_guard_mercs_enabled
+			custom_tooltip = " "
+			country_event = { id = papacy_events.1 } 
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_PAP_OWNS_SWISS_PROVINCES
+				first_limit = "
+					development_in_provinces = {
+						culture = swiss
+						value = 30
+					}
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = me_pap_expanded_swiss_guard
+						duration = 7300
+					}
+				"
+			}
+		}
+	}
+}
+ME_pap_3_branching2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		NOT = { has_country_flag = me_pap_battle_pope } 
+		NOT = { has_country_flag = me_pap_peaceful_pope_path } 
+		NOT = {
+			has_country_flag = me_pap_previewing_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_branching12 = {
+		icon = mission_unknown_mission
+		position = 11
+		required_missions = {
+			ME_pap_expand_the_army
+			ME_pap_swiss_guard
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_KOG_BRANCH
+				always = no
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_KOG_BRANCH
+		} 
+	}
+
+	ME_pap_branching15 = {
+		icon = mission_unknown_mission
+		position = 12
+		required_missions = { ME_pap_branching12 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_KOG_BRANCH
+				always = no
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_KOG_BRANCH
+		} 
+	}
+}
+
+ME_pap_3_battle_pope2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_battle_pope
+			has_country_flag = me_pap_preview_battle_pope
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_militarization = {
+		icon = fra_military_reform
+		position = 11
+		required_missions = { 
+			ME_pap_expand_the_army
+			ME_pap_swiss_guard
+		} 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = me_pap_previewing_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			OR = {
+				has_global_modifier_value = {
+					which = discipline
+					value = 0.1
+				}
+				if = {
+					limit = {
+						has_dlc = "Cradle of Civilization"
+					}
+					army_professionalism = 0.5
+				}
+				else = {
+					army_tradition = 40
+				}
+			}
+			max_manpower = 65
+			total_development = 400
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_UNLOCKS_PAPAL_MILITARIZATION
+			hidden_effect = {
+				set_country_flag = me_pap_unlocked_militarization
+				regenerate_government_mechanics = yes
+			}
+			custom_tooltip = " "
+			define_advisor = {
+				type = army_reformer
+				cost_multiplier = 0.40
+				skill = 3
+			}
+		} 
+	}
+
+	ME_pap_eternal_crusade = {
+		icon = the_holy_league
+		position = 12
+		required_missions = { 
+			ME_pap_militarization
+		} 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = me_pap_previewing_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			num_of_provinces_converted = {
+				amount = 50
+			}
+			num_of_wars_won = {
+				amount = 15
+			}
+			religious_unity = 0.9
+			OR = {
+				has_border_with_religious_enemy = yes
+				has_full_religious_idea_groups = yes
+			}
+		} 
+
+		effect = {  
+			add_country_modifier = {
+				name = ME_pap_deus_vult
+				duration = -1
+			}
+		} 
+	}
+}
+
+ME_pap_3_peaceful_pope2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_peaceful_pope_path
+			has_country_flag = me_pap_preview_peaceful_pope_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_overseas_missions = {
+		icon = mission_religious
+		position = 11
+		required_missions = { 
+			ME_pap_expand_the_army
+			ME_pap_swiss_guard
+		} 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_NUM_OF_PROVINCES_CONVERTED_BY_CATHOLICS
+				check_variable = {
+					which = num_of_provinces_converted_by_catholics
+					value = 75
+				}
+			}
+			inquisitor = 2
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_UNLOCKS_SEND_MISSION_DIPLO_ACTION
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_INQUISITOR_GIVES_TOLERANCE_OWN_PER_LEVEL
+		} 
+	}
+
+	ME_pap_word_of_god = {
+		icon = holy_state
+		position = 12
+		required_missions = { 
+			ME_pap_overseas_missions
+		} 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_NUM_OF_MISSIONS_ESTABLISHED
+				check_variable = {
+					which = me_pap_established_mission
+					value = 10
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_GAIN_MANA_PER_SUCCESSFUL_MISSION
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = {
+				amount = 15
+			}
+		} 
+	}
+}
+
+ME_pap_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_florence_rivalry = {
+		icon = florentine_renaissance
+		position = 1
+		provinces_to_highlight = {
+			if = {
+				limit = { exists = LAN } 
+				owner = { tag = LAN } 
+			}
+		}
+
+		trigger = {
+			OR = {
+				NOT = { exists = LAN } 
+				is_rival = LAN
+				LAN = { is_excommunicated = yes } 
+				LAN = {
+					has_been_insulted_by_root = yes
+				}
+			}
+		}
+
+		effect = {
+			ME_give_claims = { area = tuscany_area } 
+			ME_add_power_projection = { amount = 10 } 
+		}
+	}
+
+	ME_pap_attack_florence = {
+		icon = mission_conquer_50_development
+		position = 2
+		required_missions = { ME_pap_florence_rivalry } 
+		provinces_to_highlight = {
+			area = tuscany_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				area = tuscany_area
+			}
+		}
+
+		effect = {  
+			country_event_with_option_insight = {
+				id = ME_Papal_Events.2
+				option_1 = "
+					add_country_modifier = {
+						name = ME_pap_exploitation_of_tuscan_banks
+						duration = 7300
+					}
+				"
+				option_2 = "
+					add_corruption = -2
+					capital_scope = {
+						add_base_tax = 1
+						add_Base_production = 1
+						add_base_manpower = 1
+					}
+					add_curia_treasury = 50
+				"
+			}
+		} 
+	}
+
+	ME_pap_venice = {
+		icon = expand_the_doges_palace
+		position = 3
+		required_missions = {
+			ME_pap_integrate_vassals
+			ME_pap_attack_florence
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = venetia_area
+				area = emilia_romagna_area
+				province_id = 107
+				province_id = 4739
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = venetia_area
+					area = emilia_romagna_area
+					province_id = 107
+					province_id = 4739
+				}
+				value = 7
+			}
+			112 = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		effect = {
+			if = {
+				limit = { has_dlc = "Leviathan" } 
+				112 = {
+					add_great_project_tier = {
+						type = doges_palace
+						tier = 1
+					}
+				}
+			}
+			112 = {
+				add_prosperity = 100
+				add_devastation = -20
+			}
+			add_army_tradition_or_mil_power = { amount = 10 } 
+		}
+	}
+
+	ME_pap_fleet = {
+		icon = crusader_fleet
+		position = 4
+
+		trigger = {  
+			navy_size_percentage = 1
+			num_of_admirals = 1
+		} 
+
+		effect = {  
+			if = {
+				limit = {
+					ai = no #We don't want AI to suddenly try and Crusade
+				}
+				ME_give_claims = { area = aleppo_area }
+				ME_give_claims = { area = palestine_area }
+				ME_give_claims = { area = syria_area }
+				ME_give_claims = { area = thrace_area }
+			}
+			custom_tooltip = " "
+			define_advisor = {
+				type = naval_reformer
+				skill = 2
+				cost_multiplier = 0.5
+			}
+		} 
+	}
+
+	ME_pap_jerusalem = {
+		icon = jerusalem
+		position = 6
+		required_missions = { ME_pap_fleet } 
+		provinces_to_highlight = {  
+			area = palestine_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			palestine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			country_event_with_option_insight = {
+				id = ME_Papal_Events.6
+				option_1 = "
+					mashriq_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+						add_core = KOJ
+						cede_province = KOJ
+					}
+					create_subject = {
+						subject_type = ME_crusader_march
+						who = KOJ
+					}
+					custom_tooltip = \" \"
+					custom_tooltip = ME_PAP_KOJ_UNIQUE_MISSIONS
+				"
+				option_2 = "
+					palestine_area = {
+						change_religion = ROOT
+					}
+			
+					add_country_modifier = {
+						name = ME_pap_victorious_crusade
+						duration = 7300
+					}
+				"
+				option_3 = "
+					379 = {
+						add_great_project_tier = {
+							type = holy_city_jerusalem
+							tier = 1
+						}
+						add_base_manpower = 2
+						add_base_tax = 2
+						add_base_production = 2
+					}
+			
+					change_ruler_stat = {
+						type = adm
+						amount = 1
+					}
+				"
+			}
+		} 
+	}
+
+	ME_pap_egypt = {
+		icon = mission_egyptian_mamluk_soldier
+		position = 7
+		required_missions = { ME_pap_jerusalem } 
+		provinces_to_highlight = {  
+			region = egypt_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = egypt_region
+				value = 15
+			}
+		} 
+
+		effect = {  
+			country_event_with_option_insight = {
+				id = ME_Papal_Events.7
+				option_1 = "
+					ME_distribute_development = {
+						type = tax
+						amount = 10
+					}
+					custom_tooltip = ME_PAP_DISTRIBUTE_ONLY_IN_ITALY
+					ME_pap_give_muslim_advisors = yes
+				"
+				option_2 = "
+					custom_tooltip = ME_PAP_REDUCE_AUTONOMY_AND_UNREST_IN_EGYPT
+					add_country_modifier = {
+						name = me_pap_defeated_the_heart_of_islam
+						duration = 9125
+					}
+				"
+			}
+		} 
+	}
+
+	ME_pap_papal_treasury = {
+		icon = mission_war_chest
+		position = 9
+		required_missions = { ME_pap_indulges } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			share_of_starting_income = 3
+			treasury = 500
+			OR = {
+				treasurer = 1
+				has_adm_advisor_2 = yes
+			}
+		}
+
+		effect = {
+			custom_tooltip = ME_PAP_TREASURER_WILL_GIVE_MORE_TAX
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = "me_pap_bolstering_papal_coffers"
+				duration = 5475
+			}
+		}
+	}
+
+	ME_pap_basilica = {
+		icon = new_st_peters_basilica
+		position = 10
+		required_missions = {
+			ME_pap_expand_cardinals
+			ME_pap_papal_treasury
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			118 = {
+				if = {
+					limit = {
+						has_dlc = Leviathan
+					}
+					has_great_project = {
+						type = stpeters_cathedral
+						tier = 2
+					}
+				}
+				development = 30
+				num_of_buildings_in_province = 4
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_dlc = Leviathan
+				}
+				custom_tooltip = ME_PAP_UNLOCK_CONDITIONAL_MODIFIER_IN_ST_PETER
+				custom_tooltip = " "
+			}
+			add_prestige_or_monarch_power = { amount = 20 } 
+		}
+	}
+
+	ME_pap_develop_rome = {
+		icon = mission_early_game_buildings
+		position = 11
+		required_missions = { ME_pap_basilica } 
+		provinces_to_highlight = {  
+			province_id = 118
+			NOT = { development = 45 }
+			NOT = { num_of_buildings_in_province = 4 }
+		} 
+
+		trigger = {  
+			118 = {
+				owned_by = ROOT
+				development = 45
+				num_of_buildings_in_province = 4
+			}
+		} 
+
+		effect = {  
+			118 = {
+				add_province_modifier = {
+					name = me_pap_city_of_christendom
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = ME_PAP_EXPANDING_INFRASTRUCTURE_IN_ROME_GIVES_DEVELOPMENT
+		} 
+	}
+}
+ME_pap_4_branching2 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		NOT = { has_country_flag = me_pap_battle_pope } 
+		NOT = { has_country_flag = me_pap_peaceful_pope_path } 
+		NOT = {
+			has_country_flag = me_pap_previewing_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_branching16 = {
+		icon = mission_unknown_mission
+		position = 12
+		required_missions = { ME_pap_branching12 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_PAP_REQUIREMENTS_DECIDED_KOG_BRANCH
+				always = no
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_REWARDS_DECIDED_KOG_BRANCH
+		} 
+	}
+}
+
+ME_pap_4_battle_pope2 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_battle_pope
+			has_country_flag = me_pap_preview_battle_pope
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_militarize_holy_orders = {
+		icon = mission_united_knight_order
+		position = 12
+		required_missions = { ME_pap_militarization } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = me_pap_previewing_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					holy_order = franciscan_order
+					holy_order = dominican_order
+					holy_order = benedictines
+				}
+				has_manpower_building_trigger = yes
+				value = 40
+			}
+			has_government_power = {
+				mechanic_type = battle_pope_mechanic
+				power_type = papal_militarization
+				value = 65
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_HOLY_ORDERS_GIVE_EXTRA_MANPOWER
+			custom_tooltip = " "
+			add_mil_power = 100
+			add_army_tradition_or_mil_power = { amount = 5 }
+		} 
+	}
+}
+ME_pap_4_peaceful_pope2 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = PAP
+		OR = {
+			has_country_flag = me_pap_peaceful_pope_path
+			has_country_flag = me_pap_preview_peaceful_pope_path
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_pap_holy_orders_for_all = {
+		icon = support_the_orders
+		position = 12
+		required_missions = { ME_pap_overseas_missions } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_country_flag = me_pap_previewing_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_PAP_HAS_LOCKED_BRANCH
+					always = no
+				}
+			}
+			mission_completed = ME_pap_spread_holy_orders
+			calc_true_if = {
+				all_country = {
+					religion = catholic
+					has_opinion = {
+						who = ROOT
+						value = 125
+					}
+				}
+				amount = 5
+			}
+			if = {
+				limit = {
+					has_dlc = "Emperor"
+				}
+				num_of_papal_bulls_enacted = {
+					amount = 10
+				}
+			}
+			else = {
+				num_of_provinces_developed = {
+					amount = 20
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_UNLOCK_ALL_HOLY_ORDERS_FOR_CATHOLICS
+			set_global_flag = me_pap_unlocked_holy_orders
+			custom_tooltip = " "
+			add_estate_loyalty = {
+				estate = all
+				loyalty = 10
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						religion = catholic
+						NOT = {
+							culture_group = iberian
+						}
+					}
+					country_event = {
+						id = ME_Papal_Events.16
+					}
+				}
+			}
+		} 
+	}
+}
+
+ME_pap_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PAP 
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	} 
+
+	ME_pap_expand_central_italy = {
+		icon = saxon_manufacturing
+		position = 2
+		required_missions = { ME_pap_florence_rivalry } 
+		provinces_to_highlight = {  
+			OR = {
+				area = lazio_area
+				area = tuscany_area
+				area = central_italy_area
+			}
+		} 
+
+		trigger = {  
+			development_in_provinces = {
+				value = 175
+				OR = {
+					area = lazio_area
+					area = tuscany_area
+					area = central_italy_area
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_CITY_EXPANSION_BUFFED_FOR_ITALY
+			custom_tooltip = " "
+			ME_distribute_development = {
+				type = tax
+				amount = 10
+				limit = "
+					OR = {
+						area = lazio_area
+						area = tuscany_area
+						area = central_italy_area
+					}
+				"
+				tooltip = ME_PAP_ONLY_IN_REQUIRED_PROVINCES
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_estate_privilege = estate_burghers_development_of_cities
+					}
+					every_owned_province = {
+						limit = {
+							region = italy_region
+						}
+						add_province_modifier = {
+							name = me_pap_italian_city
+							duration = -1
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	ME_pap_contact_crusaders = {
+		icon = knights_of_the_new_world
+		position = 4
+
+		trigger = { #Requirements feel a bit easy. I need to change some stuff here
+			OR = {
+				KNI = {
+					is_subject = no
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+				CYP = {
+					is_subject = no
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+				320 = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				321 = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_ALLOWS_RECRUITMENT_OF_KNIGHTS_TEMPLAR
+			custom_tooltip = " "
+			add_army_tradition_or_mil_power = { amount = 5 }
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_PAP_GOOD_OPINION_WITH_CRUSADERS
+				first_limit = "
+					OR = {
+						KNI = {
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+							is_subject = no
+						}
+						CYP = {
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+							is_subject = no
+						}
+					}
+				"
+				first_effect = "
+					custom_tooltip = ME_PAP_THEY_WILL_BE_ASKED_TO_BECOME_VASSALS
+					hidden_effect = {
+						country_event = { id = ME_Papal_Events.22 }
+					}
+				"
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						KNI = {
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+							is_in_trade_league = no
+							is_subject = no
+						}
+					}
+					KNI = {
+						country_event = { id = ME_Papal_Events.10 }
+					}
+				}
+				if = {
+					limit = {
+						CYP = {
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+							is_in_trade_league = no
+							is_subject = no
+						}
+					}
+					CYP = {
+						country_event = { id = ME_Papal_Events.10 }
+					}
+				}
+			}
+		} 
+	}
+
+	ME_pap_antioch = {
+		icon = fu_siege_won
+		position = 5
+		required_missions = {
+			ME_pap_fleet
+			ME_pap_contact_crusaders
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = aleppo_area
+				area = syria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = aleppo_area
+					area = syria_area
+				}
+				value = 5
+			}
+			2313 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			377 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			2313 = {
+				add_or_upgrade_tax_building = yes
+				add_base_tax = 2
+			}
+			377 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 2
+			}
+			custom_tooltip = " "
+			ME_give_claims = { area = al_jazira_area }
+			ME_give_claims = { area = iraq_arabi_area }
+			ME_give_claims = { area = basra_area }
+		} 
+	}
+
+	ME_pap_mesopotamia = {
+		icon = mission_non-western_cavalry_raid
+		position = 6
+		required_missions = { ME_pap_antioch } 
+		provinces_to_highlight = {  
+			OR = {
+				area = iraq_arabi_area
+				area = basra_area
+				area = al_jazira_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = iraq_arabi_area
+					area = basra_area
+					area = al_jazira_area
+				}
+				value = 10
+			}
+		} 
+
+		effect = {
+			add_innovativeness_big_effect = yes
+			define_advisor = {
+				skill = 3
+				type = ME_historian
+				culture = al_iraqiya_arabic
+				religion = sunni
+				cost_multiplier = 0.33
+			}
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_PAP_BAGHDAD_OWNED_BY_JERUSALEM
+				first_limit = "
+					410 = {
+						owned_by = KOJ
+					}
+				"
+				first_effect = "
+					KOJ = {
+						ME_distribute_development = {
+							type = tax
+							amount = 20
+						}
+					}
+				"
+			}
+		} 
+	}
+
+	ME_pap_holy_cities = {
+		icon = mission_mosque
+		position = 7
+		required_missions = { ME_pap_jerusalem } 
+		provinces_to_highlight = {  
+			OR = {
+				province_id = 385
+				province_id = 384
+			}
+			NOT = { religion = ROOT }
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			385 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				religion = ROOT
+			}
+			384 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				religion = ROOT
+			}
+		} 
+
+		effect = {  
+			country_event_with_option_insight = {
+				id = ME_Papal_Events.8
+				option_1 = "
+					385 = {
+						add_base_tax = 3
+					}
+					add_ruler_personality = tolerant_personality
+					add_country_modifier = {
+						name = me_pap_free_pilgrimages
+						duration = -1
+					}
+				"
+				option_2 = "
+					custom_tooltip = ME_PAP_CONVERT_KAABA_TO_A_CATHEDRAL
+					385 = {
+						add_or_upgrade_tax_building = yes
+					}
+				"
+			}
+		} 
+	}
+
+	ME_pap_indulges = {
+		icon = mission_sell_indulgences
+		position = 8
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				total_base_tax = 40
+				PAP_ideas = 2
+			}
+		}
+
+		effect = {  
+			country_event_with_option_insight = {
+				id = ME_Papal_Events.4
+				option_1 = "
+					add_reform_desire = 0.05
+					set_country_flag = me_pap_unlocks_selling_indulgences
+					custom_tooltip = ME_PAP_UNLOCKS_INDULGENCES_TT
+				"
+				option_2 = "
+					set_country_flag = me_pap_unlocks_selling_indulgences_for_theocracies
+					custom_tooltip = ME_PAP_UNLOCKS_INDULGENCES_FOR_THEOCRACIES_TT
+				"
+				option_3 = "
+					add_reform_desire = -0.025
+					add_reform_desire_scale = -0.05
+					add_country_modifier = {
+						name = me_pap_less_corrupt_church
+						duration = -1
+					}
+				"
+			}
+		} 
+	}
+
+	ME_pap_expand_cardinals = {
+		icon = catholic_volunteers
+		position = 9
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				has_tax_building_trigger = yes
+				value = 10
+			}
+		}
+
+		effect = {
+			ME_distribute_development = {
+				type = tax
+				amount = 5
+				limit = "
+					has_tax_building_trigger = yes
+				"
+			}
+			custom_tooltip = ME_PAP_ONLY_IN_CHURCH_PROVINCES
+			custom_tooltip = " "
+			define_advisor = {
+				type = muscovy_architect
+				skill = 2
+				cost_multiplier = 0.5
+			}
+		}
+	}
+
+	ME_pap_spread_holy_orders = {
+		icon = support_the_orders
+		position = 10
+		required_missions = { ME_pap_expand_cardinals } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			total_development = 250
+			if = {
+				limit = {
+					has_estate = estate_church #In case you somehow lose it as the POPE
+				}
+				OR = {
+					num_of_estate_agendas_completed = {
+						estate = estate_church
+						value = 5
+					}
+					num_of_estate_privileges = {
+						estate = estate_church
+						value = 6
+					}
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 80
+				}
+			}
+			else = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					has_tax_building_trigger = yes
+					base_tax = 5
+					value = 15
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_PAP_UNLOCK_3_NEW_HOLY_ORDERS
+			custom_tooltip = " "
+			add_adm_power = 50
+		} 
+	}
+
+	ME_pap_tax_meta = {
+		icon = catholic_confraternity
+		position = 11
+		required_missions = {
+			ME_pap_basilica
+			ME_pap_spread_holy_orders
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				has_tax_building_trigger = yes
+				value = 40
+			}
+			OR = {
+				has_global_modifier_value = {
+					which = global_tax_modifier
+					value = 0.8
+				}
+				ME_tax_income = { amount = 150 } 
+				AND = {
+					tax_income_percentage = 0.2
+					monthly_income = 400
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = ME_PAP_BUFF_CHURCHES_TO_GIVE_MORE_TAX
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = "me_pap_indulgences_for_the_common_people"
+				duration = -1
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_tax_building_trigger = yes
+					}
+					add_province_modifier = {
+						name = me_pap_buffed_churches
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}

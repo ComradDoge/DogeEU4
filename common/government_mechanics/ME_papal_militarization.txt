@@ -1,0 +1,174 @@
+battle_pope_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 10
+	available = {
+		has_country_flag = me_pap_unlocked_militarization
+	}
+
+	powers = {
+		papal_militarization = {
+			gui = papal_militarization_gov_mech
+			show_before_interactions = yes
+			max = 100
+			base_monthly_growth = 0
+			development_scaled_monthly_growth = -0.05
+			scaled_modifier = {
+				modifier = {
+					manpower_in_true_faith_provinces = 0.3
+					land_morale = 0.1
+					monthly_papal_militarization = -0.75
+				}
+			}
+			range_modifier = {
+				modifier = {
+					extra_manpower_at_religious_war = yes
+				}
+				start_value = 99
+			}
+			range_modifier = {
+				trigger = {
+					at_war_with_religious_enemy = yes
+				}
+				modifier = {
+					monthly_papal_militarization = 0.5
+				}
+			}
+		}
+	}
+	
+	interactions = {
+		boost_papal_militarization = {
+			icon = GFX_increase_devout_fervor	
+			gui = papal_militarization_gov_interactions
+			trigger = {
+				mil_power = 50
+				not = {
+					has_government_power = {
+						mechanic_type = battle_pope_mechanic
+						power_type = papal_militarization
+						value = 100
+					}
+				}
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = battle_pope_mechanic
+					power_type = papal_militarization
+					value = 10
+				}
+				add_mil_power = -50
+			}
+			# ai_chance = {
+				# factor = 0
+				# modifier = {
+					# factor = 10
+					# not = {
+						# has_government_power = {
+							# mechanic_type = militarization_mechanic
+							# power_type = militarized_society
+							# value = 90
+						# }
+					# }
+					# mil_power = 500
+				# }
+			# }
+		}
+		make_pope_to_general = {
+			icon = GFX_make_pope_to_general	
+			gui = papal_militarization_gov_interactions
+			trigger = {
+				is_monarch_leader = no
+				mil_power = 100
+				has_reform = battle_pope_reform
+			}
+			effect = { 
+				add_mil_power = -100
+				hidden_effect = {
+					add_country_modifier = {
+						name = me_pap_buff_general_stats
+						duration = -1
+					}
+					if = {
+						limit = {
+							has_country_modifier = ME_pap_battle_pope_modifier
+						}
+						add_country_modifier = {
+							name = me_pap_buff_general_max_stats
+							duration = -1
+						}
+					}
+				}
+				if = {
+					limit = {
+						mil = 1
+						NOT = { mil = 2 }
+					}
+					convert_ruler_to_general = 15
+				}
+				else_if = {
+					limit = {
+						mil = 2
+						NOT = { mil = 3 }
+					}
+					convert_ruler_to_general = 30
+				}
+				else_if = {
+					limit = {
+						mil = 3
+						NOT = { mil = 4 }
+					}
+					convert_ruler_to_general = 50
+				}
+				else_if = {
+					limit = {
+						mil = 4
+						NOT = { mil = 5 }
+					}
+					convert_ruler_to_general = 70
+				}
+				else_if = {
+					limit = {
+						mil = 5
+						NOT = { mil = 6 }
+					}
+					convert_ruler_to_general = 85
+				}
+				else_if = {
+					limit = {
+						mil = 6
+					}
+					convert_ruler_to_general = 100
+				}
+				else = {
+					convert_ruler_to_general = 10
+				}
+				custom_tooltip = ME_PAP_1_TO_ALL_STATS
+				if = {
+					limit = {
+						has_country_modifier = ME_pap_battle_pope_modifier
+					}
+					custom_tooltip = " "
+					custom_tooltip = ME_PAP_MAX_1_TO_ALL_STATS
+				}
+				hidden_effect = {
+					remove_country_modifier = me_pap_buff_general_stats
+					remove_country_modifier = me_pap_buff_general_max_stats
+				}
+			}
+			# ai_chance = {
+				# factor = 0
+				# modifier = {
+					# factor = 10
+					# not = {
+						# has_government_power = {
+							# mechanic_type = militarization_mechanic
+							# power_type = militarized_society
+							# value = 90
+						# }
+					# }
+					# mil_power = 500
+				# }
+			# }
+		}
+	}
+}
