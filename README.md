@@ -28,7 +28,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Tweaked the Manufactory Scaling explanation icon for better visability.
 - Added new special setting: Change every African nation with Tech 2 to Tech 3.
 - Added a new special setting: Disable professionalism cost from all mercenaries.
-- Mountains and Deserts have an innate -50% local institution spread. Let's see how this goes.
+- Mountains and Deserts have an innate -50% local institution spread. Let's see how this looks.
 - Lombardy-Venetia no longer limited to Milan/Venice tags, still limited to the relevant cultures.
 - Added new loading screen "Richard, Duke of Gloucester, and the Lady Anne" by Abbey. It goes hard. Doge included.
 - Added or updated some missions from recent Europa Expanded update: Luxembourg, Netherlands (Holland, Friesland, Brabant, Flanders, Gelre/Utrecht), England/Britain, Generic English (Northumberland, London, Wessex, Mercia, East Anglia), Navarra, Generic Iberian (Galicia, Asturias, Leon), Generic French (bunch of them), Cornwall, Wales, Brittany, Tir na Celtigh, Mann/The Isles, Scotland, Aachen
