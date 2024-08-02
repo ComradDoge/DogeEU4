@@ -14,31 +14,12 @@ from the original mod I took. After all I need to understand how they work, else
 - Version: 1.37.2
 - Checksum: ?
 
-<h1>28/07/2024</h1>
-- Fixed Centralisation mechanic working inconsistently.
-- Brandenburg/Prussia fix to not being able to progress.
-- Fixed some of tribal land staying when removing natives.
-- Reduced amount of num_accepted_cultures in dip tech to two.
-- Minor fix to Mughal mission not properly referencing things.
-- Addded new special setting: Forts Capture Neighbouring Provinces.
-- Vodka of the Crown now also takes in account Maize, Rice and Potatos.
-- Tweaked the Manufactory Scaling explanation icon for better visability.
-- Added new special setting: Change every African nation with Tech 2 to Tech 3.
-- Added a new special setting: Disable professionalism cost from all mercenaries.
-- Mountains and Deserts have an innate -50% local institution spread. Let's see how this looks.
-- Lombardy-Venetia no longer limited to Milan/Venice tags, still limited to the relevant cultures.
-- Added new loading screen "Richard, Duke of Gloucester, and the Lady Anne" by Abbey. It goes hard. Doge included.
-- Added or updated some missions from Europa Expanded: Luxembourg, Netherlands (Holland, Friesland, Brabant, Flanders, Gelre/Utrecht), England/Britain, Generic English (Northumberland, London, Wessex, Mercia, East Anglia), Navarra, Generic Iberian (Galicia, Asturias, Leon), Generic French (bunch of them), Cornwall, Wales, Brittany, Tir na Celtigh, Mann/The Isles, Scotland, Aachen, Switzerland, Liege/Belgium, Papal State.
-
-As always, report any issues. Will there be any? Definately. Hopefully not of the crash type.
-For any unforseen consequences search for "1.37 Backup Doge Shattered" on steam if you wish to continue a save.
+<h1>!/!/2024</h1>
+- Added can_claim_states to Espionage, and tweaked.
 
 
 # TODO
 
-# Government mechanic for Heavenly Kingdom
-# solution for ai desire to max out forcelimit at expense of manpower
-# at some point add the idea events to anbennar/vanilla kek
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
