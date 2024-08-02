@@ -158,6 +158,10 @@ country_decisions = {
 				ai = no
 				is_playing_custom_nation = no
 			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
 			NOT = { exists = ITA }
 			tag = PAP
 			NOT = { has_country_flag = is_kingdom_of_god_flag }
@@ -169,56 +173,41 @@ country_decisions = {
 				}
 			}
 		}
-		provinces_to_highlight = {
-			OR = {
-				province_id = 101	# Genoa
-				province_id = 103	# Torino
-				province_id = 104	# Milano
-				province_id = 106	# Modena
-				province_id = 110	# Trento
-				province_id = 111	# Udine / Aquileia
-				province_id = 112	# Venice
-				province_id = 114	# Bologna + Ravenna
-				province_id = 116	# Firenze
-				province_id = 115	# Pisa
-				province_id = 119	# Ancona + Fermo
-				province_id = 2976	# Perugia
-				province_id = 2977	# Pesaro
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { is_core = ROOT }
-			}
-		}
 		allow = {
 			is_free_or_tributary_trigger = yes
 			is_nomad = no
 			is_at_war = no
-			#Ecclesiastical provinces of Northern Italy
-			owns_core_province = 101	# Genoa
-			owns_core_province = 103	# Torino
-			owns_core_province = 104	# Milano
-			owns_core_province = 106	# Modena
-			owns_core_province = 110	# Trento
-			owns_core_province = 111	# Udine / Aquileia
-			owns_core_province = 112	# Venice
-			owns_core_province = 114	# Bologna + Ravenna
-			owns_core_province = 116	# Firenze
-			owns_core_province = 115	# Pisa
-			owns_core_province = 119	# Ancona + Fermo
-			owns_core_province = 2976	# Perugia
-			owns_core_province = 2977	# Pesaro
+			mission_completed = ME_pap_kog
 		}
 		effect = {
-			country_event  = { id = catholic_flavor.2 }
-			set_country_flag = is_kingdom_of_god_flag
-			italy_region = {
-				limit = {
-					NOT = { owned_by = ROOT }
-				}
-				add_permanent_claim = ROOT
+			country_event_with_option_insight = {
+				id = catholic_flavor.2
+				option_1 = "
+					custom_tooltip = ME_PAP_PREVIEW_BATTLE_POPE_PATH
+					tooltip = {
+						add_government_reform = kingdom_of_god_reform
+						set_papacy_active = no
+						override_country_name = KINGDOM_OF_GOD
+						set_country_flag = is_kingdom_of_god_flag
+						#set_government_rank = 3
+					}
+					set_country_flag = me_pap_previewing_path
+					clr_country_flag = me_pap_review_peaceful_pope
+					set_country_flag = me_pap_preview_battle_pope
+				"
+				option_2 = "
+					custom_tooltip = ME_PAP_PREVIEW_PEACEFUL_POPE_PATH
+					tooltip = {
+						custom_tooltip = ME_UNLOCK_PEACEFUL_POPE_PATH
+						add_curia_treasury_medium_effect = yes
+						add_reform_desire = -0.1
+						set_country_flag = me_pap_peaceful_pope_path
+					}
+					set_country_flag = me_pap_previewing_path
+					clr_country_flag = me_pap_preview_battle_pope
+					set_country_flag = me_pap_review_peaceful_pope
+				"
 			}
-			override_country_name = KINGDOM_OF_GOD
 		}
 		ai_will_do = {
 			factor = 1
