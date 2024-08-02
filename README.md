@@ -16,6 +16,7 @@ from the original mod I took. After all I need to understand how they work, else
 
 <h1>!/!/2024</h1>
 - Added can_claim_states to Espionage, and tweaked.
+- Can use seize/land interaction with the new estates.
 
 
 # TODO
