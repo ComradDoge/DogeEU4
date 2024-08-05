@@ -20,9 +20,10 @@ from the original mod I took. After all I need to understand how they work, else
 - Added can_claim_states to Espionage, and tweaked.
 - Can use seize/land interaction with the new estates.
 - Cleaned up and fixed Nizwa monument marine privilege.
+- MP Player Alliance decision now under special settings.
+- Added a crazy Civilisation-esque fantasy setting option.
 
 # TODO
-go over and add custom loc for estate names (main three)
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
