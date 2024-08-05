@@ -1,5 +1,6 @@
 # Yoinked from Anbennar
 namespace = great_conqueror
+namespace = dse_conquerorchoice
 namespace = dst_synthetic_invasion
 
 country_event = {
@@ -111,7 +112,7 @@ country_event = {
 					}
 					is_bankrupt = yes																#Can't be bankrupt bitch
 					AND = {
-						any_neighbor_country = { ai = no }											#Doesn't target AI next to player before 1550
+						any_neighbor_country = { ai = no }											#Doesn't target AI next to player before 1500
 						NOT = { is_year = 1500 }
 					}
 					coalition_target = ROOT															#Must not be the coalition target
@@ -312,7 +313,7 @@ country_event = {
 	}
 }
 
-#Deactivated Great Conqueror
+#Deactivated Great Conqueror (Old Choice System)
 country_event = {
 	id = great_conqueror.1
 	title = great_conqueror.1.t
@@ -361,6 +362,202 @@ country_event = {
 		ai_chance = {  factor = 100 }
 		hidden_effect = { set_global_flag = no_great_conqueror clr_global_flag = mythical_conqueror }
 	}
+}
+
+country_event = {
+    id = dse_conquerorchoice.1
+    title = dse_conquerorchoice.1.t
+    desc = dse_conquerorchoice.1.d
+    picture = GREATMAN_eventPicture
+
+    is_triggered_only = yes
+
+    immediate = {
+        set_global_flag = dse_meta_conqueror_decision_flag
+    }
+
+    option = { # Great
+        name = dse_conquerorchoice.1.o1
+		trigger = {
+			NOT = { has_global_flag = dse_conquerorchoice_mythical_flag }
+		}
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_conquerorchoice_great_flag }
+            }
+            set_global_flag = dse_conquerorchoice_great_flag
+        }
+        else = { clr_global_flag = dse_conquerorchoice_great_flag }
+        custom_tooltip = option_conquerorchoice_great_tt
+        hidden_effect = { country_event = { id = dse_conquerorchoice.2 } }
+    }
+
+    option = { # Mythical
+        name = dse_conquerorchoice.1.o2
+		trigger = {
+			NOT = { has_global_flag = dse_conquerorchoice_great_flag }
+		}
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_conquerorchoice_mythical_flag }
+            }
+            set_global_flag = dse_conquerorchoice_mythical_flag
+        }
+        else = { clr_global_flag = dse_conquerorchoice_mythical_flag }
+        custom_tooltip = option_conquerorchoice_mythical_tt
+        hidden_effect = { country_event = { id = dse_conquerorchoice.2 } }
+    }
+
+
+
+
+
+    option = {
+        name = dse_conquerorchoice.1.none
+        trigger = {
+            NOT = {
+                OR = {
+                    has_global_flag = dse_conquerorchoice_great_flag
+                    has_global_flag = dse_conquerorchoice_mythical_flag
+                }
+            }
+        }
+		hidden_effect = { 
+			set_global_flag = no_great_conqueror 
+			clr_global_flag = mythical_conqueror
+		}
+    }
+
+    option = {
+        name = dse_conquerorchoice.1.confirm
+        custom_tooltip = DST_conquerorchoice_confirmation_result
+        trigger = {
+            OR = {
+                has_global_flag = dse_conquerorchoice_great_flag
+                has_global_flag = dse_conquerorchoice_mythical_flag
+            }
+        }
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = dse_conquerorchoice_great_flag
+					NOT = { has_global_flag = dse_conquerorchoice_mythical_flag }
+				}
+				hidden_effect = { 
+					clr_global_flag = no_great_conqueror 
+					clr_global_flag = mythical_conqueror
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = dse_conquerorchoice_great_flag }
+					has_global_flag = dse_conquerorchoice_mythical_flag
+				}
+				hidden_effect = { 
+					set_global_flag = mythical_conqueror 
+					clr_global_flag = no_great_conqueror
+				}
+			}			
+		}
+    }
+}
+
+country_event = {
+    id = dse_conquerorchoice.2
+    title = dse_conquerorchoice.2.t
+    desc = dse_conquerorchoice.2.d
+    picture = GREATMAN_eventPicture
+
+    is_triggered_only = yes
+
+    immediate = {
+        set_global_flag = dse_meta_conqueror_decision_flag
+    }
+
+    option = { # Great
+        name = dse_conquerorchoice.2.o1
+		trigger = {
+			NOT = { has_global_flag = dse_conquerorchoice_mythical_flag }
+		}
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_conquerorchoice_great_flag }
+            }
+            set_global_flag = dse_conquerorchoice_great_flag
+        }
+        else = { clr_global_flag = dse_conquerorchoice_great_flag }
+        custom_tooltip = option_conquerorchoice_great_tt
+        hidden_effect = { country_event = { id = dse_conquerorchoice.1 } }
+    }
+
+    option = { # Mythical
+        name = dse_conquerorchoice.2.o2
+		trigger = {
+			NOT = { has_global_flag = dse_conquerorchoice_great_flag }
+		}
+        if = {
+            limit = {
+                NOT = { has_global_flag = dse_conquerorchoice_mythical_flag }
+            }
+            set_global_flag = dse_conquerorchoice_mythical_flag
+        }
+        else = { clr_global_flag = dse_conquerorchoice_mythical_flag }
+        custom_tooltip = option_conquerorchoice_mythical_tt
+        hidden_effect = { country_event = { id = dse_conquerorchoice.1 } }
+    }
+
+
+
+
+
+    option = {
+        name = dse_conquerorchoice.1.none
+        trigger = {
+            NOT = {
+                OR = {
+                    has_global_flag = dse_conquerorchoice_great_flag
+                    has_global_flag = dse_conquerorchoice_mythical_flag
+                }
+            }
+        }
+		hidden_effect = { 
+			set_global_flag = no_great_conqueror 
+			clr_global_flag = mythical_conqueror
+		}
+    }
+
+    option = {
+        name = dse_conquerorchoice.1.confirm
+        custom_tooltip = DST_conquerorchoice_confirmation_result
+        trigger = {
+            OR = {
+                has_global_flag = dse_conquerorchoice_great_flag
+                has_global_flag = dse_conquerorchoice_mythical_flag
+            }
+        }
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = dse_conquerorchoice_great_flag
+					NOT = { has_global_flag = dse_conquerorchoice_mythical_flag }
+				}
+				hidden_effect = { 
+					clr_global_flag = no_great_conqueror 
+					clr_global_flag = mythical_conqueror
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = dse_conquerorchoice_great_flag }
+					has_global_flag = dse_conquerorchoice_mythical_flag
+				}
+				hidden_effect = { 
+					set_global_flag = mythical_conqueror 
+					clr_global_flag = no_great_conqueror
+				}
+			}			
+		}
+    }
 }
 
 
