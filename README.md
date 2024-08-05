@@ -18,10 +18,10 @@ from the original mod I took. After all I need to understand how they work, else
 - Fixed Burgher Draft Ships working weirdly. 
 - Various fixes and cleanup for some missions.
 - Added can_claim_states to Espionage, and tweaked.
+- Added a Civilisation-esque fantasy setting option.
 - Can use seize/land interaction with the new estates.
 - Cleaned up and fixed Nizwa monument marine privilege.
 - MP Player Alliance decision now under special settings.
-- Added a crazy Civilisation-esque fantasy setting option.
 
 # TODO
 
