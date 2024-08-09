@@ -15,14 +15,8 @@ from the original mod I took. After all I need to understand how they work, else
 - Checksum: ?
 
 <h1>!/!/2024</h1>
-- Fixed Burgher Draft Ships working weirdly. 
-- Various fixes and cleanup for some missions.
-- Added can_claim_states to Espionage, and tweaked.
-- Can use seize/land interaction with the new estates.
-- Cleaned up and fixed Nizwa monument marine privilege.
-- Added a dumb Civilisation-esque fantasy setting option.
-- MP Player Alliance decision now under special settings.
-- Conqueror setting event remade to follow same template as others.
+- Tweaked and fixed some things in CIV mode setting.
+- Improved some events logic for ai to improve performance.
 
 # TODO
 
