@@ -15,10 +15,12 @@ from the original mod I took. After all I need to understand how they work, else
 - Checksum: ?
 
 <h1>!/!/2024</h1>
+- Various other minor fixes.
 - Added some more polar lights.
+- Added some missing papal opinion modifiers.
 - Tweaked and fixed some things in CIV mode setting.
 - Improved some events logic for ai to improve performance.
-- Some tweaking trying to fix the early issue of new vassals staying over land forcelimit.
+- Some tweaking trying to fix the early issue of new vassals staying over land forcelimit. Another way to fix it is just reloading the save.
 
 # TODO
 
