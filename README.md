@@ -19,7 +19,7 @@ from the original mod I took. After all I need to understand how they work, else
 - Added some more polar lights.
 - Added some missing papal opinion modifiers.
 - Fixed issues with missions that dealt with flagships.
-- Improved some events logic for ai to improve performance at the beginning.
+- Tweaked some events logic for ai to improve performance at the beginning.
 - Tweaked and fixed some things in CIV mode setting to properly give you money.
 - Some tweaking trying to fix the early issue of new vassals staying over land forcelimit. Another way to fix it is just reloading the save.
 
