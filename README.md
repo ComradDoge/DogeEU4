@@ -5,13 +5,7 @@
 - Checksum: ?
 
 <h1>00/00/2024</h1>
-- Various other minor fixes.
-- Added some more polar lights.
-- Added some missing papal opinion modifiers.
-- Fixed issues with missions that dealt with flagships.
-- Tweaked some events logic for ai to improve performance at the beginning.
-- Tweaked and fixed some things in CIV mode setting to properly give you money.
-- Some tweaking trying to fix the early issue of new vassals staying over land forcelimit. Another way to fix it is just reloading the save.
+- Loan list screen made longer.
 
 TODO
 
