@@ -6,6 +6,8 @@
 
 <h1>00/00/2024</h1>
 - Loan list screen made longer.
+- Portugese marine reform is in naval organisation tier now.
+- Military Reforms event can now be delayed, simillar to advisor events.
 
 TODO
 
