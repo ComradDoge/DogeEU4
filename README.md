@@ -8,6 +8,7 @@
 - Loan list screen made longer.
 - Portugese marine reform is in naval organisation tier now.
 - Military Reforms event can now be delayed, simillar to advisor events.
+- Fixed a Papal misison not giving access to certain holy orders.
 
 TODO
 
