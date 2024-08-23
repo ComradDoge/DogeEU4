@@ -6,11 +6,13 @@
 
 <h1>00/00/2024</h1>
 - Loan list screen made longer.
+- Changing World age ability culture_time reduced by 25%.
 - Portugese marine reform is in naval organisation tier now.
-- Military Reforms event can now be delayed, simillar to advisor events.
 - Fixed a Papal misison not giving access to certain holy orders.
+- Military Reforms event can now be delayed, simillar to advisor events.
+- Portugese empire reform event merely requires you to be empire rank instead of absolutism.
+- Edited Protestant Reformation event to take reform desire above 125% in account to increase event chance.
 
-TODO
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
