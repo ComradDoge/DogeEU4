@@ -13,12 +13,12 @@
 - Military Reforms event can now be delayed, simillar to advisor events.
 - Portugese empire reform event merely requires you to be empire rank instead of absolutism.
 - Edited Protestant Reformation event to take reform desire above 125% in account to increase event chance.
+- Moved Secial setting "Permanent Aztec Mythical Ruler" to Conqueror settings screen.
+- Added a "Permanent Inca/Cusco Mythical Ruler" to Conqueror settings screen.
 
 
 # - Added a "Disallow all colonisation in Americas & Oceania" in New World settings screen. Option will appear after all natives are chosen to be removed.
-# - Moved Secial setting "Permanent Aztec Mythical Ruler" to Conqueror settings screen.
-# - Added a "Permanent Inca/Cusco Mythical Ruler" to Conqueror settings screen.
-# - Added a "All of Old World is HRE" to Fantasy settings screen.
+# - Added a "Add all provinces into HRE" to Fantasy settings screen when starting in a bookmark that has an HRE.
 # - Added a "Remove Ming vassal system" to Special settings screen when starting in the "Shattered but" bookmark, to allow a bookmark with just a basic shattered china.
 
 <br/>
