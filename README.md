@@ -5,20 +5,21 @@
 - Checksum: ?
 
 <h1>00/00/2024</h1>
-- Loan list screen made longer.
-- Changing World age ability culture_time reduced by 25%.
-- Portugese marine reform is in naval organisation tier now.
+- Loan list screen made longer if screen supports it.
+- Portuguese marine reform is in naval organisation tier now.
 - Tweaked some of Muskogee missions, factions and others bits.
-- Fixed a Papal misison not giving access to certain holy orders.
+- Fixed a Papal mission not giving access to certain holy orders.
+- Changing World age ability culture_conversion_time reduced by 25%.
 - Military Reforms event can now be delayed, simillar to advisor events.
-- Portugese empire reform event merely requires you to be empire rank instead of absolutism.
+- Portuguese empire reform event merely requires you to be empire rank instead of absolutism.
 - Edited Protestant Reformation event to take reform desire above 125% in account to increase event chance.
-- Moved Secial setting "Permanent Aztec Mythical Ruler" to Conqueror settings screen.
+
 - Added a "Permanent Inca/Cusco Mythical Ruler" to Conqueror settings screen.
+- Moved Secial setting "Permanent Aztec Mythical Ruler" to Conqueror settings screen.
+- Added a "Disallow all colonisation in Americas & Oceania" in New World settings screen. Option will appear after all natives are chosen to be removed.
 - Added a "Remove Ming vassal system" to Special settings screen when starting in the "Shattered but" bookmark, to allow a bookmark with just a basic shattered china.
 
 
-# - Added a "Disallow all colonisation in Americas & Oceania" in New World settings screen. Option will appear after all natives are chosen to be removed.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
