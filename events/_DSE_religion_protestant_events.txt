@@ -1,0 +1,124 @@
+namespace = dse_protestant_religious_events
+
+province_event = {
+	id = dse_protestant_religious_events.1
+	title = dse_protestant_religious_events.1.t
+	desc = dse_protestant_religious_events.1.d
+	picture = PROTESTANT_PRINTED_eventPicture
+    goto = 59
+	
+    fire_only_once = yes
+
+
+	trigger = {
+        NOT = { has_global_flag = 95_theses_event_fired_flag }
+        is_year = 1517
+        province_id = 59
+        religion = catholic
+        owner = { religion = catholic }
+        NOT = { is_religion_enabled = protestant }
+    }
+    mean_time_to_happen = { months = 4 }
+
+    immediate = {
+        set_global_flag = 95_theses_event_fired_flag
+        log = "==================== MARTIN LUTHER 95 THESES WITTENBERG [Root.GetName] ===================="
+    }
+
+    option = {
+        name = "dse_protestant_religious_events.1.a"
+		ai_chance = {
+			factor = 90
+		}
+        owner = {
+            add_reform_desire = 2
+            define_advisor = {
+                name = "Martin Luther"
+                type = reformist
+                culture = ROOT
+                religion = protestant
+                skill = 3
+                discount = yes
+            }
+        }
+    }
+    option = {
+        name = "dse_protestant_religious_events.1.b"
+		ai_chance = {
+			factor = 10
+		}
+        owner = {
+          add_reform_desire = 1
+        }
+
+        spawn_rebels = {
+            type = protestant_rebels
+            leader = "Martin Luther"
+            size = 20
+        }
+    }
+}
+# In case a non-Catholic controls Wittenberg it will fall back to this event that will allow it to fire in any catholic province
+province_event = {
+	id = dse_protestant_religious_events.2
+	title = dse_protestant_religious_events.1.t
+	desc = dse_protestant_religious_events.1.d
+	picture = PROTESTANT_PRINTED_eventPicture
+    #goto = 59
+	
+    fire_only_once = yes
+
+
+	trigger = {
+        NOT = { has_global_flag = 95_theses_event_fired_flag }
+        is_year = 1517
+        #province_id = 59
+        59 = {
+            owner = { NOT = { religion = catholic } }
+        }
+        continent = europe
+        religion = catholic
+        owner = { religion = catholic }
+        NOT = { is_religion_enabled = protestant }
+    }
+    mean_time_to_happen = { months = 8 }
+
+    immediate = {
+        set_global_flag = 95_theses_event_fired_flag
+        log = "==================== MARTIN LUTHER 95 THESES NON-WITTENBERG [Root.GetName] ===================="
+    }
+
+    option = {
+        name = "dse_protestant_religious_events.1.a"
+		ai_chance = {
+			factor = 90
+		}
+
+        owner = {
+            add_reform_desire = 2
+            define_advisor = {
+                name = "Martin Luther"
+                type = reformist
+                culture = ROOT
+                religion = protestant
+                skill = 3
+                discount = yes
+            }
+        }
+    }
+    option = {
+        name = "dse_protestant_religious_events.1.b"
+		ai_chance = {
+			factor = 10
+		}
+        owner = {
+          add_reform_desire = 1
+        }
+
+        spawn_rebels = {
+            type = protestant_rebels
+            leader = "Martin Luther"
+            size = 20
+        }
+    }
+}
