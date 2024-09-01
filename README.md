@@ -6,6 +6,7 @@
 
 <h1>00/00/2024</h1>
 - Cleaned up some decision and modifier icons.
+- Added missing NWC/NVC ideas and other fixes to them.
 - Got rid of background events that basically force reformation and replaced with a single flavour event that can fire after 1517 in Wittenberg which gives 200% reform desire but only once.
 - Added a Special setting "MP Disable Mission Trees". Note that cause of how it's implemented (overlays UI over it) it only disallows the players, AI is still capable of interacting with them however it's AI so its not as effective. Nonetheless, this setting is more for multiplayer rather than both.
 
