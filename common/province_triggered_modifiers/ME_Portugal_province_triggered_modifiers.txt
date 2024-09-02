@@ -1,0 +1,191 @@
+POR_cruzado_mint = {
+	potential = {
+		owner = {
+			has_country_flag = POR_can_use_cruzado
+		}
+	}
+	trigger = {
+		owner = {
+			trade_goods_produced_amount = {
+				trade_goods = gold
+				amount = 3
+			}
+		}
+		owner = {
+			NOT = { inflation = 2 }
+			gold_income_percentage = 0.1
+		}
+	} 
+	
+	global_trade_power = 0.15
+	
+	#Province scope
+	on_activation = {
+	}
+	
+	on_deactivation = {
+	}
+}
+
+POR_remove_gold = {
+	potential = {
+		always = yes 
+	}
+	
+	hidden = yes
+
+	trigger = {
+		OR = {
+			had_province_flag = {
+				flag = POR_ceuta_gold
+				days = 9125
+			}
+			NOT = { 
+				owner = {
+					has_country_flag = POR_can_use_ceuta_gold
+				}
+			}
+		}
+	}
+	
+	#Province scope
+	on_activation = {
+		change_trade_goods = fish
+		clr_province_flag = POR_ceuta_gold
+		remove_province_modifier = POR_ceuta_gold_penalty
+		remove_province_triggered_modifier = POR_remove_gold
+		
+		owner = {
+			country_event = { id = ME_Portugal_Events.5 }
+		}
+	}
+	
+	on_deactivation = {
+	}
+}
+
+POR_braganca = {
+	potential = {
+		owned_by = POR
+	}
+	
+	#hidden = yes
+
+	trigger = {
+		owner = {
+			OR = {
+				NOT = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+				}
+				crown_land_share = 40
+				has_ruler_modifier = duke_of_coimbra
+			}
+		}
+	}
+	
+	#Province scope
+	on_activation = {
+		beieras_area = {
+			limit = {
+				owned_by = POR
+			}
+			add_province_modifier = {
+				name = POR_disloyal_braganca
+				duration = -1
+			}
+		}
+	}
+	
+	on_deactivation = {
+		beieras_area = {
+			limit = {
+				owned_by = ROOT
+			}
+			remove_province_modifier = POR_disloyal_braganca
+		}
+	}
+}
+
+POR_remove_braganca = {
+	potential = {	
+		always = yes
+	}
+	
+	hidden = yes
+	
+	trigger = {
+		owner = {
+			NOT = { has_country_flag = POR_braganza_problem }
+		}
+	}
+	
+	on_activation = {
+		beieras_area = {
+			limit = {
+				owned_by = ROOT
+			}
+			remove_province_modifier = POR_disloyal_braganca
+		}
+		remove_province_triggered_modifier = POR_remove_braganca
+		remove_province_triggered_modifier = POR_braganca
+	}
+	
+	on_deactivation = { }
+}
+
+POR_feitoria_yearly_check = {
+	potential = {	
+		always = yes
+	}
+	
+	hidden = yes
+	
+	trigger = {
+		is_month = 0
+		NOT = { is_month = 1 }
+		had_province_flag = {
+			flag = POR_yearly_feitoria_tick
+			days = 60
+		}
+	}
+	
+	on_activation = {
+		POR_yearly_tick_feitoria = yes
+		set_province_flag = POR_yearly_feitoria_tick
+		set_province_flag = POR_can_take_ship_tick
+	}
+	
+	on_deactivation = { }
+}
+
+POR_feitoria_ship_check = {
+	potential = {
+		always = yes
+	}
+	
+	hidden = yes
+	
+	trigger = {
+		has_province_flag = POR_can_take_ship_tick
+		if = {
+			limit = {
+				has_saved_global_event_target = por_feitoria_holder
+			}
+			sea_zone = {
+				light_ships_in_province = 1
+				light_ships_in_province = event_target:por_feitoria_holder
+			}
+		}
+		else = { always = no }
+	}
+	
+	on_activation = {
+		POR_give_maintenance_based_on_ships = yes
+		clr_province_flag = POR_can_take_ship_tick
+	}
+	
+	on_deactivation = { }
+}

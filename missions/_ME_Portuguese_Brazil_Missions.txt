@@ -1,0 +1,1107 @@
+# While other subject mission trees have some missions that let the missions be completed by AI, some of the missions in this tree might require overlord's effort, therefore this is not a fully independent subject mission tree, and should not be treated as such.
+
+PRBR_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {	
+		is_colonial_nation = yes
+		has_country_flag = PRBR_missions_enabled
+	}
+	has_country_shield = yes
+	
+	PRBR_found_salvador = {
+		icon = mission_claim_hispaniola
+		required_missions = { PRBR_fifteen_donatarios }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 756
+		}
+		trigger = {
+			756 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+				development = 15
+			}
+		}
+		effect = {
+			756 = {
+				add_or_upgrade_tax_building = yes
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = PRBR_salvador_of_bahia_modifier
+					duration = -1
+				}
+			}
+			2914 = {
+				PRBR_make_frontier_or_claim = yes
+			}
+			2916 = {
+				PRBR_make_frontier_or_claim = yes
+			}
+			757 = {
+				PRBR_make_frontier_or_claim = yes
+			}
+		}
+	}
+	
+	PRBR_salvador_of_bahia = {
+		icon = mission_control_venice
+		required_missions = { PRBR_found_salvador }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 756
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				756 = {
+					owned_by = ROOT
+					development = 24
+					has_great_project = {
+						type = salvador_da_bahia 
+						tier = 2
+					}
+				}
+			}
+			else = {
+				756 = {
+					owned_by = ROOT
+					development = 28
+					num_of_buildings_in_province = 5
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				756 = {
+					add_great_project_tier = {
+						type = salvador_da_bahia 
+						tier = 1
+					}
+				}
+			}
+			else = {
+				756 = {
+					add_province_modifier = {
+						name = PRBR_salvador_of_bahia_2
+						duration = -1
+					}
+				}
+			}
+			
+			if = {
+				limit = { has_dlc = "Mandate of Heaven" }
+				ME_overlord_effect = {
+					effect = "
+						add_splendor = 400
+						define_advisor = {
+							type = muscovy_architect
+							skill = 3
+							culture = ROOT
+							religion = ROOT
+							cost_multiplier = 0.5
+						}
+					"
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = { amount = 25 }
+				ME_overlord_effect = {
+					effect = "
+						add_splendor = 400
+						define_advisor = {
+							type = muscovy_architect
+							skill = 3
+							culture = ROOT
+							religion = ROOT
+							cost_multiplier = 0.5
+						}
+					"
+				}
+			}
+		}
+	}
+}
+
+PRBR_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {	
+		is_colonial_nation = yes
+		has_country_flag = PRBR_missions_enabled
+	}
+	has_country_shield = yes
+	
+	PRBR_fifteen_donatarios = {
+		icon = mission_plus_ultra
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			capital_scope = {
+				num_of_times_improved = 4
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = PRBR_establishment_of_captaincies
+				duration = 9125
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = PRBR_a_new_colony_founded
+						duration = 5475
+					}
+					
+					# country_event = { id = ME_Portuguese_Events.100 } #How many grants do you want to make?
+				"
+			}
+		}
+	}
+	
+	PRBR_nova_lusitania = {
+		icon = mission_retake_ceuta
+		required_missions = { PRBR_fifteen_donatarios }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				area = ceara_area
+				area = pernambuco_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_city = yes }
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				ceara_area = {
+					type = all
+					owned_by = ROOT 
+					is_city = yes
+				}
+				pernambuco_area = {
+					type = all
+					owned_by = ROOT 
+					is_city = yes
+				}
+				amount = 5
+			}
+		}
+		effect = {
+			ceara_area = {
+				PRBR_make_frontier_or_claim = yes
+				add_prosperity = 100
+			}
+			pernambuco_area = {
+				PRBR_make_frontier_or_claim = yes
+				add_prosperity = 100
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					country_event = { id = ME_Portugal_Events.53 } #whether portugal wants the provinces here to produce a certain trade good. again, omits brazil.
+				"
+			}
+		}
+	}
+	
+	PRBR_maranhao = {
+		icon = mission_portuguese_malabar
+		required_missions = { PRBR_nova_lusitania }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				province_id = 748
+				province_id = 2927
+				province_id = 749 
+				province_id = 2886
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_city = yes }
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				AND = {
+					748 = {
+						is_city = yes
+						owned_by = ROOT
+					}
+					2927 = {
+						is_city = yes
+						owned_by = ROOT
+					}
+					749 = {
+						is_city = yes
+						owned_by = ROOT
+					}
+					2886 = {
+						is_city = yes
+						owned_by = ROOT
+					}
+				} #hopefully fixes it?
+				amount = 2
+			}
+			OR = {
+				748 = {
+					owned_by = ROOT
+					num_of_times_improved = 5
+				}
+				2927 = {
+					owned_by = ROOT
+					num_of_times_improved = 5
+				}
+				749 = {
+					owned_by = ROOT
+					num_of_times_improved = 5
+				}
+				2886 = {
+					owned_by = ROOT
+					num_of_times_improved = 5
+				}
+			}
+		}
+		effect = {
+			748 = { PRBR_make_frontier_or_claim = yes }
+			2927 = { PRBR_make_frontier_or_claim = yes }
+			749 = { PRBR_make_frontier_or_claim = yes }
+			2886 = { PRBR_make_frontier_or_claim = yes }
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					if = {
+						limit = {
+							has_estate = estate_settlers
+						}
+						add_estate_loyalty = {
+							estate = estate_settlers
+							loyalty = 15
+						}
+						
+						add_years_of_income = 0.2
+					}
+					
+					else = {
+						add_years_of_income = 0.4
+					}
+				"
+			}
+		}
+	}
+	
+	PRBR_amazon = {
+		icon = mission_clear_the_delta
+		required_missions = { PRBR_maranhao }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2929
+				province_id = 2935
+				province_id = 2890
+			}
+			OR = {
+				NOT = { is_city = yes }
+				NOT = { owned_by = ROOT }
+			}
+		}
+		trigger = {
+			2929 = {
+				is_city = yes
+				owned_by = ROOT
+			}
+			2890 = {
+				is_city = yes
+				owned_by = ROOT
+			}
+			2935 = {
+				is_city = yes
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			2930 = { PRBR_make_frontier_or_claim = yes }
+			2934 = { PRBR_make_frontier_or_claim = yes }
+			
+			2930 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 5475
+					power = 10
+					key = PRBR_grao_para_and_maranhao_company
+				}
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					2930 = {
+						add_trade_modifier = {
+							who = PREV
+							duration = -1
+							power = 75
+							key = PRBR_grao_para_and_maranhao_company
+						}
+					}
+				"
+			}
+		}
+	}
+}
+
+PRBR_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {	
+		is_colonial_nation = yes
+		has_country_flag = PRBR_missions_enabled
+	}
+	has_country_shield = yes
+
+	PRBR_porto_seguro = {
+		icon = mission_raid_on_genoa
+		required_missions = { PRBR_fifteen_donatarios }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 760
+		}
+		trigger = {
+			760 = {
+				owned_by = ROOT
+				is_city = yes 
+				development = 9
+			}
+		}
+		effect = {
+			760 = {
+				add_latest_building = {
+					navy_forcelimit = yes
+					builder = ROOT 
+				}
+			
+				add_province_modifier = {
+					name = PRBR_safe_haven
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					create_conquistador = { tradition = 40 }
+				"
+			}
+		}
+	}
+	
+	PRBR_sao_vicente = {
+		icon = mission_colonize_the_west
+		required_missions = { PRBR_porto_seguro }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 766
+		}
+		trigger = {
+			766 = {
+				owned_by = ROOT
+				is_city = yes
+			}
+		}
+		effect = {
+			766 = {
+				area = {
+					add_permanent_province_modifier = {
+						name = PRBR_successful_portuguese_captaincy
+						duration = 9125
+					}
+				}
+				
+				custom_tooltip = " "
+				
+				add_province_modifier = {
+					name = PRBR_cellula_mater
+					duration = -1
+				}
+			}
+			
+			ME_overlord_effect = {
+				effect = "add_mercantilism = 3"
+			}
+		}
+	}
+	
+	PRBR_rio_de_janeiro = {
+		icon = mission_caribbean_cn
+		required_missions = { PRBR_sao_vicente }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 763
+		}
+		trigger = {
+			763 = {
+				owned_by = ROOT
+				is_city = yes
+			}
+		}
+		effect = {
+			define_general = {
+				shock = 2
+				fire = 3
+				manuever = 3
+				siege = 1
+				name = "Estácio de Sá"
+			}
+			
+			custom_tooltip = " "
+			
+			763 = { 
+				add_base_tax = 1
+				add_base_production = 1
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = PRBR_expelled_french_colonists
+						duration = 9125
+					}
+					
+					ME_add_power_projection = { amount = 10 }
+				"
+			}
+		}
+	}
+	
+	PRBR_the_dash_inland = {
+		icon = mission_potosi_silver
+		required_missions = { PRBR_rio_de_janeiro PRBR_bandeirantes }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			minas_gerais_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_army_tradition_or_mil_power = { amount = 25 }
+			
+			custom_tooltip = " "
+			
+			add_years_of_income = 1
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_army_tradition_or_mil_power = { amount = 25 }
+					
+					custom_tooltip = \" \"
+					
+					add_years_of_income = 0.2
+				"
+			}
+		}
+	}
+}
+
+PRBR_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {	
+		is_colonial_nation = yes
+		has_country_flag = PRBR_missions_enabled
+	}
+	has_country_shield = yes
+	
+	PRBR_secure_funding = {
+		icon = dominant_economy
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			is_capital = yes
+			owner = {
+				ROOT = {
+					is_subject_of = PREV 
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				overlord = {
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+				overlord = {
+					reverse_has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = PRBR_random_frontier
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						any_neighbor_province = {
+							is_empty = yes
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							is_empty = yes
+						}
+						add_siberian_construction = 20
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = PRBR_investments_pour_into_brasil
+				duration = 10950
+			}
+		}
+	}
+	
+	PRBR_governorate_of_brasil = {
+		icon = mission_taula_de_canvi
+		required_missions = { PRBR_secure_funding }
+		position = 3
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+		}
+		trigger = {
+			total_development = 100
+			capital_scope = {
+				has_courthouse_building_trigger = yes
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_or_upgrade_courthouse_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = PRBR_governorate_of_brasil_modifier
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					change_government_reform_progress = 50
+					
+					add_adm_power = 50
+				"
+			}
+		}
+	}
+	
+	PRBR_bandeirantes = {
+		icon = mission_brazilian_bandeirantes
+		required_missions = { PRBR_governorate_of_brasil PRBR_developing_plantation_economy PRBR_sao_vicente }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 766
+		}
+		trigger = {
+			OR = {
+				has_adm_advisor_2 = yes
+				has_dip_advisor_2 = yes
+				has_mil_advisor_2 = yes
+				overlord = {
+					has_estate_privilege = estate_settlers_employ_conquistadores
+				}
+			}
+			OR = {
+				any_owned_province = {
+					trade_goods = gold
+				}
+				766 = {
+					owned_by = ROOT
+					development = 30
+				}
+			}
+		}
+		effect = {
+			766 = {
+				add_base_tax = 2 
+				add_base_production = 2
+				add_base_manpower = 1 
+			}
+			
+			custom_tooltip = " "
+			
+			minas_gerais_area = {
+				add_permanent_province_modifier = {
+					name = PRBR_gold_discoveries
+					duration = 10950
+				}
+			}
+			
+			add_country_modifier = {
+				name = PRBR_incursions_of_the_paulista_bandeirantes
+				duration = 5475
+			}
+		}
+	}
+	
+	PRBR_gold_rush = {
+		icon = mission_african_gold
+		required_missions = { PRBR_bandeirantes }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					owned_by = ROOT
+					trade_goods = gold
+					NOT = { development = 15 }
+				}
+				AND = {
+					is_empty = yes
+					any_neighbor_province = {
+						owned_by = ROOT 
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				trade_goods = gold
+				development = 15
+				value = 4
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = PRBR_brazilian_gold_rush
+				duration = 7300
+			}
+			
+			custom_tooltip = PRBR_distribute_10_10_5
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								trade_goods = gold 
+							}
+							add_base_tax = 1
+						}
+					"
+				}
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								trade_goods = gold 
+							}
+							add_base_production = 1
+						}
+					"
+				}
+				for = {
+					amount = 5
+					effect = "
+						random_owned_province = {
+							limit = {
+								trade_goods = gold 
+							}
+							add_base_manpower = 1
+						}
+					"
+				}
+			}
+			
+			custom_tooltip = " "
+		
+			ME_overlord_effect = {
+				effect = "
+					country_event = { id = ME_Portugal_Events.54 }
+				"
+			}
+		}
+	}
+	
+	PRBR_of_cocoa_and_coffee = {
+		icon = mission_a_million_rice_fields
+		required_missions = { PRBR_plantocracy }
+		position = 7
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					trade_goods = cocoa
+					trade_goods = coffee
+				}
+				has_production_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+			add_years_of_income = 1
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = PRBR_most_developed_province
+			tooltip = {
+				add_base_tax = 3
+				add_base_production = 5
+				add_base_manpower = 1
+				add_or_upgrade_production_building = yes
+			}
+			
+			hidden_effect = {
+				pick_best_provinces = {
+					1 = yes
+					scope = every_owned_province
+					scale = higher_development_than
+					event_target_name = por_brazil_target
+					global_trigger = "
+						OR = {
+							trade_goods = cocoa
+							trade_goods = coffee
+						}
+						has_production_building_trigger = yes
+					"
+				}
+				
+				event_target:por_brazil_target_1 = {
+					add_base_tax = 3
+					add_base_production = 5
+					add_base_manpower = 1
+					add_or_upgrade_production_building = yes
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_years_of_income = 0.5
+					add_mercantilism = 3
+				"
+			}
+		}
+	}
+}
+
+PRBR_missions_5_catho = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {	
+		is_colonial_nation = yes
+		has_country_flag = PRBR_missions_enabled
+		religion = catholic
+	}
+	has_country_shield = yes
+		
+	PRBR_invite_the_jesuits = {
+		icon = mission_establish_jesuit_missions
+		required_missions = { PRBR_secure_funding }
+		position = 2
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_tax_building_trigger = yes }
+		}
+		trigger = {
+			if = {
+				limit = {
+					religion = catholic
+				}
+				OR = {
+					papal_influence = 30
+					num_of_owned_provinces_with = {
+						has_tax_building_trigger = yes
+						value = 10 
+					}
+				}
+			}
+			else = { #fallback
+				num_of_owned_provinces_with = {
+					has_tax_building_trigger = yes
+					value = 10 
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = PRBR_jesuit_missions
+				duration = -1
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_papal_influence = 40
+				"
+			}
+		}
+	}	
+}
+
+PRBR_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {	
+		is_colonial_nation = yes
+		has_country_flag = PRBR_missions_enabled
+	}
+	has_country_shield = yes
+	
+	PRBR_extract_brasilwood = {
+		icon = mission_native_reductions
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			colonial_region = colonial_brazil
+			province_has_center_of_trade_of_level = 1
+		}
+		trigger = {
+			any_owned_province = {
+				province_has_center_of_trade_of_level = 1
+				has_trade_building_trigger = yes
+			}
+			
+			any_owned_province = {
+				trade_goods = tropical_wood
+				has_production_building_trigger = yes
+			}
+		}
+		effect = {
+			add_mercantilism = 2
+			
+			custom_tooltip = PRBR_every_province_producing_tropicalwood
+			tooltip = {
+				add_province_modifier = {
+					name = PRBR_brasilwood_extractions
+					duration = 7300
+				}
+			}
+			
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							trade_goods = tropical_wood
+							trade_goods = naval_supplies
+						}
+					}
+					add_province_modifier = {
+						name = PRBR_brasilwood_extractions
+						duration = 7300
+					}
+				}
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_mercantilism = 2
+					add_country_modifier = {
+						name = PRBR_brasilwood
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+	
+	PRBR_developing_plantation_economy = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { PRBR_extract_brasilwood }
+		position = 4
+		provinces_to_highlight = {
+			colonial_region = colonial_brazil
+			trade_goods = sugar
+			NOT = { has_production_building_trigger = yes }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				trade_goods = sugar
+				has_production_building_trigger = yes
+				value = 5
+			}
+		}
+		effect = {
+			add_mercantilism = 3
+			
+			custom_tooltip = " "
+			
+			add_years_of_owned_provinces_production_income = {
+				years = 20
+				trigger = {
+					trade_goods = sugar
+				}
+				custom_tooltip = PRBR_from_sugar
+			}
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					add_mercantilism = 3
+					
+					MSA_space = yes
+					
+					add_years_of_income = 0.25
+				"
+			}
+		}
+	}
+	
+	PRBR_plantocracy = {
+		icon = mission_war_chest
+		required_missions = { PRBR_developing_plantation_economy }
+		position = 6
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				trade_goods = sugar
+				trade_goods = coffee
+				trade_goods = tobacco
+				trade_goods = cocoa
+				trade_goods = tea
+				trade_goods = cotton
+			}
+			NOT = { has_building = plantations }
+		}
+		trigger = {
+			plantations = 7
+		}
+		effect = {
+			if = {
+				limit = {
+					has_estate = estate_settlers
+				}
+				add_estate_loyalty_modifier = {
+					estate = estate_settlers
+					desc = EST_SUPPORT_OF_PORTUGAL
+					loyalty = 10
+					duration = 36500
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_adm_power = 100
+			
+			custom_tooltip = " "
+			
+			ME_overlord_effect = {
+				effect = "
+					if = {
+						limit = {
+							has_estate = estate_settlers
+						}
+						add_estate_loyalty_modifier = {
+							estate = estate_settlers
+							desc = EST_SUPPORT_OF_PORTUGAL
+							loyalty = 10
+							duration = 36500
+						}
+					}
+					
+					MSA_space = yes
+					
+					add_adm_power = 50 
+				"
+			}
+		}
+	}
+	
+	PRBR_portuguese_africa = {
+		icon = mission_the_triangle_trade
+		required_missions = { PRBR_plantocracy }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = colonial_parent
+			trade_goods = slaves
+		}
+		trigger = {
+			colonial_parent = {
+				any_owned_province = {
+					trade_goods = slaves
+					range = ROOT
+					has_production_building_trigger = yes
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = PRBR_most_developed_province
+			tooltip = {
+				add_province_modifier = {
+					name = PRBR_brazilian_demand
+					duration = -1
+				}
+			}
+			
+			hidden_effect = {
+				colonial_parent = {
+					pick_best_provinces = {
+						scope = every_owned_province
+						scale = higher_development_than
+						global_trigger = "
+							trade_goods = slaves
+							range = ROOT
+							has_production_building_trigger = yes
+						"
+						1 = yes
+						event_target_name = "prbr_target"
+					}
+				}
+				
+				event_target:prbr_target_1 = {
+					add_province_modifier = {
+						name = PRBR_brazilian_demand
+						duration = -1
+					}
+				}
+			}
+			
+			add_country_modifier = {
+				name = PRBR_triangle_trade
+				duration = 10950
+			}
+			
+			ME_overlord_effect = {
+				effect = "
+					add_country_modifier = {
+						name = PRBR_triangle_trade_overlord
+						duration = 10950
+					}
+				"
+			}	
+		}
+	}
+}

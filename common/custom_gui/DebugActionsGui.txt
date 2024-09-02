@@ -34,6 +34,15 @@ custom_window = {
 	}
 }
 
+custom_window = {
+	name = debugging_custom_window_prov_mod
+	potential = {
+		OR = {
+			FROM = { has_country_flag = debug_province_modifier_menu_active }
+		}
+	}
+}
+
 custom_shield = {
 	name = debugging_target_shield
     potential = {
@@ -161,29 +170,17 @@ custom_button = {
 			OR = {
 				FROM = { has_country_flag = debug_mode_active }
 				FROM = {
-					AND = {
-						has_leaders = {
-							value = 1
-							type = general
-							include_monarch = no
-							include_heir = no
-						}
-						NOT = {
-							has_leaders = {
-								value = 2
-								type = general
-								include_monarch = no
-								include_heir = no
-							}
-						}
-						any_army = {
-							general_with_steam_name = yes
-						}
+					any_army = {
+						general_with_steam_name = yes
 						OR = {
-							has_leader = "LiaLunare"
-							has_leader = "LordVarangian"
-							has_leader = "Stiopa866"
-							has_leader = "GrumpyKing"
+							general_with_name = "LiaLunare"
+							general_with_name = "LordVarangian"
+							general_with_name = "Stiopa866"
+							general_with_name = "GrumpyKing"
+							general_with_name = "Kammer"
+							general_with_name = "Inferno Gear"
+							general_with_name = "FreDeX"
+							general_with_name = "UcaForPresident"
 						}
 					}
 				}
@@ -955,6 +952,93 @@ custom_button = {
 }
 
 custom_button = {
+	name = debug_build_inf_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
+	}
+	effect = {
+		infantry = event_target:debugging_target_country
+	}
+	tooltip = "Build Infantry"
+}
+
+custom_button = {
+	name = debug_build_cav_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
+	}
+	effect = {
+		cavalry = event_target:debugging_target_country
+	}
+	tooltip = "Build Cavalry"
+}
+
+custom_button = {
+	name = debug_build_can_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
+	}
+	effect = {
+		if = {
+			limit = { NOT = { event_target:debugging_target_country = { mil_tech = 7 } } }
+			large_cast_bronze_mortar = event_target:debugging_target_country
+		}
+		else = {
+			artillery = event_target:debugging_target_country
+		}
+	}
+	tooltip = "Build Cannon"
+}
+
+custom_button = {
 	name = debug_build_to_force_land_button
 	potential = {
 		AND = {
@@ -983,6 +1067,90 @@ custom_button = {
 		}
 	}
 	tooltip = debug_build_to_force_land_text_tooltip
+}
+
+custom_button = {
+	name = debug_build_hev_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
+		has_port = yes
+	}
+	effect = {
+		heavy_ship = event_target:debugging_target_country
+	}
+	tooltip = "Build Heavy"
+}
+
+custom_button = {
+	name = debug_build_lig_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
+		has_port = yes
+	}
+	effect = {
+		light_ship = event_target:debugging_target_country
+	}
+	tooltip = "Build Light"
+}
+
+custom_button = {
+	name = debug_build_gal_button
+	potential = {
+		AND = {
+			FROM = { ai = no }
+			FROM = { has_country_flag = debug_mode_active }
+			FROM = { has_country_flag = debug_menu_active }
+		}
+		FROM = {
+			NOT = {
+				check_variable = {
+					which = debug_menu_page_variable
+					value = 1
+				}
+			}
+		}
+	}
+	trigger = {
+		hidden_trigger = { FROM = { ai = no } }
+		NOT = { is_empty = yes }
+		has_port = yes
+	}
+	effect = {
+		galley = event_target:debugging_target_country
+	}
+	tooltip = "Build Galley"
 }
 
 custom_button = {
@@ -1131,13 +1299,20 @@ custom_button = {
 	}
 	trigger = {
 		hidden_trigger = { FROM = { ai = no } }
-		ROOT = { NOT = { owned_by = FROM } }
+		ROOT = { NOT = { owned_by = event_target:debugging_target_country } }
 		NOT = { is_empty = yes }
 	}
 	effect = { 
 		owner = {
-			FROM = {
-				inherit = prev
+			event_target:debugging_target_country = {
+				if = {
+					limit = { NOT = { has_country_flag = confirm_debug_inherit } }
+					set_country_flag = confirm_debug_inherit
+				}
+				else = {
+					inherit = prev
+					clr_country_flag = confirm_debug_inherit
+				}
 			}
 		}
 	}

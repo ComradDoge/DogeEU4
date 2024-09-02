@@ -1,0 +1,452 @@
+
+estate_settlers_POR_henrician_privileges = {
+	icon = privilege_explorer_POR
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.05
+	loyalty = 0.05
+	is_valid = {
+		gets_portugal_missions = yes
+		has_estate_privilege = estate_settlers_POR_henrician_privileges
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	can_revoke = {
+		custom_trigger_tooltip = {
+			tooltip = POR_this_will_be_revoked_by_henrique_event
+			always = no
+		}
+	}
+	
+	benefits = {
+		free_navy_leader_pool = 1
+		trade_efficiency = -0.05
+		prestige = 0.5
+	}
+	
+	on_revoked = {
+		368 = {
+			if = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+		}
+		367 = {
+			if = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+		}
+		1096 = {
+			if = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 0
+	}
+}
+
+# estate_settlers_POR_establish_captaincies = { considered too strong, The brazilian mission are interesting enough
+	# icon = privilege_explorer_POR
+	# land_share = 5
+	# max_absolutism = -5
+	# influence = 0.1
+	# loyalty = 0.15
+	# is_valid = {
+		# has_country_flag = POR_captaincies
+		# NOT = { estate_settlers_privileges_invalid = yes }
+	# }
+	# can_select = {
+		# NOT = {
+			# estate_settlers_privileges_allow = yes
+		# }
+	# }
+	
+	# benefits = {
+		# colonial speed, but currently giving portugal colonial speed is dubious
+	# }	
+	
+	# ai_will_do = {
+		# factor = 10
+	# }
+# }
+
+estate_settlers_POR_carreira_da_india = {
+	icon = privilege_explorer_POR
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.15
+	loyalty = 0.05
+	is_valid = {
+		has_country_flag = POR_carreira_da_india_priv_unlocked
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		trade_steering = 0.1
+		ship_power_propagation = 0.15
+		trade_company_governing_cost = 0.1
+	}	
+	
+	ai_will_do = {
+		factor = 20 #strong priv for ai
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}
+
+estate_settlers_POR_lancados = {
+	icon = privilege_explorer_POR
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.05
+	loyalty = 0.1
+	is_valid = {
+		has_country_flag = POR_lancados_priv_unlocked
+		NOT = { estate_settlers_privileges_invalid = yes }
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		global_foreign_trade_power = 0.1
+	}
+	
+	on_granted = {
+		1466 = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = -1
+				power = 40
+				key = estate_settlers_POR_lancados_modifier
+			}
+		}
+	}
+	
+	on_revoked = {
+		1466 = {
+			remove_trade_modifier = {
+				who = ROOT
+				key = estate_settlers_POR_lancados_modifier
+			}
+		}
+	}
+	
+	on_invalid = {
+		1466 = {
+			remove_trade_modifier = {
+				who = ROOT
+				key = estate_settlers_POR_lancados_modifier
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 10
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				1466 = {
+					is_strongest_trade_power = ROOT
+				}
+			}
+		}
+	}
+}
+
+ME_estate_nobles_POR_lei_mental = {
+	icon = privilege_royal_authority
+	land_share = 0
+	max_absolutism = 5
+	influence = -0.05
+	loyalty = -0.1
+	is_valid = {
+		primary_culture = portugese
+	}
+	can_select = {
+	}
+	
+	benefits = {
+	}
+	penalties = {
+	
+	}
+	
+	on_granted = {
+		custom_tooltip = POR_seizing_land_will_give_1_extra_crownland
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			has_government_attribute = enables_lei_mental_privilege_not_taking_loyalty
+		}
+		modifier = {
+			nobles_loyalty_modifier = 0.1
+		}
+	}
+	
+	on_revoked = {
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 40
+		}
+	}
+	
+	ai_will_do = {
+		factor = 100 #overall an excellent privilege for AI
+	}
+}
+
+ME_estate_burhgers_POR_exports = {
+	icon = privilege_royal_authority
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.05
+	loyalty = 0.1
+	is_valid = {
+		has_country_flag = POR_priv_export_flag
+	}
+	can_select = {
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			any_ally = {
+				any_owned_province = {
+					has_port = yes
+				}
+				capital_scope = {
+					continent = europe
+				}
+				total_development = 200
+			}
+			light_ship_fraction = 0.2
+		}
+		modifier = {
+			global_trade_goods_size_modifier = 0.05
+		}
+	}
+	
+	on_granted = {
+		custom_tooltip = POR_while_we_fulfill_triggers_for_export_priv
+	}
+	
+	ai_will_do = {
+		factor = 0 #AI isn't smart enough to keep this
+	}
+}
+
+estate_settlers_POR_royal_fifth = {
+	icon = privilege_royal_authority
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.05
+	loyalty = -0.05
+	is_valid = {
+		has_country_flag = POR_unlock_the_royal_fifth_estate_privilege_flag
+	}
+	can_select = {
+	}
+	
+	benefits = {
+		monthly_gold_inflation_modifier = -0.1
+	}
+
+	conditional_modifier = {
+		trigger = {
+			OR = {
+				has_dlc = "Golden Century"
+				has_dlc = "El Dorado"
+			}
+		}
+		modifier = {
+			treasure_fleet_income = 0.1
+		}
+	}
+	
+	conditional_modifier = {
+		trigger = {
+			NOT = {
+				OR = {
+					has_dlc = "Golden Century"
+					has_dlc = "El Dorado"
+				}
+			}
+		}
+		modifier = {
+			global_tariffs = 0.1
+		}
+	}
+	
+	on_granted = {
+		custom_tooltip = POR_every_iron_copper_prov_gains_25_production_eff
+		tooltip = {
+			add_province_modifier = {
+				name = POR_royal_fifth_tax
+				duration = -1
+			}
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						trade_goods = copper
+						trade_goods = iron
+					}
+				}
+				add_province_modifier = {
+					name = POR_royal_fifth_tax
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	on_invalid = {
+		every_owned_province = {
+			remove_province_modifier = POR_royal_fifth_tax
+		}
+	}
+	
+	on_revoked = {
+		every_owned_province = {
+			remove_province_modifier = POR_royal_fifth_tax
+		}
+	}
+	
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+estate_settlers_POR_jesuit_conversions = {
+	icon = privilege_recruit_inouisitor
+	land_share = 0
+	max_absolutism = -5
+	influence = 0
+	loyalty = -0.05
+	is_valid = {
+		NOT = { estate_settlers_privileges_invalid = yes }
+		OR = {
+			has_dlc = "Wealth of Nations"
+			has_dlc = "Dharma"
+		}
+	}
+	can_select = {
+		NOT = {
+			estate_settlers_privileges_allow = yes
+		}
+	}
+	
+	benefits = {
+		church_influence_modifier = 0.1
+	}
+	
+	on_granted = {
+		custom_tooltip = estate_settlers_trade_companies_now_can_convert
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_owned_by_trade_company = yes
+				}
+				add_province_modifier = {
+					name = POR_can_convert_trade_company
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+	}
+	
+	on_invalid = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = POR_can_convert_trade_company
+			}
+		}
+	}
+	
+	on_revoked = {
+		hidden_effect = {
+			every_owned_province = {
+				remove_province_modifier = POR_can_convert_trade_company
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 12.5
+		modifier = {
+            factor = 0
+            estate_settlers_influence_gain_is_unnegotiable = yes
+        }
+        modifier = {
+            factor = 0
+            is_absolutism_active = yes
+        }
+		
+		modifier = {
+			factor = 0.25
+			estate_settlers_does_not_want_trade_company_privileges = yes
+		}
+		modifier = {
+			factor = 1.5
+			estate_settlers_wants_trade_company_privileges = yes
+		}
+		modifier = {
+			factor = 5 
+			estate_settlers_feels_free_to_take_a_privilege = yes
+		}
+	}
+}

@@ -1,0 +1,729 @@
+country_decisions = {
+	POR_elevate_brazilian_status = {
+		major = yes
+		potential = {
+			has_country_flag = POR_decided_for_brazilian
+			if = {
+				limit = {
+					has_saved_global_event_target = Por_brazil_colony
+				}
+				exists = event_target:Por_brazil_colony
+			}
+			else = { 
+				always = no
+			}
+		}
+		provinces_to_highlight = {
+			colonial_region = colonial_brazil
+		}
+		allow = {
+			if = {
+				limit = {
+					has_saved_global_event_target = Por_brazil_colony
+				}
+				event_target:Por_brazil_colony = {
+					mission_completed = PRBR_salvador_of_bahia
+					mission_completed = PRBR_amazon
+					mission_completed = PRBR_the_dash_inland
+					mission_completed = PRBR_gold_rush
+					mission_completed = PRBR_of_cocoa_and_coffee
+					mission_completed = PRBR_portuguese_africa
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_saved_global_event_target = Por_brazil_colony
+				}
+				inherit = event_target:Por_brazil_colony
+			}
+			else = { }
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = POR_we_will_hold_land_directly
+			
+			set_country_flag = POR_no_colony_will_form_in_brazil
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	POR_pick_tree = {
+		major = yes
+		potential = {
+			has_country_flag = POR_preview
+			OR = {
+				has_country_flag = POR_lusitania
+				has_country_flag = POR_tordesilhas
+			}
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			country_event = { id = ME_Portugal_Events.10 }
+		}
+	}
+	
+	POR_tangiers_expedition = {
+		major = yes
+		potential = {
+			has_country_flag = POR_decision_for_tangiers_flag
+			334 = { 
+				NOT = { owned_by = ROOT }
+			}
+		}
+		provinces_to_highlight = {
+			province_id = 334
+		}
+		allow = {
+			1751 = { owned_by = ROOT }
+			
+			334 = {
+				owner = {
+					religion_group = muslim
+					NOT = { alliance_with = ROOT }
+					NOT = { truce_with = ROOT }
+					NOT = { is_subject_of = ROOT }
+					NOT = { war_with = ROOT }
+				}
+			}
+			years_of_income = 1
+			manpower = 7.243 #randomly chosen number
+		}
+		effect = {
+			add_manpower = -7.243
+			add_years_of_income = -1
+			
+			clr_country_flag = POR_decision_for_tangiers_flag
+			
+			custom_tooltip = POR_we_will_send_our_expedition
+			
+			334 = {
+				if = {
+					limit = {
+						owner = { is_subject = yes }
+					}
+					owner = {
+						overlord = {
+							country_event = { id = ME_Portugal_Events.7 }
+						}
+					}
+				}
+				else = {
+					owner = {
+						country_event = { id = ME_Portugal_Events.7 }
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						calc_true_if = {
+							334 = {
+								owner = {
+									NOT = { num_of_allies = 1 }
+								}
+							}
+							334 = {
+								owner = {
+									NOT = { num_of_allies = 2 }
+								}
+							}
+							334 = {
+								owner = {
+									NOT = { manpower_percentage = 0.5 }
+								}
+							}
+							334 = {
+								owner = {
+									NOT = { manpower_percentage = 0.25 }
+								}
+							}
+							334 = {
+								owner = {
+									num_of_rebel_armies = 1
+								}
+							}
+							334 = {
+								owner = {
+									num_of_rebel_armies = 2 
+								}
+							}
+							334 = {
+								owner = {
+									NOT = { manpower_percentage = 0.25 }
+								}
+							}
+							334 = {
+								owner = {
+									is_at_war = yes
+								}
+							}
+							334 = {
+								army_strength = {
+									who = owner
+									value = 1.5
+								}
+							}
+							334 = {
+								army_strength = {
+									who = owner
+									value = 2
+								}
+							}
+							amount = 4
+						}
+						AND = {
+							manpower_percentage = 0.95
+							calc_true_if = {
+								334 = {
+									owner = {
+										NOT = { num_of_allies = 1 }
+									}
+								}
+								334 = {
+									owner = {
+										NOT = { num_of_allies = 2 }
+									}
+								}
+								334 = {
+									owner = {
+										NOT = { manpower_percentage = 0.5 }
+									}
+								}
+								334 = {
+									owner = {
+										NOT = { manpower_percentage = 0.25 }
+									}
+								}
+								334 = {
+									owner = {
+										num_of_rebel_armies = 1
+									}
+								}
+								334 = {
+									owner = {
+										num_of_rebel_armies = 2 
+									}
+								}
+								334 = {
+									owner = {
+										NOT = { manpower_percentage = 0.25 }
+									}
+								}
+								334 = {
+									owner = {
+										is_at_war = yes
+									}
+								}
+								334 = {
+									army_strength = {
+										who = owner
+										value = 1.5
+									}
+								}
+								334 = {
+									army_strength = {
+										who = owner
+										value = 2
+									}
+								}
+								amount = 3
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	POR_centralize_power = {
+		major = yes
+		potential = {
+			232 = {
+				has_province_modifier = POR_seat_of_powerful_aristocrats
+			}
+			gets_portugal_missions = yes
+			NOT = { has_country_flag = POR_dealing_with_discontent }
+		}
+		provinces_to_highlight = {
+			province_id = 232
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = POR_afonso_V_is_not_ruling
+				NOT = { has_ruler_flag = POR_afonsoV }
+			}
+			
+			
+			
+			OR = {
+				mil = 4
+				monthly_mil = 9
+				is_ahead_of_time_in_tech_mil = yes
+			}
+		}
+		effect = {
+			change_estate_land_share = {
+				estate = estate_nobles
+				share = -3
+			}
+		
+			custom_tooltip = " "
+			
+			custom_tooltip = POR_we_will_need_to_deal_with_a_conspiracy
+			
+			set_country_flag = POR_dealing_with_discontent
+			
+			custom_tooltip = " "
+
+			custom_tooltip = POR_once_we_have_dealt_with_noble_discontent
+			tooltip = {
+				change_estate_land_share = {
+					estate = estate_nobles
+					share = -7
+				}
+				
+				custom_tooltip = " "
+				
+				add_country_modifier = {
+					name = POR_inalienable_patrimony
+					duration = -1
+				}
+				
+				232 = {
+					remove_province_modifier = POR_seat_of_powerful_aristocrats
+				}
+			}
+			
+			hidden_effect = {
+				country_event = { id = ME_Portugal_Events.50 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	POR_goa_decision = {
+		major = yes
+		potential = {
+			has_country_flag = POR_goa_decision_flag
+			2030 = {
+				has_discovered = ROOT
+				owner = {
+					technology_group = indian
+				}
+			}
+		}
+		provinces_to_highlight = {
+			province_id = 2030
+		}
+		allow = {
+			2030 = {
+				range = ROOT
+				owner = {
+					num_of_cities = 2
+					if = {
+						limit = {
+							ROOT = { ai = no } 
+						}
+						has_opinion = {
+							who = ROOT
+							value = 75
+						}
+					}
+				}
+			}
+			treasury = 500
+		}
+		effect = {
+			clr_country_flag = POR_goa_decision_flag
+			custom_tooltip = POR_we_offer_to_give_500_and_institutions
+			tooltip = {
+				2030 = {
+					add_institution_embracement = {
+						which = renaissance
+						value = 100
+					}
+					add_institution_embracement = {
+						which = new_world_i
+						value = 50
+					}
+				}
+			}
+			
+			2030 = {
+				owner = {
+					country_event = { id = ME_Portugal_Events.33 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+			# modifier = {
+				# factor = 0
+			# }
+		}
+	}
+	
+	POR_luanda_benguela_decision = {
+		major = yes
+		potential = {
+			has_country_flag = POR_angola_decision
+			1167 = {
+				has_discovered = ROOT
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			1172 = {
+				has_discovered = ROOT
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			
+			OR = {
+				1167 = {
+					owner = {
+						technology_group = central_african 
+						if = {
+							limit = {
+								ROOT = { ai = no } 
+							}
+							has_opinion = {
+								who = ROOT
+								value = 75
+							}
+						}
+					}
+				}
+				1172 = {
+					owner = {
+						technology_group = central_african
+						if = {
+							limit = {
+								ROOT = { ai = no } 
+							}
+							has_opinion = {
+								who = ROOT
+								value = 75
+							}
+						}
+					}
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1167
+				province_id = 1172
+			}
+		}
+		allow = {
+			1167 = {
+				range = ROOT
+				owner = {
+					num_of_cities = 3
+					if = {
+						limit = {
+							ROOT = { ai = no } 
+						}
+						has_opinion = {
+							who = ROOT
+							value = 75
+						}
+					}
+				}
+			}
+			1172 = {
+				range = ROOT
+				owner = {
+					num_of_cities = 3
+					if = {
+						limit = {
+							ROOT = { ai = no } 
+						}
+						has_opinion = {
+							who = ROOT
+							value = 75
+						}
+					}
+				}
+			}
+			treasury = 500
+		}
+		effect = {
+			1167 = {
+				set_province_flag = POR_250_ducats
+				province_event = { id = ME_Portugal_Events.42 }
+			}
+			1172 = {
+				set_province_flag = POR_250_ducats
+				province_event = { id = ME_Portugal_Events.42 }
+			}
+			
+			custom_tooltip = POR_for_250_ducats
+		}
+		ai_will_do = {
+			factor = 100
+			# modifier = {
+				# factor = 0
+			# }
+		}
+	}
+	
+	POR_macau_decision = {
+		major = yes
+		potential = {
+			has_country_flag = POR_macau_and_nagasaki_decisions
+			668 = {
+				has_discovered = ROOT
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		provinces_to_highlight = {
+			province_id = 596
+		}
+		allow = {
+			668 = {
+				range = ROOT
+				owner = {
+					num_of_cities = 2
+					if = {
+						limit = {
+							ROOT = { ai = no } 
+						}
+						has_opinion = {
+							who = ROOT
+							value = 75
+						}
+					}
+				}
+			}
+			treasury = 500
+		}
+		effect = {
+			668 = {
+				set_province_flag = POR_1000_ducats
+				province_event = { id = ME_Portugal_Events.42 }
+			}
+			
+			custom_tooltip = POR_for_1000_ducats
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	POR_nagasaki_decision = {
+		major = yes
+		potential = {
+			has_country_flag = POR_macau_and_nagasaki_decisions
+			4182 = {
+				has_discovered = ROOT
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		provinces_to_highlight = {
+			province_id = 4182
+		}
+		allow = {
+			4182 = {
+				range = ROOT
+				owner = {
+					num_of_cities = 2
+					if = {
+						limit = {
+							ROOT = { ai = no } 
+						}
+						has_opinion = {
+							who = ROOT
+							value = 75
+						}
+					}
+				}
+			}
+			treasury = 500
+		}
+		effect = {
+			4182 = {
+				set_province_flag = POR_800_ducats
+				province_event = { id = ME_Portugal_Events.42 }
+			}
+			
+			custom_tooltip = POR_for_800_ducats
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	POR_extra_feitorias = {
+		major = yes
+		potential = {
+			has_global_flag = POR_has_formed_first_feitoria
+			if = {
+				limit = {
+					has_saved_global_event_target = por_feitoria_holder
+				}
+				tag = event_target:por_feitoria_holder
+			}
+			else = { always = no }
+		}
+		provinces_to_highlight = {
+			OR = {
+				POR_extra_feitoria_pth = { id = 1167 }
+				POR_extra_feitoria_pth = { id = 1202 }
+				POR_extra_feitoria_pth = { id = 1141 }
+				POR_extra_feitoria_pth = { id = 1186 }
+				POR_extra_feitoria_pth = { id = 646 }
+				POR_extra_feitoria_pth = { id = 649 }
+				POR_extra_feitoria_pth = { id = 668 }
+				POR_extra_feitoria_pth = { id = 4182 }
+				POR_extra_feitoria_pth = { id = 4455 }
+				POR_extra_feitoria_pth = { id = 1248 }
+				POR_extra_feitoria_pth = { id = 4413 }
+				POR_extra_feitoria_pth = { id = 529 }
+				POR_extra_feitoria_pth = { id = 388 }
+			}
+		}
+		allow = {
+			OR = {
+				POR_extra_feitoria_trigger = { id = 1167 }
+				POR_extra_feitoria_trigger = { id = 1202 }
+				POR_extra_feitoria_trigger = { id = 1141 }
+				POR_extra_feitoria_trigger = { id = 1186 }
+				POR_extra_feitoria_trigger = { id = 646 }
+				POR_extra_feitoria_trigger = { id = 649 }
+				POR_extra_feitoria_trigger = { id = 668 }
+				POR_extra_feitoria_trigger = { id = 4182 }
+				POR_extra_feitoria_trigger = { id = 4455 }
+				POR_extra_feitoria_trigger = { id = 1248 }
+				POR_extra_feitoria_trigger = { id = 4413 }
+				POR_extra_feitoria_trigger = { id = 529 }
+				POR_extra_feitoria_trigger = { id = 388 }
+			}
+		}
+		effect = {
+			custom_tooltip = POR_feitorias_will_be_created
+			POR_extra_feitoria_effect = { id = 1167 }
+			POR_extra_feitoria_effect = { id = 1202 }
+			POR_extra_feitoria_effect = { id = 1141 }
+			POR_extra_feitoria_effect = { id = 1186 }
+			POR_extra_feitoria_effect = { id = 646 }
+			POR_extra_feitoria_effect = { id = 649 }
+			POR_extra_feitoria_effect = { id = 668 }
+			POR_extra_feitoria_effect = { id = 4182 }
+			POR_extra_feitoria_effect = { id = 4455 }
+			POR_extra_feitoria_effect = { id = 1248 }
+			POR_extra_feitoria_effect = { id = 4413 }
+			POR_extra_feitoria_effect = { id = 529 }
+			POR_extra_feitoria_effect = { id = 388 }
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	POR_tordesilhas_por = {
+		major = yes
+		potential = {
+			has_country_flag = POR_can_sign_tordesilhas
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			OR = {
+				alliance_with = CAS
+				alliance_with = SPA
+			}
+		}
+		effect = {
+			custom_tooltip = POR_we_will_need_their_agreement
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = POR_we_will_be_locked_out_of_the_following_regions_por
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = POR_we_will_be_locked_out_of_the_following_regions_cas
+			
+			if = {
+				limit = {
+					alliance_with = CAS
+				}
+				CAS = {
+					set_country_flag = POR_can_sign_tordesilhas_cas
+				}
+			}
+			else = {
+				SPA = {
+					set_country_flag = POR_can_sign_tordesilhas_cas
+				}
+			}
+			clr_country_flag = POR_can_sign_tordesilhas
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	POR_tordesilhas_cas = {
+		major = yes
+		potential = {
+			has_country_flag = POR_can_sign_tordesilhas_cas
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			alliance_with = POR
+		}
+		effect = {
+			custom_tooltip = POR_POR_has_signed_the_agreement
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = POR_we_will_be_locked_out_of_the_following_regions_por
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = POR_we_will_be_locked_out_of_the_following_regions_cas
+			
+			clr_country_flag = POR_can_sign_tordesilhas_cas
+			
+			country_event = { id = ME_Portugal_Events.46 }
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	# POR_feitoria_explainer = {
+		# major = yes
+		# potential = {
+			# has_global_flag = POR_has_formed_first_feitoria
+			# tag = event_target:por_feitoria_holder
+		# }
+		# provinces_to_highlight = {
+		# }
+		# allow = {
+			# always = no
+		# }
+		# effect = {
+			# custom_tooltip = POR_explain_feitoria
+		# }
+		# ai_will_do = {
+			# factor = 0
+		# }
+	# }
+}

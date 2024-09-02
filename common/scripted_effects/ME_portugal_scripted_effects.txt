@@ -1,0 +1,1520 @@
+PRBR_make_frontier_or_claim = {
+	if = {
+		limit = {
+			is_empty = yes
+		}
+		add_siberian_construction = 10
+	}
+	else = {
+		add_permanent_claim = ROOT
+	}
+}
+
+POR_make_feitoria = {
+	if = {
+		limit = {
+			NOT = { has_province_flag = POR_feitoria_is_here }
+		}
+		custom_tooltip = POR_make_into_feitoria
+		if = {
+			limit = {
+				ROOT = {
+					NOT = { has_global_flag = POR_has_formed_first_feitoria }
+				}
+			}
+			ROOT = {
+				country_event = { id = ME_Portugal_Events.43 } #The First Feitoria
+			}
+		}
+		hidden_effect = {
+			set_province_flag = POR_feitoria_is_here
+			ROOT = {
+				set_global_flag = POR_has_formed_first_feitoria
+				save_global_event_target_as = por_feitoria_holder
+			}
+			set_variable = {
+				which = por_feitoria_maintenance
+				value = 200
+			}
+			set_province_flag = POR_yearly_feitoria_tick
+			add_province_triggered_modifier = POR_feitoria_yearly_check
+			add_province_triggered_modifier = POR_feitoria_ship_check
+			add_province_modifier = {
+				name = POR_feitoria_1
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+}
+
+POR_update_feitoria = {
+	if = {
+		limit = {
+			NOT = { 
+				check_variable = {
+					which = por_feitoria_maintenance
+					value = 100
+				}
+			}
+		}
+		set_variable = {
+			which = por_feitoria_maintenance
+			value = 100
+		}
+	}
+	if = {
+		limit = {
+			has_province_modifier = POR_feitoria_1
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = por_feitoria_maintenance
+					value = 400
+				}
+			}
+			remove_province_modifier = POR_feitoria_1
+			add_province_modifier = {
+				name = POR_feitoria_2
+				duration = -1
+				hidden = yes
+			}
+		}
+		else = {
+		}
+	}
+	else_if = {
+		limit = {
+			has_province_modifier = POR_feitoria_2
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = por_feitoria_maintenance
+					value = 800
+				}
+			}
+			remove_province_modifier = POR_feitoria_2
+			add_province_modifier = {
+				name = POR_feitoria_3
+				duration = -1
+				hidden = yes
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = por_feitoria_maintenance
+						value = 400
+					}
+				}
+			}
+			remove_province_modifier = POR_feitoria_2
+			add_province_modifier = {
+				name = POR_feitoria_1
+				duration = -1
+				hidden = yes
+			}
+		}
+		else = { }
+	}
+	else_if = {
+		limit = {
+			has_province_modifier = POR_feitoria_3
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = por_feitoria_maintenance
+						value = 800
+					}
+				}
+			}
+			remove_province_modifier = POR_feitoria_3
+			add_province_modifier = {
+				name = POR_feitoria_2
+				duration = -1
+				hidden = yes
+			}
+		}
+		else = { }
+	}
+	else = { }
+}
+
+POR_yearly_tick_feitoria = {
+	set_variable = {
+		which = POR_feitoria_decay
+		value = 1
+	}
+	set_variable = {
+		which = por_feitoria_maintenance_original
+		which = por_feitoria_maintenance
+	}
+	clr_province_flag = feitoria_is_increasing
+	clr_province_flag = feitoria_is_decreasing
+	
+	if = {
+		limit = {
+			has_saved_global_event_target = por_feitoria_holder
+		}
+		if = {
+			limit = {
+				event_target:por_feitoria_holder = {
+					has_country_flag = POR_feitoria_maintenance
+				}
+			}
+			change_variable = {
+				which = POR_feitoria_decay
+				value = -0.1
+			}
+		}
+		if = {
+			limit = {
+				has_coast_defense_building_trigger = yes
+			}
+			change_variable = {
+				which = POR_feitoria_decay
+				value = -0.2
+			}
+		}
+		if = {
+			limit = {
+				has_building = impressment_offices 
+			}
+			change_variable = {
+				which = POR_feitoria_decay
+				value = -0.3
+			}
+		}
+		if = {
+			limit = {
+				has_province_flag = POR_less_decay
+			}
+			change_variable = {
+				which = POR_feitoria_decay
+				value = -0.2
+			}
+		}
+		
+		if = {
+			limit = {
+				OR = {
+					has_dlc = "Dharma"
+					has_dlc = "Wealth of Nations"
+				}
+				NOT = { 
+					is_owned_by_trade_company = yes
+				}
+			}
+			change_variable = {
+				which = POR_feitoria_decay
+				value = 1.5
+			}
+		}
+		
+		multiply_variable = {
+			which = POR_feitoria_decay
+			value = 0.05
+		}
+		
+		multiply_variable = {
+			which = POR_feitoria_decay
+			which = por_feitoria_maintenance
+		}
+		
+		if = {
+			limit = {
+				NOT = { has_province_flag = feitoria_maintenance_toggled }
+			}
+			subtract_variable = {
+				which = por_feitoria_maintenance
+				which = POR_feitoria_decay
+			}
+		}
+		else = {}
+		
+		if = {
+			limit = {
+				check_variable = {
+					which = por_feitoria_maintenance_original
+					which = por_feitoria_maintenance
+				}
+			}
+			set_province_flag = feitoria_is_increasing
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = por_feitoria_maintenance
+					which = por_feitoria_maintenance_original
+				}
+			}
+			set_province_flag = feitoria_is_decreasing
+		}
+		else = {}
+		
+		POR_update_feitoria = yes
+	}
+}
+
+POR_change_level_by = {
+	hidden_effect = {
+		change_variable = {
+			which = por_feitoria_maintenance
+			value = $value$
+		}
+		POR_update_feitoria = yes
+	}
+}
+
+POR_give_maintenance_based_on_ships = {
+	if = {
+		limit = {
+			has_saved_global_event_target = por_feitoria_holder
+		}
+		if = {
+			limit = {
+				sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 65 }
+			}
+			if = {
+				limit = {
+					sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 97 }
+				}
+				if = {
+					limit = {
+						sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 113 }
+					}
+					if = {
+						limit = {
+							sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 121 }
+						}
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 125 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 127 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 128 }
+									}
+									POR_change_level_by = { value = 128 }
+								}
+								else = {
+									POR_change_level_by = { value = 127 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 126 }
+									}
+									POR_change_level_by = { value = 126 }
+								}
+								else = {
+									POR_change_level_by = { value = 125 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 123 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 124 }
+									}
+									POR_change_level_by = { value = 124 }
+								}
+								else = {
+									POR_change_level_by = { value = 123 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 122 }
+									}
+									POR_change_level_by = { value = 122 }
+								}
+								else = {
+									POR_change_level_by = { value = 121 }
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 117 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 119 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 120 }
+									}
+									POR_change_level_by = { value = 120 }
+								}
+								else = {
+									POR_change_level_by = { value = 119 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 118 }
+									}
+									POR_change_level_by = { value = 118 }
+								}
+								else = {
+									POR_change_level_by = { value = 117 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 115 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 116 }
+									}
+									POR_change_level_by = { value = 116 }
+								}
+								else = {
+									POR_change_level_by = { value = 115 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 114 }
+									}
+									POR_change_level_by = { value = 114 }
+								}
+								else = {
+									POR_change_level_by = { value = 113 }
+								}
+							}
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 105 }
+						}
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 109 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 111 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 112 }
+									}
+									POR_change_level_by = { value = 112 }
+								}
+								else = {
+									POR_change_level_by = { value = 111 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 110 }
+									}
+									POR_change_level_by = { value = 110 }
+								}
+								else = {
+									POR_change_level_by = { value = 109 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 107 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 108 }
+									}
+									POR_change_level_by = { value = 108 }
+								}
+								else = {
+									POR_change_level_by = { value = 107 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 106 }
+									}
+									POR_change_level_by = { value = 106 }
+								}
+								else = {
+									POR_change_level_by = { value = 105 }
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 101 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 103 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 104 }
+									}
+									POR_change_level_by = { value = 104 }
+								}
+								else = {
+									POR_change_level_by = { value = 103 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 102 }
+									}
+									POR_change_level_by = { value = 102 }
+								}
+								else = {
+									POR_change_level_by = { value = 101 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 99 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 100 }
+									}
+									POR_change_level_by = { value = 100 }
+								}
+								else = {
+									POR_change_level_by = { value = 99 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 98 }
+									}
+									POR_change_level_by = { value = 98 }
+								}
+								else = {
+									POR_change_level_by = { value = 97 }
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 81 }
+					}
+					if = {
+						limit = {
+							sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 89 }
+						}
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 93 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 95 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 96 }
+									}
+									POR_change_level_by = { value = 96 }
+								}
+								else = {
+									POR_change_level_by = { value = 95 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 94 }
+									}
+									POR_change_level_by = { value = 94 }
+								}
+								else = {
+									POR_change_level_by = { value = 93 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 91 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 92 }
+									}
+									POR_change_level_by = { value = 92 }
+								}
+								else = {
+									POR_change_level_by = { value = 91 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 90 }
+									}
+									POR_change_level_by = { value = 90 }
+								}
+								else = {
+									POR_change_level_by = { value = 89 }
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 85 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 87 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 88 }
+									}
+									POR_change_level_by = { value = 88 }
+								}
+								else = {
+									POR_change_level_by = { value = 87 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 86 }
+									}
+									POR_change_level_by = { value = 86 }
+								}
+								else = {
+									POR_change_level_by = { value = 85 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 83 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 84 }
+									}
+									POR_change_level_by = { value = 84 }
+								}
+								else = {
+									POR_change_level_by = { value = 83 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 82 }
+									}
+									POR_change_level_by = { value = 82 }
+								}
+								else = {
+									POR_change_level_by = { value = 81 }
+								}
+							}
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 73 }
+						}
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 77 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 79 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 80 }
+									}
+									POR_change_level_by = { value = 80 }
+								}
+								else = {
+									POR_change_level_by = { value = 79 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 78 }
+									}
+									POR_change_level_by = { value = 78 }
+								}
+								else = {
+									POR_change_level_by = { value = 77 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 75 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 76 }
+									}
+									POR_change_level_by = { value = 76 }
+								}
+								else = {
+									POR_change_level_by = { value = 75 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 74 }
+									}
+									POR_change_level_by = { value = 74 }
+								}
+								else = {
+									POR_change_level_by = { value = 73 }
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 69 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 71 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 72 }
+									}
+									POR_change_level_by = { value = 72 }
+								}
+								else = {
+									POR_change_level_by = { value = 71 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 70 }
+									}
+									POR_change_level_by = { value = 70 }
+								}
+								else = {
+									POR_change_level_by = { value = 69 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 67 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 68 }
+									}
+									POR_change_level_by = { value = 68 }
+								}
+								else = {
+									POR_change_level_by = { value = 67 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 66 }
+									}
+									POR_change_level_by = { value = 66 }
+								}
+								else = {
+									POR_change_level_by = { value = 65 }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 33 }
+				}
+				if = {
+					limit = {
+						sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 49 }
+					}
+					if = {
+						limit = {
+							sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 57 }
+						}
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 61 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 63 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 64 }
+									}
+									POR_change_level_by = { value = 64 }
+								}
+								else = {
+									POR_change_level_by = { value = 63 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 62 }
+									}
+									POR_change_level_by = { value = 62 }
+								}
+								else = {
+									POR_change_level_by = { value = 61 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 59 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 60 }
+									}
+									POR_change_level_by = { value = 60 }
+								}
+								else = {
+									POR_change_level_by = { value = 59 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 58 }
+									}
+									POR_change_level_by = { value = 58 }
+								}
+								else = {
+									POR_change_level_by = { value = 57 }
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 53 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 55 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 56 }
+									}
+									POR_change_level_by = { value = 56 }
+								}
+								else = {
+									POR_change_level_by = { value = 55 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 54 }
+									}
+									POR_change_level_by = { value = 54 }
+								}
+								else = {
+									POR_change_level_by = { value = 53 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 51 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 52 }
+									}
+									POR_change_level_by = { value = 52 }
+								}
+								else = {
+									POR_change_level_by = { value = 51 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 50 }
+									}
+									POR_change_level_by = { value = 50 }
+								}
+								else = {
+									POR_change_level_by = { value = 49 }
+								}
+							}
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 41 }
+						}
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 45 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 47 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 48 }
+									}
+									POR_change_level_by = { value = 48 }
+								}
+								else = {
+									POR_change_level_by = { value = 47 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 46 }
+									}
+									POR_change_level_by = { value = 46 }
+								}
+								else = {
+									POR_change_level_by = { value = 45 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 43 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 44 }
+									}
+									POR_change_level_by = { value = 44 }
+								}
+								else = {
+									POR_change_level_by = { value = 43 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 42 }
+									}
+									POR_change_level_by = { value = 42 }
+								}
+								else = {
+									POR_change_level_by = { value = 41 }
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 37 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 39 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 40 }
+									}
+									POR_change_level_by = { value = 40 }
+								}
+								else = {
+									POR_change_level_by = { value = 39 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 38 }
+									}
+									POR_change_level_by = { value = 38 }
+								}
+								else = {
+									POR_change_level_by = { value = 37 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 35 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 36 }
+									}
+									POR_change_level_by = { value = 36 }
+								}
+								else = {
+									POR_change_level_by = { value = 35 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 34 }
+									}
+									POR_change_level_by = { value = 34 }
+								}
+								else = {
+									POR_change_level_by = { value = 33 }
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 17 }
+					}
+					if = {
+						limit = {
+							sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 25 }
+						}
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 29 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 31 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 32 }
+									}
+									POR_change_level_by = { value = 32 }
+								}
+								else = {
+									POR_change_level_by = { value = 31 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 30 }
+									}
+									POR_change_level_by = { value = 30 }
+								}
+								else = {
+									POR_change_level_by = { value = 29 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 27 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 28 }
+									}
+									POR_change_level_by = { value = 28 }
+								}
+								else = {
+									POR_change_level_by = { value = 27 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 26 }
+									}
+									POR_change_level_by = { value = 26 }
+								}
+								else = {
+									POR_change_level_by = { value = 25 }
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 21 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 23 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 24 }
+									}
+									POR_change_level_by = { value = 24 }
+								}
+								else = {
+									POR_change_level_by = { value = 23 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 22 }
+									}
+									POR_change_level_by = { value = 22 }
+								}
+								else = {
+									POR_change_level_by = { value = 21 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 19 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 20 }
+									}
+									POR_change_level_by = { value = 20 }
+								}
+								else = {
+									POR_change_level_by = { value = 19 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 18 }
+									}
+									POR_change_level_by = { value = 18 }
+								}
+								else = {
+									POR_change_level_by = { value = 17 }
+								}
+							}
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 9 }
+						}
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 13 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 15 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 16 }
+									}
+									POR_change_level_by = { value = 16 }
+								}
+								else = {
+									POR_change_level_by = { value = 15 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 14 }
+									}
+									POR_change_level_by = { value = 14 }
+								}
+								else = {
+									POR_change_level_by = { value = 13 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 11 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 12 }
+									}
+									POR_change_level_by = { value = 12 }
+								}
+								else = {
+									POR_change_level_by = { value = 11 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 10 }
+									}
+									POR_change_level_by = { value = 10 }
+								}
+								else = {
+									POR_change_level_by = { value = 9 }
+								}
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 5 }
+							}
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 7 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 8 }
+									}
+									POR_change_level_by = { value = 8 }
+								}
+								else = {
+									POR_change_level_by = { value = 7 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 6 }
+									}
+									POR_change_level_by = { value = 6 }
+								}
+								else = {
+									POR_change_level_by = { value = 5 }
+								}
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 3 }
+								}
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 4 }
+									}
+									POR_change_level_by = { value = 4 }
+								}
+								else = {
+									POR_change_level_by = { value = 3 }
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 2 }
+									}
+									POR_change_level_by = { value = 2 }
+								}
+								else = {
+									if = {
+										limit = {
+											sea_zone = { light_ships_in_province = event_target:por_feitoria_holder light_ships_in_province = 1 }
+										}
+										POR_change_level_by = { value = 1 }
+									}
+									else = {
+										POR_change_level_by = { value = 0 }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	POR_update_feitoria = yes
+}
+
+POR_pay_for_explorer = {
+	if = {
+		limit = {
+			is_variable_equal = {
+				which = POR_num_of_explorers
+				value = 1
+			}
+		}
+		add_years_of_income = -0.1
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = POR_num_of_explorers
+				value = 2
+			}
+		}
+		add_years_of_income = -0.2
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = POR_num_of_explorers
+				value = 3
+			}
+		}
+		add_years_of_income = -0.3
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = POR_num_of_explorers
+				value = 4
+			}
+		}
+		add_years_of_income = -0.4
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = POR_num_of_explorers
+				value = 5
+			}
+		}
+		add_years_of_income = -0.5
+	}
+	
+	custom_tooltip = " "
+	
+	custom_tooltip = POR_the_more_explorers_we_employ
+	
+	
+	hidden_effect = {
+		change_variable = {
+			which = POR_num_of_explorers
+			value = 1
+		}
+	}
+}
+
+POR_end_braganza_power = {
+	232 = {
+		remove_province_modifier = POR_seat_of_powerful_aristocrats
+		remove_province_triggered_modifier = POR_braganca
+	}
+	if = {
+		limit = {
+			beieras_area = {
+				has_province_modifier = POR_disloyal_braganca
+			}
+		}
+		beieras_area = {
+			remove_province_modifier = POR_disloyal_braganca
+		}
+	}
+}
+
+POR_extra_feitoria_effect = {
+	$id$ = {
+		if = {
+			limit = {
+				owned_by = ROOT
+			}
+			POR_make_feitoria = yes
+		}
+	}
+}
+
+POR_castile_effect = {
+	if = {
+		limit = {
+			exists = SPA
+			alliance_with = SPA
+		}
+		SPA = {
+			$effect$
+		}
+	}
+	else_if = {
+		limit = {
+			exists = CAS
+			alliance_with = CAS
+		}
+		CAS = {
+			$effect$
+		}
+	}
+	else = { }
+}
+
+POR_branch_effect = {
+	custom_tooltip = POR_branch_effect
+}
+
+POR_fire_next_event = {
+	if = {
+		limit = {
+			has_country_flag = POR_ren_event_1
+			has_country_flag = POR_ren_event_2
+			has_country_flag = POR_ren_event_3
+			has_country_flag = POR_ren_event_4
+		}
+		clr_country_flag = POR_ren_event_1
+		clr_country_flag = POR_ren_event_2
+		clr_country_flag = POR_ren_event_3
+		clr_country_flag = POR_ren_event_4
+	}
+	else = {
+		random_list = {
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = POR_ren_event_1 }
+				}
+				country_event = {
+					id = ME_Portuguese_Renaissance_Events.1
+					days = 5475
+					random = 3650
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = POR_ren_event_2 }
+				}
+				country_event = {
+					id = ME_Portuguese_Renaissance_Events.2
+					days = 5475
+					random = 3650
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = POR_ren_event_3 }
+				}
+				country_event = {
+					id = ME_Portuguese_Renaissance_Events.3
+					days = 5475
+					random = 3650
+				}
+			}
+			1 = {
+				trigger = {
+					NOT = { has_country_flag = POR_ren_event_4 }
+				}
+				country_event = {
+					id = ME_Portuguese_Renaissance_Events.4
+					days = 5475
+					random = 3650
+				}
+			}
+		}
+	}
+}
+
+POR_help_40_effect = {
+	1167 = {
+		change_trade_goods = slaves
+		
+		create_or_add_center_of_trade_level = { level = 1 }
+		
+		add_province_modifier = {
+			name = POR_raids_and_barter
+			duration = -1
+		}
+	}
+	1172 = {
+		change_trade_goods = slaves
+		
+		add_province_modifier = {
+			name = POR_raids_and_barter
+			duration = -1
+		}
+	}
+	1171 = {
+		change_trade_goods = slaves
+		
+		add_province_modifier = {
+			name = POR_raids_and_barter
+			duration = -1
+		}
+	}
+	
+	add_estate_loyalty = {
+		estate = estate_settlers
+		loyalty = 15
+	}
+	
+	add_estate_influence_modifier = {
+		estate = estate_settlers
+		desc = POR_VAL_ALLOWED_RAIDS
+		influence = 10
+		duration = 7300
+	}
+}
