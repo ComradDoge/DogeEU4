@@ -4562,3 +4562,99 @@ EE_SPA_empowered_inquisition = {
 		}
 	}
 }
+
+
+ME_estate_nobles_ARA_ius_maletractandi = {
+	icon = privilege_serf
+	land_share = 0
+	max_absolutism = -5
+	influence = 0.05
+	loyalty = 0
+	is_valid = {
+		tag = ARA
+		NOT = { has_country_flag = ARA_revoked_ius_maletractandi }
+	}
+	can_revoke = {
+		estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 70
+		}
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				area = catalonia_area
+			}
+			add_province_modifier = {
+				name = ARA_evil_customs
+				duration = -1
+			}
+		}
+	}
+	on_revoked = {
+		set_country_flag = ARA_revoked_ius_maletractandi
+
+		custom_tooltip = ARA_UNLOCK_NORMAL_BRANCH
+
+		hidden_effect = {
+			set_country_flag = ARA_normal_branch_flag
+			swap_non_generic_missions = yes
+			select_current_missions = {
+				key = ARA
+			}
+		}
+	}
+	on_invalid = {
+		set_country_flag = ARA_revoked_ius_maletractandi
+	}
+	on_revoked_province = {
+		if = {
+			limit = {
+				has_province_modifier = ARA_evil_customs
+			}
+			remove_province_modifier = ARA_evil_customs
+		}
+	}
+	penalties = {
+		global_unrest = 2
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
+
+ME_estate_burghers_ARA_promote_catalan_language = {
+	icon = privilege_admin_power
+	land_share = 0
+	max_absolutism = -5
+	influence = 0
+	loyalty = 0.1
+	is_valid = {
+		has_country_flag = ara_promote_catalan_language_flag
+	}
+	on_granted = {
+		
+	}
+	conditional_modifier = {
+		trigger = { 
+			101 = {
+				trade_share = {
+					country = ROOT
+					share = 80
+				}
+			}
+			220 = {
+				trade_share = {
+					country = ROOT
+					share = 80
+				}
+			}
+		}
+		modifier = { 
+			trade_efficiency = 0.1
+		}
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}

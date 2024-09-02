@@ -1,0 +1,1706 @@
+ARA_colonial_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = SPA
+		was_tag = ARA
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	EE_ara_spa_new_granada = {
+		icon = mission_new_kingdom_of_granada
+		position = 15
+		required_missions = { EE_ara_spa_colombus } 
+		provinces_to_highlight = {
+			colonial_region = colonial_colombia
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+			is_city = no
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				colonial_region = colonial_colombia
+				is_city = yes
+				value = 10
+			}
+		}
+
+		effect = { 
+			custom_tooltip = EE_spa_CONQUISTADORS_GIVE_AP 
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = ee_spa_conquest_of_new_world
+				duration = 7300
+			}
+			custom_tooltip = " "
+			ME_give_claims = { region = peru_region }
+		} 
+	}
+
+	EE_ara_spa_incas = {
+		icon = me_mission_spain_conquistadors
+		position = 16
+		required_missions = { EE_ara_spa_new_granada } 
+		provinces_to_highlight = {
+			region = peru_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+			is_city = no
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = peru_region
+				is_city = yes
+				value = 20
+			}
+			808 = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		effect = { country_event = { id = ME_Castile_Events.32 }  } 
+	}
+
+	EE_ara_spa_america_gold = {
+		icon = mission_african_gold
+		position = 18
+		required_missions = {
+			EE_ara_spa_incas
+			EE_ara_spa_california
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					continent = north_america
+					continent = south_america
+				}
+				development = 20
+				has_production_building_trigger = yes
+				has_tax_building_trigger = yes
+				value = 15
+			}
+		}
+
+		effect = {  
+			custom_tooltip = EE_spa_GRANT_BONUS_TO_15_RANDOM_PROVINCES
+			tooltip = {
+				add_or_upgrade_production_building = yes
+				add_province_modifier = {
+					name = ee_spa_central_hub
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				hidden_effect = {
+					for = {
+						amount = 15
+						effect = "
+							random_province = {
+								limit = {
+									country_or_non_sovereign_subject_holds = ROOT
+									OR = {
+										continent = north_america
+										continent = south_america
+									}
+									development = 20
+									has_production_building_trigger = yes
+									has_tax_building_trigger = yes
+								}
+								add_or_upgrade_production_building = yes
+								add_province_modifier = {
+									name = ee_spa_central_hub
+									duration = -1
+								}
+							}
+						"
+					}
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_increase_trade = {
+		icon = mission_dominate_home_trade_node
+		position = 19
+		provinces_to_highlight = { province_id = 224 } 
+
+		trigger = {
+			OR = {
+				224 = {
+					trade_share = {
+						country = ROOT
+						share = 55
+					}
+				}
+				ME_trade_income = { value = 10 }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				has_trade_building_trigger = yes
+				value = 3
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "EE_spa_trade_influx"
+				duration = 7300
+			}
+			ME_distribute_development = {
+				type = production
+				amount = 5
+			}
+		}
+	}
+
+	EE_ara_spa_trade_fleet = {
+		icon = mission_galleys_in_port
+		position = 21
+		required_missions = { EE_ara_spa_the_rock } 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { province_has_center_of_trade_of_level = 2 }
+		}
+		trigger = { 
+			num_of_light_ship = 55
+			num_of_owned_provinces_with = {
+				province_has_center_of_trade_of_level = 2
+				value = 5
+			}
+		 } 
+
+		effect = {  
+			add_country_modifier = {
+				name = "EE_spa_trade_fleet_modifier"
+				duration = 7300
+			}
+			capital_scope = {
+				add_base_production = 2
+			}
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				add_or_upgrade_shipyard_building = yes
+			}
+		} 
+	}
+
+	EE_ara_spa_circumnagivation = {
+		icon = me_mission_spain_magellan
+		position = 22
+		required_missions = { EE_ara_spa_trade_fleet }
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = nor_circumnavigate_the_world_at
+				OR = {
+					has_country_flag = circumnavigation_done
+					has_country_flag = circumnavigation_first
+				}
+			}
+		 } 
+
+		effect = {  
+			add_country_modifier = {
+				name = "EE_around_the_world"
+				duration = 7300
+			}
+			add_yearly_sailors = 1
+
+			if = {
+				limit = {
+					has_country_flag = circumnavigation_first
+				}
+				custom_tooltip = " "
+				custom_tooltip = EE_spa_MORE_REWARDS_IF_CIRCUMNAVIGATED_FIRST_POSITIVE
+				add_country_modifier = {
+					name = ee_spa_legacy_of_exploration
+					duration = -1
+				}
+			}
+			else = {
+				custom_tooltip = " "
+				custom_tooltip = EE_spa_MORE_REWARDS_IF_CIRCUMNAVIGATED_FIRST
+				tooltip = {
+					add_country_modifier = {
+						name = ee_spa_legacy_of_exploration
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+}
+
+ARA_colonial_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = SPA
+		was_tag = ARA
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	EE_ara_spa_colombus = {
+		icon = mission_exploration
+		position = 14
+		provinces_to_highlight = {  } 
+
+		trigger = { num_of_colonists = 1 } 
+
+		effect = { country_event = { id = ME_Castile_Events.31 }  } 
+	}
+
+	EE_ara_spa_carribean = {
+		icon = mission_caribbean_cn
+		position = 15
+		required_missions = { EE_ara_spa_colombus } 
+		provinces_to_highlight = {
+			colonial_region = colonial_the_carribean
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+			is_city = no
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				colonial_region = colonial_the_carribean
+				is_city = yes
+				value = 10
+			}
+		}
+
+		effect = {  
+			ME_give_claims = { region = mexico_region }
+			ME_give_claims = { region = central_america_region }
+			custom_tooltip = " "
+			custom_tooltip = EE_spa_IF_WE_OWN_PORTE_RICO
+			hidden_effect = {
+				if = {
+					limit = {
+						492 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					492 = {
+						add_great_project_tier = {
+							type = fuerte_del_morro
+							tier = 1
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_california = {
+		icon = mission_colonize_california
+		position = 17
+		required_missions = { EE_ara_spa_aztecs } 
+		provinces_to_highlight = {
+			colonial_region = colonial_california
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+			is_city = no
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				colonial_region = colonial_california
+				is_city = yes
+				value = 10
+			}
+			4637 = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		effect = { 
+			4637 = { 
+				change_trade_goods = gold 
+				add_base_production = 3
+			}
+			custom_tooltip = EE_spa_DISTRIBUTE_DEV_IN_CALIFORNIA
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_province = {
+							limit = {
+								country_or_non_sovereign_subject_holds = ROOT
+								colonial_region = colonial_california
+								is_city = yes
+							}
+							add_base_production = 1
+						}
+					"
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_the_rock = {
+		icon = mission_rb_take_gibraltar
+		position = 20
+		required_missions = {
+			EE_ara_spa_increase_trade
+			EE_ara_spa_naval_bases
+		}
+		provinces_to_highlight = {
+			province_id = 226
+			NOT = { has_fort_building_trigger = yes } 
+		}
+
+		trigger = {
+			226 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+				OR = {
+					has_building = naval_battery
+					has_building = coastal_defence
+				}
+			}
+		}
+
+		effect = {
+			226 = {
+				add_permanent_province_modifier = {
+					name = "EE_spa_gibraltar_base"
+					duration = -1
+				}
+				add_or_upgrade_fort_building = yes
+				custom_tooltip = " "
+				add_great_project_tier = {
+					type = EE_spa_rock
+					tier = 1
+				}
+			}
+		}
+	}
+
+	EE_ara_spa_exotic_goods = {
+		icon = mission_mal_riches_of_trade
+		position = 22
+		required_missions = {
+			EE_ara_spa_trade_fleet
+			EE_ara_spa_sevilla_trade
+		}
+		provinces_to_highlight = {  
+			owner = {
+				OR = {
+					is_subject_of = ROOT
+					tag = ROOT
+				}
+			}
+			OR = {
+				trade_goods = cocoa
+				trade_goods = sugar
+				trade_goods = tobacco
+				trade_goods = cotton
+				trade_goods = spices
+			}
+			
+			NOT = { base_production = 8 }
+			NOT = { has_production_building_trigger = yes }
+			NOT = { has_manufactory_trigger = yes }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					trade_goods = cocoa
+					trade_goods = sugar
+					trade_goods = tobacco
+					trade_goods = cotton
+					trade_goods = spices
+				}
+				OR = {
+					base_production = 8
+					AND = {
+						has_production_building_trigger = yes
+						has_manufactory_trigger = yes
+					}
+				}
+				value = 20
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EE_spa_ALL_THE_TRADE_GOODS_WILL_GET_PRICE_INCREASE
+			hidden_effect = {
+				change_price = {
+					trade_goods = cocoa
+					key = EE_ara_spa_EXOTIC_GOODS_MISSION
+					value = 0.05
+					duration = -1
+				}
+				change_price = {
+					trade_goods = sugar
+					key = EE_ara_spa_EXOTIC_GOODS_MISSION
+					value = 0.05
+					duration = -1
+				}
+				change_price = {
+					trade_goods = tobacco
+					key = EE_ara_spa_EXOTIC_GOODS_MISSION
+					value = 0.05
+					duration = -1
+				}
+				change_price = {
+					trade_goods = cotton
+					key = EE_ara_spa_EXOTIC_GOODS_MISSION
+					value = 0.05
+					duration = -1
+				}
+				change_price = {
+					trade_goods = spices
+					key = EE_ara_spa_EXOTIC_GOODS_MISSION
+					value = 0.05
+					duration = -1
+				}
+				country_event = {
+					id = ME_Castile_Events.36
+				}
+			}
+			custom_tooltip = " "
+			ME_distribute_development = {
+				type = production
+				amount = 5
+			}
+		} 
+	}
+
+	EE_ara_spa_china = {
+		icon = mission_to_china
+		position = 23
+		required_missions = { EE_ara_spa_arabia } 
+		provinces_to_highlight = {  
+			OR = {
+				region = south_china_region
+				region = north_china_region
+			}
+			province_has_center_of_trade_of_level = 1
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = { 
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = south_china_region
+					region = north_china_region
+				}
+				province_has_center_of_trade_of_level = 1
+				value = 1
+			}
+		 } 
+
+		effect = {  
+			custom_tooltip = EE_spa_CREATE_TREATY_PORT_IN_CHINA
+			tooltip = {
+				add_province_modifier = {
+					name = EE_spa_treaty_province
+					duration = -1
+				}
+			}	
+			hidden_effect = {
+				random_province = {
+					limit = {
+						OR = {
+							region = south_china_region
+							region = north_china_region
+						}
+						province_has_center_of_trade_of_level = 1
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					save_global_event_target_as = EE_ara_spa_treaty_port
+				}
+				668 = {
+					set_province_flag = EE_ara_spa_treaty_flag
+				}
+				move_great_project = {
+					type = EE_treaty_port
+					province = event_target:EE_ara_spa_treaty_port
+					instant = yes
+				}
+				event_target:EE_ara_spa_treaty_port = {
+					add_province_modifier = {
+						name = EE_spa_treaty_province
+						duration = -1
+					}
+					set_province_flag = EE_spa_treaty_flag
+					add_great_project = {
+						type = EE_treaty_port
+						instant = yes 
+					}
+				}
+			}
+		} 
+	}
+}
+
+ARA_colonial_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = SPA
+		was_tag = ARA
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	EE_ara_spa_sevilla = {
+		icon = the_shape_of_trades_to_come
+		position = 15
+		required_missions = {
+			EE_ara_spa_colombus
+			EE_ara_spa_terra_icognita
+		}
+		provinces_to_highlight = {
+			province_id = 224
+			NOT = { development = 25 } 
+			NOT = { has_trade_building_trigger = yes } 
+		}
+
+		trigger = {
+			224 = {
+				owned_by = ROOT
+				development = 25
+				has_trade_building_trigger = yes
+			}
+		}
+
+		effect = {
+			224 = {
+				create_or_add_center_of_trade_level = { level = 1 } 
+				add_province_triggered_modifier = SPA_sevilla_trade
+			}
+		}
+	}
+
+	EE_ara_spa_aztecs = {
+		icon = mission_iberian_conquistador
+		position = 16
+		required_missions = { EE_ara_spa_carribean } 
+		provinces_to_highlight = {
+			colonial_region = colonial_mexico
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				colonial_region = colonial_mexico
+				value = 10
+			}
+			OR = {
+				NOT = { exists = AZT } 
+				AZT = { is_subject_of = ROOT } 
+			}
+		}
+
+		effect = { 
+			country_event = { id = ME_Castile_Events.33 }
+			custom_tooltip = EE_spa_AZTECS_EVENT_INSIGHT
+		} 
+	}
+
+	EE_ara_spa_mexico = {
+		icon = mission_kingdom_of_new_spain
+		position = 17
+		required_missions = { EE_ara_spa_aztecs } 
+		provinces_to_highlight = {
+			colonial_region = colonial_mexico
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		trigger = {
+			colonial_mexico = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = { 
+			country_event = { id = ME_Castile_Events.34 }  
+			custom_tooltip = EE_spa_MEXICO_EVENT_INSIGHT
+		} 
+	}
+
+	EE_ara_spa_imperial_spain = {
+		icon = mission_kingdom_of_new_spain
+		position = 18
+		required_missions = {
+			EE_ara_spa_california
+			EE_ara_spa_mexico
+			EE_ara_spa_fight_inflation_in_colonies
+		}
+		provinces_to_highlight = {
+			OR = {
+				continent = north_america
+				continent = south_america
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					continent = north_america
+					continent = south_america
+				}
+				is_city = yes
+				value = 300
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					NOT = { 
+						any_country = {
+							NOT = { tag = ROOT }
+							was_player = yes
+						}
+					}
+				}
+				add_country_modifier = {
+					name = ee_spa_american_hegemony
+					duration = -1
+				}
+			}
+			else = {
+				country_event = { id = ME_Castile_Events.47 }
+			}
+			#custom_tooltip = " "
+			#custom_tooltip = EE_ara_spa_ALLOWS_USAGE_OF_CN_MONUMNENTS
+		}
+	}
+
+	EE_ara_spa_naval_bases = {
+		icon = fu_port2
+		position = 19
+		provinces_to_highlight = {
+			province_id = 1111
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+			NOT = { development = 7 } 
+			NOT = { num_of_buildings_in_province = 1 } 
+		}
+
+		trigger = {
+			1111 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					owner = {
+						alliance_with = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			guinea_region = { discover_country = ROOT } 
+			niger_region = { discover_country = ROOT } 
+			add_country_modifier = {
+				name = "EE_spa_extending_reach"
+				duration = 7300
+			}
+			custom_tooltip = EE_IF_OWNED_BY_ALLY
+			hidden_effect = {
+				if = {
+					limit = {
+						1111 = {
+							owner = {
+								alliance_with = ROOT
+							}
+						}
+					}
+					add_dip_power = 100
+					1111 = {
+						owner = {
+							add_dip_power = 100
+						}
+					}
+				}
+			}
+		}
+	}
+
+	EE_ara_spa_anti_slavery = {
+		icon = mission_control_the_barbary_coast
+		position = 20
+		required_missions = { EE_ara_spa_naval_bases } 
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+			has_port = yes
+			NOT = {
+				owner = {
+					alliance_with = ROOT
+				}
+			}
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EE_spa_OWNS_ALL_IBERIAN_COAST
+				iberia_region = {
+					type = all
+					OR = {
+						AND = {
+							has_port = yes
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+						owner = {
+							alliance_with = ROOT
+						}
+						has_port = no
+					}
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = iberia_region
+				OR = {
+					has_building = coastal_defence
+					has_building = naval_battery
+					num_of_buildings_in_province = 3
+				}
+				development = 15
+				value = 5
+			}
+			custom_trigger_tooltip = {
+				tooltip = EE_spa_BIGGER_NAVY_THAN_BERBERS
+				all_country = {
+					OR = {
+						AND = {
+							capital_scope = { region = maghreb_region } 
+							NOT = { navy_size = ROOT } 
+						}
+						NOT = { capital_scope = { region = maghreb_region }  } 
+					}
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = EE_spa_ALL_COASTAL_PROVINCES_CANNOT_BE_RAIDED
+			custom_tooltip = " "
+			custom_tooltip = EE_spa_5_PROVINCES_THAT_MEET_REQ
+			tooltip = {
+				add_province_modifier = {
+					name = "EE_spa_heavy_fortifications"
+					duration = -1
+				}
+			}
+		}
+	}
+
+	EE_ara_spa_sevilla_trade = {
+		icon = capture_adriatic_ports
+		position = 21
+		required_missions = {
+			EE_ara_spa_anti_slavery
+			EE_ara_spa_the_rock
+		}
+		provinces_to_highlight = {  
+			owned_by = ROOT
+			NOT = {
+				has_trade_building_trigger = yes
+				province_trade_power = 20
+			}
+		} 
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				OR = {
+					has_trade_building_trigger = yes
+					province_trade_power = 20
+				}
+				value = 25
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EE_spa_TWO_RANDOM_PROVINCES_THAT_MEET_THE_REQ
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = EE_spa_iberian_merchants
+				duration = 5475
+			}
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_trade_building_trigger = yes
+							province_trade_power = 20
+						}
+					}
+					add_base_production = 2
+					create_or_add_center_of_trade_level = { level = 1 }
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							has_trade_building_trigger = yes
+							province_trade_power = 20
+						}
+					}
+					add_base_production = 2
+					create_or_add_center_of_trade_level = { level = 1 }
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_arabia = {
+		icon = mission_arabian_ports
+		position = 22
+		required_missions = { EE_ara_spa_kilwa } 
+		provinces_to_highlight = {  
+			province_id = 1099
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			1099 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			1099 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+				add_province_modifier = {
+					name = ee_spa_arabian_port
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			ME_give_claims = { area = visayas_area }
+			ME_give_claims = { area = southern_luzon_area }
+			ME_give_claims = { area = luzon_area }
+			ME_give_claims = { area = mindanao_area }
+			ME_give_claims = { area = west_mindanao_area }
+		} 
+	}
+
+	EE_ara_spa_india = {
+		icon = mission_indian_trade_company
+		position = 23
+		required_missions = { EE_ara_spa_arabia } 
+		provinces_to_highlight = {  
+			OR = {
+				region = deccan_region
+				region = coromandel_region
+			}
+			province_has_center_of_trade_of_level = 1
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			OR = {
+				any_province = {
+					OR = {
+						region = deccan_region
+						region = coromandel_region
+					}
+					province_has_center_of_trade_of_level = 1
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				540 = {
+					trade_share = {
+						country = ROOT
+						share = 50
+					}
+				}
+				534 = {
+					trade_share = {
+						country = ROOT
+						share = 50
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EE_IF_COMPLETED_VIA_TRADE
+			custom_tooltip = " "
+			tooltip = {
+				custom_tooltip = EE_spa_DEMAND_ONE_INDIAN_PROVINCE
+			}
+			custom_tooltip = " "
+			custom_tooltip = EE_IF_COMPLETED_VIA_CONQUEST
+			tooltip = {
+				custom_tooltip = EE_spa_RANDOM_PROVINCE_GETS_BUFFS
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						any_province = {
+							OR = {
+								region = deccan_region
+								region = coromandel_region
+							}
+							province_has_center_of_trade_of_level = 1
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					random_province = {
+						limit = {
+							OR = {
+								region = deccan_region
+								region = coromandel_region
+							}
+							province_has_center_of_trade_of_level = 1
+							NOT = { country_or_non_sovereign_subject_holds = ROOT }
+						}
+						add_or_upgrade_trade_building = yes
+						add_or_upgrade_shipyard_building = yes
+						create_or_add_center_of_trade_level = { level = 1 }
+					}
+				}
+				else = {
+					set_country_flag = EE_spa_demand_port_flag
+				}
+			}
+		}
+	}
+}
+
+ARA_colonial_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = SPA
+		was_tag = ARA
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	EE_ara_spa_terra_icognita = {
+		icon = mission_explore_the_world
+		position = 14
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				north_america = { has_discovered = ROOT } 
+				south_america = { has_discovered = ROOT } 
+				new_world = { has_discovered = ROOT } 
+			}
+		}
+
+		effect = {
+			create_conquistador = { tradition = 60 } 
+			add_country_modifier = {
+				name = "EE_spa_new_world"
+				duration = 7300
+			}
+		}
+	}
+
+	EE_ara_spa_north_america_trade = {
+		icon = mission_dominate_gujarati_trade
+		position = 16
+		required_missions = {
+			EE_ara_spa_sevilla
+			EE_ara_spa_florida
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 950
+				province_id = 852
+				province_id = 484
+				province_id = 835
+			}
+		}
+
+		trigger = {
+			OR = {
+				ME_trade_income = { amount = 40 }
+				AND = {
+					852 = {
+						trade_share = {
+							country = ROOT
+							share = 50
+						}
+					}
+					484 = {
+						trade_share = {
+							country = ROOT
+							share = 50
+						}
+					}
+					835 = {
+						trade_share = {
+							country = ROOT
+							share = 50
+						}
+					}
+				}
+			}
+		}
+
+		effect = {  
+			ME_add_years_of_trade_income = { years = 5 }
+			custom_tooltip = " "
+			custom_tooltip = EE_spa_MERCANTILISM_PER_CN
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						OR = {
+							is_subject_of_type = colony
+							is_subject_of_type = crown_colony
+							is_subject_of_type = private_enterprise
+							is_subject_of_type = self_governing_colony
+						}
+					}
+					overlord = {
+						add_mercantilism = 1
+					}
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_fight_inflation_in_colonies = {
+		icon = mission_zambezi_gold
+		position = 17
+		required_missions = {
+			EE_ara_spa_north_america_trade
+			EE_ara_spa_aztecs
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = EE_spa_DEALT_WITH_ECONOMIC_DOWNFALL
+					has_country_flag = EE_ara_spa_finished_economic_decline
+				}
+				gold_income = 50
+			}
+			NOT = { inflation = 3 }
+		}
+
+		effect = {
+			add_inflation = -2
+			remove_country_modifier = EE_spa_fighting_inflation
+			add_country_modifier = {
+				name = EE_spa_fighting_inflation_2
+				duration = -1
+			}
+		}
+	}
+
+	EE_ara_spa_kongo = {
+		icon = mission_kon_greatest_power_kongo
+		position = 20
+		required_missions = {
+			EE_ara_spa_naval_bases
+			EE_ara_spa_colony_west_africa
+		}
+		provinces_to_highlight = {  
+			region = kongo_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					region = kongo_region
+					OR = {
+						owner = {
+							capital_scope = {
+								region = iberia_region
+							}
+							alliance_with = ROOT
+						}
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				amount = 4
+			}
+			4079 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					owner = {
+						capital_scope = {
+							region = iberia_region
+						}
+						alliance_with = ROOT
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					ai = no
+				}
+				ME_give_claims = { area = central_swahili_coast_area }
+				custom_tooltip = " "
+			}
+			4079 = {
+				create_or_add_center_of_trade_level = {
+					level = 1
+				}
+			}
+			custom_tooltip = EE_spa_TWO_PROVINCES
+			tooltip = {
+				add_province_modifier = {
+					name = kongo_bases
+					duration = 7300
+				}
+				add_base_production = 1
+			}
+			custom_tooltip = " "
+			if = {
+				limit = {
+					4079 = {
+						owner = {
+							capital_scope = {
+								region = iberia_region
+							}
+							alliance_with = ROOT
+						}
+					}
+				}
+				custom_tooltip = EE_GRANT_BOTH_SIDES_DEV_POSITIVE
+				hidden_effect = {
+					ME_distribute_development = {
+						type = production
+						amount = 5
+					}
+					4079 = {
+						owner = {
+							ME_distribute_development = {
+								type = production
+								amount = 5
+							}
+						}
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EE_GRANT_BOTH_SIDES_DEV
+			}
+			hidden_effect = {
+				random_province = {
+					limit = {
+						region = kongo_region
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_province_modifier = {
+						name = kongo_bases
+						duration = 7300
+					}
+					add_base_production = 1
+				}
+				random_province = {
+					limit = {
+						region = kongo_region
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_province_modifier = {
+						name = kongo_bases
+						duration = 7300
+					}
+					add_base_production = 1
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_kilwa = {
+		icon = mission_zanzibari_trade
+		position = 21
+		required_missions = {
+			EE_ara_spa_cape
+			EE_ara_spa_kongo
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			OR = {
+				1196 = {
+					country_or_subject_holds = ROOT
+				}
+				alliance_with = ZAN
+			}
+		} 
+
+		effect = {
+			ME_give_claims = { province = 1099 }
+			custom_tooltip = " "
+			custom_tooltip = EE_spa_IF_ALLIANCE
+			custom_tooltip = " "
+			tooltip = {
+				change_variable = { trade_influence_from_kilwa = 15 }
+				custom_tooltip = " "
+				custom_tooltip = EE_spa_unlocks_purchase_madagascar_decision
+			}
+			custom_tooltip = " "
+			custom_tooltip = EE_spa_IF_CONQUEST
+			tooltip = {
+				custom_tooltip = EE_spa_GRANTS_ACCESS_TO_KILWA_MONUMENT
+				custom_tooltip = " "
+				ME_give_claims = { area = sakalava_area }
+				ME_give_claims = { area = southern_madagascar }
+				ME_give_claims = { area = madagascar_highlands_area }
+				ME_give_claims = { area = betsimasaraka_area }
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						1196 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					set_country_flag = EE_spa_unlocks_kilwa_monument
+					ME_give_claims = { area = sakalava_area }
+					ME_give_claims = { area = southern_madagascar }
+					ME_give_claims = { area = madagascar_highlands_area }
+					ME_give_claims = { area = betsimasaraka_area }
+				}
+				else = {
+					change_variable = { trade_influence_from_kilwa = 15 }
+					set_country_flag = EE_spa_madagascar_purchase
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_madagascar = {
+		icon = mission_african_soldier
+		position = 22
+		required_missions = { EE_ara_spa_kilwa } 
+		provinces_to_highlight = {  
+			OR = {
+				area = sakalava_area
+				area = southern_madagascar
+				area = madagascar_highlands_area
+				area = betsimasaraka_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			sakalava_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			southern_madagascar = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			madagascar_highlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			betsimasaraka_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			1193 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+			4025 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+			custom_tooltip = EE_spa_DISTRIBUTE_PRODUCTION_DEV_IN_MADAGASCAR
+			custom_tooltip = " "
+			hidden_effect = {
+				ME_distribute_development = {
+					amount = 5
+					type = production
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_philipines = {
+		icon = mission_establish_high_seas_navy
+		position = 23
+		required_missions = { EE_ara_spa_arabia } 
+		provinces_to_highlight = {  
+			OR = {
+				area = visayas_area
+				area = southern_luzon_area
+				area = luzon_area
+				area = mindanao_area
+				area = west_mindanao_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = visayas_area
+					area = southern_luzon_area
+					area = luzon_area
+					area = mindanao_area
+					area = west_mindanao_area
+				}
+				value = 15
+			}
+			NOT = { exists = TDO }
+		} 
+
+		effect = {  
+			country_event = {
+				id = ME_Castile_Events.37
+			}
+			custom_tooltip = EE_spa_PHILIPINES_EVENT_INSIGHT
+		} 
+	}
+}
+
+ARA_colonial_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = SPA
+		was_tag = ARA
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	
+	EE_ara_spa_florida = {
+		icon = mission_colonize_florida
+		position = 15
+		required_missions = { EE_ara_spa_terra_icognita } 
+		provinces_to_highlight = {
+			OR = {
+				area = florida_area
+				area = north_florida_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+			is_city = no
+		}
+
+		trigger = {
+			florida_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			florida_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+		}
+
+		effect = {
+			926 = { create_or_add_center_of_trade_level = { level = 1 }  } 
+			927 = {
+				change_province_name = "St. Augustine"
+				rename_capital = "St. Augustine"
+				add_province_modifier = {
+					name = "EE_spa_floridan_capital"
+					duration = -1
+				}
+			}
+		}
+	}
+
+	EE_ara_spa_lost_cities = {
+		icon = mission_explore_the_world
+		position = 17
+		required_missions = { EE_ara_spa_north_america_trade } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			custom_trigger_tooltip = { 
+				tooltip = EE_spa_DISCOVERED_AT_LEAST_ONE_LOST_CITY 
+				num_of_lost_cities_controlled = { amount = 1 }
+			} 
+		 } 
+
+		effect = {  
+			custom_tooltip = EE_ara_spa_DEV_FOR_LOST_CITIES
+			hidden_effect = {
+				every_province = {
+					limit = {
+						has_lost_city = yes
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_base_production = 3
+				}
+			}
+			create_conquistador = { tradition = 100 }
+		} 
+	}
+
+	EE_ara_spa_colony_west_africa = {
+		icon = mission_mal_west_african_great_power
+		position = 19
+		provinces_to_highlight = {  
+			region = guinea_region
+			province_has_center_of_trade_of_level = 1
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					region = guinea_region
+					province_has_center_of_trade_of_level = 1
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						owner = {
+							capital_scope = {
+								region = iberia_region
+							}
+							alliance_with = ROOT
+						}
+					}
+				}
+				amount = 2
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					ai = no
+				}
+				ME_give_claims = { region = kongo_region }
+				custom_tooltip = " "
+			}
+			custom_tooltip = EE_spa_RANDOM_COT_UPGRADE
+			hidden_effect = {
+				random_province = {
+					limit = {
+						OR = {
+							country_or_non_sovereign_subject_holds = ROOT
+							owner = {
+								capital_scope = {
+									region = iberia_region
+								}
+								alliance_with = ROOT
+							}
+						}
+						region = guinea_region
+						province_has_center_of_trade_of_level = 1
+					}
+					create_or_add_center_of_trade_level = { level = 1 }
+					add_base_production = 2
+				}
+			}
+			custom_tooltip = " "
+			if = {
+				limit = {
+					any_province = {
+						region = guinea_region
+						province_has_center_of_trade_of_level = 1
+						owner = {
+							capital_scope = {
+								region = iberia_region
+							}
+							alliance_with = ROOT
+						}
+					}
+				}
+				custom_tooltip = EE_spa_IF_ONE_COT_CONTROLLED_BY_ALLY_GRANT_BOTH_MERCANTILISM_POSITIVE
+				hidden_effect = {
+					add_mercantilism = 2
+					random_province = {
+						limit = {
+							region = guinea_region
+							province_has_center_of_trade_of_level = 1
+							owner = {
+								capital_scope = {
+									region = iberia_region
+								}
+								alliance_with = ROOT
+							}
+						}
+						owner = {
+							add_mercantilism = 2
+						}
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EE_spa_IF_ONE_COT_CONTROLLED_BY_ALLY_GRANT_BOTH_MERCANTILISM
+			}
+		} 
+	}
+
+	EE_ara_spa_cape = {
+		icon = colonize_the_cape
+		position = 20
+		required_missions = { EE_ara_spa_colony_west_africa } 
+		provinces_to_highlight = { 
+			province_id = 1177
+			is_city = no
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			1177 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					owner = {
+						capital_scope = {
+							region = iberia_region
+						}
+						alliance_with = ROOT
+					}
+				}
+				is_city = yes
+			}
+		} 
+
+		effect = { 
+			if = {
+				limit = {
+					1177 = {
+						OR = {
+							is_empty = yes
+							owner = {
+								tag = ROOT
+							}
+						}
+					}
+				}
+				1177 = {
+					add_permanent_province_modifier = {
+						name = EE_spa_crossroads_between_asia_and_europe
+						duration = -1
+					}
+					add_building = coastal_defence
+				}
+				custom_tooltip = " "
+				custom_tooltip = EE_GAIN_BONUS_AND_DEV_INSTEAD
+				tooltip = {
+					complete_mission = EE_spa_fortify_cape
+					complete_mission = EE_spa_swahili_trade
+					complete_mission = EE_spa_kilwa
+					complete_mission = EE_spa_madagascar
+					complete_mission = EE_spa_arabia
+				}
+			}
+			else = {
+				custom_tooltip = EE_GAIN_BONUS_AND_DEV_INSTEAD_POSITIVE
+				complete_mission = EE_spa_fortify_cape
+				complete_mission = EE_spa_swahili_trade
+				complete_mission = EE_spa_kilwa
+				complete_mission = EE_spa_madagascar
+				complete_mission = EE_spa_arabia
+				hidden_effect = {
+					1177 = {
+						add_base_manpower = 2
+						add_base_production = 2
+						add_base_tax = 2
+					}
+					add_country_modifier = {
+						name = ee_spa_beyond_the_cape
+						duration = 7300
+					}
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_fortify_cape = {
+		icon = fortify_malta
+		position = 21
+		required_missions = { EE_ara_spa_cape } 
+		provinces_to_highlight = {  
+			province_id = 1177
+			NOT = { has_fort_building_trigger = yes }
+			NOT = { base_manpower = 6 }
+		} 
+
+		trigger = {  
+			1177 = {
+				has_fort_building_trigger = yes
+				base_manpower = 6
+			}
+		} 
+
+		effect = {
+			1177 = {
+				add_or_upgrade_fort_building = yes
+				custom_tooltip = EE_spa_MODIFY_CAPE_PORT
+				hidden_effect = {
+					remove_province_modifier = EE_spa_crossroads_between_asia_and_europe
+					add_province_modifier = {
+						name = EE_spa_crossroads_between_asia_and_europe_2
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EE_ara_spa_swahili_trade = {
+		icon = fu_raid_zanzibar
+		position = 22
+		required_missions = {
+			EE_ara_spa_fortify_cape
+			EE_ara_spa_kilwa
+		}
+		provinces_to_highlight = {  
+			region = east_africa_region
+			country_or_non_sovereign_subject_holds = ROOT
+			NOT = { 
+				has_local_modifier_value = {
+					which = trade_goods_size
+					value = 0.75
+				}
+			}
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				has_local_modifier_value = {
+					which = trade_goods_size
+					value = 0.75
+				}
+				region = east_africa_region
+				value = 15
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EE_spa_BUFF_TRADE_CENTERS_IN_EAST_AFRICA
+			custom_tooltip = " "
+			custom_tooltip = EE_spa_IF_MADAGASCAR_IS_OWNED
+			tooltip = {
+				custom_tooltip = EE_spa_ALL_COT_IN_MADAGASCAR
+				add_province_modifier = {
+					name = ee_spa_madagascar_wealth
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = sakalava_area
+							area = southern_madagascar
+							area = madagascar_highlands_area
+							area = betsimasaraka_area
+						}
+						country_or_non_sovereign_subject_holds = ROOT
+						province_has_center_of_trade_of_level = 1
+					}
+					add_province_modifier = {
+						name = ee_spa_madagascar_wealth
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+}

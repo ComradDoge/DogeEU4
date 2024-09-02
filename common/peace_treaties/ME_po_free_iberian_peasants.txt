@@ -1,0 +1,101 @@
+po_free_iberian_peasants = {
+	
+	category = 6 
+	power_projection = no 
+	power_cost_base = 0 
+	prestige_base = 0.5
+	ae_base = 0
+	warscore_cost = {
+		all_provinces = 0
+		no_provinces = 80.0 
+		owner_keeps = 0.0 
+		conquered = 0.0 
+		returned_core = 0.0 
+		released_nation = 0.0 
+		cancelled_subject = 0.0 
+		concede_colonial_region = 0.0 
+	}
+	warscore_cap = 80
+	requires_demand_independence = yes 
+	is_make_subject = no 
+	requires_is_allowed = no 
+	
+	is_visible = { 
+		FROM = {
+            capital_scope = {
+                region = iberia_region
+            }
+        }
+        OR = {
+            tag = ARA
+            was_tag = ARA
+        }
+        has_country_flag = ara_liberate_peasants_po_flag
+        has_reform = peasants_republic
+	}
+	is_allowed = { 
+		always = yes
+	}
+	effect = {
+		FROM = {
+			every_owned_province = {
+                limit = {
+                    region = iberia_region
+                }
+                random_core_country = {
+                    limit = {
+                        NOT = { tag = FROM }
+                        exists = no
+                    }
+                    save_event_target_as = peasant_cede
+                }
+                if = {
+                    limit = {
+                        is_core = event_target:peasant_cede
+                    }
+                    cede_province = event_target:peasant_cede
+                    remove_core = FROM
+                }
+                event_target:peasant_cede = { #There is probably a better way to do this, but can't figure it out rn
+                    set_country_flag = me_ara_peasant_republic_nation
+                    every_core_province = {
+                        limit = {
+                            owned_by = FROM
+                        }
+                        cede_province = event_target:peasant_cede
+                        remove_core = FROM
+                    }
+                }
+            }
+            every_subject_country = {
+                change_government = republic
+                add_government_reform = peasants_republic
+                change_religion = FROM
+                kill_ruler = yes
+            }
+            release_all_subjects = yes
+        }
+        every_known_country = {
+            limit = {
+                OR = {
+                    has_country_flag = me_ara_peasant_republic_nation
+                    tag = FROM
+                }
+            }
+            change_government = republic
+            add_government_reform = peasants_republic
+            change_religion = FROM
+            kill_ruler = yes
+            clr_country_flag = me_ara_peasant_republic_nation
+        }
+	}
+	ai_weight = { 
+		export_to_variable = {
+			variable_name = ai_value 
+			value = 10000
+		}
+		limit = {
+			always = yes
+		}
+	}
+}

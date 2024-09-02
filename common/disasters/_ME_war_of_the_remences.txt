@@ -1,0 +1,139 @@
+ME_war_of_the_remences = {
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		has_estate_privilege = ME_estate_nobles_ARA_ius_maletractandi
+		current_age = age_of_discovery
+		government = monarchy
+		NOT = { has_country_flag = ara_war_of_remences_concluded_flag }
+		is_subject = no
+	}
+	
+	can_start = {
+		if = {
+			limit = {
+				ai = yes
+			}
+			NOT = {
+				stability = 2
+			}
+		}
+		else = {
+			NOT = {
+				stability = 3
+			}
+		}
+	}
+	
+	can_stop = {
+		if = {
+			limit = {
+				ai = yes
+			}
+			stability = 2
+		}
+		else = {
+			stability = 3
+		}
+	}
+	
+	
+	progress = {
+		modifier = {
+		    factor = 1
+			custom_trigger_tooltip = {
+				tooltip = NOT_HAS_FREE_SERFS_PARLIAMENT_ISSUE
+				OR = {
+					NOT = { has_country_flag = ara_placated_peasants_flag }
+					had_country_flag = {
+						flag = ara_placated_peasants_flag
+						days = 3650
+					}
+				}
+			}
+			num_of_owned_provinces_with = {
+                area = catalonia_area
+				unrest = 1
+                value = 1
+            }
+		}
+		modifier = {
+            factor = 1
+			custom_trigger_tooltip = {
+				tooltip = NOT_HAS_FREE_SERFS_PARLIAMENT_ISSUE
+				OR = {
+					NOT = { has_country_flag = ara_placated_peasants_flag }
+					had_country_flag = {
+						flag = ara_placated_peasants_flag
+						days = 3650
+					}
+				}
+			}
+			NOT = {
+                stability = 2
+            }
+		}
+		modifier = {
+			factor = 2
+			custom_trigger_tooltip = {
+				tooltip = NOT_HAS_FREE_SERFS_PARLIAMENT_ISSUE
+				OR = {
+					NOT = { has_country_flag = ara_placated_peasants_flag }
+					had_country_flag = {
+						flag = ara_placated_peasants_flag
+						days = 3650
+					}
+				}
+			}
+			estate_influence = {
+                influence = 60
+                estate = estate_nobles
+            }
+		}
+	}
+	
+	can_end = {
+		OR = {
+			NOT = { #Other methods are through the event
+				has_estate_privilege = ME_estate_nobles_ARA_ius_maletractandi
+			}
+			is_subject = yes
+		}
+	}
+	
+
+	modifier = {
+		global_trade_goods_size_modifier = -0.25
+        global_unrest = 5
+        mercenary_cost = -0.15
+	}
+	
+	on_start = War_of_Remences.1 #War of the Remences
+	on_end = War_of_Remences.100 #End of the Catalan Rebellion
+	on_monthly = {
+		random_events = {
+			1000 = 0
+			10 = War_of_Remences.2 #More Catalan Peasants rise up
+			10 = War_of_Remences.3 #Majorca Revolt
+			10 = War_of_Remences.4 #Nobility Supports us
+			10 = War_of_Remences.5 #Cataolonian Cities become more autonomous
+			10 = War_of_Remences.6 #Grant Rossello to France for support
+			10 = War_of_Remences.8 #X amount of time has passed. Catalonia breaks free and becomes a junior partner of another nation. You lost bozo
+		}
+	}
+	
+	on_progress_effect = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = ara_war_of_remences_progressing_flag }
+				OR = {
+					NOT = { has_country_flag = ara_placated_peasants_flag }
+					had_country_flag = {
+						flag = ara_placated_peasants_flag
+						days = 1825
+					}
+				}
+			}
+			set_country_flag = ara_war_of_remences_progressing_flag
+		}
+	}
+}

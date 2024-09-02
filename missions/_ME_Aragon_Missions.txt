@@ -1,0 +1,2775 @@
+ARA_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	ARA_support_artisan_guilds = {
+		icon = mission_industria_sedera
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+		}
+		trigger = {
+			ME_production_income = { amount = 3 }
+			has_adm_advisor = yes
+		}
+		effect = {
+			ME_distribute_development = {
+				amount = 5
+				type = production
+			}
+
+			add_years_of_owned_provinces_production_income = {
+				years = 2
+				trigger = {
+					region = iberia_region
+				}
+			}
+		}
+	}
+	
+	ARA_taula_de_canvi = {
+		icon = mission_taula_de_canvi
+		required_missions = { ARA_support_artisan_guilds }
+		position = 3
+		provinces_to_highlight = {
+		}
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 60
+				}
+			}
+			NOT = {
+				inflation = 1
+			}
+			years_of_income = 2
+		}
+		effect = {
+			custom_tooltip = ARA_UNLOCK_TAKE_LOANS_DECISION
+			set_country_flag = ara_special_loans_flag
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				add_estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 10
+				}
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+			}
+
+			define_advisor = {
+				type = ME_banker
+				skill = 2
+				cost_multiplier = 0.5
+			}
+		}
+	}
+	
+	ARA_consell_de_cent = {
+		icon = venture_captains
+		required_missions = { ARA_taula_de_canvi }
+		position = 4
+		provinces_to_highlight = {
+		}
+		trigger = {
+			reform_level = 5
+			OR = {
+				has_dip_advisor_3 = yes
+				monthly_dip = 9
+				full_idea_group = trade_ideas
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ARA_consell_de_cent_modifier
+				duration = -1
+			}
+
+			custom_tooltip = ARA_UPGRADE_MERCANTILIST_APPROACH_REFORM_TO_GIVE_FOLLOWING_MODIFIERS
+			set_country_flag = buffed_mercantilist_approach_flag
+			hidden_effect = {
+				if = {
+					limit = {
+						has_reform = mercantilistic_approach_reform
+					}
+					add_country_modifier = {
+						name = ara_mercantilist_approach_buff
+						duration = -1
+						hidden = yes
+					}
+				}
+			}
+		}
+	}
+
+	ARA_disaster = {
+		icon = dom_ara_remensa_war
+		required_missions = { }
+		position = 5
+		trigger = {
+			OR = {
+				NOT = {
+					current_age = age_of_discovery
+				}
+				has_reform = peasants_republic
+				custom_trigger_tooltip = {
+					tooltip = ARA_DEALT_WITH_DISASTER
+					has_country_flag = ara_war_of_remences_concluded_flag
+				}
+				NOT = {
+					has_estate_privilege = ME_estate_nobles_ARA_ius_maletractandi
+				}
+			}
+		}
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = ARA_IF_NORMAL_ARAGON
+				first_limit = "
+					OR = {
+						has_country_flag = ARA_normal_branch_flag
+						NOT = {
+							current_age = age_of_discovery
+						}
+						NOT = {
+							has_estate_privilege = ME_estate_nobles_ARA_ius_maletractandi
+						}
+						NOT = {
+							has_country_flag = ME_war_of_the_remences_peasants_flag
+							has_reform = peasants_republic
+						}
+					}
+				"
+				first_effect = "
+					add_estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 15
+					}
+				"
+				second_custom_tooltip = ARA_IF_PEASANT_ARAGON
+				second_limit = "
+					OR = {
+						has_country_flag = ME_war_of_the_remences_peasants_flag
+						has_reform = peasants_republic
+					}
+				"
+				second_effect = "
+					custom_tooltip = ARA_UNLOCK_LIBERATE_PEASANTS_PO_IN_IBERIA
+					set_country_flag = ara_liberate_peasants_po_flag
+				"
+			}
+		}
+	}
+}
+
+ARA_missions_branching = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NOT = {
+			has_country_flag = ME_war_of_the_remences_peasants_flag
+			has_country_flag = ARA_normal_branch_flag
+		}
+	}
+	has_country_shield = yes
+
+	ARA_branching1 = {
+		icon = mission_unknown_mission
+		required_missions = { 
+			ARA_disaster
+		}
+		position = 6
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ARA_TRIGGERS_DECIDED_BY_BRANCHING_MISSION
+				always = no
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_TRIGGERS_DECIDED_BY_BRANCHING_MISSION
+		}
+	}
+
+	ARA_branching2 = {
+		icon = mission_unknown_mission
+		required_missions = { 
+			ARA_branching1
+			ARA_branching3
+		}
+		position = 7
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ARA_TRIGGERS_DECIDED_BY_BRANCHING_MISSION
+				always = no
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_TRIGGERS_DECIDED_BY_BRANCHING_MISSION
+		}
+	}
+}
+
+ARA_missions_normal_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		has_country_flag = ARA_normal_branch_flag
+	}
+	has_country_shield = yes
+
+	ARA_usages_of_barcelona = {
+		icon = mission_book_of_royal_degrees
+		required_missions = { 
+			ARA_disaster
+		}
+		position = 6
+		provinces_to_highlight = {
+			area = catalonia_area
+			owned_by = ROOT
+			OR = {
+				NOT = {
+					num_of_times_improved_by_owner = 6
+				}
+				NOT = {
+					num_of_buildings_in_province = 3
+				}
+				unrest = 0.01
+			}
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = ARA }
+			num_of_owned_provinces_with = {
+				value = 4
+				area = catalonia_area
+				num_of_times_improved_by_owner = 6
+				num_of_buildings_in_province = 3
+				NOT = {
+					unrest = 0.01
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_NOBLE_REBELS_LESS_LIKELY
+			set_country_flag = ara_reduced_noble_rebels_chance
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ARA_EVERY_CATALAN_PROVINCE_IN_IBERIA
+			tooltip = {
+				add_province_modifier = {
+					name = ara_strengthened_usages_of_barcelona
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = iberia_region
+						culture = catalan
+					}
+					add_province_modifier = {
+						name = ara_strengthened_usages_of_barcelona
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+
+	ARA_strengthen_crown = {
+		icon = king_of_aragon
+		required_missions = { 
+			ARA_usages_of_barcelona
+			ARA_integrate_catalan_nobility
+		}
+		position = 7
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = ARA }
+			iberia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				OR = {
+					crown_land_share = 50
+					AND = {
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 70
+						}
+						num_of_estate_privileges = {
+							estate = estate_nobles
+							value = 5
+						}
+					}
+				}
+			}
+			else = {
+				crown_land_share = 50
+			}
+		}
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = ARA_IF_NOBLES
+				first_limit = "
+					has_estate = estate_nobles
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 70
+					}
+					num_of_estate_privileges = {
+						estate = estate_nobles
+						value = 5
+					}
+				"
+				first_effect = "
+					ara_strengthen_crown_effect_1 = yes
+				"
+				second_custom_tooltip = ARA_IF_NO_NOBLES
+				second_limit = "
+					crown_land_share = 50
+					NOT = {
+						num_of_estate_privileges = {
+							estate = estate_nobles
+							value = 5
+						}
+					}
+				"
+				second_effect = "
+					add_country_modifier = {
+						name = ara_centralizing_the_crown
+						duration = 7300
+					}
+
+					change_government_reform_progress = 100
+				"
+			}
+		}
+	}
+}
+
+ARA_missions_peasants_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		has_country_flag = ME_war_of_the_remences_peasants_flag
+	}
+	has_country_shield = yes
+
+	ARA_free_iberian_peasants = {
+		icon = mission_peasantry
+		required_missions = { 
+			ARA_disaster
+		}
+		position = 6
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = {
+				owner = {
+					has_reform = peasants_republic
+				}
+			}
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = ARA }
+			iberia_region = {
+				type = all
+				owner = {
+					has_reform = peasants_republic
+				}
+			}
+		}
+		effect = {
+			add_government_power = {
+				mechanic_type = peasant_vigour_mechanic
+				power_type = peasant_vigour
+				value = 50
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			complex_dynamic_effect = {
+				first_custom_tooltip = ARA_IF_NUMEROUS_PEASANT_REPUBLICS_IBERIA
+				first_limit = "
+					any_country = {
+						NOT = { tag = ROOT }
+						capital_scope = {
+							region = iberia_region
+						}
+						has_reform = peasants_republic
+					}
+					iberia_region = {
+						type = all
+						owner = {
+							has_reform = peasants_republic
+						}
+					}
+				"
+				first_effect = "
+					ara_spread_peasant_republic_effect = yes
+				"
+				second_custom_tooltip = ARA_IF_DIRECT_OWNERSHIP
+				second_limit = "
+					NOT = {
+						any_country = {
+							NOT = { tag = ROOT }
+							capital_scope = {
+								region = iberia_region
+							}
+							has_reform = peasants_republic
+						}
+					}
+					iberia_region = {
+						type = all
+						owner = {
+							has_reform = peasants_republic
+						}
+					}
+				"
+				second_effect = "
+					add_country_modifier = {
+						name = ara_ownership_of_peasants
+						duration = 5475
+					}
+				"
+			}
+		}
+	}
+
+	ARA_freedom_for_everyone = {
+		icon = fu_peasant_leader
+		required_missions = { 
+			ARA_free_iberian_peasants
+			ARA_organize_republic
+		}
+		position = 7
+		provinces_to_highlight = {
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = ARA }
+			calc_true_if = {
+				amount = 100
+				all_province = {
+					owner = {
+						has_reform = peasants_republic
+					}
+				}
+			}
+			army_size = 100
+			legitimacy_equivalent = 90
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_mil_advisor_3 = yes
+		}
+		effect = {
+			ME_distribute_development = {
+				type = tax
+				amount = 15
+			}
+
+			add_country_modifier = {
+				name = ara_women_in_the_republic
+				duration = -1
+			}
+
+			add_government_power = {
+				mechanic_type = peasant_vigour_mechanic
+				power_type = peasant_vigour
+				value = 50
+			}
+		}
+	}
+}
+
+ARA_missions_1_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	ARA_italy = {
+		icon = mission_consulate_of_the_sea
+		required_missions = { ARA_build_up_army }
+		position = 8
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 40
+				region = italy_region
+			}
+			118 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = ara_conquest_of_italy
+				duration = 7300
+			}
+
+			add_prestige_or_monarch_power = { amount = 15 }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			complex_dynamic_effect = {
+				first_custom_tooltip = ARA_IF_NAPLES_SUBJECT_OWNS_PROVINCES
+				first_limit = "
+					NAP = {
+						is_subject_of = ROOT
+						num_of_provinces_owned_or_owned_by_subjects_with = {
+							value = 30
+							region = italy_region
+						}
+					}
+					NOT = { 
+						exists = ITA
+					}
+				"
+				first_effect = "
+					custom_tooltip = NAP_CHANGE_TO_ITA
+
+					custom_tooltip = SEPERATOR_TOOLTIP
+
+					NAP = {
+						add_liberty_desire = -50
+					}
+				"
+			}
+
+			hidden_effect = {
+				if = {
+					limit = {
+						NAP = {
+							is_subject_of = ROOT
+							num_of_provinces_owned_or_owned_by_subjects_with = {
+								value = 30
+								region = italy_region
+							}
+							NOT = { 
+								exists = ITA
+							}
+						}
+					}
+					NAP = {
+						change_tag = ITA
+						on_change_tag_effect = yes
+						swap_free_idea_group = yes
+					}
+				}
+			}
+		}
+	}
+
+	ARA_develop_french_ports = {
+		icon = leiden_university
+		required_missions = { ARA_conquer_southern_france }
+		position = 9
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				area = provence_area
+				area = languedoc_area
+			}
+			has_port = yes
+		}
+		trigger = {
+			development_in_provinces = {
+				OR = {
+					area = provence_area
+					area = languedoc_area
+				}
+				has_port = yes
+				value = 150
+			}
+		}
+		effect = {
+			add_mercantilism_or_monarch_power = { amount = 5 }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ARA_BEST_PORT_PROVINCE_GETS_FOLLOWING
+			tooltip = {
+				create_or_add_center_of_trade_level = { level = 1 }
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				add_or_upgrade_trade_building = yes
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				add_base_production = 2
+			}
+
+			hidden_effect = {
+				pick_best_provinces = {
+					1 = yes
+					scope = every_owned_province
+					scale = higher_development_than
+					global_trigger = "
+						OR = {
+							area = provence_area
+							area = languedoc_area
+						}
+					"
+					event_target_name = southern_france_target
+				}
+				if = {
+					limit = {
+						has_saved_event_target = southern_france_target_1
+					}
+					event_target:southern_france_target_1 = {
+						create_or_add_center_of_trade_level = { level = 1 }
+
+						add_or_upgrade_trade_building = yes
+
+						add_base_production = 2
+					}
+				}
+			}
+		}
+	}
+
+	ARA_convert_basque = {
+		icon = sources_of_trade
+		required_missions = { ARA_navarra_question }
+		position = 11
+		provinces_to_highlight = {
+			OR = {
+				province_id = 209
+				province_id = 210
+			}
+			OR = {
+				NOT = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				NOT = {
+					development = 15
+				}
+			}
+		}
+		trigger = {
+			209 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				development = 15
+			}
+			210 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				development = 15
+			}
+		}
+		effect = {
+			209 = {
+				change_culture = ROOT
+				add_province_modifier = {
+					name = ara_catalan_settlers
+					duration = -1
+				}
+			}
+			210 = {
+				change_culture = ROOT
+				add_province_modifier = {
+					name = ara_catalan_settlers
+					duration = -1
+				}
+			}
+		}
+	}
+
+	ARA_combat_pirates = {
+		icon = sources_of_trade
+		required_missions = { ARA_convert_basque ARA_spain }
+		position = 12
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+			has_port = yes
+			NOT = {
+				owner = {
+					alliance_with = ROOT
+				}
+			}
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = iberia_region
+				OR = {
+					has_building = coastal_defence
+					has_building = naval_battery
+					num_of_buildings_in_province = 2
+				}
+				value = 2
+			}
+			custom_trigger_tooltip = {
+				tooltip = EE_SPA_BIGGER_NAVY_THAN_BERBERS
+				all_country = {
+					OR = {
+						AND = {
+							capital_scope = { region = maghreb_region } 
+							NOT = { navy_size = ROOT } 
+						}
+						NOT = { capital_scope = { region = maghreb_region }  } 
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = ara_anti_pirate_fleet
+				duration = 7300
+			}
+
+			custom_tooltip = ME_ARA_ALL_COASTAL_PROVINCES_CAN_NO_LONGER_BE_RAIDED
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = iberia_region
+						has_port = yes
+					}
+					add_province_modifier = {
+						name = EE_spa_blocking_pirates
+						duration = -1
+						hidden = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+ARA_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	ARA_llotje_de_seda = {
+		icon = mission_valencian_silk
+		required_missions = { ARA_valencian_golden_age ARA_support_artisan_guilds }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 220
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					has_production_building_trigger = yes
+				}
+				NOT = {
+					base_production = 7
+				}
+			}
+		}
+		trigger = {
+			220 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+				base_production = 7
+			}
+		}
+		effect = {
+			220 = {
+				add_or_upgrade_production_building = yes
+			}
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			country_event_with_option_insight = {
+				id = ME_Aragon_Events.4
+				option_1 = "
+					220 = {
+						change_trade_goods = silk
+						add_base_production = 3
+					}
+				"
+				option_2 = "
+					220 = {
+						add_base_production = 3
+					}
+				"
+			}
+		}
+	}
+	
+	ARA_masters_of_textiles = {
+		icon = purely_for_commerce
+		required_missions = { ARA_llotje_de_seda }
+		position = 4
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				trade_goods = silk
+				trade_goods = cloth
+			}
+		}
+		trigger = {
+			trade_goods_produced_amount = {
+				trade_goods = silk
+				amount = 10
+			}
+			trade_goods_produced_amount = {
+				trade_goods = cloth
+				amount = 20
+			}
+		}
+		effect = {
+			change_price = {
+				trade_goods = silk
+				key = ARA_TEXTILE_INDUSTRY
+				value = 0.1
+				duration = -1
+			}
+			change_price = {
+				trade_goods = cloth
+				key = ARA_TEXTILE_INDUSTRY
+				value = 0.1
+				duration = -1
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_mercantilism_or_monarch_power = { amount = 3 }
+		}
+	}
+	
+	ARA_lingua_franca = {
+		icon = sources_of_trade
+		required_missions = { ARA_masters_of_textiles ARA_consell_de_cent }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				province_id = 101
+				province_id = 220
+			}
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 80
+				}
+			}
+		}
+		trigger = {
+			101 = {
+				trade_share = {
+					country = ROOT
+					share = 80
+				}
+			}
+			220 = {
+				trade_share = {
+					country = ROOT
+					share = 80
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_unlock_the_lingua_franca_priv
+			set_country_flag = ara_promote_catalan_language_flag
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			ME_add_years_of_trade_income = { amount = 5 }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ARA_EVERY_CATALAN_PROVINCE_IN_IBERIA
+			tooltip = {
+				add_province_modifier = {
+					name = ara_catalan_traders
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = iberia_region
+						culture = catalan
+					}
+					add_province_modifier = {
+						name = ara_catalan_traders
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+}
+
+ARA_missions_branching_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NOT = {
+			has_country_flag = ME_war_of_the_remences_peasants_flag
+			has_country_flag = ARA_normal_branch_flag
+		}
+	}
+	has_country_shield = yes
+
+	ARA_branching3 = {
+		icon = mission_unknown_mission
+		required_missions = { 
+			ARA_disaster
+		}
+		position = 6
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = ARA_TRIGGERS_DECIDED_BY_BRANCHING_MISSION
+				always = no
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_TRIGGERS_DECIDED_BY_BRANCHING_MISSION
+		}
+	}
+}
+
+
+
+ARA_missions_normal_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		has_country_flag = ARA_normal_branch_flag
+	}
+	has_country_shield = yes
+
+	ARA_integrate_catalan_nobility = {
+		icon = mission_noble_council
+		required_missions = { 
+			ARA_disaster
+		}
+		position = 6
+		provinces_to_highlight = {
+			culture = catalan
+			owned_by = ROOT
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = ARA }
+			if = {
+				limit = {
+					num_of_owned_provinces_with = {
+						value = 5
+						culture = catalan
+						development = 20
+					}
+				}
+
+			}
+			else = {
+				total_own_and_non_tributary_subject_development = 700
+				legitimacy_equivalent = 90
+				if = {
+					limit = {
+						has_estate = estate_nobles
+					}
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 70
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_BUFF_LAND_RIGHTS_NOBLES
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ARA_CATALAN_NATION_NO_LONGER_RISES_UP
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_adm_power = 100
+
+			set_country_flag = ara_integrated_catalans_flag
+		}
+	}
+}
+
+ARA_missions_peasants_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		has_country_flag = ME_war_of_the_remences_peasants_flag
+	}
+	has_country_shield = yes
+
+	ARA_organize_republic = {
+		icon = republican_yearnings
+		required_missions = { 
+			ARA_disaster
+		}
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			not_in_mission_preview_mode = { key = ARA }
+			legitimacy_equivalent = 80
+			has_adm_advisor_2 = yes
+			has_dip_advisor_2 = yes
+			has_mil_advisor_2 = yes
+		}
+		effect = {
+			country_event_with_option_insight = {
+				id = ME_Aragon_Events.5
+				option_1 = "
+					custom_tooltip = ARA_PEASANT_VIGOR_DECAYS_LESS
+				"
+				option_2 = "
+					custom_tooltip = ARA_PEASANT_VIGOR_DECAYS_MORE
+				"
+				option_3 = "
+					custom_tooltip = ARA_PEASANT_VIGOR_GRANTS_EXTRA_MODIFIER_BOTH_SIDES
+				"
+			}
+		}
+	}
+}
+
+ARA_missions_2_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	ARA_build_up_army = {
+		icon = moravian_arms
+		required_missions = { }
+		position = 7
+		trigger = {
+			num_of_generals = 1
+			OR = {
+				army_size_percentage = 1
+				army_size = 20
+			}
+		}
+		effect = {
+			give_claims = { region = italy_region }
+			give_claims = { area = languedoc_area }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_country_modifier = {
+				name = ME_aragon_built_naval_fleet
+				duration = 5475
+			}
+
+			custom_tooltip = ME_NEXT_MERC_COMPANY_WILL_NOT_COST_AP
+			set_country_flag = me_free_mercenary_company
+		}
+	}
+
+	ARA_conquer_southern_france = {
+		icon = king_of_france
+		required_missions = { ARA_build_up_army }
+		position = 8
+		provinces_to_highlight = {
+			area = languedoc_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			languedoc_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			196 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+				add_base_production = 2
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			languedoc_area = {
+				add_province_modifier = {
+					name = ara_spreading_iberian_culture
+					duration = 7300
+				}
+			}
+
+			give_claims = { area = provence_area }
+		}
+	}
+
+	ARA_provence = {
+		icon = mission_humiliate_provence
+		required_missions = { ARA_conquer_southern_france ARA_corsica }
+		position = 9
+		provinces_to_highlight = {
+			area = provence_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				area = provence_area
+			}
+			4696 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			country_event_with_option_insight = {
+				id = ME_Aragon_Events.1
+				option_1 = "
+					4696 = {
+						create_or_add_center_of_trade_level = { level = 1 }
+
+						custom_tooltip = SEPERATOR_TOOLTIP
+
+						add_or_upgrade_trade_building = yes
+
+						custom_tooltip = SEPERATOR_TOOLTIP
+					}
+				"
+				option_2 = "
+					4696 = {
+						add_devastation = 50
+					}
+
+					custom_tooltip = SEPERATOR_TOOLTIP
+
+					add_years_of_income = 0.6
+
+					custom_tooltip = SEPERATOR_TOOLTIP
+					
+					add_mil_power = 50
+				"
+			}
+		}
+	}
+
+	ARA_navarra_question = {
+		icon = mission_subjugate_navarra
+		required_missions = { }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 210
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			210 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			give_claims = {
+				region = iberia_region
+			}
+			give_claims = {
+				area = barbary_coast_area
+			}
+			give_claims = {
+				area = kabylia_area
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			if = {
+				limit = {
+					NAV = { ai = yes }
+				}
+				complex_dynamic_effect = {
+					first_custom_tooltip = ARA_IF_NAVARRA_IS_SUBJECT
+					first_limit = "
+						NAV = {
+							is_subject_of = ROOT
+						}
+					"
+					first_effect = "
+						inherit = NAV
+					"
+				}
+			}
+		}
+	}
+
+	ARA_spain = {
+		icon = mission_castillian_aggression
+		required_missions = { ARA_navarra_question }
+		position = 11
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				senior_union_with = CAS
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 35
+					region = iberia_region
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					POR = {
+						exists = yes
+						is_subject = no
+					}
+				}
+				add_casus_belli = {
+					target = POR
+					type = cb_claim_throne
+					months = 120
+				}
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+			}
+
+			add_power_projection_mission = {
+				amount = 15
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			complex_dynamic_effect = {
+				first_custom_tooltip = ARA_IF_CASTILE_PU
+				first_limit = "
+					senior_union_with = CAS
+				"
+				first_effect = "
+					CAS = {
+						add_country_modifier = {
+							name = ara_dynastic_union
+							duration = 7300
+						}
+					}
+					add_country_modifier = {
+						name = ara_dynastic_union_self
+						duration = 7300
+					}
+				"
+			}
+		}
+	}
+
+	ARA_portugal = {
+		icon = mission_union_with_portugal
+		required_missions = { ARA_spain }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				area = beieras_area
+				area = alentejo_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				senior_union_with = POR
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 8
+					OR = {
+						area = beieras_area
+						area = alentejo_area
+					}
+				}
+			}
+		}
+		effect = {
+			add_dip_power = 100
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			ME_distribute_development = {
+				type = tax
+				amount = 10
+			}
+
+			add_country_modifier = {
+				name = ara_portuguese_explorers
+				duration = 5475
+			}
+		}
+	}
+
+	ARA_earlier_spain = {
+		icon = fu_monarch_crowned
+		required_missions = { ARA_portugal ARA_combat_pirates }
+		position = 12
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+		trigger = {
+			OR = {
+				AND = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						region = iberia_region
+						value = 45
+					}
+					monthly_adm = 9
+					monthly_dip = 9
+					monthly_adm = 9
+				}
+				AND = {
+					tag = SPA
+					stability = 2
+				}
+			}
+		}
+
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_ARA_IF_NO_SPAIN
+				first_limit = "
+					NOT = {
+						tag = SPA
+					}
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						region = iberia_region
+						value = 45
+					}
+					monthly_adm = 9
+					monthly_dip = 9
+					monthly_adm = 9
+				"
+				first_effect = "
+					ME_distribute_development = {
+						type = manpower
+						amount = 5
+					}
+
+					custom_tooltip = EE_spa_lowers_requirement_for_spain
+					set_country_flag = EE_easier_spain_formation
+				"
+				second_custom_tooltip = ME_ARA_IF_SPAIN
+				second_limit = "
+					tag = SPA
+					stability = 2
+				"
+				second_effect = "
+					change_adm = 1
+					change_dip = 1
+					change_mil = 1
+					add_splendor = 200
+				"
+			}
+		}
+	}
+}
+
+ARA_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	ARA_valencian_golden_age = {
+		icon = expand_the_confederacy
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 220
+			OR = {
+				NOT = {
+					development = 20
+				}
+				NOT = {
+					owned_by = ROOT
+				}
+			}
+		}
+		trigger = {
+			220 = {
+				owned_by = ROOT
+				development = 20
+			}
+		}
+		effect = {
+			220 = {
+				add_prosperity = 100
+				add_or_upgrade_tax_building = yes
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_prestige_or_monarch_power = { amount = 10 }
+		}
+	}
+	
+	ARA_university_of_valencia = {
+		icon = standardize_relazioni
+		required_missions = { ARA_valencian_golden_age }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 220
+			OR = {
+				NOT = {
+					development = 30
+				}
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					num_of_buildings_in_province = 3
+				}
+			}
+		}
+		trigger = {
+			220 = {
+				owned_by = ROOT
+				development = 30
+				num_of_buildings_in_province = 3
+			}
+		}
+		effect = {
+			add_dip_power = 50
+			add_mil_power = 50
+			add_adm_power = 50
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			220 = {
+				add_or_upgrade_university_building = yes
+			}
+		}
+	}
+	
+	ARA_golden_age_of_catalan_culture = {
+		icon = geneva_conventions
+		required_missions = { ARA_university_of_valencia ARA_university_of_barcelona }
+		position = 3
+		provinces_to_highlight = {
+			region = iberia_region
+			culture = catalan
+			owned_by = ROOT
+		}
+		trigger = {
+			development_in_provinces = {
+				value = 150
+				culture = catalan
+				region = iberia_region
+			}
+
+		}
+		effect = {
+			custom_tooltip = ARA_MOST_DEVVED_CATALAN_PROVINCE_WITHOUT_PAPER_PRODUCES_PAPER
+			
+			hidden_effect = {
+				pick_best_provinces = {
+					1 = yes
+					scope = every_owned_province
+					scale = higher_development_than
+					global_trigger = "
+						culture = catalan
+						region = iberia_region
+						NOT = {
+							trade_goods = paper
+						}
+					"
+					event_target_name = catalan_province_target
+				}
+				if = {
+					limit = {
+						has_saved_event_target = catalan_province_target_1
+					}
+					event_target:catalan_province_target_1 = {
+						change_trade_goods = paper
+
+						add_base_production = 3
+					}
+				}
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_country_modifier = {
+				name = ara_catalan_golden_age
+				duration = 7300
+			}
+		}
+	}
+	
+	ARA_royal_archives = {
+		icon = bibliotheca_corviana
+		required_missions = { }
+		position = 4
+		trigger = {
+			reform_level = 3
+			stability = 2
+			has_dip_advisor_2 = yes
+		}
+		effect = {
+			define_advisor = {
+				type = ME_historian
+				skill = 2
+				cost_multiplier = 0.5
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				add_splendor = 200
+			}
+			else = {
+				add_adm_power = 50
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			capital_scope = {
+				add_or_upgrade_courthouse_building = yes
+			}
+		}
+	}
+	
+	ARA_consulate_of_the_sea = {
+		icon = mission_consulate_of_the_sea
+		required_missions = { ARA_royal_archives ARA_catalan_dominance ARA_lingua_franca }
+		position = 6
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_light_ship = 200
+			development_in_provinces = {
+				value = 300
+				province_has_center_of_trade_of_level = 1
+			}
+			reform_level = 3
+			OR = {
+				mercantilism = 40
+				full_idea_group = trade_ideas
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_UNLOCK_CONSULATE_OF_SEA_REFORM
+			set_country_flag = ara_unlocked_consulate_of_the_sea_flag
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ARA_UNLOCK_TRAVELLING_MERCHANT_ADVISOR
+			set_country_flag = ara_unlocked_travelling_merchant_flag
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			define_advisor = {
+				type = travelling_merchant
+				skill = 3
+				cost_multiplier = 0.75
+			}
+		}
+	}
+
+	ARA_corsica = {
+		icon = rule_corsica
+		required_missions = { ARA_succession }
+		position = 8
+		provinces_to_highlight = {
+			province_id = 1247
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			1247 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			1247 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 7300
+					power = 50
+					key = ME_CRUSHED_GENOESE_MERCHANTS
+				}
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_mercantilism_or_monarch_power = { amount = 3 }
+		}
+	}
+
+	ARA_algeria = {
+		icon = mission_construct_a_corsair_fleet
+		required_missions = { ARA_navarra_question }
+		position = 11
+		provinces_to_highlight = {
+			OR = {
+				area = kabylia_area
+				area = barbary_coast_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			kabylia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			barbary_coast_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			338 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				add_or_upgrade_trade_building = yes
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			kabylia_area = {
+				add_province_modifier = {
+					name = ara_converting_berbers
+					duration = 7300
+				}
+			}
+			barbary_coast_area = {
+				add_province_modifier = {
+					name = ara_converting_berbers
+					duration = 7300
+				}
+			}
+
+			give_claims = {
+				region = maghreb_region
+			}
+		}
+	}
+
+	ARA_maghreb = {
+		icon = mission_pacify_the_berbers
+		required_missions = { ARA_algeria }
+		position = 12
+		provinces_to_highlight = {
+			region = maghreb_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				region = maghreb_region
+			}
+		}
+		effect = {
+			add_army_professionalism = 0.1
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = EE_SPA_UNLOCKS_BERBERS_MERCENARIES
+			set_country_flag = ee_spa_berber_mercs
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			define_advisor = {
+				type = ME_crusader_knight
+				skill = 2
+				cost_multiplier = 0.5
+			}
+		}
+	}
+}
+
+ARA_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	ARA_cathedral_of_barcelona = {
+		icon = italian_riches
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 213
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					base_tax = 10
+				}
+			}
+		}
+		trigger = {
+			213 = {
+				owned_by = ROOT
+				base_tax = 10
+			}
+		}
+		effect = {
+			213 = {
+				add_or_upgrade_tax_building = yes
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			define_advisor = {
+				type = inquisitor
+				skill = 2
+				cost_multiplier = 0.75
+			}
+		}
+	}
+	
+	ARA_university_of_barcelona = {
+		icon = reclaim_the_ducal_lands
+		required_missions = { ARA_cathedral_of_barcelona }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 213
+			OR = {
+				NOT = {
+					development = 30
+				}
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					num_of_buildings_in_province = 3
+				}
+			}
+		}
+		trigger = {
+			213 = {
+				owned_by = ROOT
+				development = 30
+				num_of_buildings_in_province = 3
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			change_adm = 2
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			213 = {
+				add_or_upgrade_university_building = yes
+			}
+		}
+	}
+	
+	ARA_lonja_de_palma = {
+		icon = levee_the_arno
+		required_missions = { }
+		position = 3
+		provinces_to_highlight = {
+			province_id = 333
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					has_trade_building_trigger = yes
+				}
+				NOT = {
+					development = 10
+				}
+			}
+		}
+		trigger = {
+			333 = {
+				owned_by = ROOT
+				has_trade_building_trigger = yes
+				development = 10
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					333 = {
+						NOT = {
+							has_building = stock_exchange
+						}
+					}
+				}
+				333 = {
+					remove_building = marketplace
+					remove_building = trade_depot
+					add_building = stock_exchange
+				}
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+			}
+			else = {
+				333 = {
+					add_province_modifier = {
+						name = ara_palma_stock_exchange
+						duration = -1
+					}
+				}
+			}
+
+			333 = {
+				create_or_add_center_of_trade_level = { level = 2 }
+			}
+		}
+	}
+	
+	ARA_catalan_dominance = {
+		icon = mission_guilds_of_barcelona
+		required_missions = { ARA_lonja_de_palma ARA_expand_port_of_barcelona }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			ME_trade_income = { amount = 100 }
+
+			OR = {
+				trader = 2
+				has_dip_advisor_3 = yes
+			}
+			capital_scope = {
+				trade_node_value = 75
+			}
+		}
+		effect = {
+			if = {
+				limit = { has_dlc = "Emperor" }
+				custom_tooltip = EE_CLT_buff_exclusive_trade_rights_tt
+				set_country_flag = ME_buff_exclusive_trade_rights
+
+				hidden_effect = {
+					if = {
+						limit = {
+							has_estate_privilege = estate_burghers_exclusive_trade_rights
+						}
+						every_owned_province = {
+							limit = {
+								has_province_modifier = estate_burghers_exclusive_trade_rights_mod
+							}
+							remove_province_modifier = estate_burghers_exclusive_trade_rights_mod
+							add_province_modifier = {
+								name = EE_CLT_estate_burghers_exclusive_trade_rights_mod
+								duration = -1
+							}
+						}
+					}
+				}
+			}
+			else = {
+				add_mercantilism_or_monarch_power = { amount = 3 }
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_age_modifier = {
+				name = ara_catalan_dominance_modifier
+				duration = -1
+				age = age_of_reformation
+			}
+		}
+	}
+
+	ARA_succession = {
+		icon = king_of_naples
+		position = 7
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					NAP = {
+						is_subject_of = ROOT
+					}
+				}
+				is_capital = yes
+				owner = {
+					tag = NAP
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				NAP = {
+					is_subject_of = ROOT
+					NOT = {
+						liberty_desire = 5
+					}
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = ARA_SUCCESSION_HAPPENED
+						NOT = { has_country_flag = alfons_trastamara_flag }
+					}
+					army_size = 20
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					NAP = {
+						is_subject_of = ROOT
+					}
+				}
+				NAP = { add_liberty_desire = -20 }
+			}
+			else = {
+				add_army_tradition_or_mil_power = { amount = 10 }
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			if = {
+				limit = {
+					SAR = {
+						ai = yes
+						is_subject_of = ROOT
+						NOT = { num_of_cities = 10 }
+					}
+					SIC = {
+						ai = yes
+						is_subject_of = ROOT
+						NOT = { num_of_cities = 10 }
+					}
+				}
+				complex_dynamic_effect = {
+					first_custom_tooltip = ARA_IF_NO_SUCCESSION
+					first_limit = "
+						has_ruler_flag = alfons_trastamara_flag
+					"
+					first_effect = "
+						custom_tooltip = ARA_INTEGRATE_SAR_AND_SIC
+						hidden_effect = {
+							inherit = SAR
+							inherit = SIC
+						}
+					"
+					second_custom_tooltip = ARA_IF_SUCCESSION
+					second_limit = "
+						not = { has_ruler_flag = alfons_trastamara_flag }
+					"
+					second_effect = "
+						add_country_modifier = {
+							name = ara_western_trastamaras
+							duration = 7300
+						}
+
+						add_dip_power = 100
+					"
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = ara_western_trastamaras
+					duration = 7300
+				}
+				add_dip_power = 100
+			}
+		}
+	}
+
+	ARA_byzantium = {
+		icon = mission_hagia_sophia
+		required_missions = { }
+		position = 8
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					exists = BYZ
+				}
+				is_capital_of = BYZ
+			}
+			else = {
+				province_id = 151
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		trigger = {
+			OR = {
+				151 = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				AND = {
+					BYZ = {
+						exists = yes
+						has_been_insulted_by_root = yes
+					}
+					navy_size = 20
+				}
+			}
+		}
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = ARA_IF_OWNS_CONSTANTINOPLE
+				first_limit = "
+					151 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				"
+				first_effect = "
+					151 = {
+						change_religion = ROOT
+						add_or_upgrade_tax_building = yes
+					}
+				"
+				second_custom_tooltip = ARA_IF_INSULTED_BYZ
+				second_limit = "
+					BYZ = {
+						exists = yes
+						has_been_insulted_by_root = yes
+					}
+					navy_size = 20
+				"
+				second_effect = "
+					give_claims = { id = 151 }
+
+					add_mil_power = 50
+				"
+			}
+		}
+	}
+
+	ARA_adriatic = {
+		icon = capture_adriatic_ports
+		required_missions = { ARA_byzantium ARA_foothold_in_greece }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				area = east_adriatic_coast_area
+				area = croatia_area
+				area = venetia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 6
+				OR = {
+					area = east_adriatic_coast_area
+					area = croatia_area
+					area = venetia_area
+				}
+			}
+		}
+		effect = {
+			137 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 75
+					key = ARA_DOMINATED_ADRIATIC
+				}
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			define_advisor = {
+				type = travelling_merchant
+				skill = 2
+				cost_multiplier = 0.25
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_age_modifier = {
+				name = ara_curtailed_venice
+				duration = -1
+				age = age_of_reformation
+			}
+		}
+	}
+
+	ARA_fleet = {
+		icon = support_the_bulk_trades
+		required_missions = { }
+		position = 10
+		trigger = {
+			num_of_admirals = 1
+			OR = {
+				navy_size = 20
+				army_size_percentage = 1
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_GIVE_CLAIMS_ON_EASTERN_MED_COT_PROVINCES
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_country_modifier = {
+				name = ara_aragonese_navy
+				duration = 5475
+			}
+
+			hidden_effect = {
+				eastern_mediterrenean_area = {
+					every_neighbor_province = {
+						limit = {
+							has_port = yes
+							province_has_center_of_trade_of_level = 1
+							NOT = {
+								region = balkan_region
+								region = italy_region
+							}
+							NOT = {
+								is_core = ROOT
+								is_permanent_claim = ROOT
+							}
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+			}
+		}
+	}
+
+	ARA_egypt = {
+		icon = mission_egyptian_mamluk_soldier
+		required_missions = { ARA_fleet ARA_alexandria }
+		position = 12
+		provinces_to_highlight = {
+			region = egypt_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 20
+				region = egypt_region
+			}
+
+			trade_goods_produced_amount = {
+				trade_goods = grain
+				amount = 20
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_3_MOST_DEVVED_GRAIN_PROVINCES_GAIN_FOLLOWING
+			tooltip = {
+				add_or_upgrade_production_building = yes
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				add_base_production = 3
+			}
+
+			hidden_effect = {
+				pick_best_provinces = {
+					3 = yes
+					scope = every_owned_province
+					scale = higher_development_than
+					global_trigger = "
+						region = egypt_region
+						trade_goods = grain
+					"
+					event_target_name = egypt_grain_target
+				}
+				if = {
+					limit = {
+						has_saved_event_target = egypt_grain_target_1
+					}
+					event_target:egypt_grain_target_1 = {
+						add_or_upgrade_production_building = yes
+
+						add_base_production = 3
+					}
+				}
+				if = {
+					limit = {
+						has_saved_event_target = egypt_grain_target_2
+					}
+					event_target:egypt_grain_target_2 = {
+						add_or_upgrade_production_building = yes
+
+						add_base_production = 3
+					}
+				}
+				if = {
+					limit = {
+						has_saved_event_target = egypt_grain_target_3
+					}
+					event_target:egypt_grain_target_3 = {
+						add_or_upgrade_production_building = yes
+
+						add_base_production = 3
+					}
+				}
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_years_of_owned_provinces_production_income = {
+				years = 8
+				trigger = {
+					region = egypt_region
+					trade_goods = grain
+				}
+				custom_tooltip = ARA_FROM_EGYPT_GRAIN_PROVINCES
+			}
+		}
+	}
+}
+
+ARA_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = ARA
+			AND = {
+				was_tag = ARA
+				tag = SPA
+			}
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	ARA_construct_the_wharf = {
+		icon = expand_the_arsenal
+		required_missions = { ARA_cathedral_of_barcelona }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 213
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					has_shipyard_building_trigger = yes
+				}
+			}
+		}
+		trigger = {
+			213 = {
+				owned_by = ROOT
+				has_shipyard_building_trigger = yes
+			}
+			navy_size = 40
+		}
+		effect = {
+			213 = {
+				add_or_upgrade_shipyard_building = yes
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				add_province_modifier = {
+					name = ara_warf_of_barcelona
+					duration = -1
+				}
+			}
+		}
+	}
+	
+	ARA_expand_port_of_barcelona = {
+		icon = public_works
+		required_missions = { ARA_construct_the_wharf }
+		position = 4
+		provinces_to_highlight = {
+			province_id = 213
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					province_trade_power = 60
+				}
+				NOT = {
+					development = 30
+				}
+			}
+		}
+		trigger = {
+			213 = {
+				owned_by = ROOT
+				province_trade_power = 60
+				development = 30
+			}
+			num_of_light_ship = 50
+		}
+		effect = {
+			custom_tooltip = ARA_UNLOCK_UNIQUE_FLAGSHIP_MODIFICATION
+			set_country_flag = ara_unique_flagship_modification_flag
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			213 = {
+				add_or_upgrade_trade_building = yes
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_dip_power = 50
+		}
+	}
+	
+	ARA_la_seo_cathedral = {
+		icon = conquer_tuscany
+		required_missions = { }
+		position = 5
+		provinces_to_highlight = {
+			province_id = 214
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					has_tax_building_trigger = yes
+				}
+				NOT = {
+					development = 20
+				}
+			}
+		}
+		trigger = {
+			214 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+				development = 20
+			}
+			prestige = 25
+		}
+		effect = {
+			214 = {
+				add_or_upgrade_tax_building = yes
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			if = {
+				limit = {
+					government = monarchy
+				}
+				custom_tooltip = ARA_EVERY_CORONATION_WILL_GRANT_PROVINCE_FOLLOWING
+				tooltip = {
+					214 = {
+						add_province_modifier = {
+							name = ara_coronation_celebrations
+							duration = 5475
+						}
+					}
+				}
+				set_country_flag = ara_coronation_flag
+			}
+			else = {
+				change_adm = 1
+				change_dip = 1
+				change_mil = 1
+			}
+		}
+	}
+	
+	ARA_university_of_zaragoza = {
+		icon = leiden_university
+		required_missions = { ARA_la_seo_cathedral }
+		position = 7
+		provinces_to_highlight = {
+			province_id = 214
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					development = 30
+				}
+			}
+		}
+		trigger = {
+			214 = {
+				owned_by = ROOT
+				development = 30
+			}
+			prestige = 50
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				OR = {
+					full_idea_group = innovativeness_ideas
+					innovativeness = 30
+				}
+			}
+			else = {
+				OR = {
+					full_idea_group = innovativeness_ideas
+					monthly_adm = 9
+				}
+			}
+		}
+		effect = {
+			214 = {
+				add_or_upgrade_university_building = yes
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ARA_BUFF_PATRONAGE_OF_ARTS
+			set_country_flag = ara_patronage_of_arts_buff
+			set_country_flag = POR_tax_modifier_penalty_removed
+		}
+	}
+
+	ARA_foothold_in_greece = {
+		icon = foothold_in_greece
+		required_missions = { ARA_succession }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = morea_area
+				area = northern_greece_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 2
+				OR = {
+					area = morea_area
+					area = northern_greece_area
+				}
+			}
+		}
+		effect = {
+			give_claims = {
+				area = macedonia_area
+			}
+			give_claims = {
+				area = thrace_area
+			}
+			give_claims = {
+				area = morea_area
+			}
+			give_claims = {
+				area = northern_greece_area
+			}
+			give_claims = {
+				region = anatolia_region
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ARA_BEST_PORT_PROVINCE_GETS_FOLLOWING
+			tooltip = {
+				create_or_add_center_of_trade_level = { level = 1 }
+
+				add_province_modifier = {
+					name = ara_return_of_aragonese_crown
+					duration = -1
+				}
+			}
+
+			hidden_effect = {
+				pick_best_provinces = {
+					1 = yes
+					scope = every_owned_province
+					scale = higher_development_than
+					global_trigger = "
+						OR = {
+							area = morea_area
+							area = northern_greece_area
+						}
+					"
+					event_target_name = greece_target
+				}
+				if = {
+					limit = {
+						has_saved_event_target = greece_target_1
+					}
+					event_target:greece_target_1 = {
+						create_or_add_center_of_trade_level = { level = 1 }
+
+						add_province_modifier = {
+							name = ara_return_of_aragonese_crown
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ARA_anatolia = {
+		icon = anatolian_frontier
+		required_missions = { ARA_foothold_in_greece }
+		position = 8
+		provinces_to_highlight = {
+			province_has_center_of_trade_of_level = 1
+			region = anatolia_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				province_has_center_of_trade_of_level = 1
+				region = anatolia_region
+			}
+		}
+		effect = {
+			add_mercantilism_or_monarch_power = { amount = 3 }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ARA_EVERY_COT_PROVINCE_IN_ANATOLIA_GAINS_FOLLOWING
+			tooltip = {
+				add_province_modifier = {
+					name = ara_anatolian_trade_investment
+					duration = -1
+				}
+
+				add_or_upgrade_trade_building = yes
+			}
+
+			hidden_effect = {
+				every_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+						province_has_center_of_trade_of_level = 1
+						region = anatolia_region
+					}
+					add_province_modifier = {
+						name = ara_anatolian_trade_investment
+						duration = -1
+					}
+	
+					add_or_upgrade_trade_building = yes
+				}
+			}
+		}
+	}
+
+	ARA_alexandria = {
+		icon = mission_occupy_alexandria
+		required_missions = { ARA_fleet }
+		position = 11
+		provinces_to_highlight = {
+			province_id = 358
+			NOT = {
+				is_strongest_trade_power = ROOT
+			}
+		}
+		trigger = {
+			358 = {
+				is_strongest_trade_power = ROOT
+			}
+			358 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					owner = {
+						NOT = {
+							navy_size = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			give_claims = {
+				region = egypt_region
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_country_modifier = {
+				name = ara_bolstering_trade_fleet
+				duration = 5475
+			}
+
+			add_dip_power = 100
+		}
+	}
+
+	ARA_early_suez_canal = {
+		icon = construct_the_kiel_canal
+		required_missions = { ARA_alexandria }
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4316
+				province_id = 2315
+			}
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					development = 25
+				}
+				NOT = {
+					num_of_buildings_in_province = 3
+				}
+			}
+		}
+		trigger = {
+			4316 = {
+				owned_by = ROOT
+				development = 25
+				num_of_buildings_in_province = 3
+			}
+
+			2315 = {
+				owned_by = ROOT
+				development = 25
+				num_of_buildings_in_province = 3
+			}
+		}
+		effect = {
+			custom_tooltip = ARA_UNLOCK_SUEZ_CANAL
+			set_country_flag = AYY_may_upgrade_suez
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_years_of_income = 1
+		}
+	}
+}

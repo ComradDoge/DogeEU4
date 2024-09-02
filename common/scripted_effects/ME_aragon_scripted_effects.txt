@@ -1,0 +1,123 @@
+ara_strengthen_crown_effect_1 = {
+    custom_tooltip = ARA_RELEASE_ALL_IBERIAN_NATIONS_AS_FREE_VASSALS
+	set_country_flag = ara_decentralized_iberia_flag
+	hidden_effect = {
+		every_owned_province = {
+			limit = {
+				region = iberia_region
+				NOT = {
+					area = aragon_area
+					area = catalonia_area
+				}
+			}
+			random_core_country = {
+				limit = {
+					NOT = { tag = FROM }
+					NOT = { tag = CAS }
+					NOT = { tag = SPA }
+					exists = no
+				}
+				save_event_target_as = ara_cede
+			}
+			if = {
+				limit = {
+					is_core = event_target:ara_cede
+				}
+				cede_province = event_target:ara_cede
+				remove_core = FROM
+			}
+			event_target:ara_cede = { #There is probably a better way to do this, but can't figure it out rn
+				set_country_flag = me_ara_aragonsese_vassal_flag
+				every_core_province = {
+					limit = {
+						owned_by = ROOT
+					}
+					cede_province = event_target:ara_cede
+					remove_core = FROM
+				}
+			}
+		}
+
+		every_owned_province = {
+			limit = {
+				region = iberia_region
+				NOT = {
+					area = aragon_area
+					area = catalonia_area
+				}
+			}
+			random_core_country = {
+				limit = {
+					tag = CAS
+					exists = no
+				}
+				save_event_target_as = ara_cede
+			}
+			if = {
+				limit = {
+					is_core = event_target:ara_cede
+				}
+				cede_province = event_target:ara_cede
+				remove_core = FROM
+			}
+			event_target:ara_cede = { #There is probably a better way to do this, but can't figure it out rn
+				set_country_flag = me_ara_aragonsese_vassal_flag
+				every_core_province = {
+					limit = {
+						owned_by = ROOT
+					}
+					cede_province = event_target:ara_cede
+					remove_core = FROM
+				}
+			}
+		}
+
+		every_country = {
+			limit = {
+				has_country_flag = me_ara_aragonsese_vassal_flag
+			}
+			change_primary_culture = ROOT
+			define_ruler = {
+				max_random_adm = 5
+				max_random_mil = 5
+				max_random_dip = 5
+				culture = ROOT
+				religion = ROOT
+				dynasty = ROOT
+				claim = 80
+			}
+			change_religion = ROOT
+			ROOT = {
+				create_subject = {
+					subject_type = vassal
+					who = PREV
+				}
+			}
+		}
+	}
+}
+
+ara_spread_peasant_republic_effect = {
+	custom_tooltip = ARA_EVERY_PEASANT_REPUBLIC_GAINS_FOLLOWING
+	tooltip = {
+		add_country_modifier = {
+			name = ara_liberation_of_iberia
+			duration = 7300
+		}
+	}
+
+	hidden_effect = {
+		every_country = {
+			limit = {
+				capital_scope = {
+					region = iberia_region
+				}
+				has_reform = peasants_republic
+			}
+			add_country_modifier = {
+				name = ara_liberation_of_iberia
+				duration = 7300
+			}
+		}
+	}
+}
