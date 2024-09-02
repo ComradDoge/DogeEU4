@@ -7,13 +7,26 @@ castilian_civil_war = {
 		tag = CAS
 		NOT = { has_country_flag = had_cas_civil_war }
 		is_free_or_tributary_trigger = yes
-		exists = ARA
-		exists = POR
-		ARA = {
-			is_free_or_tributary_trigger = yes
+		OR = {
+			AND = {
+				exists = ARA
+				exists = POR
+				ARA = {
+					is_free_or_tributary_trigger = yes
+					government = monarchy
+				}
+			}
+			has_country_flag = EE_castile_alligned_portugal
 		}
-		POR = {
-			is_free_or_tributary_trigger = yes
+		OR = {
+			AND = {
+				POR = {
+					is_free_or_tributary_trigger = yes
+					government = monarchy
+				}
+				exists = POR
+			}
+			has_country_flag = EE_castile_alligned_aragon
 		}
 		government = monarchy
 		normal_or_historical_nations = yes
@@ -22,19 +35,13 @@ castilian_civil_war = {
 
 
 	can_start = {
-		current_age = age_of_discovery
-		is_at_war = no
-		has_any_disaster = no
-		has_heir = yes
-		OR = {
-			has_regency = yes
-			NOT = { heir_claim = 80 }
-			has_female_heir = yes
+		custom_trigger_tooltip = {
+			tooltip = EE_JUAN_DEAD
+			NOT = { has_ruler_flag = EE_juan_is_ruler }
 		}
-		is_lesser_in_union = no
 	}
-	
-	
+
+
 	can_stop = {
 		OR = {
 			has_any_disaster = yes
@@ -42,74 +49,106 @@ castilian_civil_war = {
 			NOT = { government = monarchy }
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	progress = {
 		modifier = {
 			factor = 1
+			estate_influence = {
+				estate = estate_nobles
+				influence = 80
+			}
+		}
+		modifier = {
+			factor = 1
+			NOT = {
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 30
+				}
+			}
+		}
+		modifier = {
+			factor = 2
 			NOT = { legitimacy = 90 }
 		}
-		modifier = {
-			factor = 1
-			has_heir = no
-		}
-		modifier = {
-			factor = 3
-			NOT = { months_of_ruling = 60 }
-		}
-		modifier = {
-			factor = 1
-			NOT = { stability = 1 }
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { ADM = 2 }
-		}		
-		modifier = {
-			factor = 0.5
-			NOT = { DIP = 2 }
-		}		
-		modifier = {
-			factor = 0.5
-			NOT = { MIL = 2 }
-		}	
 		modifier = {
 			factor = -1
 			stability = 3
 		}
-	}
+		modifier = {
+			factor = -0.5
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 75
+			}
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { DIP = 3 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { MIL = 3 }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { ADM = 3 }
+		}
+		modifier = {
+			factor = 2
+			has_regency = yes
+		}
 
-
-
-
-	
-	can_end = {
-		hidden_trigger = { has_country_flag = civil_war_in_castile }
-		stability = 1
-		NOT = { num_of_rebel_controlled_provinces = 1 }
-		NOT = {
-			has_spawned_rebels = pretender_rebels
+		modifier = {
+			factor = 3
+			has_estate_privilege = EE_estate_nobles_powerful_cortes
 		}
 	}
-	
+
+
+
+
+
+	can_end = {
+		if = {
+			limit = {
+				is_subject = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = EE_SPA_CRUSHED_PRETENDERS
+				has_country_flag = ee_spa_civil_war_over
+			}
+			NOT = { war_with = ARA }
+			NOT = { war_with = POR }
+		}
+		else = {
+			is_subject = yes
+		}
+		hidden_trigger = {
+			NOT = { has_country_flag = EE_spa_wait_for_choice }
+		}
+	}
+
 
 
 
 	modifier = {
-		global_unrest = 7
-	}	
-	
-	
+		global_unrest = 5
+		global_autonomy = 0.05
+		stability_cost_modifier = 0.25
+	}
+
+
 	on_start = castilian_civil_war.1
-	on_end = castilian_civil_war.100
-	ended_by_country_breaking_to_rebels = no
-		
+	on_end = castilian_civil_war.99 #delay 100
+
 	on_monthly = {
 		events = {
 		}
-		random_events = { 
+		random_events = {
 			120 = 0
 			1 = castilian_civil_war.2 #Civil War Spreads to Province
 			#Events 3 - 8 related to foreign intervention

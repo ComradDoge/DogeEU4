@@ -9,8 +9,8 @@
 - Mercenary scaling was wonky and now is fixed.
 - Added some missing units in mil technologies.
 - Added missing NWC/NVC ideas and other fixes to them.
-- Added EE Portugal mission and the relevant content with it.
 - Tweaked autonomy_change_time modifiers due to quirks of the game.
+- Added EE Portugal and Castille missions and the relevant content with it.
 - Norway mission that allows earlier formation of Scandinavia now actually allows it.
 - Reforms that had harmonization modifiers extended to other religions that use that mechanic instead of only confucianism.
 - Got rid of background events that basically force reformation and replaced with a single flavour event that can fire after 1517 in Wittenberg which gives 200% reform desire but only once.

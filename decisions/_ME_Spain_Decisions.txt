@@ -1,0 +1,201 @@
+country_decisions = {
+
+    EE_spa_educate_heir = {
+		major = yes
+		potential = {
+			has_country_flag = EE_castile_educate_enrique
+			tag = CAS
+		}
+		allow = {
+			always = yes 
+		}
+		effect = {
+            add_heir_claim = -30
+			custom_tooltip = EE_spa_start_heir_education
+            custom_tooltip = " "
+            hidden_effect = {
+                random_list = {
+                    50 = { #Gets Experience in Administration
+                        country_event = { id = ME_Castile_Events.9 }
+                    }
+                    50 = { #Sent to a foreign court to study
+                        country_event = { id = ME_Castile_Events.10 }
+                    }
+                }
+            }
+			clr_country_flag = EE_castile_educate_enrique
+		}
+	}
+
+    EE_spa_kill_enrique = {
+		major = yes
+		potential = {
+			has_country_flag = EE_castile_assassinate_enrique
+		}
+		allow = {
+			always = yes 
+		}
+
+        effect = {
+            country_event = { id = ME_Castile_Events.18 }
+            clr_country_flag = EE_castile_assassinate_enrique
+            custom_tooltip = " "
+            custom_tooltip = EE_SPA_SPYMASTER_INCREASES_CHANCES_OF_ASSASSINATION
+        }
+    }
+
+    EE_spa_declare_war_on_granada = {
+        potential = {
+			exists = GRA
+			tag = CAS
+            NOT = { has_country_flag = ee_spa_declared_war_on_granada }
+			is_subject = no
+		}
+
+        allow = {
+            GRA = {
+                exists = yes
+                NOT = { truce_with = ROOT }
+            }
+            mission_completed = EE_spa_prepare_reconquista
+        }
+
+        effect = {
+            free_vassal = GRA
+            custom_tooltip = " "
+            declare_war_with_cb = {
+                who = GRA
+                casus_belli = cb_conquest
+                war_goal_province = 223
+            }
+            custom_tooltip = " "
+            set_country_flag = ee_spa_declared_war_on_granada
+            custom_tooltip = EE_SPA_MAGHREB_MAY_JOIN_WAR
+            hidden_effect = {
+				remove_opinion = {
+					who = GRA
+					modifier = spain_granada_tributary
+				}
+                every_country = {
+                    limit = {
+                        capital_scope = {
+                            region = maghreb_region
+                        }
+                        is_subject = no
+                        NOT = { alliance_with = GRA }
+                    }
+                    country_event = { id = ME_Castile_Events.55 }
+                }
+            }
+        }
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				is_at_war = yes
+			}
+			modifier = {
+				factor = 0
+				is_bankrupt = yes
+			}
+			modifier = {
+				factor = 0
+				has_any_disaster = yes
+			}
+		}
+    }
+
+    EE_spa_disband_tercios = {
+        potential = {
+			has_reform = tercios_reform
+            current_age = age_of_absolutism
+		}
+
+        allow = {
+            mil_power = 100
+            army_tradition = 10
+            army_professionalism = 0.1
+        }
+
+        effect = {
+            add_mil_power = -100
+            add_army_tradition = -10
+            add_army_professionalism = -0.1
+            clr_country_flag = enable_tercios_reform_flag
+            custom_tooltip = EE_SPA_DISBAND_ALL_TERCIOS
+            hidden_effect = {
+                remove_country_modifier = ee_spa_decline_of_the_tercios
+                remove_country_modifier = ee_spa_increase_of_firepower
+                remove_country_modifier = ee_spa_domination_of_line_infantry
+                clr_country_flag = increase_in_firepower
+                clr_country_flag = decline_of_the_tercios
+                add_country_modifier = {
+                    name = ee_spa_tercios_disbanded
+                    duration = -1
+                }
+            }
+        }
+    }
+
+    EE_spa_buy_madagascar = {
+        potential = {
+			has_country_flag = EE_spa_madagascar_purchase
+            exists = ZAN
+		}
+        allow = {
+            sakalava_area = {
+                type = all
+                country_or_non_sovereign_subject_holds = ZAN
+            }
+            southern_madagascar = {
+                type = all
+                country_or_non_sovereign_subject_holds = ZAN
+            }
+            madagascar_highlands_area = {
+                type = all
+                country_or_non_sovereign_subject_holds = ZAN
+            }
+            betsimasaraka_area = {
+                type = all
+                country_or_non_sovereign_subject_holds = ZAN
+            }
+            years_of_income = 10
+        }
+        effect = {
+            tooltip = {
+                add_years_of_income = -10
+                sakalava_area = {
+                    cede_province = ROOT
+                    add_core = ROOT
+                }
+                southern_madagascar = {
+                    cede_province = ROOT
+                    add_core = ROOT
+                }
+                madagascar_highlands_area = {
+                    cede_province = ROOT
+                    add_core = ROOT
+                }
+                betsimasaraka_area = {
+                    cede_province = ROOT
+                    add_core = ROOT
+                }
+                custom_tooltip = EE_SPA_KILWA_MUST_ACCEPT
+            }
+            hidden_effect = {
+                export_to_variable = {
+					which = spanish_years_of_income
+					value = years_of_income
+				}
+                EE_change_variable = {
+                    which = spanish_years_of_income
+                    multiply = 10
+                }
+                ZAN = {
+                    country_event = { id = ME_Castile_Events.49 }
+                }
+            }
+            clr_country_flag = EE_spa_madagascar_purchase
+        }
+    }
+}

@@ -4342,3 +4342,223 @@ EE_bishops_curia = {
 		}
 	}
 }
+
+EE_estate_nobles_powerful_cortes = {
+	icon = estate_nobles_factionalist_nobility
+	max_absolutism = -5
+	loyalty = -0.05
+	influence = 0.15
+	is_valid = {
+		has_estate_privilege = EE_estate_nobles_powerful_cortes
+	}
+	on_granted = {
+
+	}
+	penalties = {
+		min_autonomy = 10
+	}
+	benefits = {
+	
+	}
+	
+	can_revoke = { 
+		OR = {
+			custom_trigger_tooltip = {
+				tooltip = EE_spa_dealt_with_civil_war
+				has_country_flag = ee_cas_civil_war_over
+			}
+			custom_trigger_tooltip = {
+				tooltip = EE_SPA_INDEPTING_THE_NOBILITY
+				always = no
+			}
+		}
+	}
+	
+	ai_will_do = {
+		factor = 100
+	}
+}
+EE_estate_nobles_encomienda_system = {
+	icon = privilege_conquistador
+	max_absolutism = -5
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		has_estate_privilege = EE_estate_nobles_encomienda_system
+	}
+	on_granted = {
+
+	}
+	penalties = {
+		global_manpower_modifier = -0.15
+	}
+	benefits = {
+		manpower_in_true_faith_provinces= 0.15
+	}
+	
+	can_revoke = { 
+		custom_trigger_tooltip = {
+			tooltip = EE_REMOVED_THROUGH_ENCOMIENDA_MISSION
+			always = no
+		}
+	}
+
+	on_revoked = {
+		ME_distribute_development = {
+			type = production
+			amount = 5
+		}
+	}
+	
+	ai_will_do = {
+		factor = 100
+	}
+}
+
+
+EE_estate_church_holy_order_supremacy = {
+	icon = privilege_religious
+	max_absolutism = -5
+	loyalty = 0.1
+	influence = 0.05
+	is_valid = {
+		mission_completed = EE_spa_holy_orders
+	}
+	on_granted = {
+		custom_tooltip = EE_SPA_HOLY_ORDER_PROVINCES_GIVE_LESS_UNREST
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						holy_order = benedictines
+						holy_order = carthusians
+						holy_order = hieronymites
+						holy_order = jesuit_order
+						holy_order = augustinians
+						holy_order = carmelites
+						holy_order = dominican_order
+						holy_order = alcantara_order
+						holy_order = avis_order
+						holy_order = calatrava_order
+						holy_order = montesa_order
+						holy_order = san_juan_order
+						holy_order = santiago_order
+					}
+				}
+				add_province_modifier = {
+					name = EE_spa_holy_order_supremacy_modifier
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+	}
+
+	on_revoked = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = EE_spa_holy_order_supremacy_modifier
+				}
+				remove_province_modifier = EE_spa_holy_order_supremacy_modifier
+			}
+		}
+	}
+
+	penalties = {
+
+	}
+	benefits = {
+		establish_order_cost = -0.25
+		church_privilege_slots = 1
+	}
+	
+	can_revoke = { 
+		always = yes
+	}
+	
+	ai_will_do = {
+		factor = 100
+	}
+}
+
+
+EE_SPA_empower_bourgeoisie = {
+	icon = privilege_diplo_power
+	loyalty = 0.1
+	influence = 0.1
+	max_absolutism = -10
+	is_valid = { has_country_flag = ee_spa_unlock_bourgeoisie_administration_privilege }
+	on_granted = {
+		custom_tooltip = EE_SPA_GRANT_BONUSES_IN_EVERY_COT
+		hidden_effect = {
+			every_province = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+					region = iberia_region
+					province_has_center_of_trade_of_level = 1
+				}
+				add_province_modifier = {
+					name = ee_spa_bourgeoisie_empowered
+					duration = -1
+				}
+			}
+		}
+	}
+	on_revoked = {
+		every_province = {
+			limit = {
+				has_province_modifier = ee_spa_bourgeoisie_empowered
+			}
+			remove_province_modifier = ee_spa_bourgeoisie_empowered
+		}
+	}
+	on_invalid = {
+		every_province = {
+			limit = {
+				has_province_modifier = ee_spa_bourgeoisie_empowered
+			}
+			remove_province_modifier = ee_spa_bourgeoisie_empowered
+		}
+	}
+	ai_will_do = {
+		factor = 12
+		modifier = {
+			factor = 0.8
+			is_absolutism_active = yes
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { dip = 2 }
+		}
+		modifier = {
+			factor = 0.8
+			dip = 5
+		}
+	}
+}
+
+EE_SPA_empowered_inquisition = {
+	icon = privilege_manpower_of_true_faith
+	loyalty = 0.1
+	influence = 0.15
+	max_absolutism = 10
+	is_valid = { has_country_flag = ee_spa_unlock_empowered_inquistion }
+
+	penalties = {
+		tolerance_heathen = -2
+		tolerance_heretic = -2
+	}
+	benefits = {
+		tolerance_own = 2
+		absolutism_per_conversion = 1
+	}
+
+	ai_will_do = {
+		factor = 12
+		modifier = {
+			factor = 0.8
+			is_absolutism_active = yes
+		}
+	}
+}

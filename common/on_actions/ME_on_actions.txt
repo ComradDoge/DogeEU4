@@ -1022,6 +1022,16 @@ on_battle_won_country = {
 			}
 		}
 	}
+	if = {
+		limit = {
+			mission_completed = EE_spa_adopt_pike_and_shot
+			NOT = { mission_completed = EE_spa_tercios }
+		}
+		change_variable = {
+			which = ee_spa_tercio_counter
+			value = 1
+		}
+	}
 }
 
 on_battle_lost_country = {
@@ -1126,6 +1136,37 @@ on_battle_won_unit = {
             change_government_reform_progress = 1
         }
     }
+	if = {
+		limit = {
+			general_with_name = "Gonzalo Fernandez de Cordoba"
+			unit_owner = {
+				mission_completed = EE_spa_adopt_pike_and_shot
+				NOT = { mission_completed = EE_spa_tercios }
+			}
+		}
+		unit_owner = {
+			change_variable = {
+				which = ee_spa_tercio_counter
+				value = 1
+			}
+		}
+	}
+	if = {
+        limit = {
+            unit_owner = {
+                has_country_flag = fri_hero_of_the_people_flag
+				check_variable = {
+					which = land_units_killed
+					value = 10000
+				}
+				NOT = { num_of_ruler_traits = { amount = 3 } }
+            }
+            is_ruler_commanding_unit = yes
+        }
+        unit_owner = {
+            add_ruler_personality = fri_hero_of_the_people
+        }
+    }
 }
 # THIS = Province, FROM = Country, ROOT = Merc Unit #DOGE - useless since nothing changed/I use it
 on_mercenary_recruited = {
@@ -1175,6 +1216,29 @@ on_successive_emperor  = {
 		}
 		HAB_change_habsburg_glory = { amount = 2 }
 	}
+	if = {
+		limit = {
+			has_country_flag = ee_spa_election_buffs
+			calc_true_if = {
+				all_country = {
+					is_elector = yes
+					preferred_emperor = ROOT
+				}
+				amount = 5
+			}
+		}
+		random_list = {
+			33 = {
+				change_mil = 1
+			}
+			33 = {
+				change_dip = 1
+			}
+			33 = {
+				change_adm = 1
+			}
+		}
+	}
 }
 
 #on_four_year_pulse_4 = {
@@ -1198,6 +1262,16 @@ on_golden_bull_enacted = {
 			has_country_flag = me_pi_from_bulls
 		}
 		add_papal_influence = 30
+	}
+	if = {
+		limit = {
+			has_country_flag = ee_spa_relations_with_pope_good_catholic
+		}
+		add_papal_influence = 10
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = 5
+		}
 	}
 	if = {
 		limit = {
@@ -1429,7 +1503,80 @@ on_conquest = {
 		}
 		remove_province_modifier = EE_SCO_local_jurisdical_body
 	}
+	if = {
+		limit = {
+			region = maghreb_region
+			owner = {
+				has_country_flag = ee_spa_north_africa_conversion
+			}
+		}
+		add_province_modifier = {
+			name = EE_spa_castilian_conversion
+			duration = 7300
+		}
+		remove_province_modifier = religious_zeal_at_conv
+	}
 
+	if = {
+		limit = {
+			holy_order = franciscan_order
+			NOT = { has_province_modifier = EE_spa_mil_order_buff }
+			owner = {
+				mission_completed = EE_spa_police
+			}
+		}
+		add_province_modifier = {
+			name = EE_spa_mil_order_buff
+			duration = -1
+			hidden = yes
+		}
+	}
+	if = {
+		limit = {
+			holy_order = dominican_order
+			NOT = { has_province_modifier = EE_spa_dip_order_buff }
+			owner = {
+				mission_completed = EE_spa_holy_orders
+			}
+		}
+		add_province_modifier = {
+			name = EE_spa_dip_order_buff
+			duration = -1
+			hidden = yes
+		}
+	}
+	if = {
+		limit = {
+			holy_order = jesuit_order
+			NOT = { has_province_modifier = EE_spa_admin_order_buff }
+			owner = {
+				mission_completed = EE_spa_holy_orders
+			}
+		}
+		add_province_modifier = {
+			name = EE_spa_admin_order_buff
+			duration = -1
+			hidden = yes
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				holy_order = jesuit_order
+				holy_order = dominican_order
+				holy_order = franciscan_order
+			}
+			NOT = { has_province_modifier = EE_spa_holy_order_supremacy_modifier }
+			owner = {
+				has_estate_privilege = EE_estate_church_holy_order_supremacy
+			}
+		}
+		add_province_modifier = {
+			name = EE_spa_holy_order_supremacy_modifier
+			duration = -1
+			hidden = yes
+		}
+	}
 	if = {
 		limit = {
 			owner = {
@@ -1871,7 +2018,19 @@ on_war_won = {
 			clr_province_flag = me_tim_wasteland
 		}
 	}
-
+	if = {
+		limit = {
+			mission_completed = EE_spa_reformation
+			NOT = { mission_completed = EE_spa_religious_monarchy }
+			FROM = {
+				NOT = { religion = ROOT }
+			}
+		}
+		change_variable = {
+			which = ee_spa_heretic_wars_won
+			value = 1
+		}
+	}
 	### EE Celtica Cleanup ###
 	if = {
 		limit = {
@@ -1982,6 +2141,15 @@ on_force_conversion = {
 				power_type = papal_militarization
 				value = 30
 			}
+		}
+	}
+	if = {
+		limit = {
+			FROM = { mission_completed = EE_spa_reformation }
+		}
+		FROM = {
+			ME_add_power_projection = { amount = 5 }
+			add_papal_influence = 5
 		}
 	}
 }
@@ -2761,7 +2929,16 @@ on_province_religion_converted = {
 		}
 		add_local_autonomy = -10
 	}
-
+	if = {
+		limit = {
+			owner = {
+				has_estate_privilege = EE_SPA_empowered_inquisition
+			}
+		}
+		owner = {
+			add_absolutism = 1
+		}
+	}
 	if = {
 		limit = {
 			PAP = {
@@ -2807,6 +2984,17 @@ on_center_of_trade_upgrade = {
 		}
 		add_base_production = 2
 	}
+	if = {
+		limit = {
+			region = east_africa_region
+			owner = {
+				mission_completed = EE_spa_swahili_trade
+			}
+		}
+		add_base_production = 1
+		add_base_manpower = 1
+		add_base_tax = 1
+	}
 }
 
 on_center_of_trade_downgrade = {
@@ -2817,7 +3005,17 @@ on_center_of_trade_downgrade = {
 		}
 		add_base_production = -1
 	}
-	
+	if = {
+		limit = {
+			region = east_africa_region
+			owner = {
+				mission_completed = EE_spa_swahili_trade
+			}
+		}
+		add_base_production = -1
+		add_base_manpower = -1
+		add_base_tax = -1
+	}	
 	if = {
 		limit = {
 			owner = {
@@ -3181,23 +3379,63 @@ on_new_monarch = {
 			change_mil = 1
 		}
 	}
+	if = {
+		limit = {
+			OR = {
+				SPA = {
+					has_ruler_flag = ee_spa_charles_heir
+				}
+				CAS = {
+					has_ruler_flag = ee_spa_charles_heir
+				}
+			}
+			HAB = {
+				has_ruler_flag = ee_spa_charles_heir
+			}
+		}
+		if = {
+			limit = {
+				HAB = {
+					ai = no
+				}
+			}
+			HAB = {
+				country_event = { id = ME_Castile_Events.54 }
+			}
+		}
+		else_if = {
+			limit = {
+				exists = CAS
+			}
+			CAS = {
+				country_event = { id = ME_Castile_Events.54 }
+			}
+			#set_country_flag = ee_spa_peaceful_pu
+		}
+		else = {
+			SPA = {
+				country_event = { id = ME_Castile_Events.54 }
+			}
+			#set_country_flag = ee_spa_peaceful_pu
+		}
+	}
 }
 
 # ROOT = Tag that captured the flagship, FROM = Tag that lost the flagship
 on_flagship_captured = {
-	#if = {
-	#	limit = {
-	#		FROM = {
-	#			tag = TUR
-	#		}
-	#		has_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
-	#	}
-	#	clr_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
-	#	add_country_modifier = {
-	#		name = "EE_spa_naval_triumph"
-	#		duration = 7300
-	#	}
-	#}
+	if = {
+		limit = {
+			FROM = {
+				tag = TUR
+			}
+			has_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
+		}
+		clr_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
+		add_country_modifier = {
+			name = "EE_spa_naval_triumph"
+			duration = 7300
+		}
+	}
 	
 	if = {
 		limit = {
@@ -3217,19 +3455,19 @@ on_flagship_captured = {
 
 # ROOT = Tag that destroyed the flagship, FROM = Tag that lost the flagship
 on_flagship_destroyed = {
-	#if = {
-	#	limit = {
-	#		FROM = {
-	#			tag = TUR
-	#		}
-	#		has_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
-	#	}
-	#	clr_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
-	#	add_country_modifier = {
-	#		name = "EE_spa_naval_triumph"
-	#		duration = 7300
-	#	}
-	#}
+	if = {
+		limit = {
+			FROM = {
+				tag = TUR
+			}
+			has_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
+		}
+		clr_country_flag = EE_SPA_SINKING_OTTOMAN_FLAGSHIP_BONUS
+		add_country_modifier = {
+			name = "EE_spa_naval_triumph"
+			duration = 7300
+		}
+	}
 	
 	if = {
 		limit = {

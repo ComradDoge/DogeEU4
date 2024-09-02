@@ -1,0 +1,97 @@
+EE_spa_buy_india_port = {
+	category = economy
+
+	alert_index = 6
+	alert_tooltip = ME_tributary_state_interaction_tooltip
+
+	require_acceptance = yes
+
+	is_visible = {
+		has_country_flag = EE_spa_demand_port_flag
+		FROM = {
+			any_owned_province = {
+				OR = {
+					region = deccan_region
+					region = coromandel_region
+				}
+				province_has_center_of_trade_of_level = 1
+				has_port = yes
+			}
+		}
+	}
+
+	is_allowed = {
+		
+	}
+
+	on_accept = {
+		FROM = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						region = deccan_region
+						region = coromandel_region
+					}
+					province_has_center_of_trade_of_level = 1
+					has_port = yes
+				}
+				cede_province = ROOT
+				add_core = ROOT
+			}
+		}
+		clr_country_flag = EE_spa_demand_port_flag
+	}
+
+	on_decline = {
+		FROM = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						region = deccan_region
+						region = coromandel_region
+					}
+					province_has_center_of_trade_of_level = 1
+					has_port = yes
+				}
+				add_core = ROOT
+			}
+		}
+		clr_country_flag = EE_spa_demand_port_flag
+	}
+
+	ai_acceptance = {
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				which = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			divide_variable = { which = ai_value value = 4 }
+		}
+		add_entry = {
+			name = MODIFIER_DIPLO_SKILL
+			export_to_variable = {
+				which = ai_value
+				value = modifier:diplomatic_reputation
+			}
+			multiply_variable = { which = ai_value value = 5 }
+		}
+		add_entry = {
+			name = ROOT_HAS_TOO_FEW_MAX_MANPOWER
+			limit = {
+				NOT = { max_manpower = 20 }
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 1000
+			}
+			multiply_variable = { which = ai_value value = -1 }
+		}
+	}
+
+	ai_will_do = {
+		always = no #As much as I love the nations I work on, no. I will not see Spain do this
+	}
+}
