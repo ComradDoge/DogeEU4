@@ -5,18 +5,7 @@
 - Checksum: ?
 
 <h1>00/00/2024</h1>
-- Cleaned up some decision and modifier icons.
-- Mercenary scaling was wonky and now is fixed.
-- Added some missing units in mil technologies.
-- Added missing NWC/NVC ideas and other fixes to them.
-- Tweaked autonomy_change_time modifiers due to quirks of the game.
-- Added EE Portugal, Castille and Aragon missions and the relevant content with it.
-- Norway mission that allows earlier formation of Scandinavia now actually allows it.
-- Reforms that had harmonization modifiers extended to other religions that use that mechanic instead of only confucianism.
-- Got rid of background events that basically force reformation and replaced with a single flavour event that can fire after 1517 in Wittenberg which gives 200% reform desire but only once.
 
-- Added a Special setting "MP Disable Mission Trees". Note that cause of how it's implemented (overlays UI over it) it only really disallows the players, AI nations are still capable of interacting with them however it's AI so its not as effective. Nonetheless, this setting is more for multiplayer rather than both.
-- Added a Special setting "Disable Formable Independence Requirement" which as the name suggests allows your subjects to form nations if they meet all the other requirements. If I am missing a formable just report it.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
