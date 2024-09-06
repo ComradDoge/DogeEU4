@@ -6,6 +6,9 @@
 
 <h1>00/00/2024</h1>
 
+- Slight tweak to the Spanish-Portuegese idea group.
+- Fixed CTD regarding a single mission in Spanish mission.
+- Lusitania should properly get a choice of getting missions when formed.
 
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
