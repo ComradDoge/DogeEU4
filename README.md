@@ -6,10 +6,22 @@
 
 <h1>00/00/2024</h1>
 
-- Slight tweak to the Spanish-Portuegese idea group.
-- Fixed CTD regarding a single mission in Spanish mission.
+- Fixed CTD regarding a single mission in Spanish tree.
+- Slight tweak to the Spanish-Portuguese national ideas.
 - Lusitania should properly get a choice of getting missions when formed.
+- State edicts now usually should be in the same order as vanilla + localisation fixed.
+- Tweaked mandate positive/negative values, some celestial reforms and generally made mandate to be more forgiving and something that is actually viable to play with.
 
+
+
+
+
+
+
+#  Todo
+# 25% Movement Speed > 50% (25% is still good as you will annoy the shit out another player and save your army but 50% might just be persuasive enough, at least temp, to use a mil slot)
+# Manpower global/recovery 10%>15% (a little bit more manpower as a treat)
+# 9+ goods_produced_modifier monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang)
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
