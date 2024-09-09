@@ -9,7 +9,7 @@
 - Fixed CTD regarding a single mission in Spanish tree.
 - Slight tweak to the Spanish-Portuguese national ideas.
 - Lusitania should properly get a choice of getting missions when formed.
-- State edicts now usually should be in the same order as vanilla + localisation fixed.
+- State edicts now usually should be in the same order as vanilla, localisation fixed and UI cleaned up.
 - Tweaked mandate positive/negative values, some celestial reforms and generally made mandate to be more forgiving and something that is actually viable to play with.
 
 
