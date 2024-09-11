@@ -14,7 +14,6 @@
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
  <!-- 9+ goods_produced_modifier monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang) -->
 
- <!-- Add Kok_armenia, mission choice  -->
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
