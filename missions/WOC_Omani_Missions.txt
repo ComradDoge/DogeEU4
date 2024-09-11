@@ -612,12 +612,22 @@ OMA_2 = {
 			custom_tooltip = ORM_BUFF_ARABIC_TRADE_INFLUENCE_TO_GIVE_EXTRA_TRADE_EFFICIENCY
 			set_country_flag = orm_arabic_influence_trade_eff_buff_flag
 			custom_tooltip = " "
-			add_country_modifier = {
-				name = "thalassocracy"
-				duration = -1
+			if = {
+				limit = {
+					has_country_modifier = thalassocracy
+				}
+				add_mercantilism_or_monarch_power = { amount = 5 }
+				add_prestige_or_monarch_power = { amount = 10 }
+				add_stability_or_adm_power = yes
 			}
-			unlock_government_reform = {
-				government_reform = thalassocracy_reform
+			else = {
+				add_country_modifier = {
+					name = "thalassocracy"
+					duration = -1
+				}
+				unlock_government_reform = {
+					government_reform = thalassocracy_reform
+				}
 			}
 		} 
 	}
@@ -745,9 +755,11 @@ OMA_3 = {
 				province_id = 4279
 				province_id = 387
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-			NOT = { base_production = 6 }
-			NOT = { num_of_buildings_in_province = 2 }
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { base_production = 6 }
+				NOT = { num_of_buildings_in_province = 2 }
+			}
 		} 
 
 		trigger = {  
@@ -1042,6 +1054,7 @@ OMA_4 = {
 		provinces_to_highlight = {
 			region = arabia_region
 			NOT = { has_shipyard_building_trigger = yes }
+			has_port = yes
 		} 
 		trigger = {  
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
@@ -1311,20 +1324,27 @@ OMA_4 = {
 				limit = {
 					has_dlc = "Leviathan"
 				}
-				NOT = {
-					has_great_project = {
-						type = nizwa_fort
-						tier = 2
+				OR = {
+					NOT = {
+						has_great_project = {
+							type = nizwa_fort
+							tier = 2
+						}
 					}
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
 				}
 			}
 			else = {
-				NOT = { has_fort_building_trigger = yes }
+				OR = {
+					NOT = { has_fort_building_trigger = yes }
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
 			}
 		} 
 
 		trigger = {  
 			403 = {
+				country_or_non_sovereign_subject_holds = ROOT
 				if = {
 					limit = {
 						has_dlc = "Leviathan"
@@ -1400,16 +1420,30 @@ OMA_4 = {
 			}
 		} 
 
-		effect = {  
-			set_country_flag = hormuz_religious_propagations_buffs_flag
-			custom_tooltip = ORM_RELIGIOUS_CULTURE_GRANTS_EXTRA_MODIFIERS
-			custom_tooltip = " "  
-			custom_tooltip = ORM_RELIGIOUS_PROPAGATION_NOW_GRANTS_PROVINCE_FOLLOWING_MODIFIER
-			tooltip = {
-				add_province_modifier = {
-					name = orm_hormuz_merchants_influence
-					duration = 7300
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
 				}
+				set_country_flag = hormuz_religious_propagations_buffs_flag
+				custom_tooltip = ORM_RELIGIOUS_CULTURE_GRANTS_EXTRA_MODIFIERS
+				custom_tooltip = " "  
+				custom_tooltip = ORM_RELIGIOUS_PROPAGATION_NOW_GRANTS_PROVINCE_FOLLOWING_MODIFIER
+				tooltip = {
+					add_province_modifier = {
+						name = orm_hormuz_merchants_influence
+						duration = 7300
+					}
+				}
+			}
+			else = {
+				define_advisor = {
+					type = inquisitor
+					skill = 3
+					cost_multiplier = 0.25
+				}
+				
+				add_mercantilism_or_monarch_power = { amount = 3 }
 			}
 		} 
 	}
