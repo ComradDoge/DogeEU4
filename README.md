@@ -6,14 +6,14 @@
 
 <h1>00/00/2024</h1>
 
-- 1.37.3 Update.
-
+- Slightly increased governing capacity gained from technology.
+- Tweaked values for institution growth regarding some technology groups. 
 
  <!-- Todo -->
  <!-- 25% Movement Speed > 50% (25% is still good as you will annoy the shit out another player and save your army but 50% might just be persuasive enough, at least temp, to use a mil slot) -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
  <!-- 9+ goods_produced_modifier monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang) -->
-
+ <!-- Get rid of the recruit faithful from clergy, as of right now the clergy provides tax benefits and manpower, while the other two manpower=nobles, production=burghers only. weirdman -->
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
