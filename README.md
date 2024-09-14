@@ -6,6 +6,7 @@
 
 <h1>00/00/2024</h1>
 
+- Fixed supply_limit policies not being global modifiers.
 - Slightly increased governing capacity gained from technology.
 - Tweaked values for institution growth regarding some technology groups. 
 
