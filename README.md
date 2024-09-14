@@ -4,11 +4,13 @@
 - Version: 1.37.2
 - Checksum: ?
 
-<h1>00/00/2024</h1>
+<h1>DD/MM/YYYY</h1>
 
+- Added missing swiss canton-making interaction.
 - Fixed supply_limit policies not being global modifiers.
 - Slightly increased governing capacity gained from technology.
 - Tweaked values for institution growth regarding some technology groups. 
+- Added a few more flavour name options upon formation for Switzerland (6) and Algeria (1).
 
  <!-- Todo -->
  <!-- 25% Movement Speed > 50% (25% is still good as you will annoy the shit out another player and save your army but 50% might just be persuasive enough, at least temp, to use a mil slot) -->
