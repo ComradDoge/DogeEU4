@@ -1,0 +1,328 @@
+request_canton = {
+	category = influence
+
+	alert_index = 6
+	alert_tooltip = request_canton_alert_tooltip
+
+	require_acceptance = yes # Whether the recipient gets an option to decline
+
+	is_visible = {
+		can_be_overlord = canton
+		FROM = { 
+			NOT = { is_subject = yes } 
+		}
+		FROM = { NOT = { is_subject_of = ROOT } }
+	}
+	is_allowed = {
+		FROM = {
+			has_opinion = {
+				who = ROOT
+				value = 190
+			}
+			alliance_with = ROOT
+			NOT = { is_at_war = yes }
+			is_subject = no 
+			NOT = { total_development = 25 }
+			technology_group = western
+		}
+		
+	}
+	on_accept = {
+		add_trust = {
+			who = FROM
+			value = 20
+			mutual = yes
+		}
+		create_subject = {
+			subject_type = canton
+			subject = FROM
+		}
+	}
+	on_decline = {
+		add_trust = {
+			who = FROM
+			value = -100
+			mutual = no
+		}
+	}
+
+	ai_acceptance = { # This works similarly to variable_arithmetic_trigger, but does not support triggers generally. Instead, "limit" will be evaluated first and the rest ignored if it isn't passed.
+		#Size of Trade League
+		add_entry = {
+			name = SIZE_CANTON
+			limit = {
+				canton = 4
+			}
+			export_to_variable = { #needs testing
+				which = ai_value
+				value = -1000
+			}
+		}
+		
+		#Attitude towards proposer
+		add_entry = {
+			name = ATTITUDE_CANTON
+			limit = {
+				FROM = {
+					OR = {
+						ai_attitude = { who = ROOT attitude = attitude_friendly }
+						ai_attitude = { who = ROOT attitude = attitude_allied }
+					}
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 50
+			}
+		}
+		add_entry = {
+			name = ATTITUDE_CANTON
+			limit = {
+				FROM = {
+					ai_attitude = { who = ROOT attitude = attitude_threatened }
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 20
+			}
+		}
+		add_entry = {
+			name = ATTITUDE_CANTON
+			limit = {
+				FROM = {
+					ai_attitude = { who = ROOT attitude = attitude_neutral }
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+		add_entry = {
+			name = ATTITUDE_CANTON
+			limit = {
+				FROM = {
+					OR = {
+						ai_attitude = { who = ROOT attitude = attitude_hostile }
+						ai_attitude = { who = ROOT attitude = attitude_outraged }
+						ai_attitude = { who = ROOT attitude = attitude_rivalry }
+					}
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		
+		#We have a royal marriage
+		add_entry = {
+			name = MARRIAGE_CANTON
+			limit = {
+				marriage_with = FROM
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+		
+		#Proposer's diplomatic reputation 
+		add_entry = {
+			name = REPUTATION_CANTON
+			export_to_variable = {
+				which = ai_value
+				value = modifier:diplomatic_reputation
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 5
+			}
+		}
+		
+		#Target's opinion of Proposer
+		add_entry = {
+			name = OPINION_CANTON
+			export_to_variable = {
+				which = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			divide_variable = {
+				which = ai_value
+				value = 4
+			}
+		}
+		
+		#Nation has a religion not in the same religious group
+		add_entry = {
+			name = RELIGION_CANTON
+			limit = {
+				NOT = { religion_group = FROM }
+			}
+			export_to_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+		
+		#Nation has a different religion within the same religious group
+		add_entry = {
+			name = SAME_GROUP_DIFFERENT_RELIGION_CANTON
+			limit = {
+				NOT = { religion = FROM }
+				religion_group = FROM
+			}
+			export_to_variable = {
+				which = ai_value
+				value = -10
+			}
+		}
+		
+		
+		#Proposer army strength power compared to target nation
+		add_entry = {
+			name = ARMY_CANTON
+			limit = {
+				NOT = {
+					army_strength = {
+						who = FROM
+						value = 0.25
+					}
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+		add_entry = {
+			name = ARMY_CANTON
+			limit = {
+				army_strength = {
+					who = FROM
+					value = 0.25
+				}
+				NOT = {
+					army_strength = {
+						who = FROM
+						value = 1
+					}
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = trigger_value:army_size
+			}
+			export_to_variable = {
+				which = army_from
+				value = trigger_value:army_size
+				who = FROM
+			}
+			divide_variable = {
+				which = ai_value
+				which = army_from
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 80
+			}
+			divide_variable = {
+				which = ai_value
+				value = 3
+			}
+		}
+		add_entry = {
+			name = ARMY_CANTON
+			limit = {
+				army_strength = {
+					who = FROM
+					value = 1
+				}
+				NOT = {
+					army_strength = {
+						who = FROM
+						value = 4
+					}
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = trigger_value:army_size
+			}
+			export_to_variable = {
+				which = army_from
+				value = trigger_value:army_size
+				who = FROM
+			}
+			divide_variable = {
+				which = ai_value
+				which = army_from
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 20
+			}
+			divide_variable = {
+				which = ai_value
+				value = 3
+			}
+		}
+		add_entry = {
+			name = ARMY_CANTON
+			limit = {
+				army_strength = {
+					who = FROM
+					value = 4
+				}
+			}
+			export_to_variable = {
+				which = ai_value
+				value = 20
+			}
+		}
+	}
+
+	ai_will_do = { # this is a trigger
+		always = yes
+	}
+}
+
+cancel_canton =  {
+	category = influence
+	require_acceptance = no
+	is_visible = {
+		overlord_of = FROM
+		FROM = {
+			is_subject_of_type = canton
+		}
+	}
+	is_allowed = {
+		FROM = { prestige = 0 }
+	}
+	on_accept = {
+		add_trust = {
+			who = FROM
+			value = -25
+			mutual = yes
+		}
+		FROM = {
+			grant_independence = yes
+			add_prestige = -25
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
