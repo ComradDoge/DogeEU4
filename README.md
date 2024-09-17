@@ -9,8 +9,8 @@
 - Added missing swiss canton-making interaction.
 - Fixed supply_limit policies not being global modifiers.
 - Legitimation through representation mechanic costs halved.
-- Slightly increased governing capacity gained from technology.
-- Tweaked values for institution growth regarding some technology groups. 
+- Replaced a few loadings screens with art by Frederic Edwin Church.
+- Tweaked values for institution growth regarding some technology groups.
 - Added a few more flavour name options upon formation for Switzerland (6) and Algeria (1).
 
  <!-- Todo -->
