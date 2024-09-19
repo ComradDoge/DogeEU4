@@ -6,6 +6,7 @@
 
 <h1>DD/MM/YYYY</h1>
 
+- Reduced quite a few global_autonomy values.
 - Crownland vassal_income modifiers 50/25/10 > 100/50/25.
 - Crownland liberty_desire modifiers -25/-10 > -30/-20/-10.
 - Crownland state_maintenance modifiers -50/-30/-20/-10 > -100/-50/-25/-10.
