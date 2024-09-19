@@ -6,17 +6,15 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Added missing swiss canton-making interaction.
-- Fixed supply_limit policies not being global modifiers.
-- Legitimation through representation mechanic costs halved.
-- Replaced a few loadings screens with art by Frederic Edwin Church.
-- Tweaked values for institution growth regarding some technology groups.
-- Added a few more flavour name options upon formation for Switzerland (6) and Algeria (1).
+- Crownland vassal_income modifiers 50/25/10 > 100/50/25.
+- Crownland liberty_desire modifiers -25/-10 > -30/-20/-10.
+- Crownland state_maintenance modifiers -50/-30/-20/-10 > -100/-50/-25/-10.
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
  <!-- 9+ goods_produced_modifier monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang) -->
  <!-- Get rid of the recruit faithful from clergy, as of right now the clergy provides tax benefits and manpower, while the other two manpower=nobles, production=burghers only. weirdman -->
+ <!-- Development of People in Enlightenment reduced to -10% -->
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
