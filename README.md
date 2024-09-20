@@ -12,13 +12,13 @@
 - Beer is now under Soldier Households instead of Trade Station.
 - Crownland vassal_income modifiers 50/25/10 > 100/50/25 increased.
 - Crownland liberty_desire modifiers -25/-10 > -30/-20/-10 increased.
+- Reduced dev_cost_in_primary_culture enlightenment age ability to -10%
 - Crownland state_maintenance modifiers -50/-30/-20/-10 > -100/-50/-25/-10 increased.
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
  <!-- 9+ goods_produced_modifier monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang) -->
  <!-- Get rid of the recruit faithful from clergy, as of right now the clergy provides tax benefits and manpower, while the other two manpower=nobles, production=burghers only. weirdman -->
- <!-- Development of People in Enlightenment reduced to -10% -->
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
