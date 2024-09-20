@@ -13,6 +13,7 @@
 - Crownland vassal_income modifiers 50/25/10 > 100/50/25 increased.
 - Crownland liberty_desire modifiers -25/-10 > -30/-20/-10 increased.
 - Reduced dev_cost_in_primary_culture enlightenment age ability to -10%
+- Fixed various missing content from "An Enlightened Despot" austrian mission event. 
 - Crownland state_maintenance modifiers -50/-30/-20/-10 > -100/-50/-25/-10 increased.
 
  <!-- Todo -->
