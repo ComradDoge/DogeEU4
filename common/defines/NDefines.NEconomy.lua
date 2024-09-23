@@ -19,14 +19,14 @@ NDefines.NEconomy.TRADE_ADDED_VALUE_MODIFER = 0.02 --#0.05
 NDefines.NEconomy.TRADE_PROPAGATE_DIVIDER = 10 -- 5=1/5=20%, 10=1/10=10%
 
 --Edicts
-NDefines.NEconomy.EDICTS_COST_INCREASE = 1		-- Default 2, % increase on state maintenance.  *reduced from 200% to 100% to allow more tactical usage of edicts.
+NDefines.NEconomy.EDICTS_COST_INCREASE = 2		-- Default 2, % increase on state maintenance.
 NDefines.NEconomy.EDICTS_DURATION_MONTHS = 6	-- Default 12, months lasting at least. removed because its annoying to remember managing and being blocked from doing it when you remember.
 
 
 --Army
 
-NDefines.NEconomy.LAND_TECH_MAINTENANCE_IMPACT = 0.03 --0.02
-NDefines.NEconomy.NAVAL_TECH_MAINTENANCE_IMPACT = 0.03 --0.02
+NDefines.NEconomy.LAND_TECH_MAINTENANCE_IMPACT = 0.04 --0.02
+NDefines.NEconomy.NAVAL_TECH_MAINTENANCE_IMPACT = 0.04 --0.02
 
 NDefines.NAIEconomy.ARMY_FRACTION_PEACEFUL = 2.1
 NDefines.NAIEconomy.ARMY_FRACTION_MILITARIST = 4.5

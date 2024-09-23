@@ -7,8 +7,11 @@
 <h1>DD/MM/YYYY</h1>
 
 - Reduced quite a few global_autonomy values.
+- State Edict maintenance back to vanilla value of 200%.
 - Parliament Draft Bill manpower gain slightly decreased.
 - Production building values 75/150/300 > 50/100/150 reduced.
+- Unit maintenance cost increase per tech increased 0.03>0.04
+- AI should now lower autonomy instead of always increasing it.
 - Beer is now under Soldier Households instead of Trade Station.
 - Crownland vassal_income modifiers 50/25/10 > 100/50/25 increased.
 - Crownland liberty_desire modifiers -25/-10 > -30/-20/-10 increased.
