@@ -6,20 +6,7 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Reduced quite a few global_autonomy values.
-- State Edict maintenance back to vanilla value of 200%.
-- Parliament Draft Bill manpower gain slightly decreased.
-- Production building values 75/150/300 > 50/100/150 reduced.
-- Unit maintenance cost increase per tech increased 0.03>0.04
-- AI should now lower autonomy instead of always increasing it.
-- Beer is now under Soldier Households instead of Trade Station.
-- Crownland vassal_income modifiers 50/25/10 > 100/50/25 increased.
-- Crownland liberty_desire modifiers -25/-10 > -30/-20/-10 increased.
-- Reduced dev_cost_in_primary_culture enlightenment age ability to -10%.
-- Fixed various missing content from "An Enlightened Despot" austrian mission event. 
-- Crownland state_maintenance modifiers -50/-30/-20/-10 > -100/-50/-25/-10 increased.
-- Added flavour name options upon formation for North (2) and South (1) Confederations.
-- Porcelain in Meissen event gets an option to not change the trade good of the province.
+- Knights Templar ideas tweaked, added a specific reform and gave access to the standard crusader mission tree.
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
