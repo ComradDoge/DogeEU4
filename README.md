@@ -7,6 +7,7 @@
 <h1>DD/MM/YYYY</h1>
 
 - Knights Templar ideas tweaked, added a specific reform and gave access to the standard crusader mission tree.
+- Orthodox Local patriarch authority manpower effect 20% > 33%.
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
