@@ -6,13 +6,14 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Knights Templar ideas tweaked, added a specific reform and gave access to the standard crusader mission tree.
+- French idea ambition tweaked every so slightly wink.
 - Orthodox Local patriarch authority manpower effect 20% > 33%.
+- Got rid of the recruit faithful from clergy so that it is in line with the other estates.
+- Knights Templar ideas tweaked, added a specific reform and gave access to the standard crusader mission tree.
+- 9+ trade_goods_size monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang)
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
- <!-- 9+ goods_produced_modifier monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang) -->
- <!-- Get rid of the recruit faithful from clergy, as of right now the clergy provides tax benefits and manpower, while the other two manpower=nobles, production=burghers only. weirdman -->
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
