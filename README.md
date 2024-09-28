@@ -6,11 +6,13 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- French idea ambition tweaked every so slightly wink.
+- French idea ambition discipline changed to artillery_fire.
+- Musketeers special troops infantry_fire 0.25>0.5 increased.
 - Orthodox Local patriarch authority manpower effect 20% > 33%.
+- French Muskeeters reform buffed amount of musketeers you get from 20% to 80%.
 - Got rid of the recruit faithful from clergy so that it is in line with the other estates.
 - Knights Templar ideas tweaked, added a specific reform and gave access to the standard crusader mission tree.
-- 9+ trade_goods_size monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang)
+- 3/6/9 trade_goods_size monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang)
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
