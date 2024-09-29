@@ -12,6 +12,7 @@
 - French Muskeeters reform buffed amount of musketeers you get from 20% to 80%.
 - Got rid of the recruit faithful from clergy so that it is in line with the other estates.
 - Knights Templar ideas tweaked, added a specific reform and gave access to the standard crusader mission tree.
+- Manufactories implicit local_goods_produced increased 0.25>0.5 but the scaling reduced 1>0.5 to reduce late game income.
 - 3/6/9 trade_goods_size monuments made to require respective goods, so no latent good shenanigans (dalaskogen, schwaz, golconda, poyang)
 
  <!-- Todo -->
