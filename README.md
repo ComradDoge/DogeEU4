@@ -7,7 +7,8 @@
 <h1>DD/MM/YYYY</h1>
 
 - Tatarstan ideas reworked to EE's version.
-- Some Irish monuments now are somewhat more accessible to Druidism.
+- Some Irish monuments are somewhat more accessible to Druidism.
+- Persia missions reformatted and allow to choose between Paradox or EE versions.
 - Colonial nation ideas no longer remove religion penalty to incentivise AI to actually convert.
 
  <!-- Todo -->
