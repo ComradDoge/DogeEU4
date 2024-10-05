@@ -6,6 +6,7 @@
 
 <h1>DD/MM/YYYY</h1>
 
+- Tatarstan ideas reworked to EE's version.
 - Some Irish monuments now are somewhat more accessible to Druidism.
 - Colonial nation ideas no longer remove religion penalty to incentivise AI to actually convert.
 

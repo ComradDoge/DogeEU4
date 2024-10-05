@@ -101,20 +101,11 @@ Timurid_main_1_vassal_swarm = {
 		
 		effect = {
 			custom_tooltip = me_tim_modify_armies_of_emperor
-			hidden_effect = {
-				set_country_flag = me_tim_upgraded_armies_of_emperor
-				every_subject_country = {
-					limit = {
-						has_reform = timurid_governor_upgraded
-					}
-					remove_country_modifier = me_tim_armies_of_emperor
-					add_country_modifier = {
-						name = me_tim_armies_of_emperor_2
-						duration = -1
-					}
-				}
-			}
+			set_country_flag = me_tim_armies_of_emperor_2_flag
+			clr_country_flag = me_tim_armies_of_emperor_1_flag
+
 			custom_tooltip = " "
+
 			custom_tooltip = me_tim_grant_at_in_our_subjects
 			hidden_effect = {
 				every_subject_country = {
@@ -508,18 +499,15 @@ Timurid_main_2_vassal_swarm = {
 		
 		effect = {
 			custom_tooltip = me_tim_every_governor_gets_armies_of_emperor
-			hidden_effect = {
-				every_subject_country = {
-					limit = {
-						has_reform = timurid_governor_upgraded
-					}
-				}
-				add_country_modifier = {
-					name = me_tim_armies_of_the_emperor
-					duration = -1
-				}
-			}
-			set_country_flag = me_tim_vassal_armies_1
+			set_country_flag = me_tim_armies_of_emperor_1_flag
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_army_professionalism = 0.05
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_army_tradition_or_mil_power = { amount = 10 }
 		}
 	}
 	
@@ -550,7 +538,7 @@ Timurid_main_2_vassal_swarm = {
 			hidden_effect = {
 				every_subject_country = {
 					limit = {
-						has_reform = timurid_governor_upgraded
+						is_subject_of_type = ME_Timurid_Governor
 					}
 					overlord = {
 						add_army_professionalism = 0.01
@@ -589,6 +577,10 @@ Timurid_main_2_vassal_swarm = {
 			custom_tooltip = me_tim_modify_emperors_guard
 			custom_tooltip = " "
 			custom_tooltip = me_tim_distribute_manpower_development
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_yearly_manpower = 0.5
 			hidden_effect = {
 				remove_country_modifier = me_tim_emperors_guard
 				add_country_modifier = {
@@ -1232,6 +1224,10 @@ Timurid_main_3_vassal_swarm = {
 					set_country_flag = me_tim_war_elephants_access
 				}
 			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ME_TIM_ALL_GOVERNORS_GAIN_CAV_BUFFS
 		}
 	}
 	
@@ -1252,6 +1248,16 @@ Timurid_main_3_vassal_swarm = {
 		effect = {
 			custom_tooltip = me_tim_allows_establishing_field_marshal
 			set_country_flag = me_tim_access_field_marshal_dip_action
+
+			tooltip = {
+				add_country_modifier = {
+					name = me_tim_field_marshal
+					duration = -1
+				}
+			}
+
+			custom_tooltip = ME_TIM_ALL_GOVERNORS_GAIN_CHEAPER_REGIMENTS_AND_WE_GAIN_FL_DEPENDING_ON_THEM
+			set_country_flag = me_tim_final_mil_buff_flag
 		}
 	}
 }
@@ -1371,15 +1377,15 @@ Timurid_main_3_2 = {
 				skill = 3
 				discount = yes
 			}
-			add_country_modifier = {
-				name = me_tim_new_men
-				duration = 7300
-			}
+
 			ME_distribute_development = {
 				type = tax
 				amount = 10
 				limit = "development = 15"
 			}
+
+			custom_tooltip = ME_TIM_GOVERNORS_WILL_GIVE_US_VASSAL_INCOME
+			set_country_flag = me_tim_economic_buff_for_governors
 		}
 	}
 	
@@ -1414,6 +1420,14 @@ Timurid_main_3_2 = {
 		effect = {
 			unlock_estate_privilege = {
 				estate_privilege = estate_burghers_mountain_expansion
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			define_advisor = {
+				type = ME_economic_mercantilist
+				cost_multiplier = 0.5
+				skill = 3
 			}
 		}
 	}
@@ -1827,6 +1841,11 @@ Timurid_vassal_swarm_4 = {
 		effect = {
 			custom_tooltip = me_tim_unlocks_construction_of_grand_palace_in_capital
 			set_country_flag = me_tim_grand_palace_unlocked
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ME_TIM_EMPOWER_IQTA_EFFECTS
+			set_country_flag = me_tim_empowered_iqta
 		}
 	}
 	
@@ -2150,38 +2169,54 @@ Timurid_vassal_swarm_5 = {
 		}
 		
 		effect = {
-			custom_tooltip = me_tim_if_completed_with_no_cots
-			tooltip = {
-				add_mercantilism = 5
-				add_country_modifier = {
-					name = me_tim_indian_wealth
-					duration = -1
-				}
-			}
-			custom_tooltip = " "
-			custom_tooltip = me_tim_if_completed_with_cots
-			custom_tooltip = me_tim_gain_mercantilism_for_each_cot_level
-			hidden_effect = {
-				if = {
-					limit = {
-						NOT = {
-							any_province = {
-								OR = {
-									area = patan_area
-									area = ahmedabad_area
-									area = saurashtra_area
-								}
-								province_has_center_of_trade_of_level = 1 
+			complex_dynamic_effect = {
+				first_custom_tooltip = me_tim_if_completed_with_no_cots
+				first_limit = "
+					NOT = {
+						any_province = {
+							OR = {
+								area = patan_area
+								area = ahmedabad_area
+								area = saurashtra_area
 							}
+							province_has_center_of_trade_of_level = 1 
 						}
 					}
+				"
+				first_effect = "
 					add_mercantilism = 5
 					add_country_modifier = {
 						name = me_tim_indian_wealth
 						duration = -1
 					}
-				}
-				else = {
+				"
+				second_custom_tooltip = me_tim_if_completed_with_cots
+				second_limit = "
+					any_province = {
+						OR = {
+							area = patan_area
+							area = ahmedabad_area
+							area = saurashtra_area
+						}
+						province_has_center_of_trade_of_level = 1 
+					}
+				"
+				second_effect = "
+					custom_tooltip = me_tim_gain_mercantilism_for_each_cot_level
+				"
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						any_province = {
+							OR = {
+								area = patan_area
+								area = ahmedabad_area
+								area = saurashtra_area
+							}
+							province_has_center_of_trade_of_level = 1 
+						}
+					}
 					every_owned_province = {
 						limit = {
 							OR = {

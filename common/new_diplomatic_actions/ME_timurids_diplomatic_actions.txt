@@ -209,7 +209,6 @@ timurids_establish_governor = {
 		FROM = {
 			is_subject_of_type = vassal
 			is_subject_of = ROOT
-			NOT = { has_reform = timurid_governor_upgraded }
 		}
 	}
 
@@ -219,7 +218,7 @@ timurids_establish_governor = {
 			NOT = {
 				calc_true_if = {
 					all_subject_country = {
-						has_reform = timurid_governor_upgraded
+						is_subject_of_type = ME_Timurid_Governor
 					}
 					amount = 5
 				}
@@ -231,10 +230,16 @@ timurids_establish_governor = {
 		FROM = {
 			add_government_reform  = timurid_governor_upgraded
 		}
+		create_subject = {
+			subject_type = ME_Timurid_Governor
+			subject = FROM
+			keep_liberty_desire = yes
+			message = no
+		}
 	}
 
 	ai_will_do = {
-		always = no
+		always = yes
 	}
 }
 
@@ -289,6 +294,44 @@ timurids_revoke_field_marshal = {
 		FROM = {
 			add_liberty_desire = 30
 			remove_country_modifier = me_tim_field_marshal
+		}
+	}
+
+	ai_will_do = {
+		always = no
+	}
+}
+
+timurids_remove_governor = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		FROM = {
+			is_subject_of_type = ME_Timurid_Governor
+			is_subject_of = ROOT
+		}
+	}
+
+	is_allowed = {
+		FROM = {
+			NOT = {
+				liberty_desire = 50
+			}
+		}
+	}
+
+	on_accept = {
+		FROM = {
+			remove_government_reform  = timurid_governor_upgraded
+			add_liberty_desire = 25
+		}
+		create_subject = {
+			subject_type = vassal
+			subject = FROM
+			keep_liberty_desire = yes
+			message = no
 		}
 	}
 

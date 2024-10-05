@@ -1,0 +1,155 @@
+#The following events are pieces of content aiming at making India more accessible to Europe
+
+namespace = ME_European_India_Events
+
+#localisation in english file
+
+country_event = {
+	id = ME_European_India_Events.1
+	title = ME_European_India_Events.1.t
+	desc = ME_European_India_Events.1.d
+	picture = REFORM_eventPicture
+	
+	trigger = {
+		capital_scope = {
+			superregion = india_superregion
+		}
+		NOT = { is_subject = yes }
+		NOT = { num_of_subjects = 1 }
+		NOT = { has_country_flag = ME_did_not_want_to_be_subdued }
+		NOT = { current_age = age_of_discovery }
+		if = {
+			limit = {
+				current_age = age_of_reformation
+			}
+			NOT = { num_of_cities = 5 }
+		}
+		else_if = {
+			limit = {
+				current_age = age_of_absolutism
+			}
+			NOT = { num_of_cities = 10 }
+		}
+		else = {
+			NOT = { num_of_cities = 15 }
+		}
+		technology_group = indian
+		any_owned_province = {
+			has_port = yes
+		}
+		any_known_country = {
+			technology_group = western
+			num_of_colonists = 1
+			# has_discovered = ROOT
+			is_subject = no
+			OR = {
+				east_indies_superregion = {
+					country_or_non_sovereign_subject_holds = PREV
+				}
+				india_superregion = {
+					country_or_non_sovereign_subject_holds = PREV
+				}
+				south_africa_region = {
+					country_or_non_sovereign_subject_holds = ROOT 
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_known_country = {
+				limit = {
+					technology_group = western
+					num_of_colonists = 1
+					# has_discovered = ROOT
+					is_subject = no
+					OR = {
+						east_indies_superregion = {
+							country_or_non_sovereign_subject_holds = PREV
+						}
+						india_superregion = {
+							country_or_non_sovereign_subject_holds = PREV
+						}
+						south_africa_region = {
+							country_or_non_sovereign_subject_holds = ROOT 
+						}
+					}
+				}
+				save_event_target_as = ME_potential_protector
+			}
+		}
+	}
+	
+	option = {
+		name = ME_European_India_Events.1.a
+
+		ai_chance = { factor = 100 }
+	
+		event_target:ME_potential_protector = {
+			country_event = { id = ME_European_India_Events.2 }
+		}
+	
+		custom_tooltip = ME_request_potential_protectors_help
+		tooltip = {
+			event_target:ME_potential_protector = {
+				create_subject = {
+					subject = ROOT
+					subject_type = trade_protectorate
+				}
+			}
+			
+			add_adm_power = 200
+			add_dip_power = 200
+			add_mil_power = 200
+		}
+	}
+	
+	option = {
+		name = ME_European_India_Events.1.b
+
+		ai_chance = { factor = 0 }
+	
+		add_prestige_or_monarch_power = { amount = 10 }
+		set_country_flag = ME_did_not_want_to_be_subdued
+		custom_tooltip = ME_bother_me_no_more_about_european_indian_events
+	}
+}
+
+country_event = {
+	id = ME_European_India_Events.2
+	title = ME_European_India_Events.2.t
+	desc = ME_European_India_Events.2.d
+	picture = REFORM_eventPicture
+	
+	is_triggered_only = yes 
+
+	option = {
+		name = ME_European_India_Events.2.a
+
+		ai_chance = { factor = 100 }
+	
+		create_subject = {
+			subject = FROM
+			subject_type = trade_protectorate
+		}
+			
+		FROM = {
+			add_adm_power = 200
+			add_dip_power = 200
+			add_mil_power = 200
+		}
+	}
+	
+	option = {
+		name = ME_European_India_Events.2.b
+
+		ai_chance = { factor = 0 }
+	
+		add_prestige = -10
+	}
+}
