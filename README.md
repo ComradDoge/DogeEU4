@@ -6,10 +6,12 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Tatarstan ideas reworked to EE's version.
+- Tatarstan ideas and formation requirements reworked.
 - Some Irish monuments are somewhat more accessible to Druidism.
-- Persia missions reformatted and allow to choose between Paradox or EE versions.
-- Colonial nation ideas no longer remove religion penalty to incentivise AI to actually convert.
+- Rhineland content has been updated and is closer to EE's updated version.
+- Westphalia and Rhineland forming decisions tweaked and now have less overlap.
+- Colonial nation ideas no longer have no_religion_penalty = yes to incentivise AI to actually convert.
+- Rhenish, Westphalian, Franconian, Bavarian, Swabian and Persian missions reformatted and allow mission choice.
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->

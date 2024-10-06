@@ -42,21 +42,12 @@ country_event = {
 		name = "ME_Rhenish_Events.1.c"
 
 		trigger = {
-			capital_scope = {
-				NOT = { has_building = town_hall }
-			}
 		}
 
 		ai_chance = { factor = 33 }
 
 		capital_scope = {
-			if = {
-				limit = {
-					has_building = courthouse
-				}
-				remove_building = courthouse
-			}
-			add_building = town_hall
+			add_or_upgrade_courthouse_building = yes
 		}
 	}
 }
@@ -65,7 +56,7 @@ country_event = {
 	id = ME_Rhenish_Events.2
 	title = ME_Rhenish_Events.2.t
 	desc = ME_Rhenish_Events.2.d
-	picture = IMPORTANT_STATUE_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 
@@ -138,7 +129,7 @@ country_event = {
 	id = ME_Rhenish_Events.4 #Sell Optics outside
 	title = ME_Rhenish_Events.4.t
 	desc = ME_Rhenish_Events.4.d
-	picture = RELIGION_eventPicture
+	picture = ECONOMY_eventPicture
 
 	is_triggered_only = yes
 
@@ -146,7 +137,10 @@ country_event = {
 		pick_best_tags = {
 			scale = "navy_size"
 			3 = yes
-			global_trigger = "capital_scope = { continent = europe }"
+			global_trigger = "
+				capital_scope = { continent = europe }
+				NOT = { tag = ROOT }
+			"
 			event_target_name = "Rhineland_target"
 		}
 		hidden_effect = {
@@ -239,7 +233,7 @@ country_event = {
 	id = ME_Rhenish_Events.5 #Event to buy
 	title = ME_Rhenish_Events.5.t
 	desc = ME_Rhenish_Events.5.d
-	picture = RELIGION_eventPicture
+	picture = ECONOMY_eventPicture
 
 	is_triggered_only = yes
 
@@ -262,7 +256,7 @@ country_event = {
 				FROM = {
 					ai_attitude = {
 						who = ROOT
-						attitude = attitude_rival
+						attitude = attitude_rivalry
 					}
 				}
 			}
@@ -399,7 +393,7 @@ country_event = {
 				FROM = {
 					ai_attitude = {
 						who = ROOT
-						attitude = attitude_ally
+						attitude = attitude_allied
 					}
 				}
 			}
@@ -460,7 +454,7 @@ country_event = {
 	id = ME_Rhenish_Events.6 #Zinc
 	title = ME_Rhenish_Events.6.t
 	desc = ME_Rhenish_Events.6.d
-	picture = RELIGION_eventPicture
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
 
@@ -469,15 +463,7 @@ country_event = {
 
 		ai_chance = { factor = 1 }
 
-		if = {
-			limit = {
-				is_expanded_mod_active = { mod = trade_goods }
-			}
-			81 = { change_trade_goods = zinc }
-		}
-		else = {
-			81 = { change_trade_goods = copper }
-		}
+		81 = { change_trade_goods = copper }
 	}
 
 	option = {
@@ -499,32 +485,26 @@ country_event = {
 	id = ME_Rhenish_Events.7 #Leather
 	title = ME_Rhenish_Events.7.t
 	desc = ME_Rhenish_Events.7.d
-	picture = RELIGION_eventPicture
+	picture = FARMING_eventPicture
 
 	is_triggered_only = yes
 	major = yes
 
 	immediate = {
-		if = {
-			limit = {
-				is_expanded_mod_active = { mod = trade_goods }
-			}
-			random_owned_province = {
-				limit = {
-					trade_goods = leather
-					has_manufactory_trigger = yes
-				}
-				save_event_target_as = leather_province
-			}
-		}
-		else = {
-			random_owned_province = {
-				limit = {
+		pick_best_provinces = {
+			1 = yes
+			scope = every_owned_province
+			scale = higher_development_than
+			global_trigger = "
+				OR = {
+					trade_goods = grain
 					trade_goods = livestock
-					has_manufactory_trigger = yes
 				}
-				save_event_target_as = leather_province
-			}
+			"
+			event_target_name = rhn_target
+		}
+		event_target:rhn_target_1 = {
+			save_event_target_as = leather_province
 		}
 	}
 	option = {
@@ -538,48 +518,24 @@ country_event = {
 				duration = -1
 			}
 		}
-		if = {
-			limit = {
-				is_expanded_mod_active = { mod = trade_goods }
-			}
-			custom_tooltip = RHN_every_livestock_and_leather
-		}
-		else = {
-			custom_tooltip = RHN_every_livestock
-		}
+		custom_tooltip = RHN_every_livestock
 		tooltip = {
 			add_province_modifier = {
 				name = RHN_livestock_in_demand
-				duration = 10950
+				duration = 9125
 			}
 		}
 		hidden_effect = {
-			if = {
+			europe = {
 				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
-				}
-				europe = {
-					limit = {
-						OR = {
-							trade_goods = leather
-							trade_goods = livestock
-						}
-					}
-					add_province_modifier = {
-						name = RHN_livestock_in_demand
-						duration = 10950
-					}
-				}
-			}
-			else = {
-				europe = {
-					limit = {
+					OR = {
 						trade_goods = livestock
+						trade_goods = grain
 					}
-					add_province_modifier = {
-						name = RHN_livestock_in_demand
-						duration = 10950
-					}
+				}
+				add_province_modifier = {
+					name = RHN_livestock_in_demand
+					duration = 9125
 				}
 			}
 		}
@@ -590,7 +546,7 @@ country_event = {
 	id = ME_Rhenish_Events.8 #Early Coal
 	title = ME_Rhenish_Events.8.t
 	desc = ME_Rhenish_Events.8.d
-	picture = RELIGION_eventPicture
+	picture = INVENTION_eventPicture
 
 	is_triggered_only = yes
 
@@ -602,43 +558,19 @@ country_event = {
 		82 = {
 			set_province_flag = RHN_coal_debuff
 			change_trade_goods = coal
-			if = {
-				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
-				}
-				add_permanent_province_modifier = {
-					name = RHN_coal_debuff_tge #-20% trade value 5 ducats -> 4
-					desc = RHN_until_enlightenment
-					duration = -1
-				}
-			}
-			else = {
-				add_permanent_province_modifier = {
-					name = RHN_coal_debuff #-60% trade value 10 ducats -> 4
-					desc = RHN_until_enlightenment
-					duration = -1
-				}
+			add_permanent_province_modifier = {
+				name = RHN_coal_debuff #-60% trade value 10 ducats -> 4
+				desc = RHN_until_enlightenment
+				duration = -1
 			}
 		}
 		1878 = {
 			set_province_flag = RHN_coal_debuff
 			change_trade_goods = coal
-			if = {
-				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
-				}
-				add_permanent_province_modifier = {
-					name = RHN_coal_debuff_tge #-20% trade value 5 ducats -> 4
-					desc = RHN_until_enlightenment
-					duration = -1
-				}
-			}
-			else = {
-				add_permanent_province_modifier = {
-					name = RHN_coal_debuff #-60% trade value 10 ducats -> 4
-					desc = RHN_until_enlightenment
-					duration = -1
-				}
+			add_permanent_province_modifier = {
+				name = RHN_coal_debuff #-60% trade value 10 ducats -> 4
+				desc = RHN_until_enlightenment
+				duration = -1
 			}
 		}
 		set_country_flag = RHN_cant_get_coal
@@ -651,13 +583,13 @@ country_event = {
 		ai_chance = { factor = 0 } #AI likes coal.
 
 		82 = {
-			add_country_modifier = {
+			add_province_modifier = {
 				name = RHN_coal_industry_coexisting
 				duration = 36500
 			}
 		}
 		1878 = {
-			add_country_modifier = {
+			add_province_modifier = {
 				name = RHN_coal_industry_coexisting
 				duration = 36500
 			}
@@ -669,32 +601,19 @@ country_event = {
 	id = ME_Rhenish_Events.9 #Advanced Faceting
 	title = ME_Rhenish_Events.9.t
 	desc = ME_Rhenish_Events.9.d
-	picture = RELIGION_eventPicture
+	picture = TRADEGOODS_eventPicture
 
 	is_triggered_only = yes
 	major = yes
 
 	immediate = {
 		hidden_effect = {
-			if = {
+			random_owned_province = {
 				limit = {
-					is_expanded_mod_active = { mod = trade_goods }
+					trade_goods = gold
+					development = 30
 				}
-				random_owned_province = {
-					limit = {
-						trade_goods = jewellery
-					}
-					save_event_target_as = diamond_province
-				}
-			}
-			else = {
-				random_owned_province = {
-					limit = {
-						trade_goods = gold
-						development = 30
-					}
-					save_event_target_as = diamond_province
-				}
+				save_event_target_as = diamond_province
 			}
 			random_province = {
 				limit = {
@@ -705,41 +624,35 @@ country_event = {
 		}
 	}
 
+	#option = {
+	#	name = "ME_Rhenish_Events.9.a" #Advanced Faceting
+	#
+	#	ai_chance = { factor = 1 }
+	#
+	#	trigger = {
+	#		is_expanded_mod_active = { mod = trade_goods }
+	#	}
+
+	#	event_target:diamond_province = {
+	#		add_permanent_province_modifier = {
+	#			name = diamond_district
+	#			duration = -1
+	#		}
+	#	}
+	#	add_prestige_or_monarch_power = { amount = 50 }
+	#}
+
 	option = {
 		name = "ME_Rhenish_Events.9.a" #Advanced Faceting
 
 		ai_chance = { factor = 1 }
-
-		trigger = {
-			is_expanded_mod_active = { mod = trade_goods }
-		}
 
 		event_target:diamond_province = {
+			change_trade_goods = jewellery
 			add_permanent_province_modifier = {
-                name = diamond_district
-                duration = -1
-            }
-		}
-		add_prestige_or_monarch_power = { amount = 50 }
-	}
-
-	option = {
-		name = "ME_Rhenish_Events.9.a" #Advanced Faceting
-
-		ai_chance = { factor = 1 }
-
-		trigger = {
-			NOT = {
-				is_expanded_mod_active = { mod = trade_goods }
+				name = diamond_district
+				duration = -1
 			}
-		}
-
-		event_target:diamond_province = {
-			change_trade_goods = gems
-			add_permanent_province_modifier = {
-                name = diamond_district
-                duration = -1
-            }
 		}
 		add_prestige_or_monarch_power = { amount = 50 }
 	}
@@ -749,11 +662,6 @@ country_event = {
 
 		ai_chance = { factor = 1 }
 
-		trigger = {
-			NOT = {
-				is_expanded_mod_active = { mod = trade_goods }
-			}
-		}
 		add_years_of_income = 0.5
 		add_prestige_or_monarch_power = { amount = 50 }
 	}
@@ -763,7 +671,7 @@ country_event = {
 	id = ME_Rhenish_Events.10 #Flavor Event for Cleves.
 	title = ME_Rhenish_Events.10.t
 	desc = ME_Rhenish_Events.10.d
-	picture = RELIGION_eventPicture
+	picture = SPY_eventPicture
 
 	is_triggered_only = yes
 	major = yes
@@ -782,7 +690,7 @@ country_event = {
 			is_subject = no
 			NOT = { num_of_cities = 5 }
 		}
-		is_year = 1500
+		is_year = 1480
 	}
 	option = {
 		name = "ME_Rhenish_Events.10.a" #
@@ -790,7 +698,7 @@ country_event = {
 		ai_chance = { factor = 1 }
 
 		inherit = BRG
-		override_country_name = BRGKLE
+		ME_override_country_name = { name = BRGKLE }
 		add_legitimacy_equivalent = { amount = 10 republican_tradition = 5 }
 	}
 }
@@ -799,7 +707,7 @@ country_event = {
 	id = ME_Rhenish_Events.11 #Repurposing Moselle Valley
 	title = ME_Rhenish_Events.11.t
 	desc = ME_Rhenish_Events.11.d
-	picture = RELIGION_eventPicture
+	picture = FARMING_eventPicture
 
 	is_triggered_only = yes
 
@@ -807,18 +715,6 @@ country_event = {
 		name = "ME_Rhenish_Events.11.a" #Embrace woodworking
 
 		ai_chance = { factor = 1 }
-
-		if = {
-			limit = {
-				is_expanded_mod_active = { mod = trade_goods }
-			}
-			1760 = {
-				change_trade_goods = woodworking
-			}
-			80 = {
-				change_trade_goods = woodworking
-			}
-		}
 		custom_tooltip = RHN_every_forest
 		tooltip = {
 			add_province_modifier = {
@@ -870,7 +766,7 @@ country_event = {
 		ai_chance = { factor = 1 }
 
 		capital_scope = {
-			#add_great_project = RHN_grand_bell
+			# add_great_project = RHN_grand_bell
 		}
 	}
 
@@ -886,7 +782,7 @@ country_event = {
 		}
 
 		1876 = {
-			#add_great_project = RHN_grand_bell
+			# add_great_project = RHN_grand_bell
 		}
 	}
 
@@ -903,7 +799,7 @@ country_event = {
 
 
 		1878 = {
-			#add_great_project = RHN_grand_bell
+			# add_great_project = RHN_grand_bell
 		}
 	}
 	after = {
@@ -926,7 +822,7 @@ province_event = {
 	trigger = {
 		has_province_flag = RHN_coal_debuff
 		trade_goods = coal
-		enlightenment = 100
+		has_institution = enlightenment
 	}
 
 	option = {
@@ -941,109 +837,109 @@ province_event = {
 
 }
 
-country_event = {
-	id = estate_industrial_events.1 #reapply give governmental loans
-	title = estate_industrial_events.1.t
-	desc = estate_industrial_events.1.d
-	picture = IMPORTANT_STATUE_eventPicture
+# country_event = {
+	# id = estate_industrial_events.1 #reapply give governmental loans
+	# title = estate_industrial_events.1.t
+	# desc = estate_industrial_events.1.d
+	# picture = IMPORTANT_STATUE_eventPicture
 
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	option = {
-		name = "estate_industrial_events.1.a"
+	# option = {
+		# name = "estate_industrial_events.1.a"
 
-		ai_chance = { factor = 0 }
+		# ai_chance = { factor = 0 }
 
-		reapply_estate_privilege = { privilege = estate_industrial_give_governmental_loans }
-	}
+		# reapply_estate_privilege = { privilege = estate_industrial_give_governmental_loans }
+	# }
 
-	option = {
-		name = "estate_industrial_events.1.b"
+	# option = {
+		# name = "estate_industrial_events.1.b"
 
-		ai_chance = { factor = 1 }
+		# ai_chance = { factor = 1 }
 
-		remove_estate_privilege = estate_industrial_give_governmental_loans
-	}
-}
+		# remove_estate_privilege = estate_industrial_give_governmental_loans
+	# }
+# }
 
-country_event = {
-	id = estate_industrial_events.2 #reapply give governmental loans
-	title = estate_industrial_events.2.t
-	desc = estate_industrial_events.2.d
-	picture = IMPORTANT_STATUE_eventPicture
+# country_event = {
+	# id = estate_industrial_events.2 #reapply give governmental loans
+	# title = estate_industrial_events.2.t
+	# desc = estate_industrial_events.2.d
+	# picture = IMPORTANT_STATUE_eventPicture
 
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	option = {
-		name = "estate_industrial_events.2.a"
+	# option = {
+		# name = "estate_industrial_events.2.a"
 
-		ai_chance = { factor = 0 }
+		# ai_chance = { factor = 0 }
 
-		reapply_estate_privilege = { privilege = estate_industrial_land_appropriation }
-	}
+		# reapply_estate_privilege = { privilege = estate_industrial_land_appropriation }
+	# }
 
-	option = {
-		name = "estate_industrial_events.2.b"
+	# option = {
+		# name = "estate_industrial_events.2.b"
 
-		ai_chance = { factor = 1 }
+		# ai_chance = { factor = 1 }
 
-		remove_estate_privilege = estate_industrial_land_appropriation
-	}
-}
+		# remove_estate_privilege = estate_industrial_land_appropriation
+	# }
+# }
 
-country_event = {
-	id = estate_industrial_events.3
-	title = estate_industrial_events.3.t
-	desc = estate_industrial_events.3.d
-	picture = IMPORTANT_STATUE_eventPicture
+# country_event = {
+	# id = estate_industrial_events.3
+	# title = estate_industrial_events.3.t
+	# desc = estate_industrial_events.3.d
+	# picture = IMPORTANT_STATUE_eventPicture
 
-	mean_time_to_happen = {
-		months = 12
-	}
+	# mean_time_to_happen = {
+		# months = 12
+	# }
 
-	trigger = {
-		has_estate = estate_industrial
-		OR = {
-			NOT = { has_country_flag = estate_industrial_agenda_flag }
-			had_country_flag = {
-				flag = estate_industrial_agenda_flag
-				days = 1925
-			}
-		}
-		ai = no
-		NOT = { has_any_active_estate_agenda = yes }
-	}
+	# trigger = {
+		# has_estate = estate_industrial
+		# OR = {
+			# NOT = { has_country_flag = estate_industrial_agenda_flag }
+			# had_country_flag = {
+				# flag = estate_industrial_agenda_flag
+				# days = 1925
+			# }
+		# }
+		# ai = no
+		# NOT = { has_any_active_estate_agenda = yes }
+	# }
 
-	immediate = {
-		hidden_effect = {
-			clear_estate_agenda_cache = ROOT
-			generate_estate_agenda = estate_industrial
-		}
-	}
+	# immediate = {
+		# hidden_effect = {
+			# clear_estate_agenda_cache = ROOT
+			# generate_estate_agenda = estate_industrial
+		# }
+	# }
 
-	option = {
-		name = "estate_industrial_events.3.a" #Advisor
+	# option = {
+		# name = "estate_industrial_events.3.a" #Advisor
 
-		ai_chance = { factor = 33 }
+		# ai_chance = { factor = 33 }
 
-		start_estate_agenda = estate_industrial
-	}
+		# start_estate_agenda = estate_industrial
+	# }
 
-	option = {
-		name = "estate_industrial_events.3.b" #I don't wanna
+	# option = {
+		# name = "estate_industrial_events.3.b" #I don't wanna
 
-		ai_chance = { factor = 33 }
+		# ai_chance = { factor = 33 }
 
-		clr_country_flag = estate_industrial_agenda_flag
-		set_country_flag = estate_industrial_agenda_flag
-	}
+		# clr_country_flag = estate_industrial_agenda_flag
+		# set_country_flag = estate_industrial_agenda_flag
+	# }
 
-	after = {
-		clr_country_flag = estate_industrial_agenda_flag
-		set_country_flag = estate_industrial_agenda_flag
-		clear_estate_agenda_cache = ROOT
-	}
-}
+	# after = {
+		# clr_country_flag = estate_industrial_agenda_flag
+		# set_country_flag = estate_industrial_agenda_flag
+		# clear_estate_agenda_cache = ROOT
+	# }
+# }
 
 country_event = {
 	id = estate_industrial_events.4
@@ -1100,10 +996,22 @@ country_event = {
 					}
 				}
 				random_owned_province = {
+					limit = {
+						NOT = {
+							OR = {
+								trade_goods = gold 
+							}
+						}
+					}
 					save_event_target_as = estate_industrial_event_target
 				}
 				random_owned_province = {
 					limit = {
+						NOT = {
+							OR = {
+								trade_goods = gold 
+							}
+						}
 						has_tax_building_trigger = yes
 						NOT = { has_production_building_trigger = yes }
 					}
@@ -1166,7 +1074,7 @@ province_event = {
 	id = estate_industrial_events.6
 	title = estate_industrial_events.6.t #Clergy vs Industrial
 	desc = estate_industrial_events.6.d
-	picture = IMPORTANT_STATUE_eventPicture
+	picture = CHURCH_ESTATE_UPSET_eventPicture
 
 	goto = ROOT
 
@@ -1270,7 +1178,7 @@ country_event = {
 	id = estate_industrial_events.7
 	title = estate_industrial_events.7.t
 	desc = estate_industrial_events.7.d
-	picture = IMPORTANT_STATUE_eventPicture
+	picture = NOBLE_ESTATE_DEMANDS_eventPicture
 
 	is_triggered_only = yes
 
@@ -1313,7 +1221,7 @@ country_event = {
 	id = estate_industrial_events.8
 	title = estate_industrial_events.8.t
 	desc = estate_industrial_events.8.d
-	picture = IMPORTANT_STATUE_eventPicture
+	picture = BURGHER_ESTATE_eventPicture
 
 	is_triggered_only = yes
 
@@ -1412,7 +1320,7 @@ country_event = {
 	id = estate_industrial_events.9
 	title = estate_industrial_events.9.t
 	desc = estate_industrial_events.9.d
-	picture = IMPORTANT_STATUE_eventPicture
+	picture = ECONOMICALLY_TALLANTED_RULER_eventPicture
 
 	is_triggered_only = yes
 
@@ -1445,29 +1353,29 @@ country_event = {
 		}
 	}
 
-	option = {
-		name = "estate_industrial_events.9.c"
+	# option = {
+		# name = "estate_industrial_events.9.c"
 
-		ai_chance = { factor = 33 }
+		# ai_chance = { factor = 33 }
 
-		trigger = {
-			has_estate_privilege = estate_industrial_give_governmental_loans
-		}
+		# trigger = {
+			# has_estate_privilege = estate_industrial_give_governmental_loans
+		# }
 
-		highlight = yes
+		# highlight = yes
 
-		add_estate_loyalty = {
-			estate = estate_industrial
-			loyalty = 10
-		}
-	}
+		# add_estate_loyalty = {
+			# estate = estate_industrial
+			# loyalty = 10
+		# }
+	# }
 }
 
 province_event = {
 	id = estate_industrial_events.10
 	title = estate_industrial_events.10.t
 	desc = estate_industrial_events.10.d
-	picture = IMPORTANT_STATUE_eventPicture
+	picture = GLOBAL_TRADE_eventPicture
 
 	is_triggered_only = yes
 
@@ -1536,7 +1444,7 @@ country_event = {
 	id = estate_industrial_events.11
 	title = estate_industrial_events.11.t
 	desc = estate_industrial_events.11.d
-	picture = IMPORTANT_STATUE_eventPicture
+	picture = SWORD_OF_OSMAN_eventPicture
 
 	is_triggered_only = yes
 
@@ -1574,7 +1482,7 @@ country_event = {
 	id = estate_industrial_events.12
 	title = estate_industrial_events.12.t
 	desc = estate_industrial_events.12.d
-	picture = IMPORTANT_STATUE_eventPicture
+	picture = BIG_BOOK_eventPicture
 
 	is_triggered_only = yes
 
@@ -2668,4 +2576,50 @@ country_event = {
 		name = estate_industrial_events.18.a
 		
 	}
+}
+ 
+country_event = { 
+	id = ME_Rhenish_Events.19 #Struck Gold in Oberschulenberg 
+	title = ME_Rhenish_Events.19.t 
+	desc = ME_Rhenish_Events.19.d 
+	picture = TRADEGOODS_eventPicture 
+	
+	fire_only_once = yes
+ 
+	mean_time_to_happen = { 
+		months = 12 
+	} 
+ 
+	trigger = { 
+		tag = RHN 
+		4774 = { 
+			owned_by = RHN 
+			development = 30 
+			has_building = farm_estate 
+		} 
+	} 
+	 
+	major = yes 
+ 
+	option = { 
+		name = "ME_Rhenish_Events.19.a" #Struck Gold in Oberschulenberg 
+ 
+		ai_chance = { factor = 1 } 
+ 
+		4774 = { 
+			change_trade_goods = gold 
+		} 
+		add_prestige_or_monarch_power = { amount = 15 } 
+	} 
+ 
+	option = { 
+		name = "ME_Rhenish_Events.19.b" #Struck Gold in Oberschulenberg 
+ 
+		ai_chance = { factor = 0 } 
+ 
+		add_years_of_income = 1 
+		4774 = { 
+			add_or_upgrade_production_building = yes 
+		} 
+	} 
 }
