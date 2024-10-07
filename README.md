@@ -10,6 +10,7 @@
 - Tatarstan ideas and formation requirements reworked.
 - Some Irish monuments are somewhat more accessible to Druidism.
 - Rhineland content has been updated and is closer to EE's updated version.
+- Papal Rome expand infrastructure memery fixed samed as it was with Praha.
 - Westphalia and Rhineland forming decisions tweaked and now have less overlap.
 - Colonial nation ideas no longer have no_religion_penalty = yes to incentivise AI to actually convert.
 - Rhenish, Westphalian, Franconian, Bavarian, Swabian and Persian missions reformatted and allow mission choice.
