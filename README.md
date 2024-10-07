@@ -6,6 +6,7 @@
 
 <h1>DD/MM/YYYY</h1>
 
+- Lollard, Waldensian, Cathar modifiers buffed.
 - Tatarstan ideas and formation requirements reworked.
 - Some Irish monuments are somewhat more accessible to Druidism.
 - Rhineland content has been updated and is closer to EE's updated version.
