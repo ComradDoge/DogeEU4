@@ -6,15 +6,8 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Tatarstan ideas and formation requirements reworked.
-- Franconia ideas slightly tweaked to be a bit more viable.
-- Some Irish monuments are somewhat more accessible to Druidism.
-- Lollard, Waldensian, Cathar and some Catholic modifiers tweaked.
-- Rhineland content has been updated and is closer to EE's updated version.
-- Papal Rome expand infrastructure memery fixed samed as it was with Praha.
-- Westphalia and Rhineland forming decisions tweaked and now have less overlap.
-- Colonial nation ideas no longer have no_religion_penalty = yes to incentivise AI to actually convert.
-- Rhenish, Westphalian, Franconian, Bavarian, Swabian and Persian missions reformatted and allow mission choice.
+- Bosporan can be formed earlier than ADM 10.
+- Finland cavalry_ability increased to 10%.
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
