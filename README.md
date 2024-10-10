@@ -6,10 +6,10 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Bosporan can be formed earlier than ADM 10.
 - Finland cavalry_ability increased to 10%.
+- Bosporan can be formed earlier than ADM 10.
 - Clans oighreachd privilege fixed to actually do what it says.
-- Added African continent regions to the 'Old World Region Removal' option in the decision settings.
+- Added African continent regions to the 'Old World Region Removal' decision.
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
