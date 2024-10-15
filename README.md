@@ -1,15 +1,15 @@
 # DOGE SHATTERED EUROPA
 - [The Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2152606065)
 
-- Version: 1.37.2
+- Version: 1.37.x
 - Checksum: ?
 
 <h1>DD/MM/YYYY</h1>
 
-- Finland cavalry_ability increased to 10%.
-- Bosporan can be formed earlier than ADM 10.
-- Clans oighreachd privilege fixed to actually do what it says.
-- Added African continent regions to the 'Old World Region Removal' decision.
+
+- Added more sources for Dutch Naval Professionalism government mechanic.
+- Some minor german missions durations increased so they are more viable compared to newer missions.
+- Added new option to the 'Special Settings' decision that sets every province development to 1/1/1.
 
  <!-- Todo -->
  <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
