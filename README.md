@@ -7,12 +7,13 @@
 <h1>DD/MM/YYYY</h1>
 
 
+- Buffed Karma religion modifiers.
+- Buffed Harmonization related modifiers.
 - Added more sources for Dutch Naval Professionalism government mechanic.
 - Some minor german missions durations increased so they are more viable compared to newer missions.
 - Added new option to the 'Special Settings' decision that sets every province development to 1/1/1.
 
  <!-- Todo -->
- <!-- Manpower global/recovery 10%>15% (a little bit more manpower as a treat) -->
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
