@@ -7,13 +7,7 @@
 <h1>DD/MM/YYYY</h1>
 
 
-- Buffed Karma religion modifiers.
-- Buffed Harmonization related modifiers.
-- Hansa gets an option to choose its missions.
-- Tir na Celtigh Papal Emissary privilege should upgrade properly.
-- Added more sources for Dutch Naval Professionalism government mechanic.
-- Some minor german missions durations increased so they are more viable compared to newer missions.
-- Added new option to the 'Special Settings' decision that sets every province development to 1/1/1.
+- Added a way to access Dutch Naval Professionalism in vanilla WOC/EMP mission trees as well.
 
  <!-- Todo -->
 <br/>
