@@ -7,6 +7,9 @@
 <h1>DD/MM/YYYY</h1>
 
 
+- USA election should work properly now.
+- Luxembourg is no longer locked into its reform.
+- Monastic temples mechanic properly gives you karma instead of only removing it.
 - Added a way to access Dutch Naval Professionalism in vanilla WOC/EMP mission trees as well.
 
  <!-- Todo -->
