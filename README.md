@@ -9,6 +9,8 @@
 
 - USA election should work properly now.
 - Luxembourg is no longer locked into its reform.
+- ADM tech 17 governing capacity moved to tech 18.
+- ADM tech 10 received +200 governing capacity so it's no longer empty.
 - Monastic temples mechanic properly gives you karma instead of only removing it.
 - Added a way to access Dutch Naval Professionalism in vanilla WOC/EMP mission trees as well.
 
