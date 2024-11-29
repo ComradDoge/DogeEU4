@@ -15,6 +15,7 @@
 - Chinaware bonus changed to +1 diplomat instead of legitimacy.
 - Monastic temples mechanic properly gives you karma instead of only removing it.
 - Whaling local province modifier changed from production to tradegoods modifier.
+- England Thorny Pretenders decision now requires you (and the ai) to be at peace.
 - Added a way to access Dutch Naval Professionalism in vanilla WOC/EMP mission trees as well.
 
  <!-- Todo -->
