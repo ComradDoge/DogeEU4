@@ -8,10 +8,13 @@
 
 
 - USA election should work properly now.
+- ADM tech 10 received +200 governing capacity.
 - Luxembourg is no longer locked into its reform.
-- ADM tech 17 governing capacity moved to tech 18.
-- ADM tech 10 received +200 governing capacity so it's no longer empty.
+- Fur bonus of 0.5 prestige changed to 15% caravan power.
+- Carmine Dye bonus caravan power replaced with 0.5 prestige.
+- Chinaware bonus changed to +1 diplomat instead of legitimacy.
 - Monastic temples mechanic properly gives you karma instead of only removing it.
+- Whaling local province modifier changed from production to tradegoods modifier.
 - Added a way to access Dutch Naval Professionalism in vanilla WOC/EMP mission trees as well.
 
  <!-- Todo -->
