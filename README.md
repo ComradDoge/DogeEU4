@@ -19,7 +19,6 @@
 - Added a way to access Dutch Naval Professionalism in vanilla WOC/EMP mission trees as well.
 
  <!-- Todo -->
- celtic religion in celtic misisons problems
 <br/>
 <img src=https://i.imgur.com/F14PpEA.png/>
 
