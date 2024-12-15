@@ -51,9 +51,6 @@ The possible new formables, advisors, religions and bits of information are on t
 
 <img src=https://i.imgur.com/rdtTMF7.png/>
 
-
-Join the [Discord](https://discord.gg/DwNbtWY) to report bugs, participate in mod surveys or just lurk and see the changelogs posted.
-
 Check the [Wiki](https://eu4.paradoxwikis.com/Doge_Shattered_Europa) as it might have information that helps you.
 
 <br/>
