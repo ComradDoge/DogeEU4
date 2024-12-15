@@ -49,16 +49,4 @@ The possible new formables, advisors, religions and bits of information are on t
 
 <br/>
 
-<img src=https://i.imgur.com/rdtTMF7.png/>
-
-Check the [Wiki](https://eu4.paradoxwikis.com/Doge_Shattered_Europa) as it might have information that helps you.
-
-<br/>
-<a href="https://steamcommunity.com/workshop/filedetails/discussion/2152606065/3115898713372561841/">
-    <img src=https://i.imgur.com/801eNhE.png/>
-</a>
-
-See all the mods that have had at least some parts incorporated into the mod by clicking on the banner.
-
-
 <br/><br/>
