@@ -7,7 +7,13 @@
 <h1>DD/MM/YYYY</h1>
 
 
+
+- Various localisation and decision fixes or tweaks.
+- Roman primary culture also gets the stronger version of hellenic deities.
+- Rasulids/Yemen and Sweden also now get an option to choose missions if you have the appropriate DLC.
+- Nestorian religion completely reworked and replaced by a version of Religion & Cultures Expanded system by LimonenZitrone.
 - Vanilla Flavour now has more provinces with the non-vanilla religions so that players have more options to convert and play with those religions.
+- Additional Angevin forming decision brought back for some tags so that you are not always forced into playing through English mission tree to form it.  
 
  <!-- Todo -->
 <br/>
