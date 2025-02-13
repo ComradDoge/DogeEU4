@@ -1,0 +1,200 @@
+rce_religion_mechanic_nestorian_patriarchy_action_excommunicate = {
+	category = patriarch_authority
+
+	require_acceptance = no
+
+	is_visible = {
+		rce_religion_mechanic_nestorian_patriarchy_is_patriarchy_controller = yes
+		FROM = {
+			NOT = { has_ruler_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicated_modifier }
+		}
+	}
+
+	is_allowed = {
+		hidden_trigger = {
+			rce_religion_mechanic_nestorian_patriarchy_is_patriarchy_controller = yes
+			FROM = {
+				NOT = { has_ruler_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicated_modifier }
+			}
+		}
+		if = {
+			limit = {
+				has_country_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicate_cooldown_modifier
+			}
+			custom_trigger_tooltip = {
+				tooltip = rce_religion_mechanic_nestorian_patriarchy_action_excommunicate_tt_recently_used
+				always = no
+			}
+		}
+		if = {
+			limit = {
+				NOT = { religion = FROM }
+			}
+			custom_trigger_tooltip = {
+				tooltip = rce_religion_mechanic_nestorian_patriarchy_action_excommunicate_tt_wrong_religion
+				always = no
+			}
+		}
+		if = {
+			limit = {
+				NOT = { current_age = age_of_discovery }
+				NOT = { current_age = age_of_reformation }
+			}
+			custom_trigger_tooltip = {
+				tooltip = rce_religion_mechanic_nestorian_patriarchy_action_excommunicate_tt_wrong_age
+				always = no
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					rce_uses_religion_mechanic = { mechanic = nestorian_patriarchy }
+					rce_has_religion_mechanic_nestorian_patriarchy_value = { value = 50 }
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = rce_religion_mechanic_nestorian_patriarchy_action_excommunicate_tt_too_influencial
+				always = no
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					is_defender_of_faith = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = rce_religion_mechanic_nestorian_patriarchy_action_excommunicate_tt_defender_of_faith
+				always = no
+			}
+		}
+		if = {
+			limit = {
+				exists = NPA
+				NPA = {
+					has_opinion = {
+						who = FROM
+						value = 0
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = rce_religion_mechanic_nestorian_patriarchy_action_excommunicate_tt_too_high_opinion
+				always = no
+			}
+		}
+	}
+
+	on_accept = {
+		if = {
+			limit = {
+				rce_religion_mechanic_nestorian_patriarchy_is_patriarchy_controller = yes
+				FROM = {
+					NOT = { has_ruler_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicated_modifier }
+				}
+				NOT = { has_country_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicate_cooldown_modifier }
+				religion = FROM
+				OR = {
+					current_age = age_of_discovery
+					current_age = age_of_reformation
+				}
+				FROM = {
+					rce_uses_religion_mechanic = { mechanic = nestorian_patriarchy }
+					NOT = { rce_has_religion_mechanic_nestorian_patriarchy_value = { value = 50 } }
+				}
+				FROM = {
+					is_defender_of_faith = no
+				}
+				if = {
+					limit = {
+						exists = NPA
+					}
+					NPA = {
+						NOT = {
+							has_opinion = {
+								who = FROM
+								value = 0
+							}
+						}
+					}
+				}
+			}
+			add_country_modifier = {
+				name = rce_religion_mechanic_nestorian_patriarchy_excommunicate_cooldown_modifier
+				duration = 1825
+				hidden = yes
+			}
+			FROM = {
+				play_sound = "excommunicated"
+				add_opinion = {
+					who = ROOT
+					modifier = excommunicated_us
+				}
+				add_ruler_modifier = {
+					name = rce_religion_mechanic_nestorian_patriarchy_excommunicated_modifier
+					duration = -1
+				}
+				country_event = { id = rce_religion_mechanic_nestorian_patriarchy_events.6 }
+			}
+		}
+	}
+
+	ai_will_do = {
+		OR = {
+			is_rival = FROM
+			is_enemy = FROM
+		}
+	}
+}
+
+rce_religion_mechanic_nestorian_patriarchy_action_lift_excommunication = {
+	category = patriarch_authority
+
+	require_acceptance = no
+
+	is_visible = {
+		rce_religion_mechanic_nestorian_patriarchy_is_patriarchy_controller = yes
+		FROM = {
+			has_ruler_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicated_modifier
+			religion = ROOT
+		}
+	}
+
+	is_allowed = {
+		hidden_trigger = {
+			rce_religion_mechanic_nestorian_patriarchy_is_patriarchy_controller = yes
+			FROM = {
+				has_ruler_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicated_modifier
+				religion = ROOT
+			}
+		}
+	}
+
+	on_accept = {
+		if = {
+			limit = {
+				rce_religion_mechanic_nestorian_patriarchy_is_patriarchy_controller = yes
+				FROM = {
+					has_ruler_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicated_modifier
+					religion = ROOT
+				}
+			}
+			FROM = {
+				add_opinion = {
+					who = ROOT
+					modifier = lifted_excommunication
+				}
+				remove_country_modifier = rce_religion_mechanic_nestorian_patriarchy_excommunicated_modifier
+				country_event = { id = rce_religion_mechanic_nestorian_patriarchy_events.7 }
+			}
+		}
+	}
+
+	ai_will_do = {
+		OR = {
+			alliance_with = FROM
+			overlord_of = FROM
+			is_subject_of = FROM
+		}
+	}
+}
