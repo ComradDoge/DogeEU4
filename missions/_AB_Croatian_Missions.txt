@@ -1,0 +1,1464 @@
+cro_first_group = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRO
+	}
+	has_country_shield = yes
+	
+	cro_braslavs_legacy = {
+		icon = unite_the_realm
+		required_missions = { cro_retaliation }
+		position = 2
+		
+		provinces_to_highlight = {
+			area = transdanubia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			transdanubia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			transdanubia_area = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				add_base_tax = 1
+			}
+			transdanubia_area = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				add_province_modifier = {
+					name = "cro_pannonian_croatia"
+					duration = 3650
+				}
+			}
+			alfold_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			slovakia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	cro_blatnograd = {
+		icon = mission_eastern_european_city
+		required_missions = { cro_braslavs_legacy }
+		position = 3
+		
+		provinces_to_highlight = {
+			province_id = 1864
+		}
+		
+		trigger = {
+			owns = 1864
+			1864 = {
+				religion = ROOT
+			}
+			1864 = {
+				development = 20
+			}
+			1864 = {
+				has_trade_building_trigger = yes
+			}
+		}
+		
+		effect = {
+			transdanubia_area = {
+				add_prosperity = 100
+			}
+			1864 = {
+				add_province_modifier = {
+					name = "cro_pannonian_capital"
+					duration = -1
+				}
+			}
+			define_advisor = {
+				type = planner
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+
+	cro_pacta = {
+		icon = king_of_hungary
+		required_missions = { cro_cross_the_danube }
+		position = 4
+		
+		provinces_to_highlight = {
+			region = carpathia_region
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { religion = ROOT }
+			}
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = carpathia_region
+				religion = ROOT
+				value = 15
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = cro_christianisation
+				duration = -1
+			}
+			custom_tooltip = SER_HUNGARY
+		}
+	}
+	
+	cro_revitalize_the_economy = {
+		icon = mission_high_income
+		required_missions = { }
+		position = 5
+		
+		trigger = {
+			share_of_starting_income = 2
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = cro_economic_prosperity
+				duration = 7300
+			}
+			define_advisor = {
+				type = planner
+				skill = 2
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+	
+	cro_gosti = {
+		icon = mission_noble_council
+		required_missions = { cro_revitalize_the_economy cro_slavonian_breadbasket }
+		position = 7
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				num_of_times_improved = 3
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				num_of_times_improved = 3
+				value = 5
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "gosti_guests"
+				duration = -1
+			}
+			custom_tooltip = CRO_5_PROVINCES_TAX
+			hidden_effect = {
+				for = {
+					amount = 5
+					effect = "
+						random_owned_province = {
+							add_base_tax = 1
+						}
+					"
+				}
+			}
+		}
+	}
+	
+
+	cro_zagreb = {
+		icon = mission_pol_revival_krakow
+		required_missions = { cro_gosti }
+		position = 8
+		
+		provinces_to_highlight = {
+			province_id = 131
+		}
+		
+		trigger = {
+			131 = {
+				owned_by = ROOT
+				NOT = { num_free_building_slots = 1 }
+			}
+		}
+		
+		effect = {
+			131 = {
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+				set_center_level_2_center_of_trade = yes
+			}
+			if = {
+				limit = {
+					balkan_region = {
+						type = all
+						OR = {
+							NOT = { higher_development_than = 131 }
+							province_id = 131
+						}
+					}
+				}
+				custom_tooltip = CRO_ZAGREB_DEV
+			}
+			else = {
+				custom_tooltip = CRO_ZAGREB_DEV_NO
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						balkan_region = {
+							type = all
+							OR = {
+								NOT = { higher_development_than = 131 }
+								province_id = 131
+							}
+						}
+					}
+					croatia_area = {
+						add_prosperity = 100
+					}
+				}
+			}
+		}
+	}
+	
+	cro_zvonimirs_seat = {
+	    icon = fortress_of_belgrade
+		required_missions = { cro_zagreb }
+		position = 9
+
+		trigger = {
+			owns = 136
+			136 = {
+				owned_by = ROOT 
+				base_manpower = 10
+				OR = {
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+			province_id = 136
+		}
+		
+		effect = {
+			136 = {
+				add_base_manpower = 3
+			}
+			136 = {
+				add_province_modifier = {
+					name = "cro_zvonimir"
+					duration = -1
+				}
+			}
+			define_advisor = {
+				type = fortification_expert
+				skill = 3
+				culture = croatian
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+}
+
+cro_second_group = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRO
+	}
+	has_country_shield = yes
+	
+	cro_unite_with_the_slovenes = {
+		icon = prosper_in_piedmont
+		required_missions = { cro_retaliation }
+		position = 2
+		
+		provinces_to_highlight = {
+			area = carinthia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				area = carinthia_area
+				value = 3
+			}
+		}
+		
+		effect = {
+			add_yearly_manpower = 1.5
+			add_country_modifier = {
+				name = cro_uniting_south_slavs
+				duration = 5475
+			}
+			if = {
+				limit = {
+					4738 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				custom_tooltip = CRO_OWN_TRIESTE_YES
+				tooltip = {
+					4738 = {
+						change_culture = slovene
+					}
+				}
+			}
+			else = {
+				custom_tooltip = CRO_OWN_TRIESTE_NO
+				tooltip = {
+					4738 = {
+						change_culture = slovene
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						4738 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					4738 = {
+						change_culture = slovene
+					}
+				}
+			}
+		}
+	}
+	
+	cro_cross_the_danube = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { cro_braslavs_legacy }
+		position = 3
+		
+		provinces_to_highlight = {
+			OR = {
+				area = alfold_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			alfold_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			add_army_professionalism = 0.05
+			add_country_modifier = {
+				name = "cro_break_magyar_hordes"
+				duration = 3650
+			}
+			transylvania_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			southern_transylvania_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			if = {
+				limit = {
+					CUM = {
+						OR = {
+							is_enemy = ROOT
+							is_rival = ROOT
+						}
+					}
+				}
+				custom_tooltip = CRO_MAGYAR_RIVAL_YES
+			}
+			else = {
+				custom_tooltip = CRO_MAGYAR_RIVAL_NO
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						CUM = {
+							OR = {
+								is_enemy = ROOT
+								is_rival = ROOT
+							}
+						}
+					}
+					remove_country_modifier = cro_break_magyar_hordes
+					add_country_modifier = {
+						name = "cro_break_magyar_hordes"
+						duration = 7300
+					}
+				}
+			}
+		}
+	}
+	
+	cro_religious_mission = {
+		icon = support_the_orders
+		required_missions = { }
+		position = 4
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				religion = ROOT
+			}
+		}
+		
+		trigger = {
+			religious_unity = 0.75
+			num_of_owned_provinces_with = {
+				religion = ROOT
+				value = 20
+			}
+		}
+		
+		effect = {
+			add_papal_influence = 20
+			add_country_modifier = {
+				name = cro_true_faith
+				duration = 7300
+			}
+			define_advisor = {
+				type = inquisitor
+				skill = 2
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+	
+	cro_bulwark_of_christianity = {
+		icon = mission_sword_of_the_reformation
+		required_missions = { cro_religious_mission }
+		position = 5
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				has_tax_building_trigger = yes
+			}
+		}
+		
+		trigger = {
+			religious_unity = 1
+			OR = {
+				is_defender_of_faith = yes
+				is_papal_controller = yes
+			}
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 20
+			}
+		}
+		
+		effect = {
+			add_prestige_or_monarch_power = {
+				amount = 30
+			}
+			add_country_modifier = {
+				name = cro_bulwark_of_christianity
+				duration = -1
+			}
+			if = {
+				limit = {
+					religion = catholic
+					131 = {
+						NOT = {
+							has_cardinal = yes
+						}
+					}
+				}
+				custom_tooltip = CRO_ZAGREB_CARDINAL_YES
+			}
+			else = {
+				custom_tooltip = CRO_ZAGREB_CARDINAL_NO
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						religion = catholic
+						131 = {
+							NOT = {
+								has_cardinal = yes
+							}
+						}
+					}
+					131 = {
+						add_cardinal = yes
+					}
+				}
+			}
+		}
+	}
+	
+	cro_slavonian_breadbasket = {
+		icon = mission_pol_develop_countryside
+		required_missions = { }
+		position = 6
+		
+		provinces_to_highlight = {
+			area = slavonia_area
+			OR = {
+				NOT = {
+					owned_by = ROOT
+				}
+				NOT = {
+					has_production_building_trigger = yes
+				}
+			}
+		}
+		
+		trigger = {
+			slavonia_area = {
+				type = all
+				owned_by = ROOT
+				has_production_building_trigger = yes
+			}
+		}
+		
+		effect = {
+			slavonia_area = {
+				add_base_production = 1
+			}
+			slavonia_area = {
+				add_prosperity = 100
+			}
+		}
+	}
+	
+	cro_industrialize_croatia = {
+		icon = mission_have_manufactories
+		required_missions = { cro_slavonian_breadbasket }
+		position = 7
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				NOT = {
+					has_manufactory_trigger = yes 
+				}
+				NOT = {
+					has_production_building_trigger = yes
+				}
+			}
+		}
+		
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_manufactory_trigger = yes 
+				value = 5
+			}
+			num_of_owned_provinces_with = {
+				has_production_building_trigger = yes 
+				value = 10
+			}
+		}
+		
+		effect = {
+			add_years_of_owned_provinces_production_income = {
+				years = 0.5
+				trigger = {
+					has_production_building_trigger = yes
+				}
+				custom_tooltip = INCOME_FROM_WORKSHOPS_DESC
+			}
+			custom_tooltip = CRO_WORKSHOPS
+			add_country_modifier = {
+				name = "cro_industrialization"
+				duration = 9125
+			}
+			hidden_effect = {		
+                for = {
+                    amount = 3
+                    effect = "
+                        random_owned_province = {
+							limit = {
+								has_building = workshop
+								NOT = {
+									has_building = counting_house
+								}
+							}
+							upgrade_production_building = yes
+                        }
+                    "
+                }
+			}
+		}
+	}
+	
+	cro_vinodol_code = {
+		icon = reform_the_nomocanon
+		required_missions = { }
+		position = 8
+		
+		trigger = {
+			reform_level = 3
+			crown_land_share = 40
+			has_adm_advisor_2 = yes
+			NOT = {
+				average_autonomy_above_min = 10
+			}
+		}
+		
+		effect = {
+			change_innovativeness = 3
+			add_country_modifier = {
+				name = cro_revised_legal_code
+				duration = 7300
+			}
+		}
+	}
+	
+	cro_croatian_government = {
+		icon = mission_integrate_croatia
+		required_missions = { cro_zagreb cro_vinodol_code }
+		position = 9
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				has_courthouse_building_trigger = yes
+			}
+		}
+		
+		trigger = {
+			reform_level = 7
+			crown_land_share = 80
+			calc_true_if = {
+				all_owned_province = {
+					has_courthouse_building_trigger = yes
+				}
+				amount = 10
+			}
+		}
+		
+		effect = {
+			change_government_reform_progress = 100
+			add_country_modifier = {
+				name = cro_strengthen_the_government
+				duration = 3650
+			}
+			custom_tooltip = CRO_CENTRALIZE
+		}
+	}
+	
+}
+
+cro_third_group = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRO
+	}
+	has_country_shield = yes
+	
+	cro_retaliation = {
+		icon = mission_integrate_croatia
+		required_missions = { }
+		position = 1
+		
+		trigger = {
+			OR = {
+				army_size_percentage = 1
+				manpower_percentage = 1
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "cro_war_preparations"
+				duration = 9125
+			}
+			transdanubia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			bosnia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			serbia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			rascia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_neighbor_country = {
+							army_size = ROOT
+						}
+					}
+				}
+				custom_tooltip = CRO_ARMY_SIZE_YES
+				tooltip = {
+					create_general = {
+						tradition = 40
+					}
+				}
+			}
+			else = {
+				custom_tooltip = CRO_ARMY_SIZE_NO
+				tooltip = {
+					create_general = {
+						tradition = 40
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							any_neighbor_country = {
+								army_size = ROOT
+							}
+						}
+					}
+					create_general = { tradition = 40 }
+				}
+			}
+		}
+	}
+	
+	cro_conquer_serbia = {
+		icon = defeat_the_serbs
+		required_missions = { cro_retaliation }
+		position = 3
+		
+		provinces_to_highlight = {
+			OR = {
+				area = serbia_area
+				area = rascia_area
+				area = bosnia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = serbia_area
+					area = rascia_area
+					area = bosnia_area
+				}
+				value = 10
+			}
+		}
+		
+		effect = {
+			custom_tooltip = CRO_SERBIA
+			tooltip = {
+				add_province_modifier = {
+					name = cro_catholicise_serbs
+					duration = 7300
+				}
+			}
+			macedonia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			bulgaria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			silistria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			albania_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture = serbian
+					}
+					add_province_modifier = {
+						name = cro_catholicise_serbs
+						duration = 7300
+					}
+					add_local_autonomy = -50
+				}
+			}
+		}
+	}
+	
+	cro_clash_with_bulgars = {
+		icon = push_on_to_bulgaria
+		required_missions = { cro_conquer_serbia }
+		position = 4
+		
+		provinces_to_highlight = {
+			OR = {
+				area = macedonia_area
+				area = bulgaria_area
+				area = silistria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = macedonia_area
+					area = bulgaria_area
+					area = silistria_area
+				}
+				value = 10
+			}
+		}
+		
+		effect = {
+			add_mil_power = 100
+			add_country_modifier = {
+				name = "cro_march_on_carigrad"
+				duration = 7300
+			}
+			balkan_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	cro_south_slavic_union = {
+		icon = mission_balkan_conquest
+		required_missions = { cro_clash_with_bulgars }
+		position = 5
+		
+
+		provinces_to_highlight = {
+			culture_group = south_slavic
+			NOT = {
+				owned_by = ROOT
+			}
+		}
+		
+		trigger = {
+			OR = {
+				tag = ILR
+				owns_all_provinces = {
+					culture_group = south_slavic
+				}
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "ser_bulgaria_sunion"
+				duration = -1
+			}
+		}
+	}
+	
+	cro_naval_capacity = {
+		icon = secure_the_republic
+		required_missions = { cro_royal_navy }
+		position = 8
+		
+		provinces_to_highlight = {
+			owned_by = ROOT 
+			has_port = yes
+			OR = {
+				has_dock_building_trigger = no
+				has_shipyard_building_trigger = no
+			}
+		}
+		
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					has_dock_building_trigger = yes 
+					value = 10 
+				}
+				num_of_owned_provinces_with = {
+					has_shipyard_building_trigger = yes 
+					value = 10 
+				}
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = cro_naval_capacity
+				duration = -1
+			}
+			if = {
+				limit = {
+					navy_tradition = 50
+				}
+				custom_tooltip = CRO_TRADITION_YES
+				tooltip = {
+					create_admiral = { tradition = 75 }
+				}
+			}
+			else = {
+				custom_tooltip = CRO_TRADITION_NO
+				tooltip = {
+					create_admiral = { tradition = 75 }
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						navy_tradition = 50
+					}
+					create_admiral = { tradition = 75 }
+				}
+			}
+		}
+	}
+	
+	cro_marine_colleges = {
+		icon = mission_danish_navy
+		required_missions = { cro_naval_capacity }
+		position = 8
+		
+		trigger = {
+			navy_tradition = 75
+			university = 10
+		}
+		
+		effect = {
+			custom_tooltip = AB_CRO_MARINES
+			add_country_modifier = {
+				name = "cro_croatian_marines"
+				duration = -1
+			}
+			hidden_effect = {
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+				capital_scope = {
+					marine_infantry = ROOT
+				}
+			}
+		}
+	}
+}
+
+cro_fourth_group = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRO
+	}
+	has_country_shield = yes
+	
+	cro_control_dubrovnik = {
+		icon = capture_adriatic_ports
+		required_missions = { cro_recover_dalmatia }
+		position = 3
+		
+		trigger = {
+			137 = {
+				country_or_non_sovereign_subject_holds = ROOT	
+			}
+		}
+		
+		provinces_to_highlight = {
+			province_id = 137
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			add_mercantilism = 3
+			137 = {
+				change_culture = croatian
+			}
+			custom_tooltip = EMPTY
+			east_adriatic_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			venetia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	cro_slavicize_the_italians = {
+		icon = republican_yearnings
+		required_missions = { cro_annihilate_venice }
+		position = 5
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = italy_region
+				culture_group = south_slavic
+				value = 5
+			}
+		}
+		
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = {
+				culture_group = south_slavic
+			}
+		}
+		
+		effect = {
+			custom_tooltip = CRO_SLAVICIZATION_ITALY
+		}
+	}
+	
+	cro_adriatic_empire = {
+		icon = a_real_roman_empire
+		required_missions = { cro_italian_invasion cro_south_slavic_union }
+		position = 6
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = italy_region
+				value = 25
+			}
+			OR = {
+				mercantilism = 30
+				full_idea_group = trade_ideas
+				trade_income_percentage = 0.5
+			}
+			112 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+			137 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+		}
+		
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			country_event = { id = ab_croatia.3 }
+		}
+	}
+	
+	cro_royal_navy = {
+		icon = the_glorious_revolution
+		required_missions = { }
+		position = 7
+		
+		trigger = {
+			navy_size = 15
+			num_of_admirals = 1
+		}
+		
+		effect = {
+			add_sailors = 1000
+			add_country_modifier = {
+				name = cro_royal_navy
+				duration = 7300
+			}
+		}
+	}
+	
+	cro_naval_powerhouse = {
+		icon = overshadow_venice
+		required_missions = { cro_royal_navy }
+		position = 8
+		
+		provinces_to_highlight = {
+			is_capital = yes
+			owner = {
+				any_owned_province = {
+					has_port = yes
+					sea_zone = {
+						OR = {
+							OR = {
+								province_id = 1308
+								province_id = 1309
+								province_id = 1310
+							}
+						}
+					}
+				}
+				navy_size = ROOT
+			}
+		}
+		
+		trigger = {
+			navy_size = 40
+			NOT = {
+				any_known_country = {
+					any_owned_province = {
+						has_port = yes
+						sea_zone = {
+							OR = {
+								province_id = 1308
+								province_id = 1309
+								province_id = 1310
+							}
+						}
+					}
+					navy_size = root
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = CRO_ADMIRALS
+			set_country_flag = ab_admiral_gives_naval_tradition
+			add_country_modifier = {
+				name = cro_admiralty
+				duration = 9125
+			}
+			define_advisor = {
+				type = naval_reformer
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
+		}
+	}
+}
+
+cro_fifth_group = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = CRO
+	}
+	has_country_shield = yes
+	
+	cro_recover_dalmatia = {
+		icon = dalmatian_conquest
+		required_missions = { cro_retaliation }
+		position = 2
+		
+		trigger = {
+			4753 = {
+				country_or_non_sovereign_subject_holds = ROOT	
+			}
+			136 = {
+				country_or_non_sovereign_subject_holds = ROOT	
+			}
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 136
+				province_id = 4753
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			136 = {
+				change_culture = croatian
+			}
+			4753 = {
+				change_culture = croatian
+			}
+			add_country_modifier = {
+				name = "ser_tur_trading_cities"
+				duration = 9125
+			}
+			custom_tooltip = TUR_DEV_CENTER
+			custom_tooltip = EMPTY
+			east_adriatic_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			venetia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	cro_annihilate_venice = {
+		icon = venture_captains
+		required_missions = { cro_recover_dalmatia }
+		position = 4
+		
+		trigger = {
+			venetia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT	
+			}
+		}
+		
+		provinces_to_highlight = {
+			area = venetia_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			country_event = { id = ab_croatia.2 }
+			custom_tooltip = EMPTY
+			emilia_romagna_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			po_valley_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			lombardy_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	cro_italian_invasion = {
+		icon = mission_rule_italy
+		required_missions = { cro_annihilate_venice }
+		position = 5
+		
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = italy_region
+				value = 15
+			}
+		}
+		
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			custom_tooltip = CRO_HRE_AE
+			add_country_modifier = {
+				name = "cro_italian_invasion"
+				duration = 7300
+			}
+			central_italy_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			tuscany_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			liguria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_part_of_hre = yes
+					}
+					add_aggressive_expansion = {
+						who = ROOT
+						value = -20
+						apply_calc = no
+					}
+				}
+			}
+		}
+	}
+	
+	cro_merchant_fleet = {
+		icon = mission_dominate_home_trade_node
+		required_missions = { cro_royal_navy }
+		position = 8
+		
+		trigger = {
+			num_of_light_ship = 15
+		}
+		
+		effect = {
+			custom_tooltip = CRO_PRIVILEGE
+		}
+	}
+	
+	cro_trading_cities = {
+		icon = purely_for_commerce
+		required_missions = { cro_merchant_fleet }
+		position = 9
+		
+		provinces_to_highlight = {
+			owned_by = ROOT
+			has_port = yes
+			OR = {
+				NOT = {
+					development = 25
+				}
+				NOT = {
+					province_has_center_of_trade_of_level = 2
+				}
+				NOT = {
+					has_trade_building_trigger = yes
+				}
+			}
+		}
+		
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_port = yes
+				development = 25
+				province_has_center_of_trade_of_level = 2
+				has_trade_building_trigger = yes
+				value = 5
+			}
+		}
+		
+		effect = {
+			add_years_of_trade_income = {
+				years = 4
+				custom_tooltip = CRO_TRADE_INCOME
+			}
+			add_country_modifier = {
+				name = cro_trading_cities
+				duration = 9125
+			}
+			define_advisor = {
+				type = trader
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.25
+			}
+		}
+	}
+}

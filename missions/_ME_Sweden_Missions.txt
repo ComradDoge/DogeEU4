@@ -3,14 +3,8 @@ SWE_missions_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -94,9 +88,9 @@ SWE_missions_1 = {
 			}
 		}
 		effect = {
-			add_accepted_culture = latvian
+			ME_add_accepted_culture_or_dip_power = { culture = latvian }
 			custom_tooltip = SWE_LATVIAN_CULTURE_WILL_NOT_COST_AN_ACCEPTED_CULTURE_SLOT
-			add_accepted_culture = estonian
+			ME_add_accepted_culture_or_dip_power = { culture = estonian }
 			custom_tooltip = SWE_ESTONIAN_CULTURE_WILL_NOT_COST_AN_ACCEPTED_CULTURE_SLOT
 			west_prussia_area = {
 				limit = {
@@ -191,14 +185,8 @@ SWE_missions_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
@@ -495,53 +483,73 @@ SWE_missions_3 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 
+	sweden_echoes_of_freedom = {
+		icon = me_mission_sweden_charles_xii
+		required_missions = { }
+		position = 1
+		trigger = {
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				liberty_desire = 50
+			}
+			army_size_percentage = 1
+		}
+		effect = {
+			create_general = {
+				tradition = 40
+			}
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				add_country_modifier = {
+					name = sweden_echoes_of_freedom_modifier
+					duration = 7300
+					desc = UNTIL_LOYAL_FREE_OR_20_YEARS
+				}
+			}
+			else = {
+				add_mil_power = 100
+			}
+		}
+	}
 	
 	sweden_ending_the_kalmar_union = {
 		icon = mission_assemble_an_army
-		required_missions = {  }
+		required_missions = { sweden_echoes_of_freedom }
 		position = 2
 		provinces_to_highlight = {
-			OR = {
-				area = vastra_gotaland_area
-				province_id = 2
-				province_id = 3
-				province_id = 4166
-
-			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			province_id = 1
+			NOT = { owned_by = ROOT }
 		}
 		trigger = {
-			vastra_gotaland_area = {
-				type = all
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			2 = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			3 = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
-			4166 = {
-				country_or_non_sovereign_subject_holds = ROOT
-			}
+			is_subject = no
+			is_at_war = no
+			owns = 1
 		}
 		effect = {
-			add_legitimacy_equivalent = {
-				amount = 20
-				republican_tradition = 10
+			add_legitimacy_equivalent = { amount = 30 republican_tradition = 30 }
+			add_ruler_modifier = {
+				name = sweden_ending_the_kalmar_union_modifier
+				duration = -1
 			}
 			33 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			34 = {
 				if = {
 					limit = {
 						NOT = { owned_by = ROOT }
@@ -563,6 +571,12 @@ SWE_missions_3 = {
 		}
 		trigger = {
 			owns = 25
+			if = {
+				limit = {
+					exists = HNS
+				}
+				NOT = { war_with = HNS }
+			}
 			if = {
 				limit = {
 					exists = HSA
@@ -630,6 +644,9 @@ SWE_missions_3 = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
+			315 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
 		}
 		effect = {
 			add_country_modifier = {
@@ -688,21 +705,47 @@ SWE_missions_4 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 
+	sweden_expand_dalaskogen = {
+		icon = mission_african_gold
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			province_id = 8
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 10 }
+				NOT = { base_production = 5 }
+			}
+		}
+		trigger = {
+			owns = 8
+			8 = {
+				development = 10
+				base_production = 5
+			}
+		}
+		effect = {
+			8 = {
+				add_permanent_province_modifier = {
+					name = sweden_stora_kopparberget_modifier_improved
+					duration = -1
+				}
+				add_province_modifier = {
+					name = sweden_expand_dalaskogen_province_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
 	
 	sweden_foundation_of_karlskrona = {
 		icon = me_mission_aachen_city_view
-		required_missions = {  }
+		required_missions = { sweden_expand_dalaskogen }
 		position = 2
 		provinces_to_highlight = {
 			province_id = 1982
@@ -737,20 +780,14 @@ SWE_missions_5 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 	}
 	has_country_shield = yes
 	
 	sweden_the_city_of_gothenburg = {
 		icon = mission_hanseatic_city
-		required_missions = {  }
+		required_missions = { sweden_expand_dalaskogen }
 		position = 2
 		provinces_to_highlight = {
 			province_id = 4163
@@ -849,15 +886,8 @@ SWE_missions_5_catholic_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
-
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		NOT = { has_country_flag = swe_protestant_missions }
 	}
 	has_country_shield = yes
@@ -919,15 +949,8 @@ SWE_missions_4_catholic = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
-
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = swe_catholic_missions
 		NOT = { has_country_flag = swe_protestant_missions }
 	}
@@ -959,7 +982,7 @@ SWE_missions_4_catholic = {
 				change_mil = 1
 			}
 			else = {
-				add_mil_power = 50
+				add_mil_power = 100
 			}
 			add_years_of_income = 0.5
 		}
@@ -971,15 +994,8 @@ SWE_missions_5_catholic_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
-
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = swe_catholic_missions
 		NOT = { has_country_flag = swe_protestant_missions }
 	}
@@ -1068,7 +1084,7 @@ SWE_missions_5_catholic_2 = {
 				is_papal_controller = yes
 			}
 			OR = {
-				has_full_religious_idea_groups = yes
+				full_idea_group = religious_ideas
 				AND = {
 					has_country_modifier = the_blasphemy_act
 					has_country_modifier = the_advancement_of_true_religion_act
@@ -1092,15 +1108,8 @@ SWE_missions_4_protestant_1 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
-
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		NOT = { has_country_flag = swe_catholic_missions }
 	}
 	has_country_shield = yes
@@ -1147,15 +1156,8 @@ SWE_missions_4_protestant_2 = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
-
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = swe_protestant_missions
 		NOT = { has_country_flag = swe_catholic_missions }
 	}
@@ -1214,15 +1216,8 @@ SWE_missions_5_protestant = {
 	generic = no
 	ai = yes
 	potential = {
-		NOT = { started_in = 1444.11.9 }
-		OR = {
-			tag = SWE
-			AND = {
-				was_tag = SWE
-				tag = SCA
-			}
-		}
-		
+		tag = SWE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
 		has_country_flag = swe_protestant_missions
 		NOT = { has_country_flag = swe_catholic_missions }
 	}

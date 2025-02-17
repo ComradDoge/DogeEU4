@@ -1,0 +1,109 @@
+namespace = ab_croatia
+
+#Slavicization
+province_event = {
+	id = ab_croatia.1
+	title = ab_croatia.1.t
+	desc = ab_croatia.1.d
+	picture = AB_BYZFALL_eventPicture
+	
+	hidden = yes
+	
+	mean_time_to_happen = {
+		months = 480
+		modifier = {
+			factor = 0.5
+			owner = { mission_completed = cro_adriatic_empire }
+		}
+	}
+	
+	trigger = {
+		owner = {
+			mission_completed = cro_slavicize_the_italians
+		}
+		region = italy_region
+		NOT = {
+			OR = {
+				culture = jadranian_culture
+				culture = talian_culture
+			}
+		}
+	}
+	
+	option = {
+		name = ab_croatia.1
+		if = {
+			limit = {
+				region = italy_region
+				NOT = {
+					area = venetia_area
+				}
+			}
+			change_culture = talian_culture
+		}
+		if = {
+			limit = {
+				area = venetia_area
+			}
+			change_culture = jadranian_culture
+		}
+	}
+}
+
+#Fall of Venice
+country_event = {
+	id = ab_croatia.2
+	title = ab_croatia.2.t
+	desc = ab_croatia.2.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	
+	option = {
+		name = ab_croatia.2.a
+		custom_tooltip = CRO_UNLOCK_ARSENAL
+		112 = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = -1
+				power = 50
+				key = cro_new_adriatic_hegemon
+			}
+		}
+	}
+}
+	
+#Adriatic Empire
+country_event = {
+	id = ab_croatia.3
+	title = ab_croatia.3.t
+	desc = ab_croatia.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	major = yes
+	
+	option = {
+		name = ab_croatia.3.a
+		add_permanent_power_projection = {
+			type = 25_permanent_power_projection
+			amount = 25
+		}
+		#custom_tooltip = CRO_CULTURE_SPEED
+		custom_tooltip = cro_adriaterra_tooltip
+		add_country_modifier = {
+			name = "cro_adriatic_empire"
+			duration = -1
+		}
+		italy_region = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+	}
+}

@@ -7,16 +7,15 @@
 <h1>DD/MM/YYYY</h1>
 
 
-- USA election should work properly now.
-- ADM tech 10 received +200 governing capacity.
-- Luxembourg is no longer locked into its reform.
-- Fur bonus of 0.5 prestige changed to 15% caravan power.
-- Carmine Dye bonus caravan power replaced with 0.5 prestige.
-- Chinaware bonus changed to +1 diplomat instead of legitimacy.
-- Monastic temples mechanic properly gives you karma instead of only removing it.
-- Whaling local province modifier changed from production to tradegoods modifier.
-- England Thorny Pretenders decision now requires you (and the ai) to be at peace.
-- Added a way to access Dutch Naval Professionalism in vanilla WOC/EMP mission trees as well.
+
+- Various localisation and decision fixes or tweaks.
+- Roman primary culture also gets the stronger version of hellenic deities.
+- Added a version of the Croatian mission from Ante Bellum tree by Parmelion.
+- Replaced old Serbian mission tree with a version of Ante Bellum Serbian tree by Parmelion.
+- Rasulids/Yemen and Sweden also now get an option to choose missions if you have the appropriate DLC.
+- Nestorian religion systems completely changed and replaced by a version of Religion & Cultures Expanded system by LimonenZitrone.
+- Vanilla Flavour now has more provinces with the non-vanilla religions so that players have more options to convert and play with those religions.
+- Additional Angevin forming decision brought back for some tags so that you are not always forced into playing through English mission tree to form it.  
 
  <!-- Todo -->
 <br/>
