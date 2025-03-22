@@ -7,15 +7,14 @@
 <h1>DD/MM/YYYY</h1>
 
 
-
-- Various localisation and decision fixes or tweaks.
-- Roman primary culture also gets the stronger version of hellenic deities.
-- Added a version of the Croatian mission from Ante Bellum tree by Parmelion.
-- Replaced old Serbian mission tree with a version of Ante Bellum Serbian tree by Parmelion.
-- Rasulids/Yemen and Sweden also now get an option to choose missions if you have the appropriate DLC.
-- Nestorian religion systems completely changed and replaced by a version of Religion & Cultures Expanded system by LimonenZitrone.
-- Vanilla Flavour now has more provinces with the non-vanilla religions so that players have more options to convert and play with those religions.
-- Additional Angevin forming decision brought back for some tags so that you are not always forced into playing through English mission tree to form it.  
+- Croatia government reform icon and minor fixes.
+- Some fixes to Aegyptus mission tree behaving weirdly.
+- Diplomatically forming Spain can now also inherit Navarra.
+- Portugal mission fix in regards to Asian province selling.
+- Songhai now starts as Sunni and tweaked its starting religion setup.
+- Added additional karma-using countries to reform and privilege triggers.
+- Muscovy AI picks vanilla missions now as its able to handle them better.
+- Can build mines if you are a subject as to allow people to develop their subjects and fix any missing strategic resources. Will see if any issues crop up due to this.
 
  <!-- Todo -->
 <br/>
