@@ -7,6 +7,7 @@
 <h1>DD/MM/YYYY</h1>
 
 - Hormuz no longer starts with a selected government reform.
+- Georgian Crisis disaster no longer appears in shattered bookmark.
 - African pagans now have access to Syncretic mechanic, allowing them to syncratize with anothe religion of their choice.
 - Japan missions tweaked so that there is a third button that will allow you to access an older mission tree alongside others, if applicable.
 - Theodoro Winds of Change mission tweaked so that it is more applicable for shattered bookmark, vanilla bookmark still has the normal triggers.
