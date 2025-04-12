@@ -6,15 +6,12 @@
 
 <h1>DD/MM/YYYY</h1>
 
-
-- Croatia government reform icon and minor fixes.
-- Some fixes to Aegyptus mission tree behaving weirdly.
-- Diplomatically forming Spain can now also inherit Navarra.
-- Portugal mission fix in regards to Asian province selling.
-- Songhai now starts as Sunni and tweaked its starting religion setup.
-- Added additional karma-using countries to reform and privilege triggers.
-- Muscovy AI picks vanilla missions now as its able to handle them better.
-- Can build mines if you are a subject as to allow people to develop their subjects and fix any missing strategic resources. Will see if any issues crop up due to this.
+- Hormuz no longer starts with a selected government reform.
+- Portugal will actually stop pestering you to sell a province.
+- Georgian Crisis disaster no longer appears in shattered bookmark.
+- Added a small mission tree for 4 egyptian minors to have something until you form a country with missions.
+- African pagans now have access to Syncretic mechanic, allowing them to syncratize with another religion of their choice.
+- Japan missions tweaked so that there is a third button that will allow you to access an older mission tree alongside others, if applicable.
 
  <!-- Todo -->
 <br/>

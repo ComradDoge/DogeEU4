@@ -1,0 +1,653 @@
+generic_basic_egyptian_missions_c1 = {
+    slot = 1
+    generic = no
+    ai = yes
+    potential = {
+        gets_generic_basic_egyptian_missions = yes
+    }
+
+    gen_egypt_minors_NILE_bravo = { # Lessons of War
+        icon = mission_protect_albania
+        position = 2
+        required_missions = { gen_egypt_minors_NILE_alpha }
+
+        trigger = {
+            num_of_battles_won = { amount = 10 }
+            army_tradition = 20
+        }
+        effect = {
+            define_general = {
+                fire = 3
+                shock = 3
+                manuever = 6
+                siege = 1
+            }
+
+            custom_tooltip = " "
+
+            add_mil_power = 50
+
+            custom_tooltip = " "
+
+            ME_overlord_effect = {
+                effect = "
+                create_general_with_pips = {
+                    tradition = 80
+                    add_shock = 1
+                }
+                "
+            }
+        }
+    }
+}
+
+generic_basic_egyptian_missions_c2 = {
+    slot = 2
+    generic = no
+    ai = yes
+    potential = {
+        gets_generic_basic_egyptian_missions = yes
+    }
+    gen_egypt_minors_NILE_alpha = {
+        icon = fu_dutch_river
+        position = 1
+        provinces_to_highlight = {
+            NOT = { country_or_non_sovereign_subject_holds = ROOT }
+            OR = {
+                province_id = 1231
+                province_id = 4319
+                province_id = 360
+                province_id = 4320
+                province_id = 2319
+                province_id = 2317
+                province_id = 4318
+                province_id = 359
+                province_id = 361
+                province_id = 4361
+                province_id = 2316
+                province_id = 363
+                province_id = 362
+            }
+        }
+
+        trigger = {
+            OR = {
+                manpower_percentage = 0.9
+                army_size_percentage = 1
+            }
+        }
+        effect = {
+            custom_tooltip = tooltip_gen_egyptian_nile_claims
+            hidden_effect = {
+                every_province = {
+                    limit = {
+                        NOT = { country_or_non_sovereign_subject_holds = ROOT }
+                        OR = {
+                            province_id = 1231
+                            province_id = 4319
+                            province_id = 360
+                            province_id = 4320
+                            province_id = 2319
+                            province_id = 2317
+                            province_id = 4318
+                            province_id = 359
+                            province_id = 361
+                            province_id = 4361
+                            province_id = 2316
+                            province_id = 363
+                            province_id = 362
+                        }
+                    }
+                    add_permanent_claim = ROOT
+                }
+            }
+        }
+    }
+    gen_egypt_minors_NILE_charlie = {
+        icon = ar_upper_egypt
+        position = 2
+        required_missions = { gen_egypt_minors_NILE_alpha }
+
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                custom_trigger_tooltip = {
+                    tooltip = tooltip_egypt_minors_nile_river_owned
+                    OR = {
+                        province_id = 1231
+                        province_id = 4319
+                        province_id = 360
+                        province_id = 4320
+                        province_id = 2319
+                        province_id = 2317
+                        province_id = 4318
+                        province_id = 359
+                        province_id = 361
+                        province_id = 4316
+                        province_id = 2316
+                        province_id = 363
+                        province_id = 362
+                    }
+                }
+                value = 13
+            }
+        }
+        effect = {
+            egypt_region = {
+                limit = {
+                    NOT = { is_core = ROOT }
+                    NOT = { is_permanent_claim = ROOT }
+                }
+                add_permanent_claim = ROOT
+            }
+            add_country_modifier = {
+                name = modifier_egypt_minors_war_footing
+                duration = 5475
+            }
+        }
+    }
+    gen_egypt_minors_NILE_delta = {
+        icon = prosperity_for_all
+        position = 3
+        required_missions = { gen_egypt_minors_NILE_bravo gen_egypt_minors_NILE_charlie }
+
+        provinces_to_highlight = {
+            region = egypt_region
+            NOT = { country_or_non_sovereign_subject_holds = ROOT }
+        }
+        trigger = {
+           manpower_percentage = 0.25
+            NOT = { average_unrest = 0 }
+            NOT = { num_of_rebel_armies = 1 }
+            egypt_region = {
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        effect = {
+            add_stability_or_adm_power = yes
+            add_yearly_manpower = -0.25
+            add_country_modifier = {
+                name = modifier_egypt_minors_military_police
+                duration = 5475
+            }
+        }
+    }
+}
+
+generic_basic_egyptian_missions_c3 = {
+    slot = 3
+    generic = no
+    ai = yes
+    potential = {
+        gets_generic_basic_egyptian_missions = yes
+    }
+    #gen_egypt_minors_CENTRE_alpha = {
+    #    icon = overshadow_venice
+    #    position = 1
+    #}
+    gen_egypt_minors_CENTRE_bravo = { # Capital State Funding
+        icon = develop_our_capital
+        position = 2
+        required_missions = { }
+
+        trigger = {
+            adm_power = 100
+            capital_scope = {
+                if = {
+                    limit = {
+                        province_id = 361
+                    }
+                    num_of_times_improved = 2
+                }
+                else = { num_of_times_improved = 4 }
+                has_trade_building_trigger = yes
+                OR = {
+                    has_tax_building_trigger = yes
+                    has_production_building_trigger = yes
+                }
+            }
+        }
+        effect = {
+            country_event = { id = generic_egypt_minors_event.2 }
+        }
+    }
+    #gen_egypt_minors_CENTRE_charlie = {
+    #    icon = overshadow_venice
+    #    position = 3
+    #    required_missions = { gen_egypt_minors_CENTRE_bravo }
+    #}
+    gen_egypt_minors_CENTRE_delta = {
+        icon = ar_egypt_new_empire
+        position = 4
+        required_missions = { gen_egypt_minors_NILE_delta gen_egypt_minors_CENTRE_bravo gen_egypt_minors_COASTAL_delta gen_egypt_minors_INTERNAL_delta  }
+
+        trigger = {
+        }
+        effect = {
+            custom_tooltip = tooltip_egypt_minors_early_formation
+            set_country_flag = countryflag_egypt_minors_early_formation
+            add_splendor = 200
+            add_prestige = 15
+        }
+    }
+}
+
+generic_basic_egyptian_missions_c4_coastal = {
+    slot = 4
+    generic = no
+    ai = yes
+    potential = {
+        gets_generic_basic_egyptian_missions = yes
+        NOT = { tag = BNS }
+        NOT = { tag = CAI }
+    }
+    gen_egypt_minors_COASTAL_alpha = {
+        icon = capture_adriatic_ports
+        position = 1
+        provinces_to_highlight = {
+            if = {
+                limit = {
+                    ROOT = { tag = SAI }
+                }
+                NOT = { country_or_non_sovereign_subject_holds = ROOT }
+                OR = {
+                    province_id = 2315
+                    province_id = 365
+                    province_id = 4268
+                    province_id = 4269
+                }
+            }
+            else = {
+                limit = {
+                    ROOT = { tag = CYR }
+                }
+                NOT = { country_or_non_sovereign_subject_holds = ROOT }
+                OR = {
+                    province_id = 355
+                    province_id = 2451
+                    province_id = 358
+                    province_id = 362
+                }
+            }
+        }
+        trigger = {
+            OR = {
+                sailors_percentage = 0.9
+                navy_size_percentage = 1
+            }
+        }
+        effect = {
+            if = {
+                limit = {
+                    tag = SAI
+                }
+                custom_tooltip = tooltip_gen_egyptian_SAI_suez_seazone
+            }
+            else_if = {
+                limit = {
+                    tag = CYR
+                }
+                custom_tooltip = tooltip_gen_egyptian_CYR_sirte_and_alexandria_seazone
+            }
+            hidden_effect = {
+                if = {
+                    limit = {
+                        tag = SAI
+                    }
+                    every_province = {
+                        limit = {
+                            OR = {
+                                province_id = 2315
+                                province_id = 365
+                                province_id = 4268
+                                province_id = 4269
+                            }
+                        }
+                        add_permanent_claim = ROOT
+                    }
+                }
+                else = {
+                    limit = {
+                        tag = CYR
+                    }
+                    every_province = {
+                        limit = {
+                            OR = {
+                                province_id = 355
+                                province_id = 2451
+                                province_id = 358
+                                province_id = 362
+                            }
+                        }
+                        add_permanent_claim = ROOT
+                    }
+                }
+            }
+        }
+    }
+    gen_egypt_minors_COASTAL_bravo = { # Shipbuilding Infrastructure
+        icon = mission_recover_konkan_ports
+        position = 2
+        required_missions = { gen_egypt_minors_COASTAL_alpha }
+
+        provinces_to_highlight = {
+            has_port = yes
+            owned_by = ROOT
+            NOT = { num_of_times_improved = 2 }
+        }
+        trigger = {
+            num_of_owned_provinces_with = {
+                value = 2
+                has_port = yes
+                num_of_times_improved = 2
+            }
+        }
+        effect = {
+            add_yearly_sailors = 0.5
+            random_owned_province = {
+                limit = {
+                    has_port = yes
+                }
+                if = {
+                    limit = {
+                        has_building = grand_shipyard
+                    }
+                    add_base_production = 3
+                }
+                else_if = {
+                    limit = {
+                        has_building = shipyard
+                    }
+                    remove_building = shipyard
+                    add_building_construction = {
+                        building = grand_shipyard
+                        speed = 1
+                        cost = 0
+                    }
+                }
+                else = {
+                    add_building_construction = {
+                        building = shipyard
+                        speed = 1
+                        cost = 0
+                    }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    has_port = yes
+                }
+                if = {
+                    limit = {
+                        has_building = grand_shipyard
+                    }
+                    add_base_production = 3
+                }
+                else_if = {
+                    limit = {
+                        has_building = shipyard
+                    }
+                    remove_building = shipyard
+                    add_building_construction = {
+                        building = grand_shipyard
+                        speed = 1
+                        cost = 0
+                    }
+                }
+                else = {
+                    add_building_construction = {
+                        building = shipyard
+                        speed = 1
+                        cost = 0
+                    }
+                }
+            }
+        }
+    }
+    gen_egypt_minors_COASTAL_delta = {
+        icon = trade_missions_icon
+        position = 3
+        required_missions = { gen_egypt_minors_COASTAL_bravo gen_egypt_minors_COASTAL_charlie }
+
+        trigger = {
+            num_of_owned_provinces_with = {
+                value = 2
+                province_has_center_of_trade_of_level = 1
+            }
+            num_of_owned_provinces_with = {
+                value = 1
+                province_has_center_of_trade_of_level = 2
+            }
+        }
+        effect = {
+            add_mercantilism_or_monarch_power = { amount = 5 }
+            add_country_modifier = {
+                name = modifier_egypt_minors_tradedevelopment
+                duration = 9125
+            }
+            hidden_effect = {
+                complete_mission = gen_egypt_minors_INTERNAL_delta
+            }
+        }
+    }
+}
+
+generic_basic_egyptian_missions_c5_coastal = {
+    slot = 5
+    generic = no
+    ai = yes
+    potential = {
+        gets_generic_basic_egyptian_missions = yes
+        NOT = { tag = BNS }
+        NOT = { tag = CAI }
+    }
+    gen_egypt_minors_COASTAL_charlie = { # Trade Infrastructure
+        icon = mission_trade_in_gold_coast
+        position = 2
+        required_missions = { gen_egypt_minors_COASTAL_alpha }
+
+        trigger = {
+            capital_scope = {
+                num_of_times_improved = 2
+                has_trade_building_trigger = yes
+            }
+        }
+        effect = {
+            add_mercantilism_or_monarch_power = { amount = 5 }
+            capital_scope = {
+                create_or_add_center_of_trade_level = { level = 1 }
+            }
+        }
+    }
+}
+
+
+generic_basic_egyptian_missions_c4_internal = {
+    slot = 4
+    generic = no
+    ai = yes
+    potential = {
+        gets_generic_basic_egyptian_missions = yes
+        NOT = { tag = CYR }
+        NOT = { tag = SAI }
+    }
+    gen_egypt_minors_INTERNAL_alpha = {
+        icon = mercenary_companies
+        position = 1
+        provinces_to_highlight = {
+            if = {
+                limit = {
+                    ROOT = { tag = CAI }
+                }
+                NOT = { country_or_non_sovereign_subject_holds = ROOT }
+                OR = {
+                    province_id = 358
+                    province_id = 362
+                    province_id = 363
+                    province_id = 4316
+                    province_id = 2315
+                    province_id = 4318
+                    province_id = 359
+                    province_id = 2318
+                }
+            }
+            else = {
+                limit = {
+                    ROOT = { tag = BNS }
+                }
+                NOT = { country_or_non_sovereign_subject_holds = ROOT }
+                OR = {
+                    province_id = 2319
+                    province_id = 4323
+                    province_id = 2318
+                    province_id = 4317
+                    province_id = 361
+                    province_id = 2315
+                }
+            }
+        }
+        trigger = {
+            OR = {
+                manpower_percentage = 0.9
+                army_size_percentage = 1
+            }
+            any_neighbor_country = {
+                root = { is_rival = PREV }
+            }
+        }
+        effect = {
+            custom_tooltip = tooltip_egypt_minors_perma_claims_on_all_areas_bordering_our_provinces
+            hidden_effect = {
+                every_owned_province = {
+                    every_neighbor_province = {
+                        limit = {
+                            NOT = { owned_by = ROOT }
+                        }
+                        add_permanent_claim = ROOT
+                        #area = {
+                        #	limit = {
+                        #		NOT = { is_permanent_claim = ROOT }
+                        #		NOT = { is_core = ROOT }
+                        #	}
+                        #	add_permanent_claim = ROOT
+                        #}
+                    }
+                }
+            }
+        }
+    }
+    gen_egypt_minors_INTERNAL_bravo = {
+        icon = mission_alliances
+        position = 2
+        required_missions = { gen_egypt_minors_INTERNAL_alpha }
+
+        trigger = {
+            custom_trigger_tooltip = {
+                tooltip = building_alliances.tooltip
+                num_of_allies = 1
+                calc_true_if = {
+                    all_ally = {
+                        has_opinion = {
+                            who = ROOT
+                            value = 150
+                        }
+                    }
+                    amount = 1
+                }
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = "influential_diplomacy"
+                duration = 9125 #25 years
+            }
+            define_advisor = {
+                type = diplomat
+                skill = 1
+                culture = ROOT
+                religion = ROOT
+                cost_multiplier = 0.5
+            }
+        }
+    }
+    gen_egypt_minors_INTERNAL_delta = {
+        icon = mission_consulate_of_the_sea
+        position = 3
+        required_missions = { gen_egypt_minors_INTERNAL_bravo gen_egypt_minors_INTERNAL_charlie }
+        trigger = {
+            OR = {
+                NOT = { average_autonomy_above_min = 5 }
+                NOT = { average_autonomy = 25 }
+            }
+
+            capital_scope = {
+                has_courthouse_building_trigger = yes
+            }
+        }
+        effect = {
+            capital_scope = {
+                add_or_upgrade_courthouse_building = yes
+            }
+
+            custom_tooltip = " "
+
+            custom_tooltip = LON_every_province_centralization
+            hidden_effect = {
+                every_owned_province = {
+                    add_local_autonomy = -15
+                }
+            }
+
+            custom_tooltip = " "
+
+            add_stability_or_adm_power = yes
+
+            ME_overlord_effect = {
+                effect = "
+                add_dip_power = 50
+
+                MSA_space = yes
+
+                define_advisor = {
+                    type = statesman
+                    skill = 3
+                    culture = ROOT
+                    religion = ROOT
+                    cost_multiplier = 0.4
+                }
+                "
+            }
+            hidden_effect = {
+                complete_mission = gen_egypt_minors_COASTAL_delta
+            }
+        }
+    }
+}
+
+generic_basic_egyptian_missions_c5_internal = {
+    slot = 5
+    generic = no
+    ai = yes
+    potential = {
+        gets_generic_basic_egyptian_missions = yes
+        NOT = { tag = CYR }
+        NOT = { tag = SAI }
+    }
+    gen_egypt_minors_INTERNAL_charlie = { #FAFARIA
+        icon = ar_kemet_1
+        position = 2
+        required_missions = { gen_egypt_minors_INTERNAL_alpha }
+        provinces_to_highlight = {
+            area = al_wahat_area
+            NOT = { country_or_non_sovereign_subject_holds = ROOT }
+        }
+        trigger = {
+            al_wahat_area = {
+                type = all
+                country_or_non_sovereign_subject_holds = ROOT
+            }
+        }
+        effect = {
+            country_event = { id = generic_egypt_minors_event.1 }
+        }
+    }
+}

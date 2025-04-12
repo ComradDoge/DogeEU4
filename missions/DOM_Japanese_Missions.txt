@@ -9,6 +9,7 @@ DOM_japanse_missions_1 = {
 		country_gets_japanese_unique_missions = yes 
 		has_dlc = "Domination" 
 		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -123,7 +124,7 @@ DOM_japanse_missions_1 = {
 					limit = { has_dlc = "Rights of Man" NOT = { num_of_ruler_traits = { amount = 3 } } } 
 					add_ruler_personality = scholar_personality 
 				}
-				else = { change_ruler_stat = { amount = dip amount = 1 } }
+				else = { change_ruler_stat = { type = dip amount = 1 } }
 			}
 			
 			custom_tooltip = jap_trade_with_the_west_tt
@@ -239,7 +240,7 @@ DOM_japanse_missions_1 = {
 				limit = { has_dlc = "Rights of Man" NOT = { num_of_ruler_traits = { amount = 3 } } } 
 				add_ruler_personality = great_engineer_personality 
 			}
-			else = { change_ruler_stat = { amount = adm amount = 1 } }
+			else = { change_ruler_stat = { type = adm amount = 1 } }
 			change_government_reform_progress = 50 
 			add_government_reform = jap_gokaido_reform
 		}
@@ -330,6 +331,7 @@ japanese_missions_eoc_1 = {
 		has_dlc = "Domination"
 		is_emperor_of_china = yes 
 		country_gets_japanese_unique_missions = yes 
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes 
 
@@ -499,6 +501,7 @@ DOM_japanse_missions_2_a = {
 		country_gets_japanese_unique_missions = yes 
 		has_dlc = "Domination" 
 		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -638,6 +641,7 @@ DOM_japanse_missions_2_dejima = {
 			has_country_flag = jap_chose_trade_with_west_flag 
 			has_country_flag = jap_chose_kaikoku_flag
 		}
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -680,6 +684,7 @@ DOM_japanse_missions_2_b = {
 		country_gets_japanese_unique_missions = yes 
 		has_dlc = "Domination" 
 		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -759,15 +764,10 @@ DOM_japanse_missions_2_b = {
 			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
 		}
 		trigger = {
-			OR = {
-				if = {
-					limit = {
-						has_saved_global_event_target = EmperorOfChina
-					}
-					war_score_against = {
-						who = event_target:EmperorOfChina
-						value = 85 
-					}
+			OR = { 
+				war_score_against = {
+					who = event_target:EmperorOfChina
+					value = 85 
 				}
 				AND = { 
 					1816 = { country_or_non_sovereign_subject_holds = ROOT } 
@@ -792,7 +792,7 @@ DOM_japanse_missions_2_b = {
 			}
 			hidden_effect = {
 				if = {	
-					limit = {
+					limit = { 
 						war_score_against = {
 							who = event_target:EmperorOfChina
 							value = 85 
@@ -881,6 +881,7 @@ japanese_missions_eoc_2 = {
 		is_emperor_of_china = yes 
 		country_gets_japanese_unique_missions = yes 
 		capital_scope = { continent = asia }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes 
 	
@@ -1267,6 +1268,7 @@ DOM_japanse_missions_3_a = {
 		country_gets_japanese_unique_missions = yes 
 		has_dlc = "Domination" 
 		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -1379,11 +1381,8 @@ DOM_japanse_missions_3_a = {
 		trigger = {
 			NOT = { corruption = 0.1 } 
 			num_of_owned_provinces_with = {
-				region = japan_region
-				OR = { 
-					trade_goods = grain 
-					trade_goods = rice
-				}
+				region = japan_region 
+				trade_goods = grain 
 				has_manufactory_trigger = yes 
 				value = 5 
 			}
@@ -1558,6 +1557,7 @@ DOM_japanse_missions_3_a = {
 				if = {
 					limit = { has_country_flag = a_kirishitan_realm }
 					override_country_name = KRJ
+					set_country_flag = is_KRJ_flag
 					set_country_flag = has_overriden_name_flag
 					add_country_modifier = {
 						name = jap_protectors_east_catholicism
@@ -1595,6 +1595,7 @@ DOM_japanse_missions_3_aa = {
 		NOT = { has_country_flag = a_kirishitan_realm }
 		NOT = { has_country_flag = christianity_defeated_flag }
 		NOT = { has_country_flag = significant_christian_presence_flag }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -1637,16 +1638,14 @@ DOM_japanse_missions_3_aa = {
 				always = no 
 			}
 			religion = catholic 
-			development_in_provinces = {
-				value = 1000
-				religion = catholic 
-			}
-			calc_true_if = {
-				all_country = {
-					is_force_converted = yes 
-					religion = ROOT 
+			OR = { 
+				development_in_provinces = {
+					value = 1000
+					religion = catholic 
 				}
-				amount = 10 
+				is_defender_of_faith = yes 
+				is_great_power = yes 
+				full_idea_group = religious_ideas
 			}
 		}
 		effect = {
@@ -1673,6 +1672,7 @@ DOM_japanse_missions_3_b = {
 			has_country_flag = significant_christian_presence_flag
 			has_country_flag = christianity_defeated_flag 
 		}
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -1730,35 +1730,43 @@ DOM_japanse_missions_3_b = {
 			hidden_effect = {
 				if = {
 					limit = { 
-						absolutism = 100 
+						absolutism = 99 
 						if = {
 							limit = { has_estate = estate_nobles }
-							num_of_estate_privileges = {
-								estate = estate_nobles 
-								value = 6 
+							NOT = {
+								num_of_estate_privileges = {
+									estate = estate_nobles 
+									value = 6 
+								}
 							}
 						}
 						if = {
 							limit = { has_estate = estate_burghers }
-							num_of_estate_privileges = {
-								estate = estate_burghers 
-								value = 6 
+							NOT = {
+								num_of_estate_privileges = {
+									estate = estate_burghers 
+									value = 6 
+								}
 							}
 						}
 						if = {
 							limit = { has_estate = estate_church }
-							num_of_estate_privileges = {
-								estate = estate_church 
-								value = 6 
+							NOT = {
+								num_of_estate_privileges = {
+									estate = estate_church 
+									value = 6 
+								}
 							}
 						}
 					} 
 					set_country_flag = has_overriden_name_flag
 					override_country_name = JPS
+					set_country_flag = is_JPS_flag
 					add_government_reform = absolute_shogunate_reform
 				}
 				else = {
 					override_country_name = JPE
+					set_country_flag = is_JPE_flag
 					set_country_flag = has_overriden_name_flag
 					set_country_flag = JPE_gov_flag
 					country_event = { id = flavor_jap.65 }
@@ -1782,6 +1790,7 @@ DOM_japanse_missions_3_c = {
 		has_dlc = "Mandate of Heaven" 
 		has_country_flag = a_kirishitan_realm
 		NOT = { has_country_flag = christianity_defeated_flag }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -1795,24 +1804,23 @@ DOM_japanse_missions_3_c = {
 		trigger = {
 			not_in_mission_preview_mode = { key = JAP_RELI }
 			religion = catholic 
-			development_in_provinces = {
-				value = 1000
-				religion_group = christian 
-			}
 			OR = { 
+				development_in_provinces = {
+					value = 1000
+					religion = catholic 
+				}
 				is_defender_of_faith = yes 
 				is_great_power = yes 
-				if = {
-					limit = { has_estate = estate_church }
-					estate_loyalty = {
-						estate = estate_church 
-						loyalty = 60 
-					}
-				}
-				has_full_religious_idea_groups = yes 
+				full_idea_group = religious_ideas
 			}
 		}
 		effect = {
+			if = {
+				limit = {
+					NOT = { government = monarchy }
+				}
+				change_government = monarchy
+			}
 			add_government_reform = land_christian_sun_reform
 			
 			custom_tooltip = jap_winning_battles_gains_papal_influence_tt
@@ -1829,6 +1837,7 @@ japanese_missions_eoc_3 = {
 		has_dlc = "Domination"
 		is_emperor_of_china = yes 
 		country_gets_japanese_unique_missions = yes 
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes 
 	
@@ -1921,10 +1930,6 @@ japanese_missions_eoc_3 = {
 			2139 = { 
 				owned_by = ROOT 
 				base_production = 12 
-			}
-			if = {
-				limit = { tag = MNG }
-				has_idea = single_whip_law
 			}
 			NOT = { inflation = 1 }
 			NOT = { num_of_loans = 1 } 
@@ -2139,6 +2144,7 @@ DOM_japanse_missions_4_a = {
 		NOT = { map_setup = map_setup_random }
 		NOT = { has_country_flag = jap_mushashi_5_books_flag } 
 		NOT = { has_country_flag = jap_domineering_naval_focus_flag }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -2223,6 +2229,7 @@ DOM_japanse_missions_4_b = {
 		NOT = { map_setup = map_setup_random }
 		has_country_flag = jap_mushashi_5_books_flag 
 		NOT = { has_country_flag = jap_domineering_naval_focus_flag }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -2273,6 +2280,7 @@ DOM_japanse_missions_4_c = {
 		NOT = { map_setup = map_setup_random }
 		NOT = { has_country_flag = jap_mushashi_5_books_flag }
 		has_country_flag = jap_domineering_naval_focus_flag 
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -2318,6 +2326,7 @@ DOM_japanse_missions_4_d = {
 		country_gets_japanese_unique_missions = yes 
 		has_dlc = "Domination" 
 		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -2439,6 +2448,7 @@ japanese_missions_eoc_4 = {
 		has_dlc = "Domination"
 		is_emperor_of_china = yes 
 		country_gets_japanese_unique_missions = yes 
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes 	
 	
@@ -2745,6 +2755,7 @@ DOM_japanse_missions_5 = {
 		country_gets_japanese_unique_missions = yes 
 		has_dlc = "Domination" 
 		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes
 	
@@ -3345,6 +3356,7 @@ japanese_missions_eoc_5 = {
 		is_emperor_of_china = yes 
 		country_gets_japanese_unique_missions = yes
 		capital_scope = { continent = asia }
+		has_country_flag = use_paradox_missions
 	}
 	has_country_shield = yes 
 	
@@ -3488,20 +3500,11 @@ japanese_missions_eoc_5 = {
 				num_of_galley = 50 
 				num_of_light_ship = 50
 			}
-			if = {
-				limit = { tag = MNG }
-				OR = {
-					mission_completed = mng_repeal_haijin_policy
-					mission_completed = mng_improve_haijin_policy
-				}
-			}
-			else = {
-				OR = { 
-					full_idea_group = trade_ideas 
-					dip = 6 
-					monthly_dip = 10 
-					national_focus = DIP 
-				}
+			OR = { 
+				full_idea_group = trade_ideas 
+				dip = 6 
+				monthly_dip = 10 
+				national_focus = DIP 
 			}
 		}
 		
@@ -3565,22 +3568,31 @@ japanese_missions_eoc_5 = {
 					set_country_flag = mng_trade_eff_per_dip_advisor_level_flag
 				}
 				else = {
-					add_province_modifier = {
-						name = mng_safe_coasts_modifier
-						duration = 9125 
+					every_owned_province = {
+						limit = {
+							has_coast_defense_building_trigger = yes 
+							development = 20 
+						}
+						add_province_modifier = {
+							name = mng_safe_coasts_modifier
+							duration = 9125 
+						}
+						if = {
+							limit = { has_dlc = "Mandate of Heaven" }
+							add_prosperity = 100 
+						}
+						else = { 
+							add_base_production = 1 
+						} 
 					}
 					set_country_flag = mng_dev_per_adm_advisor_level_flag
 					if = {
 						limit = { has_dlc = "Mandate of Heaven" }
-						add_prosperity = 100 
 						add_mandate = 5 
 					}
-					else = { 
-						add_base_production = 1 
-						owner = {
-							add_prestige_or_monarch_power = { amount = 35 }
-						}
-					} 
+					else = {
+						add_prestige_or_monarch_power = { amount = 35 }
+					}
 				}
 			}
 		}
