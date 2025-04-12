@@ -7,6 +7,7 @@
 <h1>DD/MM/YYYY</h1>
 
 - Hormuz no longer starts with a selected government reform.
+- Portugal will actually stop pestering you to sell a province.
 - Georgian Crisis disaster no longer appears in shattered bookmark.
 - Added a small mission tree for 4 egyptian minors to have something until you form a country with missions.
 - African pagans now have access to Syncretic mechanic, allowing them to syncratize with another religion of their choice.
