@@ -12,7 +12,6 @@
 - Added a small mission tree for 4 egyptian minors to have something until you form a country with missions.
 - African pagans now have access to Syncretic mechanic, allowing them to syncratize with another religion of their choice.
 - Japan missions tweaked so that there is a third button that will allow you to access an older mission tree alongside others, if applicable.
-- Theodoro Winds of Change mission tweaked so that it is more applicable for shattered bookmark, vanilla bookmark still has the normal triggers.
 
  <!-- Todo -->
 <br/>
