@@ -6,6 +6,8 @@
 
 <h1>DD/MM/YYYY</h1>
 
+- Nobility Officers privilege Theodoro fix.
+- One Cyprus mission tweak to account bookmark.
 - Settlers privilege that gives religious conversions in trade companies fixed.
 
  <!-- Todo -->
