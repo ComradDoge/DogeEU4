@@ -8,6 +8,7 @@
 
 - Nobility Officers privilege Theodoro fix.
 - One Cyprus mission tweak to account bookmark.
+- Mali can choose missions and no longer gets stuck in a perpetual disaster.
 - Settlers privilege that gives religious conversions in trade companies fixed.
 
  <!-- Todo -->
