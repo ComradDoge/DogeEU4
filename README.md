@@ -9,8 +9,10 @@
 - Nobility Officers privilege Theodoro fix.
 - One Cyprus mission tweak to account bookmark.
 - Generic French Minors mission not giving Enforce Blood Tax privilege.
+- Swabian minors if selecting PDX mission will have the forming decision.
 - Mali can choose missions and no longer gets stuck in a perpetual disaster.
 - Settlers privilege that gives religious conversions in trade companies fixed.
+- Appanage CB AE nerfed as it was far too cheap, now simillar to normal vassalisation.
 
  <!-- Todo -->
 <br/>
