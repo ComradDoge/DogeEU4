@@ -6,13 +6,17 @@
 
 <h1>DD/MM/YYYY</h1>
 
+- Gwynedd now produces copper.
 - Nobility Officers privilege Theodoro fix.
 - One Cyprus mission tweak to account bookmark.
+- Cornwall Tinner Interests privilege buffed and its mission tweaked.
 - Generic French Minors mission not giving Enforce Blood Tax privilege.
+- Musketeers of the Guard reform no longer disappears if you change tag.
 - Swabian minors if selecting PDX mission will have the forming decision.
 - Mali can choose missions and no longer gets stuck in a perpetual disaster.
 - Settlers privilege that gives religious conversions in trade companies fixed.
 - Appanage CB AE nerfed as it was far too cheap, now simillar to normal vassalisation.
+- Fractured Tapestry Druidic event now gives option of keeping your current religion, oopsie.
 
  <!-- Todo -->
 <br/>
