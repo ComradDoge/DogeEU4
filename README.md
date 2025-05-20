@@ -9,6 +9,7 @@
 - Gwynedd now produces copper.
 - Nobility Officers privilege Theodoro fix.
 - One Cyprus mission tweak to account bookmark.
+- Portugal Feudal Monarchy Cortes mechanic works now.
 - Cornwall Tinner Interests privilege buffed and its mission tweaked.
 - Generic French Minors mission not giving Enforce Blood Tax privilege.
 - Musketeers of the Guard reform no longer disappears if you change tag.
