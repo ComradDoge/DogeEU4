@@ -6,10 +6,11 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Gwynedd now produces copper.
+- Gwynedd (Wales) now produces copper.
 - Nobility Officers privilege Theodoro fix.
 - One Cyprus mission tweak to account bookmark.
 - Portugal Feudal Monarchy Cortes mechanic works now.
+- Vladimir-Suzdal reforms no longer locked only to orthodox.
 - Cornwall Tinner Interests privilege buffed and its mission tweaked.
 - Generic French Minors mission not giving Enforce Blood Tax privilege.
 - Musketeers of the Guard reform no longer disappears if you change tag.
