@@ -10,6 +10,7 @@
 - Nobility Officers privilege Theodoro fix.
 - One Cyprus mission tweak to account bookmark.
 - Portugal Feudal Monarchy Cortes mechanic works now.
+- Added some flavour names for France upon formation.
 - Fixed missing tribal celtic federation mechanic buttons.
 - Vladimir-Suzdal reforms no longer locked only to orthodox.
 - Cornwall Tinner Interests privilege buffed and its mission tweaked.
