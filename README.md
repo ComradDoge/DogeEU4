@@ -6,12 +6,25 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Hormuz no longer starts with a selected government reform.
-- Portugal will actually stop pestering you to sell a province.
-- Georgian Crisis disaster no longer appears in shattered bookmark.
-- Added a small mission tree for 4 egyptian minors to have something until you form a country with missions.
-- African pagans now have access to Syncretic mechanic, allowing them to syncratize with another religion of their choice.
-- Japan missions tweaked so that there is a third button that will allow you to access an older mission tree alongside others, if applicable.
+- Gwynedd (Wales) now produces copper.
+- Nobility Officers privilege Theodoro fix.
+- Navarra starts as Kingdom in vanilla flavour.
+- One Cyprus mission tweak to account bookmark.
+- Portugal Feudal Monarchy Cortes mechanic works now.
+- Added some flavour names for France upon formation.
+- Fixed missing tribal celtic federation mechanic buttons.
+- Vladimir-Suzdal reforms no longer locked only to orthodox.
+- Cornwall Tinner Interests privilege buffed and its mission tweaked.
+- Generic French Minors mission not giving Enforce Blood Tax privilege.
+- Musketeers of the Guard reform no longer disappears if you change tag.
+- Swabian minors if selecting PDX mission will have the forming decision.
+- Mali can choose missions and no longer gets stuck in a perpetual disaster.
+- Settlers privilege that gives religious conversions in trade companies fixed.
+- Fixed some wrong referencing in Timurid mission tree and some mission overlap.
+- Appanage CB AE nerfed as it was far too cheap, now simillar to normal vassalisation.
+- Fractured Tapestry Druidic event now gives option of keeping your current religion, oopsie.
+- Mushasha is no longer able to use the T4 legalism/mysticism decision to instantly stop the End.
+- Vizcaya Black Marble modifier internally made into a permanent modifier so it doesnt get removed.
 
  <!-- Todo -->
 <br/>
