@@ -23,6 +23,7 @@
 - Fixed some wrong referencing in Timurid mission tree and some mission overlap.
 - Appanage CB AE nerfed as it was far too cheap, now simillar to normal vassalisation.
 - Fractured Tapestry Druidic event now gives option of keeping your current religion, oopsie.
+- Mushasha is no longer able to use the T4 legalism/mysticism decision to instantly stop the End.
 - Vizcaya Black Marble modifier internally made into a permanent modifier so it doesnt get removed.
 
  <!-- Todo -->
