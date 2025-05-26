@@ -8,6 +8,7 @@
 
 - Gwynedd (Wales) now produces copper.
 - Nobility Officers privilege Theodoro fix.
+- Navarra starts as Kingdom in vanilla flavour.
 - One Cyprus mission tweak to account bookmark.
 - Portugal Feudal Monarchy Cortes mechanic works now.
 - Added some flavour names for France upon formation.
@@ -19,8 +20,10 @@
 - Swabian minors if selecting PDX mission will have the forming decision.
 - Mali can choose missions and no longer gets stuck in a perpetual disaster.
 - Settlers privilege that gives religious conversions in trade companies fixed.
+- Fixed some wrong referencing in Timurid mission tree and some mission overlap.
 - Appanage CB AE nerfed as it was far too cheap, now simillar to normal vassalisation.
 - Fractured Tapestry Druidic event now gives option of keeping your current religion, oopsie.
+- Vizcaya Black Marble modifier internally made into a permanent modifier so it doesnt get removed.
 
  <!-- Todo -->
 <br/>
