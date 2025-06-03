@@ -6,6 +6,7 @@
 
 <h1>DD/MM/YYYY</h1>
 
+- Celtic Revival mission now properly gives the privilege.
 - Tweaked von Raab's Reforms event tooltips to be more informative of what it does.
 
  <!-- Todo -->
