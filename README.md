@@ -10,6 +10,7 @@
 - Added the Ireland/Irish Minor missions from Europa Expanded.
 - Sweden/Scandinavian mission fixes so that mission choice appears.
 - Tweaked von Raab's Reforms event tooltips to be more informative of what it does.
+- Changed various legitimacy triggers or effects in Aegyptus content to take in account other government values.
 - Made the event upon starting that make sures everyone is at least 3/3/3 to take effect instantly instead of having to wait a few ticks.
 
  <!-- Todo -->
