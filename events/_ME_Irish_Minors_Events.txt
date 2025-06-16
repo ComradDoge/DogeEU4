@@ -1,0 +1,483 @@
+namespace = EE_Irish_Minors_Events
+
+# The Irish Dream
+country_event = {
+	id = EE_Irish_Minors_Events.1
+	title = EE_Irish_Minors_Events.1.t
+	desc = EE_Irish_Minors_Events.1.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	immediate = { set_country_flag = EE_Minor_IRI_inital_event_fired }
+	option = {
+		name = EE_Irish_Minors_Events.1.OPT1
+		ai_chance = { factor = 0 }
+		set_country_flag = EE_Minor_IRI_activate_HKL_Ireland_decision
+		set_country_flag = formed_ireland_flag
+		add_government_reform = EE_Minor_IRI_Gaelic_Kingship
+	}
+}
+# Irish Power Struggle
+country_event = {
+	id = EE_Irish_Minors_Events.3
+	title = EE_Irish_Minors_Events.3.t
+	desc = EE_Irish_Minors_Events.3.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	after = { swap_non_generic_missions = yes }
+	option = {
+		name = EE_Irish_Minors_Events.3.OPT1
+		custom_tooltip = EE_Minor_IRI_isolationist_tt
+		set_country_flag = EE_Minor_IRI_chose_isolationist
+		custom_tooltip = " "
+
+		if = {
+			limit = {
+				started_in = 1444.11.6
+			}
+			ROOT = {
+				add_historical_rival = ENG
+				add_historical_rival = SCO
+			}
+			ENG = { add_historical_rival = ROOT }
+			SCO = { add_historical_rival = ROOT }
+			if = {
+				limit = {
+					OR = {
+						alliance_with = ENG
+						alliance_with = SCO
+					}
+				}
+				if = {
+					limit = { alliance_with = ENG }
+					break_alliance = ENG
+				}
+				else = { break_alliance = SCO }
+			}
+		}
+		else = {
+			every_country = {
+				limit = {
+					capital_scope = {
+						culture_group = british
+					}
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = EE_Minor_IRI_shattered_isolationist
+				}
+			}
+		}
+
+
+	}
+	option = {
+		name = EE_Irish_Minors_Events.3.OPT2
+		set_country_flag = EE_Minor_IRI_chose_friendship
+		custom_tooltip = IRE_other_policy
+		
+		custom_tooltip = " "
+		
+		add_country_modifier = {
+			name = EE_Minor_IRI_Pen_Over_Sword
+			duration = 3650
+		}
+	}
+}
+# PAP Event - A New Remonstrance
+country_event = {
+	id = EE_Irish_Minors_Events.4
+	title = EE_Irish_Minors_Events.4.t
+	desc = EE_Irish_Minors_Events.4.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = EE_Irish_Minors_Events.4.OPT1
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				factor = 2
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 60
+				}
+			}
+			modifier = {
+				factor = 4
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 70
+				}
+			}
+		}
+		add_devotion = 10
+		FROM = {
+			add_treasury = 100
+			add_manpower = 5
+			add_opinion = {
+				who = PAP
+				modifier = EE_Minor_IRI_revoked_bull
+			}
+		}
+		ENG = {
+			add_opinion = {
+				who = PAP
+				modifier = EE_Minor_IRI_revoked_bull_1
+			}
+		}
+	}
+	option = {
+		name = EE_Irish_Minors_Events.4.OPT2
+		ai_chance = { factor = 4 }
+		add_devotion = -10
+		FROM = {
+			add_opinion = {
+				who = PAP
+				modifier = EE_Minor_IRI_rejected_revocation
+			}
+		}
+		ENG = {
+			add_opinion = {
+				who = PAP
+				modifier = EE_Minor_IRI_rejected_revocation_1
+			}
+		}
+	}
+}
+# The Fate of The Pale
+country_event = {
+	id = EE_Irish_Minors_Events.5
+	title = EE_Irish_Minors_Events.5.t
+	desc = EE_Irish_Minors_Events.5.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			save_event_target_as = irish_target
+		}
+	}
+	
+	option = {
+		name = EE_Irish_Minors_Events.5.OPT1
+		
+		ai_chance = { factor = 75 }
+		
+		custom_tooltip = IRE_offer_english_white_peace
+		tooltip = {
+			373 = {
+				owner = { white_peace = ROOT }
+				cede_province = ROOT
+			}
+		}
+		custom_tooltip = IRE_they_will_surely_accept
+		
+		hidden_effect = {
+			country_event = { id = EE_Irish_Minors_Events.16 }
+		}
+	}
+	option = {
+		name = EE_Irish_Minors_Events.5.OPT2
+		
+		ai_chance = { factor = 25 }
+		
+		create_general_with_pips = { 
+			tradition = 80 
+			add_fire = 1 
+		}
+	}
+}
+
+# Feis Temro
+country_event = {
+	id = EE_Irish_Minors_Events.7
+	title = EE_Irish_Minors_Events.7.t
+	desc = EE_Irish_Minors_Events.7.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = EE_Irish_Minors_Events.7.OPT1
+		ai_chance = { factor = 10 }
+		custom_tooltip = EE_Minor_IRI_modify_mission_decision_tt
+		set_country_flag = EE_Minor_IRI_modify_adm_tech
+	}
+	option = { 
+		name = EE_Irish_Minors_Events.7.OPT2
+		custom_tooltip = EE_Minor_IRI_modify_vassal_count_tt
+		set_country_flag = EE_Minor_IRI_modify_vassal_count
+	}
+}
+# Hidden Event to buff gaelic sanctuary_1
+country_event = {
+	id = EE_Irish_Minors_Events.9
+	title = EE_Irish_Minors_Events.9.t
+	desc = EE_Irish_Minors_Events.9.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+	trigger = {
+		capital_scope = {
+			has_province_modifier = EE_Minor_IRI_Gaelic_Sanctuary
+			development = 10
+		}
+		NOT = { has_country_flag = EE_Irish_Minors_Events.9_happened }
+	}
+	immediate = { set_country_flag = EE_Irish_Minors_Events.9_happened }
+	option = {
+		name = EE_Irish_Minors_Events.9.OPT1
+		capital_scope = { 
+			remove_province_modifier = EE_Minor_IRI_Gaelic_Sanctuary
+			add_province_modifier = {
+				name = EE_Minor_IRI_Gaelic_Sanctuary_1
+				duration = -1
+			}
+		}
+	}
+}
+# Hidden Event to buff gaelic sanctuary_2
+country_event = {
+	id = EE_Irish_Minors_Events.10
+	title = EE_Irish_Minors_Events.10.t
+	desc = EE_Irish_Minors_Events.10.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+	trigger = {
+		capital_scope = {
+			has_province_modifier = EE_Minor_IRI_Gaelic_Sanctuary_1
+			development = 15
+		}
+		NOT = { has_country_flag = EE_Irish_Minors_Events.10_happened }
+	}
+	immediate = {
+		set_country_flag = EE_Irish_Minors_Events.10_happened
+		clr_country_flag = EE_Irish_Minors_Events.9_happened
+	}
+	option = {
+		name = EE_Irish_Minors_Events.10.OPT1
+		capital_scope = { 
+			remove_province_modifier = EE_Minor_IRI_Gaelic_Sanctuary_1
+			add_province_modifier = {
+				name = EE_Minor_IRI_Gaelic_Sanctuary_2
+				duration = -1
+			}
+		}
+	}
+}
+# Hidden Event to buff gaelic sanctuary_3
+country_event = {
+	id = EE_Irish_Minors_Events.11
+	title = EE_Irish_Minors_Events.11.t
+	desc = EE_Irish_Minors_Events.11.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+	trigger = {
+		capital_scope = {
+			has_province_modifier = EE_Minor_IRI_Gaelic_Sanctuary_2
+			development = 20
+		}
+		NOT = { has_country_flag = EE_Irish_Minors_Events.11_happened }
+	}
+	immediate = { 
+		set_country_flag = EE_Irish_Minors_Events.11_happened
+		clr_country_flag = EE_Irish_Minors_Events.10_happened
+	}
+	option = {
+		name = EE_Irish_Minors_Events.11.OPT1
+		capital_scope = { 
+			remove_province_modifier = EE_Minor_IRI_Gaelic_Sanctuary_2
+			add_province_modifier = {
+				name = EE_Minor_IRI_Gaelic_Sanctuary_3
+				duration = -1
+			}
+		}
+	}
+}
+# Hidden Event to give ducats and modifier
+country_event = {
+	id = EE_Irish_Minors_Events.12
+	title = EE_Irish_Minors_Events.12.t
+	desc = EE_Irish_Minors_Events.12.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+	trigger = {
+		has_country_flag = EE_Minor_IRI_gaelic_ringfort_no_fort_ducats
+		capital_scope = { has_fort_building_trigger = yes }
+		NOT = { has_country_flag = EE_Irish_Minors_Events.12_happened }
+	}
+	immediate = { set_country_flag = EE_Irish_Minors_Events.12_happened }
+	option = {
+		name = EE_Irish_Minors_Events.12.OPT1
+		add_treasury = 200
+		capital_scope = {
+			add_province_modifier = {
+				name = EE_Minor_IRI_Aristocratic_Ramparts
+				duration = -1
+			}
+		}
+	}
+}
+# Combating External Threats
+country_event = {
+	id = EE_Irish_Minors_Events.13
+	title = EE_Irish_Minors_Events.13.t
+	desc = EE_Irish_Minors_Events.13.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EE_Irish_Minors_Events.13.OPT1
+		ai_chance = { factor = 0 }
+		custom_tooltip = EE_Minor_IRI_combating_threats_tt
+		tooltip = {
+			country_event = {
+				id = EE_Irish_Minors_Events.14
+			}
+		}
+		custom_tooltip = EE_Minor_IRI_defense_Ireland_tt
+		tooltip = {
+			add_country_modifier = {
+				name = EE_Minor_IRI_defender_Ireland
+				duration = -1
+				desc = until_war_over
+			}
+		}
+		set_country_flag = EE_Minor_IRI_call_arms
+	}
+	option = { name = EE_Irish_Minors_Events.13.OPT2 }
+}
+# A Call to Arms
+country_event = {
+	id = EE_Irish_Minors_Events.14
+	title = EE_Irish_Minors_Events.14.t
+	desc = EE_Irish_Minors_Events.14.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EE_Irish_Minors_Events.14.OPT1
+		random_country = {
+			limit = {
+				primary_culture = irish
+				NOT = { tag = ROOT }
+				OR = {
+					war_with = ENG
+					war_with = SCO
+				}
+			}
+			ROOT = { join_all_defensive_wars_of = PREV }
+		}
+		custom_tooltip = EE_Minor_IRI_give_defense_Ireland_tt
+		hidden_effect = {
+			add_country_modifier = {
+				name = EE_Minor_IRI_defender_Ireland
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = EE_Irish_Minors_Events_call_to_arms_accepted }
+			}
+			set_country_flag = EE_Irish_Minors_Events_call_to_arms_accepted 
+		}
+	}
+	option = { 
+		name = EE_Irish_Minors_Events.13.OPT2
+		if = {
+			limit = {
+				NOT = { has_country_flag = EE_Irish_Minors_Events_call_to_arms_rejected }
+			}
+			set_country_flag = EE_Irish_Minors_Events_call_to_arms_rejected
+		}
+		random_country = {
+			limit = {
+				primary_culture = irish
+				NOT = { tag = ROOT }
+				OR = {
+					NOT = {
+						is_in_war = {
+							attacker_leader = ENG
+							defender_leader = PREV
+							defenders = ROOT
+						}	
+					}
+					NOT = {
+						is_in_war = {
+							attacker_leader = SCO
+							defender_leader = PREV
+							defenders = ROOT
+						}
+					}	
+				}
+			}
+			capital_scope = { set_province_flag = EE_Minor_IRI_ROOT_rejected_to_join }
+		}
+	}
+}
+
+# Hidden Event to change yearly HKL
+country_event = {
+	id = EE_Irish_Minors_Events.15
+	title = EE_Irish_Minors_Events.15.t
+	desc = EE_Irish_Minors_Events.15.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	option = {
+		name = EE_Irish_Minors_Events.15.OPT1
+		if = {
+			limit = {
+				calc_true_if = {
+					amount = 12
+					has_subject_of_type = EE_Minor_IRI_Mor_Tuath
+				}
+			}
+			change_variable = {
+				which = EE_Minor_IRI_HKL_variable
+				value = 12
+			}
+		}
+		else = {
+			every_subject_country = {
+				limit = { is_subject_of_type = EE_Minor_IRI_Mor_Tuath }
+				ROOT = {
+					change_variable = {
+						which = EE_Minor_IRI_HKL_variable
+						value = 1
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = EE_Irish_Minors_Events.16
+	title = EE_Irish_Minors_Events.16.t
+	desc = EE_Irish_Minors_Events.16.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		capital_scope = {
+			region = british_isles_region
+		}
+	}
+	
+	option = {
+		name = EE_Irish_Minors_Events.16.OPT1
+		
+		ai_chance = { factor = 100 }
+		
+		373 = {
+			owner = { white_peace = FROM }
+			cede_province = FROM
+		}
+	}
+	option = {
+		name = EE_Irish_Minors_Events.16.OPT2
+		
+		ai_chance = { factor = 0 }
+		
+		add_prestige = 5
+	}
+}

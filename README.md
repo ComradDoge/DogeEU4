@@ -6,25 +6,12 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Gwynedd (Wales) now produces copper.
-- Nobility Officers privilege Theodoro fix.
-- Navarra starts as Kingdom in vanilla flavour.
-- One Cyprus mission tweak to account bookmark.
-- Portugal Feudal Monarchy Cortes mechanic works now.
-- Added some flavour names for France upon formation.
-- Fixed missing tribal celtic federation mechanic buttons.
-- Vladimir-Suzdal reforms no longer locked only to orthodox.
-- Cornwall Tinner Interests privilege buffed and its mission tweaked.
-- Generic French Minors mission not giving Enforce Blood Tax privilege.
-- Musketeers of the Guard reform no longer disappears if you change tag.
-- Swabian minors if selecting PDX mission will have the forming decision.
-- Mali can choose missions and no longer gets stuck in a perpetual disaster.
-- Settlers privilege that gives religious conversions in trade companies fixed.
-- Fixed some wrong referencing in Timurid mission tree and some mission overlap.
-- Appanage CB AE nerfed as it was far too cheap, now simillar to normal vassalisation.
-- Fractured Tapestry Druidic event now gives option of keeping your current religion, oopsie.
-- Mushasha is no longer able to use the T4 legalism/mysticism decision to instantly stop the End.
-- Vizcaya Black Marble modifier internally made into a permanent modifier so it doesnt get removed.
+- Celtic Revival mission now properly gives the privilege.
+- Added the Ireland/Irish Minor missions from Europa Expanded.
+- Sweden/Scandinavian mission fixes so that mission choice appears.
+- Tweaked von Raab's Reforms event tooltips to be more informative of what it does.
+- Changed various legitimacy triggers or effects in Aegyptus content to take in account other government values.
+- Made the event upon starting that make sures everyone is at least 3/3/3 to take effect instantly instead of having to wait a few ticks.
 
  <!-- Todo -->
 <br/>

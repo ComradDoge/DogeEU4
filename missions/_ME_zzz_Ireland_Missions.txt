@@ -1,0 +1,1636 @@
+EE_Ireland_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	EE_Ireland_Celtic_Twilight = {
+		icon = mission_rb_conquer_wales
+		position = 7
+		trigger = {
+			stability = 1
+			OR = {
+				has_adm_advisor = yes
+				has_dip_advisor = yes
+			}
+			OR = {
+				adm_tech = 5
+				dip_tech = 5
+				mil_tech = 5
+				is_ahead_of_time_in_tech = { type = dip }
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					capital_scope = {
+						NOT = { renaissance = 100 }
+					}
+				}
+				capital_scope = {
+					add_institution_embracement = {
+						which = renaissance
+						value = 50
+					}
+				}
+				custom_tooltip = " "
+			}
+			
+			custom_tooltip = EE_IRE_buff_patronage_tt
+			hidden_effect = {
+				set_country_flag = EE_IRE_buff_patronage
+				# if = {
+					# limit = { has_estate_privilege = estate_burghers_patronage_of_the_arts }
+					# remove_estate_privilege = estate_burghers_patronage_of_the_arts
+					# set_estate_privilege = EE_SCO_estate_burghers_patronage_of_the_arts
+				# }
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = EE_IRE_Celtic_Twilight
+				duration = 9125
+			}
+		}
+	}
+	
+	EE_Ireland_Deforestation_Ireland = {
+		icon = mission_colonial
+		required_missions = { EE_Ireland_Celtic_Twilight }
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = connacht_area
+				area = ulster_area
+				area = munster_area
+				area = leinster_area
+			}
+			NOT = {
+				area_for_scope_province = {
+					owned_by = ROOT 
+					num_of_times_improved_by_owner = 2
+				}
+			}
+		}
+		trigger = {
+			has_institution = renaissance
+			connacht_area = {
+				owned_by = ROOT 
+				num_of_times_improved_by_owner = 2
+			}
+			ulster_area = {
+				owned_by = ROOT 
+				num_of_times_improved_by_owner = 2
+			}
+			munster_area = {
+				owned_by = ROOT 
+				num_of_times_improved_by_owner = 2
+			}
+			leinster_area = {
+				owned_by = ROOT 
+				num_of_times_improved_by_owner = 2
+			}
+		}
+		effect = {
+			#custom_tooltip = EE_IRE_free_development_tt
+			#set_country_flag = EE_IRE_free_development
+			custom_tooltip = EE_IRE_ducats_for_woods
+			hidden_effect = {
+				if = {
+					limit = {
+						num_of_owned_provinces_with = {
+							has_terrain = woods
+							value = 10
+						}
+					}
+					add_treasury = 100
+				}
+				else = {
+					every_owned_province = {
+						limit = {
+							has_terrain = woods
+						}
+						ROOT = { add_treasury = 10 }
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = IRE_distribute_10_dev_in_woods_provinces
+			hidden_effect = {
+				for = { 
+					amount = 10 
+					effect = "
+						random_owned_province = {
+							limit = {
+								has_terrain = woods 
+							}
+							add_random_development = 1 
+						}
+					"
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_adm_power = 50 
+		}
+	}
+	
+	EE_Ireland_Economy_Isle = {
+		icon = mission_entrepot_of_india
+		required_missions = {
+			EE_Ireland_Deforestation_Ireland
+		}
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 4118
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { has_trade_building_trigger = yes }
+					}
+				}
+				AND = {
+					NOT = {
+						is_strongest_trade_power = ROOT
+					}
+					any_trade_node_member_province = {
+						province_id = 1975
+					}
+				}
+			}
+		}
+		trigger = {
+			1975 = { is_strongest_trade_power = ROOT }
+			num_of_owned_provinces_with = {
+				value = 5
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
+			}
+			4118 = {
+				owned_by = ROOT
+				# province_has_center_of_trade_of_level = 2
+				has_trade_building_trigger = yes
+			}
+		}
+		effect = {
+			add_mercantilism = 5
+			
+			custom_tooltip = " "
+			
+			ME_add_years_of_trade_income = { years = 2 }
+			
+			custom_tooltip = " "
+			
+			capital_scope = {
+				create_or_add_center_of_trade_level = { level = 1 }
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = EE_IRE_Domination_North_Sea
+				duration = 9125
+			}
+		}
+	}
+
+	EE_Ireland_Staple_Import = {
+		icon = mission_rb_import_potatoes
+		required_missions = {
+			EE_Ireland_Economy_Isle
+			EE_Ireland_Sail_Westwards
+		}
+		position = 10
+		provinces_to_highlight = {
+			owned_by = ROOT
+			trade_goods = grain
+			OR = {
+				area = ulster_area
+				area = leinster_area
+			}
+			OR = {
+				NOT = { has_production_building_trigger = yes }
+				NOT = { num_of_times_improved_by_owner = 3 }
+			}
+		}
+		trigger = {
+			any_owned_province = {
+				OR = {
+					area = ulster_area
+					area = leinster_area
+				}
+				trade_goods = grain
+				has_production_building_trigger = yes
+				num_of_times_improved_by_owner = 3
+			}
+		}
+		effect = {
+			country_event_with_option_insight = {
+				id = EE_Ireland_Events.5
+				option_1 = "
+					custom_tooltip = EE_IRE_Rooster_1st_tt
+					tooltip = { change_trade_goods = grain }
+					custom_tooltip = EE_IRE_Rooster_rooster_potatoes_tt
+					tooltip = {
+						add_base_manpower = 1
+						add_province_modifier = {
+							name = EE_IRE_Rooster_Potatoes
+							duration = -1
+						}
+					}
+					custom_tooltip = SEPARATOR_TOOLTIP
+				"
+				option_2 = "
+					custom_tooltip = EE_IRE_Rooster_2nd_tt
+					tooltip = {
+						add_province_modifier = {
+							name = EE_IRE_Pasture_Economy
+							duration = -1
+						}
+					}
+					add_country_modifier = {
+						name = EE_IRE_Potato_Imports
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+}
+
+EE_Ireland_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	EE_Ireland_Expanding_Emerald_Isle = {
+		icon = mission_rb_hanseatic_east
+		position = 4
+		required_missions = { EE_Minor_IRI_Lia_Fail_Foretold }
+		trigger = {
+			manpower_percentage = 0.75
+			grown_by_development = 5
+			has_mil_advisor = yes
+		}
+		effect = {
+			ME_give_claims = { area = kingdom_of_the_isles_area }
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = EE_Ireland_Events.2
+				option_1 = "
+					custom_tooltip = EE_IRE_Unlock_Celtic_Union_Path_tt
+				"
+				option_2 = "
+					custom_tooltip = EE_IRE_Unlock_United_Kingdoms_Path_tt
+				"
+			}
+		}
+	}
+	EE_Ireland_Gateway_East = {
+		icon = mission_develop_nevas_port
+		position = 5
+		required_missions = { EE_Ireland_Expanding_Emerald_Isle  }
+		provinces_to_highlight = {
+			NOT = { owned_by = ROOT }
+			OR = {
+				province_id = 253
+				province_id = 4364
+			}
+		}
+		trigger = {
+			253 = { country_or_non_sovereign_subject_holds = ROOT }
+			4364 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		effect = {
+			add_adm_power = 75
+			add_dip_power = 75
+			add_mil_power = 75
+			custom_tooltip = " "
+			if = {
+				limit = {
+					4365 = {
+						NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					}
+				}
+				custom_tooltip = EE_IRE_PU_Mann_tt
+				4365 = {
+					province_event = { id = EE_Ireland_Events.12 }
+				}
+			}
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = EE_IRE_PU_SCO_or_conquest_TT
+				first_limit = "
+					government = monarchy
+					exists = SCO
+					SCO = { 
+						NOT = { is_subject = yes }
+					}
+					has_country_flag = EE_IRE_Gaelic_Future_flag
+				"
+				first_effect = "
+					add_casus_belli = {
+						type = cb_restore_personal_union
+						target = SCO
+						months = 600
+					}
+				"
+				second_custom_tooltip = EE_IRE_PU_SCO_for_other_possibility_TT
+				second_limit = "
+					OR = {
+						NOT = { exists = SCO }
+						SCO = { is_subject = yes }
+						NOT = { has_country_flag = EE_IRE_Gaelic_Future_flag }
+					}
+				"
+				second_effect = "
+					ME_give_claims = { area = highlands_area }
+					ME_give_claims = { area = lowlands_area }
+				"
+			}
+		}
+	}
+}
+
+EE_Ireland_missions_2_locked = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NOT = { has_country_flag = EE_IRE_Gaelic_Future_flag }
+		NOT = { has_country_flag = EE_IRE_Norman_Future_flag }
+	}
+	has_country_shield = yes
+
+	EE_Ireland_First_locked = {
+		icon = mission_unknown_mission
+		required_missions = { EE_Ireland_Gateway_East }
+		position = 6
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EE_IRE_locked_trigger_tt
+				always = no
+			}
+		}
+		effect = { custom_tooltip = EE_IRE_locked_effect_tt }
+	}
+}
+
+EE_Ireland_missions_2_Gaelic = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		has_country_flag = EE_IRE_Gaelic_Future_flag
+		NOT = { has_country_flag = EE_IRE_Norman_Future_flag }
+	}
+	has_country_shield = yes
+	
+	EE_Ireland_Goidelic_Reality = {
+		icon = mission_develop_nevas_port
+		required_missions = { EE_Ireland_Gateway_East }
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				area = highlands_area
+				area = lowlands_area
+			}
+		}
+		position = 6
+		trigger = {
+			EE_IRE_preview = yes
+			OR = {
+				SCO = { is_subject_of = ROOT }
+				AND = {
+					highlands_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					lowlands_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			create_admiral = { tradition = 50 }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = EE_IRE_Reclamation_Britannia
+				duration = 9125
+			}
+			
+			ME_give_claims = { id = 239 }
+			ME_give_claims = { area = wales_area }
+			ME_give_claims = { area = wessex_area }
+		}
+	}
+}
+
+EE_Ireland_missions_2_Norman = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NOT = { has_country_flag = EE_IRE_Gaelic_Future_flag }
+		has_country_flag = EE_IRE_Norman_Future_flag
+	}
+	has_country_shield = yes
+	
+	EE_Ireland_Lands_Alba = {
+		icon = mission_develop_nevas_port
+		required_missions = { EE_Ireland_Gateway_East }
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				area = highlands_area
+				area = lowlands_area
+			}
+		}
+		position = 6
+		trigger = {
+			EE_IRE_preview = yes
+			highlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lowlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = EE_IRE_Norman_scottish_culture_malus_remove_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { accepted_culture = scottish }
+					}
+					highlands_area = {
+						limit = { culture = scottish }
+						add_province_modifier = {
+							name = EE_IRE_New_Administration
+							duration = 10950
+							hidden = yes
+						}
+					}
+					lowlands_area = {
+						limit = { culture = scottish }
+						add_province_modifier = {
+							name = EE_IRE_New_Administration
+							duration = 10950
+							hidden = yes
+						}
+					}
+				}
+				highlands_area = {
+					add_local_autonomy = -20
+					add_devastation = -10
+				}
+				lowlands_area = {
+					add_local_autonomy = -20
+					add_devastation = -10
+				}
+			}
+			if = {
+				limit = {
+					government = monarchy
+					NOT = { 
+						ENG = { is_subject = yes }
+					}
+					exists = ENG
+				}
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					target = ENG
+					months = 600
+				}
+			}
+			else = {
+				ME_give_claims = { area = scottish_marches_area }
+				ME_give_claims = { area = yorkshire_area }
+				ME_give_claims = { area = east_midlands_area }
+				ME_give_claims = { area = west_midlands_area }
+				ME_give_claims = { area = wales_area }
+				ME_give_claims = { area = east_anglia_area }
+				ME_give_claims = { area = home_counties_area }
+				ME_give_claims = { area = wessex_area }
+			}
+		}
+	}
+}
+
+EE_Ireland_missions_2_cont = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	EE_Ireland_Shores_West = {
+		icon = mission_rb_conquer_munster
+		position = 8
+		required_missions = {
+			EE_Ireland_Celtic_Twilight
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = connacht_area
+				area = munster_area
+			}
+			NOT = {
+				area_for_scope_province = {
+					num_of_times_improved_by_owner = 2
+					has_trade_building_trigger = yes
+					owned_by = ROOT 
+				}
+			}
+		}
+		trigger = {
+			connacht_area = {
+				num_of_times_improved_by_owner = 2
+				has_trade_building_trigger = yes
+				owned_by = ROOT 
+			}
+			munster_area = {
+				num_of_times_improved_by_owner = 2
+				has_trade_building_trigger = yes
+				owned_by = ROOT 
+			}
+			has_dip_advisor = yes
+		}
+		effect = {
+			random_owned_province = {
+				limit = {
+					area = connacht_area
+					has_port = yes
+				}
+				add_or_upgrade_shipyard_building = yes
+			}
+			random_owned_province = {
+				limit = {
+					area = munster_area
+					has_port = yes
+				}
+				add_or_upgrade_shipyard_building = yes
+			}
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = EE_IRE_Create_Fleet
+				duration = 9125
+			}
+		}
+	}
+	EE_Ireland_Sail_Westwards = {
+		icon = mission_rb_irish_america
+		position = 9
+		required_missions = {
+			EE_Ireland_Shores_West
+		}
+		trigger = {
+			is_ahead_of_time_in_tech = { type = adm }
+			navy_tradition = 20
+			# custom_trigger_tooltip = {
+				# tooltip = EE_IRE_discovered_new_world
+				OR = {
+					has_discovered = 1105
+					has_discovered = 1494
+					colonial_eastern_america = {
+						has_discovered = ROOT
+					}
+				}
+			# }
+		}
+		effect = {
+			add_country_modifier = {
+				name = EE_IRE_Groundbreaking_Discovery
+				duration = 9125
+			}
+			# custom_tooltip = EE_IRE_reward_based_on_exploration
+			complex_dynamic_effect = {
+				first_custom_tooltip = EE_IRE_if_colonial_eastern_america
+				first_limit = "
+					colonial_eastern_america = { has_discovered = ROOT } 
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = EE_IRE_New_World_Indeed
+						duration = 9125
+					}
+				"
+				second_custom_tooltip = EE_IRE_if_1494
+				second_limit = "
+					has_discovered = 1494
+					NOT = { 
+						colonial_eastern_america = { has_discovered = ROOT }
+					}
+				"
+				second_effect = "
+					add_country_modifier = {
+						name = EE_IRE_Shore_Sighted
+						duration = 9125
+					}
+				"
+				third_custom_tooltip = EE_RE_if_1105
+				third_limit = "
+					has_discovered = 1105
+					NOT = {
+						OR = {
+							has_discovered = 1494
+							NOT = { 
+								colonial_eastern_america = { has_discovered = ROOT }
+							}
+						}
+					}
+				"
+				third_effect = "
+					add_country_modifier = {
+						name = EE_IRE_Settle_Arctic_Wastelands
+						duration = 9125
+					}
+				"
+			}
+			
+			
+			# custom_tooltip = EE_IRE_reward_colonialism
+			# tooltip = {
+				# add_country_modifier = {
+					# name = EE_IRE_birthplace_institution
+					# duration = 3650
+				# }
+			# }
+			# set_country_flag = EE_IRE_fire_colonialism_event
+		}
+	}
+}
+
+EE_Ireland_missions_3_locked = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NOT = { has_country_flag = EE_IRE_Gaelic_Future_flag }
+		NOT = { has_country_flag = EE_IRE_Norman_Future_flag }
+	}
+	has_country_shield = yes
+	
+	EE_Ireland_Second_locked = {
+		icon = mission_unknown_mission
+		required_missions = { EE_Ireland_First_locked }
+		position = 7
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EE_IRE_locked_trigger_tt
+				always = no
+			}
+		}
+		effect = { custom_tooltip = EE_IRE_locked_effect_tt }
+	}
+	
+	EE_Ireland_Third_locked = {
+		icon = mission_unknown_mission
+		required_missions = { EE_Ireland_Second_locked }
+		position = 8
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EE_IRE_locked_trigger_tt
+				always = no
+			}
+		}
+		effect = { custom_tooltip = EE_IRE_locked_effect_tt }
+	}
+}
+
+EE_Ireland_missions_3_Gaelic = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		has_country_flag = EE_IRE_Gaelic_Future_flag
+		NOT = { has_country_flag = EE_IRE_Norman_Future_flag }
+	}
+	has_country_shield = yes
+	
+	EE_Ireland_Restoration_Britannia = {
+		icon = mission_develop_nevas_port
+		required_missions = { EE_Ireland_Goidelic_Reality }
+		position = 7
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				area = wales_area
+				area = wessex_area
+			}
+		}
+		trigger = {
+			EE_IRE_preview = yes
+			wales_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			wessex_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
+			}
+			custom_tooltip = " "
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				add_army_professionalism = 0.05
+			}
+			custom_tooltip = " "
+			custom_tooltip = EE_IRE_Celtic_Law_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EE_IRE_Celtic_Law
+					duration = 9125
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = { region = british_isles_region }
+					add_province_modifier = {
+						name = EE_IRE_Celtic_Law
+						duration = 9125
+					}
+				}
+			}
+			if = {
+				limit = {
+					government = monarchy
+					NOT = { 
+						BRI = { is_subject = yes }
+					}
+					exists = BRI
+				}
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					target = BRI
+					months = 600
+				}
+			}
+			else = {
+				brittany_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	
+	EE_Ireland_Ceilteach_Aonadh = {
+		icon = mission_develop_nevas_port
+		required_missions = { EE_Ireland_Restoration_Britannia }
+		position = 8
+		provinces_to_highlight = {
+			NOT = { owned_by = ROOT }
+			area = brittany_area
+		}
+		trigger = {
+			EE_IRE_preview = yes
+			OR = {
+				BRI = { is_subject_of = ROOT }
+				brittany_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			total_development = 250
+		}
+		effect = {
+			custom_tooltip = EE_BRI_unlock_celtic_decision_tt
+		}
+	}
+}
+
+EE_Ireland_missions_3_Norman = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NOT = { has_country_flag = EE_IRE_Gaelic_Future_flag }
+		has_country_flag = EE_IRE_Norman_Future_flag
+	}
+	has_country_shield = yes
+	
+	
+	EE_Ireland_Lordship_England = {
+		icon = mission_develop_nevas_port
+		required_missions = { EE_Ireland_Lands_Alba }
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				area = scottish_marches_area
+				area = yorkshire_area
+				area = east_midlands_area
+				area = west_midlands_area
+				area = wales_area
+				area = east_anglia_area
+				area = home_counties_area
+				area = wessex_area
+			}
+		}
+		position = 7
+		trigger = {
+			EE_IRE_preview = yes
+			OR = {
+				ENG = { is_subject_of = ROOT }
+				AND = {
+					scottish_marches_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					yorkshire_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					east_midlands_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					west_midlands_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					wales_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					east_anglia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					home_counties_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					wessex_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				add_country_modifier = {
+					name = EE_IRE_New_Pendragon
+					duration = 9125
+				}
+			}
+			if = {
+				limit = {
+					ENG = { is_subject_of = ROOT }
+				}
+				ENG = { add_liberty_desire = -15 }
+				custom_tooltip = " "
+			}
+			add_stat_or_monarch_power = {
+				stat = mil
+				amount = 1
+			}
+		}
+	}
+	
+	
+	EE_Ireland_Union_Kingdoms = {
+		icon = mission_develop_nevas_port
+		required_missions = { EE_Ireland_Lordship_England }
+		provinces_to_highlight = {
+			NOT = { owned_by = ROOT }
+			OR = {
+				area = scottish_marches_area
+				area = yorkshire_area
+				area = east_midlands_area
+				area = west_midlands_area
+				area = wales_area
+				area = east_anglia_area
+				area = home_counties_area
+				area = wessex_area
+			}
+		}
+		position = 8
+		trigger = {
+			EE_IRE_preview = yes
+			OR = {
+				AND = {
+					ENG = {
+						NOT = { liberty_desire = 5 }
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+						NOT = { num_of_cities = 50 }
+					}
+					IRE = { total_development = 275 }
+				}
+				AND = {
+					stability = 2
+					NOT = { exists = ENG }
+					british_isles_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					custom_trigger_tooltip = {
+						tooltip = EE_IRE_No_5_separatism
+						all_owned_province = {
+							OR = {
+							  NOT = { region = british_isles_region }
+							  NOT = { nationalism = 5 }
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		effect = {
+			custom_tooltip = EE_IRE_inherit_ENG_reward
+			custom_tooltip = " "
+			hidden_effect = {
+				if = {
+					limit = {
+						ENG = {
+							NOT = { liberty_desire = 5 }
+							has_opinion = {
+								who = ROOT
+								value = 190
+							}
+							NOT = { num_of_cities = 50 }
+						}
+						IRE = { total_development = 275 }
+					}
+					inherit = ENG 
+				}
+			}
+			custom_tooltip = EE_IRE_change_tag_name_and_missions_tt
+			hidden_effect = {
+				change_tag = GBR
+				override_country_name = EE_IRE_United_Kingdoms
+				country_event = { id = paradox_or_mod_missions_events.2 }
+				set_government_rank = 3
+			}
+		}
+	}
+}
+
+EE_Ireland_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	EE_Ireland_Irish_Maritime_Traditions = {
+		icon = mission_rb_grow_the_channel
+		required_missions = {
+			EE_Ireland_Shores_West
+		}
+		position = 9
+		trigger = {
+			navy_size_percentage = 0.9
+			num_of_admirals = 1
+		}
+		effect = {
+			define_explorer = {
+				fire = 3
+				shock = 2
+				manuever = 5
+			}
+			custom_tooltip = " "
+			if = {
+				limit = { 
+					has_dlc = "Golden Century"
+					any_owned_province = { has_port = yes }
+				}
+				set_country_flag = EE_IRE_Irish_Explorers
+				random_owned_province = {
+					limit = { has_port = yes }
+					add_base_production = 1
+					ME_create_flagship = {
+						name = "Iolar na Mara"
+						type = light_ship
+						mod_1 = EE_IRE_Irish_Explorers
+						mod_2 = trade_route_map
+						mod_3 = standardized_signal_book
+					}
+				}
+				
+				custom_tooltip = " "
+			}
+			add_country_modifier = {
+				name = EE_IRE_Irish_Fleet
+				duration = 9125
+			}
+		}
+	}
+	
+	EE_Ireland_Debark_East = {
+		icon = mission_rb_the_thirteen_colonies
+		position = 10
+		provinces_to_highlight = {
+			colonial_region = colonial_eastern_america
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_city = yes }
+			}
+		}
+		required_missions = { EE_Ireland_Sail_Westwards }
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				is_city = yes
+				colonial_region = colonial_eastern_america
+				value = 5
+			}
+		}
+		effect = {
+			custom_tooltip = EE_IRE_recieve_same_modifier_tt
+			hidden_effect = {
+				if = {
+					limit = { has_country_modifier = EE_IRE_Settle_Arctic_Wastelands }
+					random_subject_country = {
+						limit = {
+							is_colonial_nation = yes
+							capital_scope = { colonial_region = colonial_eastern_america }
+						}
+						add_country_modifier = {
+							name = EE_IRE_Settle_Arctic_Wastelands
+							duration = -1
+						}
+					}
+				}
+				else_if = {
+					limit = { has_country_modifier = EE_IRE_Shore_Sighted }
+					random_subject_country = {
+						limit = {
+							is_colonial_nation = yes
+							capital_scope = { colonial_region = colonial_eastern_america }
+						}
+						add_country_modifier = {
+							name = EE_IRE_Shore_Sighted
+							duration = -1
+						}
+					}
+				}
+				else = {
+					random_subject_country = {
+						limit = {
+							is_colonial_nation = yes
+							capital_scope = { colonial_region = colonial_eastern_america }
+						}
+						add_country_modifier = {
+							name = EE_IRE_New_World_Indeed
+							duration = -1
+						}
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = EE_Ireland_Events.7
+				option_1 = "
+					custom_tooltip = EE_IRE_Irish_Colonialism_OPT1_tt
+					custom_tooltip = EE_IRE_colonist_tt
+				"
+				option_2 = "
+					ME_IRE_complex_effect = yes
+				"
+			}
+		}
+	}
+}
+
+EE_Ireland_missions_4_locked = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NOT = { has_country_flag = EE_IRE_Gaelic_Future_flag }
+		NOT = { has_country_flag = EE_IRE_Norman_Future_flag }
+	}
+	has_country_shield = yes
+	
+	
+}
+
+EE_Ireland_missions_4_Gaelic = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		has_country_flag = EE_IRE_Gaelic_Future_flag
+		NOT = { has_country_flag = EE_IRE_Norman_Future_flag }
+	}
+	has_country_shield = yes
+	
+}
+
+EE_Ireland_missions_4_Norman = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+		NOT = { has_country_flag = EE_IRE_Gaelic_Future_flag }
+		has_country_flag = EE_IRE_Norman_Future_flag
+	}
+	has_country_shield = yes
+}
+
+EE_Ireland_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	
+	EE_Ireland_Securing_Clan_Loyalty = {
+		icon = mission_rb_rein_in_the_highland_clans
+		position = 6
+		required_missions = { EE_Ireland_Irish_Leadership }
+		provinces_to_highlight = {
+			is_capital = yes
+			owner = {
+				is_subject_of_type = EE_Minor_IRI_Mor_Tuath
+				liberty_desire = 5
+				is_subject_of = ROOT
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EE_IRE_Ruiri_lib_desire_Triggers
+				all_subject_country = {
+					OR = {
+						NOT = { is_subject_of_type = EE_Minor_IRI_Mor_Tuath }
+						NOT = { liberty_desire = 5 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_estate = estate_clans
+				}
+				estate_loyalty = {
+					estate = estate_clans
+					loyalty = 60
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = EE_IRE_Ruiri_Integrate
+			set_country_flag = EE_IRE_Ruiri_Integrate_flag
+			add_country_modifier = {
+				name = EE_IRE_King_Kings
+				duration = 9125
+			}
+		}
+	}
+	EE_Ireland_United_Ireland = {
+		icon = mission_rb_into_ireland
+		position = 8
+		required_missions = { 
+			EE_Ireland_Securing_Clan_Loyalty
+			EE_Ireland_Clergy_Ireland 
+		}
+		provinces_to_highlight = {
+			OR = {
+				owner = { is_subject_of = ROOT is_subject_of_type = EE_Minor_IRI_Mor_Tuath }
+				area = connacht_area
+				area = munster_area
+				area = ulster_area
+				area = leinster_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			connacht_area = {
+				type = all
+				owned_by = ROOT
+			}
+			munster_area = {
+				type = all
+				owned_by = ROOT
+			}
+			ulster_area = {
+				type = all
+				owned_by = ROOT
+			}
+			leinster_area = {
+				type = all
+				owned_by = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = EE_IRE_No_Mor_Tuath
+				NOT = {
+					any_subject_country = {
+						is_subject_of_type = EE_Minor_IRI_Mor_Tuath
+					}
+				}
+			}
+		}
+		effect = {
+			change_government_reform_progress = 100
+			custom_tooltip = " "
+			custom_tooltip = add_5_crown_land_share
+			hidden_effect = {
+				change_estate_land_share = {
+					estate = all
+					share = -5
+				}
+			}
+			custom_tooltip = " "
+			add_stat_or_monarch_power = {
+				stat = dip
+				amount = 1
+			}
+			custom_tooltip = " "
+			tooltip = { add_government_reform = EE_IRE_Irish_Kingdom }
+			set_country_flag = EE_IRE_enact_Irish_Kingdom_reform
+			hidden_effect = {
+				if = {
+					limit = { has_reform = EE_IRE_Ardi_Heireann }
+					remove_government_reform = EE_IRE_Ardi_Heireann
+					add_government_reform = EE_IRE_Irish_Kingdom
+				}
+			}
+			
+			clr_country_flag = EE_Minor_IRI_activate_Mor_Tuath
+		}
+	}
+	EE_Ireland_Into_Global_Stage = {
+		icon = mission_rb_rule_britannia_irish_version
+		position = 11
+		required_missions = { 
+			EE_Ireland_United_Ireland
+			EE_Ireland_Debark_East
+		}
+		provinces_to_highlight = {
+			region = british_isles_region
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			ME_trade_income = { amount = 15 }
+			ME_production_income = { amount = 15 }
+			if = {
+				limit = { has_dlc = "Dharma" }
+				any_owned_province = { province_has_center_of_trade_of_level = 3 }
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 60
+			}
+			british_isles_region = {
+				type = all
+				owned_by = ROOT 
+			}
+		}
+		effect = {
+			custom_tooltip = EE_IRE_gain_production_income
+			hidden_effect = {
+				export_to_variable = {
+					which = our_production_income
+					value = monthly_income
+				}
+				export_to_variable = {
+					which = our_production_income_percent
+					value = trigger_value:production_income_percentage
+				}
+				multiply_variable = { 
+					which = our_production_income 
+					which = our_production_income_percent 
+				}
+				set_variable = {  
+					which = our_production_income_percent
+					value = 0 
+				}
+				multiply_variable = {
+					which = our_production_income 
+					value = 24
+				}
+				while = {
+					limit = {
+						check_variable = { 
+							which = our_production_income
+							value = 1 
+						}
+					}
+					change_variable = { 
+						which = our_production_income 
+						value = -1 
+					}
+					add_treasury = 1
+				}
+			}
+			custom_tooltip = EE_IRE_1_num_buildings
+			tooltip = {
+				add_province_modifier = {
+					name = EE_IRE_Economic_Stronghold
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				british_isles_region = {
+					limit = { owned_by = ROOT  }
+					add_province_modifier = {
+						name = EE_IRE_Economic_Stronghold
+						duration = -1
+					}
+				}
+			}
+			add_age_modifier = {
+				name = EE_IRE_Global_Economy
+				duration = -1
+				age = age_of_reformation
+			}
+		}
+	}
+}
+
+EE_Ireland_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = IRE
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	EE_Ireland_Irish_Leadership = {
+		icon = mission_rb_the_education_acts
+		position = 5
+		trigger = {
+			reform_level = 2
+			stability = 1
+			has_adm_advisor = yes
+		}
+		effect = {
+			country_event_with_option_insight = {
+				id = EE_Ireland_Events.6
+				option_1 = "
+					custom_tooltip = EE_IRE_Furious_Ruiri
+				"
+				option_2 = "
+					change_government_to_republic = yes
+					custom_tooltip = SEPARATOR_TOOLTIP
+					tooltip = {
+						add_country_modifier = {
+							name = EE_IRE_Irish_Republic
+							duration = -1
+							desc = as_long_as_we_are_ireland
+						}
+					}
+				"
+			}
+		}
+	}
+	
+	EE_Ireland_Clergy_Ireland = {
+		icon = catholic_confraternity
+		position = 7
+		required_missions = { EE_Ireland_Irish_Leadership }
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 60
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_church
+					value = 2
+				}
+				num_of_estate_privileges = {
+					estate = estate_church
+					value = 2
+				}
+			}
+			else = {
+				stability = 2
+				reform_level = 4
+			}
+		}
+		effect = {
+			add_papal_influence = 15
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = EE_SCO_Improved_religious_culture_tt
+			hidden_effect = {
+				set_country_flag = EE_Improved_religious_culture
+				# if = {
+					# limit = { has_estate_privilege = estate_church_one_faith_one_culture }
+					# remove_estate_privilege = estate_church_one_faith_one_culture
+					# set_estate_privilege = EE_BRI_estate_church_one_faith_one_culture
+				# }
+			}
+			add_country_modifier = {
+				name = EE_IRE_Appeased_Clergy
+				duration = 9125
+			}
+		}
+	}
+	EE_Ireland_Independent_Church = {
+		icon = counter_reformation
+		position = 9
+		required_missions = { EE_Ireland_Clergy_Ireland }
+		provinces_to_highlight = {
+			ROOT = { religion = catholic }
+			is_capital_of = PAP
+		}
+		trigger = {
+			if = {
+				limit = {
+					religion = catholic 
+				}
+				papal_influence = 25
+				custom_trigger_tooltip = {
+					tooltip = EE_SCO_active_blessing_tt
+					OR = {
+						has_country_modifier = papal_sanction_for_church_taxes
+						has_country_modifier = papal_indulgence
+						has_country_modifier = usury_forgiven
+						has_country_modifier = severe_tax_reduction
+						has_country_modifier = papal_blessing
+						has_country_modifier = papal_sanction_for_holy_war
+						has_country_modifier = papal_legate
+					}
+				}
+				PAP = {
+					has_opinion = {
+						who = ROOT
+						value = 125
+					}
+				}
+				OR = {
+					alliance_with = PAP
+					total_development = ENG
+					NOT = { exists = ENG }
+				}
+			}
+			else = {
+				OR = {
+					has_adm_advisor_3 = yes
+					theologian = 1
+					inquisitor = 1
+				}
+				religious_unity = 0.85
+			}
+		}
+		effect = {
+			complex_dynamic_effect_without_alternative = {
+				first_custom_tooltip = EE_IRE_religious_state_gain_5_crownlands_tt
+				first_limit = "
+					has_estate_privilege = estate_church_religious_state
+				"
+				first_effect = "
+					custom_tooltip = EE_IRE_gain_crownlands
+					hidden_effect = {
+						change_estate_land_share = {
+							estate = all
+							share = -5
+						}
+					}
+				"
+			}
+			
+			custom_tooltip = " "
+			
+			custom_tooltip = EE_IRE_buff_religious_diplomats_tt
+			hidden_effect = {
+				set_country_flag = EE_IRE_buff_religious_diplomats
+				# if = {
+					# limit = { has_estate_privilege = estate_church_one_faith_one_culture }
+					# remove_estate_privilege = estate_church_one_faith_one_culture
+					# set_estate_privilege = EE_BRI_estate_church_one_faith_one_culture
+				# }
+			}
+			
+			if = {
+				limit = {
+					religion = catholic
+				}
+				custom_tooltip = " "
+				complex_dynamic_effect = {
+					first_custom_tooltip = EE_IRE_IF_alliance_tt
+					first_limit = "
+						alliance_with = PAP
+					"
+					first_effect = "
+						add_country_modifier = {
+							name = EE_IRE_direct_connections
+							duration = 9125
+						}
+					"
+					second_custom_tooltip = EE_IRE_or_else_tt
+					second_limit = "
+						OR = {
+							total_development = ENG
+							NOT = { exists = ENG }
+						}
+					"
+					second_effect = "
+						add_country_modifier = {
+							name = EE_IRE_britannian_catholic_church
+							duration = 9125
+						}
+					"
+				}
+			}
+		}
+	}
+	EE_Ireland_Whispers_Mutiny = {
+		icon = mission_rb_weather_the_reformation
+		position = 11
+		required_missions = { EE_Ireland_Independent_Church }
+		trigger = {
+			is_religion_enabled = protestant
+			OR = {
+				religion = catholic
+				NOT = { religion = catholic }
+			}
+		}
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = EE_IRE_If_Catholic
+				first_limit = "
+					religion = catholic
+				"
+				first_effect = "
+					add_country_modifier = {
+						name = EE_IRE_Irish_Catholic_Church
+						duration = 18250
+					}
+				"
+				second_custom_tooltip = EE_IRE_If_NOT_Catholic_No_PAP
+				second_limit = "
+					NOT = { religion = catholic }
+				"
+				second_effect = "
+					EE_complex_effect = yes
+				"
+			}
+		}
+	}
+}
