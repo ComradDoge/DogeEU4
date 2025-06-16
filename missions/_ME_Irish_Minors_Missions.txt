@@ -1,0 +1,942 @@
+EE_irish_minors_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = TYR
+			tag = TRY
+			tag = LEI
+			tag = ULS
+			tag = FLY
+			tag = KID
+			tag = CNN
+			tag = SLN
+			tag = MCM
+			tag = DMS
+			tag = ORD
+			tag = MTH
+			tag = MNS
+			tag = IRE
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	EE_Minor_IRI_King_Tara = {
+		icon = mission_rb_conquer_munster
+		position = 2
+		required_missions = { EE_Minor_IRI_Rally_Clans }
+		provinces_to_highlight = { 
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				area = connacht_area
+				area = munster_area
+			}
+		}
+		trigger = {
+			connacht_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			munster_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			# custom_tooltip = EE_Minor_IRI_Unlock_Lia_Fail_upgrade_tt
+			connacht_area = {
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			munster_area = {
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			
+			custom_tooltip = " "
+			
+			add_army_tradition_or_mil_power = { value = 10 }
+		}
+	}
+	
+	EE_Minor_IRI_Vultures_East = {
+		icon = mission_rb_invade_england
+		position = 3
+		required_missions = { }
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EE_Minor_IRI_power_struggle_happened_tt
+				OR = {
+					has_country_flag = EE_Minor_IRI_chose_isolationist
+					has_country_flag = EE_Minor_IRI_chose_friendship
+				}
+			}
+			prestige = 25
+			power_projection = 20
+			if = {
+				limit = { 
+					has_country_flag = EE_Minor_IRI_chose_isolationist
+					OR = {
+						exists = ENG
+						exists = SCO
+					}
+				}
+				# custom_trigger_tooltip = {
+					# tooltip = EE_Minor_IRI_isolationist_trigger_tt
+					# has_country_flag = EE_Minor_IRI_chose_isolationist
+					OR = {
+						SCO = { 
+							has_been_insulted_by_root = yes
+						}
+						ENG = { 
+							has_been_insulted_by_root = yes
+						}
+					}
+				# }
+			}
+		}
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = EE_Minor_IRI_isolationist_reward_tt
+				first_limit = "
+					has_country_flag = EE_Minor_IRI_chose_isolationist
+				"
+				first_effect = "
+					country_event = { id = EE_Irish_Minors_Events.13 }
+					custom_tooltip = EE_Minor_IRI_isolationist_reward_tt_1
+					set_country_flag = EE_Minor_IRI_unlock_combat_foreign_influence_PO
+				"
+				second_custom_tooltip = EE_Minor_IRI_friendship_reward_tt
+				second_limit = "
+					has_country_flag = EE_Minor_IRI_chose_friendship
+				"
+				second_effect = "
+					custom_tooltip = EE_Minor_IRI_friendship_reward_tt_1
+					set_country_flag = EE_Minor_IRI_unlock_friendship_diplo_actions
+				"
+			}
+		}
+	}
+	
+	EE_Minor_IRI_Lord_Deputy_Ireland = {
+		icon = mission_english_civil_war
+		position = 4
+		required_missions = { EE_Minor_IRI_Vultures_East }
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = EE_Minor_IRI_Lord_Deputy_Ireland_Iso_tt
+					has_country_flag = EE_Minor_IRI_chose_isolationist
+					has_spy_network_in = {
+						who = ENG
+						value = 20
+					}
+					ENG = {
+						custom_trigger_tooltip = {
+							tooltip = has_been_insulted_by_root
+							OR = {
+								has_opinion_modifier = {
+									who = ROOT
+									modifier = insulted
+								}
+								has_opinion_modifier = {
+									who = ROOT
+									modifier = scornfully_insulted
+								}
+							}
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = EE_Minor_IRI_Lord_Deputy_Ireland_Friend_tt
+					has_country_flag = EE_Minor_IRI_chose_friendship
+					ENG = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+					ENG = {
+						owes_favors = {
+							who = ROOT
+							value = 10
+						}
+						trust = { 
+							who = ROOT
+							value = 55 
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = EE_Minor_IRI_lord_deputy_iso_reward_tt
+			custom_tooltip = EE_Minor_IRI_lord_deputy_friend_reward_tt
+			tooltip = {
+				add_stat_or_monarch_power = {
+					stat = mil
+					amount = 1
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_spy_network_in = {
+							who = ENG
+							value = 20
+						}
+						ENG = {
+							custom_trigger_tooltip = {
+								tooltip = has_been_insulted_by_root
+								OR = {
+									has_opinion_modifier = {
+										who = ROOT
+										modifier = insulted
+									}
+									has_opinion_modifier = {
+										who = ROOT
+										modifier = scornfully_insulted
+									}
+								}
+							}
+						}
+					}
+					add_mil_power = 50
+					add_army_tradition = 10
+					set_country_flag = EE_Minor_IRI_buff_unconquerable_Ireland_tt
+				}
+				else = {
+					add_stat_or_monarch_power = {
+						stat = mil
+						amount = 1
+					}
+					add_prestige = 10
+				}
+			}
+		}
+	}
+}
+
+EE_irish_minors_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = TYR
+			tag = TRY
+			tag = LEI
+			tag = ULS
+			tag = FLY
+			tag = KID
+			tag = CNN
+			tag = SLN
+			tag = MCM
+			tag = DMS
+			tag = ORD
+			tag = MTH
+			tag = MNS
+			tag = IRE
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	EE_Minor_IRI_Rally_Clans = {
+		icon = mission_rb_unite_the_clans
+		position = 1
+		required_missions = { }
+		trigger = {
+			army_size_percentage = 0.85 
+		}
+		effect = {
+			add_mil_power = 50
+			
+			custom_tooltip = " "
+			
+			ME_give_claims = { area = ulster_area }
+			ME_give_claims = { area = munster_area }
+			ME_give_claims = { area = leinster_area }
+			ME_give_claims = { area = connacht_area }
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = EE_Irish_Minors_Events.3
+				option_1 = "
+					EE_Minor_IRI_opt1_effect = yes
+				"
+				option_2 = "
+					custom_tooltip = IRE_other_policy
+					custom_tooltip = \" \"
+					add_country_modifier = {
+						name = EE_Minor_IRI_Pen_Over_Sword
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+	
+	EE_Minor_IRI_Lost_Kingdom_Old = {
+		icon = mission_rb_conquer_leinster
+		position = 2
+		required_missions = { 
+			EE_Minor_IRI_Rally_Clans
+		}
+		provinces_to_highlight = { 
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				area = leinster_area
+				area = ulster_area
+			}
+		}
+		trigger = {
+			leinster_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			ulster_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			ME_add_power_projection = { amount = 20 }
+			custom_tooltip = " "
+			ulster_area = {
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			leinster_area = {
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+		}
+	}
+	
+	EE_Minor_IRI_Lia_Fail_Foretold = {
+		icon = holy_state
+		position = 3
+		required_missions = { 
+			EE_Minor_IRI_Pale
+			EE_Minor_IRI_King_Tara
+			EE_Minor_IRI_Lost_Kingdom_Old
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = leinster_area
+				area = ulster_area
+				area = munster_area
+				area = connacht_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			leinster_area = {
+				type = all 
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+			munster_area = {
+				type = all 
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+			ulster_area = {
+				type = all 
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+			connacht_area = {
+				type = all 
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+		}
+		effect = {
+			country_event_with_option_insight = {
+				id = EE_Irish_Minors_Events.7
+				option_1 = "
+					custom_tooltip = EE_Minor_IRI_modify_mission_decision_tt
+					custom_tooltip = EE_SCO_empty_line_tt
+				"
+				option_2 = "
+					custom_tooltip = EE_Minor_IRI_modify_vassal_count_tt
+				"
+			}
+		}
+	}
+
+}
+
+EE_irish_minors_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = TYR
+			tag = TRY
+			tag = LEI
+			tag = ULS
+			tag = FLY
+			tag = KID
+			tag = CNN
+			tag = SLN
+			tag = MCM
+			tag = DMS
+			tag = ORD
+			tag = MTH
+			tag = MNS
+			tag = IRE
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	EE_Minor_IRI_Pale = {
+		icon = mission_rb_beyond_the_pale
+		position = 2
+		required_missions = { EE_Minor_IRI_Rally_Clans }
+		provinces_to_highlight = { province_id = 373 }
+		trigger = {
+			OR = {
+				373 = { country_or_non_sovereign_subject_holds = ROOT }
+				AND = {
+					373 = { controlled_by = ROOT }
+					OR = {
+						ENG = {
+							current_war_losses = {
+								who_with = ROOT
+								type = soldiers
+								cause = battle
+								amount = 10000
+							}
+						}
+						war_score_against = {
+							who = ENG
+							value = 25
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			# custom_tooltip = EE_Minor_IRI_buff_irish_endurance_tt
+			# set_country_flag = EE_Minor_IRI_buff_irish_endurance
+			
+			
+			complex_dynamic_effect_without_alternative = {
+				first_custom_tooltip = IRE_if_done_via_ownership
+				first_limit = "
+					373 = { country_or_non_sovereign_subject_holds = ROOT }
+				"
+				first_effect = "
+					add_mil_power = 100
+					
+					custom_tooltip = \" \"
+					
+					373 = { add_core = ROOT }
+					
+					custom_tooltip = \" \"
+					
+					373 = { add_base_tax = 2 add_base_production = 2 add_base_manpower = 1 }
+				"
+				second_custom_tooltip = IRE_if_at_war
+				second_limit = "
+					373 = { controlled_by = ROOT }
+					OR = {
+						ENG = {
+							current_war_losses = {
+								who_with = ROOT
+								type = soldiers
+								cause = battle
+								amount = 10000
+							}
+						}
+						war_score_against = {
+							who = ENG
+							value = 25
+						}
+					}
+				"
+				second_effect = "
+					EE_IRE_Event_add = yes
+				"
+			}
+		}
+	}
+	
+	EE_Minor_IRI_Diplomacy_Amongst_Clans = {
+		icon = catholic_confraternity
+		position = 3
+		trigger = {
+			if = {
+				limit = {
+					any_known_country = {
+						NOT = { tag = ROOT }
+						primary_culture = irish
+					}
+				}
+				OR = {
+					any_known_country = {
+						primary_culture = irish
+						has_opinion = {
+							who = ROOT
+							value = 75
+						}
+					}
+					diplomat = 1
+					has_dip_advisor_2 = yes 
+				}
+			}
+			else = {
+				OR = {
+					diplomat = 1
+					has_dip_advisor_2 = yes 
+				}
+			}
+		}
+		effect = {
+           	custom_tooltip = IRE_get_favors_with_random_irish_ally
+			hidden_effect = {
+				random_ally = {
+					limit = { primary_culture = irish }
+					ROOT = {
+						add_favors = {
+							who = PREV
+							amount = 10
+						}
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			# custom_tooltip = EE_Minor_IRI_activate_Mor_Tuath_tt
+			# custom_tooltip = EE_Minor_IRI_activate_Create_Mor_Tuath_tt
+			# set_country_flag = EE_Minor_IRI_activate_Mor_Tuath
+			# set_country_flag = EE_Minor_IRI_1_FL_per_Mor_Tuath
+			add_country_modifier = {
+				name = EE_Minor_IRI_Gaelic_Diplomacy
+				duration = 9125
+			}
+		}
+	}
+	
+	EE_Minor_IRI_Irish_Commerce = {
+		icon = mission_rb_cod_wars
+		position = 4
+		required_missions = { EE_Minor_IRI_Diplomacy_Amongst_Clans }
+		trigger = {
+			OR = {
+				has_dip_advisor_2 = yes
+				capital_scope = {
+					OR = {
+						base_production = 5
+						has_trade_building_trigger = yes
+					}
+				}
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_province_modifier = {
+					name = EE_Minor_IRI_Important_Fish_Entrepot
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = { province_has_center_of_trade_of_level = 1 }
+				}
+				capital_scope = { add_center_of_trade_level = 1 }
+			}
+			else = {
+				add_mercantilism = 2
+			}
+			
+			custom_tooltip = " "
+			
+			ME_add_years_of_trade_income = { years = 1 }
+		}
+	}
+	
+}
+EE_irish_minors_missions_3_common_sense = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential_on_load = {
+		OR = {
+			has_dlc = "Common Sense"
+			has_dlc = "Domination"
+		}
+	}
+	potential = {
+		OR = {
+			tag = TYR
+			tag = TRY
+			tag = LEI
+			tag = ULS
+			tag = FLY
+			tag = KID
+			tag = CNN
+			tag = SLN
+			tag = MCM
+			tag = DMS
+			tag = ORD
+			tag = MTH
+			tag = MNS
+			tag = IRE
+		}
+		OR = {
+			has_dlc = "Common Sense"
+			has_dlc = "Domination"
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+	EE_Minor_IRI_Center_Ireland = {
+		icon = mission_rb_trinity_college_dublin
+		position = 5
+		required_missions = { EE_Minor_IRI_Irish_Commerce EE_Minor_IRI_Maighin_Digona }
+		trigger = {
+			capital_scope = {
+				development = 12
+			}
+			OR = {
+				num_of_estate_agendas_completed = {
+					estate = estate_burghers
+					value = 1
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_church
+					value = 1
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_nobles
+					value = 1
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_clans
+					value = 1
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = EE_Minor_IRI_Parliament
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = EE_Minor_IRI_Irish_Parliament
+				duration = -1
+			}
+			hidden_effect = { 
+				add_government_reform = EE_Minor_IRI_Gaelic_Kingship_Parliament
+			}
+		}
+	}
+}
+EE_irish_minors_missions_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = TYR
+			tag = TRY
+			tag = LEI
+			tag = ULS
+			tag = FLY
+			tag = KID
+			tag = CNN
+			tag = SLN
+			tag = MCM
+			tag = DMS
+			tag = ORD
+			tag = MTH
+			tag = MNS
+			tag = IRE
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	EE_Minor_IRI_Creach_Righ = {
+		icon = mission_rb_control_electors
+		position = 1
+		required_missions = { }
+		trigger = { 
+			num_of_battles_won = { amount = 3 }
+			custom_trigger_tooltip = {
+				tooltip = EE_Minor_IRI_army_strength_ROOT
+				all_known_country = {
+					OR = {
+						NOT = { primary_culture = irish }
+						NOT = {
+							army_strength = {
+								who = ROOT
+								value = 1
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = EE_Minor_IRI_hero_king
+				duration = 7300
+			}
+			
+			add_mil_power = 50
+		}
+	}
+	
+	EE_Minor_IRI_Actions_Custom = {
+		icon = mission_rb_conquer_the_highlands
+		position = 2
+		required_missions = { EE_Minor_IRI_Creach_Righ EE_Minor_IRI_Raid_Culture }
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_clans
+				}
+				estate_loyalty = {
+					estate = estate_clans 
+					loyalty = 55
+				}
+			}
+			else = {
+				monthly_mil = 8
+			}
+			num_of_battles_won = { amount = 10 }
+		}
+		effect = {
+			set_country_flag = EE_Minor_IRI_unlock_improved_clann_PO
+			custom_tooltip = EE_Minor_IRI_customs_reward_tt
+			hidden_effect = {
+				export_to_variable = {
+					variable_name = army_tradition_value
+					value = army_tradition
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = army_tradition_value
+							value = 1
+						}
+					}
+					add_mil_power = 3
+					change_variable = {
+						which = army_tradition_value
+						value = -1
+					}
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_yearly_manpower = 0.5
+			# complex_dynamic_effect_without_alternative = {
+				# first_custom_tooltip = EE_Minor_IRI_customs_extra_reward_tt
+				# first_limit = "
+					# has_country_flag = EE_Minor_IRI_chose_isolationist
+				# "
+				# first_effect = "
+					# custom_tooltip = EE_Minor_IRI_customs_extra_reward_tt_1
+					# set_country_flag = EE_Minor_IRI_improve_morale_tradition
+				# "
+			# }
+		}
+	}
+	
+	EE_Minor_IRI_Grianan = {
+		icon = levee_the_arno
+		position = 3
+		required_missions = { }
+		provinces_to_highlight = {
+			is_capital_of = ROOT 
+		}
+		trigger = {
+			capital_scope = {
+				num_of_times_improved_by_owner = 2
+			}
+		}
+		effect = {
+			custom_tooltip = EE_Minor_IRI_gaelic_sanctuary_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EE_Minor_IRI_Gaelic_Sanctuary
+					duration = -1
+					desc = until_we_form_Ireland
+				}
+			}
+			hidden_effect = {
+				capital_scope = {
+					add_province_modifier = {
+						name = EE_Minor_IRI_Gaelic_Sanctuary
+						duration = -1
+						desc = until_we_form_Ireland
+					}
+				}
+			}
+			custom_tooltip = EE_Minor_IRI_buff_gaelic_sanctuary_tt
+		}
+	}
+	EE_Minor_IRI_Maighin_Digona = {
+		icon = public_works
+		position = 4
+		required_missions = { EE_Minor_IRI_Grianan EE_Minor_IRI_Diplomacy_Amongst_Clans }
+		provinces_to_highlight = {
+			is_capital_of = ROOT 
+		}
+		trigger = {
+			capital_scope = {
+				NOT = { devastation = 0.01 }
+				custom_trigger_tooltip = {
+					tooltip = EE_Minor_IRI_Maighin_Digona_trigger_tt
+					NOT = {
+						OR = {
+							leinster_area = {
+								higher_development_than = PREV
+								NOT = { province_id = PREV }
+							}
+							munster_area = {
+								higher_development_than = PREV
+								NOT = { province_id = PREV }
+							}
+							connacht_area = {
+								higher_development_than = PREV
+								NOT = { province_id = PREV }
+							}
+							ulster_area = {
+								higher_development_than = PREV
+								NOT = { province_id = PREV }
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_province_triggered_modifier = EE_Minor_IRI_Pride_Ireland_triggered_modifier
+			}
+			set_country_flag = IRE_this_modifier_will_remain_active
+			
+			custom_tooltip = " "
+			
+			define_advisor = {
+				type = muscovy_architect
+				skill = 2
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+}
+
+EE_irish_minors_missions_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = TYR
+			tag = TRY
+			tag = LEI
+			tag = ULS
+			tag = FLY
+			tag = KID
+			tag = CNN
+			tag = SLN
+			tag = MCM
+			tag = DMS
+			tag = ORD
+			tag = MTH
+			tag = MNS
+			tag = IRE
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	has_country_shield = yes
+
+	EE_Minor_IRI_Raid_Culture = {
+		icon = mission_rb_rein_in_the_highland_clans
+		required_missions = { }
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EE_Minor_IRI_won_war_against_irish_country_TT
+				has_country_flag = EE_Minor_IRI_won_war_flag
+			}
+		}
+		effect = {
+			custom_tooltip = EE_Minor_IRI_winning_wars_vs_irish_give_mana_tt
+			set_country_flag = EE_Minor_IRI_winning_wars_vs_irish_give_mana
+			
+			custom_tooltip = " "
+			
+			ME_add_power_projection = { amount = 10 }
+		}
+	}
+	
+	EE_Minor_IRI_Gallowglass_Septs_Ireland = {
+		icon = mission_rb_irish_america
+		position = 3
+		required_missions = { EE_Minor_IRI_Raid_Culture }
+		provinces_to_highlight = {
+			is_capital_of = ROOT 
+		}
+		trigger = {
+			OR = {
+				has_mil_advisor_2 = yes
+				manpower_percentage = 0.8
+				capital_scope = {
+					OR = {
+						base_manpower = 4
+						has_manpower_building_trigger = yes
+					}
+				}
+			}
+		}
+		effect = {
+			add_age_modifier = {
+				name = EE_Minor_IRI_Gallowglass_Ireland
+				duration = -1
+				age = age_of_discovery
+			}
+			
+			custom_tooltip = IRE_buff_gallowglasses
+		}
+	}
+	
+	EE_Minor_IRI_Rath_Cathair = {
+		icon = protect_against_the_turks
+		position = 4
+		required_missions = { EE_Minor_IRI_Grianan }
+		provinces_to_highlight = {
+			is_capital_of = ROOT 
+		}
+		trigger = {
+			capital_scope = {
+				base_manpower = 6
+				fort_level = 2
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_province_modifier = {
+					name = EE_Minor_IRI_Gaelic_ringfort
+					duration = -1
+				}
+				add_province_modifier = {
+					name = EE_Minor_IRI_Aristocratic_Ramparts
+					duration = -1
+				}
+			}
+			add_treasury = 200
+		}
+	}
+}

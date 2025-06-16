@@ -1,0 +1,335 @@
+EE_Minor_IRI_break_Irish_ties = {
+	category = favors
+	alert_index = 39 
+	alert_tooltip = ICON_BREAK_ALLIANCE
+	require_acceptance = yes
+	is_visible = { has_country_flag = EE_Minor_IRI_unlock_friendship_diplo_actions }
+	is_allowed = {
+		FROM = {
+			OR = {
+				tag = ENG
+				tag = SCO
+				tag = GBR
+			}
+			any_ally = { primary_culture = irish }
+		}
+		owes_favors = { 
+			who = FROM
+			value = 10
+		}
+	}
+	on_accept = {
+		FROM = {
+			random_ally = {
+				limit = { primary_culture = irish }
+				FROM = {
+					break_alliance_with = { who = PREV }
+				}
+			}
+		}
+		add_favors = {
+			who = FROM
+			amount = -10
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+		}
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = diplomatic_reputation
+			limit = { }
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 2
+			}
+		}
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = {
+				variable_name = ai_value
+				value = stability
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = -25
+			}
+		}
+	}
+	ai_will_do = { }
+}
+
+EE_Minor_IRI_release_irish_subjects = {
+	category = favors
+	alert_index = 46 
+	alert_tooltip = ICON_TRADEFAVORSFORRETURNCORE
+	require_acceptance = yes
+	is_visible = { has_country_flag = EE_Minor_IRI_unlock_friendship_diplo_actions }
+	is_allowed = {
+		FROM = {
+			OR = {
+				tag = ENG
+				tag = SCO
+				tag = GBR
+			}
+			any_subject_country = { primary_culture = irish }
+		}
+		owes_favors = { 
+			who = FROM
+			value = 50
+		}
+	}
+	on_accept = {
+		FROM = {
+			random_subject_country = {
+				limit = { 
+					primary_culture = irish
+				}
+				grant_independence = yes
+			}
+			add_favors = {
+				who = FROM
+				amount = -50
+			}
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+		}
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = diplomatic_reputation
+			limit = { }
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 2
+			multiply_variable = {
+				which = ai_value
+				value = 2
+			}
+		}
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = {
+				variable_name = ai_value
+				value = stability
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = -25
+			}
+		}
+	}
+	ai_will_do = { }
+}
+
+EE_Minor_IRI_create_mor_tuath = {
+	category = influence
+	alert_index = 46 
+	alert_tooltip = ICON_TRADEFAVORSFORRETURNCORE
+	require_acceptance = no
+	is_visible = { 
+		can_have_mor_tuaths = yes
+		FROM = {
+			culture = irish
+			is_subject_of = ROOT
+			NOT = { is_subject_of_type = EE_Minor_IRI_Mor_Tuath }
+		}
+	}
+	is_allowed = {
+		FROM = {
+			culture = irish
+			is_subject_of = ROOT
+			NOT = { is_subject_of_type = EE_Minor_IRI_Mor_Tuath }
+		}
+	}
+	on_accept = {
+		create_subject = {
+			subject_type = EE_Minor_IRI_Mor_Tuath
+			subject = FROM
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+		}
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = diplomatic_reputation
+			limit = { }
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 2
+			multiply_variable = {
+				which = ai_value
+				value = 2
+			}
+		}
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = {
+				variable_name = ai_value
+				value = stability
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = -25
+			}
+		}
+	}
+	ai_will_do = { }
+}

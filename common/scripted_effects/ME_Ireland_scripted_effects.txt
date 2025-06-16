@@ -1,0 +1,108 @@
+#Country effect
+EE_add_buffed_increase_same_religion_opinion = {
+	custom_tooltip = EE_increase_same_religion_opinion_tt
+	hidden_effect = {
+		set_country_flag = EE_has_increased_religios_opinion
+		every_known_country = {
+			limit = {
+				OR = {
+					ROOT = { has_harmonized_with = PREV }
+					religion = ROOT
+				}
+				NOT = {
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = EE_increased_same_religion
+					}
+				}
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = EE_increased_same_religion
+			}
+			reverse_add_opinion = {
+				who = ROOT
+				modifier = EE_increased_same_religion
+			}
+		}
+	}
+}
+
+#Country effect
+EE_remove_increase_same_religion_opinion = {
+	custom_tooltip = remove_increase_same_religion_opinion_tt
+	hidden_effect = {
+		clr_country_flag = EE_has_increased_religios_opinion
+		every_country = {
+			limit = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = EE_increased_same_religion
+				}
+			}
+			remove_opinion = {
+				who = ROOT
+				modifier = EE_increased_same_religion
+			}
+			reverse_remove_opinion = {
+				who = ROOT
+				modifier = EE_increased_same_religion
+			}
+		}
+	}
+}
+
+EE_complex_effect = {
+	custom_tooltip = EE_IRE_If_NOT_Catholic_CoR_tt
+	custom_tooltip = EE_IRE_religious_zeal_tt
+	add_country_modifier = {
+		name = EE_IRE_Book_Common_Prayers
+		duration = 9125
+	}
+	hidden_effect = {
+		if = {
+			limit = {
+				capital_scope = {
+					NOT = { is_reformation_center = yes }
+				}
+			}
+			if = {
+				limit = { religion = protestant }
+				capital_scope = { add_reform_center = protestant }
+			}
+			else_if = {
+				limit = { religion = reformed }
+				capital_scope = { add_reform_center = reformed }
+			}
+			else = {
+				capital_scope = { add_reform_center = anglican }
+			}
+		}
+		if = {
+			limit = {
+				has_country_modifier = religious_zeal_at_conv
+			}
+			add_prestige_or_monarch_power = { amount = 50 }
+		}
+	}
+}
+
+ME_IRE_complex_effect = {
+	custom_tooltip = EE_IRE_Irish_Colonialism_OPT2_tt
+	custom_tooltip = EE_IRE_Irish_Colonialism_OPT2_tt_1
+	tooltip = {
+		add_age_modifier = {
+			name = EE_IRE_Peacefull_Assimilation
+			duration = -1
+			age = age_of_reformation
+		}
+	}
+	custom_tooltip = EE_IRE_Irish_Colonialism_OPT2_tt_2
+	tooltip = {
+		add_age_modifier = {
+			name = EE_IRE_Four_Corners_World
+			duration = -1
+			age = age_of_reformation
+		}
+	}
+}
