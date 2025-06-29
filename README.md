@@ -6,12 +6,7 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Celtic Revival mission now properly gives the privilege.
-- Added the Ireland/Irish Minor missions from Europa Expanded.
-- Sweden/Scandinavian mission fixes so that mission choice appears.
-- Tweaked von Raab's Reforms event tooltips to be more informative of what it does.
-- Changed various legitimacy triggers or effects in Aegyptus content to take in account other government values.
-- Made the event upon starting that make sures everyone is at least 3/3/3 to take effect instantly instead of having to wait a few ticks.
+- Irish Raid Culture mission properly works now.
 
  <!-- Todo -->
 <br/>
