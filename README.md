@@ -6,12 +6,14 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Celtic Revival mission now properly gives the privilege.
-- Added the Ireland/Irish Minor missions from Europa Expanded.
-- Sweden/Scandinavian mission fixes so that mission choice appears.
-- Tweaked von Raab's Reforms event tooltips to be more informative of what it does.
-- Changed various legitimacy triggers or effects in Aegyptus content to take in account other government values.
-- Made the event upon starting that make sures everyone is at least 3/3/3 to take effect instantly instead of having to wait a few ticks.
+- Various minor fixes.
+- Elevate Brazil decision disappears after use.
+- Irish Raid Culture mission properly works now.
+- Fixed Portugal Patronage of Arts mission reward.
+- Fixed Portugal Belem Tower T3 reward not existing.
+- Byzantine can also be formed by Hellenics, cause why not.
+- Georgian monuments now take in account if you became Greco-Georgian.
+- Romanian mission legitimacy trigger made to be compatible with other versions.
 
  <!-- Todo -->
 <br/>
