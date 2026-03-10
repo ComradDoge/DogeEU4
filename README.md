@@ -7,7 +7,8 @@
 <h1>DD/MM/YYYY</h1>
 
 - Minor localisation clean ups.
-- Japan_ME `Rice Fields` and `Financial Clique` tweaks.
+- Japan_ME `Rice Fields` and `Financial Clique` tweaks.'
+- Colony Range Debuff in the Civilisation-Esque mode reduced by 10%.
 
  <!-- Todo -->
 <br/>
