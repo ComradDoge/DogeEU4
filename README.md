@@ -6,14 +6,10 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Various minor fixes.
-- Elevate Brazil decision disappears after use.
-- Irish Raid Culture mission properly works now.
-- Fixed Portugal Patronage of Arts mission reward.
-- Fixed Portugal Belem Tower T3 reward not existing.
-- Byzantine can also be formed by Hellenics, cause why not.
-- Georgian monuments now take in account if you became Greco-Georgian.
-- Romanian mission legitimacy trigger made to be compatible with other versions.
+- Minor localisation clean ups.
+- Japan_ME `Rice Fields` and `Financial Clique` tweaks.'
+- Colony Range Debuff in the Civilisation-Esque mode reduced by 10%.
+- Papal "Picking up the Scraps" tweaked to allow for 3 province vassals.
 
  <!-- Todo -->
 <br/>
