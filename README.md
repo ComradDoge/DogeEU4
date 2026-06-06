@@ -6,10 +6,10 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Minor localisation clean ups.
-- Japan_ME `Rice Fields` and `Financial Clique` tweaks.'
-- Colony Range Debuff in the Civilisation-Esque mode reduced by 10%.
-- Papal "Picking up the Scraps" tweaked to allow for 3 province vassals.
+- Riga and Livonian primary culture changed from prussian to baltic_german as is vanilla.
+- Riga province culture changed to baltic_german.
+- Shattered: Kurland and one province changed to baltic_german.
+- Reforming into Livonia decision now also gives some options for country renaming: Terra Mariana/Land of Mary if Christian, Livland if germanic, Zemgale, Semigallia and Latvia.
 
  <!-- Todo -->
 <br/>
