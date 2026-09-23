@@ -10,6 +10,9 @@
 - Riga province culture changed to baltic_german.
 - Shattered: Kurland and one province changed to baltic_german.
 - Reforming into Livonia decision now also gives some options for country renaming: Terra Mariana/Land of Mary if Christian, Livland if germanic, Zemgale, Semigallia and Latvia.
+- Burgundy/Lotharingia: added the Europa Expanded mission tree as an alternative to the Emperor one (mission tree choice), adapted to the shattered setting. Includes the Order of the Golden Fleece mechanic, the Toison d'Or advisor, new estate privileges, diplomatic actions, decisions and events. There are some different adaptations for shattered bookmark.
+- Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it.
+- Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25 (additional 0.25 as the tooltip states).
 
  <!-- Todo -->
 <br/>

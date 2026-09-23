@@ -155,8 +155,63 @@ declarewar = {
 			FROM = { is_part_of_hre = no }
 		}
 	}
+	condition = { # EE Burgundy: accepted the Emperor's terms in Trier
+		tooltip = ME_BUR_NO_DECLARING_WAR_IN_HRE
+		potential = {
+			has_country_flag = me_bur_no_hre_wars
+			is_part_of_hre = yes
+			is_emperor = no
+			FROM = {
+				is_part_of_hre = yes
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
 	effect = {
 		on_war_declaration_effect = yes
+		# EE Burgundy: Council of War
+		if = {
+			limit = {
+				has_country_flag = me_bur_planned_war_flag
+				NOT = {
+					had_country_flag = {
+						flag = me_bur_planned_war_flag
+						days = 365
+					}
+				}
+			}
+			clr_country_flag = me_bur_planned_war_flag
+			create_general_with_pips = {
+				tradition = 60
+				add_shock = 1
+			}
+			add_country_modifier = {
+				name = me_bur_planned_war
+				duration = 1825
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = me_bur_planned_war_by_bribery_flag
+				NOT = {
+					had_country_flag = {
+						flag = me_bur_planned_war_by_bribery_flag
+						days = 365
+					}
+				}
+			}
+			clr_country_flag = me_bur_planned_war_by_bribery_flag
+			create_general_with_pips = {
+				tradition = 40
+				add_shock = 1
+			}
+			add_country_modifier = {
+				name = me_bur_planned_war
+				duration = 1825
+			}
+		}
 		if = {
 			limit = { 
 				mission_completed = hun_the_anatolian_threat

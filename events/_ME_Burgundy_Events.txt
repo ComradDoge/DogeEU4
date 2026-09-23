@@ -1,0 +1,852 @@
+namespace = ME_Burgundy_Events
+
+# Golden Fleece: Council of War
+country_event = {
+	id = ME_Burgundy_Events.1
+	title = ME_Burgundy_Events.1.t
+	desc = ME_Burgundy_Events.1.d
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				50 = {
+					set_country_flag = me_bur_accepted_war_proposal
+					modifier = {
+						factor = 1.3
+						has_country_flag = me_bur_council_of_war_acceptance_chance_tournament_flag
+						NOT = {
+							had_country_flag = {
+								flag = me_bur_council_of_war_acceptance_chance_tournament_flag
+								days = 1825
+							}
+						}
+					}
+					modifier = {
+						factor = 1.5
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 75
+						}
+					}
+					modifier = {
+						factor = 1.5
+						manpower_percentage = 0.65
+					}
+					modifier = {
+						factor = 2
+						NOT = { had_recent_war = 5 }
+					}
+					modifier = {
+						factor = 1.25
+						ME_toison_dor = 1
+					}
+					modifier = {
+						factor = 1.1
+						ruler_has_personality = charismatic_negotiator_personality
+					}
+
+				}
+				40 = {
+					set_country_flag = me_bur_rejected_war_proposal
+				}
+			}
+		}
+	}
+	#They accept
+	option = {
+		name = ME_Burgundy_Events.1.a
+
+		ai_chance = {
+			factor = 1
+		}
+
+		trigger = {
+			has_country_flag = me_bur_accepted_war_proposal
+		}
+
+		clr_country_flag = me_bur_planned_war_flag
+		set_country_flag = me_bur_planned_war_flag
+		custom_tooltip = ME_BUR_IF_WE_DECLARE_WAR_IN_THE_NEXT_YEAR
+		tooltip = {
+			create_general_with_pips = {
+				tradition = 60
+				add_shock = 1
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = me_bur_planned_war
+				duration = 1825
+			}
+		}
+	}
+
+	#They do not accept
+	option = {
+		name = ME_Burgundy_Events.1.b
+
+		ai_chance = {
+			factor = 1
+		}
+
+		trigger = {
+			has_country_flag = me_bur_rejected_war_proposal
+		}
+
+		custom_tooltip = ME_BUR_COUNCIL_FAILED
+	}
+
+	option = {
+		name = ME_Burgundy_Events.1.c
+
+		ai_chance = {
+			factor = 0
+		}
+
+		trigger = {
+			has_country_flag = me_bur_rejected_war_proposal
+		}
+
+		add_years_of_income = -0.5
+		custom_tooltip = " "
+		clr_country_flag = me_bur_planned_war_by_bribery_flag
+		set_country_flag = me_bur_planned_war_by_bribery_flag
+		custom_tooltip = ME_BUR_IF_WE_DECLARE_WAR_IN_THE_NEXT_YEAR
+		tooltip = {
+			create_general_with_pips = {
+				tradition = 40
+				add_shock = 1
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = me_bur_planned_war_by_bribery
+				duration = 1825
+			}
+		}
+	}
+
+	after = {
+		clr_country_flag = me_bur_accepted_war_proposal
+		clr_country_flag = me_bur_rejected_war_proposal
+	}
+}
+
+# Nevers mission: fate of Champagne
+country_event = {
+	id = ME_Burgundy_Events.2
+	title = ME_Burgundy_Events.2.t
+	desc = ME_Burgundy_Events.2.d
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Burgundy_Events.2.a
+
+		trigger = {
+			181 = { owned_by = ROOT }
+			OR = {
+				NOT = { exists = CHP }
+				CHP = { is_subject_of = ROOT }
+			}
+		}
+
+		181 = {
+			cede_province = CHP
+		}
+		vassalize = CHP
+		183 = {
+			add_core = CHP
+		}
+		4388 = {
+			add_core = CHP
+		}
+	}
+
+	option = {
+		name = ME_Burgundy_Events.2.b
+
+		ME_give_claims = {
+			area = ile_de_france_area
+		}
+		ME_give_claims = {
+			area = champagne_area
+		}
+
+		add_army_tradition_or_mil_power = { amount = 10 }
+	}
+}
+
+# Trier negotiations: the Emperor answers
+country_event = {
+	id = ME_Burgundy_Events.3
+	title = ME_Burgundy_Events.3.t
+	desc = ME_Burgundy_Events.3.d
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		tag = BUR
+	}
+
+	option = {
+		name = ME_Burgundy_Events.3.a
+
+		ai_chance = {
+			factor = 1
+		}
+
+		FROM = {
+			custom_tooltip = BUR_ALLOW_LOTHARINGIA_FORMATION_DECISION
+			set_country_flag = me_bur_alternative_lotharingia_flag
+			add_splendor = 200
+			set_in_empire = yes
+			set_country_flag = me_bur_no_hre_wars
+		}
+		custom_tooltip = ME_BUR_CANNOT_DECLARE_WAR_ON_HRE
+		custom_tooltip = " "
+		add_imperial_influence = 5
+		add_prestige_or_monarch_power = { amount  = 15 }
+	}
+
+	option = {
+		name = ME_Burgundy_Events.3.b
+
+		ai_chance = {
+			factor = 0
+		}
+
+		FROM = {
+			set_country_flag = me_bur_alternative_lotharingia_flag
+			set_country_flag = me_bur_harsher_lotharingia_requirements_flag
+		}
+		custom_tooltip = ME_BUR_BURGUNDY_CAN_CLAIM_THE_TITLE_THROUGH_OTHER_MEANS
+	}
+}
+
+# Knighted by the Emperor
+country_event = {
+	id = ME_Burgundy_Events.4
+	title = ME_Burgundy_Events.4.t
+	desc = ME_Burgundy_Events.4.d
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Burgundy_Events.4.a
+
+		ai_chance = {
+			factor = 1
+		}
+
+		add_prestige_or_monarch_power = { amount = 10 }
+		add_opinion = {
+			who = FROM
+			modifier = BUR_granted_knight_title
+		}
+		custom_tooltip = " "
+		add_ruler_modifier = {
+			name = me_bur_granted_knighthood
+			duration = -1
+		}
+	}
+}
+
+# Burgundian Campaigns: humbled both France and the Emperor
+country_event = {
+	id = ME_Burgundy_Events.10
+	title = ME_Burgundy_Events.10.t
+	desc = ME_Burgundy_Events.10.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		capital_scope = {
+			continent = europe
+		}
+	}
+
+	option = {
+		name = ME_Burgundy_Events.10.a
+
+		ai_chance = { factor = 1 }
+
+		custom_tooltip = ME_BUR_TRIPLE_CONQUEROR_CHANCES
+		set_country_flag = me_triple_conqueror_chance
+	}
+}
+
+# Fate of the Netherlands
+country_event = {
+	id = ME_Burgundy_Events.14
+	title = ME_Burgundy_Events.14.t
+	desc = ME_Burgundy_Events.14.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Burgundy_Events.14.a
+
+		ai_chance = { factor = 1 }
+
+		trigger = {
+			NOT = { exists = NED }
+			any_subject_country = {
+				capital_scope = {
+					region = low_countries_region
+				}
+			}
+		}
+
+		custom_tooltip = ME_BUR_FORM_NETHERLANDS_VASSAL
+		hidden_effect = {
+			random_subject_country = {
+				limit = {
+					capital_scope = {
+						region = low_countries_region
+					}
+				}
+				save_event_target_as = me_bur_netherlands_subject
+				set_country_flag = me_bur_netherlands_subject_flag
+			}
+			every_subject_country = {
+				limit = {
+					capital_scope = {
+						region = low_countries_region
+					}
+					NOT = { has_country_flag = me_bur_netherlands_subject_flag }
+				}
+				event_target:me_bur_netherlands_subject = {
+					inherit = PREV
+				}
+			}
+			event_target:me_bur_netherlands_subject = {
+				change_tag = NED
+				swap_non_generic_missions = yes
+				swap_free_idea_group = yes
+			}
+		}
+	}
+
+	option = {
+		name = ME_Burgundy_Events.14.b
+
+		ai_chance = { factor = 1 }
+
+		custom_tooltip = ME_BUR_ANNEX_LOW_COUNTRIES_BIG_PENALTY
+		hidden_effect = {
+			every_subject_country = {
+				limit = {
+					capital_scope = {
+						region = low_countries_region
+					}
+				}
+				every_owned_province = {
+					limit = {
+						region = low_countries_region
+					}
+					cede_province = ROOT
+					add_core = ROOT
+					add_unrest = 10
+					add_local_autonomy = 60
+				}
+			}
+		}
+	}
+}
+
+# The Grand Privilege
+country_event = {
+	id = ME_Burgundy_Events.16
+	title = ME_Burgundy_Events.16.t
+	desc = ME_Burgundy_Events.16.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Burgundy_Events.16.a
+
+		ai_chance = { factor = 1 }
+
+		custom_tooltip = ME_BUR_MILITARY_PRIVILEGE_TT
+		set_country_flag = me_bur_military_privilege
+	}
+
+	option = {
+		name = ME_Burgundy_Events.16.b
+
+		ai_chance = { factor = 1 }
+
+		custom_tooltip = ME_BUR_TRADE_PRIVILEGE_TT
+		set_country_flag = me_bur_trade_privilege
+	}
+
+	option = {
+		name = ME_Burgundy_Events.16.c
+
+		ai_chance = { factor = 1 }
+
+		custom_tooltip = ME_BUR_LD_PRIVILEGE_TT
+		set_country_flag = me_bur_ld_privilege
+	}
+}
+
+# Regular jousting
+province_event = {
+	id = ME_Burgundy_Events.18
+	title = ME_Burgundy_Events.18.t
+	desc = ME_Burgundy_Events.18.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	goto = ROOT
+
+	trigger = {
+		owner = {
+			has_country_flag = me_lot_jousting_unlocked_flag
+		}
+		OR = {
+			NOT = {
+				has_global_flag = me_lot_jousting_cooldown_flag
+			}
+			had_global_flag = {
+				flag = me_lot_jousting_cooldown_flag
+				days = 3650
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	option = {
+		name = ME_Burgundy_Events.18.a
+
+		ai_chance = { factor = 1 }
+
+		add_province_modifier = {
+			name = me_lot_jousting_hold_in_province
+			duration = 3650
+		}
+
+		owner = {
+			clr_global_flag = me_lot_jousting_cooldown_flag
+			set_global_flag = me_lot_jousting_cooldown_flag
+		}
+	}
+}
+
+# Knighthood of the Twelve
+country_event = {
+	id = ME_Burgundy_Events.19
+	title = ME_Burgundy_Events.19.t
+	desc = ME_Burgundy_Events.19.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Burgundy_Events.19.a
+
+		ai_chance = { factor = 1 }
+
+		custom_tooltip = ME_BUR_BUFF_MECHANIC_CAVALRY
+		set_country_flag = me_bur_golden_fleece_cav_buff_flag
+	}
+
+	option = {
+		name = ME_Burgundy_Events.19.b
+
+		ai_chance = { factor = 1 }
+
+		custom_tooltip = ME_BUR_BUFF_MECHANIC_LEVIES
+		set_country_flag = me_bur_golden_fleece_manpower_buff_flag
+	}
+}
+
+# The Song of Roland
+country_event = {
+	id = ME_Burgundy_Events.20
+	title = ME_Burgundy_Events.20.t
+	desc = ME_Burgundy_Events.20.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Burgundy_Events.20.a
+
+		ai_chance = { factor = 1 }
+
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = LOTRolandCounter
+						value = 2
+					}
+				}
+			}
+			custom_tooltip = ME_BUR_TRIPLE_MARTIAL_EDUCATOR_CHANCES
+			set_country_flag = me_tripled_martial_educator_flag
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = LOTRolandCounter
+					value = 2
+				}
+				NOT = {
+					check_variable = {
+						which = LOTRolandCounter
+						value = 3
+					}
+				}
+			}
+			custom_tooltip = ME_BUR_DISABLE_CRAVEN_PERSONALITY
+			set_country_flag = me_disable_craven_flag
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = LOTRolandCounter
+					value = 3
+				}
+			}
+			custom_tooltip = ME_BUR_UNLOCK_HEIR_OF_ROLAND
+			set_country_flag = me_heir_of_roland_flag
+		}
+	}
+}
+
+# Jousting mission kickstart
+province_event = {
+	id = ME_Burgundy_Events.21
+	title = ME_Burgundy_Events.18.t
+	desc = ME_Burgundy_Events.18.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	goto = ROOT
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Burgundy_Events.18.a
+
+		ai_chance = { factor = 1 }
+
+		add_province_modifier = {
+			name = me_lot_jousting_hold_in_province
+			duration = 3650
+		}
+
+		owner = {
+			clr_global_flag = me_lot_jousting_cooldown_flag
+			set_global_flag = me_lot_jousting_cooldown_flag
+		}
+	}
+}
+
+# Shattered: setup when the Europa Expanded mission tree is picked (EE did this in history)
+country_event = {
+	id = ME_Burgundy_Events.22
+	title = ME_Burgundy_Events.22.t
+	desc = ME_Burgundy_Events.22.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			tag = BUR
+			tag = LOT
+		}
+		ME_bur_uses_ee_missions_trigger = yes
+	}
+
+	immediate = {
+		# Re-granted if the tree was switched away (privilege becomes invalid) and picked again
+		if = {
+			limit = {
+				has_estate = estate_nobles
+				NOT = { has_estate_privilege = ME_BUR_order_of_the_golden_fleece }
+			}
+			set_estate_privilege = ME_BUR_order_of_the_golden_fleece
+		}
+		# Only the first time
+		if = {
+			limit = {
+				NOT = { has_country_flag = me_bur_tree_setup_done_flag }
+			}
+			set_country_flag = me_bur_tree_setup_done_flag
+			if = {
+				limit = {
+					has_government_mechanic = golden_fleece_mechanic
+				}
+				set_government_power = {
+					mechanic_type = golden_fleece_mechanic
+					power_type = golden_fleece_support
+					value = 20
+				}
+			}
+		}
+		calculate_council_support = yes
+	}
+
+	option = {
+		name = ME_Burgundy_Events.22.a
+	}
+}
+
+# Europe's Model Court: invite a Great Man (choose category)
+country_event = {
+	id = ME_Burgundy_Events.23
+	title = ME_Burgundy_Events.23.t
+	desc = ME_Burgundy_Events.23.d
+	picture = ADVISOR_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_Burgundy_Events.23.a
+		ai_chance = { factor = 1 }
+		country_event = { id = ME_Burgundy_Events.24 }
+	}
+	option = {
+		name = ME_Burgundy_Events.23.b
+		ai_chance = { factor = 1 }
+		country_event = { id = ME_Burgundy_Events.25 }
+	}
+	option = {
+		name = ME_Burgundy_Events.23.c
+		ai_chance = { factor = 1 }
+		country_event = { id = ME_Burgundy_Events.26 }
+	}
+}
+
+# Europe's Model Court: invite a Great Man (ADM)
+country_event = {
+	id = ME_Burgundy_Events.24
+	title = ME_Burgundy_Events.23.t
+	desc = ME_Burgundy_Events.24.d
+	picture = ADVISOR_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = philosopher
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = philosopher
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = natural_scientist
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = natural_scientist
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = artist
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = artist
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = treasurer
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = treasurer
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = theologian
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = theologian
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = master_of_mint
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = master_of_mint
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = inquisitor
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = inquisitor
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+}
+
+# Europe's Model Court: invite a Great Man (DIP)
+country_event = {
+	id = ME_Burgundy_Events.25
+	title = ME_Burgundy_Events.23.t
+	desc = ME_Burgundy_Events.25.d
+	picture = ADVISOR_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = statesman
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = statesman
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = naval_reformer
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = naval_reformer
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = trader
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = trader
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = spymaster
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = spymaster
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = colonial_governor
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = colonial_governor
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = diplomat
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = diplomat
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = navigator
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = navigator
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+}
+
+# Europe's Model Court: invite a Great Man (MIL)
+country_event = {
+	id = ME_Burgundy_Events.26
+	title = ME_Burgundy_Events.23.t
+	desc = ME_Burgundy_Events.26.d
+	picture = ADVISOR_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = army_reformer
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = army_reformer
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = army_organiser
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = army_organiser
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = commandant
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = commandant
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = quartermaster
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = quartermaster
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = recruitmaster
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = recruitmaster
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = fortification_expert
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = fortification_expert
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+	option = {
+		name = grand_captain
+		ai_chance = { factor = 1 }
+		define_advisor = {
+			type = grand_captain
+			skill = 3
+			cost_multiplier = 0.5
+		}
+	}
+}

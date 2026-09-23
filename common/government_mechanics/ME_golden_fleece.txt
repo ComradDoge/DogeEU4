@@ -1,0 +1,364 @@
+golden_fleece_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 3
+	available = {
+		# Shattered: only for Burgundy/Lotharingia on the Europa Expanded mission tree
+		# Inlined ME_bur_uses_ee_missions_trigger (scripted triggers are not loaded yet here)
+		OR = {
+			tag = BUR
+			tag = LOT
+			was_tag = BUR
+			was_tag = LOT
+		}
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	
+	powers = {
+		golden_fleece_support = {
+			show_before_interactions = yes
+			gui = frankish_chivalry_gov_mechanic
+			max = 100
+			scaled_modifier = {
+				modifier = {
+					nobles_loyalty_modifier = 0.15
+					advisor_cost = -0.1
+					national_focus_years = -10
+				}
+			}
+			range_modifier = {
+				trigger = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 75
+					}
+				}
+				modifier = {
+					monthly_golden_fleece_support = 0.1
+				}
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = {
+					has_country_flag = me_bur_golden_fleece_cav_buff_flag
+				}
+				modifier = {
+					cav_to_inf_ratio = 0.25
+					cavalry_cost = -0.1
+				}
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = {
+					has_country_flag = me_bur_golden_fleece_manpower_buff_flag
+				}
+				modifier = {
+					manpower_recovery_speed = 0.15
+				}
+				start_value = 0
+				end_value = 100
+			}
+			base_monthly_growth = 0
+			is_good = yes
+		}
+	}
+	
+	interactions = {
+		golden_fleece_call_council_of_war = {
+			icon = GFX_summon_war_council
+			cost_type = golden_fleece_support
+			cost = 25
+			trigger = {
+				is_at_war = no
+			}
+			effect = {
+				custom_tooltip = " "
+				country_event = {
+					id = ME_Burgundy_Events.1
+				}
+				custom_tooltip = " "
+				custom_tooltip = ME_BUR_GAIN_BONUS_IF_WE_DECLARE_WAR
+				tooltip = {
+					create_general_with_pips = {
+						tradition = 60
+						add_shock = 1
+					}
+					custom_tooltip = " "
+					add_country_modifier = {
+						name = me_bur_planned_war
+						duration = 1825
+					}
+				}
+				set_country_flag = me_but_called_meeting
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 100
+			}
+		}
+		
+		golden_fleece_assign_new_toison_dor = {
+			icon = GFX_assign_toison_dor
+			cost_type = golden_fleece_support
+			cost = 15
+			trigger = {
+			
+			}
+			effect = {
+				custom_tooltip = " "
+				if = {
+					limit = {
+						mission_completed = ME_bur_between_two_worlds
+					}
+					define_advisor = {
+						skill = 2
+						type = ME_toison_dor
+						cost_multiplier = 0.5
+					}
+				}
+				else = {
+					define_advisor = {
+						skill = 2
+						type = ME_toison_dor
+						cost_multiplier = 0.75
+					}
+				}
+				clr_country_flag = ME_bur_empowered_toison_dor
+				set_country_flag = ME_bur_empowered_toison_dor
+				custom_tooltip = " "
+				custom_tooltip = ME_BUR_TOISON_DOR_GIVES_TEMPRORARY_SCALING_BONUS
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 100
+			}
+		}
+		
+		golden_fleece_hold_tournament_between_knights = {
+			icon = GFX_FRX_jousting_tournament
+			cost_type = golden_fleece_support
+			cost = 35
+			trigger = {
+				is_at_war = no
+			}
+			effect = {
+				custom_tooltip = " "
+				custom_tooltip = BUR_TRADITION_PER_NOBLES_LOYALTY
+				custom_tooltip = " "
+				custom_tooltip = ME_BUR_HIGHER_CHANCE_OF_KNIGHTS_ACCEPTING_WAR
+				custom_tooltip = " "
+				add_country_modifier = {
+					name = me_bur_knightly_renown
+					duration = 3650
+				}
+				clr_country_flag = me_bur_council_of_war_acceptance_chance_tournament_flag
+				set_country_flag = me_bur_council_of_war_acceptance_chance_tournament_flag
+				hidden_effect = {
+					calculate_council_support = yes
+					change_variable = {
+						which = MeBurTournamentCount
+						value = 1
+					}
+					if = {
+						limit = {
+							mission_completed = ME_bur_southern_france
+						}
+						random_owned_province = {
+							limit = {
+								culture_group = french
+							}
+							add_base_manpower = 1
+							add_base_tax = 1
+							add_base_production = 1
+						}
+					}
+					if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 100
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 20 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 95
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 19 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 90
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 18 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 85
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 17 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 80
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 16 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 75
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 15 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 70
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 14 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 65
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 13 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 60
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 12 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 55
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 11 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 50
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 10 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 45
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 9 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 40
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 8 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 35
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 7 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 30
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 6 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 25
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 5 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 20
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 4 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 15
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 3 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 10
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 2 }
+					}
+					else_if = {
+						limit = {
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 5
+							}
+						}
+						add_army_tradition_or_mil_power = { amount = 1 }
+					}
+				}
+			}
+			cooldown_years = 5
+			ai_chance = {
+				factor = 100
+			}
+		}
+	}
+}

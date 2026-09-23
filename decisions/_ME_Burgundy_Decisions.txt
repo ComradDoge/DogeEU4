@@ -1,0 +1,313 @@
+#########
+# Europa Expanded Burgundy & Lotharingia, adapted for Shattered Europa
+#########
+
+country_decisions = {
+
+	# Unlocked by the Trier Negotiations mission (EE tree), replaces the Emperor tree route to Lotharingia
+	BUR_form_lotharingia = {
+		major = yes
+		potential = {
+			has_country_flag = me_bur_alternative_lotharingia_flag
+			ME_bur_uses_ee_missions_trigger = yes # hidden if the tree was switched back to the Paradox one
+			NOT = { has_country_flag = formed_lotharingia_flag }
+			NOT = { tag = LOT }
+			OR = {
+				ai = no
+				NOT = { exists = LOT }
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1878 # Aachen
+				area = lorraine_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			dst_specialsetting_is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			NOT = { exists = LOT }
+			1878 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lorraine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			if = {
+				limit = {
+					has_country_flag = me_bur_harsher_lotharingia_requirements_flag
+				}
+				low_countries_region = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				118 = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = ME_BUR_philippent
+				NOT = {
+					AND = {
+						has_ruler = "Philippe"
+						dynasty = "de Bourgogne"
+						AND = {
+							adm = 5
+							NOT = { adm = 6 }
+						}
+						AND = {
+							dip = 5
+							NOT = { dip = 6 }
+						}
+						AND = {
+							mil = 5
+							NOT = { mil = 6 }
+						}
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = ME_BUR_charlesnt
+				NOT = {
+					AND = {
+						has_ruler = "Charles"
+						dynasty = "de Bourgogne"
+						AND = {
+							adm = 2
+							NOT = { adm = 3 }
+						}
+						NOT = { dip = 1 }
+						AND = {
+							mil = 4
+							NOT = { mil = 5 }
+						}
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = ME_BUR_marient
+				NOT = {
+					OR = {
+						has_heir_flag = mary_is_heir
+						has_ruler_flag = mary_is_heir
+					}
+				}
+			}
+			OR = {
+				is_year = 1500
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_DEALT_WITH_BI
+					has_country_flag = me_bur_burgundian_inheritance_mission
+				}
+				custom_trigger_tooltip = { # Shattered: the Burgundian Inheritance only happens in the vanilla bookmark
+					tooltip = ME_BUR_SHATTERED_NO_INHERITANCE_TT
+					NOT = { started_in = 1444.11.9 }
+				}
+			}
+		}
+		effect = {
+			# General
+			custom_tooltip = tooltip_line_seperate_general
+			change_tag = LOT
+			on_change_tag_effect = yes
+			restore_country_name = yes
+			swap_non_generic_missions = yes
+			add_prestige_or_monarch_power = { amount = 25 }
+
+			# Flags Hidden
+			set_country_flag = formed_lotharingia_flag
+			clr_country_flag = me_bur_alternative_lotharingia_flag
+
+			# Government
+			custom_tooltip = tooltip_line_seperate_government
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				set_government_rank = 2
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = me_bur_no_hre_wars
+					}
+				}
+				remove_non_electors_emperors_from_empire_effect = yes
+			}
+
+			# Claims
+			custom_tooltip = tooltip_line_seperate_claims
+			low_countries_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = LOT
+			}
+
+			# Events
+			custom_tooltip = tooltip_line_seperate_events
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+
+			# Modifiers
+			custom_tooltip = tooltip_line_seperate_modifiers
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	# Unlocked by the Heirs of Charlemagne mission (EE tree)
+	LOT_form_francia = {
+		major = yes
+		potential = {
+			tag = LOT
+			dynasty = "Karling"
+			NOT = { has_country_flag = formed_francia_flag }
+			NOT = { exists = FRX }
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 118
+				province_id = 183
+				province_id = 1878
+				province_id = 65
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			118 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			183 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1878 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			65 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 150
+				culture = frankish
+			}
+			dst_specialsetting_is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+		}
+		effect = {
+			# General
+			custom_tooltip = tooltip_line_seperate_general
+			change_tag = FRX
+			on_change_tag_effect = yes
+			restore_country_name = yes
+			swap_non_generic_missions = yes
+			add_prestige_or_monarch_power = { amount = 25 }
+
+			# Flags Hidden
+			set_country_flag = formed_francia_flag
+
+			# Government
+			custom_tooltip = tooltip_line_seperate_government
+			remove_non_electors_emperors_from_empire_effect = yes
+			add_government_reform = FRX_frankish_monarchy
+			if = {
+				limit = {
+					is_part_of_hre = no
+				}
+				set_government_rank = 3
+			}
+
+			# Events
+			custom_tooltip = tooltip_line_seperate_events
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	# Unlocked by the Roland mission (EE tree)
+	LOT_roland = {
+		major = yes
+		potential = {
+			has_country_flag = me_bur_roland_flag
+			NOT = {
+				check_variable = {
+					which = LOTRolandCounter
+					value = 3
+				}
+			}
+		}
+		allow = {
+			artist = 3
+			prestige = 25
+			OR = {
+				NOT = { has_country_flag = me_lot_roland_cooldown_flag }
+				had_country_flag = {
+					flag = me_lot_roland_cooldown_flag
+					days = 3650
+				}
+			}
+		}
+		effect = {
+			hidden_effect = {
+				clr_country_flag = me_lot_roland_cooldown_flag
+				set_country_flag = me_lot_roland_cooldown_flag
+				change_variable = {
+					which = LOTRolandCounter
+					value = 1
+				}
+			}
+			country_event = {
+				id = ME_Burgundy_Events.20
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	# Unlocked by the Europe's Model Court mission (EE tree). EE promised these but never added them.
+	BUR_invite_great_man = {
+		potential = {
+			has_country_flag = me_bur_great_men_decisions_flag
+		}
+		allow = {
+			prestige = 50
+			OR = {
+				NOT = { has_country_flag = me_bur_great_man_cooldown_flag }
+				had_country_flag = {
+					flag = me_bur_great_man_cooldown_flag
+					days = 3650
+				}
+			}
+		}
+		effect = {
+			add_prestige = -25
+			clr_country_flag = me_bur_great_man_cooldown_flag
+			set_country_flag = me_bur_great_man_cooldown_flag
+			country_event = {
+				id = ME_Burgundy_Events.23
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

@@ -1,0 +1,179 @@
+calculate_council_support = {
+	set_variable = {
+		which = odds_to_accept
+		value = 50
+	}
+	set_variable = {
+		which = odds_to_reject
+		value = 40
+	}
+	if = {
+		limit = {
+			has_country_flag = me_bur_council_of_war_acceptance_chance_tournament_flag
+			NOT = {
+				had_country_flag = {
+					flag = me_bur_council_of_war_acceptance_chance_tournament_flag
+					days = 1825
+				}
+			}
+		}
+		multiply_variable = {
+			which = odds_to_accept
+			value = 1.3
+		}
+	}
+	if = {
+		limit = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 75
+			}
+		}
+		multiply_variable = {
+			which = odds_to_accept
+			value = 1.5
+		}
+	}
+	if = {
+		limit = {
+			manpower_percentage = 0.65
+		}
+		multiply_variable = {
+			which = odds_to_accept
+			value = 1.5
+		}
+	}
+	if = {
+		limit = {
+			NOT = { had_recent_war = 5 }
+		}
+		multiply_variable = {
+			which = odds_to_accept
+			value = 2
+		}
+	}
+	if = {
+		limit = {
+			ME_toison_dor = 1
+		}
+		multiply_variable = {
+			which = odds_to_accept
+			value = 1.25
+		}
+	}
+	if = {
+		limit = {
+			ruler_has_personality = charismatic_negotiator_personality
+		}
+		multiply_variable = {
+			which = odds_to_accept
+			value = 1.1
+		}
+	}
+
+	set_variable = {
+		which = odds_to_accept_divider
+		which = odds_to_accept
+	}
+
+	multiply_variable = {
+		which = odds_to_accept_divider
+		value = 100
+	}
+
+	change_variable = {
+		which = odds_to_reject
+		which = odds_to_accept
+	}
+
+	divide_variable = {
+		which = odds_to_accept_divider
+		which = odds_to_reject
+	}
+
+	set_variable = {
+		which = chance_to_accept
+		which = odds_to_accept_divider
+	}
+}
+
+bur_sell_fashion_effect = {
+	add_estate_loyalty = {
+		estate = all
+		loyalty = 20
+	}
+
+	custom_tooltip = " "
+
+	add_prestige_or_monarch_power = { amount = 30 }
+
+	custom_tooltip = " "
+
+	add_splendor = 300
+}
+
+# Shattered: called when a mission tree is confirmed. If Burgundy/Lotharingia picked the Europa Expanded tree,
+# run the setup EE did in history (Golden Fleece privilege & support, Dutch subject types for the vanilla bookmark unions).
+ME_bur_on_mission_tree_selected_effect = {
+	if = {
+		limit = {
+			OR = {
+				tag = BUR
+				tag = LOT
+			}
+			ME_bur_uses_ee_missions_trigger = yes
+		}
+		# Vanilla bookmark: Burgundy's Low Countries unions become the Dutch subject types.
+		# Done right on confirm (not in the delayed event) so the engine's lost/gained union messages come with the choice.
+		if = {
+			limit = {
+				NOT = { has_country_flag = me_bur_converted_dutch_unions_flag }
+			}
+			set_country_flag = me_bur_converted_dutch_unions_flag
+			every_subject_country = {
+				limit = {
+					is_subject_of_type = personal_union
+					capital_scope = { region = low_countries_region }
+				}
+				ROOT = {
+					create_subject = {
+						subject_type = dutch_personal_union
+						subject = PREV
+						keep_liberty_desire = yes
+					}
+				}
+			}
+		}
+		# Mechanics are only re-evaluated on demand (as vanilla Prussia does), so the Golden Fleece appears now
+		regenerate_government_mechanics = yes
+		# Province triggered modifiers only work once added (EE did the council one in Dijon's history)
+		if = {
+			limit = {
+				NOT = { has_country_flag = me_bur_added_ptms_flag }
+			}
+			set_country_flag = me_bur_added_ptms_flag
+			192 = { add_province_triggered_modifier = ME_bur_council_support_check } # Dijon
+			92 = { # Brussels: discount until the Coudenberg Palace reaches tier 1 (removed in its tier_1 on_upgraded)
+				if = {
+					limit = {
+						NOT = {
+							has_great_project = {
+								type = gme_paleis_koudenberg
+								tier = 1
+							}
+						}
+						NOT = { has_province_modifier = ME_bur_coudenberg_patronage }
+					}
+					add_province_modifier = {
+						name = ME_bur_coudenberg_patronage
+						duration = -1
+					}
+				}
+			}
+		}
+		country_event = {
+			id = ME_Burgundy_Events.22
+			days = 1
+		}
+	}
+}

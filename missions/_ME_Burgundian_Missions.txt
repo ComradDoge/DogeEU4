@@ -1,0 +1,2734 @@
+# Europa Expanded Burgundy & Lotharingia missions, adapted for Shattered Europa
+# Offered to Burgundy/Lotharingia through the mission tree choice (Emperor DLC)
+
+ME_bur_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = BUR
+			tag = LOT
+		}
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_bur_brabant_province = {
+		icon = fu_brabant_lion
+		position = 2
+		required_missions = { ME_bur_dutch_monument } 
+		provinces_to_highlight = {  
+			province_id = 92
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { num_of_times_improved = 3 }
+				NOT = { num_of_buildings_in_province = 2 }
+			}
+		} 
+
+		trigger = {  
+			92 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				num_of_times_improved = 3
+				num_of_buildings_in_province = 2
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_BUR_UNLOCK_THE_GREAT_COUNCIL_REFORM
+			set_country_flag = council_of_mechelen_flag
+			custom_tooltip = " "
+			92 = {
+				center_of_trade = 1
+			}
+		} 
+	}
+
+	ME_bur_calais = {
+		icon = mission_rb_invade_england
+		position = 3
+		provinces_to_highlight = {  
+			province_id = 87
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			87 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			give_claims = { area = normandy_area }
+			give_claims = { area = brittany_area }
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			ME_add_power_projection = { amount = 10 }
+			custom_tooltip = " "
+			custom_tooltip = ME_BUT_DESIGNATE_CALAIS_PORT
+			set_country_flag = enable_staple_port_flag
+		} 
+	}
+
+	ME_bur_brittany = {
+		icon = mission_rb_conquer_brittany
+		position = 5
+		required_missions = {
+			ME_bur_normandy
+			ME_bur_calais
+		}
+		provinces_to_highlight = {  
+			area = brittany_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			brittany_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			add_dip_power = 100
+			add_navy_tradition = 10
+			170 = {
+				add_or_upgrade_shipyard_building = yes
+				custom_tooltip = " "
+				add_province_modifier = {
+					name = me_bur_brest_port
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	ME_bur_lorraine = {
+		icon = integrate_lorraine
+		position = 7
+		required_missions = { } 
+		provinces_to_highlight = {  
+			area = lorraine_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			lorraine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			give_claims = { area = alsace_area }
+			give_claims = { area = upper_rhineland_area }
+			give_claims = { area = palatinate_area }
+			give_claims = { area = lower_rhineland_area }
+			give_claims = { area = north_rhine_area }
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			custom_tooltip = ME_BUR_LOSE_15_AE_WITH_ALL_HRE
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_elector = no
+						is_emperor = no
+						is_part_of_hre = yes
+					}
+					add_aggressive_expansion = {
+						who = ROOT
+						value = -10
+					}
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_GAIN_DEV_IN_CAPITAL_FROM_CONNECTION
+			hidden_effect = {
+				192 = {
+					add_base_production = 1
+					add_base_manpower = 1
+					add_base_tax = 1
+				}
+				every_subject_country = {
+					limit = {
+						is_dutch_subject_trigger = yes
+					}
+					overlord = {
+						add_years_of_income = 0.5
+					}
+				}
+			}
+		} 
+	}
+
+	ME_bur_rhine_border = {
+		icon = rhineland_conquest
+		position = 9
+		required_missions = { 
+			ME_bur_lorraine
+		} 
+		provinces_to_highlight = {  
+			OR = {
+				area = alsace_area
+				area = upper_rhineland_area
+				area = palatinate_area
+				area = lower_rhineland_area
+				area = north_rhine_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			77 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			85 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = alsace_area
+					area = upper_rhineland_area
+					area = palatinate_area
+					area = lower_rhineland_area
+					area = north_rhine_area
+				}
+				value = 10
+			}
+		} 
+
+		effect = {  
+			85 = {
+				add_great_project_tier = {
+					type = cologne_cathedral
+					tier = 1
+				}
+				add_base_production = 2
+			}
+			77 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 2
+			}
+			custom_tooltip = " "
+			ME_distribute_development = {
+				type = tax
+				amount = 5
+				limit = "
+					OR = {
+						area = alsace_area
+						area = upper_rhineland_area
+						area = palatinate_area
+						area = lower_rhineland_area
+						area = north_rhine_area
+					}
+				"
+				tooltip = ME_BUR_ONLY_IN_REQUIRED_PROVINCES
+			}
+		} 
+	}
+
+	ME_bur_into_north_germany = {
+		icon = mission_conquer_prussia
+		position = 10
+		required_missions = { 
+			ME_bur_rhine_border
+		} 
+		provinces_to_highlight = {  
+			region = north_german_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				region = north_german_region
+			}
+		} 
+
+		effect = {  
+			add_country_modifier = {
+				name = me_bur_advancing_in_north_germany
+				duration = 3650
+			}
+			custom_tooltip = " "
+			add_years_of_owned_provinces_production_income = {
+				years = 2
+				trigger = {
+					region = north_german_region
+				}
+				custom_tooltip = FROM_NORTH_GERMANY
+			}
+
+			add_years_of_owned_provinces_manpower = {
+				years = 2
+				trigger = {
+					region = north_german_region
+				}
+				custom_tooltip = FROM_NORTH_GERMANY
+			}
+		} 
+	}
+
+	ME_bur_east_francia = {
+		icon = conquer_east_francia
+		position = 11
+		required_missions = { 
+			ME_bur_into_north_germany
+			ME_bur_subdue_south_germans
+		} 
+		provinces_to_highlight = {  
+			OR = {
+				region = north_german_region
+				region = south_german_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			development_in_provinces = {
+				value = 700
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+			}
+		} 
+
+		effect = {  
+			set_country_flag = bur_unlock_east_francia_decision
+			custom_tooltip = BUR_UNLOCK_EAST_FRANCIA_DECISION_TT
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_legitimacy_or_reform_progress = { amount = 10 }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			define_advisor = {
+				type = diplomat
+				skill = 3
+				cost_multiplier = 0.25
+			}
+		} 
+	}
+
+	ME_bur_between_two_worlds = {
+		icon = mission_modern_knight_army
+		position = 12
+
+		trigger = {  
+			army_size = 40
+			num_of_wars_won = { amount = 5 }
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.2
+			}
+			else = {
+				army_tradition = 35
+			}
+		} 
+
+		effect = {  
+			add_country_modifier = {
+				name = me_bur_to_tame_two_realms
+				duration = 5475
+			}
+			custom_tooltip = ME_BUR_BUFF_TOISON_DOR_INTERACTION
+		} 
+	}
+
+	ME_bur_the_bock = {
+		icon = spa_tercios_system
+		position = 13
+		required_missions = { ME_bur_between_two_worlds } 
+		provinces_to_highlight = {  
+			province_id = 94
+			OR = {
+				NOT = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				NOT = {
+					base_manpower = 5
+				}
+				NOT = {
+					has_fort_building_trigger = yes
+				}
+				NOT = {
+					has_great_project = {
+						type = gme_the_bock
+						tier = 3
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			94 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				base_manpower = 5
+				has_fort_building_trigger = yes
+				has_great_project = {
+					type = gme_the_bock
+					tier = 3
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_BUR_UNLOCK_BOCK_CONDITIONAL_MODIFIER
+			custom_tooltip = " "
+			94 = {
+				add_or_upgrade_fort_building = yes
+			}
+		} 
+	}
+}
+
+ME_lot_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = LOT
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_lot_aachen_palace = {
+		icon = versailles_palace
+		position = 14
+		required_missions = {
+			ME_bur_the_bock
+			ME_bur_age_of_new_heroes
+		}
+
+		provinces_to_highlight = {
+			province_id = 1878
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 25 }
+			}
+		}
+
+		trigger = {
+			1878 = {
+				owned_by = ROOT
+				development = 25
+			}
+		}
+
+		effect = {
+			add_adm_power = 100
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			1878 = {
+				add_province_modifier = {
+					name = me_bur_aachen_palace
+					duration = -1
+				}
+			}
+		}
+	}
+
+	ME_lot_spread_frankish_culture = {
+		icon = league_of_the_public_weal
+		position = 15
+		required_missions = {
+			ME_lot_restore_frankish
+		}
+
+		trigger = {  
+			num_of_provinces_culture_converted = { amount = 25 }
+		} 
+
+		effect = {  
+			add_prestige_or_monarch_power = { amount = 10 }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = LOT_UNLOCK_FRANKISH_CULTURE_NOBILITY_PRIVILEGE
+			set_country_flag = lot_frankish_culture_unlocked_flag
+		} 
+	}
+
+	ME_lot_great_power = {
+		icon = mission_among_the_great_powers
+		position = 16
+		required_missions = {
+			ME_lot_spread_frankish_culture
+		}
+
+		trigger = {  
+			num_of_wars_won = { amount = 25 }
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Rights of Man"
+						has_dlc = "Emperor"
+					}
+				}
+				NOT = {
+					great_power_rank = 4
+				}
+			}
+			else = {
+				total_development = 1000
+			}
+		} 
+
+		effect = {  
+			add_age_modifier = {
+				name = me_lot_restoration_of_francia
+				age = age_of_reformation
+				duration = -1
+				else = "
+					ME_add_power_projection = { amount = 20 }
+				"
+			}
+		} 
+	}
+
+	ME_lot_jousting = {
+		icon = mission_knight
+		position = 17
+		required_missions = {
+			ME_lot_knighthood_of_twelve
+		}
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_BUR_USED_TOURNAMENT_INTERACTION_25_TIMES
+				check_variable = {
+					which = MeBurTournamentCount
+					value = 25
+				}
+			}
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 75
+			}
+		} 
+
+		effect = {  
+			add_splendor = 150
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ME_BUR_UNLOCKS_JOUSTING_TOURNAMENT_EVENTS
+			set_country_flag = me_lot_jousting_unlocked_flag
+			
+			capital_scope = {
+				province_event = {
+					id = ME_Burgundy_Events.21
+				}
+			}
+		} 
+	}
+}
+
+ME_bur_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = BUR
+			tag = LOT
+		}
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_bur_dutch_monument = {
+		icon = appease_the_estates
+		position = 1
+		provinces_to_highlight = {  
+			province_id = 92
+			OR = {
+				NOT = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				NOT = {
+					has_great_project = {
+						type = gme_paleis_koudenberg
+						tier = 1
+					}
+				}
+			}
+		} 
+
+		trigger = {  
+			92 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				has_great_project = {
+					type = gme_paleis_koudenberg
+					tier = 1
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_BUR_AULA_MAGNA_GRANT_BONUSES_IN_RIGHT_OF_COUNCEL_PRIVILEGE
+		} 
+	}
+
+	ME_bur_normandy = {
+		icon = mission_landsknecht_soldier
+		position = 4
+		required_missions = { ME_bur_calais } 
+		provinces_to_highlight = {  
+			area = normandy_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			normandy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			ME_add_accepted_culture_or_dip_power = { culture = normand }
+			custom_tooltip = " "
+			167 = {
+				add_or_upgrade_trade_building = yes
+				center_of_trade = 1
+			}
+		} 
+	}
+
+	ME_bur_liege = {
+		icon = spa_reform_tercios
+		position = 6
+		provinces_to_highlight = {  
+			OR = {
+				province_id = 93
+				province_id = 2974
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			93 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2974 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			ME_give_claims = { area = romandie_area }
+			ME_give_claims = { area = switzerland_area }
+			ME_give_claims = { id = 80 }
+			custom_tooltip = " "
+			add_estate_loyalty = {
+				loyalty = 10
+				estate = estate_church
+			}
+			93 = {
+				add_or_upgrade_fort_building = yes
+			}
+		} 
+	}
+
+	ME_bur_trier_negotiations = {
+		icon = the_crown_of_lothair
+		position = 7
+		required_missions = { ME_bur_liege } 
+		provinces_to_highlight = {  
+			province_id = 80
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			OR = {
+				AND = {
+					emperor = {
+						has_opinion = {
+							who = ROOT
+							value = 120
+						}
+						trust = { who = ROOT value = 60 }
+					}
+				}
+				80 = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				is_emperor = yes
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_BUR_LOCK_NED_FRA
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_BUR_IF_CONQUEST
+				first_limit = "
+					OR = {
+						80 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+						is_emperor = yes
+					}
+				"
+				first_effect = "
+					set_country_flag = me_bur_alternative_lotharingia_flag
+					custom_tooltip = BUR_ALLOW_LOTHARINGIA_FORMATION_DECISION
+					add_legitimacy_or_reform_progress = { amount = 10 }
+					add_splendor = 200
+					add_government_power = {
+						mechanic_type = golden_fleece_mechanic
+						power_type = golden_fleece_support
+						value = 15
+					}
+				"
+				second_custom_tooltip = ME_BUR_IF_TRIER_NEGOTIATIONS
+				second_limit = "
+					80 = {
+						AND = {
+							emperor = {
+								has_opinion = {
+									who = ROOT
+									value = 120
+								}
+								trust = { who = ROOT value = 60 }
+							}
+						}
+					}
+				"
+				second_effect = "
+					custom_tooltip = ME_BUR_IF_EMPEROR_ACCEPTS
+					custom_tooltip = BUR_ALLOW_LOTHARINGIA_FORMATION_DECISION
+					tooltip = { add_splendor = 200 }
+					custom_tooltip = ME_BUR_CANNOT_DECLARE_WAR_ON_HRE
+					tooltip = {
+						set_in_empire = yes
+						emperor = {
+							custom_tooltip = \" \"
+							add_imperial_influence = 5
+							add_prestige_or_monarch_power = { amount  = 15 }
+						}
+					}
+					set_country_flag = ME_BUR_letter_to_emperor
+				"
+			}
+			if = {
+				limit = {
+					has_country_flag = ME_BUR_letter_to_emperor
+				}
+				emperor = {
+					country_event = {
+						id = ME_Burgundy_Events.3
+					}
+				}
+			}
+			
+			#hidden_effect = {
+			#	complete_mission = ME_bur_trier_negotiations
+			#}
+		} 
+	}
+
+	ME_bur_taming_the_empire = {
+		icon = mission_dismantle_hre
+		position = 8
+		required_missions = {
+			ME_bur_swiss_conquest
+			ME_bur_trier_negotiations
+			ME_bur_lorraine
+		}
+		provinces_to_highlight = {  
+			
+		} 
+
+		trigger = {
+			OR = {
+				AND = {
+					is_emperor = yes
+					if = {
+						limit = {
+							has_dlc = "Emperor"
+						}
+						hre_reform_passed = emperor_reichsstabilitaet
+					}
+					else = {
+						hre_reform_passed = hofgericht
+					}
+					calc_true_if = {
+						all_country = {
+							is_elector = yes
+							preferred_emperor = ROOT
+						}
+						amount = 4
+					}
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = ME_EMPIRE_DISMANTLED
+						NOT = {
+							hre_size = 1
+						}
+					}
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 15
+						OR = {
+							region = north_german_region
+							region = south_german_region
+						}
+					}
+					# ME_pt_feedback_requested = yes
+				}
+			}
+		} 
+
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_BUR_IF_NO_HRE
+				first_limit = "
+					NOT = {
+						hre_size = 1
+					}
+				"
+				first_effect = "
+					custom_tooltip = ME_BUR_UNLOCK_GRAND_GERMAN_CAMPAIGNS
+					set_country_flag = me_bur_grand_campaigns_flag
+					custom_tooltip = \" \"
+					add_government_power = {
+						mechanic_type = golden_fleece_mechanic
+						power_type = golden_fleece_support
+						value = 25
+					}
+					ME_give_claims = {
+						region = north_german_region
+					}
+					ME_give_claims = {
+						region = south_german_region
+					}
+				"
+				second_custom_tooltip = ME_BUR_IF_IS_EMPEROR2
+				second_limit = "
+					is_emperor = yes
+				"
+				second_effect = "
+					set_country_flag = me_bur_imperial_titles_flag
+					custom_tooltip = ME_BUR_UNLOCK_SEVERAL_IMPERIAL_TITLES
+					custom_tooltip = \" \"
+					custom_tooltip = ME_BUR_ALL_HRE_NATIONS_GAIN_CHIVALRY_BUFFS
+					hidden_effect = {
+						every_country = {
+							limit = {
+								is_part_of_hre = yes
+							}
+							add_prestige_or_monarch_power = { amount = 10 }
+							add_opinion = {
+								who = ROOT
+								modifier = BUR_restoration_of_chivalric_legacy
+							}
+						}
+					}
+				"
+			}
+		} 
+	}
+
+	ME_bur_subdue_south_germans = {
+		icon = imperial_capitals
+		position = 10
+		required_missions = { 
+			ME_bur_rhine_border
+		} 
+		provinces_to_highlight = {  
+			region = south_german_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 30
+				region = south_german_region
+			}
+		} 
+
+		effect = {  
+			add_prestige_or_monarch_power = { amount = 15 }
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_EVERY_SOUTH_GERMAN_PROVINCE_LOSES_AUTONOMY_AND_SEPERATISM
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = south_german_region
+					}
+					add_local_autonomy = -50
+					add_nationalism = -15
+				}
+			}
+		} 
+	}
+
+	ME_bur_golden_fleece = {
+		icon = mission_united_knight_order
+		position = 11
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 65
+			}
+			num_of_cavalry = 10
+		}
+
+		effect = {  
+			add_army_tradition_or_mil_power = { amount = 10 }
+			custom_tooltip = " "
+			ME_distribute_development = {
+				type = manpower
+				amount = 5
+			}
+			custom_tooltip = " "
+			add_splendor = 100
+		} 
+	}
+
+	ME_bur_expanding_the_order = {
+		icon = mission_noble_council
+		position = 12
+		required_missions = { ME_bur_golden_fleece }
+
+		trigger = {  
+			num_of_battles_won = { amount = 20 }
+			has_mil_advisor_2 = yes
+			OR = {
+				has_government_power = {
+					mechanic_type = golden_fleece_mechanic
+					power_type = golden_fleece_support
+					value = 50
+				}
+				AND = {
+					estate_influence = {
+						estate = estate_nobles
+						influence = 70
+					}
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 70
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			define_advisor = {
+				type = ME_toison_dor
+				skill = 3
+				cost_multiplier = 0.25
+			}
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_BUFF_NOBILITY_IN_OFFICER_CORPS
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_BUFF_SUPPORT_OF_KNIGHTS
+			hidden_effect = {
+				if = {
+					limit = {
+						has_estate_privilege = estate_nobles_officer_corp
+					}
+					add_army_tradition_or_mil_power = { amount = 5 }
+				}
+			}
+		} 
+	}
+
+	ME_bur_age_of_new_heroes = {
+		icon = chivalry_is_not_dead
+		position = 13
+		required_missions = {
+			ME_bur_pheasants
+			ME_bur_between_two_worlds
+			ME_bur_expanding_the_order
+		}
+
+		trigger = {  
+			num_of_battles_won = { amount = 100 }
+			is_ahead_of_time_in_specific_tech = { type = mil }
+			OR = {
+				has_government_power = {
+					mechanic_type = golden_fleece_mechanic
+					power_type = golden_fleece_support
+					value = 75
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_USED_TOURNAMENT_INTERACTION_15_TIMES
+					check_variable = {
+						which = MeBurTournamentCount
+						value = 15
+					}
+				}
+			}
+		} 
+
+		effect = {
+			create_general_with_pips = {
+				tradition = 70
+				add_shock = 2
+			}
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_RENAME_NOBLES_TO_PALADINS
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_MODIFY_GOLDEN_FLEECE_PRIVILEGE
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_GAIN_AT_PER_BATTLE_WON
+		} 
+	}
+}
+
+ME_lot_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = LOT
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_lot_restore_frankish = {
+		icon = king_of_the_franks
+		position = 14
+		required_missions = {
+			ME_bur_age_of_new_heroes
+			ME_bur_flemish_renaissance
+		}
+
+		trigger = {  
+			num_of_provinces_developed = { amount = 50 }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				culture = ROOT
+				num_of_buildings_in_province = 3
+				value = 5
+			}
+			prestige = 40
+
+		} 
+
+		effect = {  
+			custom_tooltip = ME_LOT_CONVERT_TO_FRANKISH
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			define_advisor = {
+				type = GRA_alchemist
+				skill = 2
+				culture = frankish
+				cost_multiplier = 0.25
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture = ROOT
+					}
+					change_culture = frankish
+				}
+				set_ruler_culture = frankish
+				if = {
+					limit = {
+						has_heir = yes
+					}
+					set_heir_culture = frankish
+				}
+				change_primary_culture = frankish
+			}
+		} 
+	}
+
+	ME_lot_knighthood_of_twelve = {
+		icon = mission_united_knight_order
+		position = 16
+		required_missions = {
+			ME_lot_spread_frankish_culture
+			ME_lot_frankish_court
+		}
+
+		trigger = {  
+			has_government_power = {
+				mechanic_type = golden_fleece_mechanic
+				power_type = golden_fleece_support
+				value = 80
+			}
+			army_size = 100
+			army_tradition = 50
+		} 
+
+		effect = {  
+			country_event_with_option_insight = {
+				id = ME_Burgundy_Events.19
+				option_1 = "
+					custom_tooltip = ME_BUR_BUFF_MECHANIC_CAVALRY
+				"
+				option_2 = "
+					custom_tooltip = ME_BUR_BUFF_MECHANIC_LEVIES
+				"
+			}
+		} 
+	}
+}
+
+ME_bur_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = BUR
+			tag = LOT
+		}
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_bur_grand_privilege = {
+		icon = develop_our_capital
+		position = 2
+		required_missions = {
+			ME_bur_loyal_subjects
+			ME_bur_dutch_monument
+		}
+
+		trigger = {  
+			stability = 2
+			has_dip_advisor_2 = yes
+			reform_level = 3
+		} 
+
+		effect = {  
+			custom_tooltip = ME_BUR_UNLOCK_GRAND_PRIVILEGE
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = ME_Burgundy_Events.16
+				option_1 = "
+					custom_tooltip = ME_BUR_MILITARY_PRIVILEGE_TT
+				"
+				option_2 = "
+					custom_tooltip = ME_BUR_TRADE_PRIVILEGE_TT
+				"
+				option_3 = "
+					custom_tooltip = ME_BUR_LD_PRIVILEGE_TT
+				"
+			}
+		} 
+	}
+
+	ME_bur_fate_of_netherlands = {
+		icon = bavarian_netherlands
+		position = 3
+		required_missions = {
+			ME_bur_rein_in_stadholders
+			ME_bur_grand_privilege
+			ME_bur_brabant_province
+		}
+
+		provinces_to_highlight = {
+			region = low_countries_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 20
+				region = low_countries_region
+			}
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_DEALT_WITH_BI
+					has_country_flag = me_bur_burgundian_inheritance_mission
+				}
+				NOT = { current_age = age_of_discovery }
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_BUR_REMOVE_TECH_REQUIREMENT_FOR_NL
+			set_country_flag = NED_no_more_tech_req_for_netherlands_flag 
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = ME_Burgundy_Events.14
+				option_1 = "
+					custom_tooltip = ME_BUR_FORM_NETHERLANDS_VASSAL
+				"
+				option_2 = "
+					custom_tooltip = ME_BUR_ANNEX_LOW_COUNTRIES_BIG_PENALTY
+				"
+			}
+		} 
+	}
+
+	ME_bur_fate_of_france = {
+		icon = king_of_france
+		position = 5
+		required_missions = {
+			ME_bur_paris
+			ME_bur_normandy
+		}
+		provinces_to_highlight = {  
+			region = france_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			FRA = {
+				exists = no
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = france_region
+				value = 40
+			}
+		} 
+
+		effect = {
+			change_ruler_stat = {
+				type = adm
+				amount = 1
+			}
+			change_ruler_stat = {
+				type = dip
+				amount = 1
+			}
+			change_ruler_stat = {
+				type = mil
+				amount = 1
+			}
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_GRANT_BONUS_PER_APPENAGE
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_FORMING_FRANCE_GIVES_GOLDEN_FLEECE_BUFFS
+			set_country_flag = me_bur_france_formation_golden_fleece_buffs_flag
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						capital_scope = {
+							region = france_region
+						}
+					}
+					capital_scope = {
+						add_base_production = 1
+						add_base_tax = 1
+					}
+					overlord = {
+						add_army_tradition_or_mil_power = { amount = 4 }
+					}
+				}
+			}
+		} 
+	}
+
+	ME_bur_swiss_conquest = {
+		icon = swiss_mercenaries
+		position = 7
+		required_missions = { ME_bur_liege } 
+		provinces_to_highlight = {  
+			OR = {
+				area = switzerland_area
+				area = romandie_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				OR = {
+					area = switzerland_area
+					area = romandie_area
+				}
+			}
+		} 
+
+		effect = {  
+			give_claims = { area = lombardy_area }
+			give_claims = { area = po_valley_area }
+			give_claims = { area = venetia_area }
+			give_claims = { area = piedmont_area }
+			give_claims = { area = liguria_area }
+			give_claims = { area = tuscany_area }
+			give_claims = { area = emilia_romagna_area }
+			give_claims = { area = lazio_area }
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			define_advisor = {
+				type = ME_mercenary_commander
+				culture = swiss
+				skill = 3
+				cost_multiplier = 0.25
+			}
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_UNLOCK_SWISS_MERCENARIES
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_EXPAND_THE_FORTIFICATIONS_GRANTS_BONUSES_IN_SWISS_PROVINCES
+			hidden_effect = {
+				every_owned_province = {
+					if = {
+						limit = {
+							has_province_modifier = estate_nobles_development_of_castles_ramparts_mod
+						}
+						remove_province_modifier = estate_nobles_development_of_castles_ramparts_mod
+						add_province_modifier = {
+							name = me_bur_expand_the_ramparts_buffed
+							duration = -1
+						}
+					}
+					if = {
+						limit = {
+							has_province_modifier = estate_nobles_development_of_castles_mod
+						}
+						remove_province_modifier = estate_nobles_development_of_castles_mod
+						add_province_modifier = {
+							name = me_bur_expand_the_fortifications_buffed
+							duration = -1
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	ME_bur_arles_conquest = {
+		icon = mission_conquer_mewar
+		position = 9
+		required_missions = { ME_bur_push_into_lombardy } 
+		provinces_to_highlight = {  
+			OR = {
+				area = savoy_dauphine_area
+				area = provence_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			203 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					area = savoy_dauphine_area
+					area = provence_area
+				}
+			}
+		} 
+
+		effect = {  
+			ME_add_accepted_culture_or_dip_power = { culture = occitain }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			203 = {
+				add_center_of_trade_level = 1
+				add_base_production = 2
+			}
+		} 
+	}
+
+	ME_bur_organizing_the_estates = {
+		icon = conquer_burgundy
+		position = 11
+		required_missions = { ME_bur_charles_bold }
+
+		trigger = {  
+			crown_land_share = 45
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 65
+				}
+			}
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 65
+				}
+			}
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 65
+				}
+			}
+		} 
+
+		effect = {
+			change_government_reform_progress = 75
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_NEXT_3_GOV_REFORMS_GRANT_ADM_POWER
+			custom_tooltip = " "
+			add_estate_influence_modifier = {
+				estate = estate_nobles
+				desc = EST_VAL_NEW_BURGUNDIAN_LAWS
+				influence = -10
+				duration = 7300
+			}
+			add_estate_influence_modifier = {
+				estate = estate_church
+				desc = EST_VAL_NEW_BURGUNDIAN_LAWS
+				influence = -10
+				duration = 7300
+			}
+			add_estate_influence_modifier = {
+				estate = estate_burghers
+				desc = EST_VAL_NEW_BURGUNDIAN_LAWS
+				influence = -10
+				duration = 7300
+			}
+			hidden_effect = {
+				set_country_flag = me_bur_reforms_grant_adm_skill_flag
+				set_variable = {
+					which = BurReformsAddAdmSkill
+					value = 3
+				}
+			}
+		} 
+	}
+
+	ME_bur_pheasants = {
+		icon = feast_of_pheasants
+		position = 12
+
+		trigger = {  
+			if = {
+				limit = {
+					religion = catholic
+				}
+				PAP = {
+					has_opinion = {
+						who = ROOT
+						value = 110
+					}
+				}
+				papal_influence = 30
+			}
+			else = {
+				theologian = 2
+			}
+			has_government_power = {
+				mechanic_type = golden_fleece_mechanic
+				power_type = golden_fleece_support
+				value = 35
+			}
+			monthly_mil = 9
+		} 
+
+		effect = {
+			custom_tooltip = ME_BUR_GRANT_BONUS_FOR_CURIA_ACTIONS_FOR_5_TIMES
+			hidden_effect = {
+				set_country_flag = me_bur_curia_actions_rewards_flag
+				set_variable = {
+					which = BurCuriaCount
+					value = 5
+				}
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 15 }
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_BUR_IF_TUR_EXISTS
+				first_limit = "
+					exists = TUR
+					TUR = { NOT = { religion_group = christian } }
+				"
+				first_effect = "
+					add_casus_belli = {
+						target = TUR
+						type = cb_crusade_against_ottomans
+						months = 600
+					}
+					custom_tooltip = ME_BUR_CRUSADE_TOOLTIP
+				"
+			}
+		} 
+	}
+
+	ME_bur_flemish_renaissance = {
+		icon = renaissance_city
+		position = 13
+
+		trigger = {  
+			has_institution = renaissance
+			prestige = 35
+			OR = {
+				artist = 2
+				philosopher = 2
+				has_adm_advisor_3 = yes
+			}
+		} 
+
+		effect = {
+			custom_tooltip = ME_BUR_BUFF_PATRONAGE_OF_ARTS_PRIVILEGE
+			custom_tooltip = " "
+			capital_scope = {
+				add_prosperity = 100
+			}
+			custom_tooltip = " "
+			change_innovativeness = 3
+		} 
+	}
+}
+
+ME_lot_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = LOT
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_lot_frankish_court = {
+		icon = mission_court_education
+		position = 15
+		required_missions = {
+			ME_lot_restore_frankish
+			ME_bur_europes_model_court
+		}
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = BUR_EMPLOYS_LEVEL_3_FRANKISH_ADVISOR_ADM
+				employed_advisor = {
+					category = ADM
+					culture = frankish
+					skill = 3
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = BUR_EMPLOYS_LEVEL_3_FRANKISH_ADVISOR_DIP
+				employed_advisor = {
+					category = DIP
+					culture = frankish
+					skill = 3
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = BUR_EMPLOYS_LEVEL_3_FRANKISH_ADVISOR_MIL
+				employed_advisor = {
+					category = MIL
+					culture = frankish
+					skill = 3
+				}
+			}
+
+			OR = {
+				has_estate_privilege = estate_burghers_patronage_of_the_arts
+				prestige = 80
+				full_idea_group = stateaffairs0
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_LOT_EVERY_CURRENT_AND_FUTURE_FRENCH_OR_GERMANIC_PROVINCE_WILL_GET_THE_FOLLOWING
+			tooltip = {
+				add_province_modifier = {
+					name = me_lot_restore_frankish_culture_mododifier
+					duration = -1
+					desc = UNTIL_PROVINCE_CULTURE_CHANGES
+				}
+			}
+			set_country_flag = me_lot_buff_culture_conversion_flag
+
+			add_dip_power = 100
+
+			add_splendor = 100
+
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						NOT = {
+							culture = frankish
+						}
+						OR = {
+							culture_group = germanic
+							culture_group = french
+						}
+					}
+					add_province_modifier = {
+						name = me_lot_restore_frankish_culture_mododifier
+						duration = -1
+						desc = UNTIL_PROVINCE_CULTURE_CHANGES
+					}
+				}
+			}
+		} 
+	}
+
+	ME_lot_roland = {
+		icon = mission_patronize_art_and_religion
+		position = 17
+		required_missions = {
+			ME_lot_knighthood_of_twelve
+			ME_lot_frankish_knights
+		}
+
+		trigger = {  
+			prestige = 80
+			artist = 3
+			is_ahead_of_time_in_tech_adm = yes
+		} 
+
+		effect = {  
+			change_mil = 1
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ME_BUR_UNLOCK_ROLAND_DECISION
+			set_country_flag = me_bur_roland_flag
+
+			hidden_effect = {
+				set_variable = {
+					which = LOTRolandCounter
+					value = 0
+				}
+			}
+		} 
+	}
+}
+
+ME_bur_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = BUR
+			tag = LOT
+		}
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_bur_loyal_subjects = {
+		icon = spa_universal_monarchy
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				owner = {
+					is_subject_of = ROOT
+					is_dutch_subject_trigger = yes
+					OR = {
+						NOT = {
+							has_opinion = {
+								who = ROOT
+								value = 150
+							}
+						}
+						liberty_desire = 5
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = {
+							any_subject_country = {
+								is_dutch_subject_trigger = yes
+							}
+						}
+					}
+					OR = {
+						area = brabant_area
+						area = flanders_area
+					}
+					NOT = { owned_by = ROOT }
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					any_subject_country = {
+						is_dutch_subject_trigger = yes
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_ALL_DUTCH_SUBJECTS_HAVE_150_OPINION_AND_NO_LD
+					all_subject_country = {
+						OR = {
+							AND = {
+								has_opinion = {
+									who = ROOT
+									value = 150
+								}
+								NOT = {
+									liberty_desire = 5
+								}
+								is_dutch_subject_trigger = yes
+							}
+							NOT = { is_dutch_subject_trigger = yes }
+						}
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_NO_DUTCH_SUBJECTS_TT
+					always = yes
+				}
+				brabant_area = {
+					type = all
+					owned_by = ROOT
+				}
+				flanders_area = {
+					type = all
+					owned_by = ROOT
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = ME_BUR_UNLOCKS_REIN_IN_STADHOLDERS_DIPLOMATIC_ACTION
+			custom_tooltip = " "
+			if = {
+				limit = {
+					any_subject_country = {
+						is_dutch_subject_trigger = yes
+					}
+				}
+				custom_tooltip = ME_BUR_ADD_50_MONARCH_POWER_PER_DUTCH_SUBJECT
+				hidden_effect = {
+					every_subject_country = {
+						limit = {
+							is_dutch_subject_trigger = yes
+						}
+						overlord = {
+							add_adm_power = 25
+							add_dip_power = 25
+							add_mil_power = 25
+						}
+					}
+				}
+			}
+			else = {
+				add_adm_power = 50
+				add_dip_power = 50
+				add_mil_power = 50
+			}
+			hidden_effect = {
+				set_country_flag = me_bur_rein_in_cooldown
+			}
+		}
+	}
+
+	ME_bur_paris = {
+		icon = fu_paris
+		position = 4
+		required_missions = { ME_bur_nevers } 
+		provinces_to_highlight = {  
+			province_id = 183
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			183 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			183 = {
+				add_center_of_trade_level = 1
+				custom_tooltip = " "
+				ME_give_claims = { region = france_region }
+				custom_tooltip = " "
+				custom_tooltip = ME_BUR_FORMING_FRA_GIVES_DEV
+				custom_tooltip = " "
+			}
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_BUR_IF_CHP_OWNS_PARIS
+				first_limit = "
+					183 = {
+						owned_by = CHP
+					}
+					CHP = {
+						is_subject_of = ROOT
+					}
+				"
+				first_effect = "
+					add_splendor = 150
+					add_mil_power = 100
+					add_dip_power = 100
+					add_adm_power = 100
+					create_general_with_pips = {
+						tradition = 60
+						add_shock = 1
+						add_manuever = 1
+					}
+				"
+			}
+		} 
+	}
+
+	ME_bur_low_countries_conquest = {
+		icon = mission_spanish_netherlands
+		position = 6
+		provinces_to_highlight = {  
+			region = low_countries_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			low_countries_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {  
+			add_mercantilism = 5
+			99 = {
+				center_of_trade = 1
+				add_province_modifier = {
+					name = BUR_new_dutch_towns
+					duration = -1
+				}
+			}
+			100 = {
+				center_of_trade = 1
+				add_province_modifier = {
+					name = BUR_new_dutch_towns
+					duration = -1
+				}
+			}
+		}
+	}
+
+	ME_bur_dutch_monuments = {
+		icon = mission_hanseatic_city
+		position = 7
+		required_missions = { ME_bur_low_countries_conquest } 
+		provinces_to_highlight = {  
+			province_id = 97
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = {
+					has_great_project = {
+						type = amsterdam_bourse
+						tier = 2
+					}
+				}
+				NOT = {
+					num_of_buildings_in_province = 3
+				}
+				NOT = {
+					development = 25
+				}
+			}
+		} 
+
+		trigger = {  
+			97 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				has_great_project = {
+					type = amsterdam_bourse
+					tier = 2
+				}
+				num_of_buildings_in_province = 3
+				development = 25
+			}
+		} 
+
+		effect = {  
+			97 = {
+				add_great_project_tier = {
+					type = amsterdam_bourse
+					tier = 1
+				}
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				add_or_upgrade_shipyard_building = yes
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				add_or_upgrade_trade_building = yes
+
+				custom_tooltip = SEPERATOR_TOOLTIP
+
+				add_or_upgrade_production_building = yes
+			}
+		} 
+	}
+
+	ME_bur_push_into_lombardy = {
+		icon = seize_lombardy
+		position = 8
+		required_missions = { ME_bur_swiss_conquest } 
+		provinces_to_highlight = {  
+			OR = {
+				area = lombardy_area
+				area = po_valley_area
+				area = liguria_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			104 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = lombardy_area
+					area = po_valley_area
+					area = liguria_area
+				}
+				value = 6
+			}
+		} 
+
+		effect = {  
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				104 = {
+					add_great_project_tier = {
+						type = duomo_milano
+						tier = 1
+					}
+				}
+			}
+			else = {
+				add_base_production = 2
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = BUR_EVERY_LOMBARD_PROVINCE_THAT_HAS_A_MERCENARY_COMPANY_GAINS_DEVELOPMENT
+
+			hidden_effect = {
+				if = {
+					limit = {
+						104 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					104 = {
+						add_base_tax = 1
+					}
+				}
+				if = {
+					limit = {
+						4728 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					4728 = {
+						add_base_tax = 1
+					}
+				}
+				if = {
+					limit = {
+						1862 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					1862 = {
+						add_base_tax = 1
+					}
+				}
+			}
+		} 
+	}
+
+	ME_bur_crowned_by_god = {
+		icon = sway_the_pope
+		position = 9
+		required_missions = { ME_bur_push_into_lombardy } 
+		provinces_to_highlight = {  
+			province_id = 118
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			118 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = BUR_WE_WILL_NO_LONGER_SUFFER_EXCOMMUNICATION_PENALTY
+			set_country_flag = me_hab_no_excommunication_penalties
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 5
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = { amount = 5 }
+			}
+		} 
+	}
+
+	ME_bur_charles_bold = {
+		icon = fu_monarch_crowned
+		position = 10
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = ME_BUR_PHILIP_OF_BURGUNDY_IS_DEAD
+				NOT = { has_ruler_flag = bur_philip_the_good }
+			}
+			num_of_battles_won = { amount = 10 }
+			num_of_generals = 2
+		} 
+
+		effect = {  
+			add_age_modifier = {
+				name = me_bur_burgundian_ambition
+				duration = -1
+				age = age_of_discovery
+			}
+			custom_tooltip = " "
+			define_ruler_to_general = {
+				fire = 2
+				shock = 4
+				manuever = 4
+				siege = 1
+			}
+		} 
+	}
+
+	ME_bur_kick_out_foreign_influence = {
+		icon = fra_burg_succession
+		position = 11
+		required_missions = { ME_bur_charles_bold } 
+
+		trigger = {
+			OR = {
+				AND = {
+					heir_claim = 100
+					heir_age = 15
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_MARY_IS_HEIR
+					OR = {
+						has_heir_flag = mary_is_heir
+						has_ruler_flag = mary_is_heir
+					}
+				}
+			}
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+		}
+
+		effect = {  
+			custom_tooltip = ME_BUR_ENACT_GREAT_PRIVILEGE
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_BUR_IF_IS_EMPEROR
+				first_limit = "
+					is_emperor = yes
+				"
+				first_effect = "
+					set_allow_female_emperor = yes	
+				"
+			}
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						is_dutch_subject_trigger = yes
+					}
+					add_liberty_desire = -10
+					capital_scope = {
+						add_base_manpower = 1
+						add_base_production = 1
+						add_base_tax = 1
+					}
+				}
+			}
+		}
+	}
+
+	ME_bur_burgundian_succession = {
+		icon = mission_monarch_in_throne_room
+		position = 12
+		required_missions = {
+			ME_bur_organizing_the_estates
+			ME_bur_kick_out_foreign_influence
+			ME_bur_burgundian_campaigns
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Emperor"
+						has_dlc = "Rights of Man"
+					}
+				}
+				NOT = { great_power_rank = 6 }
+			}
+			else = {
+				total_development = 750
+			}
+			OR = {
+				NOT = { current_age = age_of_discovery }
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_DEALT_WITH_BI
+					has_country_flag = me_bur_burgundian_inheritance_mission
+				}
+			}
+			is_subject = no
+			total_development = 350
+		} 
+
+		effect = {  
+			add_age_modifier = {
+				name = me_bur_new_succession_laws
+				duration = -1
+				age = age_of_reformation
+			}
+			custom_tooltip = " "
+			change_ruler_stat = {
+				type = adm
+				amount = 1
+			}
+			change_ruler_stat = {
+				type = dip
+				amount = 1
+			}
+			change_ruler_stat = {
+				type = mil
+				amount = 1
+			}
+		} 
+	}
+
+	ME_bur_europes_model_court = {
+		icon = the_viennese_waltz
+		position = 14
+		required_missions = {
+			ME_bur_burgundian_fashion
+			ME_bur_flemish_renaissance
+		}
+
+		trigger = {
+			prestige = 75
+			has_dip_advisor_3 = yes
+			has_adm_advisor_3 = yes
+			has_mil_advisor_3 = yes
+			custom_trigger_tooltip = {
+				tooltip = ME_BUR_USED_TOURNAMENT_INTERACTION_10_TIMES
+				check_variable = {
+					which = MeBurTournamentCount
+					value = 10
+				}
+			}
+		} 
+
+		effect = {
+			add_splendor = 200
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_country_modifier = {
+				name = BUR_european_model_court
+				duration = -1
+			}
+
+			custom_tooltip = ME_BUR_RECRUIT_ADVISOR_UNLOCKED
+			set_country_flag = me_bur_great_men_decisions_flag
+		} 
+	}
+}
+
+ME_lot_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = LOT
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_lot_frankish_knights = {
+		icon = mission_holy_horde
+		position = 16
+		required_missions = {
+			ME_lot_frankish_court
+			ME_lot_frankish_style
+		}
+
+		trigger = {
+			num_of_estate_agendas_completed = {
+				estate = estate_nobles
+				value = 5
+			}
+			num_of_battles_won = { amount = 150 }
+			army_tradition = 60
+		} 
+
+		effect = {  
+			add_country_modifier = {
+				name = me_bur_pride_of_francia
+				duration = -1
+			}
+
+			add_yearly_manpower = 0.4
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ME_BUR_NOBLES_AGENDA_COMPLETED_GIVES_MANPOWER
+			set_country_flag = me_bur_buffed_noble_agendas_flag
+		} 
+	}
+}
+
+ME_bur_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = BUR
+			tag = LOT
+		}
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_bur_rein_in_stadholders = {
+		icon = consolidate_the_stadholders
+		position = 2
+		required_missions = { ME_bur_loyal_subjects }
+		provinces_to_highlight = {
+			OR = {
+				owner = {
+					is_dutch_subject_trigger = yes
+					NOT = { has_country_flag = me_bur_reigned_in }
+				}
+				AND = {
+					ROOT = {
+						NOT = {
+							any_subject_country = {
+								is_dutch_subject_trigger = yes
+							}
+						}
+					}
+					OR = {
+						area = holland_area
+						area = frisia_area
+					}
+					NOT = { owned_by = ROOT }
+				}
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					any_subject_country = {
+						is_dutch_subject_trigger = yes
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_REINED_IN_ALL_STADHOLDERS
+					all_subject_country = {
+						OR = {
+							AND = {
+								is_dutch_subject_trigger = yes
+								has_country_flag = me_bur_reigned_in
+							}
+							NOT = {
+								is_dutch_subject_trigger = yes
+							}
+						}
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = ME_BUR_NO_DUTCH_SUBJECTS_TT
+					always = yes
+				}
+				holland_area = {
+					type = all
+					owned_by = ROOT
+				}
+				frisia_area = {
+					type = all
+					owned_by = ROOT
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = ME_BUR_ALLOWS_DEMOTION_OF_DUTCH_SUBJECTS_TO_VASSALS
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 15 }
+			set_country_flag = ME_bur_reined_in_completed
+		}
+	}
+
+	ME_bur_nevers = {
+		icon = mission_assemble_an_army
+		position = 3
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			OR = {
+				AND = {
+					NEV = {
+						is_subject_of = ROOT
+					}
+					NEV = {
+						has_opinion = {
+							who = ROOT
+							value = 155
+						}
+					}
+				}
+				181 = {
+					owned_by = ROOT
+				}
+			}
+		} 
+
+		effect = {  
+			give_claims = { area = lorraine_area }
+			give_claims = { id = 93 }
+			give_claims = { id = 2974 }
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			country_event_with_option_insight = {
+				id = ME_Burgundy_Events.2
+				option_1 = "
+					181 = {
+						cede_province = CHP
+					}
+					vassalize = CHP
+					183 = {
+						add_core = CHP
+					}
+					4388 = {
+						add_core = CHP
+					}
+					custom_tooltip = BUR_may_not_be_available
+				"
+				option_2 = "
+					ME_give_claims = {
+						area = ile_de_france_area
+					}
+					ME_give_claims = {
+						area = champagne_area
+					}
+					
+					add_army_tradition_or_mil_power = { amount = 10 }
+				"
+			}
+		} 
+	}
+
+	ME_bur_southern_france = {
+		icon = mission_humiliate_provence
+		position = 5
+		required_missions = {
+			ME_bur_nevers
+			ME_bur_paris
+		}
+		provinces_to_highlight = {  
+			OR = {
+				area = massif_central_area
+				area = poitou_area
+				area = languedoc_area
+				area = guyenne_area
+				area = provence_area
+				area = savoy_dauphine_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+
+				OR = {
+					area = massif_central_area
+					area = poitou_area
+					area = languedoc_area
+					area = guyenne_area
+					area = provence_area
+					area = savoy_dauphine_area
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_BUR_SPREAD_DEV_PER_TOURNAMENT_WON
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = me_bur_fall_of_the_south
+				duration = 7300
+			}
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = ME_BUR_IF_SPANISH_PASS_OWNED
+				first_limit = "
+					2753 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					173 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				"
+				first_effect = "
+					2753 = {
+						add_or_upgrade_fort_building = yes
+						add_base_manpower = 1
+					}
+					173 = {
+						add_or_upgrade_fort_building = yes
+						add_base_manpower = 1
+					}
+				"
+			}
+		} 
+	}
+
+	ME_bur_dutch_polders = {
+		icon = me_mission_netherlands_polders
+		position = 7
+		required_missions = { ME_bur_low_countries_conquest }
+		provinces_to_highlight = {
+			province_id = 97
+			OR = {
+				NOT = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				NOT = {
+					has_great_project = {
+						type = dutch_polders
+						tier = 3
+					}
+				}
+			}
+		}
+
+		trigger = {
+			97 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				has_great_project = {
+					type = dutch_polders
+					tier = 3
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = ME_BUR_UNLOCK_POLDER_CONDITIONAL_MODIFIER
+			custom_tooltip = " "
+			ME_distribute_development = {
+				type = production
+				amount = 15
+				limit = "
+					region = low_countries_region
+				"
+			}
+			97 = {
+				add_permanent_province_modifier = {
+					name = "holland_polders"
+					duration = -1
+				}
+			}
+
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				add_splendor = 200
+			}
+			else = {
+				add_prestige_or_monarch_power = { amount = 25 }
+			}
+
+			custom_tooltip = " "
+
+			complex_dynamic_effect = {
+				first_custom_tooltip = NED_if_we_have_infrastructure_ideas
+				first_limit = "
+					has_idea = public_works
+				"
+				first_effect = "
+					add_adm_power = 200
+				"
+			}
+		}
+	}
+
+	ME_bur_venetian_land = {
+		icon = mission_hanseatic_city
+		position = 9
+		required_missions = { ME_bur_push_into_lombardy } 
+		provinces_to_highlight = {  
+			area = venetia_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		trigger = {  
+			venetia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {  
+			112 = {
+				add_base_manpower = 2
+				add_base_production = 2
+				add_base_tax = 2
+
+				add_unit_construction = {
+					type = galley
+					cost = 0.0
+					speed = 0.3
+					amount = 10
+				}
+			}
+		} 
+	}
+
+	ME_bur_burgundian_campaigns = {
+		icon = avoid_fragmentation
+		position = 11
+		required_missions = { ME_bur_charles_bold }
+
+		trigger = {  
+			grown_by_development = 75
+			custom_trigger_tooltip = {
+				tooltip = ME_BUR_CALLED_AT_LEAST_ONE_MEETING
+				has_country_flag = me_but_called_meeting
+			}
+		}
+
+		effect = {
+			ME_add_power_projection = { amount = 15 } 
+			custom_tooltip = " "
+			add_casus_belli = {
+				target = emperor
+				type = cb_burgundian_campaign
+				months = 600
+			}
+			add_casus_belli = {
+				target = FRA
+				type = cb_burgundian_campaign
+				months = 600
+			}
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_CAMPAIGNS_REWARD_FOR_DIFFERENT_TARGET
+		}
+	}
+
+	ME_bur_burgundian_fashion = {
+		icon = sponsor_the_arts
+		position = 13
+		provinces_to_highlight = {
+			trade_goods = cloth
+			NOT = { development = 20 }
+			country_or_non_sovereign_subject_holds = ROOT
+		}
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				development = 20
+				trade_goods = cloth
+				value = 5
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = ME_BUR_NO_MORE_POOR_UNIFORMS
+			custom_tooltip = " "
+			custom_tooltip = ME_BUR_UNLOCK_BURGUNDIAN_FASHION_BURGHERS_PRIVILEGE
+			
+		} 
+	}
+}
+
+
+ME_lot_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = LOT
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+
+	ME_lot_frankish_style = {
+		icon = mission_noble_council
+		position = 15
+		required_missions = {
+			ME_bur_europes_model_court
+			ME_bur_burgundian_fashion
+		}
+
+		trigger = {
+			prestige = 50
+			has_adm_advisor_3 = yes
+		} 
+
+		effect = {  
+			change_country_color = { 
+				color = { 254  220  0 }
+			}
+			set_country_flag = has_overriden_color_flag
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_corruption = -2
+
+			ME_add_power_projection = {
+				amount = 15
+			}
+		} 
+	}
+
+	ME_lot_heirs_of_charlemagne = {
+		icon = carolingian_empire
+		position = 16
+		required_missions = {
+			ME_lot_frankish_style
+		}
+
+		trigger = {  
+			legitimacy_equivalent = 100
+			total_development = 1000
+			government_rank = 3
+		} 
+
+		effect = {  
+			set_dynasty = "Karling"
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_prestige_or_monarch_power = { amount = 10 }
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			custom_tooltip = ME_LOT_BUFF_NOBLE_LEVIES
+			set_country_flag = me_lot_noble_levies_buff
+		} 
+	}
+
+	ME_lot_frankish_traditions = {
+		icon = mission_modern_knight_army
+		position = 17
+		required_missions = {
+			ME_lot_frankish_knights
+		}
+
+		trigger = {  
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				army_professionalism = 0.5
+			}
+			num_of_battles_won = { amount = 300 }
+			OR = {
+				has_global_modifier_value = {
+					which = discipline
+					value = 0.1
+				}
+				ruler_has_personality = martial_educator_personality
+				full_idea_group = quality_ideas
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = LOT_UNLOCK_PALADIN_GUARD_MERC_COMPANY
+			set_country_flag = lot_paladin_guard_unlocked_flag
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			change_mil = 1
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+
+			add_country_modifier = {
+				name = me_lot_forever_chivalrous
+				duration = -1
+			}
+		} 
+	}
+}

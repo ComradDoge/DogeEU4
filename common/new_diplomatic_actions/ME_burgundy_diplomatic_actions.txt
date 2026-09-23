@@ -1,0 +1,325 @@
+burgundy_grant_knight_title = {
+	category = emperor
+
+	require_acceptance = no
+
+	is_visible = {
+		is_emperor = yes
+		has_country_flag = me_bur_imperial_titles_flag
+		FROM = {
+			capital_scope = {
+				is_part_of_hre = yes
+			}
+		}
+	}
+
+	is_allowed = {
+		hidden_trigger = {
+			has_country_flag = me_bur_imperial_titles_flag
+		}
+		FROM = {
+			NOT = {
+				has_ruler_modifier = me_bur_granted_knighthood
+			}
+		}
+		prestige = 60
+		custom_trigger_tooltip = {
+			tooltip = ME_BUR_ONLY_7_KNIGHTS_IN_HRE
+			NOT = {
+				calc_true_if = {
+					all_country = {
+						has_ruler_modifier = me_bur_granted_knighthood
+					}
+					amount = 7
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		hidden_effect = {
+			add_government_power = {
+				mechanic_type = golden_fleece_mechanic
+				power_type = golden_fleece_support
+				value = 5
+			}
+			add_prestige = -10
+			FROM = {
+				country_event = { id = ME_Burgundy_Events.4 }
+			}
+		}
+		custom_tooltip = ME_BUR_GRANT_KNIGHTHOOD_TOOLTIP
+	}
+
+	ai_will_do = {
+		always = no
+	}
+}
+
+burgundy_rein_in_stadholders = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		mission_completed = ME_bur_loyal_subjects
+		FROM = {
+			is_subject_of = ROOT
+			is_dutch_subject_trigger = yes
+			NOT = {
+				has_country_flag = me_bur_reigned_in
+			}
+		}
+		NOT = { has_country_flag = ME_bur_reined_in_completed }
+	}
+
+	is_allowed = {
+		OR = {
+			NOT = {
+				has_country_flag = me_bur_rein_in_cooldown
+			}
+			had_country_flag = {
+				flag = me_bur_rein_in_cooldown
+				days = 730
+			}
+		}
+		all_subject_country = {
+			NOT = {
+				liberty_desire = 40
+			}
+		}
+		FROM = {
+			has_opinion = {
+				who = ROOT
+				value = 100
+			}
+		}
+	}
+
+	on_accept = {
+		FROM = {
+			set_country_flag = me_bur_reigned_in
+		}
+		every_subject_country = {
+			limit = {
+				is_dutch_subject_trigger = yes
+				NOT = {
+					tag = FROM
+				}
+			}
+			add_liberty_desire = 20
+
+			add_opinion = {
+				who = ROOT
+				modifier = bur_reined_in_one_stadholder
+			}
+		}
+		clr_country_flag = me_bur_rein_in_cooldown
+		set_country_flag = me_bur_rein_in_cooldown
+	}
+
+	ai_will_do = {
+		always = yes
+	}
+}
+
+burgundy_demote_dutch_subject = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		mission_completed = ME_bur_rein_in_stadholders
+		FROM = {
+			is_subject_of = ROOT
+			is_dutch_subject_trigger = yes
+		}
+	}
+
+	is_allowed = {
+		stability = 1
+		FROM = {
+			NOT = {
+				liberty_desire = 30
+			}
+		}
+	}
+
+	on_accept = {
+		add_stability = -1
+		if = {
+			limit = {
+				FROM = {
+					is_subject_of_type = dutch_personal_union
+				}
+			}
+			create_subject = {
+				subject_type = personal_union
+				subject = FROM
+				keep_liberty_desire = yes
+			}
+		}
+		else_if = {
+			limit = {
+				FROM = {
+					is_subject_of_type = dutch_vassal
+				}
+			}
+			create_subject = {
+				subject_type = vassal
+				subject = FROM
+				keep_liberty_desire = yes
+			}
+		}
+	}
+
+	ai_will_do = {
+		always = no
+	}
+}
+
+burgundy_sell_fashion = {
+	category = economy
+
+	require_acceptance = yes
+
+	is_visible = {
+		has_estate_privilege = ME_BUR_selling_burgundian_clothing
+		FROM = {
+			religion_group = christian
+			capital_scope = {
+				continent = europe
+			}
+		}
+	}
+
+	is_allowed = {
+		if = {
+			limit = {
+				has_country_flag = bur_fashion_export_cooldown
+			}
+			had_country_flag = {
+				flag = bur_fashion_export_cooldown
+				days = 5475
+			}
+		}
+	}
+
+	on_accept = {
+		clr_country_flag = bur_fashion_export_cooldown
+		set_country_flag = bur_fashion_export_cooldown
+
+		hidden_effect = {
+			FROM = {
+				export_to_variable = {
+					variable_name = ME_sale_cost_fashion
+					value = years_of_income
+				}
+				bur_sell_fashion_effect = yes
+			}
+			multiply_variable = {
+				which = ME_sale_cost_fashion
+				value = 0.15 #nerf
+			}
+			export_to_variable = {
+				variable_name = temp_var
+				value = modifier:art_selling_efficiency
+				who = ROOT
+			}
+			change_variable = {
+				which = temp_var
+				value = 1
+			}
+			multiply_variable = {
+				which = ME_sale_cost_fashion
+				which = temp_var
+			}
+
+			ME_sale_pay = { id = fashion }
+
+			ME_sale_cleanup = {
+				id = fashion
+			}
+		}
+	}
+
+	ai_acceptance = {
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = OPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.2
+			}
+		}
+		add_entry = {
+			name = DIPLO_IS_RIVAL
+			limit = {
+				FROM = {
+					ai_attitude = {
+						who = ROOT
+						attitude = attitude_rivalry
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = diplomatic_reputation
+			limit = { }
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 2
+			multiply_variable = {
+				which = ai_value
+				value = 2
+			}
+		}
+		add_entry = {
+			name = STABILITY_AI_MODIFIER
+			export_to_variable = {
+				variable_name = ai_value
+				value = stability
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -25
+			}
+		}
+	}
+}
