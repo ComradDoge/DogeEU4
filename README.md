@@ -6,13 +6,16 @@
 
 <h1>DD/MM/YYYY</h1>
 
-- Riga and Livonian primary culture changed from prussian to baltic_german as is vanilla.
 - Riga province culture changed to baltic_german.
 - Shattered: Kurland and one province changed to baltic_german.
-- Reforming into Livonia decision now also gives some options for country renaming: Terra Mariana/Land of Mary if Christian, Livland if germanic, Zemgale, Semigallia and Latvia.
-- Burgundy/Lotharingia: added the Europa Expanded mission tree as an alternative to the Emperor one (mission tree choice), adapted to the shattered setting. Includes the Order of the Golden Fleece mechanic, the Toison d'Or advisor, new estate privileges, diplomatic actions, decisions and events. There are some different adaptations for shattered bookmark.
+- Riga and Livonian primary culture changed from prussian to baltic_german as is vanilla.
 - Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it.
 - Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25 (additional 0.25 as the tooltip states).
+- Reforming into Livonia decision now also gives some options for country renaming: Terra Mariana/Land of Mary if Christian, Livland if germanic, Zemgale, Semigallia and Latvia.
+- Burgundy/Lotharingia: added the Europa Expanded mission tree as an additional mission choice. Note that it was primarily made for the Vanilla bookmark, but Shattered should be viable after beginning.
+- New leader, ship, army and fleet names for many countries that shared or lacked their own list (mostly shattered China, Egypt, Somalia, Morocco and the Middle East), plus new name lists for Cuman, Assyrian and Byelorussian cultures.
+- Added some small flavour decisions and events for Sudetenland, Skopje, Malopolska.
+- Sudetenland: added a small mission tree, a Catholic crusade against the Hussites and the pagan Sorbs to unite the Lands of the Bohemian Crown, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
 
  <!-- Todo -->
 <br/>

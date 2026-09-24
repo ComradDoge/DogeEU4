@@ -1,0 +1,513 @@
+# Sudetenland - The Plzen Landfrieden
+# Catholic crusade of the Sudeten borderland against the Hussites and the pagan Sorbs, ending in the Lands of the Bohemian Crown
+# Events: events/_DSE_flavour_Sudetenland.txt (dse_flavour_sudetenland.5 - .8)
+
+SUD_missions_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = SUD }
+		NOT = { has_country_flag = sud_crowned_in_prague }
+	}
+	has_country_shield = yes
+
+	sud_plzen_landfrieden = {
+		icon = me_mission_crusade_crusader_knight_banner
+		required_missions = { }
+		position = 1
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 267
+				area = erzgebirge_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			owns = 267
+			erzgebirge_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			army_size_percentage = 1
+			num_of_generals = 1
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = sud_landfrieden_levies
+				duration = 7300
+			}
+			custom_tooltip = " "
+			bohemia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	sud_march_on_prague = {
+		icon = defenestrate_the_heretics
+		required_missions = { sud_plzen_landfrieden }
+		position = 2
+
+		provinces_to_highlight = {
+			province_id = 266
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 266
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 15 }
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = dse_flavour_sudetenland.5
+				option_1 = "
+					add_country_modifier = {
+						name = sud_chalice_torn_down
+						duration = 7300
+					}
+					266 = {
+						add_province_modifier = {
+							name = sud_utraquist_resentment
+							duration = 3650
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = sud_chalice_left_standing
+						duration = 7300
+					}
+					266 = {
+						add_province_modifier = {
+							name = sud_tyn_chalice
+							duration = 3650
+						}
+					}
+				"
+			}
+		}
+	}
+
+	sud_one_faith_in_bohemia = {
+		icon = crush_heretic_strongholds
+		required_missions = { sud_march_on_prague }
+		position = 3
+
+		provinces_to_highlight = {
+			area = bohemia_area
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { religion = ROOT }
+			}
+		}
+
+		trigger = {
+			bohemia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				religion = ROOT
+			}
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_country_modifier = {
+				name = sud_one_faith_in_bohemia
+				duration = 9125
+			}
+		}
+	}
+
+	sud_chalice_broken = {
+		icon = victor_for_the_true_faith
+		required_missions = { sud_see_of_olomouc sud_one_faith_in_bohemia }
+		position = 4
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = moravia_area
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+				AND = {
+					religion = hussite
+					OR = {
+						area = bohemia_area
+						area = erzgebirge_area
+						area = moravia_area
+						area = lusatia_area
+						area = silesia_area
+					}
+				}
+			}
+		}
+
+		trigger = {
+			moravia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = sud_no_hussites_in_crown_lands_tt
+				NOT = {
+					any_province = {
+						religion = hussite
+						OR = {
+							area = bohemia_area
+							area = erzgebirge_area
+							area = moravia_area
+							area = lusatia_area
+							area = silesia_area
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = sud_chalice_broken
+				duration = 10950
+			}
+			if = {
+				limit = { religion = catholic }
+				add_papal_influence = 25
+			}
+			else = {
+				add_prestige_or_monarch_power = { amount = 25 }
+			}
+		}
+	}
+}
+
+SUD_missions_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = SUD }
+		NOT = { has_country_flag = sud_crowned_in_prague }
+	}
+	has_country_shield = yes
+
+	sud_captured_war_wagons = {
+		icon = fu_vozova_hradba
+		required_missions = { }
+		position = 1
+
+		trigger = {
+			army_tradition = 15
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = sud_captured_war_wagons
+				duration = 5475
+			}
+			custom_tooltip = " "
+			create_general = { tradition = 50 }
+		}
+	}
+
+	sud_into_moravia = {
+		icon = me_mission_crusade_crusader_knights
+		required_missions = { sud_captured_war_wagons sud_plzen_landfrieden }
+		position = 2
+
+		provinces_to_highlight = {
+			province_id = 4725
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 4725
+			manpower_percentage = 0.5
+		}
+
+		effect = {
+			add_army_tradition = 10
+			custom_tooltip = " "
+			moravia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	sud_see_of_olomouc = {
+		icon = mission_european_church
+		required_missions = { sud_into_moravia }
+		position = 3
+
+		provinces_to_highlight = {
+			province_id = 4237
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { religion = ROOT }
+			}
+		}
+
+		trigger = {
+			4237 = {
+				owned_by = ROOT
+				religion = ROOT
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = dse_flavour_sudetenland.6
+				option_1 = "
+					add_estate_loyalty = {
+						estate = estate_church
+						loyalty = 10
+					}
+					4237 = {
+						add_province_modifier = {
+							name = sud_olomouc_bishopric
+							duration = -1
+						}
+					}
+				"
+				option_2 = "
+					if = {
+						limit = { religion = catholic }
+						add_papal_influence = 25
+					}
+					else = {
+						add_prestige_or_monarch_power = { amount = 20 }
+					}
+					4237 = {
+						add_province_modifier = {
+							name = sud_olomouc_chapter
+							duration = 9125
+						}
+					}
+				"
+			}
+		}
+	}
+
+	sud_lands_of_the_crown = {
+		icon = bohemian_commonwealth
+		required_missions = { sud_chalice_broken sud_silesian_duchies }
+		position = 5
+
+		provinces_to_highlight = {
+			OR = {
+				area = bohemia_area
+				area = erzgebirge_area
+				area = moravia_area
+				area = lusatia_area
+				area = silesia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			is_at_war = no
+			bohemia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			erzgebirge_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			moravia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lusatia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			silesia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = dse_flavour_sudetenland.8
+				option_1 = "
+					custom_tooltip = sud_take_the_crown_tt
+				"
+				option_2 = "
+					add_prestige_or_monarch_power = { amount = 50 }
+					add_country_modifier = {
+						name = sud_bulwark_of_the_faith
+						duration = -1
+					}
+					add_country_modifier = {
+						name = sud_veterans_of_the_crusade
+						duration = -1
+					}
+					custom_tooltip = sud_order_of_the_landfrieden_tt
+				"
+			}
+		}
+	}
+}
+
+SUD_missions_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		is_or_was_tag = { tag = SUD }
+		NOT = { has_country_flag = sud_crowned_in_prague }
+	}
+	has_country_shield = yes
+
+	sud_blessing_of_the_holy_see = {
+		icon = sway_the_pope
+		required_missions = { }
+		position = 1
+
+		trigger = {
+			if = {
+				limit = { religion = catholic }
+				papal_influence = 25
+				is_excommunicated = no
+			}
+			else = {
+				religion_group = christian
+				prestige = 50
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = sud_papal_banner
+				duration = 7300
+			}
+			custom_tooltip = " "
+			lusatia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	sud_fell_the_sacred_groves = {
+		icon = me_mission_crusade_cross
+		required_missions = { sud_blessing_of_the_holy_see }
+		position = 2
+
+		provinces_to_highlight = {
+			province_id = 4778
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 4778
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = dse_flavour_sudetenland.7
+				option_1 = "
+					4778 = {
+						change_religion = ROOT
+						add_province_modifier = {
+							name = sud_burned_grove
+							duration = 3650
+						}
+					}
+					add_prestige_or_monarch_power = { amount = 10 }
+				"
+				option_2 = "
+					4778 = {
+						add_province_modifier = {
+							name = sud_church_over_the_grove
+							duration = 9125
+						}
+					}
+				"
+			}
+		}
+	}
+
+	sud_lusatia_secured = {
+		icon = mission_livonian_castle
+		required_missions = { sud_fell_the_sacred_groves }
+		position = 3
+
+		provinces_to_highlight = {
+			area = lusatia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			lusatia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			lusatia_area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = sud_lusatian_linen
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			silesia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	sud_silesian_duchies = {
+		icon = take_silesia
+		required_missions = { sud_lusatia_secured }
+		position = 4
+
+		provinces_to_highlight = {
+			area = silesia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			silesia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = sud_crown_of_silesia
+				duration = 9125
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+}

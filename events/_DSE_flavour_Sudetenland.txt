@@ -1,0 +1,541 @@
+namespace = dse_flavour_sudetenland
+
+# The line holds - fires from the sud_hold_the_line decision
+country_event = {
+	id = dse_flavour_sudetenland.1
+	title = dse_flavour_sudetenland.1.t
+	desc = dse_flavour_sudetenland.1.d
+	picture = BATTLE_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = dse_flavour_sudetenland.1.a
+		add_stability_or_adm_power = yes
+		add_country_modifier = {
+			name = sud_city_of_the_bells
+			duration = 3650
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				stability = 1
+			}
+		}
+	}
+	option = {
+		name = dse_flavour_sudetenland.1.b
+		capital_scope = {
+			add_province_modifier = {
+				name = sud_repaired_ramparts
+				duration = 9125
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				NOT = { stability = 1 }
+			}
+		}
+	}
+}
+
+# A Hussite band raids the border
+country_event = {
+	id = dse_flavour_sudetenland.2
+	title = dse_flavour_sudetenland.2.t
+	desc = dse_flavour_sudetenland.2.d
+	picture = BATTLE_eventPicture
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = SUD
+	}
+
+	mean_time_to_happen = {
+		months = 48
+	}
+
+	option = {
+		name = dse_flavour_sudetenland.2.a
+		add_army_tradition_or_mil_power = { amount = 5 }
+		reduce_stability_or_adm_power = yes
+		add_country_modifier = {
+			name = sud_ridden_down
+			duration = 3650
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				mil_power = 50
+			}
+			modifier = {
+				factor = 0
+				NOT = { stability = -1 }
+			}
+		}
+	}
+	option = {
+		name = dse_flavour_sudetenland.2.b
+		add_country_modifier = {
+			name = sud_patient_garrison
+			duration = 3650
+		}
+		random_owned_province = {
+			limit = {
+				is_capital = no
+			}
+			add_province_modifier = {
+				name = sud_burned_hinterland
+				duration = 1825
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				NOT = { stability = 1 }
+			}
+		}
+	}
+}
+
+# German settlers and Czech neighbors pull the enclave in different directions
+country_event = {
+	id = dse_flavour_sudetenland.3
+	title = dse_flavour_sudetenland.3.t
+	desc = dse_flavour_sudetenland.3.d
+	picture = DIPLOMACY_eventPicture
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = SUD
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = dse_flavour_sudetenland.3.a
+		add_stability_or_adm_power = yes
+		add_country_modifier = {
+			name = sud_czech_council
+			duration = 7300
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				NOT = { stability = 1 }
+			}
+		}
+	}
+	option = {
+		name = dse_flavour_sudetenland.3.b
+		add_years_of_income = 0.15
+		add_country_modifier = {
+			name = sud_german_patriciate
+			duration = 7300
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				stability = 1
+			}
+		}
+	}
+}
+
+# Silver veins are found in the Ore Mountains
+country_event = {
+	id = dse_flavour_sudetenland.4
+	title = dse_flavour_sudetenland.4.t
+	desc = dse_flavour_sudetenland.4.d
+	picture = COURT_eventPicture
+
+	goto = sud_ore_province
+
+	trigger = {
+		is_or_was_tag = { tag = SUD }
+		NOT = { has_country_flag = sud_erzgebirge_prospected }
+		any_owned_province = {
+			area = erzgebirge_area
+			NOT = { trade_goods = silver }
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = sud_erzgebirge_prospected
+			random_owned_province = {
+				limit = {
+					area = erzgebirge_area
+					NOT = { trade_goods = silver }
+					NOT = { trade_goods = gold }
+				}
+				save_event_target_as = sud_ore_province
+			}
+		}
+	}
+
+	option = {
+		name = dse_flavour_sudetenland.4.a
+		add_years_of_income = -0.15
+		random_list = {
+			60 = {
+				event_target:sud_ore_province = {
+					change_trade_goods = silver
+					add_province_modifier = {
+						name = sud_erzgebirge_silver
+						duration = 9125
+					}
+				}
+			}
+			40 = {
+				event_target:sud_ore_province = {
+					add_base_production = 1
+					add_province_modifier = {
+						name = sud_erzgebirge_smelters
+						duration = 9125
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				treasury = 100
+			}
+		}
+	}
+	option = {
+		name = dse_flavour_sudetenland.4.b
+		add_country_modifier = {
+			name = sud_prudent_treasury
+			duration = 3650
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				NOT = { treasury = 100 }
+			}
+		}
+	}
+}
+
+# The Chalice of the Tyn - fires from the sud_march_on_prague mission
+country_event = {
+	id = dse_flavour_sudetenland.5
+	title = dse_flavour_sudetenland.5.t
+	desc = dse_flavour_sudetenland.5.d
+	picture = RELIGIOUS_CONVERSION_eventPicture
+	goto = 266
+
+	is_triggered_only = yes
+
+	option = { # Tear it down
+		name = dse_flavour_sudetenland.5.a
+		add_country_modifier = {
+			name = sud_chalice_torn_down
+			duration = 7300
+		}
+		266 = {
+			add_province_modifier = {
+				name = sud_utraquist_resentment
+				duration = 3650
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Leave it for now
+		name = dse_flavour_sudetenland.5.b
+		add_country_modifier = {
+			name = sud_chalice_left_standing
+			duration = 7300
+		}
+		266 = {
+			add_province_modifier = {
+				name = sud_tyn_chalice
+				duration = 3650
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The See of Olomouc - fires from the sud_see_of_olomouc mission
+country_event = {
+	id = dse_flavour_sudetenland.6
+	title = dse_flavour_sudetenland.6.t
+	desc = dse_flavour_sudetenland.6.d
+	picture = {
+		trigger = { has_dlc = "Origins" }
+		picture = BISHOP_eventPicture
+	}
+	picture = {
+		trigger = { NOT = { has_dlc = "Origins" } }
+		picture = RELIGION_eventPicture
+	}
+	goto = 4237
+
+	is_triggered_only = yes
+
+	option = { # Endow the bishopric
+		name = dse_flavour_sudetenland.6.a
+		if = {
+			limit = { has_estate = estate_church }
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		4237 = {
+			add_province_modifier = {
+				name = sud_olomouc_bishopric
+				duration = -1
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Send the tithes to Rome
+		name = dse_flavour_sudetenland.6.b
+		if = {
+			limit = { religion = catholic }
+			add_papal_influence = 25
+		}
+		else = {
+			add_prestige_or_monarch_power = { amount = 20 }
+		}
+		4237 = {
+			add_province_modifier = {
+				name = sud_olomouc_chapter
+				duration = 9125
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Grove at Gorlitz - fires from the sud_fell_the_sacred_groves mission
+country_event = {
+	id = dse_flavour_sudetenland.7
+	title = dse_flavour_sudetenland.7.t
+	desc = dse_flavour_sudetenland.7.d
+	picture = RELIGIOUS_CONVERSION_eventPicture
+	goto = 4778
+
+	is_triggered_only = yes
+
+	option = { # Burn it
+		name = dse_flavour_sudetenland.7.a
+		4778 = {
+			if = {
+				limit = { NOT = { religion = ROOT } }
+				change_religion = ROOT
+			}
+			add_province_modifier = {
+				name = sud_burned_grove
+				duration = 3650
+			}
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 50 }
+	}
+	option = { # Build a church over it
+		name = dse_flavour_sudetenland.7.b
+		4778 = {
+			add_province_modifier = {
+				name = sud_church_over_the_grove
+				duration = 9125
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Lands of the Crown - fires from the sud_lands_of_the_crown mission
+country_event = {
+	id = dse_flavour_sudetenland.8
+	title = dse_flavour_sudetenland.8.t
+	desc = dse_flavour_sudetenland.8.d
+	picture = CITY_VIEW_eventPicture
+	goto = 266
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # Take the crown of Bohemia
+		name = dse_flavour_sudetenland.8.a
+		trigger = {
+			NOT = { exists = BOH }
+			owns = 266
+		}
+		set_country_flag = sud_crowned_in_prague
+		change_tag = BOH
+		on_change_tag_effect = yes
+		if = { # AI never gets the mission tree choice after startup, default it to the Paradox (Emperor) tree
+			limit = {
+				ai = yes
+				NOT = { has_country_flag = use_paradox_missions }
+				NOT = { has_country_flag = use_missions_expanded_missions_instead_of_paradox }
+			}
+			set_country_flag = use_paradox_missions
+		}
+		swap_non_generic_missions = yes
+		266 = {
+			move_capital_effect = yes
+		}
+		if = {
+			limit = {
+				NOT = { government_rank = 2 }
+			}
+			set_government_rank = 2
+		}
+		add_prestige_or_monarch_power = { amount = 25 }
+		country_event = { id = dse_flavour_name_change.1 }
+		ai_chance = { factor = 0 }
+	}
+	option = { # Remain the bulwark of the faith
+		name = dse_flavour_sudetenland.8.b
+		set_country_flag = sud_remained_bulwark
+		add_prestige_or_monarch_power = { amount = 50 }
+		add_country_modifier = {
+			name = sud_bulwark_of_the_faith
+			duration = -1
+		}
+		add_country_modifier = {
+			name = sud_veterans_of_the_crusade
+			duration = -1
+		}
+		country_event = { id = dse_flavour_sudetenland.9 }
+		ai_chance = { factor = 1 }
+	}
+}
+
+# The Order of the Landfrieden - fires from dse_flavour_sudetenland.8 (remain the bulwark)
+country_event = {
+	id = dse_flavour_sudetenland.9
+	title = dse_flavour_sudetenland.9.t
+	desc = dse_flavour_sudetenland.9.d
+	picture = {
+		trigger = { has_dlc = "Lions of the North" }
+		picture = KNIGHTS_eventPicture
+	}
+	picture = {
+		trigger = { NOT = { has_dlc = "Lions of the North" } }
+		picture = RELIGIOUS_WARS_eventPicture
+	}
+	goto = 267
+
+	is_triggered_only = yes
+
+	option = { # Crusading Kingdom
+		name = dse_flavour_sudetenland.9.a
+		trigger = { religion = catholic }
+		unlock_government_reform = {
+			government_reform = crusading_kingdom_reform
+		}
+		unlock_government_reform = {
+			government_reform = militarized_crusader_order_reform
+		}
+		if = {
+			limit = { NOT = { government = theocracy } }
+			change_government = theocracy
+		}
+		add_government_reform = crusading_kingdom_reform
+		if = {
+			limit = { tag = SUD }
+			country_event = { id = dse_flavour_name_change.1 }
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Militarised Crusader Order
+		name = dse_flavour_sudetenland.9.b
+		trigger = { religion = catholic }
+		unlock_government_reform = {
+			government_reform = crusading_kingdom_reform
+		}
+		unlock_government_reform = {
+			government_reform = militarized_crusader_order_reform
+		}
+		if = {
+			limit = { NOT = { government = theocracy } }
+			change_government = theocracy
+		}
+		add_government_reform = militarized_crusader_order_reform
+		if = {
+			limit = { NOT = { government_rank = 2 } }
+			set_government_rank = 2
+		}
+		if = {
+			limit = { tag = SUD }
+			country_event = { id = dse_flavour_name_change.1 }
+		}
+		ai_chance = { factor = 20 }
+	}
+	option = { # Republic of the Landfrieden lords
+		name = dse_flavour_sudetenland.9.c
+		if = {
+			limit = { NOT = { government = republic } }
+			change_government = republic
+		}
+		add_government_reform = noble_elite_reform
+		add_army_tradition = 10
+		if = {
+			limit = { tag = SUD }
+			country_event = { id = dse_flavour_name_change.1 }
+		}
+		ai_chance = { factor = 10 }
+	}
+	option = { # Republic of the borderers
+		name = dse_flavour_sudetenland.9.dd
+		trigger = {
+			is_not_blocked_by_estate_privilege = { estate = estate_nobles }
+		}
+		if = {
+			limit = { NOT = { government = republic } }
+			change_government = republic
+		}
+		add_government_reform = peasants_republic
+		add_republican_tradition = 20
+		if = {
+			limit = { tag = SUD }
+			country_event = { id = dse_flavour_name_change.1 }
+		}
+		ai_chance = { factor = 5 }
+	}
+	option = { # Keep the crown in Plzen
+		name = dse_flavour_sudetenland.9.e
+		hidden_effect = {
+			if = {
+				limit = { religion = catholic }
+				unlock_government_reform = {
+					government_reform = crusading_kingdom_reform
+				}
+				unlock_government_reform = {
+					government_reform = militarized_crusader_order_reform
+				}
+			}
+		}
+		add_stability_or_adm_power = yes
+		if = {
+			limit = { tag = SUD }
+			country_event = { id = dse_flavour_name_change.1 }
+		}
+		ai_chance = { factor = 15 }
+	}
+}
