@@ -8,13 +8,20 @@
 
 - Riga province culture changed to baltic_german.
 - Shattered: Kurland and one province changed to baltic_german.
-- Riga and Livonian primary culture changed from prussian to baltic_german as is vanilla.
-- Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it.
-- Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25 (additional 0.25 as the tooltip states).
-- Reforming into Livonia decision now also gives some options for country renaming: Terra Mariana/Land of Mary if Christian, Livland if germanic, Zemgale, Semigallia and Latvia.
-- Burgundy/Lotharingia: added the Europa Expanded mission tree as an additional mission choice. Note that it was primarily made for the Vanilla bookmark, but Shattered should be viable after beginning.
-- New leader, ship, army and fleet names for many countries that shared or lacked their own list (mostly shattered China, Egypt, Somalia, Morocco and the Middle East), plus new name lists for Cuman, Assyrian and Byelorussian cultures.
-- Added some small flavour decisions and events for Sudetenland, Skopje, Malopolska.
+- New government rank and ruler titles for many shattered tags.
+- Forming Tibet or Himalayan empire gives more renaming options.
+- Various flavour localisation changes to formable decision names and descriptions.
+- Riga and Livonian primary culture changed from prussian to baltic_german, as in vanilla.
+- Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25.
+- Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, opsie.
+- Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
+
+- Added some small flavour decisions and events for Sudetenland, Skopje and Malopolska.
+- Livonia: new decision for a Catholic Livonia to refound the Livonian Order, choosing the crusader or Livonian path (with the Livonian government reforms).
+- Reforming into Livonia now gives some renaming options: Terra Mariana/Land of Mary if Christian, Livland if Germanic, Zemgale, Semigallia and Latvia.
+- Burgundy: added the Europa Expanded mission tree as an additional mission choice. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
+- Occitania: new mission tree, some events, and a Paratge reform on formation (monarchy, republic or theocracy) with a two-sided mechanic between Paratge (trade, tolerance, reputation) and Cathar Zeal (true faith tolerance, missionaries, cheaper wars against other religions).
+- New leader, ship, army and fleet names for many countries that shared or lacked their own list (mostly shattered China, Egypt, Somalia, Morocco and the Middle East), plus new name lists for Cuman, Assyrian and Byelorussian cultures. Report if any corruped characters appear.
 - Sudetenland: added a small mission tree, a Catholic crusade against the Hussites and the pagan Sorbs to unite the Lands of the Bohemian Crown, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
 
  <!-- Todo -->

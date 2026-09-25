@@ -1,0 +1,188 @@
+# Occitania scripted effects
+# Missions: missions/_MIS_Occitania_Missions.txt, events: events/_DSE_flavour_Occitania_events.txt
+
+# Changes Paratge (common/government_mechanics/DST_occ_paratge.txt). Negative values move it towards Zeal.
+# occ_change_paratge = { value = 10 }
+occ_change_paratge = {
+	add_government_power = {
+		mechanic_type = occ_paratge_mechanic
+		power_type = paratge
+		value = $value$
+	}
+}
+
+# Province scope. House of the Good Men (occ_houses_of_good_men): modifier plus a temple if it has no tax building
+occ_add_good_men_house = {
+	add_province_modifier = {
+		name = occ_good_men_house_modifier
+		duration = 9125
+	}
+	if = {
+		limit = {
+			NOT = { has_tax_building_trigger = yes }
+		}
+		add_building = temple
+	}
+}
+
+# Paratge interactions (common/government_mechanics/DST_occ_paratge.txt)
+# Patronise the Troubadours: +1 Paratge per 5 prestige, at most 20, doubled with an artist
+occ_troubadours_paratge_effect = {
+	export_to_variable = {
+		which = occ_troubadour_songs
+		value = trigger_value:prestige
+	}
+	divide_variable = {
+		which = occ_troubadour_songs
+		value = 5
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = occ_troubadour_songs
+				value = 20
+			}
+		}
+		set_variable = {
+			which = occ_troubadour_songs
+			value = 20
+		}
+	}
+	if = {
+		limit = {
+			advisor = artist
+		}
+		multiply_variable = {
+			which = occ_troubadour_songs
+			value = 2
+		}
+	}
+	while = {
+		limit = {
+			check_variable = {
+				which = occ_troubadour_songs
+				value = 1
+			}
+		}
+		add_government_power = {
+			mechanic_type = occ_paratge_mechanic
+			power_type = paratge
+			value = 1
+		}
+		subtract_variable = {
+			which = occ_troubadour_songs
+			value = 1
+		}
+	}
+	set_variable = {
+		which = occ_troubadour_songs
+		value = 0
+	}
+}
+
+# Open the Gates: +1 base production in one city, preferring centres of trade and trade buildings.
+# Marks the province so repeated calls pick different ones; the interaction clears the flag afterwards
+occ_open_gates_settle_effect = {
+	if = {
+		limit = {
+			any_owned_province = {
+				is_city = yes
+				NOT = { has_province_flag = occ_gates_settled_flag }
+				OR = {
+					province_has_center_of_trade_of_level = 1
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_city = yes
+				NOT = { has_province_flag = occ_gates_settled_flag }
+				OR = {
+					province_has_center_of_trade_of_level = 1
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+			}
+			add_base_production = 1
+			set_province_flag = occ_gates_settled_flag
+		}
+	}
+	else = {
+		random_owned_province = {
+			limit = {
+				is_city = yes
+				NOT = { has_province_flag = occ_gates_settled_flag }
+			}
+			add_base_production = 1
+			set_province_flag = occ_gates_settled_flag
+		}
+	}
+}
+
+# Public Disputation, Zeal side: the most developed owned province of another faith converts (checked in steps of 20/15/10 dev)
+occ_disputation_convert_effect = {
+	if = {
+		limit = {
+			any_owned_province = {
+				is_city = yes
+				has_owner_religion = no
+				development = 20
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_city = yes
+				has_owner_religion = no
+				development = 20
+			}
+			change_religion = ROOT
+		}
+	}
+	else_if = {
+		limit = {
+			any_owned_province = {
+				is_city = yes
+				has_owner_religion = no
+				development = 15
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_city = yes
+				has_owner_religion = no
+				development = 15
+			}
+			change_religion = ROOT
+		}
+	}
+	else_if = {
+		limit = {
+			any_owned_province = {
+				is_city = yes
+				has_owner_religion = no
+				development = 10
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_city = yes
+				has_owner_religion = no
+				development = 10
+			}
+			change_religion = ROOT
+		}
+	}
+	else = {
+		random_owned_province = {
+			limit = {
+				is_city = yes
+				has_owner_religion = no
+			}
+			change_religion = ROOT
+		}
+	}
+}
