@@ -13,6 +13,7 @@
 - Various flavour localisation changes to formable decision names and descriptions.
 - Riga and Livonian primary culture changed from prussian to baltic_german, as in vanilla.
 - Fixed newly gained Persian provinces not getting the Timurid Persian Empire province modifier.
+- Fixed the Nationalism spread bonus from neighbouring provinces of the same culture never applying.
 - Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25.
 - Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, opsie.
 - Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
