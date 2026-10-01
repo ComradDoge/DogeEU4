@@ -194,3 +194,31 @@ on_siege_lost_province = {
 		dse_meta_specialsettings_fortsiege_mechanic.1
 	}
 }
+
+# country, ROOT = winner, FROM = loser
+# Piast duchies: the Senior Duke loses the title to a duchy that beats it; the winner takes it a day later if it holds a seat
+on_war_won = {
+	if = {
+		limit = {
+			is_piast_duchy_trigger = yes
+			FROM = {
+				has_country_flag = piast_senior_duke
+			}
+		}
+		FROM = {
+			piast_vacate_seniorate_effect = yes
+			country_event = { id = piast_events.4 }
+		}
+		country_event = {
+			id = piast_events.10
+			days = 1
+		}
+	}
+}
+
+# country
+on_yearly_pulse = {
+	events = {
+		piast_events.9 # Seniorate check (Piast duchies)
+	}
+}

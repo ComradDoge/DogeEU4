@@ -56,6 +56,15 @@ country_decisions = {
 			is_at_war = no
 			dst_specialsetting_is_free_or_tributary_trigger = yes
 			is_nomad = no			
+			if = { # Shattered start: only the Senior Duke can take the crown (Piast duchies, common/scripted_triggers/DST_Piast_triggers.txt)
+				limit = {
+					NOT = { started_in = 1444.11.9 }
+				}
+				custom_trigger_tooltip = {
+					tooltip = piast_formable_senior_duke_tt
+					has_country_flag = piast_senior_duke
+				}
+			}
 			owns_core_province = 262	# Krakow
 			owns_core_province = 257	# Warszawa
 			owns_core_province = 254	# Poznan
@@ -69,6 +78,14 @@ country_decisions = {
             custom_tooltip = tooltip_line_seperate_general
 			change_tag = POL
 			on_change_tag_effect = yes
+			if = { # AI never gets the mission tree choice after startup, default it to the Paradox tree
+				limit = {
+					ai = yes
+					NOT = { has_country_flag = use_paradox_missions }
+					NOT = { has_country_flag = use_missions_expanded_missions_instead_of_paradox }
+				}
+				set_country_flag = use_paradox_missions
+			}
 			swap_non_generic_missions = yes
 			if = {
 				limit = { has_dlc = "Lions of the North" }
@@ -138,6 +155,14 @@ country_decisions = {
 			}
 
             # Hidden Effects
+			hidden_effect = {
+				if = { # Piast duchies: the Seniorate ends with the crown (common/scripted_effects/DST_Piast_scripted_effects.txt)
+					limit = {
+						has_country_flag = piast_senior_duke
+					}
+					piast_vacate_seniorate_effect = yes
+				}
+			}
 
 		}
 

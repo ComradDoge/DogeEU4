@@ -1,0 +1,99 @@
+# Piast duchies and the Seniorate
+# Triggers: common/scripted_triggers/DST_Piast_triggers.txt, events: events/_DSE_flavour_Piast_Duchies.txt
+# Both effects act on the current scope and use PREV, never ROOT: on_war_won calls the vacate effect inside FROM = { }
+
+# Makes the current scope the Senior Duke. Every other Piast duchy resents it and hears of it (piast_events.2).
+# Only call it with the new holder as ROOT (decision, piast_events.10), so piast_events.2 gets the holder as FROM.
+piast_grant_seniorate_effect = {
+	set_country_flag = piast_senior_duke
+	add_country_modifier = {
+		name = piast_senior_duke_modifier
+		duration = -1
+	}
+	add_prestige_or_monarch_power = { amount = 10 }
+	custom_tooltip = piast_grant_seniorate_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_piast_duchy_trigger = yes
+				NOT = { tag = PREV }
+			}
+			add_opinion = {
+				who = PREV
+				modifier = piast_rival_senior_duke
+			}
+			country_event = { id = piast_events.2 }
+		}
+	}
+}
+
+# Takes the Seniorate from the current scope and lifts the other duchies' resentment. Silent: callers fire their own events.
+piast_vacate_seniorate_effect = {
+	clr_country_flag = piast_senior_duke
+	remove_country_modifier = piast_senior_duke_modifier
+	remove_country_modifier = piast_fealty_1_modifier
+	remove_country_modifier = piast_fealty_2_modifier
+	remove_country_modifier = piast_fealty_3_modifier
+	remove_country_modifier = piast_fealty_4_modifier
+	every_country = {
+		limit = {
+			has_opinion_modifier = {
+				who = PREV
+				modifier = piast_rival_senior_duke
+			}
+		}
+		remove_opinion = {
+			who = PREV
+			modifier = piast_rival_senior_duke
+		}
+	}
+}
+
+# Another Piast duke acknowledged the current scope as Senior Duke (piast_events.15):
+# Fealty of the Dukes rises one level, +10 Vassalization Acceptance each, at most 4 (there are only four other duchies)
+piast_add_fealty_effect = {
+	if = {
+		limit = {
+			has_country_flag = piast_senior_duke
+		}
+		if = {
+			limit = {
+				has_country_modifier = piast_fealty_3_modifier
+			}
+			remove_country_modifier = piast_fealty_3_modifier
+			add_country_modifier = {
+				name = piast_fealty_4_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_modifier = piast_fealty_2_modifier
+			}
+			remove_country_modifier = piast_fealty_2_modifier
+			add_country_modifier = {
+				name = piast_fealty_3_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_modifier = piast_fealty_1_modifier
+			}
+			remove_country_modifier = piast_fealty_1_modifier
+			add_country_modifier = {
+				name = piast_fealty_2_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = { has_country_modifier = piast_fealty_4_modifier }
+			}
+			add_country_modifier = {
+				name = piast_fealty_1_modifier
+				duration = -1
+			}
+		}
+	}
+}

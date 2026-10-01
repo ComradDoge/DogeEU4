@@ -1,0 +1,82 @@
+# Piast duchies and the Seniorate (WPK, MAZ, KJW, MPK, KRA)
+# Missions: missions/_MIS_Piast_Duchies_Missions.txt, events: events/_DSE_flavour_Piast_Duchies.txt
+# Decision: decisions/_DST_PiastSeniorate_Decisions.txt, effects: common/scripted_effects/DST_Piast_scripted_effects.txt
+# cb_piast_seniorate (common/cb_types/DST_cb_types.txt) writes its tag list out instead of using these
+
+# The five Polish successor states that compete for the Seniorate
+is_piast_duchy_trigger = {
+	OR = {
+		tag = WPK
+		tag = MAZ
+		tag = KJW
+		tag = MPK
+		tag = KRA
+	}
+}
+
+# Holds a seat of the Seniorate: Krakow, Gniezno, or Plock after maz_plocks_old_primacy
+piast_owns_seat_trigger = {
+	OR = {
+		owns = 262
+		owns = 4526
+		AND = {
+			has_country_flag = maz_plock_seat
+			owns = 256
+		}
+	}
+}
+
+# Enough Polish development to claim the Seniorate: 60, 55 after reviving the old law (piast_events.1),
+# 30 for the Keepers of the Regalia (kra_keepers_of_the_regalia), 25 with both
+piast_has_claim_development_trigger = {
+	OR = {
+		development_in_provinces = {
+			culture = polish
+			value = 60
+		}
+		AND = {
+			has_country_flag = piast_old_law_revived
+			development_in_provinces = {
+				culture = polish
+				value = 55
+			}
+		}
+		AND = {
+			has_country_flag = kra_regalia_keepers
+			development_in_provinces = {
+				culture = polish
+				value = 30
+			}
+		}
+		AND = {
+			has_country_flag = kra_regalia_keepers
+			has_country_flag = piast_old_law_revived
+			development_in_provinces = {
+				culture = polish
+				value = 25
+			}
+		}
+	}
+}
+
+# Nobody holds the Seniorate (an annexed holder takes its flag with it)
+# The self check matters: with any_country alone the decision stayed visible for the holder
+piast_seniorate_vacant_trigger = {
+	NOT = { has_country_flag = piast_senior_duke }
+	NOT = {
+		any_country = {
+			has_country_flag = piast_senior_duke
+		}
+	}
+}
+
+# Holds every seat of the Seniorate: Krakow and Gniezno, plus Plock for a country with maz_plock_seat
+# (lets piast_hold_the_seniorate skip its 5 years)
+piast_owns_all_seats_trigger = {
+	owns = 262
+	owns = 4526
+	OR = {
+		NOT = { has_country_flag = maz_plock_seat }
+		owns = 256
+	}
+}

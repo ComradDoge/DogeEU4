@@ -1,0 +1,842 @@
+# Piast duchies events (WPK, MAZ, KJW, MPK, KRA)
+# Missions: missions/_MIS_Piast_Duchies_Missions.txt (options mirror the mission previews)
+# The Seniorate: .2 from piast_grant_seniorate_effect (its answers send .15 / .16 back to the Senior Duke),
+# .4 and .10 from on_war_won, .9 from on_yearly_pulse (common/on_actions/DST_on_actions.txt)
+# .17 to .20 are Malopolska's own flavour: .17 fires from mpk_the_wawel, .18 to .20 are MTTH events for MPK
+
+namespace = piast_events
+
+# The Empty Throne (piast_the_empty_throne)
+country_event = {
+	id = piast_events.1
+	title = piast_events.1.t
+	desc = piast_events.1.d
+	picture = COMET_SIGHTED_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The Gniezno clergy: a judgement to atone for
+		name = piast_events.1.a
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		add_country_modifier = {
+			name = piast_penance_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 35 }
+	}
+	option = { # The Krakow burghers: the crown was hollow long before
+		name = piast_events.1.b
+		add_years_of_income = 0.25
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		add_country_modifier = {
+			name = piast_hollow_crown_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Revive the seniorate law of 1138
+		name = piast_events.1.c
+		add_prestige_or_monarch_power = { amount = 15 }
+		custom_tooltip = piast_old_law_revived_tt
+		hidden_effect = {
+			set_country_flag = piast_old_law_revived
+		}
+		ai_chance = { factor = 35 }
+	}
+}
+
+# A Senior Duke Rises (piast_grant_seniorate_effect, to every other duchy, FROM = the new holder)
+country_event = {
+	id = piast_events.2
+	title = piast_events.2.t
+	desc = piast_events.2.d
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		FROM = {
+			has_country_flag = piast_senior_duke
+		}
+	}
+
+	option = { # Acknowledge the Senior Duke
+		name = piast_events.2.a
+		add_prestige = -10
+		add_opinion = {
+			who = FROM
+			modifier = piast_acknowledged_senior
+		}
+		reverse_add_opinion = {
+			who = FROM
+			modifier = piast_acknowledged_senior
+		}
+		FROM = {
+			country_event = { id = piast_events.15 }
+		}
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 3
+				FROM = {
+					army_strength = {
+						who = ROOT
+						value = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 3
+				is_subject_of = FROM
+			}
+		}
+	}
+	option = { # Protest the claim
+		name = piast_events.2.b
+		add_prestige_or_monarch_power = { amount = 10 }
+		add_opinion = {
+			who = FROM
+			modifier = piast_protested_senior
+		}
+		FROM = {
+			country_event = { id = piast_events.16 }
+		}
+		ai_chance = {
+			factor = 60
+			modifier = {
+				factor = 0.25
+				FROM = {
+					army_strength = {
+						who = ROOT
+						value = 2
+					}
+				}
+			}
+		}
+	}
+}
+
+# Won by the Sword (piast_events.10, the Seniorate taken in war)
+country_event = {
+	id = piast_events.3
+	title = piast_events.3.t
+	desc = piast_events.3.d
+	picture = BATTLE_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # A Te Deum in the cathedral
+		name = piast_events.3.a
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 50 }
+	}
+	option = { # A place at court for the defeated duke
+		name = piast_events.3.b
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Seniorate Lost (on_war_won, to the defeated holder, FROM = the winner)
+country_event = {
+	id = piast_events.4
+	title = piast_events.4.t
+	desc = piast_events.4.d
+	picture = SIEGE_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # Bide our time
+		name = piast_events.4.a
+		add_years_of_income = 0.1
+		ai_chance = { factor = 50 }
+	}
+	option = { # Swear to take it back
+		name = piast_events.4.b
+		add_prestige_or_monarch_power = { amount = 5 }
+		add_country_modifier = {
+			name = piast_revenge_oath_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Seniorate Lapses (piast_events.9: the holder lost its seats or became a subject)
+country_event = {
+	id = piast_events.5
+	title = piast_events.5.t
+	desc = {
+		trigger = {
+			is_subject = yes
+		}
+		desc = piast_events.5.d_subject
+	}
+	desc = {
+		trigger = {
+			is_subject = no
+		}
+		desc = piast_events.5.d_seat
+	}
+	picture = NOBLE_ESTATE_DEMANDS_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = piast_events.5.a
+		add_prestige = -15
+	}
+}
+
+# The Wiec (piast_summon_the_wiec)
+country_event = {
+	id = piast_events.6
+	title = piast_events.6.t
+	desc = piast_events.6.d
+	picture = NOBLE_ESTATE_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The knights' privileges
+		name = piast_events.6.a
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = -5
+			}
+		}
+		add_country_modifier = {
+			name = piast_wiec_knights_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # The bishops preside
+		name = piast_events.6.b
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = -5
+			}
+		}
+		add_country_modifier = {
+			name = piast_wiec_bishops_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Hear the towns
+		name = piast_events.6.c
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = -5
+			}
+		}
+		add_country_modifier = {
+			name = piast_wiec_towns_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Coronation (piast_crown_of_the_boleslaws)
+country_event = {
+	id = piast_events.7
+	title = piast_events.7.t
+	desc = piast_events.7.d
+	picture = COURT_eventPicture
+	goto = 262
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # In the Wawel, at Krakow
+		name = piast_events.7.a
+		add_country_modifier = {
+			name = piast_crowned_at_krakow_modifier
+			duration = -1
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # At Gniezno, as the first kings were
+		name = piast_events.7.b
+		add_country_modifier = {
+			name = piast_crowned_at_gniezno_modifier
+			duration = -1
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# A Piast Match (once per duchy)
+country_event = {
+	id = piast_events.8
+	title = piast_events.8.t
+	desc = piast_events.8.d
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	trigger = {
+		is_piast_duchy_trigger = yes
+		government = monarchy
+		NOT = { has_country_flag = piast_match_offered }
+		is_at_war = no
+		any_country = {
+			is_piast_duchy_trigger = yes
+			NOT = { tag = ROOT }
+			government = monarchy
+			NOT = { war_with = ROOT }
+			NOT = { marriage_with = ROOT }
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 120
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = piast_match_offered
+			random_country = {
+				limit = {
+					is_piast_duchy_trigger = yes
+					NOT = { tag = ROOT }
+					government = monarchy
+					NOT = { war_with = ROOT }
+					NOT = { marriage_with = ROOT }
+				}
+				save_event_target_as = piast_match_target
+			}
+		}
+	}
+
+	option = { # Accept the match
+		name = piast_events.8.a
+		event_target:piast_match_target = {
+			create_marriage = ROOT
+			add_opinion = {
+				who = ROOT
+				modifier = piast_marriage_bond
+			}
+			reverse_add_opinion = {
+				who = ROOT
+				modifier = piast_marriage_bond
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Refuse
+		name = piast_events.8.b
+		add_prestige_or_monarch_power = { amount = 5 }
+		event_target:piast_match_target = {
+			add_opinion = {
+				who = ROOT
+				modifier = piast_match_refused
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# Hidden: yearly Seniorate check (on_yearly_pulse). The title lapses without a seat, as a subject, or after a tag change.
+country_event = {
+	id = piast_events.9
+	title = piast_events.9.t
+	desc = piast_events.9.d
+	picture = COURT_eventPicture
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		has_country_flag = piast_senior_duke
+		OR = {
+			NOT = { is_piast_duchy_trigger = yes }
+			NOT = { piast_owns_seat_trigger = yes }
+			is_subject = yes
+		}
+	}
+
+	option = {
+		name = piast_events.9.a
+		piast_vacate_seniorate_effect = yes
+		if = {
+			limit = {
+				is_piast_duchy_trigger = yes
+			}
+			country_event = { id = piast_events.5 }
+		}
+	}
+}
+
+# Hidden: the winner of a war against the Senior Duke takes the title if it holds a seat (on_war_won, one day later)
+country_event = {
+	id = piast_events.10
+	title = piast_events.10.t
+	desc = piast_events.10.d
+	picture = BATTLE_eventPicture
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_piast_duchy_trigger = yes
+		piast_seniorate_vacant_trigger = yes
+		piast_owns_seat_trigger = yes
+		is_subject = no
+	}
+
+	option = {
+		name = piast_events.10.a
+		piast_grant_seniorate_effect = yes
+		country_event = { id = piast_events.3 }
+	}
+}
+
+# The Primate of Gniezno (wpk_crowned_at_gniezno)
+country_event = {
+	id = piast_events.11
+	title = piast_events.11.t
+	desc = piast_events.11.d
+	picture = RELIGION_eventPicture
+	goto = 4526
+
+	is_triggered_only = yes
+
+	option = { # Accept the Primate's terms
+		name = piast_events.11.a
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+		ai_chance = { factor = 60 }
+	}
+	option = { # Keep him at arm's length
+		name = piast_events.11.b
+		add_prestige_or_monarch_power = { amount = 15 }
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = -5
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Tombs at Plock (maz_plocks_old_primacy)
+country_event = {
+	id = piast_events.12
+	title = piast_events.12.t
+	desc = piast_events.12.d
+	picture = RELIGION_eventPicture
+	goto = 256
+
+	is_triggered_only = yes
+
+	option = { # Restore the tombs
+		name = piast_events.12.a
+		add_years_of_income = -0.25
+		add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+		256 = {
+			add_province_modifier = {
+				name = maz_plock_tombs_modifier
+				duration = 3650
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Read the testament aloud
+		name = piast_events.12.b
+		add_prestige_or_monarch_power = { amount = 15 }
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 5
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Short Duke (kjw_lokieteks_example)
+country_event = {
+	id = piast_events.13
+	title = piast_events.13.t
+	desc = piast_events.13.d
+	picture = NOBLE_ESTATE_eventPicture
+	goto = 4528
+
+	is_triggered_only = yes
+
+	option = { # Raise the lesser knights
+		name = piast_events.13.a
+		add_country_modifier = {
+			name = kjw_lesser_knights_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Seek Rome's blessing, as he did
+		name = piast_events.13.b
+		add_prestige_or_monarch_power = { amount = 15 }
+		if = {
+			limit = {
+				religion = catholic
+			}
+			add_papal_influence = 25
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# Keepers of the Regalia (kra_keepers_of_the_regalia)
+country_event = {
+	id = piast_events.14
+	title = piast_events.14.t
+	desc = piast_events.14.d
+	picture = BURGHER_ESTATE_eventPicture
+	goto = 262
+
+	is_triggered_only = yes
+
+	option = { # Show the crown at Easter
+		name = piast_events.14.a
+		add_prestige_or_monarch_power = { amount = 15 }
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 5
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Seal the treasury
+		name = piast_events.14.b
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Acknowledged (piast_events.2 a, to the Senior Duke, FROM = the duchy that answered)
+country_event = {
+	id = piast_events.15
+	title = piast_events.15.t
+	desc = piast_events.15.d
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # A sensible answer
+		name = piast_events.15.a
+		add_prestige_or_monarch_power = { amount = 5 }
+		custom_tooltip = piast_fealty_tt
+		hidden_effect = {
+			piast_add_fealty_effect = yes
+		}
+	}
+}
+
+# Protested (piast_events.2 b, to the Senior Duke, FROM = the duchy that answered)
+country_event = {
+	id = piast_events.16
+	title = piast_events.16.t
+	desc = piast_events.16.d
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # Send envoys with gifts
+		name = piast_events.16.a
+		add_years_of_income = -0.1
+		FROM = {
+			remove_opinion = {
+				who = ROOT
+				modifier = piast_protested_senior
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Remind them who holds the title
+		name = piast_events.16.b
+		add_prestige_or_monarch_power = { amount = 5 }
+		add_casus_belli = {
+			target = FROM
+			type = cb_border_war
+			months = 60
+		}
+		ai_chance = { factor = 60 }
+	}
+}
+
+#### Malopolska flavour
+
+# The Wawel reclaimed (mpk_the_wawel)
+country_event = {
+	id = piast_events.17
+	title = piast_events.17.t
+	desc = piast_events.17.d
+	picture = COURT_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = piast_events.17.a
+		add_prestige_or_monarch_power = { amount = 15 }
+		add_country_modifier = {
+			name = mpk_piast_coronation
+			duration = 5475
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				stability = 1
+			}
+		}
+	}
+	option = {
+		name = piast_events.17.b
+		add_stability_or_adm_power = yes
+		add_years_of_income = -0.1
+		capital_scope = {
+			add_province_modifier = {
+				name = mpk_wawel_chapter
+				duration = 9125
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				NOT = { stability = 1 }
+			}
+		}
+	}
+}
+
+# The clergy and the szlachta each explain the Shattering in their own way
+country_event = {
+	id = piast_events.18
+	title = piast_events.18.t
+	desc = piast_events.18.d
+	picture = RELIGION_eventPicture
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = MPK
+		exists = LIT
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = piast_events.18.a
+		add_stability_or_adm_power = yes
+		add_country_modifier = {
+			name = mpk_krewo_compact
+			duration = 7300
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				NOT = { stability = 1 }
+			}
+		}
+	}
+	option = {
+		name = piast_events.18.b
+		add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+		add_country_modifier = {
+			name = mpk_no_compact
+			duration = 5475
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				stability = 1
+			}
+		}
+	}
+}
+
+# Rivalry with the other Piast duchies
+country_event = {
+	id = piast_events.19
+	title = piast_events.19.t
+	desc = piast_events.19.d
+	picture = DIPLOMACY_eventPicture
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = MPK
+		OR = {
+			exists = WPK
+			exists = KJW
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = piast_events.19.a
+		add_prestige_or_monarch_power = { amount = 15 }
+		reduce_stability_or_adm_power = yes
+		add_country_modifier = {
+			name = mpk_krakow_crown
+			duration = 5475
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				stability = 2
+			}
+			modifier = {
+				factor = 0
+				NOT = { stability = -1 }
+			}
+		}
+	}
+	option = {
+		name = piast_events.19.b
+		add_stability_or_adm_power = yes
+		add_years_of_income = 0.05
+		add_country_modifier = {
+			name = mpk_gniezno_pride
+			duration = 3650
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				NOT = { stability = 1 }
+			}
+		}
+	}
+}
+
+# Scholars of the Krakow Academy seek patronage
+country_event = {
+	id = piast_events.20
+	title = piast_events.20.t
+	desc = piast_events.20.d
+	picture = UNIVERSITY_eventPicture
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = MPK
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = piast_events.20.a
+		add_years_of_income = -0.1
+		add_country_modifier = {
+			name = mpk_akademia_krakowska
+			duration = 9125
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				treasury = 100
+			}
+		}
+	}
+	option = {
+		name = piast_events.20.b
+		add_years_of_income = 0.05
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				NOT = { treasury = 100 }
+			}
+		}
+	}
+}
