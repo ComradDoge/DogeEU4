@@ -1,0 +1,2042 @@
+# Galicia and Volhynia - the Crown of Rus'
+# One tree for the two Ruthenian successor states (GLA, VLH). Column 1 swaps per tag, columns 2 to 5 are shared.
+# The coronation (gv_the_crown_of_rus) fires gv_events.3: the crown from Rome (gv_crown_of_rome) or the crown of
+# Halicz (gv_crown_of_halicz). gv_the_church_of_rus, gv_the_polish_question, gv_the_lands_of_rus and gv_rex_russiae
+# branch on that flag; their trigger falls back to "always = no" while no crown is chosen.
+# Events: events/_DSE_flavour_Galicia_Volhynia.txt (gv_events), modifiers: common/event_modifiers/DST_Galicia_Volhynia_modifiers.txt
+# Effects: common/scripted_effects/DST_Galicia_Volhynia_scripted_effects.txt, triggers: common/scripted_triggers/DST_Galicia_Volhynia_triggers.txt
+# Shared nodes never require a tag-only mission: a required mission that isn't in the tree blocks completion.
+# The link runs the other way: each tag's second node requires gv_the_romanovich_inheritance.
+
+#### Column 1: Galicia
+
+gv_c1_gla = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = GLA
+	}
+
+	gla_the_lwow_market = {
+		icon = mission_market_place_with_asian_traders
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 2961
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 14 }
+					NOT = { has_trade_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			2961 = {
+				owned_by = ROOT
+				OR = {
+					has_trade_building_trigger = yes
+					development = 14
+				}
+			}
+		}
+
+		effect = {
+			2961 = {
+				add_base_production = 1
+				add_province_modifier = {
+					name = gla_lwow_market_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				add_estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 5
+				}
+			}
+		}
+	}
+
+	gla_the_galician_boyars = {
+		icon = rein_in_the_nobles
+		position = 2
+		required_missions = { gla_the_lwow_market gv_the_romanovich_inheritance }
+
+		trigger = {
+			stability = 1
+			OR = {
+				has_heir = yes
+				NOT = { government = monarchy }
+			}
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = gv_events.2
+				option_1 = "
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 10
+						}
+					}
+					add_country_modifier = {
+						name = gla_boyar_council_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = -10
+						}
+					}
+					add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+					add_country_modifier = {
+						name = gla_killing_the_bees_modifier
+						duration = 3650
+					}
+				"
+				option_3 = "
+					add_prestige_or_monarch_power = { amount = 15 }
+					add_stability_or_adm_power = yes
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = -5
+						}
+					}
+				"
+			}
+		}
+	}
+
+	gla_the_drohobycz_salt = {
+		icon = me_mission_industrial_salt_mine
+		position = 3
+		required_missions = { gla_the_galician_boyars }
+
+		provinces_to_highlight = {
+			province_id = 4541
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 7 }
+					NOT = { has_production_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			4541 = {
+				owned_by = ROOT
+				OR = {
+					has_production_building_trigger = yes
+					development = 7
+				}
+			}
+		}
+
+		effect = {
+			4541 = {
+				if = {
+					limit = {
+						NOT = { trade_goods = salt }
+					}
+					change_trade_goods = salt
+				}
+				add_province_modifier = {
+					name = gla_drohobycz_brine_wells_modifier
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			add_years_of_income = 0.25
+		}
+	}
+
+	gla_the_staple_right = {
+		icon = mission_dominate_home_trade_node
+		position = 5
+		required_missions = { gla_the_drohobycz_salt }
+
+		provinces_to_highlight = {
+			province_id = 2961
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 18 }
+				NOT = { has_trade_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			2961 = {
+				owned_by = ROOT
+				development = 18
+				has_trade_building_trigger = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = gla_krakow_node_share_25_tt
+				262 = {
+					OR = {
+						trade_share = {
+							country = ROOT
+							share = 25
+						}
+						is_strongest_trade_power = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = gv_events.4
+				option_1 = "
+					2961 = {
+						if = {
+							limit = {
+								NOT = { province_has_center_of_trade_of_level = 3 }
+							}
+							add_center_of_trade_level = 1
+						}
+						add_province_modifier = {
+							name = gla_staple_of_lwow_modifier
+							duration = 9125
+						}
+					}
+					if = {
+						limit = {
+							has_estate = estate_burghers
+						}
+						add_estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 10
+						}
+					}
+				"
+				option_2 = "
+					add_years_of_income = 0.5
+					add_country_modifier = {
+						name = gla_road_tolls_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	gla_the_nations_of_lwow = {
+		icon = mission_lit_reform_magdeburg_laws
+		position = 6
+		required_missions = { gla_the_staple_right }
+
+		provinces_to_highlight = {
+			province_id = 2961
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 22 }
+			}
+		}
+
+		trigger = {
+			2961 = {
+				owned_by = ROOT
+				development = 22
+			}
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			2961 = {
+				add_base_tax = 1
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.5
+				option_1 = "
+					add_country_modifier = {
+						name = gla_armenian_merchants_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = gla_jewish_charter_modifier
+						duration = 3650
+					}
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = gla_magdeburg_council_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	gla_the_city_of_lions = {
+		icon = mission_lion_of_the_empire
+		position = 7
+		required_missions = { gla_the_nations_of_lwow }
+
+		provinces_to_highlight = {
+			province_id = 2961
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 30 }
+			}
+		}
+
+		trigger = {
+			2961 = {
+				owned_by = ROOT
+				development = 30
+			}
+			custom_trigger_tooltip = {
+				tooltip = gla_krakow_node_share_35_tt
+				262 = {
+					OR = {
+						trade_share = {
+							country = ROOT
+							share = 35
+						}
+						is_strongest_trade_power = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = gla_city_of_lions_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+}
+
+#### Column 1: Volhynia
+
+gv_c1_vlh = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = VLH
+	}
+
+	vlh_the_volodymyr_cathedral = {
+		icon = mission_cathedral_cities
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 279
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 12 }
+					NOT = { has_tax_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			279 = {
+				owned_by = ROOT
+				OR = {
+					has_tax_building_trigger = yes
+					development = 12
+				}
+			}
+		}
+
+		effect = {
+			279 = {
+				add_base_tax = 1
+				add_province_modifier = {
+					name = vlh_assumption_cathedral_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 10
+				}
+			}
+		}
+	}
+
+	vlh_lubarts_castle = {
+		icon = me_mission_medieval_fort
+		position = 2
+		required_missions = { vlh_the_volodymyr_cathedral gv_the_romanovich_inheritance }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 279
+				province_id = 4539
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_fort_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			prestige = 10
+			OR = {
+				279 = {
+					owned_by = ROOT
+					has_fort_building_trigger = yes
+				}
+				4539 = {
+					owned_by = ROOT
+					has_fort_building_trigger = yes
+				}
+			}
+		}
+
+		effect = {
+			279 = {
+				add_base_manpower = 1
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.6
+				option_1 = "
+					add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 5
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = vlh_lithuanian_knights_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	vlh_kremenets_unconquered = {
+		icon = mission_mongolian_fortress_siege
+		position = 4
+		required_missions = { vlh_lubarts_castle }
+
+		provinces_to_highlight = {
+			province_id = 4539
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 5 }
+				NOT = { has_fort_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			4539 = {
+				owned_by = ROOT
+				development = 5
+				has_fort_building_trigger = yes
+			}
+		}
+
+		effect = {
+			4539 = {
+				add_province_modifier = {
+					name = vlh_kremenets_castle_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			add_mil_power = 50
+		}
+	}
+
+	vlh_the_princely_houses = {
+		icon = me_mission_poland_noble
+		position = 5
+		required_missions = { vlh_kremenets_unconquered }
+
+		trigger = {
+			prestige = 25
+			num_of_cavalry = 6
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = vlh_princely_retinues_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.7
+				option_1 = "
+					add_army_tradition = 10
+					add_country_modifier = {
+						name = vlh_ostrogski_hetman_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = vlh_czartoryski_envoys_modifier
+						duration = 3650
+					}
+				"
+				option_3 = "
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 10
+						}
+					}
+					add_stability_or_adm_power = yes
+				"
+			}
+		}
+	}
+
+	vlh_the_pochaiv_lavra = {
+		icon = fund_the_monasteries
+		position = 6
+		required_missions = { vlh_the_princely_houses }
+
+		provinces_to_highlight = {
+			province_id = 4539
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 7 }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			4539 = {
+				owned_by = ROOT
+				development = 7
+				has_tax_building_trigger = yes
+			}
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 60
+				}
+			}
+		}
+
+		effect = {
+			4539 = {
+				add_base_tax = 1
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.8
+				option_1 = "
+					4539 = {
+						add_province_modifier = {
+							name = vlh_pochaiv_pilgrims_modifier
+							duration = 9125
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = vlh_pochaiv_scriptorium_modifier
+						duration = 3650
+					}
+				"
+				option_3 = "
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+					if = {
+						limit = {
+							religion = orthodox
+						}
+						add_patriarch_authority = 0.1
+					}
+				"
+			}
+		}
+	}
+
+	vlh_the_ostroh_academy = {
+		icon = mission_lit_jesuit_academy
+		position = 8
+		required_missions = { vlh_the_pochaiv_lavra }
+
+		provinces_to_highlight = {
+			province_id = 2962
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 8 }
+				NOT = { has_building = university }
+			}
+		}
+
+		trigger = {
+			2962 = {
+				owned_by = ROOT
+				development = 8
+				has_building = university
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = vlh_ostroh_academy_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.9
+				option_1 = "
+					add_country_modifier = {
+						name = vlh_ostroh_bible_modifier
+						duration = 3650
+					}
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = vlh_ostroh_schools_modifier
+						duration = 3650
+					}
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 5
+						}
+					}
+				"
+			}
+		}
+	}
+}
+
+#### Column 2: The Crown of Rus'
+
+gv_c2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		gv_is_galicia_volhynia_trigger = yes
+	}
+
+	gv_the_romanovich_inheritance = {
+		icon = mission_war_for_the_crown
+		position = 1
+		required_missions = { }
+
+		trigger = {
+			is_subject = no
+			prestige = 10
+			stability = 1
+		}
+
+		effect = {
+			gv_claim_the_other_half_effect = yes
+			hidden_effect = {
+				set_country_flag = gv_inheritance_claimed
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.1
+				option_1 = "
+					add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+					add_country_modifier = {
+						name = gv_heirs_of_roman_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = gv_brothers_accord_modifier
+						duration = 3650
+					}
+					custom_tooltip = gv_events.1.b.tt
+				"
+				option_3 = "
+					add_stability_or_adm_power = yes
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				"
+			}
+		}
+	}
+
+	gv_reunite_the_halves = {
+		icon = mission_unite_home_region
+		position = 3
+		required_missions = { gv_the_romanovich_inheritance gv_the_cherven_towns }
+
+		provinces_to_highlight = {
+			OR = {
+				area = red_ruthenia_area
+				area = volhynia_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			red_ruthenia_area = {
+				type = all
+				owned_by = ROOT
+			}
+			volhynia_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+
+		effect = {
+			red_ruthenia_area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { is_core = ROOT }
+				}
+				add_core = ROOT
+			}
+			volhynia_area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { is_core = ROOT }
+				}
+				add_core = ROOT
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_country_modifier = {
+				name = gv_one_realm_again_modifier
+				duration = 9125
+			}
+		}
+	}
+
+	gv_the_crown_of_rus = {
+		icon = fu_monarch_crowned
+		position = 4
+		required_missions = { gv_reunite_the_halves }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2961
+				province_id = 279
+				province_id = 261
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+
+		trigger = {
+			owns_core_province = 2961
+			owns_core_province = 279
+			owns_core_province = 261
+			prestige = 30
+			stability = 1
+			is_subject = no
+			is_at_war = no
+		}
+
+		effect = {
+			gv_coronation_effect = yes
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.3
+				option_1 = "
+					custom_tooltip = gv_crown_of_rome_tt
+					add_country_modifier = {
+						name = gv_papal_crown_modifier
+						duration = -1
+					}
+					269 = {
+						if = {
+							limit = {
+								NOT = { owned_by = ROOT }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+					add_prestige_or_monarch_power = { amount = 15 }
+				"
+				option_2 = "
+					custom_tooltip = gv_crown_of_halicz_tt
+					add_country_modifier = {
+						name = gv_halicz_crown_modifier
+						duration = -1
+					}
+					if = {
+						limit = {
+							religion = orthodox
+						}
+						add_patriarch_authority = 0.05
+					}
+					add_prestige_or_monarch_power = { amount = 15 }
+				"
+			}
+		}
+	}
+
+	gv_the_church_of_rus = {
+		icon = promote_the_patriarchate
+		position = 5
+		required_missions = { gv_the_crown_of_rus }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 269
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					ROOT = { has_country_flag = gv_crown_of_rome }
+				}
+				AND = {
+					province_id = 261
+					NOT = { has_tax_building_trigger = yes }
+					ROOT = { has_country_flag = gv_crown_of_halicz }
+				}
+			}
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = gv_crown_of_rome
+				}
+				custom_trigger_tooltip = {
+					tooltip = gv_owns_drohiczyn_tt
+					269 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = gv_catholic_friend_tt
+					OR = {
+						any_ally = {
+							religion = catholic
+						}
+						any_country = {
+							religion = catholic
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = gv_crown_of_halicz
+				}
+				261 = {
+					owned_by = ROOT
+					has_tax_building_trigger = yes
+				}
+				if = {
+					limit = {
+						has_estate = estate_church
+					}
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 60
+					}
+				}
+				if = {
+					limit = {
+						religion = orthodox
+					}
+					patriarch_authority = 0.4
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = gv_crown_not_chosen_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = gv_crown_of_rome
+				}
+				country_event_with_option_insight = {
+					id = gv_events.10
+					option_1 = "
+						add_country_modifier = {
+							name = gv_church_union_modifier
+							duration = 9125
+						}
+						if = {
+							limit = {
+								has_estate = estate_church
+							}
+							add_estate_loyalty = {
+								estate = estate_church
+								loyalty = -10
+							}
+						}
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = gv_papal_promises_modifier
+							duration = 3650
+						}
+						add_prestige_or_monarch_power = { amount = 10 }
+					"
+				}
+			}
+			else = {
+				261 = {
+					add_province_modifier = {
+						name = gv_metropolis_of_halicz_modifier
+						duration = -1
+					}
+				}
+				if = {
+					limit = {
+						religion = orthodox
+					}
+					add_patriarch_authority = 0.1
+				}
+				custom_tooltip = " "
+				country_event_with_option_insight = {
+					id = gv_events.11
+					option_1 = "
+						add_country_modifier = {
+							name = gv_learned_metropolitan_modifier
+							duration = 3650
+						}
+					"
+					option_2 = "
+						if = {
+							limit = {
+								has_estate = estate_church
+							}
+							add_estate_loyalty = {
+								estate = estate_church
+								loyalty = 10
+							}
+						}
+						add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+					"
+				}
+			}
+		}
+	}
+
+	gv_the_chronicle = {
+		icon = mission_book_of_royal_degrees
+		position = 6
+		required_missions = { gv_the_church_of_rus }
+
+		trigger = {
+			prestige = 50
+			stability = 2
+		}
+
+		effect = {
+			add_adm_power = 25
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.12
+				option_1 = "
+					add_army_tradition = 15
+					add_prestige_or_monarch_power = { amount = 10 }
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = gv_chronicle_of_kings_modifier
+						duration = 3650
+					}
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = -5
+						}
+					}
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = gv_chronicle_of_the_shattering_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	gv_ruska_pravda = {
+		icon = the_law_colleges
+		position = 7
+		required_missions = { gv_the_chronicle }
+
+		trigger = {
+			reform_level = 3
+			total_development = 150
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = gv_ruska_pravda_modifier
+				duration = 9125
+			}
+			change_government_reform_progress = 50
+		}
+	}
+
+	gv_rex_russiae = {
+		icon = me_mission_shiny_crown
+		position = 8
+		required_missions = { gv_ruska_pravda }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = gv_crowned_ten_years_tt
+				had_country_flag = {
+					flag = gv_crowned_flag
+					days = 3650
+				}
+			}
+			total_development = 250
+			prestige = 60
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = gv_crown_of_rome
+				}
+				add_country_modifier = {
+					name = gv_rex_russiae_rome_modifier
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = gv_rex_russiae_halicz_modifier
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			ruthenia_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = " "
+			custom_tooltip = gv_form_ruthenia_hint_tt
+		}
+	}
+}
+
+#### Column 3: The Western Marches
+
+gv_c3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		gv_is_galicia_volhynia_trigger = yes
+	}
+
+	gv_the_cherven_towns = {
+		icon = me_mission_generic_castle
+		position = 2
+		required_missions = { gv_the_romanovich_inheritance }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4538
+				province_id = 1940
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 4538
+			owns = 1940
+		}
+
+		effect = {
+			4538 = {
+				add_base_tax = 1
+				add_province_modifier = {
+					name = gv_cherven_town_modifier
+					duration = 9125
+				}
+			}
+			1940 = {
+				add_province_modifier = {
+					name = gv_cherven_town_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			add_mil_power = 50
+		}
+	}
+
+	gv_the_line_of_the_san = {
+		icon = fortify_the_passes
+		position = 3
+		required_missions = { gv_the_cherven_towns }
+
+		provinces_to_highlight = {
+			province_id = 2424
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_fort_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			2424 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+			}
+			army_size = 15
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = gv_san_frontier_modifier
+				duration = 9125
+			}
+			2424 = {
+				add_base_manpower = 1
+			}
+		}
+	}
+
+	gv_galicia_and_lodomeria = {
+		icon = hungarian_union
+		position = 4
+		required_missions = { gv_the_line_of_the_san }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 261
+				province_id = 4541
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 261
+			owns = 4541
+			OR = {
+				NOT = { exists = HUN }
+				HUN = { is_subject_of = ROOT }
+				AND = {
+					alliance_with = HUN
+					HUN = {
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+				}
+				AND = {
+					exists = HUN
+					army_strength = {
+						who = HUN
+						value = 1.25
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = gv_galicia_and_lodomeria_dyn_a
+				first_limit = "
+					exists = HUN
+					alliance_with = HUN
+					NOT = { HUN = { is_subject_of = ROOT } }
+				"
+				first_effect = "
+					add_dip_power = 50
+					add_trust = {
+						who = HUN
+						value = 20
+						mutual = yes
+					}
+				"
+				second_custom_tooltip = gv_galicia_and_lodomeria_dyn_b
+				second_limit = "
+					NOT = {
+						AND = {
+							exists = HUN
+							alliance_with = HUN
+							NOT = { HUN = { is_subject_of = ROOT } }
+						}
+					}
+				"
+				second_effect = "
+					162 = {
+						if = {
+							limit = {
+								NOT = { owned_by = ROOT }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+					1952 = {
+						if = {
+							limit = {
+								NOT = { owned_by = ROOT }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+				"
+			}
+		}
+	}
+
+	gv_the_polish_question = {
+		icon = jageillonian_union
+		position = 5
+		required_missions = { gv_galicia_and_lodomeria gv_the_crown_of_rus }
+
+		provinces_to_highlight = {
+			province_id = 4538
+			ROOT = { has_country_flag = gv_crown_of_halicz }
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_fort_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = gv_crown_of_rome
+				}
+				OR = {
+					any_ally = {
+						primary_culture = polish
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+					any_subject_country = {
+						primary_culture = polish
+					}
+					any_country = {
+						primary_culture = polish
+						marriage_with = ROOT
+					}
+					custom_trigger_tooltip = {
+						tooltip = gv_no_polish_country_tt
+						NOT = {
+							any_country = {
+								primary_culture = polish
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = gv_crown_of_halicz
+				}
+				army_size = 25
+				4538 = {
+					owned_by = ROOT
+					has_fort_building_trigger = yes
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = gv_crown_not_chosen_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = gv_crown_of_rome
+				}
+				ME_add_accepted_culture_or_dip_power = { culture = polish }
+				custom_tooltip = " "
+				add_country_modifier = {
+					name = gv_ruthenian_szlachta_modifier
+					duration = 9125
+				}
+				add_prestige_or_monarch_power = { amount = 15 }
+				custom_tooltip = " "
+				sandomierz_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			else = {
+				sandomierz_area = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				custom_tooltip = " "
+				add_country_modifier = {
+					name = gv_orthodox_frontier_modifier
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	gv_lublin_and_sandomierz = {
+		icon = me_mission_poland_lublin
+		position = 7
+		required_missions = { gv_the_polish_question }
+
+		provinces_to_highlight = {
+			area = sandomierz_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			sandomierz_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			sandomierz_area = {
+				limit = {
+					owned_by = ROOT
+					NOT = { is_core = ROOT }
+				}
+				add_core = ROOT
+			}
+			ME_add_accepted_culture_or_dip_power = { culture = polish }
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = gv_marcher_lords_modifier
+				duration = -1
+			}
+		}
+	}
+}
+
+#### Column 4: Podolia and the Steppe
+
+gv_c4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		gv_is_galicia_volhynia_trigger = yes
+	}
+
+	gv_kamieniec_on_the_smotrych = {
+		icon = mission_fortifying_the_plain
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 281
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 8 }
+					NOT = { has_fort_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			281 = {
+				owned_by = ROOT
+				OR = {
+					has_fort_building_trigger = yes
+					development = 8
+				}
+			}
+		}
+
+		effect = {
+			281 = {
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = gv_kamieniec_rock_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			podolia_volhynia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	gv_the_podolian_border = {
+		icon = mission_southern_frontier_lotn
+		position = 2
+		required_missions = { gv_kamieniec_on_the_smotrych }
+
+		provinces_to_highlight = {
+			area = podolia_volhynia_area
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			podolia_volhynia_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+
+		effect = {
+			podolia_volhynia_area = {
+				limit = {
+					owned_by = ROOT
+				}
+				add_province_modifier = {
+					name = gv_podolian_settlers_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			west_dniepr_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	gv_the_moldavian_road = {
+		icon = mission_pol_moldavia
+		position = 4
+		required_missions = { gv_the_podolian_border }
+
+		provinces_to_highlight = {
+			province_id = 268
+			NOT = { owned_by = ROOT }
+			NOT = { owner = { is_subject_of = ROOT } }
+		}
+
+		trigger = {
+			OR = {
+				NOT = { exists = MOL }
+				MOL = { is_subject_of = ROOT }
+				AND = {
+					alliance_with = MOL
+					MOL = {
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+				}
+				owns = 268
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = gv_moldavian_road_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = gv_the_moldavian_road_dyn_a
+				first_limit = "
+					exists = MOL
+					alliance_with = MOL
+					NOT = { MOL = { is_subject_of = ROOT } }
+					NOT = { owns = 268 }
+				"
+				first_effect = "
+					add_dip_power = 50
+					add_trust = {
+						who = MOL
+						value = 20
+						mutual = yes
+					}
+				"
+				second_custom_tooltip = gv_the_moldavian_road_dyn_b
+				second_limit = "
+					OR = {
+						NOT = { exists = MOL }
+						MOL = { is_subject_of = ROOT }
+						owns = 268
+					}
+				"
+				second_effect = "
+					moldavia_area = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = ROOT
+					}
+				"
+			}
+		}
+	}
+
+	gv_the_wild_fields = {
+		icon = mission_plc_cross_wild_field
+		position = 5
+		required_missions = { gv_the_moldavian_road gv_the_left_bank }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 283
+				province_id = 2411
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			OR = {
+				AND = {
+					owns = 283
+					owns = 2411
+				}
+				ZAZ = { is_subject_of = ROOT }
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = gv_wild_fields_host_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			yedisan_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			crimea_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.13
+				option_1 = "
+					add_country_modifier = {
+						name = gv_registered_cossacks_modifier
+						duration = 3650
+					}
+					if = {
+						limit = {
+							has_estate = estate_cossacks
+						}
+						add_estate_loyalty = {
+							estate = estate_cossacks
+							loyalty = 10
+						}
+					}
+				"
+				option_2 = "
+					every_owned_province = {
+						limit = {
+							has_terrain = steppe
+						}
+						add_base_tax = 1
+					}
+				"
+				option_3 = "
+					add_prestige_or_monarch_power = { amount = 15 }
+					add_army_tradition = 10
+				"
+			}
+		}
+	}
+
+	gv_bitter_is_tatar_honour = {
+		icon = mission_break_the_tatar_yoke
+		position = 6
+		required_missions = { gv_the_wild_fields }
+
+		provinces_to_highlight = {
+			province_id = 284
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			OR = {
+				owns = 284
+				CRI = { is_subject_of = ROOT }
+				custom_trigger_tooltip = {
+					tooltip = gv_no_tatar_khanate_tt
+					NOT = {
+						any_country = {
+							primary_culture = crimean
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_mil_power = 50
+			1756 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.14
+				option_1 = "
+					add_country_modifier = {
+						name = gv_tatar_horsemen_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					add_prestige_or_monarch_power = { amount = 25 }
+					add_manpower = 2
+				"
+			}
+		}
+	}
+
+	gv_the_black_sea_ports = {
+		icon = mission_control_the_black_sea
+		position = 7
+		required_missions = { gv_bitter_is_tatar_honour }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1756
+				province_id = 282
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 1756
+			owns = 282
+		}
+
+		effect = {
+			1756 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = gv_black_sea_outlet_modifier
+				duration = -1
+			}
+			add_dip_power = 50
+		}
+	}
+}
+
+#### Column 5: The Lands of Rus'
+
+gv_c5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		gv_is_galicia_volhynia_trigger = yes
+	}
+
+	gv_neighbours_on_the_pripyat = {
+		icon = mission_control_river_traffic_icon
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 278
+			NOT = { owned_by = ROOT }
+			NOT = { owner = { is_subject_of = ROOT } }
+		}
+
+		trigger = {
+			OR = {
+				NOT = { exists = TVP }
+				TVP = { is_subject_of = ROOT }
+				AND = {
+					alliance_with = TVP
+					TVP = {
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+				}
+				owns = 278
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = gv_pripyat_river_trade_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = gv_neighbours_on_the_pripyat_dyn_a
+				first_limit = "
+					exists = TVP
+					alliance_with = TVP
+					NOT = { TVP = { is_subject_of = ROOT } }
+					NOT = { owns = 278 }
+				"
+				first_effect = "
+					add_dip_power = 50
+					add_trust = {
+						who = TVP
+						value = 20
+						mutual = yes
+					}
+				"
+				second_custom_tooltip = gv_neighbours_on_the_pripyat_dyn_b
+				second_limit = "
+					OR = {
+						NOT = { exists = TVP }
+						TVP = { is_subject_of = ROOT }
+						owns = 278
+					}
+				"
+				second_effect = "
+					pripyat_area = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = ROOT
+					}
+					podlasie_area = {
+						limit = {
+							NOT = { owned_by = ROOT }
+						}
+						add_permanent_claim = ROOT
+					}
+				"
+			}
+		}
+	}
+
+	gv_kiev_mother_of_cities = {
+		icon = mission_restore_kiev
+		position = 3
+		required_missions = { gv_neighbours_on_the_pripyat gv_the_podolian_border }
+
+		provinces_to_highlight = {
+			province_id = 280
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 280
+		}
+
+		effect = {
+			280 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+					}
+					add_core = ROOT
+				}
+				add_base_tax = 1
+				add_base_production = 1
+			}
+			custom_tooltip = " "
+			east_dniepr_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			pripyat_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			podlasie_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = gv_events.15
+				option_1 = "
+					280 = {
+						move_capital_effect = yes
+					}
+					add_country_modifier = {
+						name = gv_court_at_kiev_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					280 = {
+						add_province_modifier = {
+							name = gv_kiev_voivode_modifier
+							duration = 9125
+						}
+					}
+				"
+			}
+		}
+	}
+
+	gv_the_left_bank = {
+		icon = me_mission_ottomans_banks_of_the_ukraine
+		position = 4
+		required_missions = { gv_kiev_mother_of_cities }
+
+		provinces_to_highlight = {
+			area = east_dniepr_area
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			east_dniepr_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = gv_left_bank_granaries_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			chernigov_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			zaporizhia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	gv_the_lands_of_rus = {
+		icon = mission_rule_ruthenia
+		position = 6
+		required_missions = { gv_the_left_bank }
+
+		provinces_to_highlight = {
+			OR = {
+				area = pripyat_area
+				area = podlasie_area
+				area = west_dniepr_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			pripyat_area = {
+				type = all
+				owned_by = ROOT
+			}
+			podlasie_area = {
+				type = all
+				owned_by = ROOT
+			}
+			west_dniepr_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = gv_gatherer_of_rus_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			ruthenia_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = gv_the_lands_of_rus_dyn_a
+				first_limit = "
+					has_country_flag = gv_crown_of_halicz
+				"
+				first_effect = "
+					if = {
+						limit = {
+							religion = orthodox
+						}
+						add_patriarch_authority = 0.15
+					}
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				"
+				second_custom_tooltip = gv_the_lands_of_rus_dyn_b
+				second_limit = "
+					has_country_flag = gv_crown_of_rome
+				"
+				second_effect = "
+					add_dip_power = 100
+				"
+				third_custom_tooltip = gv_the_lands_of_rus_dyn_c
+				third_limit = "
+					NOT = { has_country_flag = gv_crown_of_halicz }
+					NOT = { has_country_flag = gv_crown_of_rome }
+				"
+				third_effect = "
+					add_adm_power = 50
+				"
+			}
+			custom_tooltip = " "
+			custom_tooltip = gv_form_ruthenia_hint_tt
+		}
+	}
+}
