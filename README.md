@@ -14,17 +14,23 @@
 - Riga and Livonian primary culture changed from prussian to baltic_german, as in vanilla.
 - Fixed newly gained Persian provinces not getting the Timurid Persian Empire province modifier.
 - Fixed the Nationalism spread bonus from neighbouring provinces of the same culture never applying.
+- Rebulican liberalism should be more consistent and appear as expected when age of absolutism starts.
 - Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25.
 - Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, oopsie.
 - Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
 
-- Livonia: new decision for a Catholic Livonia to refound the Livonian Order, choosing the crusader or Livonian path (with the Livonian government reforms).
+Generally, a pass over various small countries that never had content. They now have at least some for the early game, until they form something with its own mission tree. To encourage picking different countries, some missions give permanent modifiers unique to that country, even when the mission is shared across a region. If a country's gameplay feels off, or doesn't account for some odd case, feel free to report it.
+
+- Galicia and Volhynia: a shared mission tree with a column for each, events.
+- Occitania: new mission tree, some events, and a Paratge mechanic on formation.
+- New leader, ship, army and fleet names for many countries that shared or lacked their own list, report if any corruped characters appear.
+- Shattered Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa and a road to forming Andalusia.
 - Reforming into Livonia now gives some renaming options: Terra Mariana/Land of Mary if Christian, Livland if Germanic, Zemgale, Semigallia and Latvia.
 - Burgundy: added the Europa Expanded mission tree as an additional mission choice. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
 - Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate.
-- Occitania: new mission tree, some events, and a Paratge reform on formation (monarchy, republic or theocracy) with a two-sided mechanic between Paratge (trade, tolerance, reputation) and Cathar Zeal (true faith tolerance, missionaries, cheaper wars against other religions).
-- New leader, ship, army and fleet names for many countries that shared or lacked their own list (mostly shattered China, Egypt, Somalia, Morocco and the Middle East), plus new name lists for Cuman, Assyrian and Byelorussian cultures. Report if any corruped characters appear.
-- Sudetenland: added a small mission tree, a Catholic crusade against the Hussites and the pagan Sorbs to unite the Lands of the Bohemian Crown, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
+- Livonia: new decision for a Catholic Livonia to refound the Livonian Order (requires Lions of the North DLC), choosing the crusader or Livonian path (with the Livonian government reforms).
+- Toledo: new mission tree and events. Toledo forms Spain through its last mission instead of the decision, without the administrative technology requirement and with an extra permanent bonus.
+- Sudetenland: added a small mission tree, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
 
  <!-- Todo -->
 <br/>
