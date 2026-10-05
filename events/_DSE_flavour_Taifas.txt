@@ -1,0 +1,905 @@
+# The Taifas events (SEV, ALC, ALN): the road to al-Andalus
+# Missions: missions/_MIS_Taifa_Missions.txt (options mirror the mission previews)
+# .1 to .14 and .16 fire from missions; .3 goes to the other taifas and .4 answers Sevilla. .15 and .17 are MTTH.
+# Path flags set by .2: taifa_maghrebi_path / taifa_andalusi_path. Toledo's flags (tol_crusade_path /
+# tol_convivencia_path) come from events/_DSE_flavour_Toledo.txt.
+
+namespace = taifa_events
+
+# The Taifa Kings (taifa_the_taifa_kings)
+country_event = {
+	id = taifa_events.1
+	title = taifa_events.1.t
+	desc = taifa_events.1.d
+	picture = COMET_SIGHTED_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Our neighbours first
+		name = taifa_events.1.a
+		custom_tooltip = taifa_events.1.a.tt
+		hidden_effect = {
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 224
+						province_id = 226
+						province_id = 230
+					}
+					NOT = { owned_by = ROOT }
+					owner = {
+						taifa_is_taifa_trigger = yes
+					}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # The Christian frontier
+		name = taifa_events.1.b
+		custom_tooltip = taifa_events.1.b.tt
+		hidden_effect = {
+			every_province = {
+				limit = {
+					OR = {
+						area = toledo_area
+						area = extremadura_area
+						area = alentejo_area
+					}
+					NOT = { owned_by = ROOT }
+					owner = {
+						NOT = { religion_group = muslim }
+					}
+					any_neighbor_province = {
+						owned_by = ROOT
+					}
+				}
+				add_claim = ROOT
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Put our own house in order
+		name = taifa_events.1.c
+		add_stability_or_adm_power = yes
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Envoys from the Maghreb (taifa_envoys_from_the_maghreb): the path choice
+country_event = {
+	id = taifa_events.2
+	title = taifa_events.2.t
+	desc = {
+		trigger = {
+			has_country_flag = taifa_maghrebi_court_found
+		}
+		desc = taifa_events.2.d
+	}
+	desc = {
+		trigger = {
+			NOT = { has_country_flag = taifa_maghrebi_court_found }
+		}
+		desc = taifa_events.2.d2
+	}
+	picture = DIPLOMACY_eventPicture
+	goto = capital
+	major = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			taifa_save_maghrebi_court_effect = yes
+		}
+	}
+
+	option = { # Call the Maghreb
+		name = taifa_events.2.a
+		custom_tooltip = taifa_events.2.a.tt
+		hidden_effect = {
+			set_country_flag = taifa_maghrebi_path
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_court_found
+				}
+				event_target:taifa_maghrebi_court = {
+					add_opinion = {
+						who = ROOT
+						modifier = taifa_called_across_the_water
+					}
+					reverse_add_opinion = {
+						who = ROOT
+						modifier = taifa_called_across_the_water
+					}
+				}
+				create_alliance = event_target:taifa_maghrebi_court
+			}
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				add_estate_influence_modifier = {
+					estate = estate_church
+					desc = taifa_ulama_called_the_maghreb
+					influence = 10
+					duration = 3650
+				}
+			}
+		}
+		add_country_modifier = {
+			name = taifa_maghrebi_volunteers_modifier
+			duration = 3650
+		}
+		reduce_stability_or_adm_power = yes
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				tag = ALC
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { has_country_flag = taifa_maghrebi_court_found }
+			}
+		}
+	}
+	option = { # The Andalusi way
+		name = taifa_events.2.b
+		custom_tooltip = taifa_events.2.b.tt
+		hidden_effect = {
+			set_country_flag = taifa_andalusi_path
+		}
+		add_country_modifier = {
+			name = taifa_our_own_counsel_modifier
+			duration = 3650
+		}
+		add_prestige_or_monarch_power = { amount = 25 }
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Homage of Qurtuba (sev_qurtuba_the_old_capital): Sevilla asks the other taifas to bow. FROM is Sevilla.
+country_event = {
+	id = taifa_events.3
+	title = taifa_events.3.t
+	desc = taifa_events.3.d
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = taifa_paid_homage
+			clr_country_flag = taifa_refused_homage
+		}
+	}
+
+	option = { # Bow to Qurtuba
+		name = taifa_events.3.a
+		trigger = {
+			is_subject = no
+			NOT = { war_with = FROM }
+		}
+		FROM = {
+			vassalize = ROOT
+		}
+		add_opinion = {
+			who = FROM
+			modifier = taifa_homage_paid
+		}
+		hidden_effect = {
+			set_country_flag = taifa_paid_homage
+			FROM = {
+				country_event = { id = taifa_events.4 }
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 6
+				FROM = {
+					army_strength = {
+						who = ROOT
+						value = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				is_at_war = yes
+			}
+		}
+	}
+	option = { # We bow to no one
+		name = taifa_events.3.b
+		capital_scope = {
+			add_permanent_claim = FROM
+		}
+		add_opinion = {
+			who = FROM
+			modifier = taifa_homage_refused
+		}
+		reverse_add_opinion = {
+			who = FROM
+			modifier = taifa_homage_refused
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		hidden_effect = {
+			set_country_flag = taifa_refused_homage
+			FROM = {
+				country_event = { id = taifa_events.4 }
+			}
+		}
+		ai_chance = { factor = 90 }
+	}
+}
+
+# The answer to Sevilla. FROM is the taifa that answered.
+country_event = {
+	id = taifa_events.4
+	title = taifa_events.4.t
+	desc = {
+		trigger = {
+			FROM = { has_country_flag = taifa_paid_homage }
+		}
+		desc = taifa_events.4.d
+	}
+	desc = {
+		trigger = {
+			FROM = { has_country_flag = taifa_refused_homage }
+		}
+		desc = taifa_events.4.d2
+	}
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = taifa_events.4.a
+		trigger = {
+			FROM = { has_country_flag = taifa_paid_homage }
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+	option = {
+		name = taifa_events.4.b
+		trigger = {
+			FROM = { has_country_flag = taifa_refused_homage }
+		}
+		custom_tooltip = taifa_events.4.b.tt
+	}
+}
+
+# The Giralda (sev_the_giralda)
+country_event = {
+	id = taifa_events.5
+	title = taifa_events.5.t
+	desc = taifa_events.5.d
+	picture = RELIGION_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The tower is for the call to prayer
+		name = taifa_events.5.a
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		add_country_modifier = {
+			name = sev_the_call_to_prayer_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Put the watch up there too
+		name = taifa_events.5.b
+		224 = {
+			add_province_modifier = {
+				name = sev_the_watch_on_the_tower_modifier
+				duration = 3650
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = -5
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Corsairs of the Strait (alc_the_corsairs_of_the_strait)
+country_event = {
+	id = taifa_events.6
+	title = taifa_events.6.t
+	desc = taifa_events.6.d
+	picture = NAVAL_MILITARY_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Give them letters
+		name = taifa_events.6.a
+		add_country_modifier = {
+			name = alc_licensed_corsairs_modifier
+			duration = 3650
+		}
+		add_navy_tradition = 10
+		ai_chance = { factor = 50 }
+	}
+	option = { # Keep the sea lanes quiet
+		name = taifa_events.6.b
+		add_country_modifier = {
+			name = alc_quiet_sea_lanes_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Friends Across the Water (alc_friends_across_the_water)
+country_event = {
+	id = taifa_events.7
+	title = taifa_events.7.t
+	desc = {
+		trigger = {
+			has_country_flag = taifa_maghrebi_court_found
+		}
+		desc = taifa_events.7.d
+	}
+	desc = {
+		trigger = {
+			NOT = { has_country_flag = taifa_maghrebi_court_found }
+		}
+		desc = taifa_events.7.d2
+	}
+	picture = SHIP_SAILING_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			taifa_save_maghrebi_court_effect = yes
+		}
+	}
+
+	option = { # A marriage across the Strait
+		name = taifa_events.7.a
+		custom_tooltip = taifa_events.7.a.tt
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_court_found
+				}
+				create_marriage = event_target:taifa_maghrebi_court
+				create_alliance = event_target:taifa_maghrebi_court
+				event_target:taifa_maghrebi_court = {
+					add_opinion = {
+						who = ROOT
+						modifier = taifa_called_across_the_water
+					}
+				}
+			}
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 50 }
+	}
+	option = { # Grain and ships across the water
+		name = taifa_events.7.b
+		add_years_of_income = 0.5
+		add_country_modifier = {
+			name = alc_grain_across_the_strait_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Mughararin (aln_the_school_at_sagres)
+country_event = {
+	id = taifa_events.8
+	title = taifa_events.8.t
+	desc = taifa_events.8.d
+	picture = EXPLORERS_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Fit out a ship for them
+		name = taifa_events.8.a
+		add_country_modifier = {
+			name = aln_the_mughararin_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 70 }
+	}
+	option = { # The Ocean has no bottom and no end
+		name = taifa_events.8.b
+		add_years_of_income = 0.5
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Fortunate Isles (aln_the_fortunate_isles)
+country_event = {
+	id = taifa_events.9
+	title = taifa_events.9.t
+	desc = taifa_events.9.d
+	picture = EP_ISLAND_eventPicture
+	goto = taifa_event_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4565 = { save_event_target_as = taifa_event_province }
+		}
+	}
+
+	option = { # Settle the islands
+		name = taifa_events.9.a
+		4565 = {
+			add_base_tax = 1
+			add_base_production = 1
+		}
+		add_country_modifier = {
+			name = aln_island_settlers_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # A port of call for our ships
+		name = taifa_events.9.b
+		add_country_modifier = {
+			name = aln_port_of_call_modifier
+			duration = 3650
+		}
+		add_navy_tradition = 10
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Lixbuna (aln_lixbuna)
+country_event = {
+	id = taifa_events.10
+	title = taifa_events.10.t
+	desc = taifa_events.10.d
+	picture = CITY_VIEW_eventPicture
+	goto = taifa_event_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			227 = { save_event_target_as = taifa_event_province }
+		}
+	}
+
+	option = { # Leave the city as it is
+		name = taifa_events.10.a
+		227 = {
+			add_province_modifier = {
+				name = aln_lixbuna_as_it_is_modifier
+				duration = 3650
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Bring settlers from the south
+		name = taifa_events.10.b
+		227 = {
+			change_religion = ROOT
+			add_province_modifier = {
+				name = aln_settlers_in_lixbuna_modifier
+				duration = 3650
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Garnatah (taifa_garnatah, when we own Granada)
+country_event = {
+	id = taifa_events.11
+	title = taifa_events.11.t
+	desc = taifa_events.11.d
+	picture = COURT_eventPicture
+	goto = taifa_event_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			223 = { save_event_target_as = taifa_event_province }
+		}
+	}
+
+	option = { # Hold court in the Alhambra
+		name = taifa_events.11.a
+		223 = {
+			add_base_tax = 1
+		}
+		add_prestige_or_monarch_power = { amount = 15 }
+		add_country_modifier = {
+			name = taifa_the_alhambra_court_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Leave the Nasrids a governorship
+		name = taifa_events.11.b
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+		}
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Tulaytullah (taifa_the_northern_frontier)
+country_event = {
+	id = taifa_events.12
+	title = taifa_events.12.t
+	desc = taifa_events.12.d
+	picture = UNIVERSITY_eventPicture
+	goto = taifa_event_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			219 = { save_event_target_as = taifa_event_province }
+		}
+	}
+
+	option = { # Keep its scholars and its churches
+		name = taifa_events.12.a
+		add_country_modifier = {
+			name = taifa_the_scholars_of_tulaytullah_modifier
+			duration = 3650
+		}
+		add_adm_power = 50
+		ai_chance = { factor = 50 }
+	}
+	option = { # Make it a frontier stronghold
+		name = taifa_events.12.b
+		219 = {
+			add_province_modifier = {
+				name = taifa_the_frontier_stronghold_modifier
+				duration = 3650
+			}
+		}
+		add_mil_power = 50
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Minbar of Qurtuba (sev_the_minbar_of_qurtuba)
+country_event = {
+	id = taifa_events.13
+	title = taifa_events.13.t
+	desc = taifa_events.13.d
+	picture = RELIGION_eventPicture
+	goto = taifa_event_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			225 = { save_event_target_as = taifa_event_province }
+		}
+	}
+
+	option = { # In our own name
+		name = taifa_events.13.a
+		add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+		add_country_modifier = {
+			name = sev_our_own_name_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # In memory of the caliphs
+		name = taifa_events.13.b
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		add_stability_or_adm_power = yes
+		add_country_modifier = {
+			name = sev_the_memory_of_the_caliphs_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Volunteers of the Faith (taifa_the_people_of_the_frontier, Maghrebi path)
+country_event = {
+	id = taifa_events.14
+	title = taifa_events.14.t
+	desc = taifa_events.14.d
+	picture = BATTLE_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Give them land on the frontier
+		name = taifa_events.14.a
+		add_country_modifier = {
+			name = taifa_frontier_settlers_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Pay them and send them home
+		name = taifa_events.14.b
+		add_years_of_income = -0.25
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Toledan Frontier (MTTH): what Toledo sends south depends on the road it chose
+country_event = {
+	id = taifa_events.15
+	title = taifa_events.15.t
+	desc = {
+		trigger = {
+			TOL = { has_country_flag = tol_crusade_path }
+		}
+		desc = taifa_events.15.d
+	}
+	desc = {
+		trigger = {
+			TOL = { has_country_flag = tol_convivencia_path }
+		}
+		desc = taifa_events.15.d2
+	}
+	picture = BORDER_TENSION_eventPicture
+	goto = capital
+
+	trigger = {
+		taifa_is_taifa_trigger = yes
+		TOL = {
+			exists = yes
+			OR = {
+				has_country_flag = tol_crusade_path
+				has_country_flag = tol_convivencia_path
+			}
+		}
+		is_neighbor_of = TOL
+		NOT = { war_with = TOL }
+		OR = {
+			NOT = { has_country_flag = taifa_toledan_frontier_flag }
+			had_country_flag = {
+				flag = taifa_toledan_frontier_flag
+				days = 3650
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 120
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = taifa_toledan_frontier_flag
+			set_country_flag = taifa_toledan_frontier_flag
+			TOL = { save_event_target_as = taifa_toledo }
+		}
+	}
+
+	option = { # Ride after the raiders
+		name = taifa_events.15.a
+		trigger = {
+			TOL = { has_country_flag = tol_crusade_path }
+		}
+		add_army_tradition = 10
+		random_owned_province = {
+			limit = {
+				any_neighbor_province = {
+					owned_by = TOL
+				}
+			}
+			add_devastation = 10
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Pay them to leave
+		name = taifa_events.15.b
+		trigger = {
+			TOL = { has_country_flag = tol_crusade_path }
+		}
+		add_years_of_income = -0.2
+		ai_chance = { factor = 40 }
+	}
+	option = { # Open the market to them
+		name = taifa_events.15.c
+		trigger = {
+			TOL = { has_country_flag = tol_convivencia_path }
+		}
+		add_years_of_income = 0.25
+		add_opinion = {
+			who = TOL
+			modifier = tol_frontier_truce
+		}
+		reverse_add_opinion = {
+			who = TOL
+			modifier = tol_frontier_truce
+		}
+		ai_chance = { factor = 70 }
+	}
+	option = { # Send them back across the border
+		name = taifa_events.15.e
+		trigger = {
+			TOL = { has_country_flag = tol_convivencia_path }
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 5
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Poet-Kings (taifa_the_pride_of_al_andalus, Andalusi way)
+country_event = {
+	id = taifa_events.16
+	title = taifa_events.16.t
+	desc = taifa_events.16.d
+	picture = ARTWORK_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The prize goes to the poets
+		name = taifa_events.16.a
+		add_prestige_or_monarch_power = { amount = 25 }
+		ai_chance = { factor = 50 }
+	}
+	option = { # The prize goes to the astronomers
+		name = taifa_events.16.b
+		change_innovativeness = 3
+		add_adm_power = 50
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Zealots (MTTH, Maghrebi path): the ulama and the volunteers want more
+country_event = {
+	id = taifa_events.17
+	title = taifa_events.17.t
+	desc = taifa_events.17.d
+	picture = RELIGIOUS_TURMOIL_eventPicture
+	goto = capital
+
+	trigger = {
+		taifa_is_taifa_trigger = yes
+		has_country_flag = taifa_maghrebi_path
+		has_estate = estate_church
+		OR = {
+			NOT = { has_country_flag = taifa_zealots_flag }
+			had_country_flag = {
+				flag = taifa_zealots_flag
+				days = 7300
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 180
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = taifa_zealots_flag
+			set_country_flag = taifa_zealots_flag
+		}
+	}
+
+	option = { # Give way to them
+		name = taifa_events.17.a
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = taifa_the_zealots_heeded_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # The court decides, not the pulpit
+		name = taifa_events.17.b
+		reduce_stability_or_adm_power = yes
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}

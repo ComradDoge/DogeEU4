@@ -1,0 +1,85 @@
+# Toledo (TOL): the city and the crown
+# Missions: missions/_MIS_Toledo_Missions.txt, events: events/_DSE_flavour_Toledo.txt
+# Triggers: common/scripted_triggers/DST_Toledo_triggers.txt
+
+# Kingdom rank and the name Castile, without a tag change, so the Toledo tree carries on to Spain.
+# on_change_tag_effect restores the name when the country forms Spain. tol_crowned_flag dates the coronation.
+tol_crown_of_castile_effect = {
+	if = {
+		limit = {
+			NOT = { government_rank = 2 }
+		}
+		set_government_rank = 2
+	}
+	custom_tooltip = tol_crown_of_castile_name_tt
+	hidden_effect = {
+		override_country_name = DST_TOLEDO_CASTILE
+		set_country_flag = tol_crowned_flag
+	}
+}
+
+# Toledo's view of the Muslim rulers of Iberia, and theirs of Toledo (tol_events.1)
+tol_apply_betrayal_opinions_effect = {
+	custom_tooltip = tol_betrayal_opinions_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				religion_group = muslim
+				any_owned_province = {
+					region = iberia_region
+				}
+			}
+			reverse_add_opinion = {
+				who = ROOT
+				modifier = tol_betrayers_of_the_reconquista
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = taifa_toledan_contempt
+			}
+		}
+	}
+}
+
+# Toledo forms Spain through tol_hispania instead of the spanish_nation decision (hidden for TOL).
+# Mirrors that decision's effect; keep the two in step. on_change_tag_effect clears the Castile name.
+tol_form_spain_effect = {
+	change_tag = SPA
+	on_change_tag_effect = yes
+	if = { # AI never gets the mission tree choice after startup, default it to the Missions Expanded tree
+		limit = {
+			ai = yes
+			NOT = { has_country_flag = use_paradox_missions }
+			NOT = { has_country_flag = use_missions_expanded_missions_instead_of_paradox }
+		}
+		set_country_flag = use_missions_expanded_missions_instead_of_paradox
+	}
+	swap_non_generic_missions = yes
+	add_prestige_or_monarch_power = { amount = 15 }
+	set_country_flag = formed_spain_flag
+	custom_tooltip = spanish_unification_effect.tooltip
+	if = {
+		limit = {
+			NOT = { government_rank = 2 }
+		}
+		set_government_rank = 2
+	}
+	if = {
+		limit = { has_custom_ideas = no }
+		country_event = { id = ideagroups.1 } #Swap Ideas
+	}
+	custom_tooltip = specific_nation_ideas_tooltip
+	add_country_modifier = {
+		name = "centralization_modifier"
+		duration = 7300
+	}
+	hidden_effect = {
+		iberia_region = {
+			limit = {
+				NOT = { area = alentejo_area }
+				NOT = { area = beieras_area }
+			}
+			add_permanent_claim = SPA
+		}
+	}
+}

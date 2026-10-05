@@ -1,0 +1,564 @@
+# Toledo events (TOL): the city and the crown
+# Missions: missions/_MIS_Toledo_Missions.txt (options mirror the mission previews)
+# .1 to .9 and .12 fire from missions. .10 and .11 are MTTH.
+# Road flags set by .2: tol_crusade_path / tol_convivencia_path (also read by taifa_events.15).
+
+namespace = tol_events
+
+# The Southern Frontier (tol_the_southern_frontier). The opinions are applied by the mission (tol_apply_betrayal_opinions_effect).
+country_event = {
+	id = tol_events.1
+	title = tol_events.1.t
+	desc = tol_events.1.d
+	picture = COMET_SIGHTED_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Swear to win them back
+		name = tol_events.1.a
+		225 = {
+			if = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 60 }
+	}
+	option = { # Look to the walls
+		name = tol_events.1.b
+		add_country_modifier = {
+			name = tol_watch_the_walls_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# Convivencia or Crusade (tol_convivencia_or_crusade): the road choice
+country_event = {
+	id = tol_events.2
+	title = tol_events.2.t
+	desc = tol_events.2.d
+	picture = RELIGIOUS_WARS_eventPicture
+	goto = capital
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # Crusade
+		name = tol_events.2.a
+		custom_tooltip = tol_events.2.a.tt
+		hidden_effect = {
+			set_country_flag = tol_crusade_path
+		}
+		add_country_modifier = {
+			name = tol_the_frontier_crusade_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Convivencia
+		name = tol_events.2.b
+		custom_tooltip = tol_events.2.b.tt
+		hidden_effect = {
+			set_country_flag = tol_convivencia_path
+		}
+		add_country_modifier = {
+			name = tol_the_frontier_peace_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Forges of Toledo (tol_the_forges_of_toledo)
+country_event = {
+	id = tol_events.3
+	title = tol_events.3.t
+	desc = tol_events.3.d
+	picture = TRADE_GOODS_METALS_AND_MINING_EQUIPENT_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Sell the blades
+		name = tol_events.3.a
+		219 = {
+			add_base_production = 1
+			add_province_modifier = {
+				name = tol_toledo_blades_modifier
+				duration = 3650
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Arm the city
+		name = tol_events.3.b
+		add_country_modifier = {
+			name = tol_arm_the_city_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The School of Translators (tol_the_school_of_translators)
+country_event = {
+	id = tol_events.4
+	title = tol_events.4.t
+	desc = tol_events.4.d
+	picture = UNIVERSITY_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The astronomers
+		name = tol_events.4.a
+		change_innovativeness = 3
+		add_adm_power = 50
+		ai_chance = { factor = 50 }
+	}
+	option = { # The physicians and jurists
+		name = tol_events.4.b
+		add_country_modifier = {
+			name = tol_physicians_and_jurists_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Primate of Toledo (tol_the_primates_cathedral)
+country_event = {
+	id = tol_events.5
+	title = tol_events.5.t
+	desc = tol_events.5.d
+	picture = CHURCH_ESTATE_1_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Back the archbishop
+		name = tol_events.5.a
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+		ai_chance = { factor = 50 }
+	}
+	option = { # Keep the see in its place
+		name = tol_events.5.b
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = -10
+			}
+		}
+		add_absolutism = 10
+		add_adm_power = 25
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Calatrava (tol_calatrava)
+country_event = {
+	id = tol_events.6
+	title = tol_events.6.t
+	desc = tol_events.6.d
+	picture = FORT_eventPicture
+	goto = tol_event_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			2754 = { save_event_target_as = tol_event_province }
+		}
+	}
+
+	option = { # Grant the order its lands
+		name = tol_events.6.a
+		add_country_modifier = {
+			name = tol_order_of_calatrava_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # The castles belong to the crown
+		name = tol_events.6.b
+		2754 = {
+			add_province_modifier = {
+				name = tol_crown_castles_modifier
+				duration = 3650
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 5
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Crown of Castile (tol_the_crown_of_castile)
+country_event = {
+	id = tol_events.7
+	title = tol_events.7.t
+	desc = tol_events.7.d
+	picture = COURT_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Crowned in the cathedral
+		name = tol_events.7.a
+		add_legitimacy_or_mil_power = { amount = 20 republican_tradition = 10 }
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Acclaimed before the cortes
+		name = tol_events.7.b
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 5
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 5
+			}
+		}
+		add_adm_power = 50
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Cordoba (tol_cordoba, crusade road)
+country_event = {
+	id = tol_events.8
+	title = tol_events.8.t
+	desc = tol_events.8.d
+	picture = RELIGIOUS_CONVERSION_eventPicture
+	goto = tol_event_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			225 = { save_event_target_as = tol_event_province }
+		}
+	}
+
+	option = { # Consecrate the mosque
+		name = tol_events.8.a
+		225 = {
+			change_religion = ROOT
+			add_province_modifier = {
+				name = tol_consecrated_mosque_modifier
+				duration = 3650
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Leave it standing as it is
+		name = tol_events.8.b
+		225 = {
+			add_province_modifier = {
+				name = tol_the_mosque_left_standing_modifier
+				duration = 3650
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Frontier Treaties (tol_terms_with_the_south, convivencia road)
+country_event = {
+	id = tol_events.9
+	title = tol_events.9.t
+	desc = tol_events.9.d
+	picture = DIPLOMACY_SIGNING_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Open the frontier markets
+		name = tol_events.9.a
+		add_country_modifier = {
+			name = tol_open_frontier_markets_modifier
+			duration = 3650
+		}
+		custom_tooltip = tol_frontier_truce_tt
+		hidden_effect = {
+			every_neighbor_country = {
+				limit = {
+					religion_group = muslim
+					capital_scope = {
+						region = iberia_region
+					}
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = tol_frontier_truce
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = tol_frontier_truce
+				}
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Exchange hostages
+		name = tol_events.9.b
+		add_stability_or_adm_power = yes
+		custom_tooltip = tol_frontier_truce_tt
+		hidden_effect = {
+			every_neighbor_country = {
+				limit = {
+					religion_group = muslim
+					capital_scope = {
+						region = iberia_region
+					}
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = tol_frontier_truce
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = tol_frontier_truce
+				}
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Zealots of Toledo (MTTH, convivencia road)
+country_event = {
+	id = tol_events.10
+	title = tol_events.10.t
+	desc = tol_events.10.d
+	picture = RELIGIOUS_TURMOIL_eventPicture
+	goto = capital
+
+	trigger = {
+		has_country_flag = tol_convivencia_path
+		has_estate = estate_church
+		OR = {
+			NOT = { has_country_flag = tol_zealots_flag }
+			had_country_flag = {
+				flag = tol_zealots_flag
+				days = 7300
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 150
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = tol_zealots_flag
+			set_country_flag = tol_zealots_flag
+		}
+	}
+
+	option = { # Silence them
+		name = tol_events.10.a
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = -10
+		}
+		add_country_modifier = {
+			name = tol_zealots_silenced_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Let them preach a crusade
+		name = tol_events.10.b
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = 10
+		}
+		add_country_modifier = {
+			name = tol_crusade_sermon_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Raiders from the South (MTTH): the border with the Muslim south
+country_event = {
+	id = tol_events.11
+	title = tol_events.11.t
+	desc = tol_events.11.d
+	picture = VILLAGE_RAIDED_eventPicture
+	goto = capital
+
+	trigger = {
+		tag = TOL
+		is_at_war = no
+		any_neighbor_country = {
+			religion_group = muslim
+			capital_scope = {
+				region = iberia_region
+			}
+		}
+		OR = {
+			NOT = { has_country_flag = tol_raiders_flag }
+			had_country_flag = {
+				flag = tol_raiders_flag
+				days = 3650
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 120
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = tol_raiders_flag
+			set_country_flag = tol_raiders_flag
+		}
+	}
+
+	option = { # Ride after them
+		name = tol_events.11.a
+		add_army_tradition = 10
+		random_owned_province = {
+			limit = {
+				any_neighbor_province = {
+					owner = {
+						religion_group = muslim
+					}
+				}
+			}
+			add_devastation = 10
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Strengthen the line
+		name = tol_events.11.b
+		add_country_modifier = {
+			name = tol_strengthened_line_modifier
+			duration = 3650
+		}
+		add_years_of_income = -0.2
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Hispania (tol_hispania): fires after the tag change, so ROOT is already Spain
+country_event = {
+	id = tol_events.12
+	title = tol_events.12.t
+	desc = tol_events.12.d
+	picture = COURT_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Toledo stays the seat of the crown
+		name = tol_events.12.a
+		219 = {
+			add_base_tax = 1
+			add_base_production = 1
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # The court moves to Madrid
+		name = tol_events.12.b
+		custom_tooltip = tol_events.12.b.tt
+		hidden_effect = {
+			if = {
+				limit = {
+					owns_core_province = 217
+				}
+				set_capital = 217
+				217 = {
+					add_base_tax = 1
+					add_base_production = 1
+				}
+			}
+		}
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 40 }
+	}
+}

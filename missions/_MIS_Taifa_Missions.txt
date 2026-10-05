@@ -1,0 +1,1802 @@
+# The Taifas - the road to al-Andalus
+# One tree for the three Andalusi taifas (SEV, ALC, ALN). Slots 1 and 2 are each tag's own road, slot 3 (Al-Andalus)
+# and slot 4 (The Maghreb) are shared, slot 5 is left to the generic tree. Forming Andalusia (decisions/AndalusianNation.txt)
+# swaps this tree for the Andalusia one.
+# taifa_envoys_from_the_maghreb fires taifa_events.2: the Maghrebi path (taifa_maghrebi_path) or the Andalusi way
+# (taifa_andalusi_path). The four nodes below it branch on that flag; their trigger falls back to "always = no"
+# while no path is chosen.
+# Events: events/_DSE_flavour_Taifas.txt (taifa_events), modifiers: common/event_modifiers/DST_Taifa_modifiers.txt
+# Effects: common/scripted_effects/DST_Taifa_scripted_effects.txt, triggers: common/scripted_triggers/DST_Taifa_triggers.txt
+# Shared nodes never require a tag-only mission: a required mission that isn't in the tree blocks completion.
+
+#### Sevilla, column 1: Isbiliya
+
+taifa_sev_a = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = SEV
+	}
+
+	sev_the_golden_tower = {
+		icon = me_mission_venice_city_and_port
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 224
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 18 }
+					NOT = { has_trade_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			224 = {
+				owned_by = ROOT
+				OR = {
+					has_trade_building_trigger = yes
+					development = 18
+				}
+			}
+		}
+
+		effect = {
+			224 = {
+				add_base_production = 1
+				add_province_modifier = {
+					name = sev_the_golden_tower_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				add_estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 5
+				}
+			}
+		}
+	}
+
+	sev_the_guadalquivir = {
+		icon = mission_control_river_traffic_icon
+		position = 2
+		required_missions = { sev_the_golden_tower }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = taifa_sevilla_node_share_25_tt
+				224 = {
+					OR = {
+						trade_share = {
+							country = ROOT
+							share = 25
+						}
+						is_strongest_trade_power = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = sev_river_trade_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			add_dip_power = 50
+		}
+	}
+
+	sev_the_giralda = {
+		icon = me_mission_arabia_mosque_mecca_minaret
+		position = 3
+		required_missions = { sev_the_guadalquivir sev_qurtuba_the_old_capital }
+
+		provinces_to_highlight = {
+			province_id = 224
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			224 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.5
+				option_1 = "
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+					add_country_modifier = {
+						name = sev_the_call_to_prayer_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					224 = {
+						add_province_modifier = {
+							name = sev_the_watch_on_the_tower_modifier
+							duration = 3650
+						}
+					}
+					if = {
+						limit = {
+							has_estate = estate_burghers
+						}
+						add_estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 10
+						}
+					}
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = -5
+						}
+					}
+				"
+			}
+		}
+	}
+
+	sev_the_house_of_trade = {
+		icon = mission_dominate_home_trade_node
+		position = 5
+		required_missions = { sev_the_giralda }
+
+		provinces_to_highlight = {
+			province_id = 224
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 22 }
+			}
+		}
+
+		trigger = {
+			224 = {
+				owned_by = ROOT
+				development = 22
+			}
+			custom_trigger_tooltip = {
+				tooltip = taifa_sevilla_node_share_35_tt
+				224 = {
+					OR = {
+						trade_share = {
+							country = ROOT
+							share = 35
+						}
+						is_strongest_trade_power = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			224 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = sev_house_of_trade_modifier
+				duration = 9125
+			}
+		}
+	}
+}
+
+#### Sevilla, column 2: Qurtuba
+
+taifa_sev_b = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = SEV
+	}
+
+	sev_the_mezquita = {
+		icon = me_mission_great_mosque
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 225
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 12 }
+					NOT = { has_tax_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			225 = {
+				owned_by = ROOT
+				OR = {
+					has_tax_building_trigger = yes
+					development = 12
+				}
+			}
+		}
+
+		effect = {
+			225 = {
+				add_base_tax = 1
+				add_province_modifier = {
+					name = sev_the_mezquita_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			add_adm_power = 25
+		}
+	}
+
+	sev_qurtuba_the_old_capital = {
+		icon = mission_develop_cordoba
+		position = 2
+		required_missions = { sev_the_mezquita taifa_the_taifa_kings }
+
+		provinces_to_highlight = {
+			province_id = 225
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 13 }
+			}
+		}
+
+		trigger = {
+			225 = {
+				owned_by = ROOT
+				development = 13
+			}
+			prestige = 15
+		}
+
+		effect = {
+			225 = {
+				add_province_modifier = {
+					name = sev_the_old_capital_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = sev_homage_sent_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						OR = {
+							tag = ALC
+							tag = ALN
+						}
+						is_subject = no
+						NOT = { war_with = ROOT }
+					}
+					country_event = { id = taifa_events.3 }
+				}
+			}
+		}
+	}
+
+	sev_the_badajoz_march = {
+		icon = me_mission_medieval_fort
+		position = 4
+		required_missions = { sev_qurtuba_the_old_capital }
+
+		provinces_to_highlight = {
+			province_id = 218
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_fort_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			218 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+			}
+			army_size = 12
+		}
+
+		effect = {
+			218 = {
+				add_base_manpower = 1
+			}
+			custom_tooltip = " "
+			1747 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			4788 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	sev_the_minbar_of_qurtuba = {
+		icon = mission_mosque
+		position = 5
+		required_missions = { sev_the_badajoz_march }
+
+		provinces_to_highlight = {
+			province_id = 225
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 16 }
+			}
+		}
+
+		trigger = {
+			225 = {
+				owned_by = ROOT
+				development = 16
+				has_tax_building_trigger = yes
+			}
+			stability = 1
+			OR = {
+				NOT = { government = monarchy }
+				legitimacy = 80
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.13
+				option_1 = "
+					add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+					add_country_modifier = {
+						name = sev_our_own_name_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+					add_stability_or_adm_power = yes
+					add_country_modifier = {
+						name = sev_the_memory_of_the_caliphs_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	sev_heirs_of_qurtuba = {
+		icon = mission_restore_caliphate_of_cordoba
+		position = 7
+		required_missions = { sev_the_minbar_of_qurtuba }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 225
+					NOT = { development = 20 }
+				}
+				AND = {
+					OR = {
+						province_id = 224
+						province_id = 226
+						province_id = 230
+					}
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+
+		trigger = {
+			225 = {
+				owned_by = ROOT
+				development = 20
+			}
+			prestige = 50
+			224 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			226 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			230 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = sev_heirs_of_qurtuba_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+}
+
+#### Algeciras, column 1: The Strait
+
+taifa_alc_a = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = ALC
+	}
+
+	alc_the_shipyards_of_qadis = {
+		icon = me_mission_venice_ship_in_port
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 1749
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 14 }
+					NOT = { has_shipyard_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			1749 = {
+				owned_by = ROOT
+				OR = {
+					has_shipyard_building_trigger = yes
+					development = 14
+				}
+			}
+		}
+
+		effect = {
+			1749 = {
+				add_base_production = 1
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = alc_qadis_shipyards_modifier
+				duration = 9125
+			}
+		}
+	}
+
+	alc_the_corsairs_of_the_strait = {
+		icon = mission_construct_a_corsair_fleet
+		position = 2
+		required_missions = { alc_the_shipyards_of_qadis alc_the_rock }
+
+		trigger = {
+			OR = {
+				num_of_light_ship = 6
+				num_of_galley = 10
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.6
+				option_1 = "
+					add_country_modifier = {
+						name = alc_licensed_corsairs_modifier
+						duration = 3650
+					}
+					add_navy_tradition = 10
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = alc_quiet_sea_lanes_modifier
+						duration = 3650
+					}
+					if = {
+						limit = {
+							has_estate = estate_burghers
+						}
+						add_estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 10
+						}
+					}
+				"
+			}
+		}
+	}
+
+	alc_malaqah = {
+		icon = mission_valencian_silk
+		position = 3
+		required_missions = { alc_the_corsairs_of_the_strait }
+
+		provinces_to_highlight = {
+			province_id = 4546
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 10 }
+				AND = {
+					NOT = { has_production_building_trigger = yes }
+					NOT = { has_trade_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			4546 = {
+				owned_by = ROOT
+				development = 10
+				OR = {
+					has_production_building_trigger = yes
+					has_trade_building_trigger = yes
+				}
+			}
+		}
+
+		effect = {
+			4546 = {
+				add_base_production = 1
+				add_province_modifier = {
+					name = alc_malaqah_silk_modifier
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	alc_the_strait_toll = {
+		icon = mission_rb_take_gibraltar
+		position = 5
+		required_missions = { alc_malaqah }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 226
+					NOT = { has_fort_building_trigger = yes }
+				}
+				AND = {
+					province_id = 1751
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+
+		trigger = {
+			226 = {
+				owned_by = ROOT
+				has_fort_building_trigger = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = alc_ceuta_held_or_allied_tt
+				1751 = {
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						owner = {
+							alliance_with = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = alc_the_strait_toll_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			add_dip_power = 50
+			1751 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+					}
+					add_base_production = 1
+				}
+			}
+		}
+	}
+
+	alc_lord_of_the_strait = {
+		icon = mam_hormuz_straits
+		position = 6
+		required_missions = { alc_the_strait_toll }
+
+		provinces_to_highlight = {
+			province_id = 1749
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 18 }
+			}
+		}
+
+		trigger = {
+			navy_size = 20
+			1749 = {
+				owned_by = ROOT
+				development = 18
+			}
+			custom_trigger_tooltip = {
+				tooltip = taifa_sevilla_node_share_30_tt
+				224 = {
+					OR = {
+						trade_share = {
+							country = ROOT
+							share = 30
+						}
+						is_strongest_trade_power = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = alc_lord_of_the_strait_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+}
+
+#### Algeciras, column 2: Jabal Tariq
+
+taifa_alc_b = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = ALC
+	}
+
+	alc_the_rock = {
+		icon = mission_arabian_fort
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 226
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 6 }
+					NOT = { has_fort_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			226 = {
+				owned_by = ROOT
+				OR = {
+					has_fort_building_trigger = yes
+					development = 6
+				}
+			}
+		}
+
+		effect = {
+			226 = {
+				add_base_manpower = 2
+				add_province_modifier = {
+					name = alc_the_rock_modifier
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	alc_friends_across_the_water = {
+		icon = mission_moroccan_ports
+		position = 2
+		required_missions = { alc_the_rock taifa_the_taifa_kings }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = alc_friends_across_the_water_tt
+				OR = {
+					1751 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					any_country = {
+						religion_group = muslim
+						capital_scope = {
+							region = maghreb_region
+						}
+						OR = {
+							alliance_with = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.7
+				option_1 = "
+					custom_tooltip = taifa_events.7.a.tt
+					add_prestige_or_monarch_power = { amount = 10 }
+				"
+				option_2 = "
+					add_years_of_income = 0.5
+					add_country_modifier = {
+						name = alc_grain_across_the_strait_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	alc_the_coast_of_al_andalus = {
+		icon = mission_galleys_in_port
+		position = 4
+		required_missions = { alc_friends_across_the_water }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4548
+				province_id = 222
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 4548
+			owns = 222
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = alc_the_sea_road_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			custom_tooltip = alc_coast_claims_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = lower_andalucia_area
+							area = upper_andalucia_area
+							area = alentejo_area
+						}
+						has_port = yes
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+}
+
+#### Alentejo, column 1: The Ocean
+
+taifa_aln_a = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = ALN
+	}
+
+	aln_the_fisheries_of_shilb = {
+		icon = mission_fish_markets
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 230
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 10 }
+					NOT = { has_dock_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			230 = {
+				owned_by = ROOT
+				OR = {
+					has_dock_building_trigger = yes
+					development = 10
+				}
+			}
+		}
+
+		effect = {
+			230 = {
+				add_base_production = 1
+				add_province_modifier = {
+					name = aln_shilb_fisheries_modifier
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	aln_the_school_at_sagres = {
+		icon = mission_exploration
+		position = 2
+		required_missions = { aln_the_fisheries_of_shilb }
+
+		provinces_to_highlight = {
+			province_id = 230
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					has_dlc = "Leviathan"
+					NOT = {
+						has_great_project = {
+							type = gme_sagres_school_navigation
+							tier = 1
+						}
+					}
+				}
+				AND = {
+					NOT = { has_dlc = "Leviathan" }
+					OR = {
+						NOT = { development = 12 }
+						NOT = { has_trade_building_trigger = yes }
+					}
+				}
+			}
+		}
+
+		trigger = {
+			230 = {
+				owned_by = ROOT
+			}
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				230 = {
+					has_great_project = {
+						type = gme_sagres_school_navigation
+						tier = 1
+					}
+				}
+			}
+			else = {
+				230 = {
+					development = 12
+					has_trade_building_trigger = yes
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.8
+				option_1 = "
+					add_country_modifier = {
+						name = aln_the_mughararin_modifier
+						duration = 9125
+					}
+				"
+				option_2 = "
+					add_years_of_income = 0.5
+					add_prestige_or_monarch_power = { amount = 10 }
+				"
+			}
+		}
+	}
+
+	aln_the_fortunate_isles = {
+		icon = mission_claim_the_canaries
+		position = 3
+		required_missions = { aln_the_school_at_sagres }
+
+		provinces_to_highlight = {
+			province_id = 4565
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			4565 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.9
+				option_1 = "
+					4565 = {
+						add_base_tax = 1
+						add_base_production = 1
+					}
+					add_country_modifier = {
+						name = aln_island_settlers_modifier
+						duration = 3650
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = aln_port_of_call_modifier
+						duration = 3650
+					}
+					add_navy_tradition = 10
+				"
+			}
+		}
+	}
+
+	aln_the_sea_of_darkness = {
+		icon = mission_explore_the_world
+		position = 5
+		required_missions = { aln_the_fortunate_isles }
+
+		provinces_to_highlight = {
+			province_id = 230
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 15 }
+			}
+		}
+
+		trigger = {
+			230 = {
+				owned_by = ROOT
+				development = 15
+			}
+			num_of_owned_provinces_with = {
+				value = 3
+				NOT = { continent = europe }
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = aln_the_sea_of_darkness_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+}
+
+#### Alentejo, column 2: The Gharb
+
+taifa_aln_b = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = ALN
+	}
+
+	aln_the_tagus_line = {
+		icon = fortify_the_passes
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 4787
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 12 }
+					NOT = { has_fort_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			4787 = {
+				owned_by = ROOT
+				OR = {
+					has_fort_building_trigger = yes
+					development = 12
+				}
+			}
+		}
+
+		effect = {
+			4787 = {
+				add_base_manpower = 1
+			}
+			custom_tooltip = " "
+			227 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	aln_evora_and_beja = {
+		icon = mission_order_in_the_domain
+		position = 2
+		required_missions = { aln_the_tagus_line aln_the_fisheries_of_shilb }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4150
+				province_id = 229
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 9 }
+			}
+		}
+
+		trigger = {
+			owns = 4150
+			owns = 229
+			OR = {
+				AND = {
+					4150 = { development = 9 }
+					229 = { development = 9 }
+				}
+				4150 = { has_production_building_trigger = yes }
+				229 = { has_production_building_trigger = yes }
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = aln_the_cork_and_grain_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			add_adm_power = 25
+		}
+	}
+
+	aln_up_the_guadiana = {
+		icon = mission_se_along_the_river
+		position = 3
+		required_missions = { aln_evora_and_beja }
+
+		trigger = {
+			army_size = 12
+			stability = 1
+		}
+
+		effect = {
+			custom_tooltip = aln_guadiana_claims_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							province_id = 218
+							province_id = 4548
+							province_id = 224
+						}
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			custom_tooltip = " "
+			add_mil_power = 25
+		}
+	}
+
+	aln_lixbuna = {
+		icon = mission_union_with_portugal
+		position = 5
+		required_missions = { aln_up_the_guadiana }
+
+		provinces_to_highlight = {
+			province_id = 227
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 227
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.10
+				option_1 = "
+					227 = {
+						add_province_modifier = {
+							name = aln_lixbuna_as_it_is_modifier
+							duration = 3650
+						}
+					}
+					if = {
+						limit = {
+							has_estate = estate_burghers
+						}
+						add_estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 10
+						}
+					}
+				"
+				option_2 = "
+					227 = {
+						change_religion = ROOT
+						add_province_modifier = {
+							name = aln_settlers_in_lixbuna_modifier
+							duration = 3650
+						}
+					}
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				"
+			}
+		}
+	}
+}
+
+#### Column 3: Al-Andalus (shared)
+
+taifa_al_andalus = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		taifa_is_taifa_trigger = yes
+	}
+
+	taifa_the_taifa_kings = {
+		icon = mission_al_andalus
+		position = 1
+		required_missions = { }
+
+		trigger = {
+			is_subject = no
+			stability = 1
+			prestige = 10
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.1
+				option_1 = "
+					custom_tooltip = taifa_events.1.a.tt
+				"
+				option_2 = "
+					custom_tooltip = taifa_events.1.b.tt
+				"
+				option_3 = "
+					add_stability_or_adm_power = yes
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				"
+			}
+		}
+	}
+
+	taifa_one_taifa = {
+		icon = mission_unite_home_region
+		position = 3
+		required_missions = { taifa_the_taifa_kings }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 224
+				province_id = 226
+				province_id = 230
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			224 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			226 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			230 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			custom_tooltip = taifa_one_taifa_cores_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							area = lower_andalucia_area
+							area = upper_andalucia_area
+							area = alentejo_area
+						}
+						NOT = { is_core = ROOT }
+					}
+					add_core = ROOT
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = taifa_claim_al_andalus_tt
+			hidden_effect = {
+				taifa_claim_al_andalus_effect = yes
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = taifa_one_taifa_modifier
+				duration = 9125
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+	taifa_garnatah = {
+		icon = mission_protect_granada
+		position = 4
+		required_missions = { taifa_one_taifa }
+
+		provinces_to_highlight = {
+			province_id = 223
+			NOT = { owned_by = ROOT }
+			NOT = {
+				owner = {
+					is_subject_of = ROOT
+				}
+			}
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = taifa_garnatah_tt
+				OR = {
+					owns = 223
+					GRA = {
+						exists = yes
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					owns = 223
+				}
+				country_event_with_option_insight = {
+					id = taifa_events.11
+					option_1 = "
+						223 = {
+							add_base_tax = 1
+						}
+						add_prestige_or_monarch_power = { amount = 15 }
+						add_country_modifier = {
+							name = taifa_the_alhambra_court_modifier
+							duration = 3650
+						}
+					"
+					option_2 = "
+						if = {
+							limit = {
+								has_estate = estate_nobles
+							}
+							add_estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 10
+							}
+						}
+						add_stability_or_adm_power = yes
+					"
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = { amount = 25 }
+				add_country_modifier = {
+					name = taifa_the_nasrid_homage_modifier
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	taifa_the_northern_frontier = {
+		icon = mission_castillian_aggression
+		position = 6
+		required_missions = { taifa_extremadura }
+
+		provinces_to_highlight = {
+			area = toledo_area
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			toledo_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.12
+				option_1 = "
+					add_country_modifier = {
+						name = taifa_the_scholars_of_tulaytullah_modifier
+						duration = 3650
+					}
+					add_adm_power = 50
+				"
+				option_2 = "
+					219 = {
+						add_province_modifier = {
+							name = taifa_the_frontier_stronghold_modifier
+							duration = 3650
+						}
+					}
+					add_mil_power = 50
+				"
+			}
+		}
+	}
+
+	taifa_extremadura = {
+		icon = me_mission_ottomans_fortify_the_east
+		position = 5
+		required_missions = { taifa_garnatah }
+
+		provinces_to_highlight = {
+			area = extremadura_area
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			extremadura_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = taifa_the_western_march_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			add_mil_power = 50
+		}
+	}
+
+	taifa_al_andalus = {
+		icon = mission_eyalet_andalusia
+		position = 8
+		required_missions = { taifa_the_northern_frontier }
+
+		provinces_to_highlight = {
+			OR = {
+				area = alentejo_area
+				area = lower_andalucia_area
+				area = upper_andalucia_area
+				area = toledo_area
+				area = extremadura_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			taifa_owns_al_andalus_trigger = yes
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			custom_tooltip = " "
+			custom_tooltip = taifa_form_andalusia_tt
+		}
+	}
+}
+
+#### Column 4: The Maghreb (shared, branched)
+
+taifa_maghreb = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		taifa_is_taifa_trigger = yes
+	}
+
+	taifa_envoys_from_the_maghreb = {
+		icon = mission_the_sultan_of_morocco
+		position = 2
+		required_missions = { taifa_the_taifa_kings }
+
+		trigger = {
+			prestige = 15
+			stability = 1
+			is_at_war = no
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.2
+				option_1 = "
+					custom_tooltip = taifa_events.2.a.tt
+					add_country_modifier = {
+						name = taifa_maghrebi_volunteers_modifier
+						duration = 3650
+					}
+					reduce_stability_or_adm_power = yes
+				"
+				option_2 = "
+					custom_tooltip = taifa_events.2.b.tt
+					add_country_modifier = {
+						name = taifa_our_own_counsel_modifier
+						duration = 3650
+					}
+					add_prestige_or_monarch_power = { amount = 25 }
+				"
+			}
+		}
+	}
+
+	taifa_faith_and_court = {
+		icon = mission_patronize_sufi_scholars
+		position = 3
+		required_missions = { taifa_envoys_from_the_maghreb }
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = taifa_maghrebi_ally_tt
+					OR = {
+						any_ally = {
+							religion_group = muslim
+							capital_scope = {
+								region = maghreb_region
+							}
+						}
+						any_owned_province = {
+							region = maghreb_region
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = taifa_andalusi_path
+				}
+				stability = 1
+				if = {
+					limit = {
+						has_estate = estate_church
+					}
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 50
+					}
+				}
+				if = {
+					limit = {
+						has_estate = estate_burghers
+					}
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 50
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = taifa_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				add_country_modifier = {
+					name = taifa_maghrebi_alliance_modifier
+					duration = 9125
+				}
+				add_dip_power = 25
+			}
+			else = {
+				add_country_modifier = {
+					name = taifa_the_learned_court_modifier
+					duration = 9125
+				}
+				add_adm_power = 25
+			}
+		}
+	}
+
+	taifa_the_people_of_the_frontier = {
+		icon = per_sword_of_our_faith
+		position = 4
+		required_missions = { taifa_faith_and_court }
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				army_size = 20
+				num_of_cavalry = 6
+			}
+			else_if = {
+				limit = {
+					has_country_flag = taifa_andalusi_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = taifa_people_of_the_book_tt
+					num_of_owned_provinces_with = {
+						value = 3
+						NOT = { religion_group = muslim }
+						NOT = { unrest = 1 }
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = taifa_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				country_event_with_option_insight = {
+					id = taifa_events.14
+					option_1 = "
+						add_country_modifier = {
+							name = taifa_frontier_settlers_modifier
+							duration = 3650
+						}
+					"
+					option_2 = "
+						add_years_of_income = -0.25
+						add_stability_or_adm_power = yes
+					"
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = taifa_people_of_the_book_modifier
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	taifa_the_ribats = {
+		icon = me_mission_persia_fortified_city_with_caravan
+		position = 5
+		required_missions = { taifa_the_people_of_the_frontier taifa_garnatah }
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				army_tradition = 30
+				custom_trigger_tooltip = {
+					tooltip = taifa_two_iberian_forts_tt
+					num_of_owned_provinces_with = {
+						value = 2
+						region = iberia_region
+						has_fort_building_trigger = yes
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = taifa_andalusi_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = taifa_three_iberian_forts_tt
+					num_of_owned_provinces_with = {
+						value = 3
+						region = iberia_region
+						has_fort_building_trigger = yes
+					}
+				}
+				capital_scope = {
+					has_fort_building_trigger = yes
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = taifa_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				add_country_modifier = {
+					name = taifa_the_ribat_modifier
+					duration = 9125
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = taifa_the_frontier_walls_modifier
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	taifa_the_pride_of_al_andalus = {
+		icon = me_mission_ottomans_recover_from_the_crusade
+		position = 7
+		required_missions = { taifa_the_ribats }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 219
+				province_id = 227
+			}
+			NOT = { owned_by = ROOT }
+			ROOT = { has_country_flag = taifa_maghrebi_path }
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				OR = {
+					owns = 219
+					owns = 227
+				}
+				army_tradition = 40
+			}
+			else_if = {
+				limit = {
+					has_country_flag = taifa_andalusi_path
+				}
+				prestige = 60
+				capital_scope = {
+					development = 25
+				}
+				has_adm_advisor_2 = yes
+				has_dip_advisor_2 = yes
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = taifa_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				add_country_modifier = {
+					name = taifa_banner_of_the_faith_modifier
+					duration = -1
+				}
+				custom_tooltip = " "
+				add_prestige_or_monarch_power = { amount = 25 }
+			}
+			else = {
+				add_country_modifier = {
+					name = taifa_the_poet_kings_modifier
+					duration = -1
+				}
+				custom_tooltip = " "
+				country_event_with_option_insight = {
+					id = taifa_events.16
+					option_1 = "
+						add_prestige_or_monarch_power = { amount = 25 }
+					"
+					option_2 = "
+						change_innovativeness = 3
+						add_adm_power = 50
+					"
+				}
+			}
+		}
+	}
+}

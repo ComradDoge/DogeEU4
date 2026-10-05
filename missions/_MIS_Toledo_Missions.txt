@@ -1,0 +1,1158 @@
+# Toledo - the city and the crown
+# One tree for Toledo (TOL), from the start to Spain (decisions/SpanishNation.txt swaps it for the Spain trees).
+# Slots: 1 The City, 2 The Crown of Castile, 3 The East, 4 The Frontier, 5 The Southern Question.
+# tol_convivencia_or_crusade fires tol_events.2: the crusade (tol_crusade_path) or convivencia (tol_convivencia_path).
+# The four nodes in slot 5 branch on that flag; their trigger falls back to "always = no" while no road is chosen.
+# The crown of Castile is a name override (tol_crown_of_castile_effect), not a tag change, so this tree carries on.
+# Events: events/_DSE_flavour_Toledo.txt (tol_events), modifiers: common/event_modifiers/DST_Toledo_modifiers.txt
+# Effects: common/scripted_effects/DST_Toledo_scripted_effects.txt, triggers: common/scripted_triggers/DST_Toledo_triggers.txt
+
+#### Column 1: The City
+
+tol_city = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = TOL
+	}
+
+	tol_the_alcazar = {
+		icon = me_mission_medieval_fort
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 219
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 16 }
+					NOT = { has_fort_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			219 = {
+				owned_by = ROOT
+				OR = {
+					has_fort_building_trigger = yes
+					development = 16
+				}
+			}
+		}
+
+		effect = {
+			219 = {
+				add_base_tax = 1
+				add_province_modifier = {
+					name = tol_the_alcazar_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			217 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	tol_the_forges_of_toledo = {
+		icon = mission_iron_and_copper
+		position = 2
+		required_missions = { tol_the_alcazar }
+
+		provinces_to_highlight = {
+			province_id = 219
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			219 = {
+				owned_by = ROOT
+				has_production_building_trigger = yes
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = tol_events.3
+				option_1 = "
+					219 = {
+						add_base_production = 1
+						add_province_modifier = {
+							name = tol_toledo_blades_modifier
+							duration = 3650
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = tol_arm_the_city_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	tol_the_primates_cathedral = {
+		icon = mission_cathedral_cities
+		position = 3
+		required_missions = { tol_the_forges_of_toledo }
+
+		provinces_to_highlight = {
+			province_id = 219
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			219 = {
+				owned_by = ROOT
+				has_tax_building_trigger = yes
+			}
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = tol_events.5
+				option_1 = "
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+					add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+				"
+				option_2 = "
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = -10
+						}
+					}
+					add_absolutism = 10
+					add_adm_power = 25
+				"
+			}
+		}
+	}
+
+	tol_the_school_of_translators = {
+		icon = me_mission_man_in_library
+		position = 5
+		required_missions = { tol_the_primates_cathedral }
+
+		provinces_to_highlight = {
+			province_id = 219
+			NOT = { has_building = university }
+			NOT = { development = 20 }
+		}
+
+		trigger = {
+			219 = {
+				owned_by = ROOT
+			}
+			OR = {
+				219 = {
+					has_building = university
+				}
+				AND = {
+					219 = {
+						development = 20
+					}
+					has_adm_advisor_2 = yes
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = tol_events.4
+				option_1 = "
+					change_innovativeness = 3
+					add_adm_power = 50
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = tol_physicians_and_jurists_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	tol_the_swordsmiths_of_toledo = {
+		icon = mission_obsidian_blades
+		position = 6
+		required_missions = { tol_the_school_of_translators }
+
+		provinces_to_highlight = {
+			province_id = 219
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 25 }
+			}
+		}
+
+		trigger = {
+			219 = {
+				owned_by = ROOT
+				development = 25
+			}
+			army_tradition = 30
+			num_of_infantry = 20
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = tol_toledo_steel_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+}
+
+#### Column 2: The Crown of Castile
+
+tol_crown = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = TOL
+	}
+
+	tol_madrid = {
+		icon = mission_intervene_in_castile
+		position = 2
+		required_missions = { tol_the_alcazar }
+
+		provinces_to_highlight = {
+			province_id = 217
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 217
+		}
+
+		effect = {
+			217 = {
+				add_base_tax = 1
+			}
+			custom_tooltip = " "
+			custom_tooltip = tol_castile_claims_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = castille_area
+							province_id = 1746
+							province_id = 4552
+						}
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+	tol_valladolid_and_burgos = {
+		icon = mission_war_for_the_crown
+		position = 3
+		required_missions = { tol_madrid }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 215
+				province_id = 1746
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 215
+			owns = 1746
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = tol_the_castilian_cortes_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			add_adm_power = 50
+			custom_tooltip = " "
+			216 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	tol_salamanca = {
+		icon = establish_the_chancellorship
+		position = 4
+		required_missions = { tol_valladolid_and_burgos }
+
+		provinces_to_highlight = {
+			province_id = 216
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 216
+		}
+
+		effect = {
+			216 = {
+				add_base_tax = 1
+			}
+			custom_tooltip = " "
+			custom_tooltip = tol_leon_claims_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						area = leon_area
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	tol_the_crown_of_castile = {
+		icon = fu_monarch_crowned
+		position = 5
+		required_missions = { tol_salamanca }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = castille_area
+					NOT = { owned_by = ROOT }
+				}
+				owned_by = CAS
+			}
+		}
+
+		trigger = {
+			castille_area = {
+				type = all
+				owned_by = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = tol_castile_gone_tt
+				NOT = { exists = CAS }
+			}
+			prestige = 40
+			is_at_war = no
+		}
+
+		effect = {
+			tol_crown_of_castile_effect = yes
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = tol_events.7
+				option_1 = "
+					add_legitimacy_or_mil_power = { amount = 20 republican_tradition = 10 }
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				"
+				option_2 = "
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 5
+						}
+					}
+					if = {
+						limit = {
+							has_estate = estate_burghers
+						}
+						add_estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 5
+						}
+					}
+					add_adm_power = 50
+				"
+			}
+		}
+	}
+}
+
+#### Column 3: The East
+
+tol_east = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = TOL
+	}
+
+	tol_the_aragonese_match = {
+		icon = me_mission_aragon_crowns_of_iberia
+		position = 2
+		required_missions = { }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = tol_aragonese_match_tt
+				OR = {
+					marriage_with = ARA
+					marriage_with = VAL
+					marriage_with = CAT
+					owns = 220
+					AND = {
+						NOT = { exists = ARA }
+						NOT = { exists = VAL }
+						NOT = { exists = CAT }
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_dip_power = 25
+			custom_tooltip = " "
+			220 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			1750 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	tol_valencia = {
+		icon = mission_valencian_silk
+		position = 3
+		required_missions = { tol_the_aragonese_match }
+
+		provinces_to_highlight = {
+			province_id = 220
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 220
+		}
+
+		effect = {
+			220 = {
+				add_base_production = 1
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = tol_valencian_trade_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			214 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	tol_zaragoza = {
+		icon = fortify_the_passes
+		position = 4
+		required_missions = { tol_valencia }
+
+		provinces_to_highlight = {
+			province_id = 214
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 214
+		}
+
+		effect = {
+			213 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			custom_tooltip = " "
+			add_mil_power = 25
+		}
+	}
+
+	tol_barcelona = {
+		icon = me_mission_venice_city_and_port
+		position = 5
+		required_missions = { tol_zaragoza }
+
+		provinces_to_highlight = {
+			province_id = 213
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 213
+		}
+
+		effect = {
+			213 = {
+				add_base_production = 1
+			}
+			custom_tooltip = " "
+			add_dip_power = 50
+		}
+	}
+
+	tol_hispania = {
+		icon = mission_imperial_spain
+		position = 6
+		required_missions = { tol_barcelona tol_the_crown_of_castile }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 213
+				province_id = 214
+				province_id = 215
+				province_id = 216
+				province_id = 219
+				province_id = 220
+				province_id = 223
+				province_id = 224
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+
+		trigger = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			dst_specialsetting_is_free_or_tributary_trigger = yes
+			custom_trigger_tooltip = {
+				tooltip = tol_spain_not_formed_tt
+				NOT = { exists = SPA }
+			}
+			is_at_war = no
+			owns_core_province = 213
+			owns_core_province = 214
+			owns_core_province = 215
+			owns_core_province = 216
+			owns_core_province = 219
+			owns_core_province = 220
+			owns_core_province = 223
+			owns_core_province = 224
+			custom_trigger_tooltip = {
+				tooltip = tol_no_muslim_rule_tt
+				tol_no_muslim_rule_in_iberia_trigger = yes
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = tol_the_imperial_city_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			custom_tooltip = tol_form_spain_tt
+			tol_form_spain_effect = yes
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = tol_events.12
+				option_1 = "
+					219 = {
+						add_base_tax = 1
+						add_base_production = 1
+					}
+				"
+				option_2 = "
+					custom_tooltip = tol_events.12.b.tt
+					add_stability_or_adm_power = yes
+				"
+			}
+		}
+	}
+}
+
+#### Column 4: The Frontier
+
+tol_frontier = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = TOL
+	}
+
+	tol_the_southern_frontier = {
+		icon = mission_southern_frontier
+		position = 1
+		required_missions = { }
+
+		trigger = {
+			is_subject = no
+			stability = 0
+		}
+
+		effect = {
+			tol_apply_betrayal_opinions_effect = yes
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = tol_events.1
+				option_1 = "
+					225 = {
+						if = {
+							limit = {
+								NOT = { owned_by = ROOT }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+					add_prestige_or_monarch_power = { amount = 10 }
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = tol_watch_the_walls_modifier
+						duration = 3650
+					}
+				"
+			}
+		}
+	}
+
+	tol_calatrava = {
+		icon = support_the_orders
+		position = 2
+		required_missions = { tol_the_southern_frontier }
+
+		provinces_to_highlight = {
+			province_id = 2754
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 11 }
+					NOT = { has_fort_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			2754 = {
+				owned_by = ROOT
+				OR = {
+					has_fort_building_trigger = yes
+					development = 11
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = tol_events.6
+				option_1 = "
+					add_country_modifier = {
+						name = tol_order_of_calatrava_modifier
+						duration = 3650
+					}
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				"
+				option_2 = "
+					2754 = {
+						add_province_modifier = {
+							name = tol_crown_castles_modifier
+							duration = 3650
+						}
+					}
+					if = {
+						limit = {
+							has_estate = estate_nobles
+						}
+						add_estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 5
+						}
+					}
+				"
+			}
+		}
+	}
+
+	tol_convivencia_or_crusade = {
+		icon = me_mission_crusade_crusaders_praying
+		position = 3
+		required_missions = { tol_calatrava }
+
+		trigger = {
+			prestige = 20
+			stability = 1
+			is_at_war = no
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = tol_events.2
+				option_1 = "
+					custom_tooltip = tol_events.2.a.tt
+					add_country_modifier = {
+						name = tol_the_frontier_crusade_modifier
+						duration = 3650
+					}
+					if = {
+						limit = {
+							has_estate = estate_church
+						}
+						add_estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				"
+				option_2 = "
+					custom_tooltip = tol_events.2.b.tt
+					add_country_modifier = {
+						name = tol_the_frontier_peace_modifier
+						duration = 3650
+					}
+					if = {
+						limit = {
+							has_estate = estate_burghers
+						}
+						add_estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 10
+						}
+					}
+				"
+			}
+		}
+	}
+}
+
+#### Column 5: The Southern Question (branched)
+
+tol_south = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = TOL
+	}
+
+	tol_terms_with_the_south = {
+		icon = me_mission_crusade_crusader_knights
+		position = 4
+		required_missions = { tol_convivencia_or_crusade }
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = tol_crusade_path
+				}
+				num_of_cavalry = 8
+				if = {
+					limit = {
+						has_estate = estate_church
+					}
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 50
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = tol_convivencia_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = tol_two_muslim_friends_tt
+					OR = {
+						num_of_owned_provinces_with = {
+							value = 3
+							region = iberia_region
+							religion_group = muslim
+						}
+						calc_true_if = {
+							amount = 2
+							SEV = {
+								exists = yes
+								religion_group = muslim
+								OR = {
+									is_subject_of = ROOT
+									has_opinion = {
+										who = ROOT
+										value = 50
+									}
+								}
+							}
+							ALC = {
+								exists = yes
+								religion_group = muslim
+								OR = {
+									is_subject_of = ROOT
+									has_opinion = {
+										who = ROOT
+										value = 50
+									}
+								}
+							}
+							ALN = {
+								exists = yes
+								religion_group = muslim
+								OR = {
+									is_subject_of = ROOT
+									has_opinion = {
+										who = ROOT
+										value = 50
+									}
+								}
+							}
+							GRA = {
+								exists = yes
+								religion_group = muslim
+								OR = {
+									is_subject_of = ROOT
+									has_opinion = {
+										who = ROOT
+										value = 50
+									}
+								}
+							}
+							ADU = {
+								exists = yes
+								religion_group = muslim
+								OR = {
+									is_subject_of = ROOT
+									has_opinion = {
+										who = ROOT
+										value = 50
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = tol_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = tol_crusade_path
+				}
+				add_country_modifier = {
+					name = tol_the_military_orders_modifier
+					duration = 9125
+				}
+			}
+			else = {
+				country_event_with_option_insight = {
+					id = tol_events.9
+					option_1 = "
+						add_country_modifier = {
+							name = tol_open_frontier_markets_modifier
+							duration = 3650
+						}
+						custom_tooltip = tol_frontier_truce_tt
+					"
+					option_2 = "
+						add_stability_or_adm_power = yes
+						custom_tooltip = tol_frontier_truce_tt
+					"
+				}
+			}
+		}
+	}
+
+	tol_cordoba = {
+		icon = mission_develop_cordoba
+		position = 5
+		required_missions = { tol_terms_with_the_south }
+
+		provinces_to_highlight = {
+			province_id = 225
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = tol_crusade_path
+				}
+				owns = 225
+			}
+			else_if = {
+				limit = {
+					has_country_flag = tol_convivencia_path
+				}
+				225 = {
+					owned_by = ROOT
+					NOT = { unrest = 1 }
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = tol_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = tol_crusade_path
+				}
+				country_event_with_option_insight = {
+					id = tol_events.8
+					option_1 = "
+						225 = {
+							change_religion = ROOT
+							add_province_modifier = {
+								name = tol_consecrated_mosque_modifier
+								duration = 3650
+							}
+						}
+						if = {
+							limit = {
+								has_estate = estate_church
+							}
+							add_estate_loyalty = {
+								estate = estate_church
+								loyalty = 10
+							}
+						}
+					"
+					option_2 = "
+						225 = {
+							add_province_modifier = {
+								name = tol_the_mosque_left_standing_modifier
+								duration = 3650
+							}
+						}
+					"
+				}
+			}
+			else = {
+				225 = {
+					add_province_modifier = {
+						name = tol_qurtuba_under_the_crown_modifier
+						duration = 9125
+					}
+				}
+			}
+		}
+	}
+
+	tol_the_southern_cities = {
+		icon = me_mission_crusade_jerusalem_taken
+		position = 6
+		required_missions = { tol_cordoba }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 224
+				province_id = 223
+			}
+			NOT = { owned_by = ROOT }
+			ROOT = { has_country_flag = tol_crusade_path }
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = tol_crusade_path
+				}
+				owns = 224
+				owns = 223
+			}
+			else_if = {
+				limit = {
+					has_country_flag = tol_convivencia_path
+				}
+				custom_trigger_tooltip = {
+					tooltip = tol_four_peaceful_provinces_tt
+					num_of_owned_provinces_with = {
+						value = 4
+						NOT = { religion_group = christian }
+						NOT = { unrest = 1 }
+					}
+				}
+				stability = 2
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = tol_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = tol_crusade_path
+				}
+				add_country_modifier = {
+					name = tol_the_frontier_burns_modifier
+					duration = 9125
+				}
+				add_mil_power = 50
+			}
+			else = {
+				add_country_modifier = {
+					name = tol_the_three_faiths_modifier
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	tol_the_last_frontier = {
+		icon = me_mission_crusade_crusaders_flag
+		position = 7
+		required_missions = { tol_the_southern_cities }
+
+		provinces_to_highlight = {
+			region = iberia_region
+			owner = {
+				religion_group = muslim
+			}
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = tol_crusade_path
+						has_country_flag = tol_convivencia_path
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = tol_no_muslim_rule_tt
+					tol_no_muslim_rule_in_iberia_trigger = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = tol_convivencia_path
+					}
+					219 = {
+						owned_by = ROOT
+						development = 25
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = tol_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = tol_crusade_path
+				}
+				add_country_modifier = {
+					name = tol_the_reconquista_renewed_modifier
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = tol_city_of_three_faiths_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+}

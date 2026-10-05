@@ -1,0 +1,945 @@
+# Galicia and Volhynia events (GLA, VLH): the Crown of Rus'
+# Missions: missions/_MIS_Galicia_Volhynia_Missions.txt (options mirror the mission previews)
+# .1 to .15 fire from missions. .16 to .19 are MTTH flavour; .20 answers .16.
+# Crown flags set by .3: gv_crown_of_rome / gv_crown_of_halicz
+
+namespace = gv_events
+
+# The Romanovich Inheritance (gv_the_romanovich_inheritance)
+country_event = {
+	id = gv_events.1
+	title = gv_events.1.t
+	desc = gv_events.1.d
+	picture = COMET_SIGHTED_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # We are Roman's heirs
+		name = gv_events.1.a
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+		add_country_modifier = {
+			name = gv_heirs_of_roman_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Brothers, as Daniel and Vasylko were
+		name = gv_events.1.b
+		add_country_modifier = {
+			name = gv_brothers_accord_modifier
+			duration = 3650
+		}
+		custom_tooltip = gv_events.1.b.tt
+		hidden_effect = {
+			every_country = {
+				limit = {
+					gv_is_galicia_volhynia_trigger = yes
+					NOT = { tag = ROOT }
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = gv_brothers_accord
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = gv_brothers_accord
+				}
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # The realms broke by God's judgement
+		name = gv_events.1.c
+		add_stability_or_adm_power = yes
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Boyar Council (gla_the_galician_boyars)
+country_event = {
+	id = gv_events.2
+	title = gv_events.2.t
+	desc = gv_events.2.d
+	picture = NOBLE_ESTATE_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Seat them in council
+		name = gv_events.2.a
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+		}
+		add_country_modifier = {
+			name = gla_boyar_council_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # You cannot eat the honey without killing the bees
+		name = gv_events.2.b
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = -10
+			}
+		}
+		add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+		add_country_modifier = {
+			name = gla_killing_the_bees_modifier
+			duration = 3650
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_estate = estate_nobles
+				NOT = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 50
+					}
+				}
+			}
+		}
+	}
+	option = { # Set the families against each other
+		name = gv_events.2.c
+		add_prestige_or_monarch_power = { amount = 15 }
+		add_stability_or_adm_power = yes
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = -5
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Crown of Rus' (gv_the_crown_of_rus): the crown choice
+country_event = {
+	id = gv_events.3
+	title = gv_events.3.t
+	desc = gv_events.3.d
+	picture = COURT_eventPicture
+	goto = capital
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # The crown from Rome
+		name = gv_events.3.a
+		custom_tooltip = gv_crown_of_rome_tt
+		hidden_effect = {
+			set_country_flag = gv_crown_of_rome
+		}
+		add_country_modifier = {
+			name = gv_papal_crown_modifier
+			duration = -1
+		}
+		269 = {
+			if = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		add_prestige_or_monarch_power = { amount = 15 }
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				any_ally = {
+					religion = catholic
+				}
+			}
+		}
+	}
+	option = { # The crown of Halicz
+		name = gv_events.3.b
+		custom_tooltip = gv_crown_of_halicz_tt
+		hidden_effect = {
+			set_country_flag = gv_crown_of_halicz
+		}
+		add_country_modifier = {
+			name = gv_halicz_crown_modifier
+			duration = -1
+		}
+		if = {
+			limit = {
+				religion = orthodox
+			}
+			add_patriarch_authority = 0.05
+		}
+		add_prestige_or_monarch_power = { amount = 15 }
+		ai_chance = { factor = 60 }
+	}
+}
+
+# The Staple Right (gla_the_staple_right)
+country_event = {
+	id = gv_events.4
+	title = gv_events.4.t
+	desc = gv_events.4.d
+	picture = MERCHANTS_TALKING_eventPicture
+	goto = 2961
+
+	is_triggered_only = yes
+
+	option = { # Enforce the staple
+		name = gv_events.4.a
+		2961 = {
+			if = {
+				limit = {
+					NOT = { province_has_center_of_trade_of_level = 3 }
+				}
+				add_center_of_trade_level = 1
+			}
+			add_province_modifier = {
+				name = gla_staple_of_lwow_modifier
+				duration = 9125
+			}
+		}
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Toll the roads instead
+		name = gv_events.4.b
+		add_years_of_income = 0.5
+		add_country_modifier = {
+			name = gla_road_tolls_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Nations of Lwow (gla_the_nations_of_lwow)
+country_event = {
+	id = gv_events.5
+	title = gv_events.5.t
+	desc = gv_events.5.d
+	picture = CITY_VIEW_eventPicture
+	goto = 2961
+
+	is_triggered_only = yes
+
+	option = { # The Armenian merchants
+		name = gv_events.5.a
+		add_country_modifier = {
+			name = gla_armenian_merchants_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 35 }
+	}
+	option = { # A charter for the Jewish community
+		name = gv_events.5.b
+		add_country_modifier = {
+			name = gla_jewish_charter_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 35 }
+	}
+	option = { # The council under Magdeburg law
+		name = gv_events.5.c
+		add_country_modifier = {
+			name = gla_magdeburg_council_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Court at Lutsk (vlh_lubarts_castle)
+country_event = {
+	id = gv_events.6
+	title = gv_events.6.t
+	desc = gv_events.6.d
+	picture = FORT_eventPicture
+	goto = 279
+
+	is_triggered_only = yes
+
+	option = { # Hold court at Lutsk as Lubart did
+		name = gv_events.6.a
+		add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 5
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Invite Lithuanian knights
+		name = gv_events.6.b
+		add_country_modifier = {
+			name = vlh_lithuanian_knights_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Princely Houses (vlh_the_princely_houses)
+country_event = {
+	id = gv_events.7
+	title = gv_events.7.t
+	desc = gv_events.7.d
+	picture = GOOD_WITH_MONARCH_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The Ostrogski of Ostroh
+		name = gv_events.7.a
+		add_army_tradition = 10
+		add_country_modifier = {
+			name = vlh_ostrogski_hetman_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # The Czartoryski
+		name = gv_events.7.b
+		add_country_modifier = {
+			name = vlh_czartoryski_envoys_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Keep the houses equal
+		name = gv_events.7.c
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+		}
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Footprint at Pochaiv (vlh_the_pochaiv_lavra)
+country_event = {
+	id = gv_events.8
+	title = gv_events.8.t
+	desc = gv_events.8.d
+	picture = ORTHODOX_eventPicture
+	goto = 4539
+
+	is_triggered_only = yes
+
+	option = { # Open the pilgrims' road
+		name = gv_events.8.a
+		4539 = {
+			add_province_modifier = {
+				name = vlh_pochaiv_pilgrims_modifier
+				duration = 9125
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # A scriptorium
+		name = gv_events.8.b
+		add_country_modifier = {
+			name = vlh_pochaiv_scriptorium_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Endow the monastery
+		name = gv_events.8.c
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		if = {
+			limit = {
+				religion = orthodox
+			}
+			add_patriarch_authority = 0.1
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Ostroh Bible (vlh_the_ostroh_academy)
+country_event = {
+	id = gv_events.9
+	title = gv_events.9.t
+	desc = gv_events.9.d
+	picture = UNIVERSITY_eventPicture
+	goto = 2962
+
+	is_triggered_only = yes
+
+	option = { # A Bible in Church Slavonic
+		name = gv_events.9.a
+		add_country_modifier = {
+			name = vlh_ostroh_bible_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Greek and Latin for the sons of the szlachta
+		name = gv_events.9.b
+		add_country_modifier = {
+			name = vlh_ostroh_schools_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 5
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Union of the Churches (gv_the_church_of_rus, Rome)
+country_event = {
+	id = gv_events.10
+	title = gv_events.10.t
+	desc = gv_events.10.d
+	picture = POPE_PREACHING_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Proclaim the union in the royal domain
+		name = gv_events.10.a
+		add_country_modifier = {
+			name = gv_church_union_modifier
+			duration = 9125
+		}
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = -10
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Promise much, sign little
+		name = gv_events.10.b
+		add_country_modifier = {
+			name = gv_papal_promises_modifier
+			duration = 3650
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Metropolitan of Halicz (gv_the_church_of_rus, Halicz)
+country_event = {
+	id = gv_events.11
+	title = gv_events.11.t
+	desc = gv_events.11.d
+	picture = CHURCH_ESTATE_2_eventPicture
+	goto = 261
+
+	is_triggered_only = yes
+
+	option = { # A learned metropolitan
+		name = gv_events.11.a
+		add_country_modifier = {
+			name = gv_learned_metropolitan_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # A loyal one
+		name = gv_events.11.b
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Chronicle (gv_the_chronicle)
+country_event = {
+	id = gv_events.12
+	title = gv_events.12.t
+	desc = gv_events.12.d
+	picture = BIG_BOOK_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Write of the warrior kings
+		name = gv_events.12.a
+		add_army_tradition = 15
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 40 }
+	}
+	option = { # Write of the boyars' treason
+		name = gv_events.12.b
+		add_country_modifier = {
+			name = gv_chronicle_of_kings_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_estate = estate_nobles
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = -5
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Write down the year the realms broke
+		name = gv_events.12.c
+		add_country_modifier = {
+			name = gv_chronicle_of_the_shattering_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Wild Fields (gv_the_wild_fields)
+country_event = {
+	id = gv_events.13
+	title = gv_events.13.t
+	desc = gv_events.13.d
+	picture = MILITARY_CAMP_eventPicture
+	goto = 283
+
+	is_triggered_only = yes
+
+	option = { # Register the Cossacks
+		name = gv_events.13.a
+		add_country_modifier = {
+			name = gv_registered_cossacks_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_estate = estate_cossacks
+			}
+			add_estate_loyalty = {
+				estate = estate_cossacks
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Settle the steppe
+		name = gv_events.13.b
+		every_owned_province = {
+			limit = {
+				has_terrain = steppe
+			}
+			add_base_tax = 1
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Leave the steppe to the free men
+		name = gv_events.13.c
+		add_prestige_or_monarch_power = { amount = 15 }
+		add_army_tradition = 10
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Worse than Evil (gv_bitter_is_tatar_honour)
+country_event = {
+	id = gv_events.14
+	title = gv_events.14.t
+	desc = gv_events.14.d
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Settle them as border horsemen
+		name = gv_events.14.a
+		add_country_modifier = {
+			name = gv_tatar_horsemen_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Free the captives
+		name = gv_events.14.b
+		add_prestige_or_monarch_power = { amount = 25 }
+		add_manpower = 2
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Mother of Rus' Cities (gv_kiev_mother_of_cities)
+country_event = {
+	id = gv_events.15
+	title = gv_events.15.t
+	desc = gv_events.15.d
+	picture = GREAT_BUILDING_eventPicture
+	goto = 280
+
+	is_triggered_only = yes
+
+	option = { # Move the court to Kiev
+		name = gv_events.15.a
+		280 = {
+			move_capital_effect = yes
+		}
+		add_country_modifier = {
+			name = gv_court_at_kiev_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Rule it through a voivode
+		name = gv_events.15.b
+		280 = {
+			add_province_modifier = {
+				name = gv_kiev_voivode_modifier
+				duration = 9125
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+}
+
+# The Brothers' Accord (MTTH): one half offers the other an accord while both stand
+country_event = {
+	id = gv_events.16
+	title = gv_events.16.t
+	desc = gv_events.16.d
+	picture = DIPLOMACY_eventPicture
+
+	trigger = {
+		gv_is_galicia_volhynia_trigger = yes
+		NOT = { has_country_flag = gv_accord_offered }
+		is_subject = no
+		is_at_war = no
+		any_country = {
+			gv_is_galicia_volhynia_trigger = yes
+			NOT = { tag = ROOT }
+			is_subject = no
+			NOT = { war_with = ROOT }
+			NOT = { alliance_with = ROOT }
+			NOT = { has_country_flag = gv_accord_offered }
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = gv_accord_offered
+			random_country = {
+				limit = {
+					gv_is_galicia_volhynia_trigger = yes
+					NOT = { tag = ROOT }
+					is_subject = no
+					NOT = { war_with = ROOT }
+					NOT = { alliance_with = ROOT }
+					NOT = { has_country_flag = gv_accord_offered }
+				}
+				set_country_flag = gv_accord_offered
+				save_event_target_as = gv_other_half
+			}
+		}
+	}
+
+	option = { # Send envoys
+		name = gv_events.16.a
+		custom_tooltip = gv_events.16.a.tt
+		hidden_effect = {
+			event_target:gv_other_half = {
+				country_event = { id = gv_events.20 }
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # There is one crown, not two
+		name = gv_events.16.b
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Boyar Plot (MTTH): the boyars of Galicia when their estate grows too strong
+country_event = {
+	id = gv_events.17
+	title = gv_events.17.t
+	desc = gv_events.17.d
+	picture = SPY_eventPicture
+	goto = capital
+
+	trigger = {
+		gv_is_galicia_volhynia_trigger = yes
+		owns = 2961
+		owns = 261
+		has_estate = estate_nobles
+		estate_influence = {
+			estate = estate_nobles
+			influence = 60
+		}
+		OR = {
+			NOT = { has_country_flag = gv_boyar_plot_flag }
+			had_country_flag = {
+				flag = gv_boyar_plot_flag
+				days = 7300
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 150
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = gv_boyar_plot_flag
+			set_country_flag = gv_boyar_plot_flag
+		}
+	}
+
+	option = { # Arrest the plotters
+		name = gv_events.17.a
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -10
+		}
+		add_country_modifier = {
+			name = gv_boyars_humbled_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Buy their loyalty
+		name = gv_events.17.b
+		add_years_of_income = -0.25
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 10
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Tatar Raiders (MTTH): Podolia until the Tatar khanate is dealt with (gv_bitter_is_tatar_honour)
+country_event = {
+	id = gv_events.18
+	title = gv_events.18.t
+	desc = gv_events.18.d
+	picture = VILLAGE_RAIDED_eventPicture
+	goto = gv_raided_province
+
+	trigger = {
+		gv_is_galicia_volhynia_trigger = yes
+		any_owned_province = {
+			area = podolia_volhynia_area
+		}
+		exists = CRI
+		NOT = { CRI = { is_subject_of = ROOT } }
+		NOT = { mission_completed = gv_bitter_is_tatar_honour }
+		OR = {
+			NOT = { has_country_flag = gv_tatar_raid_flag }
+			had_country_flag = {
+				flag = gv_tatar_raid_flag
+				days = 3650
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 120
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = gv_tatar_raid_flag
+			set_country_flag = gv_tatar_raid_flag
+			random_owned_province = {
+				limit = {
+					area = podolia_volhynia_area
+				}
+				save_event_target_as = gv_raided_province
+			}
+		}
+	}
+
+	option = { # Ransom the captives
+		name = gv_events.18.a
+		add_years_of_income = -0.15
+		ai_chance = { factor = 50 }
+	}
+	option = { # Ride after them
+		name = gv_events.18.b
+		add_army_tradition = 5
+		add_manpower = -1
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Night the Realms Broke (MTTH, once): a beat about the Shattering
+country_event = {
+	id = gv_events.19
+	title = gv_events.19.t
+	desc = gv_events.19.d
+	picture = COMET_SIGHTED_eventPicture
+	goto = capital
+
+	trigger = {
+		gv_is_galicia_volhynia_trigger = yes
+		has_country_flag = gv_inheritance_claimed
+		NOT = { has_country_flag = gv_realms_broke_flag }
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = gv_realms_broke_flag
+		}
+	}
+
+	option = { # Have it written down
+		name = gv_events.19.a
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 40 }
+	}
+	option = { # Send him to the metropolitan
+		name = gv_events.19.b
+		if = {
+			limit = {
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Have him keep quiet
+		name = gv_events.19.c
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Envoys from [From] (gv_events.16 a, FROM = the half that sent them)
+country_event = {
+	id = gv_events.20
+	title = gv_events.20.t
+	desc = gv_events.20.d
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # Accept the accord
+		name = gv_events.20.a
+		if = {
+			limit = {
+				government = monarchy
+				FROM = { government = monarchy }
+				NOT = { marriage_with = FROM }
+			}
+			create_marriage = FROM
+		}
+		add_opinion = {
+			who = FROM
+			modifier = gv_brothers_accord
+		}
+		reverse_add_opinion = {
+			who = FROM
+			modifier = gv_brothers_accord
+		}
+		ai_chance = {
+			factor = 70
+			modifier = {
+				factor = 0
+				is_rival = FROM
+			}
+		}
+	}
+	option = { # Refuse
+		name = gv_events.20.b
+		add_prestige_or_monarch_power = { amount = 5 }
+		reverse_add_opinion = {
+			who = FROM
+			modifier = gv_brothers_refused
+		}
+		ai_chance = { factor = 30 }
+	}
+}
