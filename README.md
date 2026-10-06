@@ -18,6 +18,12 @@
 - Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25.
 - Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, oopsie.
 - Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
+- Fixed the Dhimmi temple agenda picking non-state provinces, leaving a broken agenda with no target.
+- Fixed Persian Silk Route outposts and the Caliph's hidden mechanic spamming the error log every month.
+- Fixed Evenk Siberian colonization event firing with no empty province left.
+- Fixed the Egyptian temple funding event and the entrepreneur Muslim school option not adding their development.
+- Fixed the Omani influence in India event skipping the strongest target.
+- Fixed the missing mission icons for Toledo's Southern Frontier and Golconda's southern frontier mission.
 
 Generally, a pass over various small countries that never had content. They now have at least some for the early game, until they form something with its own mission tree. To encourage picking different countries, some missions give permanent modifiers unique to that country, even when the mission is shared across a region. If a country's gameplay feels off, or doesn't account for some odd case, feel free to report it.
 
