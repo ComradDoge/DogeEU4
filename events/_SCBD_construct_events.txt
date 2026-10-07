@@ -7,6 +7,15 @@ country_event = { #Construct Building
 	is_triggered_only = yes
 	immediate = {
 		hidden_effect = {
+			# Strategic resources: how many industrial factories the free steam engines can run (0.1 each).
+			# 10x free steam engines minus 0.999, so that "selected < cap" never rounds a fraction up.
+			event_target:SBCD_selected_country_target = {
+				set_variable = { which = SBCD_steam_factory_cap_var which = steam_engine }
+				multiply_variable = { which = SBCD_steam_factory_cap_var value = 10 }
+				subtract_variable = { which = SBCD_steam_factory_cap_var value = 0.999 }
+				ROOT = { set_variable = { which = SBCD_steam_factory_cap_var which = PREV } }
+			}
+			set_variable = { which = SBCD_num_of_potential_steam_factory_var value = 0 }
 			SBCD_exclude_province_effects = yes
 			SBCD_get_potential_and_excluded_province_effects = yes
 
@@ -472,6 +481,11 @@ country_event = { #Production
 			}
 		}
 		SBCD_construct_building_scripted_effects = { BUILDING = steam_factory }
+		hidden_effect = {
+			event_target:SBCD_selected_country_target = {
+				country_event = { id = New_TradeGood_Events.2 }	# recalculate now, so the new constructions hold their steam engines
+			}
+		}
 	}
 	option = { #Return
 		name = SBCD.return

@@ -85,6 +85,26 @@ SBCD_counting_house_req_triggers = {
 }
 SBCD_steam_factory_req_triggers = { # Shattered
     NOT = { has_building = steam_factory }
+    # Strategic resources: mirrors the build_trigger (add_building_construction skips it), and only as many
+    # as the free steam engines can run. SBCD_steam_factory_cap_var is set when the menu opens (SBCD_construct_events.0).
+    NOT = { trade_goods = steam_engine }
+    owner = {
+        OR = {
+            has_country_flag = first_to_build_steam_engine_manu_tech_boost
+            any_owned_province = {
+                trade_goods = steam_engine
+                NOT = { has_building = off_4 }
+            }
+        }
+    }
+    ROOT = {
+        NOT = {
+            check_variable = {
+                which = SBCD_num_of_potential_steam_factory_var
+                which = SBCD_steam_factory_cap_var
+            }
+        }
+    }
     ROOT = {
         adm_tech = 24
         OR = {
