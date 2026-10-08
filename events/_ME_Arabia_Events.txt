@@ -403,22 +403,100 @@ country_event = {
 	picture = GOOD_WITH_MONARCH_eventPicture
 	
 	is_triggered_only = yes
-	
+
 	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_saved_global_event_target = ME_MSA_muslim_center_target
+					event_target:ME_MSA_muslim_center_target = {
+						owner = {
+							religion_group = muslim
+							has_opinion = {
+								who = ROOT
+								value = 125
+							}
+						}
+					}
+				}
+				event_target:ME_MSA_muslim_center_target = {
+					owner = {
+						save_event_target_as = Arabia_Malaya_friend
+					}
+				}
+			}
+			else = {
+				random_country = {
+					limit = {
+						religion_group = muslim
+						has_opinion = {
+							who = ROOT
+							value = 125
+						}
+						capital_scope = {
+							OR = {
+								region = indonesia_region
+								region = malaya_region
+							}
+						}
+					}
+					save_event_target_as = Arabia_Malaya_friend
+				}
+			}
+		}
 	}
-	
+
 	option = {
-		name = ME_Arabia_Events.10.a
-		
-		ai_chance = { factor = 100 }
-		
+		name = ME_Arabia_Events.10.a #Scholars
+
+		ai_chance = { factor = 50 }
+
+		add_years_of_income = -0.25
+		add_country_modifier = {
+			name = arb_malayan_madrasas_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				has_saved_event_target = Arabia_Malaya_friend
+			}
+			custom_tooltip = " "
+			event_target:Arabia_Malaya_friend = {
+				add_opinion = {
+					who = ROOT
+					modifier = arb_malaya_scholars_opinion
+				}
+				add_historical_friend = ROOT
+			}
+			add_historical_friend = event_target:Arabia_Malaya_friend
+		}
 	}
-	
+
 	option = {
-		name = ME_Arabia_Events.10.b
-		
-		ai_chance = { factor = 100 }
-		
+		name = ME_Arabia_Events.10.b #Trade
+
+		ai_chance = { factor = 50 }
+
+		1361 = {
+			add_trade_modifier = {
+				who = ROOT
+				duration = 7300
+				power = 25
+				key = arb_malay_trade
+			}
+		}
+		if = {
+			limit = {
+				has_saved_event_target = Arabia_Malaya_friend
+			}
+			custom_tooltip = " "
+			event_target:Arabia_Malaya_friend = {
+				add_opinion = {
+					who = ROOT
+					modifier = arb_malaya_merchants_opinion
+				}
+			}
+		}
 	}
 }
 
