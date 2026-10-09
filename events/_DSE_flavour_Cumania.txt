@@ -1,5 +1,12 @@
+# Cumania (CUM) events: the Cuman Path
+# .1 fires from on_startup (common/on_actions/DST_on_actions.txt) and picks the path and the mission tree.
+# .10 to .47 fire from missions/_MIS_Cumania_Missions.txt. Option effects live in
+# common/scripted_effects/DST_Cumania_scripted_effects.txt (cum_events_<id>_<option>_effect), shared with the mission previews.
+# Path flags: cum_path_horde, or cum_path_settled with cum_faith_catholic / _orthodox / _bogomil / _tengri.
+
 namespace = dse_flavour_cumania
 
+# The Path of the Cumans (game start)
 country_event = {
 	id = dse_flavour_cumania.1
 	title = dse_flavour_cumania.1.t
@@ -7,69 +14,915 @@ country_event = {
 	picture = CUMAN_LEADER_eventPicture
 
 	trigger = {
+		NOT = { started_in = 1444.11.9 }
 		tag = CUM
 	}
 
 	fire_only_once = yes
 	is_triggered_only = yes
-	
-	option = {	# No straying away from tradition
+
+	immediate = {
+		hidden_effect = {
+			set_variable = {
+				which = cum_clan_favour
+				value = 0
+			}
+		}
+	}
+
+	option = { # Return to horse
 		name = dse_flavour_cumania.1.o1
 		change_government = tribal
-        add_government_reform = steppe_horde
+		add_government_reform = steppe_horde
 		add_horde_unity = 100
 		override_country_name = cuman_horde_name
+		custom_tooltip = cum_path_horde_tt
+		hidden_effect = {
+			set_country_flag = cum_path_horde
+			swap_non_generic_missions = yes
+		}
 		ai_chance = {
 			factor = 10
 		}
 	}
-	
-	option = {	# We'll settle and convert to catholism!
+	option = { # Settle and take the Latin cross
 		name = dse_flavour_cumania.1.o2
-        change_religion = catholic
-        every_owned_province = {
-            limit = {
-                religion = tengri_pagan_reformed
-            }
-            change_religion = catholic
-        }
+		change_religion = catholic
+		every_owned_province = {
+			limit = {
+				religion = tengri_pagan_reformed
+			}
+			change_religion = catholic
+		}
+		custom_tooltip = cum_path_catholic_tt
+		hidden_effect = {
+			set_country_flag = cum_path_settled
+			set_country_flag = cum_faith_catholic
+			swap_non_generic_missions = yes
+		}
 		ai_chance = {
 			factor = 10
 		}
 	}
-	option = {	# We'll settle and convert to...orthodox?
+	option = { # Settle and take the Greek cross
 		name = dse_flavour_cumania.1.o3
-        change_religion = orthodox
-        every_owned_province = {
-            limit = {
-                religion = tengri_pagan_reformed
-            }
-            change_religion = orthodox
-        }
-
+		change_religion = orthodox
+		every_owned_province = {
+			limit = {
+				religion = tengri_pagan_reformed
+			}
+			change_religion = orthodox
+		}
+		custom_tooltip = cum_path_orthodox_tt
+		hidden_effect = {
+			set_country_flag = cum_path_settled
+			set_country_flag = cum_faith_orthodox
+			swap_non_generic_missions = yes
+		}
 		ai_chance = {
 			factor = 10
 		}
 	}
-	option = {	# We'll settle and convert to...bogomilist?
+	option = { # Settle and follow the Good Men
 		name = dse_flavour_cumania.1.o4
-        change_religion = bogomilist
-        every_owned_province = {
-            limit = {
-                religion = tengri_pagan_reformed
-            }
-            change_religion = bogomilist
-        }
-
+		change_religion = bogomilist
+		every_owned_province = {
+			limit = {
+				religion = tengri_pagan_reformed
+			}
+			change_religion = bogomilist
+		}
+		custom_tooltip = cum_path_bogomil_tt
+		hidden_effect = {
+			set_country_flag = cum_path_settled
+			set_country_flag = cum_faith_bogomil
+			swap_non_generic_missions = yes
+		}
 		ai_chance = {
 			factor = 10
 		}
 	}
-	option = {	# We'll settle but keep your distance with that book
+	option = { # Stay settled, keep the Sky
 		name = dse_flavour_cumania.1.o5
-        
+		custom_tooltip = cum_path_tengri_tt
+		hidden_effect = {
+			set_country_flag = cum_path_settled
+			set_country_flag = cum_faith_tengri
+			swap_non_generic_missions = yes
+		}
 		ai_chance = {
 			factor = 30
 		}
+	}
+}
+
+#### The Clans (shared)
+
+# The Council of the Clans (cum_council_of_the_clans)
+country_event = {
+	id = dse_flavour_cumania.10
+	title = dse_flavour_cumania.10.t
+	desc = {
+		trigger = { cum_is_horde_trigger = yes }
+		desc = dse_flavour_cumania.10.d_horde
+	}
+	desc = {
+		trigger = { cum_is_settled_trigger = yes }
+		desc = dse_flavour_cumania.10.d_settled
+	}
+	picture = NOMAD_ESTATE_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Those who stay keep their seats
+		name = dse_flavour_cumania.10.ha
+		trigger = { cum_is_horde_trigger = yes }
+		cum_events_10_ha_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Every clan rides
+		name = dse_flavour_cumania.10.hb
+		trigger = { cum_is_horde_trigger = yes }
+		cum_events_10_hb_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # Pay them in herds to come along
+		name = dse_flavour_cumania.10.hc
+		trigger = { cum_is_horde_trigger = yes }
+		cum_events_10_hc_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Grant the riders their old freedoms
+		name = dse_flavour_cumania.10.sa
+		trigger = { cum_is_settled_trigger = yes }
+		cum_events_10_sa_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # The clan law yields to the king's law
+		name = dse_flavour_cumania.10.sb
+		trigger = { cum_is_settled_trigger = yes }
+		cum_events_10_sb_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Let the elders settle it among themselves
+		name = dse_flavour_cumania.10.sc
+		trigger = { cum_is_settled_trigger = yes }
+		cum_events_10_sc_effect = yes
+		ai_chance = { factor = 35 }
+	}
+}
+
+# The Captain of Halas (cum_the_halas_seat)
+country_event = {
+	id = dse_flavour_cumania.11
+	title = dse_flavour_cumania.11.t
+	desc = dse_flavour_cumania.11.d
+	picture = COURT_eventPicture
+	goto = cum_halas_target
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4126 = { save_event_target_as = cum_halas_target }
+		}
+	}
+
+	option = { # Judge by the custom of the clans
+		name = dse_flavour_cumania.11.a
+		cum_events_11_a_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # Judge by written law
+		name = dse_flavour_cumania.11.b
+		cum_events_11_b_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Split the pasture and tax both halves
+		name = dse_flavour_cumania.11.c
+		cum_events_11_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Riders of the Nagykunsag (cum_the_nagykunsag)
+country_event = {
+	id = dse_flavour_cumania.12
+	title = dse_flavour_cumania.12.t
+	desc = dse_flavour_cumania.12.d
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	goto = cum_szolnok_target
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4125 = { save_event_target_as = cum_szolnok_target }
+		}
+	}
+
+	option = { # Settle the clans around Szolnok
+		name = dse_flavour_cumania.12.a
+		cum_events_12_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Take them into the host
+		name = dse_flavour_cumania.12.b
+		cum_events_12_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Leave them to their pastures
+		name = dse_flavour_cumania.12.c
+		cum_events_12_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# What Broke the World (cum_what_broke_the_world)
+country_event = {
+	id = dse_flavour_cumania.13
+	title = dse_flavour_cumania.13.t
+	desc = dse_flavour_cumania.13.d
+	picture = COMET_SIGHTED_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Tengri tore the old realms like a tent in a storm
+		name = dse_flavour_cumania.13.a
+		trigger = {
+			OR = {
+				cum_is_horde_trigger = yes
+				cum_faith_is_tengri_trigger = yes
+			}
+		}
+		cum_events_13_a_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # The old kings sinned, and God judged them
+		name = dse_flavour_cumania.13.b
+		trigger = {
+			cum_is_settled_trigger = yes
+			NOT = { cum_faith_is_tengri_trigger = yes }
+		}
+		cum_events_13_b_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # Nobody knows. We go on.
+		name = dse_flavour_cumania.13.c
+		cum_events_13_c_effect = yes
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Clans Answer (cum_the_clans_answer)
+country_event = {
+	id = dse_flavour_cumania.14
+	title = dse_flavour_cumania.14.t
+	desc = {
+		trigger = {
+			check_variable = {
+				which = cum_clan_favour
+				value = 2
+			}
+		}
+		desc = dse_flavour_cumania.14.d_favour
+	}
+	desc = {
+		trigger = {
+			NOT = {
+				check_variable = {
+					which = cum_clan_favour
+					value = 2
+				}
+			}
+		}
+		desc = dse_flavour_cumania.14.d_grudge
+	}
+	picture = CUMAN_LEADER_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = {
+		name = dse_flavour_cumania.14.a
+		cum_events_14_effect = yes
+	}
+}
+
+# The Ispan of Temes (cum_temesvar)
+country_event = {
+	id = dse_flavour_cumania.15
+	title = dse_flavour_cumania.15.t
+	desc = dse_flavour_cumania.15.d
+	picture = NOBLE_ESTATE_DEMANDS_eventPicture
+	goto = cum_temes_target
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			156 = { save_event_target_as = cum_temes_target }
+		}
+	}
+
+	option = { # Give Temes a count of its own
+		name = dse_flavour_cumania.15.a
+		cum_events_15_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Appoint a Cuman captain
+		name = dse_flavour_cumania.15.b
+		cum_events_15_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Sell the office to the highest bidder
+		name = dse_flavour_cumania.15.c
+		cum_events_15_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+#### The Horde
+
+# Striking the Tents (cum_back_in_the_saddle)
+country_event = {
+	id = dse_flavour_cumania.20
+	title = dse_flavour_cumania.20.t
+	desc = dse_flavour_cumania.20.d
+	picture = VILLAGE_RAIDED_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Tax the burghers of Belgrade hard
+		name = dse_flavour_cumania.20.a
+		cum_events_20_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Leave the towns be
+		name = dse_flavour_cumania.20.b
+		cum_events_20_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Empty the market before we ride
+		name = dse_flavour_cumania.20.c
+		cum_events_20_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Hungarian Tribute (cum_tribute_from_buda)
+country_event = {
+	id = dse_flavour_cumania.21
+	title = dse_flavour_cumania.21.t
+	desc = dse_flavour_cumania.21.d
+	picture = TRIBUTE_TO_TATARS_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Gold
+		name = dse_flavour_cumania.21.a
+		cum_events_21_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Horses
+		name = dse_flavour_cumania.21.b
+		cum_events_21_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # A bride
+		name = dse_flavour_cumania.21.c
+		cum_events_21_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Envoys from the West (cum_envoys_from_the_west)
+country_event = {
+	id = dse_flavour_cumania.22
+	title = dse_flavour_cumania.22.t
+	desc = dse_flavour_cumania.22.d
+	picture = POPE_PREACHING_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Hear them out
+		name = dse_flavour_cumania.22.a
+		cum_events_22_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Send them home with gifts
+		name = dse_flavour_cumania.22.b
+		cum_events_22_b_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # Keep them, and name a ransom
+		name = dse_flavour_cumania.22.c
+		cum_events_22_c_effect = yes
+		ai_chance = { factor = 25 }
+	}
+}
+
+# Koten's Road (cum_kotens_road)
+country_event = {
+	id = dse_flavour_cumania.23
+	title = dse_flavour_cumania.23.t
+	desc = dse_flavour_cumania.23.d
+	picture = PEASANTS_ON_STEPPES_eventPicture
+	goto = cum_budjak_target
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			1756 = { save_event_target_as = cum_budjak_target }
+		}
+	}
+
+	option = { # Raise a kurgan for Koten
+		name = dse_flavour_cumania.23.a
+		cum_events_23_a_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Turn the herds loose in the Budjak
+		name = dse_flavour_cumania.23.b
+		cum_events_23_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Ride on. The steppe is wide.
+		name = dse_flavour_cumania.23.c
+		cum_events_23_c_effect = yes
+		ai_chance = { factor = 35 }
+	}
+}
+
+# The Same Tongue (cum_the_crimean_kin)
+country_event = {
+	id = dse_flavour_cumania.24
+	title = dse_flavour_cumania.24.t
+	desc = dse_flavour_cumania.24.d
+	picture = FEAST_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Feast with them as kin
+		name = dse_flavour_cumania.24.a
+		cum_events_24_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Take their best riders into our host
+		name = dse_flavour_cumania.24.b
+		cum_events_24_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Kin or not, they pay like everyone else
+		name = dse_flavour_cumania.24.c
+		cum_events_24_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Kurultai (cum_the_kurultai)
+country_event = {
+	id = dse_flavour_cumania.25
+	title = dse_flavour_cumania.25.t
+	desc = dse_flavour_cumania.25.d
+	picture = tartar_MILITARY_CAMP_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The elder clans speak first
+		name = dse_flavour_cumania.25.a
+		cum_events_25_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # The khan's line, and no other
+		name = dse_flavour_cumania.25.b
+		cum_events_25_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Whoever leads the strongest host
+		name = dse_flavour_cumania.25.c
+		cum_events_25_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Khan of the Desht-i Qipchaq (cum_desht_i_qipchaq): the name
+country_event = {
+	id = dse_flavour_cumania.26
+	title = dse_flavour_cumania.26.t
+	desc = dse_flavour_cumania.26.d
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	goto = capital
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # Desht-i Qipchaq
+		name = dse_flavour_cumania.26.a
+		override_country_name = CUM_DESHT_I_QIPCHAQ
+		custom_tooltip = CUM_DESHT_I_QIPCHAQ_tt
+		ai_chance = { factor = 40 }
+	}
+	option = { # Kipchak Khanate
+		name = dse_flavour_cumania.26.b
+		override_country_name = CUM_KIPCHAK_KHANATE
+		custom_tooltip = CUM_KIPCHAK_KHANATE_tt
+		ai_chance = { factor = 25 }
+	}
+	option = { # Horde of Koten
+		name = dse_flavour_cumania.26.c
+		override_country_name = CUM_HORDE_OF_KOTEN
+		custom_tooltip = CUM_HORDE_OF_KOTEN_tt
+		ai_chance = { factor = 20 }
+	}
+	option = { # Keep the Cuman Horde
+		name = dse_flavour_cumania.26.keep
+		override_country_name = cuman_horde_name
+		ai_chance = { factor = 15 }
+	}
+}
+
+#### The Settled Realm
+
+# A House of Stone (cum_a_house_of_stone)
+country_event = {
+	id = dse_flavour_cumania.30
+	title = dse_flavour_cumania.30.t
+	desc = dse_flavour_cumania.30.d
+	picture = GREAT_BUILDING_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # A Hungarian master builder
+		name = dse_flavour_cumania.30.a
+		cum_events_30_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # A Serbian builder from Belgrade
+		name = dse_flavour_cumania.30.b
+		cum_events_30_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # A stone hall, and the tents in the yard
+		name = dse_flavour_cumania.30.c
+		cum_events_30_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Chiefs into Lords (cum_chiefs_into_lords)
+country_event = {
+	id = dse_flavour_cumania.31
+	title = dse_flavour_cumania.31.t
+	desc = dse_flavour_cumania.31.d
+	picture = NOBLE_ESTATE_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Land charters, as the Hungarian lords hold them
+		name = dse_flavour_cumania.31.a
+		cum_events_31_a_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # Titles, and nothing more
+		name = dse_flavour_cumania.31.b
+		cum_events_31_b_effect = yes
+		ai_chance = { factor = 25 }
+	}
+	option = { # Keep the clan law beside the royal one
+		name = dse_flavour_cumania.31.c
+		cum_events_31_c_effect = yes
+		ai_chance = { factor = 35 }
+	}
+}
+
+# The Crown of the Cumans (cum_the_crown_of_the_cumans): the name
+country_event = {
+	id = dse_flavour_cumania.32
+	title = dse_flavour_cumania.32.t
+	desc = dse_flavour_cumania.32.d
+	picture = COURT_eventPicture
+	goto = capital
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # Cumania
+		name = dse_flavour_cumania.32.cumania
+		restore_country_name = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Kunsag
+		name = dse_flavour_cumania.32.kunsag
+		override_country_name = CUM_KUNSAG
+		custom_tooltip = CUM_KUNSAG_tt
+		ai_chance = { factor = 25 }
+	}
+	option = { # Regnum Cumaniae
+		name = dse_flavour_cumania.32.regnum
+		trigger = { cum_faith_is_catholic_trigger = yes }
+		override_country_name = CUM_REGNUM_CUMANIAE
+		custom_tooltip = CUM_REGNUM_CUMANIAE_tt
+		ai_chance = { factor = 45 }
+	}
+	option = { # Syrmia
+		name = dse_flavour_cumania.32.syrmia
+		trigger = { cum_faith_is_orthodox_trigger = yes }
+		override_country_name = CUM_SYRMIA
+		custom_tooltip = CUM_SYRMIA_tt
+		ai_chance = { factor = 45 }
+	}
+	option = { # The Banat
+		name = dse_flavour_cumania.32.banat
+		trigger = { cum_faith_is_bogomil_trigger = yes }
+		override_country_name = CUM_BANAT
+		custom_tooltip = CUM_BANAT_tt
+		ai_chance = { factor = 45 }
+	}
+	option = { # Kunorszag
+		name = dse_flavour_cumania.32.kunorszag
+		trigger = { cum_faith_is_tengri_trigger = yes }
+		override_country_name = CUM_KUNORSZAG
+		custom_tooltip = CUM_KUNORSZAG_tt
+		ai_chance = { factor = 45 }
+	}
+}
+
+# The Ragusan Factors (cum_the_ragusan_road)
+country_event = {
+	id = dse_flavour_cumania.33
+	title = dse_flavour_cumania.33.t
+	desc = dse_flavour_cumania.33.d
+	picture = MERCHANTS_TALKING_eventPicture
+	goto = cum_belgrade_target
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4239 = { save_event_target_as = cum_belgrade_target }
+		}
+	}
+
+	option = { # Grant them a monopoly
+		name = dse_flavour_cumania.33.a
+		cum_events_33_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Give them a house, and tax it
+		name = dse_flavour_cumania.33.b
+		cum_events_33_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Send our own merchants to Ragusa instead
+		name = dse_flavour_cumania.33.c
+		cum_events_33_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+#### The Faiths
+
+# The Friars of Kalocsa (cum_cat_the_friars_of_kalocsa)
+country_event = {
+	id = dse_flavour_cumania.40
+	title = dse_flavour_cumania.40.t
+	desc = dse_flavour_cumania.40.d
+	picture = CHURCH_ESTATE_1_eventPicture
+	goto = cum_bacs_target
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4126 = { save_event_target_as = cum_bacs_target }
+		}
+	}
+
+	option = { # Send them to every clan
+		name = dse_flavour_cumania.40.a
+		cum_events_40_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Let them preach in the towns
+		name = dse_flavour_cumania.40.b
+		cum_events_40_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Ask for friars who speak our tongue
+		name = dse_flavour_cumania.40.c
+		cum_events_40_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Cuman Laws (cum_cat_the_cuman_laws)
+country_event = {
+	id = dse_flavour_cumania.41
+	title = dse_flavour_cumania.41.t
+	desc = dse_flavour_cumania.41.d
+	picture = BIG_BOOK_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Enforce them
+		name = dse_flavour_cumania.41.a
+		cum_events_41_a_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Soften them
+		name = dse_flavour_cumania.41.b
+		cum_events_41_b_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # Rewrite them in our own favour
+		name = dse_flavour_cumania.41.c
+		cum_events_41_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Terter Blood (cum_ort_the_terter_blood)
+country_event = {
+	id = dse_flavour_cumania.42
+	title = dse_flavour_cumania.42.t
+	desc = dse_flavour_cumania.42.d
+	picture = ORTHODOX_eventPicture
+	goto = cum_tarnovo_target
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4704 = { save_event_target_as = cum_tarnovo_target }
+		}
+	}
+
+	option = { # Press the claim openly
+		name = dse_flavour_cumania.42.a
+		cum_events_42_a_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # Court the Bulgarian lords quietly
+		name = dse_flavour_cumania.42.b
+		cum_events_42_b_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Remember it, and look to our own lands
+		name = dse_flavour_cumania.42.c
+		cum_events_42_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Patriarch's Blessing (cum_ort_the_patriarchs_blessing)
+country_event = {
+	id = dse_flavour_cumania.43
+	title = dse_flavour_cumania.43.t
+	desc = dse_flavour_cumania.43.d
+	picture = ICONS_IN_CHURCH_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The patriarch at Tarnovo
+		name = dse_flavour_cumania.43.a
+		cum_events_43_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # The patriarch at Pec
+		name = dse_flavour_cumania.43.b
+		cum_events_43_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Our own bishop at Belgrade
+		name = dse_flavour_cumania.43.c
+		cum_events_43_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Djed (cum_bog_the_djed)
+country_event = {
+	id = dse_flavour_cumania.44
+	title = dse_flavour_cumania.44.t
+	desc = dse_flavour_cumania.44.d
+	picture = BISHOP_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Accept his blessing
+		name = dse_flavour_cumania.44.a
+		cum_events_44_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Our elders need no Bosnian hands
+		name = dse_flavour_cumania.44.b
+		cum_events_44_b_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Invite him to Belgrade
+		name = dse_flavour_cumania.44.c
+		cum_events_44_c_effect = yes
+		ai_chance = { factor = 35 }
+	}
+}
+
+# The House of the Good Men (cum_bog_a_centre_of_the_faith)
+country_event = {
+	id = dse_flavour_cumania.45
+	title = dse_flavour_cumania.45.t
+	desc = dse_flavour_cumania.45.d
+	picture = CHURCH_ESTATE_2_eventPicture
+	goto = cum_belgrade_target
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4239 = { save_event_target_as = cum_belgrade_target }
+		}
+	}
+
+	option = { # Build it in Belgrade
+		name = dse_flavour_cumania.45.a
+		cum_events_45_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Keep it plain, as the krstjani do
+		name = dse_flavour_cumania.45.b
+		cum_events_45_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Send preachers into Hungary
+		name = dse_flavour_cumania.45.c
+		cum_events_45_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Sky and the Cross (cum_ten_the_kams)
+country_event = {
+	id = dse_flavour_cumania.46
+	title = dse_flavour_cumania.46.t
+	desc = dse_flavour_cumania.46.d
+	picture = ANGRY_SHAMANS_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Welcome the friars. The sky is wide.
+		name = dse_flavour_cumania.46.a
+		cum_events_46_a_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # Welcome the priests of Belgrade
+		name = dse_flavour_cumania.46.b
+		cum_events_46_b_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # The kams alone speak for Tengri
+		name = dse_flavour_cumania.46.c
+		cum_events_46_c_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Stone Fathers (cum_ten_the_stone_fathers)
+country_event = {
+	id = dse_flavour_cumania.47
+	title = dse_flavour_cumania.47.t
+	desc = dse_flavour_cumania.47.d
+	picture = RUNESTONE_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Send for one from the Yedisan steppe
+		name = dse_flavour_cumania.47.a
+		cum_events_47_a_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Carve new ones in Torontal
+		name = dse_flavour_cumania.47.b
+		cum_events_47_b_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # Let them stand where they are
+		name = dse_flavour_cumania.47.c
+		cum_events_47_c_effect = yes
+		ai_chance = { factor = 30 }
 	}
 }

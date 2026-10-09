@@ -1,0 +1,729 @@
+# Cumania (CUM): the Cuman Path
+# Missions: missions/_MIS_Cumania_Missions.txt, events: events/_DSE_flavour_Cumania.txt
+# Triggers: common/scripted_triggers/DST_Cumania_triggers.txt, modifiers: common/event_modifiers/DST_Cumania_modifiers.txt
+# Event options live here as cum_events_<id>_<option>_effect, so the event and the mission preview
+# (country_event_with_option_insight) show and run the same thing.
+
+#### Helpers
+
+# Kingdom (or khanate) rank. cum_crowned_flag dates the crowning (cum_the_cuman_crown).
+cum_crown_effect = {
+	if = {
+		limit = {
+			NOT = { government_rank = 2 }
+		}
+		set_government_rank = 2
+	}
+	hidden_effect = {
+		set_country_flag = cum_crowned_flag
+	}
+}
+
+# Estate loyalty, skipped when the country lacks the estate (hordes have no nobles or burghers)
+cum_estate_loyalty_effect = {
+	if = {
+		limit = {
+			has_estate = $estate$
+		}
+		add_estate_loyalty = {
+			estate = $estate$
+			loyalty = $loyalty$
+		}
+	}
+}
+
+# The clans' favour, read once by dse_flavour_cumania.14 (The Clans Answer)
+cum_clan_favour_up_effect = {
+	custom_tooltip = cum_clan_favour_up_tt
+	hidden_effect = {
+		change_variable = {
+			which = cum_clan_favour
+			value = 1
+		}
+	}
+}
+
+cum_clan_favour_down_effect = {
+	custom_tooltip = cum_clan_favour_down_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = cum_clan_favour
+			value = 1
+		}
+	}
+}
+
+# Permanent claims on what ROOT doesn't own of an area
+cum_claim_area_effect = {
+	$area$ = {
+		limit = {
+			NOT = { owned_by = ROOT }
+		}
+		add_permanent_claim = ROOT
+	}
+}
+
+#### .10 The Council of the Clans (horde: the settled seats balk; settled: the riders balk)
+
+cum_events_10_ha_effect = {
+	cum_clan_favour_up_effect = yes
+	add_horde_unity = -5
+	4126 = {
+		add_base_production = 1
+	}
+}
+
+cum_events_10_hb_effect = {
+	cum_clan_favour_down_effect = yes
+	add_horde_unity = 10
+	add_country_modifier = {
+		name = cum_every_clan_rides_modifier
+		duration = 3650
+	}
+}
+
+cum_events_10_hc_effect = {
+	add_years_of_income = -0.25
+	add_horde_unity = 5
+	add_prestige_or_monarch_power = { amount = 10 }
+}
+
+cum_events_10_sa_effect = {
+	cum_clan_favour_up_effect = yes
+	add_country_modifier = {
+		name = cum_kun_freedoms_modifier
+		duration = 3650
+	}
+}
+
+cum_events_10_sb_effect = {
+	cum_clan_favour_down_effect = yes
+	add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+	add_stability_or_adm_power = yes
+}
+
+cum_events_10_sc_effect = {
+	add_prestige_or_monarch_power = { amount = 10 }
+	cum_estate_loyalty_effect = { estate = estate_nobles loyalty = 5 }
+}
+
+#### .11 The Captain of Halas
+
+cum_events_11_a_effect = {
+	cum_clan_favour_up_effect = yes
+	add_prestige_or_monarch_power = { amount = 10 }
+}
+
+cum_events_11_b_effect = {
+	cum_clan_favour_down_effect = yes
+	add_country_modifier = {
+		name = cum_written_law_modifier
+		duration = 3650
+	}
+}
+
+cum_events_11_c_effect = {
+	add_years_of_income = 0.25
+}
+
+#### .12 Riders of the Nagykunsag
+
+cum_events_12_a_effect = {
+	4125 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+				NOT = { culture = cuman }
+			}
+			change_culture = cuman
+			add_province_modifier = {
+				name = cum_kun_resettlement_modifier
+				duration = 3650
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = { 4125 = { owned_by = ROOT } }
+		}
+		add_prestige_or_monarch_power = { amount = 15 }
+	}
+}
+
+cum_events_12_b_effect = {
+	cum_clan_favour_down_effect = yes
+	add_country_modifier = {
+		name = cum_kun_riders_modifier
+		duration = 3650
+	}
+}
+
+cum_events_12_c_effect = {
+	cum_clan_favour_up_effect = yes
+	4125 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_base_manpower = 1
+		}
+	}
+}
+
+#### .13 What Broke the World
+
+cum_events_13_a_effect = {
+	add_country_modifier = {
+		name = cum_torn_tent_modifier
+		duration = 3650
+	}
+	if = {
+		limit = {
+			cum_is_horde_trigger = yes
+		}
+		add_horde_unity = 5
+	}
+}
+
+cum_events_13_b_effect = {
+	cum_estate_loyalty_effect = { estate = estate_church loyalty = 10 }
+	add_country_modifier = {
+		name = cum_judgement_on_kings_modifier
+		duration = 3650
+	}
+}
+
+cum_events_13_c_effect = {
+	add_country_modifier = {
+		name = cum_we_go_on_modifier
+		duration = 3650
+	}
+}
+
+#### .14 The Clans Answer (one outcome, chosen by the path and the clans' favour)
+
+cum_events_14_effect = {
+	if = {
+		limit = {
+			cum_is_horde_trigger = yes
+			check_variable = {
+				which = cum_clan_favour
+				value = 2
+			}
+		}
+		add_country_modifier = {
+			name = cum_kipchak_clans_modifier
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			cum_is_horde_trigger = yes
+		}
+		add_country_modifier = {
+			name = cum_kipchak_clans_minor_modifier
+			duration = -1
+		}
+		add_prestige_or_monarch_power = { amount = 25 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = cum_clan_favour
+				value = 2
+			}
+		}
+		add_country_modifier = {
+			name = cum_kun_seats_modifier
+			duration = -1
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = cum_kun_seats_minor_modifier
+			duration = -1
+		}
+		add_prestige_or_monarch_power = { amount = 25 }
+	}
+}
+
+#### .15 The Ispan of Temes
+
+cum_events_15_a_effect = {
+	cum_clan_favour_down_effect = yes
+	156 = {
+		add_province_modifier = {
+			name = cum_temes_count_modifier
+			duration = 3650
+		}
+	}
+}
+
+cum_events_15_b_effect = {
+	cum_clan_favour_up_effect = yes
+	156 = {
+		add_province_modifier = {
+			name = cum_temes_captain_modifier
+			duration = 3650
+		}
+	}
+}
+
+cum_events_15_c_effect = {
+	add_years_of_income = 0.5
+	156 = {
+		add_local_autonomy = 10
+	}
+}
+
+#### .20 Striking the Tents (horde)
+
+cum_events_20_a_effect = {
+	add_years_of_income = 0.5
+	4239 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_province_modifier = {
+				name = cum_belgrade_squeezed_modifier
+				duration = 3650
+			}
+		}
+	}
+}
+
+cum_events_20_b_effect = {
+	add_country_modifier = {
+		name = cum_free_towns_modifier
+		duration = 3650
+	}
+}
+
+cum_events_20_c_effect = {
+	add_years_of_income = 1
+	add_horde_unity = 10
+	4239 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+				base_production = 2
+			}
+			add_base_production = -1
+		}
+	}
+}
+
+#### .21 The Hungarian Tribute (horde)
+
+cum_events_21_a_effect = {
+	add_years_of_income = 0.75
+}
+
+cum_events_21_b_effect = {
+	add_country_modifier = {
+		name = cum_hungarian_horses_modifier
+		duration = 3650
+	}
+}
+
+cum_events_21_c_effect = {
+	if = {
+		limit = {
+			exists = HUN
+			HUN = { government = monarchy }
+		}
+		create_marriage = HUN
+		HUN = {
+			add_opinion = {
+				who = ROOT
+				modifier = cum_bride_from_the_steppe
+			}
+		}
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+	}
+	else = {
+		add_prestige_or_monarch_power = { amount = 15 }
+	}
+}
+
+#### .22 Envoys from the West (horde)
+
+cum_events_22_a_effect = {
+	add_country_modifier = {
+		name = cum_heard_the_legate_modifier
+		duration = 3650
+	}
+}
+
+cum_events_22_b_effect = {
+	add_prestige_or_monarch_power = { amount = 15 }
+	add_dip_power = 25
+}
+
+cum_events_22_c_effect = {
+	add_years_of_income = 0.5
+	add_prestige = -10
+}
+
+#### .23 Koten's Road (horde)
+
+cum_events_23_a_effect = {
+	add_country_modifier = {
+		name = cum_kotens_memory_modifier
+		duration = 3650
+	}
+}
+
+cum_events_23_b_effect = {
+	1756 = {
+		add_base_manpower = 1
+		add_province_modifier = {
+			name = cum_budjak_herds_modifier
+			duration = 3650
+		}
+	}
+}
+
+cum_events_23_c_effect = {
+	add_horde_unity = 10
+	add_country_modifier = {
+		name = cum_wide_steppe_modifier
+		duration = 3650
+	}
+}
+
+#### .24 The Same Tongue (horde)
+
+cum_events_24_a_effect = {
+	add_country_modifier = {
+		name = cum_kin_feast_modifier
+		duration = 3650
+	}
+	every_country = {
+		limit = {
+			primary_culture = crimean
+		}
+		add_opinion = {
+			who = ROOT
+			modifier = cum_kipchak_kinship
+		}
+	}
+}
+
+cum_events_24_b_effect = {
+	add_country_modifier = {
+		name = cum_crimean_riders_modifier
+		duration = 3650
+	}
+}
+
+cum_events_24_c_effect = {
+	add_years_of_income = 0.5
+	add_horde_unity = 5
+}
+
+#### .25 The Kurultai (horde)
+
+cum_events_25_a_effect = {
+	cum_clan_favour_up_effect = yes
+	add_country_modifier = {
+		name = cum_kurultai_elders_modifier
+		duration = 3650
+	}
+}
+
+cum_events_25_b_effect = {
+	add_legitimacy_or_mil_power = { amount = 20 republican_tradition = 10 }
+	add_country_modifier = {
+		name = cum_khans_line_modifier
+		duration = 3650
+	}
+}
+
+cum_events_25_c_effect = {
+	add_country_modifier = {
+		name = cum_strongest_rides_modifier
+		duration = 3650
+	}
+}
+
+#### .30 A House of Stone (settled)
+
+cum_events_30_a_effect = {
+	1954 = {
+		add_base_tax = 1
+	}
+	add_country_modifier = {
+		name = cum_hungarian_builder_modifier
+		duration = 3650
+	}
+}
+
+cum_events_30_b_effect = {
+	add_country_modifier = {
+		name = cum_serbian_builder_modifier
+		duration = 3650
+	}
+}
+
+cum_events_30_c_effect = {
+	cum_clan_favour_up_effect = yes
+	add_prestige_or_monarch_power = { amount = 10 }
+}
+
+#### .31 Chiefs into Lords (settled)
+
+cum_events_31_a_effect = {
+	cum_estate_loyalty_effect = { estate = estate_nobles loyalty = 10 }
+	add_country_modifier = {
+		name = cum_land_charters_modifier
+		duration = 3650
+	}
+}
+
+cum_events_31_b_effect = {
+	cum_clan_favour_down_effect = yes
+	add_prestige_or_monarch_power = { amount = 15 }
+	cum_estate_loyalty_effect = { estate = estate_nobles loyalty = -5 }
+}
+
+cum_events_31_c_effect = {
+	cum_clan_favour_up_effect = yes
+	add_country_modifier = {
+		name = cum_clan_law_kept_modifier
+		duration = 3650
+	}
+}
+
+#### .33 The Ragusan Factors (settled)
+
+cum_events_33_a_effect = {
+	add_country_modifier = {
+		name = cum_ragusan_monopoly_modifier
+		duration = 3650
+	}
+}
+
+cum_events_33_b_effect = {
+	4239 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_province_modifier = {
+				name = cum_ragusan_house_modifier
+				duration = 3650
+			}
+		}
+	}
+}
+
+cum_events_33_c_effect = {
+	add_country_modifier = {
+		name = cum_belgrade_merchants_modifier
+		duration = 3650
+	}
+}
+
+#### .40 The Friars of Kalocsa (Catholic)
+
+cum_events_40_a_effect = {
+	add_country_modifier = {
+		name = cum_kalocsa_friars_modifier
+		duration = 3650
+	}
+}
+
+cum_events_40_b_effect = {
+	cum_estate_loyalty_effect = { estate = estate_church loyalty = 10 }
+	add_stability_or_adm_power = yes
+}
+
+cum_events_40_c_effect = {
+	add_country_modifier = {
+		name = cum_cuman_speaking_priests_modifier
+		duration = 3650
+	}
+}
+
+#### .41 The Cuman Laws (Catholic)
+
+cum_events_41_a_effect = {
+	cum_clan_favour_down_effect = yes
+	add_country_modifier = {
+		name = cum_cuman_laws_enforced_modifier
+		duration = 3650
+	}
+}
+
+cum_events_41_b_effect = {
+	cum_clan_favour_up_effect = yes
+	add_stability_or_adm_power = yes
+}
+
+cum_events_41_c_effect = {
+	add_prestige_or_monarch_power = { amount = 10 }
+	add_country_modifier = {
+		name = cum_cuman_laws_rewritten_modifier
+		duration = 3650
+	}
+}
+
+#### .42 The Terter Blood (Orthodox)
+
+cum_events_42_a_effect = {
+	cum_claim_area_effect = { area = bulgaria_area }
+	add_prestige_or_monarch_power = { amount = 10 }
+}
+
+cum_events_42_b_effect = {
+	add_country_modifier = {
+		name = cum_terter_friends_modifier
+		duration = 3650
+	}
+}
+
+cum_events_42_c_effect = {
+	add_stability_or_adm_power = yes
+	add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+}
+
+#### .43 The Patriarch's Blessing (Orthodox)
+
+cum_events_43_a_effect = {
+	if = {
+		limit = {
+			religion = orthodox
+		}
+		add_patriarch_authority = 0.1
+	}
+	add_country_modifier = {
+		name = cum_tarnovo_blessing_modifier
+		duration = 3650
+	}
+}
+
+cum_events_43_b_effect = {
+	add_country_modifier = {
+		name = cum_pec_blessing_modifier
+		duration = 3650
+	}
+}
+
+cum_events_43_c_effect = {
+	cum_estate_loyalty_effect = { estate = estate_church loyalty = 10 }
+	4239 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_base_tax = 1
+		}
+	}
+}
+
+#### .44 The Djed (Bogomil)
+
+cum_events_44_a_effect = {
+	add_country_modifier = {
+		name = cum_djed_blessing_modifier
+		duration = 3650
+	}
+}
+
+cum_events_44_b_effect = {
+	cum_clan_favour_up_effect = yes
+	add_prestige_or_monarch_power = { amount = 10 }
+}
+
+cum_events_44_c_effect = {
+	add_country_modifier = {
+		name = cum_djed_at_belgrade_modifier
+		duration = 3650
+	}
+}
+
+#### .45 The House of the Good Men (Bogomil)
+
+cum_events_45_a_effect = {
+	4239 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_base_tax = 1
+			add_province_modifier = {
+				name = cum_house_of_good_men_modifier
+				duration = 3650
+			}
+		}
+	}
+}
+
+cum_events_45_b_effect = {
+	add_stability_or_adm_power = yes
+	add_country_modifier = {
+		name = cum_simple_faith_modifier
+		duration = 3650
+	}
+}
+
+cum_events_45_c_effect = {
+	add_country_modifier = {
+		name = cum_good_men_preachers_modifier
+		duration = 3650
+	}
+}
+
+#### .46 The Sky and the Cross (Tengri)
+
+cum_events_46_a_effect = {
+	add_country_modifier = {
+		name = cum_friars_welcome_modifier
+		duration = 3650
+	}
+}
+
+cum_events_46_b_effect = {
+	add_country_modifier = {
+		name = cum_priests_of_belgrade_modifier
+		duration = 3650
+	}
+}
+
+cum_events_46_c_effect = {
+	cum_clan_favour_up_effect = yes
+	add_country_modifier = {
+		name = cum_kams_alone_modifier
+		duration = 3650
+	}
+}
+
+#### .47 The Stone Fathers (Tengri)
+
+cum_events_47_a_effect = {
+	add_years_of_income = -0.25
+	add_country_modifier = {
+		name = cum_stone_father_modifier
+		duration = 3650
+	}
+}
+
+cum_events_47_b_effect = {
+	1954 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+			}
+			add_province_modifier = {
+				name = cum_stone_fathers_torontal_modifier
+				duration = -1
+			}
+		}
+	}
+}
+
+cum_events_47_c_effect = {
+	add_stability_or_adm_power = yes
+}

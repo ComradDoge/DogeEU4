@@ -1,0 +1,84 @@
+# Cumania (CUM): the Cuman Path
+# Missions: missions/_MIS_Cumania_Missions.txt, events: events/_DSE_flavour_Cumania.txt
+# Effects: common/scripted_effects/DST_Cumania_scripted_effects.txt
+# The path flags are set by dse_flavour_cumania.1 on game start. A Cumania without any flag (released later)
+# counts as settled and Tengri.
+
+cum_is_horde_trigger = {
+	has_country_flag = cum_path_horde
+}
+
+cum_is_settled_trigger = {
+	NOT = { has_country_flag = cum_path_horde }
+}
+
+cum_faith_is_catholic_trigger = {
+	cum_is_settled_trigger = yes
+	has_country_flag = cum_faith_catholic
+}
+
+cum_faith_is_orthodox_trigger = {
+	cum_is_settled_trigger = yes
+	has_country_flag = cum_faith_orthodox
+}
+
+cum_faith_is_bogomil_trigger = {
+	cum_is_settled_trigger = yes
+	has_country_flag = cum_faith_bogomil
+}
+
+cum_faith_is_tengri_trigger = {
+	cum_is_settled_trigger = yes
+	NOT = {
+		has_country_flag = cum_faith_catholic
+		has_country_flag = cum_faith_orthodox
+		has_country_flag = cum_faith_bogomil
+	}
+}
+
+# Horde nodes: the country pays us tribute (any subject type), or we hold its key province
+cum_tributary_or_holds_trigger = {
+	OR = {
+		$who$ = { is_subject_of = ROOT }
+		$province$ = { country_or_non_sovereign_subject_holds = ROOT }
+	}
+}
+
+# Settled nodes: the country is our subject or a close ally, or we hold its key province
+cum_friend_or_holds_trigger = {
+	OR = {
+		$who$ = { is_subject_of = ROOT }
+		$who$ = {
+			alliance_with = ROOT
+			has_opinion = {
+				who = ROOT
+				value = 100
+			}
+		}
+		$province$ = { country_or_non_sovereign_subject_holds = ROOT }
+	}
+}
+
+# Provinces razed by our riders. Two on_raze counters exist (vanilla 00 and EE), so either one counts.
+cum_has_razed_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = cum_has_razed_$amount$_tt
+		OR = {
+			check_variable = {
+				which = HordeProvincesRazed
+				value = $amount$
+			}
+			check_variable = {
+				which = num_of_provinces_razed_var
+				value = $amount$
+			}
+		}
+	}
+}
+
+cum_is_crowned_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = cum_is_crowned_tt
+		has_country_flag = cum_crowned_flag
+	}
+}
