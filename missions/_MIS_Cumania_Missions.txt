@@ -24,7 +24,7 @@ cum_clans = {
 
 		trigger = {
 			is_at_war = no
-			prestige = 10
+			army_size_percentage = 1
 			OR = {
 				legitimacy = 60
 				horde_unity = 60
@@ -135,7 +135,7 @@ cum_clans = {
 					add_base_manpower = 1
 					add_province_modifier = {
 						name = cum_kun_settlers_modifier
-						duration = 9125
+						duration = -1
 					}
 				}
 			}
@@ -283,7 +283,7 @@ cum_banat = {
 				add_base_tax = 1
 				add_province_modifier = {
 					name = cum_white_city_walls_modifier
-					duration = 9125
+					duration = -1
 				}
 			}
 			custom_tooltip = " "
@@ -327,9 +327,10 @@ cum_banat = {
 		effect = {
 			4173 = {
 				add_base_production = 1
+				change_trade_goods = wine
 				add_province_modifier = {
 					name = cum_syrmian_vineyards_modifier
-					duration = 9125
+					duration = -1
 				}
 			}
 		}
@@ -408,7 +409,7 @@ cum_banat = {
 					add_base_production = 1
 					add_province_modifier = {
 						name = cum_iron_gates_toll_modifier
-						duration = 9125
+						duration = -1
 					}
 				}
 			}
@@ -449,6 +450,13 @@ cum_banat = {
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
+				AND = {
+					OR = {
+						province_id = 4239
+						province_id = 156
+					}
+					NOT = { has_fort_building_trigger = yes }
+				}
 			}
 		}
 
@@ -497,9 +505,9 @@ cum_h_raids = {
 		effect = {
 			add_country_modifier = {
 				name = cum_back_in_the_saddle_modifier
-				duration = 9125
+				duration = 5475
 			}
-			add_horde_unity = 10
+			add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
 			161 = {
 				if = {
 					limit = {
@@ -552,8 +560,8 @@ cum_h_raids = {
 
 	cum_tribute_from_buda = {
 		icon = mission_tribute_tax
-		position = 3
-		required_missions = { cum_the_plain_burns }
+		position = 4
+		required_missions = { cum_the_salt_of_turda }
 
 		provinces_to_highlight = {
 			province_id = 153
@@ -593,7 +601,7 @@ cum_h_raids = {
 
 	cum_the_salt_of_turda = {
 		icon = me_mission_industrial_salt_mine
-		position = 4
+		position = 3
 		required_missions = { cum_the_plain_burns }
 
 		provinces_to_highlight = {
@@ -637,7 +645,7 @@ cum_h_raids = {
 			add_dip_power = 50
 			add_country_modifier = {
 				name = cum_serbian_tribute_modifier
-				duration = 9125
+				duration = 5475
 			}
 			custom_tooltip = " "
 			1767 = {
@@ -700,7 +708,7 @@ cum_h_raids = {
 	cum_the_scourge_of_the_plain = {
 		icon = mission_raid_christian_trade
 		position = 8
-		required_missions = { cum_envoys_from_the_west cum_the_salt_of_turda }
+		required_missions = { cum_envoys_from_the_west }
 
 		trigger = {
 			cum_has_razed_trigger = { amount = 15 }
@@ -844,7 +852,7 @@ cum_h_east = {
 		}
 
 		effect = {
-			add_horde_unity = 10
+			add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
 			custom_tooltip = " "
 			cum_claim_area_effect = { area = zaporizhia_area }
 			cum_claim_area_effect = { area = crimea_area }
@@ -886,7 +894,7 @@ cum_h_east = {
 	cum_the_crimean_kin = {
 		icon = me_mission_ottomans_the_crimean_khanate
 		position = 7
-		required_missions = { cum_yedisan }
+		required_missions = { cum_the_dnieper_rapids }
 
 		provinces_to_highlight = {
 			province_id = 284
@@ -908,6 +916,7 @@ cum_h_east = {
 					tooltip = cum_no_crimean_country_tt
 					NOT = {
 						any_country = {
+							exists = yes
 							primary_culture = crimean
 						}
 					}
@@ -970,7 +979,7 @@ cum_h_east = {
 					add_base_production = 1
 					add_province_modifier = {
 						name = cum_kaffa_toll_modifier
-						duration = 9125
+						duration = -1
 					}
 				}
 			}
@@ -985,7 +994,7 @@ cum_h_east = {
 	cum_the_great_horde = {
 		icon = mission_destroy_the_horde
 		position = 9
-		required_missions = { cum_kaffa cum_the_dnieper_rapids }
+		required_missions = { cum_kaffa }
 
 		provinces_to_highlight = {
 			province_id = 288
@@ -1051,7 +1060,7 @@ cum_h_khanate = {
 		required_missions = { cum_the_kurultai }
 
 		trigger = {
-			num_of_cavalry = 20
+			num_of_cavalry = 15
 		}
 
 		effect = {
@@ -1108,6 +1117,11 @@ cum_h_khanate = {
 		position = 6
 		required_missions = { cum_the_khans_law }
 
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			NOT = { development = 15 }
+		}
+
 		trigger = {
 			capital_scope = {
 				development = 15
@@ -1129,6 +1143,18 @@ cum_h_khanate = {
 		position = 8
 		required_missions = { cum_the_golden_tent cum_the_crimean_kin }
 
+		provinces_to_highlight = {
+			is_capital = yes
+			owner = {
+				NOT = { tag = ROOT }
+				OR = {
+					primary_culture = crimean
+					primary_culture = mishary
+				}
+				NOT = { is_subject_of = ROOT }
+			}
+		}
+
 		trigger = {
 			OR = {
 				any_country = {
@@ -1139,7 +1165,6 @@ cum_h_khanate = {
 					OR = {
 						is_subject_of = ROOT
 						AND = {
-							alliance_with = ROOT
 							has_opinion = {
 								who = ROOT
 								value = 100
@@ -1151,6 +1176,7 @@ cum_h_khanate = {
 					tooltip = cum_no_kipchak_country_tt
 					NOT = {
 						any_country = {
+							exists = yes
 							OR = {
 								primary_culture = crimean
 								primary_culture = mishary
@@ -1163,7 +1189,7 @@ cum_h_khanate = {
 
 		effect = {
 			ME_add_accepted_culture_or_dip_power = { culture = crimean }
-			add_horde_unity = 15
+			add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 7 }
 		}
 	}
 
@@ -1265,6 +1291,11 @@ cum_s_crown = {
 		}
 
 		effect = {
+			custom_tooltip = cum_unlocks_kun_charter_tt
+			hidden_effect = {
+				set_country_flag = cum_kun_charter_unlocked
+			}
+			custom_tooltip = " "
 			country_event_with_option_insight = {
 				id = dse_flavour_cumania.31
 				option_1 = "cum_events_31_a_effect = yes"
@@ -1277,14 +1308,23 @@ cum_s_crown = {
 	cum_a_bride_from_the_steppe = {
 		icon = native_royal_marriage
 		position = 3
-		required_missions = { cum_a_house_of_stone }
+		required_missions = { cum_chiefs_into_lords }
 
 		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = cum_christian_marriage_tt
-				any_country = {
-					marriage_with = ROOT
-					religion_group = christian
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = cum_christian_marriage_tt
+					any_country = {
+						marriage_with = ROOT
+						religion_group = christian
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = cum_royal_marriage_tt
+					any_country = {
+						marriage_with = ROOT
+						government_rank = 2
+					}
 				}
 			}
 		}
@@ -1294,7 +1334,10 @@ cum_s_crown = {
 			every_country = {
 				limit = {
 					marriage_with = ROOT
-					religion_group = christian
+					OR = {
+						religion_group = christian
+						government_rank = 2
+					}
 				}
 				add_opinion = {
 					who = ROOT
@@ -1307,14 +1350,22 @@ cum_s_crown = {
 	cum_the_laws_of_the_realm = {
 		icon = the_law_colleges
 		position = 4
-		required_missions = { cum_chiefs_into_lords }
+		required_missions = { cum_a_bride_from_the_steppe }
 
 		trigger = {
 			reform_level = 2
 			stability = 1
+			custom_trigger_tooltip = {
+				tooltip = cum_three_courthouses_tt
+				num_of_owned_provinces_with = {
+					value = 3
+					has_courthouse_building_trigger = yes
+				}
+			}
 		}
 
 		effect = {
+			add_stability_or_adm_power = yes
 			add_country_modifier = {
 				name = cum_laws_of_the_realm_modifier
 				duration = 9125
@@ -1329,13 +1380,24 @@ cum_s_crown = {
 
 		provinces_to_highlight = {
 			OR = {
-				province_id = 4239
-				province_id = 1954
-				province_id = 156
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { is_core = ROOT }
+				AND = {
+					OR = {
+						province_id = 4239
+						province_id = 1954
+						province_id = 156
+					}
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_core = ROOT }
+					}
+				}
+				AND = {
+					OR = {
+						province_id = 4125
+						province_id = 4532
+					}
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
 			}
 		}
 
@@ -1343,6 +1405,8 @@ cum_s_crown = {
 			owns_core_province = 4239
 			owns_core_province = 1954
 			owns_core_province = 156
+			4125 = { country_or_non_sovereign_subject_holds = ROOT }
+			4532 = { country_or_non_sovereign_subject_holds = ROOT }
 			prestige = 30
 			stability = 1
 			is_subject = no
@@ -1351,15 +1415,14 @@ cum_s_crown = {
 
 		effect = {
 			cum_crown_effect = yes
-			add_prestige_or_monarch_power = { amount = 25 }
-			153 = {
-				if = {
-					limit = {
-						NOT = { owned_by = ROOT }
-					}
-					add_permanent_claim = ROOT
-				}
+			add_country_modifier = {
+				name = cum_cuman_crown_modifier
+				duration = -1
 			}
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = " "
+			cum_claim_area_effect = { area = alfold_area }
+			cum_claim_area_effect = { area = transdanubia_area }
 			custom_tooltip = " "
 			country_event = {
 				id = dse_flavour_cumania.32
@@ -1368,128 +1431,101 @@ cum_s_crown = {
 		}
 	}
 
-	cum_the_hungarian_question = {
-		icon = the_hungarian_question
-		position = 6
-		required_missions = { cum_the_crown_of_the_cumans }
-
-		provinces_to_highlight = {
-			province_id = 153
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
-		}
-
-		trigger = {
-			cum_friend_or_holds_trigger = { who = HUN province = 153 }
-		}
-
-		effect = {
-			if = {
-				limit = {
-					HUN = {
-						alliance_with = ROOT
-						NOT = { is_subject_of = ROOT }
-					}
-				}
-				add_dip_power = 50
-				add_trust = {
-					who = HUN
-					value = 25
-					mutual = yes
-				}
-			}
-			else = {
-				cum_claim_area_effect = { area = alfold_area }
-				cum_claim_area_effect = { area = transdanubia_area }
-			}
-			if = {
-				limit = {
-					religion = catholic
-				}
-				add_papal_influence = 25
-			}
-		}
-	}
-
-	cum_the_diet_of_cumania = {
-		icon = mission_noble_council
+	cum_towns_of_the_realm = {
+		icon = mission_se_along_the_river
 		position = 7
 		required_missions = { cum_the_crown_of_the_cumans }
 
-		trigger = {
-			total_development = 150
-			if = {
-				limit = {
-					has_estate = estate_nobles
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						province_id = 4239
+						province_id = 156
+						province_id = 1954
+					}
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 12 }
+						AND = {
+							NOT = { has_production_building_trigger = yes }
+							NOT = { has_trade_building_trigger = yes }
+						}
+					}
 				}
-				estate_loyalty = {
-					estate = estate_nobles
-					loyalty = 50
+				AND = {
+					owned_by = ROOT
+					development = 10
+					NOT = { development = 15 }
+					NOT = { province_id = 4239 }
+					NOT = { province_id = 156 }
+					NOT = { province_id = 1954 }
 				}
 			}
-			if = {
-				limit = {
-					has_estate = estate_burghers
+		}
+
+		trigger = {
+			4239 = {
+				owned_by = ROOT
+				development = 12
+				OR = {
+					has_production_building_trigger = yes
+					has_trade_building_trigger = yes
 				}
-				estate_loyalty = {
-					estate = estate_burghers
-					loyalty = 50
+			}
+			156 = {
+				owned_by = ROOT
+				development = 12
+				OR = {
+					has_production_building_trigger = yes
+					has_trade_building_trigger = yes
+				}
+			}
+			1954 = {
+				owned_by = ROOT
+				development = 12
+				OR = {
+					has_production_building_trigger = yes
+					has_trade_building_trigger = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = cum_three_new_towns_tt
+				num_of_owned_provinces_with = {
+					value = 3
+					development = 15
+					OR = {
+						has_production_building_trigger = yes
+						has_trade_building_trigger = yes
+					}
+					NOT = { province_id = 4239 }
+					NOT = { province_id = 156 }
+					NOT = { province_id = 1954 }
 				}
 			}
 		}
 
 		effect = {
-			add_country_modifier = {
-				name = cum_diet_modifier
-				duration = 9125
-			}
-		}
-	}
-
-	cum_a_realm_of_many_peoples = {
-		icon = multicultural_empire
-		position = 8
-		required_missions = { cum_the_diet_of_cumania }
-
-		trigger = {
-			num_of_owned_provinces_with = {
-				value = 12
-				NOT = { culture = cuman }
-			}
-			stability = 2
-			NOT = { num_of_rebel_controlled_provinces = 1 }
-		}
-
-		effect = {
-			add_country_modifier = {
-				name = cum_many_peoples_modifier
-				duration = 9125
+			4239 = { add_base_tax = 1 }
+			156 = { add_base_tax = 1 }
+			1954 = { add_base_tax = 1 }
+			every_owned_province = {
+				limit = {
+					development = 15
+					OR = {
+						has_production_building_trigger = yes
+						has_trade_building_trigger = yes
+					}
+					NOT = { province_id = 4239 }
+					NOT = { province_id = 156 }
+					NOT = { province_id = 1954 }
+				}
+				add_province_modifier = {
+					name = cum_realm_town_modifier
+					duration = -1
+				}
 			}
 			add_prestige_or_monarch_power = { amount = 25 }
-		}
-	}
-
-	cum_the_cuman_crown = {
-		icon = me_mission_shiny_crown
-		position = 9
-		required_missions = { cum_a_realm_of_many_peoples cum_the_hungarian_question }
-
-		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = cum_crowned_10_years_tt
-				had_country_flag = {
-					flag = cum_crowned_flag
-					days = 3650
-				}
-			}
-			total_development = 250
-			prestige = 60
-		}
-
-		effect = {
-			add_country_modifier = {
-				name = cum_cuman_crown_modifier
-				duration = -1
-			}
 		}
 	}
 }
@@ -1535,9 +1571,10 @@ cum_s_danube = {
 		effect = {
 			4239 = {
 				add_base_production = 1
+				add_or_upgrade_trade_building = yes
 				add_province_modifier = {
 					name = cum_belgrade_market_modifier
-					duration = 9125
+					duration = -1
 				}
 			}
 		}
@@ -1571,7 +1608,12 @@ cum_s_danube = {
 	cum_the_ragusan_road = {
 		icon = mission_dominate_genoa
 		position = 4
-		required_missions = { cum_the_belgrade_market }
+		required_missions = { cum_the_pest_fairs }
+
+		provinces_to_highlight = {
+			province_id = 137
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
 
 		trigger = {
 			OR = {
@@ -1611,65 +1653,9 @@ cum_s_danube = {
 		}
 	}
 
-	cum_towns_of_the_banat = {
-		icon = mission_se_along_the_river
-		position = 5
-		required_missions = { cum_the_pest_fairs }
-
-		provinces_to_highlight = {
-			OR = {
-				province_id = 4239
-				province_id = 156
-				province_id = 1954
-			}
-			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { development = 12 }
-				AND = {
-					NOT = { has_production_building_trigger = yes }
-					NOT = { has_trade_building_trigger = yes }
-				}
-			}
-		}
-
-		trigger = {
-			4239 = {
-				owned_by = ROOT
-				development = 12
-				OR = {
-					has_production_building_trigger = yes
-					has_trade_building_trigger = yes
-				}
-			}
-			156 = {
-				owned_by = ROOT
-				development = 12
-				OR = {
-					has_production_building_trigger = yes
-					has_trade_building_trigger = yes
-				}
-			}
-			1954 = {
-				owned_by = ROOT
-				development = 12
-				OR = {
-					has_production_building_trigger = yes
-					has_trade_building_trigger = yes
-				}
-			}
-		}
-
-		effect = {
-			4239 = { add_base_tax = 1 }
-			156 = { add_base_tax = 1 }
-			1954 = { add_base_tax = 1 }
-			add_prestige_or_monarch_power = { amount = 25 }
-		}
-	}
-
 	cum_the_vidin_crossing = {
 		icon = push_on_to_bulgaria
-		position = 6
+		position = 5
 		required_missions = { cum_the_ragusan_road }
 
 		provinces_to_highlight = {
@@ -1713,7 +1699,7 @@ cum_s_danube = {
 
 	cum_the_lower_danube = {
 		icon = mission_pow_just_around_the_riverbend
-		position = 7
+		position = 6
 		required_missions = { cum_the_vidin_crossing }
 
 		provinces_to_highlight = {
@@ -1756,7 +1742,7 @@ cum_s_danube = {
 
 	cum_the_danube_mouths = {
 		icon = mission_control_the_black_sea
-		position = 8
+		position = 7
 		required_missions = { cum_the_lower_danube }
 
 		provinces_to_highlight = {
@@ -1788,8 +1774,8 @@ cum_s_danube = {
 
 	cum_lords_of_the_danube = {
 		icon = mission_restore_trade_superiority
-		position = 9
-		required_missions = { cum_the_danube_mouths cum_towns_of_the_banat }
+		position = 8
+		required_missions = { cum_the_danube_mouths cum_towns_of_the_realm }
 
 		trigger = {
 			153 = {
@@ -1811,6 +1797,16 @@ cum_s_danube = {
 			add_country_modifier = {
 				name = cum_lords_of_the_danube_modifier
 				duration = -1
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = " "
+			4239 = {
+				if = {
+					limit = {
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
 			}
 		}
 	}
@@ -1944,7 +1940,7 @@ cum_f_catholic = {
 
 	cum_cat_the_bulwark = {
 		icon = catholic_volunteers
-		position = 7
+		position = 6
 		required_missions = { cum_cat_a_seat_in_the_curia cum_the_vidin_crossing }
 
 		provinces_to_highlight = {
@@ -1983,7 +1979,7 @@ cum_f_catholic = {
 
 	cum_cat_regnum_cumaniae = {
 		icon = king_of_hungary
-		position = 8
+		position = 7
 		required_missions = { cum_cat_the_bulwark }
 
 		trigger = {
@@ -2149,7 +2145,7 @@ cum_f_orthodox = {
 
 	cum_ort_kingdom_of_syrmia = {
 		icon = me_mission_ottomans_serbia_frontier
-		position = 7
+		position = 6
 		required_missions = { cum_ort_the_patriarchs_blessing cum_the_vidin_crossing }
 
 		provinces_to_highlight = {
@@ -2185,7 +2181,7 @@ cum_f_orthodox = {
 
 	cum_ort_tsars_of_the_danube = {
 		icon = mission_russian_patriarchatee
-		position = 8
+		position = 7
 		required_missions = { cum_ort_kingdom_of_syrmia }
 
 		trigger = {
@@ -2282,6 +2278,7 @@ cum_f_bogomil = {
 					tooltip = cum_no_other_bogomils_tt
 					NOT = {
 						any_country = {
+							exists = yes
 							religion = bogomilist
 							NOT = { is_subject_of = ROOT }
 						}
@@ -2379,7 +2376,7 @@ cum_f_bogomil = {
 
 	cum_bog_a_centre_of_the_faith = {
 		icon = crush_heretic_strongholds
-		position = 7
+		position = 6
 		required_missions = { cum_bog_against_the_inquisitors cum_the_vidin_crossing }
 
 		trigger = {
@@ -2407,7 +2404,7 @@ cum_f_bogomil = {
 
 	cum_bog_the_bright_kingdom = {
 		icon = mission_european_church
-		position = 8
+		position = 7
 		required_missions = { cum_bog_a_centre_of_the_faith }
 
 		trigger = {
@@ -2531,7 +2528,7 @@ cum_f_tengri = {
 
 	cum_ten_a_sky_over_all = {
 		icon = mission_holy_horde
-		position = 7
+		position = 6
 		required_missions = { cum_ten_harmony cum_the_vidin_crossing }
 
 		trigger = {
@@ -2561,7 +2558,7 @@ cum_f_tengri = {
 
 	cum_ten_under_the_blue_sky = {
 		icon = mission_central_asian_steppes
-		position = 8
+		position = 7
 		required_missions = { cum_ten_a_sky_over_all }
 
 		trigger = {
