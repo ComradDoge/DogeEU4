@@ -6,7 +6,7 @@
 
 #### Helpers
 
-# Kingdom (or khanate) rank. cum_crowned_flag dates the crowning (cum_the_cuman_crown).
+# Kingdom (or khanate) rank. cum_crowned_flag marks the crowning (cum_the_crown_of_the_cumans).
 cum_crown_effect = {
 	if = {
 		limit = {
@@ -16,6 +16,48 @@ cum_crown_effect = {
 	}
 	hidden_effect = {
 		set_country_flag = cum_crowned_flag
+	}
+}
+
+# Back to horse (dse_flavour_cumania.1): every infantry regiment is swapped for a cavalry regiment in the same province, for free.
+# Capped at 50 per province.
+cum_infantry_to_cavalry_effect = {
+	custom_tooltip = cum_infantry_to_cavalry_tt
+	hidden_effect = {
+		every_owned_province = {
+			limit = {
+				infantry_in_province = ROOT
+			}
+			set_variable = {
+				which = cum_inf_swap
+				value = 0
+			}
+			while = {
+				limit = {
+					infantry_in_province = ROOT
+					NOT = {
+						check_variable = {
+							which = cum_inf_swap
+							value = 50
+						}
+					}
+				}
+				kill_units = {
+					who = ROOT
+					type = infantry
+					amount = 1
+				}
+				cavalry = ROOT
+				change_variable = {
+					which = cum_inf_swap
+					value = 1
+				}
+			}
+			set_variable = {
+				which = cum_inf_swap
+				value = 0
+			}
+		}
 	}
 }
 
@@ -32,34 +74,34 @@ cum_estate_loyalty_effect = {
 	}
 }
 
-# The clans' favour, read once by dse_flavour_cumania.14 (The Clans Answer)
+# The clans' favour, read once by dse_flavour_cumania.14 (The Clans Answer); no effect or tooltip after it
 cum_clan_favour_up_effect = {
-	custom_tooltip = cum_clan_favour_up_tt
-	hidden_effect = {
-		change_variable = {
-			which = cum_clan_favour
-			value = 1
+	if = {
+		limit = {
+			NOT = { mission_completed = cum_the_clans_answer }
+		}
+		custom_tooltip = cum_clan_favour_up_tt
+		hidden_effect = {
+			change_variable = {
+				which = cum_clan_favour
+				value = 1
+			}
 		}
 	}
 }
 
 cum_clan_favour_down_effect = {
-	custom_tooltip = cum_clan_favour_down_tt
-	hidden_effect = {
-		subtract_variable = {
-			which = cum_clan_favour
-			value = 1
-		}
-	}
-}
-
-# Permanent claims on what ROOT doesn't own of an area
-cum_claim_area_effect = {
-	$area$ = {
+	if = {
 		limit = {
-			NOT = { owned_by = ROOT }
+			NOT = { mission_completed = cum_the_clans_answer }
 		}
-		add_permanent_claim = ROOT
+		custom_tooltip = cum_clan_favour_down_tt
+		hidden_effect = {
+			subtract_variable = {
+				which = cum_clan_favour
+				value = 1
+			}
+		}
 	}
 }
 
@@ -67,7 +109,7 @@ cum_claim_area_effect = {
 
 cum_events_10_ha_effect = {
 	cum_clan_favour_up_effect = yes
-	add_horde_unity = -5
+	reduce_legitimacy_small_effect = yes
 	4126 = {
 		add_base_production = 1
 	}
@@ -75,16 +117,16 @@ cum_events_10_ha_effect = {
 
 cum_events_10_hb_effect = {
 	cum_clan_favour_down_effect = yes
-	add_horde_unity = 10
+	add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
 	add_country_modifier = {
 		name = cum_every_clan_rides_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_10_hc_effect = {
 	add_years_of_income = -0.25
-	add_horde_unity = 5
+	add_legitimacy_or_mil_power = { amount = 5 republican_tradition = 2 }
 	add_prestige_or_monarch_power = { amount = 10 }
 }
 
@@ -92,7 +134,7 @@ cum_events_10_sa_effect = {
 	cum_clan_favour_up_effect = yes
 	add_country_modifier = {
 		name = cum_kun_freedoms_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -118,7 +160,7 @@ cum_events_11_b_effect = {
 	cum_clan_favour_down_effect = yes
 	add_country_modifier = {
 		name = cum_written_law_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -138,7 +180,7 @@ cum_events_12_a_effect = {
 			change_culture = cuman
 			add_province_modifier = {
 				name = cum_kun_resettlement_modifier
-				duration = 3650
+				duration = 5475
 			}
 		}
 	}
@@ -154,7 +196,7 @@ cum_events_12_b_effect = {
 	cum_clan_favour_down_effect = yes
 	add_country_modifier = {
 		name = cum_kun_riders_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -175,32 +217,32 @@ cum_events_12_c_effect = {
 cum_events_13_a_effect = {
 	add_country_modifier = {
 		name = cum_torn_tent_modifier
-		duration = 3650
+		duration = 5475
 	}
 	if = {
 		limit = {
 			cum_is_horde_trigger = yes
 		}
-		add_horde_unity = 5
+		add_legitimacy_or_mil_power = { amount = 5 republican_tradition = 2 }
 	}
 }
 
 cum_events_13_b_effect = {
-	cum_estate_loyalty_effect = { estate = estate_church loyalty = 10 }
+	add_estate_church_loyalty_effect = yes
 	add_country_modifier = {
 		name = cum_judgement_on_kings_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_13_c_effect = {
 	add_country_modifier = {
 		name = cum_we_go_on_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
-#### .14 The Clans Answer (one outcome, chosen by the path and the clans' favour)
+#### .14 The Clans Answer (one outcome, chosen by the path and the clans' favour: +3 or more, -2 to +2, -3 or less)
 
 cum_events_14_effect = {
 	if = {
@@ -208,7 +250,7 @@ cum_events_14_effect = {
 			cum_is_horde_trigger = yes
 			check_variable = {
 				which = cum_clan_favour
-				value = 2
+				value = 3
 			}
 		}
 		add_country_modifier = {
@@ -219,18 +261,30 @@ cum_events_14_effect = {
 	else_if = {
 		limit = {
 			cum_is_horde_trigger = yes
+			check_variable = {
+				which = cum_clan_favour
+				value = -2
+			}
 		}
 		add_country_modifier = {
-			name = cum_kipchak_clans_minor_modifier
+			name = cum_kipchak_clans_wary_modifier
 			duration = -1
 		}
-		add_prestige_or_monarch_power = { amount = 25 }
+	}
+	else_if = {
+		limit = {
+			cum_is_horde_trigger = yes
+		}
+		add_country_modifier = {
+			name = cum_khans_horde_modifier
+			duration = -1
+		}
 	}
 	else_if = {
 		limit = {
 			check_variable = {
 				which = cum_clan_favour
-				value = 2
+				value = 3
 			}
 		}
 		add_country_modifier = {
@@ -238,12 +292,23 @@ cum_events_14_effect = {
 			duration = -1
 		}
 	}
-	else = {
+	else_if = {
+		limit = {
+			check_variable = {
+				which = cum_clan_favour
+				value = -2
+			}
+		}
 		add_country_modifier = {
-			name = cum_kun_seats_minor_modifier
+			name = cum_kun_seats_wary_modifier
 			duration = -1
 		}
-		add_prestige_or_monarch_power = { amount = 25 }
+	}
+	else = {
+		add_country_modifier = {
+			name = cum_kings_peace_modifier
+			duration = -1
+		}
 	}
 }
 
@@ -254,7 +319,7 @@ cum_events_15_a_effect = {
 	156 = {
 		add_province_modifier = {
 			name = cum_temes_count_modifier
-			duration = 3650
+			duration = 5475
 		}
 	}
 }
@@ -264,7 +329,7 @@ cum_events_15_b_effect = {
 	156 = {
 		add_province_modifier = {
 			name = cum_temes_captain_modifier
-			duration = 3650
+			duration = 5475
 		}
 	}
 }
@@ -287,7 +352,7 @@ cum_events_20_a_effect = {
 			}
 			add_province_modifier = {
 				name = cum_belgrade_squeezed_modifier
-				duration = 3650
+				duration = 5475
 			}
 		}
 	}
@@ -296,13 +361,13 @@ cum_events_20_a_effect = {
 cum_events_20_b_effect = {
 	add_country_modifier = {
 		name = cum_free_towns_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_20_c_effect = {
 	add_years_of_income = 1
-	add_horde_unity = 10
+	add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
 	4239 = {
 		if = {
 			limit = {
@@ -323,7 +388,7 @@ cum_events_21_a_effect = {
 cum_events_21_b_effect = {
 	add_country_modifier = {
 		name = cum_hungarian_horses_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -352,7 +417,7 @@ cum_events_21_c_effect = {
 cum_events_22_a_effect = {
 	add_country_modifier = {
 		name = cum_heard_the_legate_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -371,7 +436,7 @@ cum_events_22_c_effect = {
 cum_events_23_a_effect = {
 	add_country_modifier = {
 		name = cum_kotens_memory_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -380,16 +445,16 @@ cum_events_23_b_effect = {
 		add_base_manpower = 1
 		add_province_modifier = {
 			name = cum_budjak_herds_modifier
-			duration = 3650
+			duration = -1
 		}
 	}
 }
 
 cum_events_23_c_effect = {
-	add_horde_unity = 10
+	add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
 	add_country_modifier = {
 		name = cum_wide_steppe_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -398,7 +463,7 @@ cum_events_23_c_effect = {
 cum_events_24_a_effect = {
 	add_country_modifier = {
 		name = cum_kin_feast_modifier
-		duration = 3650
+		duration = 5475
 	}
 	every_country = {
 		limit = {
@@ -414,13 +479,13 @@ cum_events_24_a_effect = {
 cum_events_24_b_effect = {
 	add_country_modifier = {
 		name = cum_crimean_riders_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_24_c_effect = {
 	add_years_of_income = 0.5
-	add_horde_unity = 5
+	add_legitimacy_or_mil_power = { amount = 5 republican_tradition = 2 }
 }
 
 #### .25 The Kurultai (horde)
@@ -429,22 +494,22 @@ cum_events_25_a_effect = {
 	cum_clan_favour_up_effect = yes
 	add_country_modifier = {
 		name = cum_kurultai_elders_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_25_b_effect = {
-	add_legitimacy_or_mil_power = { amount = 20 republican_tradition = 10 }
+	add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
 	add_country_modifier = {
 		name = cum_khans_line_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_25_c_effect = {
 	add_country_modifier = {
 		name = cum_strongest_rides_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -456,14 +521,14 @@ cum_events_30_a_effect = {
 	}
 	add_country_modifier = {
 		name = cum_hungarian_builder_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_30_b_effect = {
 	add_country_modifier = {
 		name = cum_serbian_builder_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -475,10 +540,10 @@ cum_events_30_c_effect = {
 #### .31 Chiefs into Lords (settled)
 
 cum_events_31_a_effect = {
-	cum_estate_loyalty_effect = { estate = estate_nobles loyalty = 10 }
+	add_estate_nobles_loyalty_effect = yes
 	add_country_modifier = {
 		name = cum_land_charters_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -492,7 +557,7 @@ cum_events_31_c_effect = {
 	cum_clan_favour_up_effect = yes
 	add_country_modifier = {
 		name = cum_clan_law_kept_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -501,7 +566,7 @@ cum_events_31_c_effect = {
 cum_events_33_a_effect = {
 	add_country_modifier = {
 		name = cum_ragusan_monopoly_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -513,7 +578,7 @@ cum_events_33_b_effect = {
 			}
 			add_province_modifier = {
 				name = cum_ragusan_house_modifier
-				duration = 3650
+				duration = -1
 			}
 		}
 	}
@@ -522,7 +587,7 @@ cum_events_33_b_effect = {
 cum_events_33_c_effect = {
 	add_country_modifier = {
 		name = cum_belgrade_merchants_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -531,19 +596,19 @@ cum_events_33_c_effect = {
 cum_events_40_a_effect = {
 	add_country_modifier = {
 		name = cum_kalocsa_friars_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_40_b_effect = {
-	cum_estate_loyalty_effect = { estate = estate_church loyalty = 10 }
+	add_estate_church_loyalty_effect = yes
 	add_stability_or_adm_power = yes
 }
 
 cum_events_40_c_effect = {
 	add_country_modifier = {
 		name = cum_cuman_speaking_priests_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -553,7 +618,7 @@ cum_events_41_a_effect = {
 	cum_clan_favour_down_effect = yes
 	add_country_modifier = {
 		name = cum_cuman_laws_enforced_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -566,21 +631,21 @@ cum_events_41_c_effect = {
 	add_prestige_or_monarch_power = { amount = 10 }
 	add_country_modifier = {
 		name = cum_cuman_laws_rewritten_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 #### .42 The Terter Blood (Orthodox)
 
 cum_events_42_a_effect = {
-	cum_claim_area_effect = { area = bulgaria_area }
+	give_claims = { area = bulgaria_area }
 	add_prestige_or_monarch_power = { amount = 10 }
 }
 
 cum_events_42_b_effect = {
 	add_country_modifier = {
 		name = cum_terter_friends_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -600,19 +665,19 @@ cum_events_43_a_effect = {
 	}
 	add_country_modifier = {
 		name = cum_tarnovo_blessing_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_43_b_effect = {
 	add_country_modifier = {
 		name = cum_pec_blessing_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_43_c_effect = {
-	cum_estate_loyalty_effect = { estate = estate_church loyalty = 10 }
+	add_estate_church_loyalty_effect = yes
 	4239 = {
 		if = {
 			limit = {
@@ -628,7 +693,7 @@ cum_events_43_c_effect = {
 cum_events_44_a_effect = {
 	add_country_modifier = {
 		name = cum_djed_blessing_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -640,7 +705,7 @@ cum_events_44_b_effect = {
 cum_events_44_c_effect = {
 	add_country_modifier = {
 		name = cum_djed_at_belgrade_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -655,7 +720,7 @@ cum_events_45_a_effect = {
 			add_base_tax = 1
 			add_province_modifier = {
 				name = cum_house_of_good_men_modifier
-				duration = 3650
+				duration = -1
 			}
 		}
 	}
@@ -665,14 +730,14 @@ cum_events_45_b_effect = {
 	add_stability_or_adm_power = yes
 	add_country_modifier = {
 		name = cum_simple_faith_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_45_c_effect = {
 	add_country_modifier = {
 		name = cum_good_men_preachers_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -681,14 +746,14 @@ cum_events_45_c_effect = {
 cum_events_46_a_effect = {
 	add_country_modifier = {
 		name = cum_friars_welcome_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
 cum_events_46_b_effect = {
 	add_country_modifier = {
 		name = cum_priests_of_belgrade_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -696,7 +761,7 @@ cum_events_46_c_effect = {
 	cum_clan_favour_up_effect = yes
 	add_country_modifier = {
 		name = cum_kams_alone_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
@@ -706,7 +771,7 @@ cum_events_47_a_effect = {
 	add_years_of_income = -0.25
 	add_country_modifier = {
 		name = cum_stone_father_modifier
-		duration = 3650
+		duration = 5475
 	}
 }
 
