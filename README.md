@@ -6,32 +6,55 @@
 
 <h1>DD/MM/YYYY</h1>
 
+Flavour
+
 - Riga province culture changed to baltic_german.
 - Shattered: Kurland and one province changed to baltic_german.
 - New government rank and ruler titles for many shattered tags.
 - Forming Tibet or Himalayan empire gives more renaming options.
 - Various flavour localisation changes to formable decision names and descriptions.
 - Riga and Livonian primary culture changed from prussian to baltic_german, as in vanilla.
+- Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
+- New leader, ship, army and fleet names for many countries that shared or lacked their own list, report if any corruped characters appear.
+- Reforming into Livonia now gives some renaming options: Terra Mariana/Land of Mary if Christian, Livland if Germanic, Zemgale, Semigallia and Latvia.
+
+Strategic Resources / Economy
+
+- AI is vastly improved in buildings the latent goods buildings.
+- The strategic resources overview got an uplift and is just easier to read now.
+- AI is much more effective in upgrading its road systems and does not need to do it step-by-step anymore, oops.
+- Strategic resources internally reworked and should no longer go into negatives and be more consistent in its figures. Factories short on resources stop and restart on their own.
+
+Fixes
+
+- Fixed Evenk Siberian colonization event firing with no empty province left.
+- Massive error.log cleanup of events and decisions that kept spamming the log.
+- Fixed two Peasant Republic events using their description text as the option button.
+- Rum AI no longer gets stuck previewing its Roman/Seljuk/Caliphate mission branch forever.
 - Fixed newly gained Persian provinces not getting the Timurid Persian Empire province modifier.
 - Fixed the Nationalism spread bonus from neighbouring provinces of the same culture never applying.
+- Fixed the Dhimmi temple agenda picking non-state provinces, leaving a broken agenda with no target.
+- Fixed the Dhimmi university agenda having no target when only a small capital qualified (vanilla bug).
+- Fixed Italian minor market dominance, French rebel and Celtica religion loops getting stuck when too few provinces qualified.
 - Rebulican liberalism should be more consistent and appear as expected when age of absolutism starts.
 - Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25.
-- Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, oopsie.
-- Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
-- Fixed the Dhimmi temple agenda picking non-state provinces, leaving a broken agenda with no target.
 - Fixed Persian Silk Route outposts and the Caliph's hidden mechanic spamming the error log every month.
-- Fixed Evenk Siberian colonization event firing with no empty province left.
+- Sicilies/Two Sicilies internal mission flag shenanigans resulted in confusion. Confusion should be gone.
+- Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, oopsie.
 - Fixed the Egyptian temple funding event and the entrepreneur Muslim school option not adding their development.
-- Fixed the Omani influence in India event skipping the strongest target.
-- Fixed the missing mission icons for Toledo's Southern Frontier and Golconda's southern frontier mission.
+- Fixed the Dream of Ruggero mission never unlocking, since it needed both the Naples and the Sicily union mission.
+- Teutonic Holy Horde capital modifier now also works with any other religion's idea group, not just vanilla Religious Ideas.
+- Ducal Prussia (released as a march by the Polish missions) now gets its own mission tree instead of the generic one, the tree was never ported.
+
+Content
 
 Generally, a pass over various small countries that never had content. They now have at least some for the early game, until they form something with its own mission tree. To encourage picking different countries, some missions give permanent modifiers unique to that country, even when the mission is shared across a region. If a country's gameplay feels off, or doesn't account for some odd case, feel free to report it.
 
 - Galicia and Volhynia: a shared mission tree with a column for each, events.
 - Occitania: new mission tree, some events, and a Paratge mechanic on formation.
-- New leader, ship, army and fleet names for many countries that shared or lacked their own list, report if any corruped characters appear.
+- Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
+- Cumania: new decision shows the current clan favour, both possible rewards of The Clans Answer and the choices still to come that change it, until that mission is done.
 - Shattered Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa and a road to forming Andalusia.
-- Reforming into Livonia now gives some renaming options: Terra Mariana/Land of Mary if Christian, Livland if Germanic, Zemgale, Semigallia and Latvia.
 - Burgundy: added the Europa Expanded mission tree as an additional mission choice. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
 - Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate.
 - Livonia: new decision for a Catholic Livonia to refound the Livonian Order (requires Lions of the North DLC), choosing the crusader or Livonian path (with the Livonian government reforms).

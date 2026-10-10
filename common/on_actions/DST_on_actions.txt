@@ -32,6 +32,16 @@ on_startup = {
 		}
 	}
 	onstartup_set_variable_values_effect = yes
+	# Strategic resources: first run, or first load of a save from before the current system (on_startup also fires on load)
+	tge_resource_system_init = yes
+}
+
+# Strategic resources: humans every month, AI every year. tge_recalc_country also covers subjects.
+on_monthly_pulse = {
+	if = {
+		limit = { ai = no }
+		tge_recalc_and_notify = yes
+	}
 }
 
 # country
@@ -169,18 +179,9 @@ on_buy_religious_reform = {
 
 # country (country annexing, root = target)
 on_diplomatic_annex = {
-	# Trade Goods Expanded
-	FROM = {
-		update_goods_subjects_province = { GOODS = copper }
-		update_goods_subjects_province = { GOODS = tin }
-		update_goods_subjects_province = { GOODS = iron }
-		update_goods_subjects_province = { GOODS = zinc }
-		update_goods_subjects_province = { GOODS = lead }
-		update_goods_subjects_province = { GOODS = glass }
-		#update_goods_subjects_province = { GOODS = tobacco }
-		#update_goods_subjects_province = { GOODS = cocoa }
-	}
-
+	# Strategic resources
+	tge_request_recalc = yes
+	FROM = { tge_request_recalc = yes }
 }
 
 on_siege_won_province = {
@@ -220,5 +221,13 @@ on_war_won = {
 on_yearly_pulse = {
 	events = {
 		piast_events.9 # Seniorate check (Piast duchies)
+	}
+	# Strategic resources (AI; humans recalculate monthly)
+	if = {
+		limit = {
+			ai = yes
+			is_subject = no
+		}
+		tge_recalc_country = yes
 	}
 }

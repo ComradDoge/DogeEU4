@@ -161,6 +161,64 @@ meet_basic_province_requirements_trigger = {
     has_siege = no
 }
 
+# AI road builder (ai_building_events.10), province scope, ROOT = the building country.
+# One trigger per road: the province is big enough and has nothing that good yet.
+ai_road_site_trigger = {
+    NOT = { local_autonomy = 50 }
+    NOT = { has_province_flag = ai_road_queued }
+    meet_basic_province_requirements_trigger = yes
+    no_ongoing_construction_triggers = yes
+}
+ai_road_site_railroad_trigger = {
+    development = 15
+    NOT = { has_building = railroad }
+    ROOT = { adm_tech = 27 }
+    ai_road_site_trigger = yes
+}
+ai_road_site_macadam_trigger = {
+    development = 15
+    NOT = { has_building = macadam_road }
+    NOT = { has_building = railroad }
+    ROOT = { adm_tech = 23 }
+    ai_road_site_trigger = yes
+}
+ai_road_site_royal_trigger = {
+    development = 15
+    NOT = { has_building = royal_road }
+    NOT = { has_building = macadam_road }
+    NOT = { has_building = railroad }
+    ROOT = { adm_tech = 17 }
+    ai_road_site_trigger = yes
+}
+ai_road_site_gravel_trigger = {
+    development = 10
+    NOT = { has_building = gravel_road }
+    NOT = { has_building = royal_road }
+    NOT = { has_building = macadam_road }
+    NOT = { has_building = railroad }
+    ROOT = { adm_tech = 10 }
+    ai_road_site_trigger = yes
+}
+ai_road_site_early_trigger = {
+    development = 5
+    NOT = { has_building = early_road }
+    NOT = { has_building = gravel_road }
+    NOT = { has_building = royal_road }
+    NOT = { has_building = macadam_road }
+    NOT = { has_building = railroad }
+    ROOT = { adm_tech = 3 }
+    ai_road_site_trigger = yes
+}
+ai_road_site_any_trigger = {
+    OR = {
+        ai_road_site_railroad_trigger = yes
+        ai_road_site_macadam_trigger = yes
+        ai_road_site_royal_trigger = yes
+        ai_road_site_gravel_trigger = yes
+        ai_road_site_early_trigger = yes
+    }
+}
+
 province_is_owner_culture_or_owner_has_cultural_union = {
 	custom_trigger_tooltip = {
 		tooltip = province_is_$culture_group$_or_owner_has_cultural_union_tt

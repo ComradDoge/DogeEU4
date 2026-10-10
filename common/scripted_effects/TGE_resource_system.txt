@@ -1,0 +1,933 @@
+###############################################################################
+# STRATEGIC RESOURCE SYSTEM
+#
+# Pooled resources: copper, tin, iron, lead, zinc, glass, steam_engine.
+#
+# Every recalculation rebuilds all numbers from the map (provinces, buildings,
+# constructions, subjects). Nothing is added or subtracted incrementally, so
+# the numbers cannot drift, and broken numbers from old saves heal on the next
+# recalculation.
+#
+# Country variables, per resource X:
+#   X_produced        own output (all owned provinces producing X)
+#   from_subjects_X   overlord: received from subjects / subject: sent to the overlord
+#   X_total           supply = X_produced + received (overlord) or - sent (subject)
+#   X_used            consumed by running factories
+#   X_reserved        claimed by factories under construction
+#   X                 available = X_total - X_used - X_reserved (never below 0); build triggers read this
+#
+# Province output of X = max(0, goods produced) * max(0, 1 + local + global goods produced modifier)
+#
+# Factories (building / shut-down building / consumption):
+#   cannon_foundry          off_1    copper 0.4, tin 0.3
+#   metalworking_workshop   off_2    iron 1.0
+#   munition_factory        off_3    lead 1.0
+#   steam_engine_manu       off_4    copper 0.4, zinc 0.3, iron 0.5
+#   spectacle_factory       off_5    glass 0.6
+#   steam_factory           off_11   steam_engine 0.1
+# Costs live in tge_usage_<building> (below) and in common/scripted_triggers/_TGE_resource_triggers.txt
+# (tge_can_supply_<building>, tge_resource_short_/low_<resource>). Change them together, plus the
+# building descriptions and the "Factory needs" lines of dst_goods_resources_gui_tt / tge_resource_goods_desc.
+#
+# Shortage: while X_used > X_total, running factories that use X are shut down
+#   one at a time, cheapest first; steam engine assembly lines go last.
+# Recovery: shut-down factories restart on their own once enough is available,
+#   steam engine assembly lines first.
+# AI: a factory shut down for 3 years is dismantled and the province gets its
+#   old trade good back. Industrial factories (an upgrade of the counting house) stay.
+# Subjects: a marked province (import_from_subjects_modifier) of a subject that
+#   is not a tributary sends its output to the overlord. Markers that can no
+#   longer apply are removed.
+#
+# Entry points:
+#   tge_request_recalc = yes         country scope. Debounced: at most one recalculation per country per day. Use this from on_actions and buildings.
+# Performance fail-safes (cost must stay bounded even if the logic has a bug):
+#   - requests raised by a running recalculation are ignored (tge_recalc_running)
+#   - cooldown: a request right after a recalculation waits 30 days (AI) or 7 (humans)
+#   - budget: at most 10 queued AI recalculations a day world-wide, the rest move to a later day
+#   - shut-down / restart loops stop after 60 factories and ask for a follow-up
+#   - on_trade_good_changed enforces factory goods only one level deep (tge_enforcing_good)
+#   tge_request_recalc_owner = yes   province scope, same for the owner
+#   tge_recalc_and_notify = yes      country scope, immediate. Also asks the overlord to recalculate when this country sends it resources.
+#   tge_recalc_country = yes         country scope, immediate (subjects first, then the country)
+# Overview: the recalculation also sets tge_factories_running/stopped and the
+# tge_short_<X> / tge_low_<X> flags read by customizable_localization/TGE_resource_customizable_localization.txt.
+# Callers: on_monthly_pulse (humans), on_yearly_pulse (AI), on_startup (upgrade
+# of old saves), province owner / trade good / production development changes,
+# annexation and client states, factory, shut-down and import buildings, the
+# resource decisions and the resources button (common/custom_gui/DST_goods_Info_gui.txt).
+###############################################################################
+
+
+###############################################################################
+# FACTORY COSTS (part 1 of 2)
+# Keep in sync with tge_can_supply_<building> in common/scripted_triggers/_TGE_resource_triggers.txt.
+# Country scope. OP = change | subtract, VAR = used | reserved
+###############################################################################
+
+tge_usage_cannon_foundry = {
+	$OP$_variable = { which = copper_$VAR$ value = 0.4 }
+	$OP$_variable = { which = tin_$VAR$ value = 0.3 }
+}
+
+tge_usage_metalworking_workshop = {
+	$OP$_variable = { which = iron_$VAR$ value = 1.0 }
+}
+
+tge_usage_munition_factory = {
+	$OP$_variable = { which = lead_$VAR$ value = 1.0 }
+}
+
+tge_usage_steam_engine_manu = {
+	$OP$_variable = { which = copper_$VAR$ value = 0.4 }
+	$OP$_variable = { which = zinc_$VAR$ value = 0.3 }
+	$OP$_variable = { which = iron_$VAR$ value = 0.5 }
+}
+
+tge_usage_spectacle_factory = {
+	$OP$_variable = { which = glass_$VAR$ value = 0.6 }
+}
+
+tge_usage_steam_factory = {
+	$OP$_variable = { which = steam_engine_$VAR$ value = 0.1 }
+}
+
+
+# Country scope. Counts one running factory towards each resource it uses (overview: "In use X - N factories").
+tge_users_of_cannon_foundry = {
+	change_variable = { which = tge_users_copper value = 1 }
+	change_variable = { which = tge_users_tin value = 1 }
+}
+
+tge_users_of_metalworking_workshop = {
+	change_variable = { which = tge_users_iron value = 1 }
+}
+
+tge_users_of_munition_factory = {
+	change_variable = { which = tge_users_lead value = 1 }
+}
+
+tge_users_of_steam_engine_manu = {
+	change_variable = { which = tge_users_copper value = 1 }
+	change_variable = { which = tge_users_zinc value = 1 }
+	change_variable = { which = tge_users_iron value = 1 }
+}
+
+tge_users_of_spectacle_factory = {
+	change_variable = { which = tge_users_glass value = 1 }
+}
+
+tge_users_of_steam_factory = {
+	change_variable = { which = tge_users_steam_engine value = 1 }
+}
+
+
+###############################################################################
+# REQUESTS
+###############################################################################
+
+# Country scope
+tge_request_recalc = {
+	if = {
+		limit = {
+			exists = yes
+			NOT = { has_country_flag = tge_recalc_running }	# changes made by the recalculation itself (trade goods, shut-down markers) are already counted
+			OR = {
+				NOT = { has_country_flag = tge_recalc_pending }
+				had_country_flag = { flag = tge_recalc_pending days = 60 }	# fail-safe: the queued event never arrived
+			}
+		}
+		clr_country_flag = tge_recalc_pending
+		set_country_flag = tge_recalc_pending
+		# Fail-safe cooldown: right after a recalculation the next one waits (AI 30 days, humans 7).
+		# Whatever goes wrong, a country recalculates at most about once a month (a week for humans) through requests.
+		if = {
+			limit = {
+				ai = yes
+				has_country_flag = tge_recalc_done
+				NOT = { had_country_flag = { flag = tge_recalc_done days = 30 } }
+			}
+			country_event = { id = New_TradeGood_Events.2 days = 30 }
+		}
+		else_if = {
+			limit = {
+				ai = no
+				has_country_flag = tge_recalc_done
+				NOT = { had_country_flag = { flag = tge_recalc_done days = 7 } }
+			}
+			country_event = { id = New_TradeGood_Events.2 days = 7 }
+		}
+		else = {
+			country_event = { id = New_TradeGood_Events.2 days = 1 }
+		}
+	}
+}
+
+# Any scope. Takes the first free slot of today's recalculation budget (check tge_recalc_budget_full first).
+tge_recalc_take_slot = {
+	if = { limit = { NOT = { tge_recalc_slot_used = { N = 1 } } } tge_recalc_set_slot = { N = 1 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 2 } } } tge_recalc_set_slot = { N = 2 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 3 } } } tge_recalc_set_slot = { N = 3 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 4 } } } tge_recalc_set_slot = { N = 4 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 5 } } } tge_recalc_set_slot = { N = 5 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 6 } } } tge_recalc_set_slot = { N = 6 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 7 } } } tge_recalc_set_slot = { N = 7 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 8 } } } tge_recalc_set_slot = { N = 8 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 9 } } } tge_recalc_set_slot = { N = 9 } }
+	else_if = { limit = { NOT = { tge_recalc_slot_used = { N = 10 } } } tge_recalc_set_slot = { N = 10 } }
+}
+
+tge_recalc_set_slot = {
+	clr_global_flag = tge_recalc_slot_$N$
+	set_global_flag = tge_recalc_slot_$N$
+}
+
+# Province scope
+tge_request_recalc_owner = {
+	if = {
+		limit = { is_empty = no }
+		owner = { tge_request_recalc = yes }
+	}
+}
+
+# Global, any scope. Runs once: on a new game, or the first load of a save from before this system.
+tge_resource_system_init = {
+	if = {
+		limit = { NOT = { has_global_flag = tge_resource_system_v2 } }
+		set_global_flag = tge_resource_system_v2
+
+		# ===== LEGACY SAVE COMPAT: START - delete everything down to END once saves from before the resource rework are gone =====
+		# Leftovers of the old system
+		every_province = {
+			limit = {
+				OR = {
+					has_province_flag = back_to_off
+					has_province_flag = back_to_off_2
+					has_province_flag = back_to_off_3
+					has_province_flag = back_to_off_4
+					has_province_flag = back_to_off_5
+					has_province_flag = back_to_off_11
+				}
+			}
+			clr_province_flag = back_to_off
+			clr_province_flag = back_to_off_2
+			clr_province_flag = back_to_off_3
+			clr_province_flag = back_to_off_4
+			clr_province_flag = back_to_off_5
+			clr_province_flag = back_to_off_11
+		}
+		# ===== LEGACY SAVE COMPAT: END =====
+
+		every_country = {
+			limit = {
+				OR = {
+					tge_has_resource_activity = yes
+					# ===== LEGACY SAVE COMPAT: START - delete everything down to END once saves from before the resource rework are gone =====
+					# Old saves: numbers left on countries that no longer take part get cleared
+					NOT = { is_variable_equal = { which = copper value = 0 } }
+					NOT = { is_variable_equal = { which = tin value = 0 } }
+					NOT = { is_variable_equal = { which = iron value = 0 } }
+					NOT = { is_variable_equal = { which = lead value = 0 } }
+					NOT = { is_variable_equal = { which = zinc value = 0 } }
+					NOT = { is_variable_equal = { which = glass value = 0 } }
+					NOT = { is_variable_equal = { which = steam_engine value = 0 } }
+					# ===== LEGACY SAVE COMPAT: END =====
+				}
+			}
+			set_country_flag = tge_has_resource_data
+			tge_request_recalc = yes
+		}
+	}
+}
+
+
+###############################################################################
+# RECALCULATION
+###############################################################################
+
+# Country scope
+tge_recalc_and_notify = {
+	tge_recalc_country = yes
+	if = {
+		limit = {
+			tge_can_export_to_overlord = yes
+			any_owned_province = { has_province_modifier = import_from_subjects_modifier }
+		}
+		overlord = { tge_request_recalc = yes }
+	}
+}
+
+# Country scope. Subjects first, so the overlord reads what they send this time.
+# tge_recalc_running blocks the requests its own changes would raise through on_actions
+# (they queued another recalculation every day, forever, for a country with two factories in one province).
+tge_recalc_country = {
+	set_country_flag = tge_recalc_running
+	every_subject_country = {
+		set_country_flag = tge_recalc_running
+		tge_recalc_country_body = yes
+	}
+	tge_recalc_country_body = yes
+	every_subject_country = {
+		tge_recalc_finished = yes
+	}
+	tge_recalc_finished = yes
+}
+
+# Country scope. End of a recalculation: dates it for the cooldown in tge_request_recalc,
+# then queues the follow-up a recalculation asked for with tge_recalc_again.
+tge_recalc_finished = {
+	clr_country_flag = tge_recalc_running
+	clr_country_flag = tge_recalc_done
+	set_country_flag = tge_recalc_done
+	if = {
+		limit = { has_country_flag = tge_recalc_again }
+		clr_country_flag = tge_recalc_again
+		tge_request_recalc = yes
+	}
+}
+
+# Country scope. Only called from tge_recalc_country.
+tge_recalc_country_body = {
+	if = {
+		limit = {
+			OR = {
+				has_country_flag = tge_has_resource_data
+				tge_has_resource_activity = yes
+				any_subject_country = { has_country_flag = tge_has_resource_data }
+			}
+		}
+		tge_reset_resource = { GOODS = copper }
+		tge_reset_resource = { GOODS = tin }
+		tge_reset_resource = { GOODS = iron }
+		tge_reset_resource = { GOODS = lead }
+		tge_reset_resource = { GOODS = zinc }
+		tge_reset_resource = { GOODS = glass }
+		tge_reset_resource = { GOODS = steam_engine }
+
+		export_to_variable = {
+			variable_name = tge_global_goods_mod
+			value = modifier:global_trade_goods_size_modifier
+		}
+
+		# Output, factories, constructions, clean-up. Steam engines come later.
+		every_owned_province = {
+			limit = { tge_is_resource_relevant_province = yes }
+			tge_sweep_province = yes
+		}
+
+		# What subjects send (their own body already ran in this recalculation)
+		if = {
+			limit = { is_subject = no }
+			every_subject_country = {
+				limit = {
+					tge_can_export_to_overlord = yes
+					has_country_flag = tge_has_resource_data
+				}
+				overlord = {
+					change_variable = { which = from_subjects_copper which = PREV }
+					change_variable = { which = from_subjects_tin which = PREV }
+					change_variable = { which = from_subjects_iron which = PREV }
+					change_variable = { which = from_subjects_lead which = PREV }
+					change_variable = { which = from_subjects_zinc which = PREV }
+					change_variable = { which = from_subjects_glass which = PREV }
+				}
+			}
+		}
+
+		tge_compute_total = { GOODS = copper }
+		tge_compute_total = { GOODS = tin }
+		tge_compute_total = { GOODS = iron }
+		tge_compute_total = { GOODS = lead }
+		tge_compute_total = { GOODS = zinc }
+		tge_compute_total = { GOODS = glass }
+
+		# Shortages of base resources: cheapest factories first, steam engine assembly lines last
+		tge_shut_down_for = { BUILDING = cannon_foundry OFF = off_1 GOODS = copper }
+		tge_shut_down_for = { BUILDING = steam_engine_manu OFF = off_4 GOODS = copper }
+		tge_shut_down_for = { BUILDING = cannon_foundry OFF = off_1 GOODS = tin }
+		tge_shut_down_for = { BUILDING = steam_engine_manu OFF = off_4 GOODS = zinc }
+		tge_shut_down_for = { BUILDING = metalworking_workshop OFF = off_2 GOODS = iron }
+		tge_shut_down_for = { BUILDING = steam_engine_manu OFF = off_4 GOODS = iron }
+		tge_shut_down_for = { BUILDING = munition_factory OFF = off_3 GOODS = lead }
+		tge_shut_down_for = { BUILDING = spectacle_factory OFF = off_5 GOODS = glass }
+
+		# Steam engines come from the assembly lines still running after the step above
+		every_owned_province = {
+			limit = {
+				trade_goods = steam_engine
+				NOT = { has_building = off_4 }
+				NOT = { has_province_flag = tge_switched_this_pass }
+			}
+			tge_calc_province_output = yes
+			tge_add_province_output = { GOODS = steam_engine }
+		}
+		if = {
+			limit = { is_subject = no }
+			every_subject_country = {
+				limit = {
+					tge_can_export_to_overlord = yes
+					has_country_flag = tge_has_resource_data
+				}
+				overlord = {
+					change_variable = { which = from_subjects_steam_engine which = PREV }
+				}
+			}
+		}
+		tge_compute_total = { GOODS = steam_engine }
+		tge_shut_down_for = { BUILDING = steam_factory OFF = off_11 GOODS = steam_engine }
+
+		tge_refresh_available_all = yes
+
+		# Restart what can be supplied again, most valuable first
+		tge_restore_while_supplied = { BUILDING = steam_engine_manu OFF = off_4 }
+		if = {
+			limit = { check_variable = { which = tge_loop_guard value = 1 } }
+			set_country_flag = tge_recalc_again	# their steam engines count from the next recalculation
+		}
+		tge_restore_while_supplied = { BUILDING = metalworking_workshop OFF = off_2 }
+		tge_restore_while_supplied = { BUILDING = cannon_foundry OFF = off_1 }
+		tge_restore_while_supplied = { BUILDING = munition_factory OFF = off_3 }
+		tge_restore_while_supplied = { BUILDING = spectacle_factory OFF = off_5 }
+		tge_restore_while_supplied = { BUILDING = steam_factory OFF = off_11 }
+
+		tge_ai_dismantle_idle_factories = yes
+
+		# Metalworking adjacency bonus: only running workshops give it (the event's trigger decides whether anything changes)
+		if = {
+			limit = {
+				any_owned_province = {
+					OR = {
+						trade_goods = metalworking
+						has_province_modifier = metalworking_modifier_new
+					}
+				}
+			}
+			country_event = { id = tge_tradingbonus_special.6 }
+		}
+
+		# Factory counts for the overview, and end of this pass
+		set_variable = { which = tge_factories_running value = 0 }
+		set_variable = { which = tge_factories_stopped value = 0 }
+		set_variable = { which = tge_stopped_cannon_foundry value = 0 }
+		set_variable = { which = tge_stopped_metalworking_workshop value = 0 }
+		set_variable = { which = tge_stopped_munition_factory value = 0 }
+		set_variable = { which = tge_stopped_steam_engine_manu value = 0 }
+		set_variable = { which = tge_stopped_spectacle_factory value = 0 }
+		set_variable = { which = tge_stopped_steam_factory value = 0 }
+		set_variable = { which = tge_users_copper value = 0 }
+		set_variable = { which = tge_users_tin value = 0 }
+		set_variable = { which = tge_users_iron value = 0 }
+		set_variable = { which = tge_users_lead value = 0 }
+		set_variable = { which = tge_users_zinc value = 0 }
+		set_variable = { which = tge_users_glass value = 0 }
+		set_variable = { which = tge_users_steam_engine value = 0 }
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_flag = tge_switched_this_pass
+					has_building = cannon_foundry
+					has_building = metalworking_workshop
+					has_building = munition_factory
+					has_building = steam_engine_manu
+					has_building = spectacle_factory
+					has_building = steam_factory
+				}
+			}
+			clr_province_flag = tge_switched_this_pass
+			tge_count_factory = { BUILDING = cannon_foundry OFF = off_1 }
+			tge_count_factory = { BUILDING = metalworking_workshop OFF = off_2 }
+			tge_count_factory = { BUILDING = munition_factory OFF = off_3 }
+			tge_count_factory = { BUILDING = steam_engine_manu OFF = off_4 }
+			tge_count_factory = { BUILDING = spectacle_factory OFF = off_5 }
+			tge_count_factory = { BUILDING = steam_factory OFF = off_11 }
+		}
+
+		# Status flags for the overview (short = a stopped factory waits for it, low = not enough for one more factory)
+		tge_update_resource_status = { GOODS = copper }
+		tge_update_resource_status = { GOODS = tin }
+		tge_update_resource_status = { GOODS = iron }
+		tge_update_resource_status = { GOODS = lead }
+		tge_update_resource_status = { GOODS = zinc }
+		tge_update_resource_status = { GOODS = glass }
+		tge_update_resource_status = { GOODS = steam_engine }
+
+		if = {
+			limit = {
+				OR = {
+					tge_has_resource_activity = yes
+					any_subject_country = { has_country_flag = tge_has_resource_data }
+				}
+			}
+			set_country_flag = tge_has_resource_data
+		}
+		else = {
+			clr_country_flag = tge_has_resource_data	# everything is 0 now; skip this country until it takes part again
+		}
+	}
+}
+
+# Country scope
+tge_reset_resource = {
+	set_variable = { which = $GOODS$_produced value = 0 }
+	set_variable = { which = from_subjects_$GOODS$ value = 0 }
+	set_variable = { which = $GOODS$_used value = 0 }
+	set_variable = { which = $GOODS$_reserved value = 0 }
+	set_variable = { which = $GOODS$_total value = 0 }
+	set_variable = { which = $GOODS$ value = 0 }
+}
+
+# Country scope
+tge_compute_total = {
+	set_variable = { which = $GOODS$_total which = $GOODS$_produced }
+	if = {
+		limit = { is_subject = yes }
+		subtract_variable = { which = $GOODS$_total which = from_subjects_$GOODS$ }
+	}
+	else = {
+		change_variable = { which = $GOODS$_total which = from_subjects_$GOODS$ }
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = $GOODS$_total value = 0 } } }
+		set_variable = { which = $GOODS$_total value = 0 }
+	}
+}
+
+# Country scope
+tge_refresh_available = {
+	set_variable = { which = $GOODS$ which = $GOODS$_total }
+	subtract_variable = { which = $GOODS$ which = $GOODS$_used }
+	subtract_variable = { which = $GOODS$ which = $GOODS$_reserved }
+	if = {
+		limit = { NOT = { check_variable = { which = $GOODS$ value = 0 } } }
+		set_variable = { which = $GOODS$ value = 0 }
+	}
+}
+
+tge_refresh_available_all = {
+	tge_refresh_available = { GOODS = copper }
+	tge_refresh_available = { GOODS = tin }
+	tge_refresh_available = { GOODS = iron }
+	tge_refresh_available = { GOODS = lead }
+	tge_refresh_available = { GOODS = zinc }
+	tge_refresh_available = { GOODS = glass }
+	tge_refresh_available = { GOODS = steam_engine }
+}
+
+
+# Province scope
+tge_count_factory = {
+	if = {
+		limit = { has_building = $BUILDING$ }
+		if = {
+			limit = { has_building = $OFF$ }
+			owner = { change_variable = { which = tge_factories_stopped value = 1 } }
+			owner = { change_variable = { which = tge_stopped_$BUILDING$ value = 1 } }	# per type, for the overview
+		}
+		else = {
+			owner = { change_variable = { which = tge_factories_running value = 1 } }
+			owner = { tge_users_of_$BUILDING$ = yes }	# running factories per resource, for the overview
+		}
+	}
+}
+
+# Country scope. Flags read by the overview (customizable_localization/TGE_resource_customizable_localization.txt).
+tge_update_resource_status = {
+	if = {
+		limit = { tge_resource_short_$GOODS$ = yes }
+		set_country_flag = tge_short_$GOODS$
+	}
+	else = {
+		clr_country_flag = tge_short_$GOODS$
+	}
+	if = {
+		limit = { tge_resource_low_$GOODS$ = yes }
+		set_country_flag = tge_low_$GOODS$
+	}
+	else = {
+		clr_country_flag = tge_low_$GOODS$
+	}
+}
+
+
+###############################################################################
+# PROVINCE SWEEP
+# Province scope, called directly inside every_owned_province of the country
+# being recalculated, so PREV is that country.
+###############################################################################
+
+tge_sweep_province = {
+	# The building decides the trade good, not the flags
+	tge_sync_factory_province = { BUILDING = cannon_foundry FLAG = has_cannon GOOD = cannon }
+	tge_sync_factory_province = { BUILDING = metalworking_workshop FLAG = has_metalworking GOOD = metalworking }
+	tge_sync_factory_province = { BUILDING = munition_factory FLAG = has_munitions GOOD = munitions }
+	tge_sync_factory_province = { BUILDING = steam_engine_manu FLAG = has_steam_engine GOOD = steam_engine }
+	tge_sync_factory_province = { BUILDING = spectacle_factory FLAG = has_optics GOOD = optics }
+
+	# Output of base resources
+	if = {
+		limit = {
+			tge_is_strategic_good_province = yes
+			NOT = { trade_goods = steam_engine }
+		}
+		tge_calc_province_output = yes
+		if = {
+			limit = { trade_goods = copper }
+			tge_add_province_output = { GOODS = copper }
+		}
+		else_if = {
+			limit = { trade_goods = tin }
+			tge_add_province_output = { GOODS = tin }
+		}
+		else_if = {
+			limit = { trade_goods = iron }
+			tge_add_province_output = { GOODS = iron }
+		}
+		else_if = {
+			limit = { trade_goods = lead }
+			tge_add_province_output = { GOODS = lead }
+		}
+		else_if = {
+			limit = { trade_goods = zinc }
+			tge_add_province_output = { GOODS = zinc }
+		}
+		else_if = {
+			limit = { trade_goods = glass }
+			tge_add_province_output = { GOODS = glass }
+		}
+	}
+
+	# Consumption and reservations
+	tge_sweep_factory = { BUILDING = cannon_foundry OFF = off_1 }
+	tge_sweep_factory = { BUILDING = metalworking_workshop OFF = off_2 }
+	tge_sweep_factory = { BUILDING = munition_factory OFF = off_3 }
+	tge_sweep_factory = { BUILDING = steam_engine_manu OFF = off_4 }
+	tge_sweep_factory = { BUILDING = spectacle_factory OFF = off_5 }
+	tge_sweep_factory = { BUILDING = steam_factory OFF = off_11 }
+
+	# Import markers that can no longer apply
+	if = {
+		limit = {
+			has_province_modifier = import_from_subjects_modifier
+			OR = {
+				NOT = { tge_is_strategic_good_province = yes }
+				owner = { NOT = { tge_can_export_to_overlord = yes } }
+			}
+		}
+		remove_province_modifier = import_from_subjects_modifier
+	}
+}
+
+# Province scope (PREV = owner). Result in tge_output.
+tge_calc_province_output = {
+	export_to_variable = {
+		variable_name = tge_output
+		value = modifier:trade_goods_size
+	}
+	export_to_variable = {
+		variable_name = tge_output_mult
+		value = modifier:trade_goods_size_modifier
+	}
+	set_variable = { which = tge_global_goods_mod value = 0 }
+	change_variable = { which = tge_global_goods_mod which = PREV }
+	change_variable = { which = tge_output_mult which = tge_global_goods_mod }
+	change_variable = { which = tge_output_mult value = 1 }
+
+	# A shut-down building gives -100 goods produced; never let that reach the pool
+	if = {
+		limit = { NOT = { check_variable = { which = tge_output value = 0 } } }
+		set_variable = { which = tge_output value = 0 }
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = tge_output_mult value = 0 } } }
+		set_variable = { which = tge_output_mult value = 0 }
+	}
+	multiply_variable = { which = tge_output which = tge_output_mult }
+}
+
+# Province scope. Adds tge_output to the owner's output, and to what it sends to its overlord.
+tge_add_province_output = {
+	set_variable = { which = $GOODS$_produced which = tge_output }
+	owner = { change_variable = { which = $GOODS$_produced which = PREV } }
+	if = {
+		limit = {
+			has_province_modifier = import_from_subjects_modifier
+			owner = { tge_can_export_to_overlord = yes }
+		}
+		set_variable = { which = from_subjects_$GOODS$ which = tge_output }
+		owner = { change_variable = { which = from_subjects_$GOODS$ which = PREV } }
+	}
+}
+
+# Province scope
+tge_sweep_factory = {
+	if = {
+		limit = { has_building = $BUILDING$ }
+		if = {
+			limit = { has_building = $OFF$ }
+			if = {
+				limit = { NOT = { has_province_flag = tge_off_$BUILDING$ } }
+				set_province_flag = tge_off_$BUILDING$	# starts the AI dismantle timer
+			}
+		}
+		else = {
+			clr_province_flag = tge_off_$BUILDING$
+			owner = { tge_usage_$BUILDING$ = { OP = change VAR = used } }
+		}
+	}
+	else_if = {
+		limit = { has_building = $OFF$ }
+		remove_building = $OFF$	# shut-down marker without its factory
+		clr_province_flag = tge_off_$BUILDING$
+	}
+	if = {
+		limit = { has_construction = $BUILDING$ }
+		owner = { tge_usage_$BUILDING$ = { OP = change VAR = reserved } }
+	}
+}
+
+# Province scope. Repairs flags and trade good after script removed or added a factory without its on_built/on_destroyed.
+tge_sync_factory_province = {
+	if = {
+		limit = { has_building = $BUILDING$ }
+		if = {
+			limit = { NOT = { has_province_flag = $FLAG$ } }
+			set_province_flag = $FLAG$
+			set_province_flag = has_latent_good
+		}
+		if = {
+			limit = {
+				NOT = { trade_goods = $GOOD$ }
+				NOT = { tge_shows_own_factory_good = yes }
+			}
+			goods_save = yes
+			change_trade_goods = $GOOD$
+		}
+	}
+	else_if = {
+		limit = { has_province_flag = $FLAG$ }
+		clr_province_flag = $FLAG$
+		if = {
+			limit = { NOT = { tge_has_latent_building = yes } }
+			clr_province_flag = has_latent_good
+		}
+		if = {
+			limit = { trade_goods = $GOOD$ }
+			goods_back = yes
+		}
+	}
+}
+
+
+###############################################################################
+# SHUT DOWN / RESTART
+###############################################################################
+
+# Country scope. Shuts down running BUILDINGs one at a time while GOODS is short.
+tge_shut_down_for = {
+	set_variable = { which = tge_loop_guard value = 0 }
+	while = {
+		limit = {
+			tge_has_deficit = { GOODS = $GOODS$ }
+			any_owned_province = {
+				has_building = $BUILDING$
+				NOT = { has_building = $OFF$ }
+				NOT = { has_province_flag = tge_switched_this_pass }
+			}
+			NOT = { check_variable = { which = tge_loop_guard value = 60 } }	# fail-safe cap; the rest waits for the follow-up
+		}
+		change_variable = { which = tge_loop_guard value = 1 }
+		random_owned_province = {
+			limit = {
+				has_building = $BUILDING$
+				NOT = { has_building = $OFF$ }
+				NOT = { has_province_flag = tge_switched_this_pass }
+			}
+			add_building = $OFF$
+			set_province_flag = tge_off_$BUILDING$
+			set_province_flag = tge_switched_this_pass
+		}
+		tge_usage_$BUILDING$ = { OP = subtract VAR = used }
+	}
+	if = {
+		limit = { check_variable = { which = tge_loop_guard value = 60 } }
+		set_country_flag = tge_recalc_again
+	}
+}
+
+# Country scope. Restarts shut-down BUILDINGs one at a time while the country can supply them.
+# tge_loop_guard ends at the number restarted.
+tge_restore_while_supplied = {
+	set_variable = { which = tge_loop_guard value = 0 }
+	while = {
+		limit = {
+			tge_can_supply_$BUILDING$ = yes
+			any_owned_province = {
+				has_building = $BUILDING$
+				has_building = $OFF$
+				NOT = { has_province_flag = tge_switched_this_pass }
+			}
+			NOT = { check_variable = { which = tge_loop_guard value = 60 } }	# fail-safe cap; the rest waits for the follow-up
+		}
+		change_variable = { which = tge_loop_guard value = 1 }
+		random_owned_province = {
+			limit = {
+				has_building = $BUILDING$
+				has_building = $OFF$
+				NOT = { has_province_flag = tge_switched_this_pass }
+			}
+			remove_building = $OFF$
+			clr_province_flag = tge_off_$BUILDING$
+			set_province_flag = tge_switched_this_pass
+		}
+		tge_usage_$BUILDING$ = { OP = change VAR = used }
+		tge_refresh_available_all = yes
+	}
+	if = {
+		limit = { check_variable = { which = tge_loop_guard value = 60 } }
+		set_country_flag = tge_recalc_again
+	}
+}
+
+
+###############################################################################
+# AI FACTORY CONSTRUCTION
+# Used by ai_building_events.12. Sites and conditions: tge_ai_factory_site_<building> and
+# tge_ai_can_queue_<building> in common/scripted_triggers/_TGE_resource_triggers.txt.
+###############################################################################
+
+# Country scope. Queues one BUILDING in the site with the most production, and holds its
+# resources right away so the next factory queued in the same pass sees what is left.
+tge_ai_queue_factory = {
+	if = {
+		limit = { any_owned_province = { tge_ai_factory_site_$BUILDING$ = yes base_production = 20 } }
+		random_owned_province = {
+			limit = { tge_ai_factory_site_$BUILDING$ = yes base_production = 20 }
+			add_building_construction = { building = $BUILDING$ speed = 0.5 cost = 1 }
+			set_province_flag = tge_factory_queued
+		}
+	}
+	else_if = {
+		limit = { any_owned_province = { tge_ai_factory_site_$BUILDING$ = yes base_production = 10 } }
+		random_owned_province = {
+			limit = { tge_ai_factory_site_$BUILDING$ = yes base_production = 10 }
+			add_building_construction = { building = $BUILDING$ speed = 0.5 cost = 1 }
+			set_province_flag = tge_factory_queued
+		}
+	}
+	else_if = {
+		limit = { any_owned_province = { tge_ai_factory_site_$BUILDING$ = yes base_production = 5 } }
+		random_owned_province = {
+			limit = { tge_ai_factory_site_$BUILDING$ = yes base_production = 5 }
+			add_building_construction = { building = $BUILDING$ speed = 0.5 cost = 1 }
+			set_province_flag = tge_factory_queued
+		}
+	}
+	else = {
+		random_owned_province = {
+			limit = { tge_ai_factory_site_$BUILDING$ = yes }
+			add_building_construction = { building = $BUILDING$ speed = 0.5 cost = 1 }
+			set_province_flag = tge_factory_queued
+		}
+	}
+	tge_usage_$BUILDING$ = { OP = change VAR = reserved }
+	tge_refresh_available_all = yes
+}
+
+
+###############################################################################
+# AI DISMANTLING AND CLEAN-UP
+###############################################################################
+
+# Country scope
+tge_ai_dismantle_idle_factories = {
+	if = {
+		limit = { ai = yes }
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_building = off_1
+					has_building = off_2
+					has_building = off_3
+					has_building = off_4
+					has_building = off_5
+				}
+			}
+			tge_dismantle_if_idle = { BUILDING = cannon_foundry OFF = off_1 FLAG = has_cannon GOOD = cannon }
+			tge_dismantle_if_idle = { BUILDING = metalworking_workshop OFF = off_2 FLAG = has_metalworking GOOD = metalworking }
+			tge_dismantle_if_idle = { BUILDING = munition_factory OFF = off_3 FLAG = has_munitions GOOD = munitions }
+			tge_dismantle_if_idle = { BUILDING = steam_engine_manu OFF = off_4 FLAG = has_steam_engine GOOD = steam_engine }
+			tge_dismantle_if_idle = { BUILDING = spectacle_factory OFF = off_5 FLAG = has_optics GOOD = optics }
+			# Industrial factories are never dismantled: they replace the counting house (make_obsolete),
+			# so removing one would leave neither, and they block no other building.
+		}
+	}
+}
+
+# Province scope
+tge_dismantle_if_idle = {
+	if = {
+		limit = {
+			has_building = $BUILDING$
+			has_building = $OFF$
+			had_province_flag = { flag = tge_off_$BUILDING$ days = 1095 }
+		}
+		remove_building = $BUILDING$
+		tge_factory_cleanup = { BUILDING = $BUILDING$ OFF = $OFF$ FLAG = $FLAG$ GOOD = $GOOD$ }
+	}
+}
+
+# Province scope. For a factory that is gone. Safe to run more than once
+# (remove_building may or may not also fire on_destroyed).
+tge_factory_cleanup = {
+	if = {
+		limit = { has_building = $OFF$ }
+		remove_building = $OFF$
+	}
+	clr_province_flag = tge_off_$BUILDING$
+	clr_province_flag = $FLAG$	# before goods_back, or on_trade_good_changed puts the factory good back
+	clr_province_flag = has_latent_good
+	if = {
+		limit = { trade_goods = $GOOD$ }
+		goods_back = yes
+	}
+	tge_request_recalc_owner = yes
+}
+
+# Province scope
+tge_steam_factory_cleanup = {
+	if = {
+		limit = { has_building = off_11 }
+		remove_building = off_11
+	}
+	clr_province_flag = tge_off_steam_factory
+	tge_request_recalc_owner = yes
+}
+
+# Province scope. on_trade_good_changed: something replaced the good of a working factory.
+# Never when the new good is itself a factory good: with two factories in one province the
+# change_trade_goods -> on_trade_good_changed pair recursed forever (stack overflow crash).
+tge_enforce_factory_good = {
+	if = {
+		limit = {
+			has_province_flag = $FLAG$
+			has_building = $BUILDING$
+			NOT = { trade_goods = cannon }
+			NOT = { trade_goods = metalworking }
+			NOT = { trade_goods = steam_engine }
+			NOT = { trade_goods = optics }
+			NOT = { trade_goods = munitions }
+		}
+		goods_save = yes
+		change_trade_goods = $GOOD$
+	}
+}
+
+# Province scope. Shared on_built for the factories that change the trade good.
+tge_factory_built = {
+	goods_save = yes
+	set_province_flag = $FLAG$
+	set_province_flag = has_latent_good
+	clr_province_flag = tge_off_$BUILDING$
+	change_trade_goods = $GOOD$
+	tge_request_recalc_owner = yes
+}

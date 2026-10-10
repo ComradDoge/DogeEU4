@@ -1,7 +1,10 @@
 namespace = New_TradeGood_Events
-namespace = dst_goods_system_events
+
+# Strategic resource system: see common/scripted_effects/TGE_resource_system.txt
 
 
+# Recalculation. Fired by tge_request_recalc (debounced, with a cooldown), and directly by the
+# resources button and decisions.
 country_event = {
 	id = New_TradeGood_Events.2
 	title = New_TradeGood_Events.2.t
@@ -11,499 +14,40 @@ country_event = {
 	is_triggered_only = yes
 	hidden = yes
 
-	option = {
-		name = New_TradeGood_Events.2.a
-		ai_chance = { factor = 100 }	
-	}
 	immediate = {
 		hidden_effect = {
+			# Fail-safe: at most 10 queued AI recalculations a day world-wide; the rest move to one of the next days
 			if = {
 				limit = {
-					num_of_subjects = 1
+					ai = yes
+					has_country_flag = tge_recalc_pending
+					tge_recalc_budget_full = yes
 				}
-				update_goods_subjects_monthly = { GOODS = copper }
-				update_goods_subjects_monthly = { GOODS = tin }
-				update_goods_subjects_monthly = { GOODS = iron }
-				update_goods_subjects_monthly = { GOODS = lead }
-				update_goods_subjects_monthly = { GOODS = zinc }
-				update_goods_subjects_monthly = { GOODS = glass }
-				update_goods_subjects_monthly = { GOODS = steam_engine }
-				#update_goods_subjects_monthly = { GOODS = tobacco }
-				#update_goods_subjects_monthly = { GOODS = cocoa }
+				log = "TGE RECALC deferred [Root.GetTag]"
+				country_event = { id = New_TradeGood_Events.2 days = 1 random = 6 }	# tge_recalc_pending stays set, so no other request queues
 			}
-			
-			update_goods = { GOODS = copper }
-			update_goods = { GOODS = tin }
-			update_goods = { GOODS = iron }
-			update_goods = { GOODS = lead }
-			update_goods = { GOODS = zinc }
-			update_goods = { GOODS = glass }
-			update_goods = { GOODS = steam_engine }
-			if = {
-				limit = {
-					NOT = {
-						AND = {
-							check_variable = {
-								which = copper_total 
-								which = copper_used
-							}
-							
-							check_variable = {
-								which = tin_total 
-								which = tin_used
-							}
-						
-						}
-					}
-				}
-				set_variable = {
-					which = var1
-					value = 0
-				}
-				
-				while = {
+			else = {
+				if = {
 					limit = {
-						NOT = {
-							is_variable_equal = {
-								which = var1
-								which = cannon_foundry_amount
-							}
-						}
+						ai = yes
+						has_country_flag = tge_recalc_pending
 					}
-					random_owned_province = { 	
-						limit = { 
-							has_building = cannon_foundry
-						}
-						add_building = off_1
-						owner = {
-							change_variable = {            
-								which = copper
-								value = 0.4
-							}
-							subtract_variable = {            
-								which = copper_used
-								value = 0.4
-							}
-							
-							change_variable = {            
-								which = tin
-								value = 0.3
-							}
-							subtract_variable = {            
-								which = tin_used
-								value = 0.3
-							}
-						}
-						
-						if = {
-							limit = {
-								owner = { ai = yes }
-							}
-							remove_building = off_1
-							remove_building = cannon_foundry
-							clr_province_flag = has_cannon
-							clr_province_flag = has_latent_good
-							clr_province_flag = back_to_off
-							goods_back = yes	
-							
-							owner = {
-								subtract_variable = {            
-									which = cannon_foundry_amount
-									value = 1
-								}
-						
-								country_event = { 
-									id = New_TradeGood_Events.4
-									days = 2
-								}
-							}
-						}
-					}
-					change_variable = {            
-						which = var1 
-						value = 1 
-					}	
+					tge_recalc_take_slot = yes
 				}
-			}
-			
-			if = {
-				limit = {
-					NOT = {
-						AND = {
-							check_variable = {
-								which = copper_total 
-								which = copper_used
-							}
-							
-							check_variable = {
-								which = zinc_total 
-								which = zinc_used
-							}
-						
-						}
-					}
-				}
-				set_variable = {
-					which = var4
-					value = 0
-				}
-				
-				while = {
-					limit = {
-						NOT = {
-							is_variable_equal = {
-								which = var4
-								which = steam_engine_manu_amount
-							}
-						}
-					}
-					random_owned_province = { 	
-						limit = { 
-							has_building = steam_engine_manu
-						}
-						add_building = off_4
-						owner = {
-							change_variable = {            
-								which = copper
-								value = 0.4
-							}
-							subtract_variable = {            
-								which = copper_used
-								value = 0.4
-							}
-							
-							change_variable = {            
-								which = zinc
-								value = 0.3
-							}
-							subtract_variable = {            
-								which = zinc_used
-								value = 0.3
-							}
-						}
-						
-						if = {
-							limit = {
-								owner = { ai = yes }
-							}
-							remove_building = off_4
-							remove_building = steam_engine_manu
-							clr_province_flag = has_steam_engine
-							clr_province_flag = has_latent_good
-							clr_province_flag = back_to_off_4
-							goods_back = yes	
-							
-							owner = {
-								subtract_variable = {            
-									which = steam_engine_manu_amount
-									value = 1
-								}
-						
-								country_event = { 
-									id = New_TradeGood_Events.7
-									days = 2
-								}
-							}
-						}
-					}
-					change_variable = {            
-						which = var4 
-						value = 1 
-					}	
-				}
-			}
-			
-			
-			if = {
-				limit = {
-					NOT = {
-						AND = {
-							check_variable = {
-								which = iron_total 
-								which = iron_used
-							}	
-						}
-					}
-				}
-				set_variable = {
-					which = var2
-					value = 0
-				}
-				
-				while = {
-					limit = {
-						NOT = {
-							is_variable_equal = {
-								which = var2
-								which = metalworking_workshop_amount
-							}
-						}
-					}
-					random_owned_province = { 	
-						limit = { 
-							has_building = metalworking_workshop
-						}
-						add_building = off_2
-						owner = {
-							change_variable = {            
-								which = iron
-								value = 1.0
-							}
-							subtract_variable = {            
-								which = iron_used
-								value = 1.0
-							}
-						}
-						
-						if = {
-							limit = {
-								owner = { ai = yes }
-							}
-							remove_building = off_2
-							remove_building = metalworking_workshop
-							clr_province_flag = has_metalworking
-							clr_province_flag = has_latent_good
-							clr_province_flag = back_to_off_2
-							goods_back = yes	
-							
-							owner = {
-								subtract_variable = {            
-									which = metalworking_workshop_amount
-									value = 1
-								}
-						
-								country_event = { 
-									id = New_TradeGood_Events.5
-									days = 2
-								}
-							}
-						}
-					}
-					change_variable = {            
-						which = var2 
-						value = 1 
-					}	
-				}
-			}
-			
-			
-			if = {
-				limit = {
-					NOT = {
-						AND = {
-							check_variable = {
-								which = lead_total 
-								which = lead_used
-							}	
-						}
-					}
-				}
-				set_variable = {
-					which = var3
-					value = 0
-				}
-				
-				while = {
-					limit = {
-						NOT = {
-							is_variable_equal = {
-								which = var3
-								which = munition_factory_amount
-							}
-						}
-					}
-					random_owned_province = { 	
-						limit = { 
-							has_building = munition_factory
-						}
-						add_building = off_3
-						owner = {
-							change_variable = {            
-								which = lead
-								value = 1.0
-							}
-							subtract_variable = {            
-								which = lead_used
-								value = 1.0
-							}
-						}
-						
-						
-						if = {
-							limit = {
-								owner = { ai = yes }
-							}
-							remove_building = off_3
-							remove_building = munition_factory
-							clr_province_flag = has_munitions
-							clr_province_flag = has_latent_good
-							clr_province_flag = back_to_off_3
-							goods_back = yes	
-							
-							owner = {
-								subtract_variable = {            
-									which = munition_factory_amount
-									value = 1
-								}
-						
-								country_event = { 
-									id = New_TradeGood_Events.6
-									days = 2
-								}
-							}
-						}
-					}
-					change_variable = {            
-						which = var3 
-						value = 1 
-					}	
-				}
-			}
-			
-			if = {
-				limit = {
-					NOT = {
-						AND = {
-							check_variable = {
-								which = glass_total 
-								which = glass_used
-							}	
-						}
-					}
-				}
-				set_variable = {
-					which = var5
-					value = 0
-				}
-				
-				while = {
-					limit = {
-						NOT = {
-							is_variable_equal = {
-								which = var5
-								which = spectacle_factory_amount
-							}
-						}
-					}
-					random_owned_province = { 	
-						limit = { 
-							has_building = spectacle_factory
-						}
-						add_building = off_5
-						owner = {
-							change_variable = {            
-								which = glass
-								value = 0.6
-							}
-							subtract_variable = {            
-								which = glass_used
-								value = 0.6
-							}
-						}
-						
-						if = {
-							limit = {
-								owner = { ai = yes }
-							}
-							remove_building = off_5
-							remove_building = spectacle_factory
-							clr_province_flag = has_optics
-							clr_province_flag = has_latent_good
-							clr_province_flag = back_to_off_5
-							goods_back = yes	
-							
-							owner = {
-								subtract_variable = {            
-									which = spectacle_factory_amount
-									value = 1
-								}
-						
-								country_event = { 
-									id = New_TradeGood_Events.8
-									days = 2
-								}
-							}
-						}
-					}
-					change_variable = {            
-						which = var5 
-						value = 1 
-					}	
-				}
-			}
-
-			if = {
-				limit = {
-					NOT = {
-						AND = {
-							check_variable = {
-								which = steam_engine_total 
-								which = steam_engine_used
-							}	
-						}
-					}
-				}
-				set_variable = {
-					which = var11
-					value = 0
-				}
-				
-				while = {
-					limit = {
-						NOT = {
-							is_variable_equal = {
-								which = var11
-								which = steam_factory_amount
-							}
-						}
-					}
-					random_owned_province = { 	
-						limit = { 
-							has_building = steam_factory
-						}
-						add_building = off_11
-						owner = {
-							change_variable = {            
-								which = steam_engine
-								value = 0.1
-							}
-							subtract_variable = {            
-								which = steam_engine_used
-								value = 0.1
-							}
-						}
-						
-						if = {
-							limit = {
-								owner = { ai = yes }
-							}
-							remove_building = off_11
-							remove_building = steam_factory
-							clr_province_flag = back_to_off_11
-							
-							owner = {
-								subtract_variable = {            
-									which = steam_factory_amount
-									value = 1
-								}
-						
-								country_event = { 
-									id = New_TradeGood_Events.9
-									days = 2
-								}
-							}
-						}
-					}
-					change_variable = {            
-						which = var11 
-						value = 1 
-					}	
-				}
+				clr_country_flag = tge_recalc_pending
+				log = "TGE RECALC [Root.GetTag]"	# game.log: how often each country recalculates
+				tge_recalc_and_notify = yes
 			}
 		}
 	}
+
+	option = {
+		name = New_TradeGood_Events.2.a
+		ai_chance = { factor = 100 }
+	}
 }
 
+# Start of the system. Fired once by new_goods.1 (events/_TGE_goods_startup.txt) on a new game; on_startup covers old saves.
 province_event = {
 	id = New_TradeGood_Events.3
 	title = New_TradeGood_Events.3.t
@@ -513,195 +57,20 @@ province_event = {
 	is_triggered_only = yes
 	hidden = yes
 
+	immediate = {
+		hidden_effect = {
+			tge_resource_system_init = yes
+		}
+	}
+
 	option = {
 		name = New_TradeGood_Events.3.a
 		ai_chance = { factor = 100 }
 	}
-	immediate = {
-		hidden_effect = {
-			#1 = { # There is no reason for this event to keep looping forever when on_actions act as the sources of refresh.
-			#	province_event = { id = New_TradeGood_Events.3 days = 365 }
-			#}
-			if = {
-				limit = { NOT = { has_global_flag = New_TradeGood_First  } }
-				
-
-					###### Used Counter
-				every_country = { 
-					set_variable = {
-						which = copper_used
-						value = 0
-					}	
-					
-					set_variable = {
-						which = tin_used
-						value = 0
-					}
-					
-					set_variable = {
-						which = iron_used
-						value = 0
-					}
-					
-					set_variable = {
-						which = lead_used
-						value = 0
-					}
-					
-					set_variable = {
-						which = zinc_used
-						value = 0
-					}
-					
-					set_variable = {
-						which = glass_used
-						value = 0
-					}
-
-					set_variable = {
-						which = steam_engine_used
-						value = 0
-					}	
-					
-					#set_variable = {
-					#	which = tobacco_used
-					#	value = 0
-					#}
-					#
-					#set_variable = {
-					#	which = cocoa_used
-					#	value = 0
-					#}
-
-					###### Building Counter		
-					
-					set_variable = {
-						which = cannon_foundry_amount
-						value = 0
-					}
-
-					set_variable = {
-						which = metalworking_workshop_amount
-						value = 0
-					}	
-					
-					set_variable = {
-						which = munition_factory_amount
-						value = 0
-					}
-					
-					set_variable = {
-						which = steam_engine_manu_amount
-						value = 0
-					}
-					
-					set_variable = {
-						which = spectacle_factory_amount
-						value = 0
-					}
-
-					set_variable = {
-						which = steam_factory_amount
-						value = 0
-					}				
-					#set_variable = {
-					#	which = cigars_factory_amount
-					#	value = 0
-					#}
-					#
-					#set_variable = {
-					#	which = chocolate_factory_amount
-					#	value = 0
-					#}
-
-					###### Subject Counter
-					set_variable = {
-						which = from_subjects_copper
-						value = 0
-					}
-					
-					set_variable = {
-						which = from_subjects_tin
-						value = 0
-					}
-					
-					set_variable = {
-						which = from_subjects_iron
-						value = 0
-					}
-					
-					set_variable = {
-						which = from_subjects_lead
-						value = 0
-					}
-					
-					set_variable = {
-						which = from_subjects_zinc
-						value = 0
-					}
-					
-					set_variable = {
-						which = from_subjects_glass
-						value = 0
-					}
-					
-					set_variable = {
-						which = from_subjects_steam_engine
-						value = 0
-					}
-					#set_variable = {
-					#	which = from_subjects_tobacco
-					#	value = 0
-					#}
-					#
-					#set_variable = {
-					#	which = from_subjects_cocoa
-					#	value = 0
-					#}
-					
-					# Commented out, since not used at all, what is this? - Doge
-					#if = { 
-					#	limit = { ai = no }
-					#	set_variable = {
-					#		which = show_page_bonus_var
-					#		value = 1
-					#	}
-					#	country_event = { id = New_TradeGood_Events.51 days = 1 }
-					#}
-					
-					country_event = { id = New_TradeGood_Events.2 days = 1 }
-				}
-				set_global_flag = New_TradeGood_First
-				
-			}
-			every_country = { 
-				limit = {
-					OR = {
-						copper = 1 
-						tin = 1
-						iron = 1
-						lead = 1 
-						zinc = 1
-						glass = 1
-						#tobacco = 1
-						#cocoa = 1
-						steam_engine = 1
-					}
-				}
-				if = {
-					limit = { NOT = { ai = yes } }
-					country_event = { id = New_TradeGood_Events.2 days = 120 }
-					#country_event = { id = New_TradeGood_Events.2 days = 240 }
-					country_event = { id = New_TradeGood_Events.2 days = 360 }
-				}
-				else = {
-					country_event = { id = New_TradeGood_Events.2 days = 360 }
-				}
-			}
-		}
-	}
 }
 
+# ===== LEGACY SAVE COMPAT: START - delete everything down to END once saves from before the resource rework are gone =====
+# .4 to .9 were per-factory refreshes of the old system. Kept so events already queued in saves resolve.
 country_event = {
 	id = New_TradeGood_Events.4
 	title = New_TradeGood_Events.4.t
@@ -711,27 +80,13 @@ country_event = {
 	is_triggered_only = yes
 	hidden = yes
 
+	immediate = {
+		hidden_effect = { tge_request_recalc = yes }
+	}
+
 	option = {
 		name = New_TradeGood_Events.4.a
-		ai_chance = { factor = 100 }	
-	}
-	immediate = {
-		update_goods = { GOODS = copper }
-		update_goods = { GOODS = tin }
-		
-		if = {
-			limit = {
-				any_owned_province = { 
-					has_province_flag = back_to_off
-				}
-			}
-			every_owned_province = { 
-				limit = {
-					has_province_flag = back_to_off
-				}
-				add_building = off_1
-			}
-		}
+		ai_chance = { factor = 100 }
 	}
 }
 
@@ -744,26 +99,13 @@ country_event = {
 	is_triggered_only = yes
 	hidden = yes
 
+	immediate = {
+		hidden_effect = { tge_request_recalc = yes }
+	}
+
 	option = {
 		name = New_TradeGood_Events.5.a
-		ai_chance = { factor = 100 }	
-	}
-	immediate = {
-		update_goods = { GOODS = iron }
-		
-		if = {
-			limit = {
-				any_owned_province = { 
-					has_province_flag = back_to_off_2
-				}
-			}
-			every_owned_province = { 
-				limit = {
-					has_province_flag = back_to_off_2
-				}
-				add_building = off_2
-			}
-		}
+		ai_chance = { factor = 100 }
 	}
 }
 
@@ -776,26 +118,13 @@ country_event = {
 	is_triggered_only = yes
 	hidden = yes
 
+	immediate = {
+		hidden_effect = { tge_request_recalc = yes }
+	}
+
 	option = {
 		name = New_TradeGood_Events.6.a
-		ai_chance = { factor = 100 }	
-	}
-	immediate = {
-		update_goods = { GOODS = lead }
-		
-		if = {
-			limit = {
-				any_owned_province = { 
-					has_province_flag = back_to_off_3
-				}
-			}
-			every_owned_province = { 
-				limit = {
-					has_province_flag = back_to_off_3
-				}
-				add_building = off_3
-			}
-		}
+		ai_chance = { factor = 100 }
 	}
 }
 
@@ -808,27 +137,13 @@ country_event = {
 	is_triggered_only = yes
 	hidden = yes
 
+	immediate = {
+		hidden_effect = { tge_request_recalc = yes }
+	}
+
 	option = {
 		name = New_TradeGood_Events.7.a
-		ai_chance = { factor = 100 }	
-	}
-	immediate = {
-		update_goods = { GOODS = zinc }
-		update_goods = { GOODS = copper }
-		
-		if = {
-			limit = {
-				any_owned_province = { 
-					has_province_flag = back_to_off_4
-				}
-			}
-			every_owned_province = { 
-				limit = {
-					has_province_flag = back_to_off_4
-				}
-				add_building = off_4
-			}
-		}
+		ai_chance = { factor = 100 }
 	}
 }
 
@@ -841,26 +156,13 @@ country_event = {
 	is_triggered_only = yes
 	hidden = yes
 
+	immediate = {
+		hidden_effect = { tge_request_recalc = yes }
+	}
+
 	option = {
 		name = New_TradeGood_Events.8.a
-		ai_chance = { factor = 100 }	
-	}
-	immediate = {
-		update_goods = { GOODS = glass }
-		
-		if = {
-			limit = {
-				any_owned_province = { 
-					has_province_flag = back_to_off_5
-				}
-			}
-			every_owned_province = { 
-				limit = {
-					has_province_flag = back_to_off_5
-				}
-				add_building = off_5
-			}
-		}
+		ai_chance = { factor = 100 }
 	}
 }
 
@@ -873,47 +175,32 @@ country_event = {
 	is_triggered_only = yes
 	hidden = yes
 
+	immediate = {
+		hidden_effect = { tge_request_recalc = yes }
+	}
+
 	option = {
 		name = New_TradeGood_Events.9.a
-		ai_chance = { factor = 100 }	
-	}
-	immediate = {
-		update_goods = { GOODS = steam_engine }
-		
-		if = {
-			limit = {
-				any_owned_province = { 
-					has_province_flag = back_to_off_11
-				}
-			}
-			every_owned_province = { 
-				limit = {
-					has_province_flag = back_to_off_11
-				}
-				add_building = off_11
-			}
-		}
+		ai_chance = { factor = 100 }
 	}
 }
+# ===== LEGACY SAVE COMPAT: END =====
 
 
 ###############################################################################
+# First steam engine assembly line in the world. Fired from its on_built (was a polled event).
 country_event = {
 	id = New_TradeGood_Events.999
 	title = New_TradeGood_Events.999.t
 	desc = New_TradeGood_Events.999.d
 	picture = TRADEGOODS_eventPicture
 
-	fire_only_once = yes
+	is_triggered_only = yes
 	hidden = yes
 
 	trigger = {
 		NOT = { has_global_flag = first_steam_engine_manu_already_built }
-		any_owned_province = {
-			trade_goods = steam_engine
-		}
 	}
-
 
 	immediate = {
 		set_global_flag = first_steam_engine_manu_already_built
@@ -922,50 +209,32 @@ country_event = {
 
 	option = {
 		name = New_TradeGood_Events.999.a
-		ai_chance = { factor = 1 }	
+		ai_chance = { factor = 1 }
 	}
 }
 
 
-
+# ===== LEGACY SAVE COMPAT: START - delete everything down to END once saves from before the resource rework are gone =====
+namespace = dst_goods_system_events
 
 ###########################
+# Was a polled clean-up of import markers. The recalculation removes markers that can no longer apply. Kept for queued events.
 country_event = {
 	id = dst_goods_system_events.1
 	title = dst_goods_system_events.1.t
 	desc = dst_goods_system_events.1.d
 	picture = TRADEGOODS_eventPicture
 
+	is_triggered_only = yes
 	hidden = yes
 
-	trigger = {
-		is_subject = no
-		any_owned_province = {
-			has_province_modifier = import_from_subjects_modifier
-		}
-	}
-
-
 	immediate = {
-		every_owned_province = {
-			limit = {
-				has_province_modifier = import_from_subjects_modifier
-			}
-			remove_province_modifier = import_from_subjects_modifier
-		}
-		update_goods_subjects = { GOODS = copper }
-		update_goods_subjects = { GOODS = tin }
-		update_goods_subjects = { GOODS = iron }
-		update_goods_subjects = { GOODS = lead }
-		update_goods_subjects = { GOODS = zinc }
-		update_goods_subjects = { GOODS = glass }
-		update_goods_subjects = { GOODS = steam_engine }
-
-		country_event = { id = New_TradeGood_Events.2 }
+		hidden_effect = { tge_request_recalc = yes }
 	}
 
 	option = {
 		name = dst_goods_system_events.1.empty
-		ai_chance = { factor = 1 }	
+		ai_chance = { factor = 1 }
 	}
 }
+# ===== LEGACY SAVE COMPAT: END =====

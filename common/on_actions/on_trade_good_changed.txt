@@ -2,11 +2,9 @@
 
 # ROOT = province, FROM = country
 on_trade_good_changed = {
-	owner = {
-		country_event = { 
-			id = New_TradeGood_Events.2
-		}
-	}
+	# Strategic resources
+	tge_request_recalc_owner = yes
+
 	# Woad
 	if = {
 		limit = {
@@ -40,65 +38,16 @@ on_trade_good_changed = {
 		remove_province_modifier = woad_type_bad
 	}
 
-	# Latent Goods
+	# Latent Goods: a factory keeps its finished good if something else changes the trade good
+	# Fail-safe: change_trade_goods fires this on_action again right away; the flag stops a second round
 	if = {
-		limit = {
-			ROOT = {
-				has_province_flag = has_cannon
-			}
-		}
-		ROOT = {
-			goods_save = yes
-			change_trade_goods = cannon
-		}
-	}
-	
-	if = {
-		limit = {
-			ROOT = {
-				has_province_flag = has_metalworking
-			}
-		}
-		ROOT = {
-			goods_save = yes
-			change_trade_goods = metalworking
-		}
-	}
-	
-	if = {
-		limit = {
-			ROOT = {
-				has_province_flag = has_steam_engine
-			}
-		}
-		ROOT = {
-			goods_save = yes
-			change_trade_goods = steam_engine
-		}
-	}
-	
-	if = {
-		limit = {
-			ROOT = {
-				has_province_flag = has_optics
-			}
-		}
-		ROOT = {
-			goods_save = yes
-			change_trade_goods = optics
-		}
-	}
-	
-	if = {
-		limit = {
-			ROOT = {
-				has_province_flag = has_munitions
-			}
-		}
-		ROOT = {
-			goods_save = yes
-			change_trade_goods = munitions
-		}
+		limit = { NOT = { has_province_flag = tge_enforcing_good } }
+		set_province_flag = tge_enforcing_good
+		tge_enforce_factory_good = { BUILDING = cannon_foundry FLAG = has_cannon GOOD = cannon }
+		tge_enforce_factory_good = { BUILDING = metalworking_workshop FLAG = has_metalworking GOOD = metalworking }
+		tge_enforce_factory_good = { BUILDING = steam_engine_manu FLAG = has_steam_engine GOOD = steam_engine }
+		tge_enforce_factory_good = { BUILDING = spectacle_factory FLAG = has_optics GOOD = optics }
+		tge_enforce_factory_good = { BUILDING = munition_factory FLAG = has_munitions GOOD = munitions }
+		clr_province_flag = tge_enforcing_good
 	}
 }
-

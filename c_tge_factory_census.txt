@@ -1,0 +1,73 @@
+# Factory census: one line per country that has any resource factory, plus a world total.
+# "run c_tge_factory_census.txt" from any country (observer: tag into anything first).
+# Output goes to logs/game.log, search for "TGE CENSUS". Counts are read from the map, not from the resource pools,
+# so they are right even for AI countries whose pools only update once a year.
+
+# 1. Reset
+every_country = {
+	set_variable = { which = tge_census_cannon value = 0 }
+	set_variable = { which = tge_census_metal value = 0 }
+	set_variable = { which = tge_census_munitions value = 0 }
+	set_variable = { which = tge_census_steam_line value = 0 }
+	set_variable = { which = tge_census_optics value = 0 }
+	set_variable = { which = tge_census_industrial value = 0 }
+	set_variable = { which = tge_census_total value = 0 }
+	set_variable = { which = tge_census_stopped value = 0 }
+}
+set_variable = { which = tge_census_world value = 0 }
+set_variable = { which = tge_census_world_stopped value = 0 }
+
+# 2. Count
+every_province = {
+	limit = {
+		OR = {
+			has_building = cannon_foundry
+			has_building = metalworking_workshop
+			has_building = munition_factory
+			has_building = steam_engine_manu
+			has_building = spectacle_factory
+			has_building = steam_factory
+		}
+	}
+	if = { limit = { has_building = cannon_foundry } owner = { change_variable = { which = tge_census_cannon value = 1 } } }
+	if = { limit = { has_building = metalworking_workshop } owner = { change_variable = { which = tge_census_metal value = 1 } } }
+	if = { limit = { has_building = munition_factory } owner = { change_variable = { which = tge_census_munitions value = 1 } } }
+	if = { limit = { has_building = steam_engine_manu } owner = { change_variable = { which = tge_census_steam_line value = 1 } } }
+	if = { limit = { has_building = spectacle_factory } owner = { change_variable = { which = tge_census_optics value = 1 } } }
+	if = { limit = { has_building = steam_factory } owner = { change_variable = { which = tge_census_industrial value = 1 } } }
+	owner = { change_variable = { which = tge_census_total value = 1 } }
+	if = {
+		limit = {
+			OR = {
+					has_building = off_1
+					has_building = off_2
+					has_building = off_3
+					has_building = off_4
+					has_building = off_5
+					has_building = off_11
+			}
+		}
+		owner = { change_variable = { which = tge_census_stopped value = 1 } }
+	}
+	ROOT = { change_variable = { which = tge_census_world value = 1 } }
+	if = {
+		limit = {
+			OR = {
+					has_building = off_1
+					has_building = off_2
+					has_building = off_3
+					has_building = off_4
+					has_building = off_5
+					has_building = off_11
+			}
+		}
+		ROOT = { change_variable = { which = tge_census_world_stopped value = 1 } }
+	}
+}
+
+# 3. Report
+every_country = {
+	limit = { check_variable = { which = tge_census_total value = 1 } }
+	log = "TGE CENSUS [This.GetTag] [This.GetName]: total [This.tge_census_total.GetValue] (stopped [This.tge_census_stopped.GetValue]) | cannon [This.tge_census_cannon.GetValue], metal [This.tge_census_metal.GetValue], munitions [This.tge_census_munitions.GetValue], steam line [This.tge_census_steam_line.GetValue], optics [This.tge_census_optics.GetValue], industrial [This.tge_census_industrial.GetValue]"
+}
+log = "TGE CENSUS WORLD [GetYear]: [Root.tge_census_world.GetValue] factories, [Root.tge_census_world_stopped.GetValue] stopped"

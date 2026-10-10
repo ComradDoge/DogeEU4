@@ -15,6 +15,8 @@ namespace = ai_building_events
 # Fur > Fur Clothing
 # Soldier Households
 # Road Buildings
+# Mines (when short of a factory resource)
+# Resource factories (cannon, metalworking, munitions, steam engine line, spectacles)
 
 # Cotton/Cloth > Cloth Workshop
 country_event = { 
@@ -747,21 +749,25 @@ country_event = {
 	}
 }
 # Road Buildings
+# Queues the best road the country's tech allows, bigger roads first, and more of them when the treasury is large.
 country_event = { 
 	id = ai_building_events.10
 	title = ai_building_events.10.t
 	desc = ai_building_events.10.d
 	picture = SCOTTISH_MERCENARIES_eventPicture
 	
-    hidden = yes
+	hidden = yes
 
 	mean_time_to_happen = {
 		months = 12
-		
 
 		modifier = {
 			factor = 0.5
 			treasury = 5000
+		}
+		modifier = {
+			factor = 0.5
+			treasury = 20000
 		}
 		modifier = {
 			factor = 0.8
@@ -782,299 +788,251 @@ country_event = {
 	}
 	
 	trigger = {
+		ai = yes
+		NOT = { government = native }
+		OR = { 
+			AND = { 
+				treasury = 500
+				NOT = { adm_tech = 27 }
+			}
+			AND = { 
+				treasury = 1000
+				adm_tech = 27
+			}
+		}
+		any_owned_province = { ai_road_site_any_trigger = yes }
+	}
+
+	immediate = {
+		if = {
+			limit = { any_owned_province = { ai_road_site_any_trigger = yes } }
+			ai_build_best_road_effect = yes
+		}
+		else = {
+			log = "ROAD BUILDER MIGHT BE LOOPING"
+		}
+		if = {
+			limit = { treasury = 2500 }
+			ai_build_best_road_effect = yes
+		}
+		if = {
+			limit = { treasury = 10000 }
+			ai_build_best_road_effect = yes
+			ai_build_best_road_effect = yes
+		}
+		if = {
+			limit = { treasury = 50000 }
+			ai_build_best_road_effect = yes
+			ai_build_best_road_effect = yes
+			ai_build_best_road_effect = yes
+			ai_build_best_road_effect = yes
+		}
+		every_owned_province = {
+			limit = { has_province_flag = ai_road_queued }
+			clr_province_flag = ai_road_queued
+		}
+	}
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+
+
+# Mines (when short of a factory resource)
+# The engine AI never builds mines (ai_will_do 0), so resource-poor countries could never grow into the factory chain.
+# The dig events (_TGE_Mine_events / _TGE_mine_events) already handle the AI.
+country_event = {
+	id = ai_building_events.11
+	title = ai_building_events.11.t
+	desc = ai_building_events.11.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+
+	hidden = yes
+
+	mean_time_to_happen = {
+		months = 60
+
+		modifier = {
+			factor = 0.75
+			mil_tech = 16
+		}
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 3
+			num_of_loans = 2
+		}
+	}
+
+	trigger = {
         ai = yes
         NOT = { government = native }
-        #was_player = no
-        if = {
-            limit = {
-                
+        is_at_war = no
+        treasury = 2500
+        mil_tech = 8
+        NOT = { num_of_loans = 4 }
+        # Short of at least one factory resource (number of provinces producing it)
+        OR = {
+            NOT = { copper = 1 }
+            NOT = { tin = 1 }
+            NOT = { iron = 1 }
+            NOT = { lead = 1 }
+            NOT = { zinc = 1 }
+        }
+        NOT = {
+            any_owned_province = {
+                OR = {
+                    has_construction = mine
+                    has_building = mine
+                }
             }
         }
-        OR = { 
-            AND = { 
-                treasury = 500
-                NOT = { adm_tech = 27 }
-            }
-            AND = { 
-                treasury = 1000
-                adm_tech = 27
-            }
-        }
-        OR = { 
-            any_owned_province = {
-                owner = { adm_tech = 3 }
-                development = 5
-                NOT = { development = 10 }
-                NOT = { local_autonomy = 50 }
-                meet_basic_province_requirements_trigger = yes
-                no_ongoing_construction_triggers = yes
-
-                NOT = { has_building = early_road }
-                NOT = { has_building = gravel_road }
-                NOT = { has_building = royal_road }
-                NOT = { has_building = macadam_road }
-                NOT = { has_building = railroad }
-            }
-            any_owned_province = {
-                owner = { adm_tech = 10 }
-                development = 10
-                NOT = { development = 15 }
-                NOT = { local_autonomy = 50 }
-                meet_basic_province_requirements_trigger = yes
-                no_ongoing_construction_triggers = yes
-
-                #NOT = { has_building = early_road }
-                NOT = { has_building = gravel_road }
-                NOT = { has_building = royal_road }
-                NOT = { has_building = macadam_road }
-                NOT = { has_building = railroad }
-            }      
-            any_owned_province = {
-                owner = { adm_tech = 17 }
-                development = 15
-                #NOT = { development = 20 }
-                NOT = { local_autonomy = 50 }
-                meet_basic_province_requirements_trigger = yes
-                no_ongoing_construction_triggers = yes
-
-                #NOT = { has_building = early_road }
-                #NOT = { has_building = gravel_road }
-                NOT = { has_building = royal_road }
-                NOT = { has_building = macadam_road }
-                NOT = { has_building = railroad }
-            }
-            any_owned_province = {
-                owner = { adm_tech = 23 }
-                development = 15
-                #NOT = { development = 25 }
-                NOT = { local_autonomy = 50 }
-                meet_basic_province_requirements_trigger = yes
-                no_ongoing_construction_triggers = yes
-
-                #NOT = { has_building = early_road }
-                #NOT = { has_building = gravel_road }
-                #NOT = { has_building = royal_road }
-                NOT = { has_building = macadam_road }
-                NOT = { has_building = railroad }
-            }
-            any_owned_province = {
-                owner = { adm_tech = 27 }
-                development = 15
-                NOT = { local_autonomy = 50 }
-                meet_basic_province_requirements_trigger = yes
-                no_ongoing_construction_triggers = yes
-
-                #NOT = { has_building = early_road }
-                #NOT = { has_building = gravel_road }
-                #NOT = { has_building = royal_road }
-                #NOT = { has_building = macadam_road }
-                NOT = { has_building = railroad }
-            } 
+        any_owned_province = {
+            tge_ai_mine_site = yes
         }
 	}
 
     immediate = {
+        # More production development means more output once the mine strikes
         if = {
             limit = {
                 any_owned_province = {
-                    development = 5
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    NOT = { has_building = early_road }
-                    NOT = { has_building = gravel_road }
-                    NOT = { has_building = royal_road }
-                    NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
+                    tge_ai_mine_site = yes
+                    base_production = 6
                 }
             }
             random_owned_province = {
                 limit = {
-                    development = 5
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    NOT = { has_building = early_road }
-                    NOT = { has_building = gravel_road }
-                    NOT = { has_building = royal_road }
-                    NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
+                    tge_ai_mine_site = yes
+                    base_production = 6
                 }
-                #remove_building = early_road #5
-                #remove_building = gravel_road #10
-                #remove_building = royal_road #15
-                #remove_building = macadam_road #20
-                #remove_building = railroad #25
-
                 add_building_construction = {
-                    building = early_road
-                    speed = 0.5
-                    cost = 1
-                }
-            }
-        }
-        else_if = {
-            limit = {
-                adm_tech = 10
-                any_owned_province = {
-                    development = 10
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    #NOT = { has_building = early_road }
-                    NOT = { has_building = gravel_road }
-                    NOT = { has_building = royal_road }
-                    NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
-                }
-            }
-            random_owned_province = {
-                limit = {
-                    development = 10
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    #NOT = { has_building = early_road }
-                    NOT = { has_building = gravel_road }
-                    NOT = { has_building = royal_road }
-                    NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
-                }
-                remove_building = early_road #5
-                #remove_building = gravel_road #10
-                #remove_building = royal_road #15
-                #remove_building = macadam_road #20
-                #remove_building = railroad #25
-
-                add_building_construction = {
-                    building = gravel_road
-                    speed = 0.5
-                    cost = 1
-                }
-            }
-        }
-        else_if = {
-            limit = {
-                adm_tech = 17
-                any_owned_province = {
-                    development = 15
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    #NOT = { has_building = early_road }
-                    #NOT = { has_building = gravel_road }
-                    NOT = { has_building = royal_road }
-                    NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
-                }
-            }
-            random_owned_province = {
-                limit = {
-                    development = 15
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    #NOT = { has_building = early_road }
-                    #NOT = { has_building = gravel_road }
-                    NOT = { has_building = royal_road }
-                    NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
-                }
-                remove_building = early_road #5
-                remove_building = gravel_road #10
-                #remove_building = royal_road #15
-                #remove_building = macadam_road #20
-                #remove_building = railroad #25
-
-                add_building_construction = {
-                    building = royal_road
-                    speed = 0.5
-                    cost = 1
-                }
-            }
-        }
-        else_if = {
-            limit = {
-                adm_tech = 23
-                any_owned_province = {
-                    development = 15
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    #NOT = { has_building = early_road }
-                    #NOT = { has_building = gravel_road }
-                    #NOT = { has_building = royal_road }
-                    NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
-                }
-            }
-            random_owned_province = {
-                limit = {
-                    development = 15
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    #NOT = { has_building = early_road }
-                    #NOT = { has_building = gravel_road }
-                    #NOT = { has_building = royal_road }
-                    NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
-                }
-                remove_building = early_road #5
-                remove_building = gravel_road #10
-                remove_building = royal_road #15
-                #remove_building = macadam_road #20
-                #remove_building = railroad #25
-
-                add_building_construction = {
-                    building = macadam_road
-                    speed = 0.5
-                    cost = 1
-                }
-            }
-        }
-        else_if = {
-            limit = {
-                adm_tech = 27
-                any_owned_province = {
-                    development = 15
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    #NOT = { has_building = early_road }
-                    #NOT = { has_building = gravel_road }
-                    #NOT = { has_building = royal_road }
-                    #NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
-                }
-            }
-            random_owned_province = {
-                limit = {
-                    development = 15
-                    NOT = { local_autonomy = 50 }
-                    meet_basic_province_requirements_trigger = yes
-                    no_ongoing_construction_triggers = yes
-                    #NOT = { has_building = early_road }
-                    #NOT = { has_building = gravel_road }
-                    #NOT = { has_building = royal_road }
-                    #NOT = { has_building = macadam_road }
-                    NOT = { has_building = railroad }
-                }
-                remove_building = early_road #5
-                remove_building = gravel_road #10
-                remove_building = royal_road #15
-                remove_building = macadam_road #20
-                #remove_building = railroad #25
-
-                add_building_construction = {
-                    building = railroad
+                    building = mine
                     speed = 0.5
                     cost = 1
                 }
             }
         }
         else = {
-            log = "ROAD BUILDER MIGHT BE LOOPING"
+            random_owned_province = {
+                limit = {
+                    tge_ai_mine_site = yes
+                }
+                add_building_construction = {
+                    building = mine
+                    speed = 0.5
+                    cost = 1
+                }
+            }
+        }
+    }
+
+	option = {
+		name = ai_building_events.1.main
+	}
+}
+
+# Resource factories (cannon foundry, metalworking, munitions, steam engine line, spectacles)
+# The engine AI barely builds them: their only modifier is a building slot, the real benefit is the
+# scripted trade good change, which it does not value. Industrial factories are left to the engine,
+# which builds them. At most one of each type per firing; every type has its own one-at-a-time lock.
+country_event = {
+	id = ai_building_events.12
+	title = ai_building_events.12.t
+	desc = ai_building_events.12.d
+	picture = SCOTTISH_MERCENARIES_eventPicture
+
+	hidden = yes
+
+	mean_time_to_happen = {
+		months = 12
+
+		modifier = {
+			factor = 0.5
+			treasury = 5000
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_loans = 1 }
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 1
+		}
+	}
+
+	trigger = {
+        ai = yes
+        NOT = { government = native }
+        NOT = { num_of_loans = 2 }
+        treasury = 1200
+        OR = {
+            AND = {
+                OR = {
+                    has_institution = enlightenment
+                    has_global_flag = first_steam_engine_manu_already_built
+                }
+                tge_ai_can_queue_steam_engine_manu = yes
+            }
+            tge_ai_can_queue_metalworking_workshop = yes
+            tge_ai_can_queue_cannon_foundry = yes
+            tge_ai_can_queue_munition_factory = yes
+            tge_ai_can_queue_spectacle_factory = yes
+        }
+	}
+
+    immediate = {
+        # Most valuable first: steam engines feed industrial factories, metalworking helps its neighbours
+        if = {
+            limit = {
+                treasury = 4000
+                OR = {
+                    has_institution = enlightenment
+                    has_global_flag = first_steam_engine_manu_already_built
+                }
+                tge_ai_can_queue_steam_engine_manu = yes
+            }
+            tge_ai_queue_factory = { BUILDING = steam_engine_manu }
+        }
+        if = {
+            limit = {
+                treasury = 2000
+                tge_ai_can_queue_metalworking_workshop = yes
+            }
+            tge_ai_queue_factory = { BUILDING = metalworking_workshop }
+        }
+        if = {
+            limit = {
+                treasury = 1200
+                tge_ai_can_queue_cannon_foundry = yes
+            }
+            tge_ai_queue_factory = { BUILDING = cannon_foundry }
+        }
+        if = {
+            limit = {
+                treasury = 2000
+                tge_ai_can_queue_munition_factory = yes
+            }
+            tge_ai_queue_factory = { BUILDING = munition_factory }
+        }
+        if = {
+            limit = {
+                treasury = 1200
+                tge_ai_can_queue_spectacle_factory = yes
+            }
+            tge_ai_queue_factory = { BUILDING = spectacle_factory }
+        }
+        # The constructions show up from the next firing on
+        every_owned_province = {
+            limit = { has_province_flag = tge_factory_queued }
+            clr_province_flag = tge_factory_queued
         }
     }
 

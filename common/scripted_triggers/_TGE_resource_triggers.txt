@@ -1,0 +1,393 @@
+# Strategic resource system - triggers.
+# Overview and rules: common/scripted_effects/TGE_resource_system.txt
+
+# Province produces one of the pooled strategic resources
+tge_is_strategic_good_province = {
+	OR = {
+		trade_goods = copper
+		trade_goods = tin
+		trade_goods = iron
+		trade_goods = lead
+		trade_goods = zinc
+		trade_goods = glass
+		trade_goods = steam_engine
+	}
+}
+
+# Province takes part in the resource system in any way: output, factory, construction, import marker, or leftovers to clean up
+tge_is_resource_relevant_province = {
+	OR = {
+		tge_is_strategic_good_province = yes
+
+		has_building = cannon_foundry
+		has_building = metalworking_workshop
+		has_building = munition_factory
+		has_building = steam_engine_manu
+		has_building = spectacle_factory
+		has_building = steam_factory
+
+		has_building = off_1
+		has_building = off_2
+		has_building = off_3
+		has_building = off_4
+		has_building = off_5
+		has_building = off_11
+
+		has_construction = cannon_foundry
+		has_construction = metalworking_workshop
+		has_construction = munition_factory
+		has_construction = steam_engine_manu
+		has_construction = spectacle_factory
+		has_construction = steam_factory
+
+		has_province_modifier = import_from_subjects_modifier
+
+		has_province_flag = has_cannon
+		has_province_flag = has_metalworking
+		has_province_flag = has_munitions
+		has_province_flag = has_steam_engine
+		has_province_flag = has_optics
+	}
+}
+
+# Country scope
+tge_has_resource_activity = {
+	any_owned_province = {
+		tge_is_resource_relevant_province = yes
+	}
+}
+
+# Country scope. Subjects whose marked provinces send their output to the overlord
+tge_can_export_to_overlord = {
+	is_subject_other_than_tributary_trigger = yes
+}
+
+# Province scope. Any building that turns the trade good into a finished good (only one per province, see has_latent_good)
+tge_has_latent_building = {
+	OR = {
+		has_building = cannon_foundry
+		has_building = metalworking_workshop
+		has_building = munition_factory
+		has_building = steam_engine_manu
+		has_building = spectacle_factory
+		has_building = cheese_workshop
+		has_building = cloth_workshop
+		has_building = fur_workshop
+		has_building = jewellery_workshop
+		has_building = leather_workshop
+		has_building = sculpture_workshop
+		has_building = uniforms_workshop
+		has_building = wood_workshop
+	}
+}
+
+# Province scope. The trade good already is the good of a factory standing here (with two
+# factories in one province, the first one's good stays instead of flipping on every recalculation)
+tge_shows_own_factory_good = {
+	OR = {
+		AND = { trade_goods = cannon has_building = cannon_foundry }
+		AND = { trade_goods = metalworking has_building = metalworking_workshop }
+		AND = { trade_goods = munitions has_building = munition_factory }
+		AND = { trade_goods = steam_engine has_building = steam_engine_manu }
+		AND = { trade_goods = optics has_building = spectacle_factory }
+	}
+}
+
+# Any scope. Daily recalculation budget (New_TradeGood_Events.2): slot N was taken today.
+tge_recalc_slot_used = {
+	has_global_flag = tge_recalc_slot_$N$
+	NOT = { had_global_flag = { flag = tge_recalc_slot_$N$ days = 1 } }
+}
+
+# Any scope. All 10 slots of today's budget are taken (queued AI recalculations only).
+tge_recalc_budget_full = {
+	tge_recalc_slot_used = { N = 1 }
+	tge_recalc_slot_used = { N = 2 }
+	tge_recalc_slot_used = { N = 3 }
+	tge_recalc_slot_used = { N = 4 }
+	tge_recalc_slot_used = { N = 5 }
+	tge_recalc_slot_used = { N = 6 }
+	tge_recalc_slot_used = { N = 7 }
+	tge_recalc_slot_used = { N = 8 }
+	tge_recalc_slot_used = { N = 9 }
+	tge_recalc_slot_used = { N = 10 }
+}
+
+# Country scope. Running factories need more of GOODS than the country has
+tge_has_deficit = {
+	NOT = {
+		check_variable = {
+			which = $GOODS$_total
+			which = $GOODS$_used
+		}
+	}
+}
+
+###############################################################################
+# FACTORY COSTS (part 2 of 2)
+# Keep in sync with tge_usage_<building> in common/scripted_effects/TGE_resource_system.txt,
+# with tge_resource_short_* / tge_resource_low_* at the end of this file,
+# and with the building descriptions in localisation/TGE_build_marcin_l_english.yml.
+# Country scope; reads the available amount.
+###############################################################################
+
+tge_can_supply_cannon_foundry = {
+	custom_trigger_tooltip = {
+		tooltip = tge_can_supply_cannon_foundry_tt
+		check_variable = { which = copper value = 0.4 }
+		check_variable = { which = tin value = 0.3 }
+	}
+}
+
+tge_can_supply_metalworking_workshop = {
+	custom_trigger_tooltip = {
+		tooltip = tge_can_supply_metalworking_workshop_tt
+		check_variable = { which = iron value = 1.0 }
+	}
+}
+
+tge_can_supply_munition_factory = {
+	custom_trigger_tooltip = {
+		tooltip = tge_can_supply_munition_factory_tt
+		check_variable = { which = lead value = 1.0 }
+	}
+}
+
+tge_can_supply_steam_engine_manu = {
+	custom_trigger_tooltip = {
+		tooltip = tge_can_supply_steam_engine_manu_tt
+		check_variable = { which = copper value = 0.4 }
+		check_variable = { which = zinc value = 0.3 }
+		check_variable = { which = iron value = 0.5 }
+	}
+}
+
+tge_can_supply_spectacle_factory = {
+	custom_trigger_tooltip = {
+		tooltip = tge_can_supply_spectacle_factory_tt
+		check_variable = { which = glass value = 0.6 }
+	}
+}
+
+tge_can_supply_steam_factory = {
+	custom_trigger_tooltip = {
+		tooltip = tge_can_supply_steam_factory_tt
+		check_variable = { which = steam_engine value = 0.1 }
+	}
+}
+
+# Overview status (country scope, read during the recalculation).
+# short: a stopped factory that uses this resource can't get enough of it.
+# low:   less available than the cheapest factory using it needs.
+
+tge_resource_short_copper = {
+	NOT = { check_variable = { which = copper value = 0.4 } }
+	any_owned_province = {
+		OR = {
+			has_building = off_1
+			has_building = off_4
+		}
+	}
+}
+
+tge_resource_short_tin = {
+	NOT = { check_variable = { which = tin value = 0.3 } }
+	any_owned_province = { has_building = off_1 }
+}
+
+tge_resource_short_iron = {
+	OR = {
+		AND = {
+			NOT = { check_variable = { which = iron value = 1.0 } }
+			any_owned_province = { has_building = off_2 }
+		}
+		AND = {
+			NOT = { check_variable = { which = iron value = 0.5 } }
+			any_owned_province = { has_building = off_4 }
+		}
+	}
+}
+
+tge_resource_short_lead = {
+	NOT = { check_variable = { which = lead value = 1.0 } }
+	any_owned_province = { has_building = off_3 }
+}
+
+tge_resource_short_zinc = {
+	NOT = { check_variable = { which = zinc value = 0.3 } }
+	any_owned_province = { has_building = off_4 }
+}
+
+tge_resource_short_glass = {
+	NOT = { check_variable = { which = glass value = 0.6 } }
+	any_owned_province = { has_building = off_5 }
+}
+
+tge_resource_short_steam_engine = {
+	NOT = { check_variable = { which = steam_engine value = 0.1 } }
+	any_owned_province = { has_building = off_11 }
+}
+
+tge_resource_low_copper = { NOT = { check_variable = { which = copper value = 0.4 } } }
+tge_resource_low_tin = { NOT = { check_variable = { which = tin value = 0.3 } } }
+tge_resource_low_iron = { NOT = { check_variable = { which = iron value = 0.5 } } }
+tge_resource_low_lead = { NOT = { check_variable = { which = lead value = 1.0 } } }
+tge_resource_low_zinc = { NOT = { check_variable = { which = zinc value = 0.3 } } }
+tge_resource_low_glass = { NOT = { check_variable = { which = glass value = 0.6 } } }
+tge_resource_low_steam_engine = { NOT = { check_variable = { which = steam_engine value = 0.1 } } }
+
+###############################################################################
+# AI PLACEMENT (province scope)
+# Used by the factories' ai_will_do and by the AI mine event (ai_building_events.11).
+###############################################################################
+
+# Never turned into a factory good or dug up for a mine: pooled resources and the most valuable goods
+tge_ai_keep_goods_province = {
+	OR = {
+		tge_is_strategic_good_province = yes
+		trade_goods = gold
+		trade_goods = silver
+		trade_goods = coal
+	}
+}
+
+# Base price 4 or more: worth as much as a cannon (4) or optics (4.5) already
+tge_ai_pricey_goods_province = {
+	OR = {
+		trade_goods = silk
+		trade_goods = carpet
+		trade_goods = dyes
+		trade_goods = indigo
+		trade_goods = exotic_animals
+		trade_goods = opium
+		trade_goods = ivory
+		trade_goods = exotic_fur
+		trade_goods = chocolate
+		trade_goods = cigars
+		trade_goods = vanilla
+		trade_goods = spices
+		trade_goods = cinnamon
+		trade_goods = saffron
+		trade_goods = cloves
+		trade_goods = nutmeg
+	}
+}
+
+# Where the AI may build a mine. Mirrors the mine's build_trigger, which add_building_construction skips,
+# and keeps the AI from digging up valuable goods or tiny provinces.
+tge_ai_mine_site = {
+	OR = {
+		has_terrain = mountain
+		has_terrain = hills
+		has_terrain = highlands
+	}
+	NOT = { has_province_modifier = mine_fail }
+	NOT = { has_province_flag = has_latent_good }
+	NOT = { tge_ai_keep_goods_province = yes }
+	NOT = { tge_ai_pricey_goods_province = yes }
+	base_production = 3
+	meet_basic_province_requirements_trigger = yes
+	no_ongoing_construction_triggers = yes
+}
+
+###############################################################################
+# AI FACTORY CONSTRUCTION (ai_building_events.12, tge_ai_queue_factory)
+# The engine AI barely builds these factories (their benefit is the scripted
+# trade good change, which it does not value), so an event queues them.
+# These mirror each factory's build_trigger, which add_building_construction skips.
+###############################################################################
+
+# Province scope. Where the AI may place any resource factory.
+tge_ai_factory_site = {
+	num_free_building_slots = 1
+	meet_basic_province_requirements_trigger = yes
+	no_ongoing_construction_triggers = yes
+	NOT = { has_province_flag = has_latent_good }
+	# One factory per province: no_ongoing_construction_triggers misses factory constructions
+	NOT = { has_province_flag = tge_factory_queued }	# queued earlier in this pass
+	NOT = { has_construction = cannon_foundry }
+	NOT = { has_construction = metalworking_workshop }
+	NOT = { has_construction = munition_factory }
+	NOT = { has_construction = steam_engine_manu }
+	NOT = { has_construction = spectacle_factory }
+	NOT = { tge_ai_keep_goods_province = yes }
+	NOT = { tge_ai_pricey_goods_province = yes }
+}
+
+# Province scope, per factory
+tge_ai_factory_site_cannon_foundry = {
+	tge_ai_factory_site = yes
+	development = 10
+}
+tge_ai_factory_site_metalworking_workshop = {
+	tge_ai_factory_site = yes
+	development = 15
+	NOT = { any_neighbor_province = { trade_goods = metalworking } }	# the adjacency bonus does not stack
+}
+tge_ai_factory_site_munition_factory = {
+	tge_ai_factory_site = yes
+	development = 15
+}
+tge_ai_factory_site_steam_engine_manu = {
+	tge_ai_factory_site = yes
+	development = 30
+}
+tge_ai_factory_site_spectacle_factory = {
+	tge_ai_factory_site = yes
+	development = 15
+}
+
+# Country scope, per factory: tech, supply, one under construction at a time, and a site
+tge_ai_can_queue_cannon_foundry = {
+	mil_tech = 8
+	tge_can_supply_cannon_foundry = yes
+	NOT = { any_owned_province = { has_construction = cannon_foundry } }
+	any_owned_province = { tge_ai_factory_site_cannon_foundry = yes }
+}
+tge_ai_can_queue_metalworking_workshop = {
+	mil_tech = 18
+	OR = {
+		innovativeness = 20
+		NOT = { has_dlc = "Rule Britannia" }
+	}
+	tge_can_supply_metalworking_workshop = yes
+	NOT = { any_owned_province = { has_construction = metalworking_workshop } }
+	any_owned_province = { tge_ai_factory_site_metalworking_workshop = yes }
+}
+tge_ai_can_queue_munition_factory = {
+	mil_tech = 16
+	OR = {
+		innovativeness = 20
+		NOT = { has_dlc = "Rule Britannia" }
+	}
+	tge_can_supply_munition_factory = yes
+	NOT = { any_owned_province = { has_construction = munition_factory } }
+	any_owned_province = { tge_ai_factory_site_munition_factory = yes }
+}
+# The Enlightenment check sits at the call site: has_institution fails load-time validation inside
+# non-parameterised scripted triggers. Callers add OR = { has_institution = enlightenment has_global_flag = first_steam_engine_manu_already_built }
+tge_ai_can_queue_steam_engine_manu = {
+	OR = {
+		AND = {
+			adm_tech = 22
+			OR = {
+				innovativeness = 30
+				NOT = { has_dlc = "Rule Britannia" }
+			}
+		}
+		has_global_flag = first_steam_engine_manu_already_built
+	}
+	tge_can_supply_steam_engine_manu = yes
+	NOT = { any_owned_province = { has_construction = steam_engine_manu } }
+	any_owned_province = { tge_ai_factory_site_steam_engine_manu = yes }
+}
+tge_ai_can_queue_spectacle_factory = {
+	dip_tech = 12
+	OR = {
+		innovativeness = 15
+		NOT = { has_dlc = "Rule Britannia" }
+	}
+	tge_can_supply_spectacle_factory = yes
+	NOT = { any_owned_province = { has_construction = spectacle_factory } }
+	any_owned_province = { tge_ai_factory_site_spectacle_factory = yes }
+}
