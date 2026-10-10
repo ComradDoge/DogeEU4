@@ -356,6 +356,10 @@ country_event = {
 			duration = 3650
 		}
 		add_navy_tradition = 10
+		custom_tooltip = alc_unlocks_corsairs_tt
+		hidden_effect = {
+			set_country_flag = alc_corsair_letters_flag
+		}
 		ai_chance = { factor = 50 }
 	}
 	option = { # Keep the sea lanes quiet
@@ -901,5 +905,72 @@ country_event = {
 			}
 		}
 		ai_chance = { factor = 50 }
+	}
+}
+# Corsairs of the Strait (decision alc_send_out_the_corsairs)
+country_event = {
+	id = taifa_events.18
+	title = taifa_events.18.t
+	desc = taifa_events.18.d
+	picture = NAVAL_MILITARY_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					religion_group = christian
+					NOT = { alliance_with = ROOT }
+					NOT = { is_subject_of = ROOT }
+					NOT = { overlord_of = ROOT }
+					any_owned_province = {
+						has_port = yes
+						OR = {
+							region = iberia_region
+							region = france_region
+							region = italy_region
+						}
+					}
+				}
+				save_event_target_as = alc_corsair_target
+			}
+		}
+	}
+
+	option = { # Raid the Christian coast
+		name = taifa_events.18.a
+		trigger = {
+			has_saved_event_target = alc_corsair_target
+		}
+		add_years_of_income = 0.75
+		add_navy_tradition = 5
+		event_target:alc_corsair_target = {
+			add_opinion = {
+				who = ROOT
+				modifier = alc_corsair_raid_opinion
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Ransom the captives
+		name = taifa_events.18.b
+		add_years_of_income = 0.25
+		add_prestige_or_monarch_power = { amount = 15 }
+		ai_chance = { factor = 30 }
+	}
+	option = { # Sell more letters
+		name = taifa_events.18.c
+		add_years_of_income = 0.4
+		if = {
+			limit = {
+				has_estate = estate_burghers
+			}
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+		}
+		ai_chance = { factor = 30 }
 	}
 }
