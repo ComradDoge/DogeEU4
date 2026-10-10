@@ -28,9 +28,9 @@ Strategic Resources / Economy
 
 Fixes
 
+- Fixed some events using their description text as the option button.
 - Fixed Evenk Siberian colonization event firing with no empty province left.
 - Massive error.log cleanup of events and decisions that kept spamming the log.
-- Fixed two Peasant Republic events using their description text as the option button.
 - Rum AI no longer gets stuck previewing its Roman/Seljuk/Caliphate mission branch forever.
 - Fixed newly gained Persian provinces not getting the Timurid Persian Empire province modifier.
 - Fixed the Nationalism spread bonus from neighbouring provinces of the same culture never applying.
@@ -53,14 +53,13 @@ Generally, a pass over various small countries that never had content. They now 
 
 - Galicia and Volhynia: a shared mission tree with a column for each, events.
 - Occitania: new mission tree, some events, and a Paratge mechanic on formation.
-- A few new privileges and decisions unlocked by missions (Galicia, Cumania, Algeciras, Toledo).
 - Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
-- Shattered Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa and a road to forming Andalusia.
+- Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa.
 - Burgundy: added the Europa Expanded mission tree as an additional mission choice. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
-- Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate.
 - Livonia: new decision for a Catholic Livonia to refound the Livonian Order (requires Lions of the North DLC), choosing the crusader or Livonian path (with the Livonian government reforms).
 - Toledo: new mission tree and events. Toledo forms Spain through its last mission instead of the decision, without the administrative technology requirement and with an extra permanent bonus.
 - Sudetenland: added a small mission tree, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
+- Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate related to the missions.
 
  <!-- Todo -->
 <br/>

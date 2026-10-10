@@ -39,4 +39,51 @@ country_decisions = {
 			}
 		}
 	}
+
+	# Unlocked by taifa_the_book_of_agriculture. Fires taifa_events.20 (pick a crop for one field), once every 10 years.
+	taifa_plant_the_new_crops = {
+		major = no
+		potential = {
+			has_country_flag = taifa_new_crops_unlocked
+		}
+
+		provinces_to_highlight = {
+			owned_by = ROOT
+			taifa_new_crops_field_trigger = yes
+		}
+
+		allow = {
+			adm_power = 50
+			custom_trigger_tooltip = {
+				tooltip = taifa_new_crops_field_tt
+				any_owned_province = {
+					taifa_new_crops_field_trigger = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = taifa_new_crops_cooldown_tt
+				OR = {
+					NOT = { has_country_flag = taifa_new_crops_planted_flag }
+					had_country_flag = { flag = taifa_new_crops_planted_flag days = 3650 }
+				}
+			}
+		}
+
+		effect = {
+			add_adm_power = -50
+			hidden_effect = {
+				clr_country_flag = taifa_new_crops_planted_flag
+				set_country_flag = taifa_new_crops_planted_flag
+			}
+			country_event = { id = taifa_events.20 }
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { adm_power = 150 }
+			}
+		}
+	}
 }

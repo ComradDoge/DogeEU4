@@ -1,6 +1,7 @@
 # The Taifas events (SEV, ALC, ALN): the road to al-Andalus
 # Missions: missions/_MIS_Taifa_Missions.txt (options mirror the mission previews)
-# .1 to .14 and .16 fire from missions; .3 goes to the other taifas and .4 answers Sevilla. .15 and .17 are MTTH.
+# .1 to .14, .16 and .19 fire from missions; .3 goes to the other taifas and .4 answers Sevilla. .15 and .17 are MTTH.
+# .18 and .20 fire from decisions (decisions/_DSE_flavour_Taifas_Decisions.txt).
 # Path flags set by .2: taifa_maghrebi_path / taifa_andalusi_path. Toledo's flags (tol_crusade_path /
 # tol_convivencia_path) come from events/_DSE_flavour_Toledo.txt.
 
@@ -23,13 +24,14 @@ country_event = {
 			every_province = {
 				limit = {
 					OR = {
+						province_id = 223
 						province_id = 224
 						province_id = 226
 						province_id = 230
 					}
 					NOT = { owned_by = ROOT }
 					owner = {
-						taifa_is_taifa_trigger = yes
+						taifa_is_andalusi_taifa_trigger = yes
 					}
 				}
 				add_permanent_claim = ROOT
@@ -107,16 +109,8 @@ country_event = {
 					has_country_flag = taifa_maghrebi_court_found
 				}
 				event_target:taifa_maghrebi_court = {
-					add_opinion = {
-						who = ROOT
-						modifier = taifa_called_across_the_water
-					}
-					reverse_add_opinion = {
-						who = ROOT
-						modifier = taifa_called_across_the_water
-					}
+					country_event = { id = taifa_events.21 }
 				}
-				create_alliance = event_target:taifa_maghrebi_court
 			}
 			if = {
 				limit = {
@@ -376,13 +370,8 @@ country_event = {
 				limit = {
 					has_country_flag = taifa_maghrebi_court_found
 				}
-				create_marriage = event_target:taifa_maghrebi_court
-				create_alliance = event_target:taifa_maghrebi_court
 				event_target:taifa_maghrebi_court = {
-					add_opinion = {
-						who = ROOT
-						modifier = taifa_called_across_the_water
-					}
+					country_event = { id = taifa_events.22 }
 				}
 			}
 		}
@@ -873,5 +862,279 @@ country_event = {
 		add_years_of_income = 0.4
 		add_estate_burghers_loyalty_effect = yes
 		ai_chance = { factor = 30 }
+	}
+}
+
+# The Book of Agriculture (taifa_the_book_of_agriculture)
+country_event = {
+	id = taifa_events.19
+	title = taifa_events.19.t
+	desc = taifa_events.19.d
+	picture = BIG_BOOK_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # Plant it in the royal garden
+		name = taifa_events.19.a
+		capital_scope = {
+			add_province_modifier = {
+				name = taifa_the_royal_garden_modifier
+				duration = -1
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Copies for every governor
+		name = taifa_events.19.b
+		add_country_modifier = {
+			name = taifa_the_book_of_agriculture_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The New Crops (decision taifa_plant_the_new_crops): one field gets a new crop
+country_event = {
+	id = taifa_events.20
+	title = taifa_events.20.t
+	desc = taifa_events.20.d
+	picture = FARMING_eventPicture
+	goto = taifa_new_crops_province
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					taifa_new_crops_field_trigger = yes
+				}
+				save_event_target_as = taifa_new_crops_province
+			}
+		}
+	}
+
+	option = { # Orange and lemon groves
+		name = taifa_events.20.a
+		event_target:taifa_new_crops_province = {
+			change_trade_goods = citrus
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Rice in the flooded fields
+		name = taifa_events.20.b
+		event_target:taifa_new_crops_province = {
+			change_trade_goods = rice
+			add_base_manpower = 1
+		}
+		ai_chance = { factor = 25 }
+	}
+	option = { # Sugar cane on the coast
+		name = taifa_events.20.c
+		trigger = {
+			event_target:taifa_new_crops_province = {
+				has_port = yes
+			}
+		}
+		event_target:taifa_new_crops_province = {
+			change_trade_goods = sugar
+			add_base_production = 1
+		}
+		ai_chance = { factor = 20 }
+	}
+	option = { # Saffron, whatever it costs
+		name = taifa_events.20.e
+		add_years_of_income = -0.5
+		event_target:taifa_new_crops_province = {
+			change_trade_goods = saffron
+		}
+		ai_chance = { factor = 25 }
+	}
+	option = { # Leave the fields as they are
+		name = taifa_events.20.f
+		add_adm_power = 50
+		custom_tooltip = taifa_new_crops_back_out_tt
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Envoys from the Maghreb: the Maghrebi court seals or withdraws its offer. FROM is the taifa.
+country_event = {
+	id = taifa_events.21
+	title = taifa_events.21.t
+	desc = taifa_events.21.d
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = taifa_maghreb_accepted
+			clr_country_flag = taifa_maghreb_declined
+		}
+	}
+
+	option = { # Seal it
+		name = taifa_events.21.a
+		trigger = {
+			NOT = { war_with = FROM }
+		}
+		create_alliance = FROM
+		add_opinion = {
+			who = FROM
+			modifier = taifa_called_across_the_water
+		}
+		reverse_add_opinion = {
+			who = FROM
+			modifier = taifa_called_across_the_water
+		}
+		hidden_effect = {
+			set_country_flag = taifa_maghreb_accepted
+			FROM = {
+				country_event = { id = taifa_events.23 }
+			}
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0.2
+				NOT = {
+					has_opinion = {
+						who = FROM
+						value = 0
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				num_of_allies = 3
+			}
+		}
+	}
+	option = { # Withdraw it
+		name = taifa_events.21.b
+		reverse_add_opinion = {
+			who = FROM
+			modifier = taifa_call_refused
+		}
+		hidden_effect = {
+			set_country_flag = taifa_maghreb_declined
+			FROM = {
+				country_event = { id = taifa_events.23 }
+			}
+		}
+		ai_chance = { factor = 25 }
+	}
+}
+
+# Friends Across the Water: the Maghrebi court seals or withdraws its offer. FROM is the taifa.
+country_event = {
+	id = taifa_events.22
+	title = taifa_events.22.t
+	desc = taifa_events.22.d
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = taifa_maghreb_accepted
+			clr_country_flag = taifa_maghreb_declined
+		}
+	}
+
+	option = { # Seal it
+		name = taifa_events.22.a
+		trigger = {
+			NOT = { war_with = FROM }
+		}
+		if = {
+			limit = {
+				government = monarchy
+				FROM = { government = monarchy }
+			}
+			create_marriage = FROM
+		}
+		create_alliance = FROM
+		add_opinion = {
+			who = FROM
+			modifier = taifa_called_across_the_water
+		}
+		reverse_add_opinion = {
+			who = FROM
+			modifier = taifa_called_across_the_water
+		}
+		hidden_effect = {
+			set_country_flag = taifa_maghreb_accepted
+			FROM = {
+				country_event = { id = taifa_events.23 }
+			}
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0.2
+				NOT = {
+					has_opinion = {
+						who = FROM
+						value = 0
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				num_of_allies = 3
+			}
+		}
+	}
+	option = { # Withdraw it
+		name = taifa_events.22.b
+		reverse_add_opinion = {
+			who = FROM
+			modifier = taifa_call_refused
+		}
+		hidden_effect = {
+			set_country_flag = taifa_maghreb_declined
+			FROM = {
+				country_event = { id = taifa_events.23 }
+			}
+		}
+		ai_chance = { factor = 25 }
+	}
+}
+
+# The Maghrebi court's answer reaches the taifa. FROM is the Maghrebi court.
+country_event = {
+	id = taifa_events.23
+	title = taifa_events.23.t
+	desc = {
+		trigger = {
+			FROM = { has_country_flag = taifa_maghreb_accepted }
+		}
+		desc = taifa_events.23.d
+	}
+	desc = {
+		trigger = {
+			FROM = { has_country_flag = taifa_maghreb_declined }
+		}
+		desc = taifa_events.23.d2
+	}
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = taifa_events.23.a
+		trigger = {
+			FROM = { has_country_flag = taifa_maghreb_accepted }
+		}
+	}
+	option = {
+		name = taifa_events.23.b
+		trigger = {
+			FROM = { has_country_flag = taifa_maghreb_declined }
+		}
 	}
 }

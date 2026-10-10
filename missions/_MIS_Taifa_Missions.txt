@@ -1,6 +1,7 @@
 # The Taifas - the road to al-Andalus
-# One tree for the three Andalusi taifas (SEV, ALC, ALN). Slots 1 and 2 are each tag's own road, slot 3 (Al-Andalus)
-# and slot 4 (The Maghreb) are shared, slot 5 is left to the generic tree. Forming Andalusia (decisions/AndalusianNation.txt)
+# One tree for the three Andalusi taifas (SEV, ALC, ALN). Slots 1 and 2 are each tag's own road, slot 3 (Al-Andalus),
+# slot 4 (The Maghreb) and slot 5 (The Gardens of al-Andalus) are shared. Generic series never show next to a tagged tree,
+# so slot 5 starts with copies of the two generic European missions. Forming Andalusia (decisions/AndalusianNation.txt)
 # swaps this tree for the Andalusia one.
 # taifa_envoys_from_the_maghreb fires taifa_events.2: the Maghrebi path (taifa_maghrebi_path) or the Andalusi way
 # (taifa_andalusi_path). The four nodes below it branch on that flag; their trigger falls back to "always = no"
@@ -64,6 +65,17 @@ taifa_sev_a = {
 		icon = mission_control_river_traffic_icon
 		position = 2
 		required_missions = { sev_the_golden_tower }
+
+		provinces_to_highlight = {
+			province_id = 224
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 25
+				}
+			}
+			NOT = { is_strongest_trade_power = ROOT }
+		}
 
 		trigger = {
 			custom_trigger_tooltip = {
@@ -153,6 +165,15 @@ taifa_sev_a = {
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { development = 22 }
+				AND = {
+					NOT = {
+						trade_share = {
+							country = ROOT
+							share = 35
+						}
+					}
+					NOT = { is_strongest_trade_power = ROOT }
+				}
 			}
 		}
 
@@ -276,9 +297,11 @@ taifa_sev_b = {
 			hidden_effect = {
 				every_country = {
 					limit = {
+						exists = yes
 						OR = {
 							tag = ALC
 							tag = ALN
+							tag = GRA
 						}
 						is_subject = no
 						NOT = { war_with = ROOT }
@@ -330,6 +353,7 @@ taifa_sev_b = {
 			OR = {
 				NOT = { owned_by = ROOT }
 				NOT = { development = 16 }
+				NOT = { has_tax_building_trigger = yes }
 			}
 		}
 
@@ -377,7 +401,10 @@ taifa_sev_b = {
 			OR = {
 				AND = {
 					province_id = 225
-					NOT = { development = 20 }
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 20 }
+					}
 				}
 				AND = {
 					OR = {
@@ -439,7 +466,7 @@ taifa_alc_a = {
 			OR = {
 				NOT = { owned_by = ROOT }
 				AND = {
-					NOT = { development = 14 }
+					NOT = { development = 15 }
 					NOT = { has_shipyard_building_trigger = yes }
 				}
 			}
@@ -450,12 +477,13 @@ taifa_alc_a = {
 				owned_by = ROOT
 				OR = {
 					has_shipyard_building_trigger = yes
-					development = 14
+					development = 15
 				}
 			}
 		}
 
 		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
 			1749 = {
 				add_base_production = 1
 				add_or_upgrade_shipyard_building = yes
@@ -551,11 +579,23 @@ taifa_alc_a = {
 			OR = {
 				AND = {
 					province_id = 226
-					NOT = { has_fort_building_trigger = yes }
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { has_fort_building_trigger = yes }
+					}
 				}
 				AND = {
 					province_id = 1751
 					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = {
+						owner = {
+							alliance_with = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+						}
+					}
 				}
 			}
 		}
@@ -606,10 +646,24 @@ taifa_alc_a = {
 		required_missions = { alc_the_strait_toll }
 
 		provinces_to_highlight = {
-			province_id = 1749
 			OR = {
-				NOT = { owned_by = ROOT }
-				NOT = { development = 18 }
+				AND = {
+					province_id = 1749
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 18 }
+					}
+				}
+				AND = {
+					province_id = 224
+					NOT = {
+						trade_share = {
+							country = ROOT
+							share = 30
+						}
+					}
+					NOT = { is_strongest_trade_power = ROOT }
+				}
 			}
 		}
 
@@ -682,6 +736,7 @@ taifa_alc_b = {
 		}
 
 		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
 			226 = {
 				add_base_manpower = 2
 				add_province_modifier = {
@@ -697,6 +752,43 @@ taifa_alc_b = {
 		position = 2
 		required_missions = { alc_the_rock taifa_the_taifa_kings }
 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1751
+				AND = {
+					is_capital = yes
+					region = maghreb_region
+					owner = {
+						religion_group = muslim
+					}
+				}
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			ROOT = {
+				NOT = {
+					1751 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				NOT = {
+					any_country = {
+						exists = yes
+						religion_group = muslim
+						capital_scope = {
+							region = maghreb_region
+						}
+						OR = {
+							alliance_with = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 100
+							}
+						}
+					}
+				}
+			}
+		}
+
 		trigger = {
 			custom_trigger_tooltip = {
 				tooltip = alc_friends_across_the_water_tt
@@ -705,6 +797,7 @@ taifa_alc_b = {
 						country_or_non_sovereign_subject_holds = ROOT
 					}
 					any_country = {
+						exists = yes
 						religion_group = muslim
 						capital_scope = {
 							region = maghreb_region
@@ -1031,7 +1124,15 @@ taifa_aln_b = {
 			}
 			OR = {
 				NOT = { owned_by = ROOT }
-				NOT = { development = 9 }
+				AND = {
+					NOT = { development = 9 }
+					NOT = {
+						4150 = { has_production_building_trigger = yes }
+					}
+					NOT = {
+						229 = { has_production_building_trigger = yes }
+					}
+				}
 			}
 		}
 
@@ -1280,6 +1381,33 @@ taifa_al_andalus = {
 		}
 	}
 
+	taifa_extremadura = {
+		icon = me_mission_ottomans_fortify_the_east
+		position = 5
+		required_missions = { taifa_garnatah }
+
+		provinces_to_highlight = {
+			area = extremadura_area
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			extremadura_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = taifa_the_western_march_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			add_mil_power = 50
+		}
+	}
+
 	taifa_the_northern_frontier = {
 		icon = mission_castillian_aggression
 		position = 6
@@ -1317,33 +1445,6 @@ taifa_al_andalus = {
 					add_mil_power = 50
 				"
 			}
-		}
-	}
-
-	taifa_extremadura = {
-		icon = me_mission_ottomans_fortify_the_east
-		position = 5
-		required_missions = { taifa_garnatah }
-
-		provinces_to_highlight = {
-			area = extremadura_area
-			NOT = { owned_by = ROOT }
-		}
-
-		trigger = {
-			extremadura_area = {
-				type = all
-				owned_by = ROOT
-			}
-		}
-
-		effect = {
-			add_country_modifier = {
-				name = taifa_the_western_march_modifier
-				duration = 9125
-			}
-			custom_tooltip = " "
-			add_mil_power = 50
 		}
 	}
 
@@ -1425,6 +1526,31 @@ taifa_maghreb = {
 		position = 3
 		required_missions = { taifa_envoys_from_the_maghreb }
 
+		provinces_to_highlight = {
+			is_capital = yes
+			region = maghreb_region
+			owner = {
+				religion_group = muslim
+				NOT = { alliance_with = ROOT }
+			}
+			ROOT = {
+				has_country_flag = taifa_maghrebi_path
+				NOT = {
+					any_owned_province = {
+						region = maghreb_region
+					}
+				}
+				NOT = {
+					any_ally = {
+						religion_group = muslim
+						capital_scope = {
+							region = maghreb_region
+						}
+					}
+				}
+			}
+		}
+
 		trigger = {
 			if = {
 				limit = {
@@ -1503,6 +1629,22 @@ taifa_maghreb = {
 		position = 4
 		required_missions = { taifa_faith_and_court }
 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { religion_group = muslim }
+			unrest = 1
+			ROOT = {
+				has_country_flag = taifa_andalusi_path
+				NOT = {
+					num_of_owned_provinces_with = {
+						value = 3
+						NOT = { religion_group = muslim }
+						NOT = { unrest = 1 }
+					}
+				}
+			}
+		}
+
 		trigger = {
 			if = {
 				limit = {
@@ -1564,6 +1706,43 @@ taifa_maghreb = {
 		icon = me_mission_persia_fortified_city_with_caravan
 		position = 5
 		required_missions = { taifa_the_people_of_the_frontier taifa_garnatah }
+
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_fort_building_trigger = yes }
+			OR = {
+				AND = {
+					region = iberia_region
+					ROOT = {
+						has_country_flag = taifa_maghrebi_path
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 2
+								region = iberia_region
+								has_fort_building_trigger = yes
+							}
+						}
+					}
+				}
+				AND = {
+					region = iberia_region
+					ROOT = {
+						has_country_flag = taifa_andalusi_path
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 3
+								region = iberia_region
+								has_fort_building_trigger = yes
+							}
+						}
+					}
+				}
+				AND = {
+					is_capital = yes
+					ROOT = { has_country_flag = taifa_andalusi_path }
+				}
+			}
+		}
 
 		trigger = {
 			if = {
@@ -1630,11 +1809,24 @@ taifa_maghreb = {
 
 		provinces_to_highlight = {
 			OR = {
-				province_id = 219
-				province_id = 227
+				AND = {
+					OR = {
+						province_id = 219
+						province_id = 227
+					}
+					ROOT = {
+						has_country_flag = taifa_maghrebi_path
+						NOT = { owns = 219 }
+						NOT = { owns = 227 }
+					}
+				}
+				AND = {
+					is_capital = yes
+					owned_by = ROOT
+					NOT = { development = 25 }
+					ROOT = { has_country_flag = taifa_andalusi_path }
+				}
 			}
-			NOT = { owned_by = ROOT }
-			ROOT = { has_country_flag = taifa_maghrebi_path }
 		}
 
 		trigger = {
@@ -1696,6 +1888,332 @@ taifa_maghreb = {
 					"
 				}
 			}
+		}
+	}
+}
+
+#### Column 5: The Gardens of al-Andalus (shared)
+# Rows 1-2 copy the generic European slot 5 missions (01_Generic_European_Missions.txt), which don't show next to a tagged tree.
+# Rows 3-8 interlock with the Maghreb column: each node from row 4 on also needs the Maghreb node one row up.
+# taifa_the_book_of_agriculture unlocks the decision taifa_plant_the_new_crops (decisions/_DSE_flavour_Taifas_Decisions.txt).
+
+taifa_gardens = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		taifa_is_taifa_trigger = yes
+	}
+
+	taifa_global_dominance = {
+		icon = mission_war_chest
+		position = 1
+		required_missions = { }
+
+		trigger = {
+			home_trade_node = {
+				highest_value_trade_node = yes
+				is_strongest_trade_power = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "gen_eur_trade_node_mod"
+				duration = 7300
+			}
+			add_prestige_or_monarch_power = { amount = 30 }
+		}
+	}
+
+	taifa_faiths_bastion = {
+		icon = mission_european_church
+		position = 2
+		required_missions = { }
+
+		trigger = {
+			NOT = { current_age = age_of_discovery }
+			is_defender_of_faith = yes
+			religious_unity = 1
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "gen_eur_defender"
+				duration = 5475
+			}
+			define_advisor = {
+				type = theologian
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+		}
+	}
+
+	taifa_the_waterwheels = {
+		icon = me_mission_persia_restore_riverlands
+		position = 3
+		required_missions = { }
+
+		provinces_to_highlight = {
+			owned_by = ROOT
+			region = iberia_region
+			NOT = { has_production_building_trigger = yes }
+			ROOT = {
+				NOT = {
+					num_of_owned_provinces_with = {
+						value = 2
+						region = iberia_region
+						has_production_building_trigger = yes
+					}
+				}
+			}
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = taifa_two_iberian_workshops_tt
+				num_of_owned_provinces_with = {
+					value = 2
+					region = iberia_region
+					has_production_building_trigger = yes
+				}
+			}
+		}
+
+		effect = {
+			capital_scope = {
+				add_base_production = 1
+			}
+			random_owned_province = {
+				limit = {
+					region = iberia_region
+					has_production_building_trigger = yes
+					is_capital = no
+				}
+				add_base_production = 1
+			}
+			custom_tooltip = " "
+			add_adm_power = 25
+		}
+	}
+
+	taifa_the_book_of_agriculture = {
+		icon = me_mission_persia_muslim_scholar_writing
+		position = 4
+		required_missions = { taifa_the_waterwheels taifa_faith_and_court }
+
+		trigger = {
+			has_adm_advisor_2 = yes
+			adm_tech = 6
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = taifa_events.19
+				option_1 = "
+					capital_scope = {
+						add_province_modifier = {
+							name = taifa_the_royal_garden_modifier
+							duration = -1
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = taifa_the_book_of_agriculture_modifier
+						duration = 3650
+					}
+				"
+			}
+			custom_tooltip = " "
+			custom_tooltip = taifa_unlocks_new_crops_tt
+			hidden_effect = {
+				set_country_flag = taifa_new_crops_unlocked
+			}
+		}
+	}
+
+	taifa_the_huertas = {
+		icon = mission_pue_irrigation_cannals
+		position = 5
+		required_missions = { taifa_the_book_of_agriculture taifa_the_people_of_the_frontier }
+
+		provinces_to_highlight = {
+			taifa_in_al_andalus_trigger = yes
+			owned_by = ROOT
+			NOT = { development = 12 }
+			ROOT = {
+				NOT = {
+					num_of_owned_provinces_with = {
+						value = 5
+						taifa_in_al_andalus_trigger = yes
+						development = 12
+					}
+				}
+			}
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = taifa_five_huertas_tt
+				num_of_owned_provinces_with = {
+					value = 5
+					taifa_in_al_andalus_trigger = yes
+					development = 12
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = taifa_the_huertas_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						taifa_in_al_andalus_trigger = yes
+						development = 12
+					}
+					add_province_modifier = {
+						name = taifa_the_huertas_modifier
+						duration = -1
+					}
+				}
+			}
+			custom_tooltip = " "
+			add_estate_burghers_loyalty_effect = yes
+		}
+	}
+
+	taifa_the_jund = {
+		icon = me_mission_spain_horseman
+		position = 6
+		required_missions = { taifa_the_huertas taifa_the_ribats }
+
+		trigger = {
+			army_size_percentage = 1
+			num_of_cavalry = 8
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = taifa_maghrebi_path
+				}
+				add_country_modifier = {
+					name = taifa_the_zenata_horse_modifier
+					duration = 9125
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = taifa_the_paid_jund_modifier
+					duration = 9125
+				}
+			}
+			custom_tooltip = " "
+			add_army_tradition_or_mil_power = { amount = 10 }
+		}
+	}
+
+	taifa_the_muhtasib = {
+		icon = mission_the_grand_bazaar
+		position = 7
+		required_missions = { taifa_the_jund }
+
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_trade_building_trigger = yes }
+			OR = {
+				is_capital = yes
+				ROOT = {
+					NOT = {
+						num_of_owned_provinces_with = {
+							value = 3
+							has_trade_building_trigger = yes
+						}
+					}
+				}
+			}
+		}
+
+		trigger = {
+			capital_scope = {
+				has_trade_building_trigger = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = taifa_three_marketplaces_tt
+				num_of_owned_provinces_with = {
+					value = 3
+					has_trade_building_trigger = yes
+				}
+			}
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			capital_scope = {
+				add_or_upgrade_trade_building = yes
+			}
+			custom_tooltip = " "
+			add_mercantilism_or_monarch_power = { amount = 2 }
+			add_estate_burghers_loyalty_effect = yes
+		}
+	}
+
+	taifa_the_golden_age = {
+		icon = mission_islamic_golden_age
+		position = 8
+		required_missions = { taifa_the_muhtasib taifa_the_pride_of_al_andalus }
+
+		provinces_to_highlight = {
+			taifa_in_al_andalus_trigger = yes
+			NOT = {
+				AND = {
+					owned_by = ROOT
+					development = 15
+				}
+			}
+			ROOT = {
+				NOT = {
+					num_of_owned_provinces_with = {
+						value = 8
+						taifa_in_al_andalus_trigger = yes
+						development = 15
+					}
+				}
+			}
+		}
+
+		trigger = {
+			stability = 2
+			custom_trigger_tooltip = {
+				tooltip = taifa_eight_rich_provinces_tt
+				num_of_owned_provinces_with = {
+					value = 8
+					taifa_in_al_andalus_trigger = yes
+					development = 15
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = taifa_the_gardens_of_al_andalus_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
 		}
 	}
 }
