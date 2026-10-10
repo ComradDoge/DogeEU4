@@ -14,6 +14,7 @@ Flavour
 - Forming Tibet or Himalayan empire gives more renaming options.
 - Various flavour localisation changes to formable decision names and descriptions.
 - Riga and Livonian primary culture changed from prussian to baltic_german, as in vanilla.
+- Cumania: a few new Cuman province names dotted around the balkans and some steppe provinces.
 - Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
 - New leader, ship, army and fleet names for many countries that shared or lacked their own list, report if any corruped characters appear.
 - Reforming into Livonia now gives some renaming options: Terra Mariana/Land of Mary if Christian, Livland if Germanic, Zemgale, Semigallia and Latvia.
@@ -52,8 +53,8 @@ Generally, a pass over various small countries that never had content. They now 
 
 - Galicia and Volhynia: a shared mission tree with a column for each, events.
 - Occitania: new mission tree, some events, and a Paratge mechanic on formation.
+- A few new privileges and decisions unlocked by missions (Galicia, Cumania, Algeciras, Toledo).
 - Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
-- Cumania: new decision shows the current clan favour, both possible rewards of The Clans Answer and the choices still to come that change it, until that mission is done.
 - Shattered Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa and a road to forming Andalusia.
 - Burgundy: added the Europa Expanded mission tree as an additional mission choice. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
 - Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate.
