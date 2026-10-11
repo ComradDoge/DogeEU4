@@ -1,6 +1,7 @@
 # Occitania events
 # Missions: missions/_MIS_Occitania_Missions.txt (options mirror the mission previews)
-# .7 and .8 fire from the Paratge mechanic (common/government_mechanics/DST_occ_paratge.txt)
+# .7 and .8 fire from the Paratge mechanic (common/government_mechanics/DST_occ_paratge.txt), .10 is the recurring Floral Games
+# .12-.18 come from the mid/late missions, .19 (hidden) keeps the Paratge reform in step with the government type
 
 namespace = occ_events
 
@@ -49,13 +50,13 @@ country_event = {
 
 	option = { # The golden violet
 		name = occ_events.2.a
-		add_years_of_income = -0.1
+		add_years_of_income = -0.25
 		add_prestige_or_monarch_power = { amount = 25 }
 		ai_chance = { factor = 40 }
 	}
 	option = { # Every tongue
 		name = occ_events.2.b
-		add_years_of_income = -0.25
+		add_years_of_income = -0.1
 		occ_change_paratge = { value = 10 }
 		add_prestige_or_monarch_power = { amount = 10 }
 		ai_chance = { factor = 30 }
@@ -129,12 +130,7 @@ country_event = {
 		name = occ_events.4.b
 		occ_change_paratge = { value = 5 }
 		add_prestige_or_monarch_power = { amount = 25 }
-		202 = {
-			if = {
-				limit = { owned_by = ROOT }
-				add_base_tax = 1
-			}
-		}
+		occ_avignon_palace_effect = yes
 		ai_chance = { factor = 40 }
 	}
 	option = { # Sell it back
@@ -332,5 +328,905 @@ country_event = {
 		occ_change_paratge = { value = 15 }
 		reduce_stability_or_adm_power = yes
 		ai_chance = { factor = 50 }
+	}
+}
+
+# Houses of the Good Men (occ_houses_of_good_men)
+country_event = {
+	id = occ_events.9
+	title = occ_events.9.t
+	desc = occ_events.9.d
+	picture = RELIGION_eventPicture
+	goto = occ_good_men_house_1
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			occ_pick_good_men_house = { n = 1 }
+			occ_pick_good_men_house = { n = 2 }
+			occ_pick_good_men_house = { n = 3 }
+		}
+	}
+
+	option = { # Open the houses
+		name = occ_events.9.a
+		if = {
+			limit = { has_saved_event_target = occ_good_men_house_1 }
+			event_target:occ_good_men_house_1 = { occ_add_good_men_house = yes }
+		}
+		if = {
+			limit = { has_saved_event_target = occ_good_men_house_2 }
+			event_target:occ_good_men_house_2 = { occ_add_good_men_house = yes }
+		}
+		if = {
+			limit = { has_saved_event_target = occ_good_men_house_3 }
+			event_target:occ_good_men_house_3 = { occ_add_good_men_house = yes }
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = { has_province_flag = occ_good_men_house_pick }
+				clr_province_flag = occ_good_men_house_pick
+			}
+		}
+	}
+}
+
+# The Floral Games return (every May, at most once per 10 years, after occ_the_floral_games)
+# The first time is about the Leys d'Amors and has an extra option
+country_event = {
+	id = occ_events.10
+	title = occ_events.10.t
+	desc = {
+		trigger = { NOT = { has_country_flag = occ_leys_damors_done } }
+		desc = occ_events.10.d_leys
+	}
+	desc = {
+		trigger = { has_country_flag = occ_leys_damors_done }
+		desc = occ_events.10.d
+	}
+	picture = CULTURE_eventPicture
+	goto = 196
+
+	trigger = {
+		has_country_flag = occ_floral_games_flag
+		owns = 196
+		is_month = 4
+		NOT = { is_month = 5 }
+		had_country_flag = { flag = occ_floral_games_held days = 3650 }
+	}
+
+	mean_time_to_happen = {
+		days = 15
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = occ_floral_games_held
+			set_country_flag = occ_floral_games_held
+			# f: the laureate's home town
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					has_owner_religion = no
+				}
+				save_event_target_as = occ_laureate_home
+			}
+			# h: the enemy the sirventes mock, independent ones first
+			if = {
+				limit = {
+					any_country = {
+						war_with = ROOT
+						is_subject = no
+					}
+				}
+				random_country = {
+					limit = {
+						war_with = ROOT
+						is_subject = no
+					}
+					save_event_target_as = occ_sirventes_target
+				}
+			}
+			else = {
+				random_country = {
+					limit = { war_with = ROOT }
+					save_event_target_as = occ_sirventes_target
+				}
+			}
+		}
+	}
+
+	option = { # A golden violet for the winner
+		name = occ_events.10.a
+		add_years_of_income = -0.05
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 30 }
+	}
+	option = { # Verse in every tongue
+		name = occ_events.10.b
+		occ_change_paratge = { value = 5 }
+		ai_chance = { factor = 30 }
+	}
+	option = { # Bring the winner to court
+		name = occ_events.10.c
+		define_advisor = {
+			type = artist
+			skill = 2
+			discount = yes
+		}
+		ai_chance = { factor = 40 }
+	}
+
+	# Situational options, shown only when their trigger is met
+
+	option = { # A poet of another faith takes the violet (Paratge 50+, owns a city of another faith)
+		name = occ_events.10.f
+		trigger = {
+			has_government_power = {
+				mechanic_type = occ_paratge_mechanic
+				power_type = paratge
+				value = 50
+			}
+			has_saved_event_target = occ_laureate_home
+		}
+		occ_change_paratge = { value = 5 }
+		event_target:occ_laureate_home = {
+			add_province_modifier = {
+				name = occ_laureate_home_modifier
+				duration = 3650
+			}
+		}
+		custom_tooltip = occ_floral_violet_opinion_tt
+		hidden_effect = {
+			every_neighbor_country = {
+				limit = {
+					NOT = { religion = ROOT }
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = occ_floral_violet_opinion
+				}
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # The Perfecti call the games a vanity (Zeal below -50)
+		name = occ_events.10.g
+		trigger = {
+			NOT = {
+				has_government_power = {
+					mechanic_type = occ_paratge_mechanic
+					power_type = paratge
+					value = -50
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_owned_province = {
+					is_city = yes
+					has_owner_religion = no
+				}
+			}
+			custom_tooltip = occ_disputation_convert_tt
+			hidden_effect = {
+				occ_disputation_convert_effect = yes
+			}
+		}
+		else = {
+			add_church_power = 25
+		}
+		occ_change_paratge = { value = -5 }
+		ai_chance = { factor = 60 }
+	}
+	option = { # Sirventes against the enemy (at war)
+		name = occ_events.10.h
+		trigger = {
+			is_at_war = yes
+			has_saved_event_target = occ_sirventes_target
+		}
+		add_country_modifier = {
+			name = occ_sirventes_modifier
+			duration = 730
+		}
+		event_target:occ_sirventes_target = {
+			add_war_exhaustion = 1
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # The capitouls pay for the violet (Capitoulat privilege granted)
+		name = occ_events.10.i
+		trigger = {
+			has_estate_privilege = dse_estate_burghers_occ_capitoulat
+		}
+		add_estate_burghers_loyalty_effect = yes
+		196 = {
+			add_base_production = 1
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Invite the poets of Barcelona (owns Barcelona)
+		name = occ_events.10.j
+		trigger = {
+			owns = 213
+		}
+		213 = {
+			if = {
+				limit = {
+					NOT = { has_province_modifier = occ_barcelona_jocs_florals_modifier }
+				}
+				add_province_modifier = {
+					name = occ_barcelona_jocs_florals_modifier
+					duration = -1
+				}
+			}
+			else = {
+				add_base_tax = 1
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Hold the games in Rome (owns Rome, Cathar)
+		name = occ_events.10.k
+		trigger = {
+			owns = 118
+			religion = cathar
+		}
+		add_prestige_or_monarch_power = { amount = 25 }
+		118 = {
+			if = {
+				limit = {
+					has_province_modifier = occ_ashes_of_the_curia_modifier
+				}
+				remove_province_modifier = occ_ashes_of_the_curia_modifier
+			}
+			else = {
+				add_province_modifier = {
+					name = occ_rome_games_modifier
+					duration = 3650
+				}
+			}
+		}
+		ai_chance = { factor = 80 }
+	}
+	option = { # The ruler enters a poem (diplomatic skill 5+)
+		name = occ_events.10.l
+		trigger = {
+			NOT = { has_regency = yes }
+			dip = 5
+		}
+		if = {
+			limit = {
+				NOT = { ruler_has_personality = patron_of_arts_personality }
+				NOT = { ruler_has_personality = obsessive_perfectionist_personality }
+			}
+			add_ruler_personality = patron_of_arts_personality
+		}
+		else = {
+			add_prestige_or_monarch_power = { amount = 15 }
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # A court of love (female consort)
+		name = occ_events.10.m
+		trigger = {
+			has_consort = yes
+			has_female_consort = yes
+		}
+		occ_change_paratge = { value = 5 }
+		if = {
+			limit = {
+				NOT = { consort_has_personality = silver_tongue_personality }
+				NOT = { consort_has_personality = babbling_buffoon_personality }
+				NOT = { consort_has_personality = naive_personality }
+			}
+			add_queen_personality = silver_tongue_personality
+		}
+		else = {
+			add_prestige_or_monarch_power = { amount = 10 }
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # The doctors of Montpellier judge the verse (university in Montpellier, Renaissance)
+		name = occ_events.10.n
+		trigger = {
+			has_institution = renaissance
+			200 = {
+				owned_by = ROOT
+				has_building = university
+			}
+		}
+		add_innovativeness_or_monarch_power = { amount = 5 }
+		200 = {
+			add_base_tax = 1
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # A golden age of verse (golden age)
+		name = occ_events.10.o
+		trigger = {
+			in_golden_age = yes
+		}
+		occ_change_paratge = { value = 10 }
+		define_advisor = {
+			type = artist
+			skill = 3
+			discount = yes
+		}
+		ai_chance = { factor = 80 }
+	}
+	option = { # Poets from every court in Europe (great power)
+		name = occ_events.10.p
+		trigger = {
+			is_great_power = yes
+		}
+		add_power_projection_mission = { amount = 10 }
+		add_prestige_or_monarch_power = { amount = 20 }
+		ai_chance = { factor = 80 }
+	}
+	option = { # The games in Paris, in the langue d'oc (owns Paris)
+		name = occ_events.10.q
+		trigger = {
+			owns = 183
+		}
+		add_prestige_or_monarch_power = { amount = 25 }
+		183 = {
+			add_province_modifier = {
+				name = occ_paris_verse_modifier
+				duration = 3650
+			}
+		}
+		ai_chance = { factor = 80 }
+	}
+	option = { # Crown the winner before the imperial court (emperor)
+		name = occ_events.10.r
+		trigger = {
+			is_emperor = yes
+		}
+		add_imperial_influence = 5
+		custom_tooltip = occ_floral_electors_opinion_tt
+		hidden_effect = {
+			every_country = {
+				limit = {
+					is_elector = yes
+					NOT = { tag = ROOT }
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = occ_floral_guest_opinion
+				}
+			}
+		}
+		ai_chance = { factor = 80 }
+	}
+
+	option = { # Crown an academician (occ_academy_floral_games)
+		name = occ_events.10.s
+		trigger = {
+			has_country_flag = occ_academy_founded
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		add_innovativeness_or_monarch_power = { amount = 3 }
+		ai_chance = { factor = 30 }
+	}
+
+	option = { # Publish the Leys d'Amors
+		name = occ_events.10.e
+		trigger = {
+			NOT = { has_country_flag = occ_leys_damors_done }
+		}
+		add_years_of_income = -0.25
+		add_country_modifier = {
+			name = occ_leys_damors_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 50 }
+	}
+
+	after = {
+		hidden_effect = {
+			set_country_flag = occ_leys_damors_done
+		}
+	}
+}
+
+# The Two Tongues (occ_two_tongues)
+# c needs Paratge 50+, d needs Paratge below -50 (Zeal)
+country_event = {
+	id = occ_events.11
+	title = occ_events.11.t
+	desc = occ_events.11.d
+	picture = COURT_eventPicture
+	major = yes
+	goto = 183
+
+	is_triggered_only = yes
+
+	option = { # One crown for both tongues
+		name = occ_events.11.a
+		ME_add_accepted_culture_or_dip_power = { culture = cosmopolitan_french }
+		custom_tooltip = occ_events.11.a_tt
+		hidden_effect = {
+			every_province = {
+				limit = {
+					region = france_region
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					any_neighbor_province = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # The northern lords as our peers
+		name = occ_events.11.b
+		add_country_modifier = {
+			name = occ_peers_of_the_north_modifier
+			duration = -1
+		}
+		custom_tooltip = occ_events.11.b_tt
+		hidden_effect = {
+			every_subject_country = {
+				limit = {
+					capital_scope = { region = france_region }
+				}
+				add_liberty_desire = -15
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Charters for the northern towns
+		name = occ_events.11.c
+		trigger = {
+			has_government_power = {
+				mechanic_type = occ_paratge_mechanic
+				power_type = paratge
+				value = 50
+			}
+		}
+		occ_change_paratge = { value = 10 }
+		add_country_modifier = {
+			name = occ_northern_charters_modifier
+			duration = -1
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Send the Perfecti north
+		name = occ_events.11.e
+		trigger = {
+			NOT = {
+				has_government_power = {
+					mechanic_type = occ_paratge_mechanic
+					power_type = paratge
+					value = -50
+				}
+			}
+		}
+		occ_change_paratge = { value = -10 }
+		add_country_modifier = {
+			name = occ_preaching_in_the_north_modifier
+			duration = -1
+		}
+		custom_tooltip = occ_events.11.e_tt
+		hidden_effect = {
+			183 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+						NOT = { religion = cathar }
+					}
+					change_religion = cathar
+				}
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Paratge reform matches the government type (on_startup, on_government_change in common/on_actions/DST_on_actions.txt)
+country_event = {
+	id = occ_events.19
+	title = occ_events.19.t
+	desc = occ_events.19.d
+	picture = COURT_eventPicture
+	hidden = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			tag = OCC
+			has_reform = occ_paratge_monarchy
+			has_reform = occ_consular_republic
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				government = republic
+				NOT = { has_reform = occ_consular_republic }
+			}
+			add_government_reform = occ_consular_republic
+		}
+		else_if = {
+			limit = {
+				OR = {
+					government = monarchy
+					government = theocracy
+				}
+				NOT = { has_reform = occ_paratge_monarchy }
+			}
+			add_government_reform = occ_paratge_monarchy
+		}
+	}
+
+	option = {
+		name = occ_events.19.a
+	}
+}
+
+# Brothers in Heresy (occ_brothers_in_heresy)
+country_event = {
+	id = occ_events.12
+	title = occ_events.12.t
+	desc = occ_events.12.d
+	picture = RELIGION_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # A common front against Rome
+		name = occ_events.12.a
+		custom_tooltip = occ_events.12.a_tt
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { tag = ROOT }
+					OR = {
+						religion = protestant
+						religion = reformed
+						religion = hussite
+						religion = waldensian
+						religion = lollard
+						religion = anglican
+						religion = bogomilist
+					}
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = occ_brothers_opinion
+				}
+			}
+		}
+		add_country_modifier = {
+			name = occ_brothers_front_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Our own road
+		name = occ_events.12.b
+		add_stability_or_adm_power = yes
+		add_church_power = 50
+		occ_change_paratge = { value = -5 }
+		ai_chance = { factor = 30 }
+	}
+	option = { # Take in their exiles
+		name = occ_events.12.c
+		occ_change_paratge = { value = 5 }
+		custom_tooltip = occ_open_gates_settle_2_tt
+		hidden_effect = {
+			occ_open_gates_settle_effect = yes
+			occ_open_gates_settle_effect = yes
+			every_owned_province = {
+				limit = { has_province_flag = occ_gates_settled_flag }
+				clr_province_flag = occ_gates_settled_flag
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Council of the Good Men (occ_council_of_good_men). The seat is saved by occ_council_seat_effect
+country_event = {
+	id = occ_events.13
+	title = occ_events.13.t
+	desc = {
+		trigger = { has_saved_event_target = occ_council_seat }
+		desc = occ_events.13.d
+	}
+	desc = {
+		trigger = { NOT = { has_saved_event_target = occ_council_seat } }
+		desc = occ_events.13.d_noseat
+	}
+	picture = RELIGION_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # Mitigated dualism
+		name = occ_events.13.a
+		occ_change_paratge = { value = 15 }
+		add_country_modifier = {
+			name = occ_mitigated_dualism_modifier
+			duration = -1
+		}
+		hidden_effect = { set_country_flag = occ_doctrine_mitigated }
+		ai_chance = { factor = 30 }
+	}
+	option = { # Absolute dualism
+		name = occ_events.13.b
+		occ_change_paratge = { value = -15 }
+		add_country_modifier = {
+			name = occ_absolute_dualism_modifier
+			duration = -1
+		}
+		hidden_effect = { set_country_flag = occ_doctrine_absolute }
+		ai_chance = { factor = 30 }
+	}
+	option = { # Consolament for all
+		name = occ_events.13.c
+		add_country_modifier = {
+			name = occ_consolament_for_all_modifier
+			duration = -1
+		}
+		hidden_effect = { set_country_flag = occ_doctrine_consolament }
+		ai_chance = { factor = 20 }
+	}
+	option = { # A church of the poor
+		name = occ_events.13.e
+		add_country_modifier = {
+			name = occ_church_of_the_poor_modifier
+			duration = -1
+		}
+		hidden_effect = { set_country_flag = occ_doctrine_poor }
+		ai_chance = { factor = 20 }
+	}
+}
+
+# The Iberian Question (occ_iberian_question)
+country_event = {
+	id = occ_events.14
+	title = occ_events.14.t
+	desc = occ_events.14.d
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # Carve out what borders us
+		name = occ_events.14.a
+		custom_tooltip = occ_events.14.a_tt
+		hidden_effect = {
+			every_province = {
+				limit = {
+					region = iberia_region
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					any_neighbor_province = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # A treaty of the Pyrenees
+		name = occ_events.14.b
+		custom_tooltip = occ_events.14.b_tt
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = { tag = ROOT }
+					is_subject = no
+					is_neighbor_of = ROOT
+					capital_scope = { region = iberia_region }
+				}
+				add_trust = {
+					who = ROOT
+					value = 30
+					mutual = yes
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = occ_pyrenees_treaty_opinion
+				}
+			}
+		}
+		add_country_modifier = {
+			name = occ_treaty_of_the_pyrenees_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Academy of the Floral Games (occ_academy_floral_games)
+country_event = {
+	id = occ_events.15
+	title = occ_events.15.t
+	desc = occ_events.15.d
+	picture = CULTURE_eventPicture
+	goto = 196
+
+	is_triggered_only = yes
+
+	option = { # Letters
+		name = occ_events.15.a
+		add_country_modifier = {
+			name = occ_academy_letters_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Sciences
+		name = occ_events.15.b
+		add_country_modifier = {
+			name = occ_academy_sciences_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Medicine
+		name = occ_events.15.c
+		add_country_modifier = {
+			name = occ_academy_medicine_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Estates of Languedoc (occ_estates_of_languedoc)
+country_event = {
+	id = occ_events.16
+	title = occ_events.16.t
+	desc = occ_events.16.d
+	picture = COURT_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # A land of estates
+		name = occ_events.16.a
+		occ_change_paratge = { value = 10 }
+		add_estate_nobles_loyalty_effect = yes
+		add_estate_church_loyalty_effect = yes
+		add_estate_burghers_loyalty_effect = yes
+		add_country_modifier = {
+			name = occ_pays_detats_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Send the intendants
+		name = occ_events.16.b
+		occ_change_paratge = { value = -10 }
+		add_absolutism = 10
+		add_country_modifier = {
+			name = occ_royal_intendants_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Crown or Consulates (occ_crown_or_consulates). a needs absolutism 60; b needs the consulates route, or shows whenever a does not (so one option is always open)
+country_event = {
+	id = occ_events.17
+	title = occ_events.17.t
+	desc = occ_events.17.d
+	picture = COURT_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # The crown stands above the quarrel
+		name = occ_events.17.a
+		trigger = {
+			absolutism = 60
+		}
+		add_adm_power = 50
+		custom_tooltip = occ_crown_route_tt
+		hidden_effect = {
+			set_country_flag = occ_crown_route_flag
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # The consulates rule by agreement
+		name = occ_events.17.b
+		trigger = {
+			OR = {
+				NOT = { absolutism = 60 }
+				AND = {
+					has_government_power = {
+						mechanic_type = occ_paratge_mechanic
+						power_type = paratge
+						value = 60
+					}
+					mission_completed = occ_parliament_of_toulouse
+				}
+			}
+		}
+		add_estate_burghers_loyalty_effect = yes
+		custom_tooltip = occ_consulates_route_tt
+		hidden_effect = {
+			set_country_flag = occ_consulates_route_flag
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Declaration of Paratge (occ_declaration_of_paratge). a monarchy, b Paratge 50+, c crown route, e always
+country_event = {
+	id = occ_events.18
+	title = occ_events.18.t
+	desc = occ_events.18.d
+	picture = COURT_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # A crown bound by the declaration
+		name = occ_events.18.a
+		trigger = {
+			government = monarchy
+		}
+		occ_change_paratge = { value = 15 }
+		add_country_modifier = {
+			name = occ_constitution_modifier
+			duration = -1
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # A consular republic
+		name = occ_events.18.b
+		trigger = {
+			has_government_power = {
+				mechanic_type = occ_paratge_mechanic
+				power_type = paratge
+				value = 50
+			}
+		}
+		occ_change_paratge = { value = 10 }
+		custom_tooltip = occ_events.18.b_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { government = republic }
+				}
+				change_government = republic
+			}
+			add_government_reform = occ_consular_republic
+			add_republican_tradition = 10
+		}
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 0
+				NOT = {
+					has_government_power = {
+						mechanic_type = occ_paratge_mechanic
+						power_type = paratge
+						value = 75
+					}
+				}
+			}
+		}
+	}
+	option = { # Order first, then rights
+		name = occ_events.18.c
+		trigger = {
+			has_country_flag = occ_crown_route_flag
+		}
+		add_absolutism = 20
+		occ_change_paratge = { value = -15 }
+		add_country_modifier = {
+			name = occ_restored_order_modifier
+			duration = -1
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Let the debate continue
+		name = occ_events.18.e
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 10 }
 	}
 }

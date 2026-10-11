@@ -52,6 +52,44 @@ occ_paratge_mechanic = {
 				start_value = 0
 				end_value = 100
 			}
+			# Consulates route (occ_crown_or_consulates / occ_events.17): the parliament part also raises the burghers
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = occ_consulates_route_flag
+					has_government_power = {
+						mechanic_type = occ_paratge_mechanic
+						power_type = paratge
+						value = 0
+					}
+				}
+				modifier = {
+					burghers_influence_modifier = 0.1
+				}
+				start_value = 0
+				end_value = 100
+			}
+			# Crown route: the crown arbitrates while the bar stays near the middle (-25 .. 25)
+			range_modifier = {
+				trigger = {
+					has_country_flag = occ_crown_route_flag
+					has_government_power = {
+						mechanic_type = occ_paratge_mechanic
+						power_type = paratge
+						value = -25
+					}
+					NOT = {
+						has_government_power = {
+							mechanic_type = occ_paratge_mechanic
+							power_type = paratge
+							value = 26
+						}
+					}
+				}
+				modifier = {
+					max_absolutism = 10
+					stability_cost_modifier = -0.1
+				}
+			}
 
 			# Zeal side
 			reverse_scaled_modifier = {
@@ -233,6 +271,15 @@ occ_paratge_mechanic = {
 						occ_open_gates_settle_effect = yes
 					}
 				}
+				if = {
+					limit = {
+						has_country_flag = occ_consulates_route_flag
+					}
+					custom_tooltip = occ_open_gates_consulates_tt
+					hidden_effect = {
+						occ_open_gates_settle_effect = yes
+					}
+				}
 				hidden_effect = {
 					every_owned_province = {
 						limit = {
@@ -241,17 +288,32 @@ occ_paratge_mechanic = {
 						clr_province_flag = occ_gates_settled_flag
 					}
 				}
-				every_owned_province = {
+				# One summary line instead of an entry per province
+				if = {
 					limit = {
-						is_city = yes
-						OR = {
-							has_owner_religion = no
-							has_owner_accepted_culture = no
+						any_owned_province = {
+							is_city = yes
+							OR = {
+								has_owner_religion = no
+								has_owner_accepted_culture = no
+							}
 						}
 					}
-					add_province_modifier = {
-						name = occ_open_gates_province_modifier
-						duration = 3650
+					custom_tooltip = occ_open_gates_minorities_tt
+					hidden_effect = {
+						every_owned_province = {
+							limit = {
+								is_city = yes
+								OR = {
+									has_owner_religion = no
+									has_owner_accepted_culture = no
+								}
+							}
+							add_province_modifier = {
+								name = occ_open_gates_province_modifier
+								duration = 3650
+							}
+						}
 					}
 				}
 				add_government_power = {
@@ -300,13 +362,15 @@ occ_paratge_mechanic = {
 						name = occ_disputation_tolerance_modifier
 						duration = 3650
 					}
-					every_neighbor_country = {
-						limit = {
-							NOT = { religion = ROOT }
-						}
-						add_opinion = {
-							who = ROOT
-							modifier = occ_disputation_opinion
+					hidden_effect = {
+						every_neighbor_country = {
+							limit = {
+								NOT = { religion = ROOT }
+							}
+							add_opinion = {
+								who = ROOT
+								modifier = occ_disputation_opinion
+							}
 						}
 					}
 					add_government_power = {
@@ -347,6 +411,12 @@ occ_paratge_mechanic = {
 						power_type = paratge
 						value = 25
 					}
+				}
+				if = {
+					limit = {
+						has_country_flag = occ_crown_route_flag
+					}
+					add_absolutism = 5
 				}
 			}
 			cooldown_years = 10

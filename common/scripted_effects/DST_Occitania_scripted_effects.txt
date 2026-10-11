@@ -11,18 +11,74 @@ occ_change_paratge = {
 	}
 }
 
-# Province scope. House of the Good Men (occ_houses_of_good_men): modifier plus a temple if it has no tax building
+# Country scope. Avignon Question, spare the palace (occ_events.4.b and its mission preview): a Palace of the Popes tier, +1 base tax once it is complete
+occ_avignon_palace_effect = {
+	202 = {
+		if = {
+			limit = {
+				owned_by = ROOT
+				NOT = {
+					has_great_project = {
+						type = palace_of_the_popes
+						tier = 3
+					}
+				}
+			}
+			add_great_project_tier = {
+				type = palace_of_the_popes
+				tier = 1
+			}
+		}
+		else_if = {
+			limit = { owned_by = ROOT }
+			add_base_tax = 1
+		}
+	}
+}
+
+# Country scope, immediate of occ_events.9. Picks a Cathar province for a House of the Good Men, 15+ development first
+# occ_pick_good_men_house = { n = 1 } saves event target occ_good_men_house_1 (flag occ_good_men_house_pick, cleared by the event)
+occ_pick_good_men_house = {
+	if = {
+		limit = {
+			any_owned_province = {
+				religion = cathar
+				development = 15
+				NOT = { has_province_modifier = occ_good_men_house_modifier }
+				NOT = { has_province_flag = occ_good_men_house_pick }
+			}
+		}
+		random_owned_province = {
+			limit = {
+				religion = cathar
+				development = 15
+				NOT = { has_province_modifier = occ_good_men_house_modifier }
+				NOT = { has_province_flag = occ_good_men_house_pick }
+			}
+			set_province_flag = occ_good_men_house_pick
+			save_event_target_as = occ_good_men_house_$n$
+		}
+	}
+	else = {
+		random_owned_province = {
+			limit = {
+				religion = cathar
+				NOT = { has_province_modifier = occ_good_men_house_modifier }
+				NOT = { has_province_flag = occ_good_men_house_pick }
+			}
+			set_province_flag = occ_good_men_house_pick
+			save_event_target_as = occ_good_men_house_$n$
+		}
+	}
+}
+
+# Province scope. House of the Good Men (occ_houses_of_good_men): modifier plus a tax building upgrade
 occ_add_good_men_house = {
 	add_province_modifier = {
 		name = occ_good_men_house_modifier
 		duration = -1
 	}
-	if = {
-		limit = {
-			NOT = { has_tax_building_trigger = yes }
-		}
-		add_building = temple
-	}
+	add_or_upgrade_tax_building = yes
 }
 
 # Paratge interactions (common/government_mechanics/DST_occ_paratge.txt)
@@ -183,6 +239,45 @@ occ_disputation_convert_effect = {
 				has_owner_religion = no
 			}
 			change_religion = ROOT
+		}
+	}
+}
+
+# Council of the Good Men (occ_council_of_good_men): seat in Rome if ours and Cathar, else Toulouse, else the capital.
+# Saves occ_council_seat for occ_events.13
+occ_council_seat_effect = {
+	if = {
+		limit = {
+			118 = {
+				owned_by = ROOT
+				religion = cathar
+			}
+		}
+		118 = {
+			save_event_target_as = occ_council_seat
+			add_province_modifier = {
+				name = occ_council_seat_modifier
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = { owns = 196 }
+		196 = {
+			save_event_target_as = occ_council_seat
+			add_province_modifier = {
+				name = occ_council_seat_modifier
+				duration = -1
+			}
+		}
+	}
+	else = {
+		capital_scope = {
+			save_event_target_as = occ_council_seat
+			add_province_modifier = {
+				name = occ_council_seat_modifier
+				duration = -1
+			}
 		}
 	}
 }

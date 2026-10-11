@@ -1,7 +1,8 @@
 # Occitania - Paratge and the Perfecti
 # Five columns (left to right): Cathar faith, Mediterranean, Unity & France, Toulouse & land, Paratge
 # Paratge mechanic: common/government_mechanics/DST_occ_paratge.txt (the Paratge column moves it up, the Cathar column towards Zeal)
-# Events: events/_DSE_flavour_Occitania_events.txt (occ_events.1 - .8), modifiers: common/event_modifiers/DST_Occitania_modifiers.txt
+# Rows 8-15 of every column are the mid/late section (soft prerequisites via mission_completed in the trigger, no arrow)
+# Events: events/_DSE_flavour_Occitania_events.txt (occ_events.1 - .19), decision: decisions/_DSE_flavour_Occitania_Decisions.txt, modifiers: common/event_modifiers/DST_Occitania_modifiers.txt
 
 #### Unity & France
 
@@ -37,10 +38,6 @@ occ_c1 = {
 
 		effect = {
 			add_adm_power = 50
-			add_country_modifier = {
-				name = occ_midi_united_modifier
-				duration = 9125
-			}
 			custom_tooltip = " "
 			country_event_with_option_insight = {
 				id = occ_events.1
@@ -91,18 +88,33 @@ occ_c1 = {
 			add_prestige_or_monarch_power = { amount = 25 }
 			174 = {
 				if = {
+					limit = {
+						owned_by = ROOT
+						NOT = {
+							has_great_project = {
+								type = gme_port_de_moon
+								tier = 3
+							}
+						}
+					}
+					add_great_project_tier = {
+						type = gme_port_de_moon
+						tier = 1
+					}
+				}
+				else_if = {
 					limit = { owned_by = ROOT }
 					add_base_production = 1
 				}
 			}
 			custom_tooltip = " "
-			give_claims = { area = massif_central_area }
+			give_claims = { area = poitou_area }
 		}
 	}
 
 	occ_massif_central = {
 		icon = me_mission_generic_castle
-		position = 5
+		position = 4
 		required_missions = { occ_gascony_and_guyenne }
 
 		provinces_to_highlight = {
@@ -124,13 +136,18 @@ occ_c1 = {
 				duration = 9125
 			}
 			custom_tooltip = " "
-			give_claims = { area = poitou_area }
+			199 = {
+				if = {
+					limit = { owned_by = ROOT }
+					add_base_manpower = 1
+				}
+			}
 		}
 	}
 
 	occ_face_the_lilies = {
 		icon = mission_coa_shield_france
-		position = 6
+		position = 5
 		required_missions = { occ_massif_central }
 
 		provinces_to_highlight = {
@@ -152,6 +169,22 @@ occ_c1 = {
 				}
 				FRA = { is_subject_of = ROOT }
 				183 = { country_or_non_sovereign_subject_holds = ROOT }
+				custom_trigger_tooltip = {
+					tooltip = occ_face_the_lilies_no_rival_tt
+					NOT = { exists = FRA }
+					NOT = {
+						any_country = {
+							exists = yes
+							is_subject = no
+							NOT = { tag = ROOT }
+							capital_scope = { region = france_region }
+							army_strength = {
+								who = ROOT
+								value = 1
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -176,13 +209,15 @@ occ_c1 = {
 					exists = FRA
 				"
 				second_effect = "
-					FRA = {
-						every_owned_province = {
-							limit = {
-								region = france_region
-								any_neighbor_province = { owned_by = ROOT }
+					hidden_effect = {
+						FRA = {
+							every_owned_province = {
+								limit = {
+									region = france_region
+									any_neighbor_province = { owned_by = ROOT }
+								}
+								add_permanent_claim = ROOT
 							}
-							add_permanent_claim = ROOT
 						}
 					}
 				"
@@ -192,7 +227,302 @@ occ_c1 = {
 				"
 				third_effect = "
 					add_prestige_or_monarch_power = { amount = 50 }
+					hidden_effect = {
+						every_province = {
+							limit = {
+								region = france_region
+								NOT = { country_or_non_sovereign_subject_holds = ROOT }
+								any_neighbor_province = { owned_by = ROOT }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
 				"
+			}
+		}
+	}
+
+	occ_two_tongues = {
+		icon = king_of_france
+		position = 7
+		required_missions = { occ_face_the_lilies }
+
+		provinces_to_highlight = {
+			area = ile_de_france_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			OR = {
+				ile_de_france_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				FRA = { is_subject_of = ROOT }
+				FRX = { is_subject_of = ROOT }
+			}
+			num_of_owned_provinces_with = {
+				value = 40
+				region = france_region
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					NOT = { government_rank = 3 }
+				}
+				set_government_rank = 3
+			}
+			else = {
+				add_prestige_or_monarch_power = { amount = 50 }
+			}
+			183 = {
+				if = {
+					limit = { owned_by = ROOT }
+					add_base_tax = 1
+					add_base_production = 1
+				}
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = occ_events.11
+				option_1 = "
+					ME_add_accepted_culture_or_dip_power = { culture = cosmopolitan_french }
+					custom_tooltip = occ_events.11.a_tt
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = occ_peers_of_the_north_modifier
+						duration = -1
+					}
+					custom_tooltip = occ_events.11.b_tt
+				"
+				option_3 = "
+					custom_tooltip = occ_throne_of_peter_c_tt
+					occ_change_paratge = { value = 10 }
+					add_country_modifier = {
+						name = occ_northern_charters_modifier
+						duration = -1
+					}
+				"
+				option_4 = "
+					custom_tooltip = occ_throne_of_peter_d_tt
+					occ_change_paratge = { value = -10 }
+					add_country_modifier = {
+						name = occ_preaching_in_the_north_modifier
+						duration = -1
+					}
+					custom_tooltip = occ_events.11.e_tt
+				"
+			}
+		}
+	}
+
+	occ_cadets_of_gascony = {
+		icon = establish_the_musketeers
+		position = 9
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 174
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			mission_completed = occ_gascony_and_guyenne
+			custom_trigger_tooltip = {
+				tooltip = occ_age_reformation_tt
+				NOT = { current_age = age_of_discovery }
+			}
+			owns = 174
+			army_size_percentage = 1
+			OR = {
+				army_tradition = 40
+				army_professionalism = 0.2
+			}
+		}
+
+		effect = {
+			custom_tooltip = occ_cadets_unlock_tt
+			hidden_effect = {
+				set_country_flag = occ_cadets_unlocked
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = occ_gascon_cadets_modifier
+				duration = 9125
+			}
+			174 = { add_base_manpower = 1 }
+		}
+	}
+
+	occ_break_the_ring = {
+		icon = end_the_habsburgs
+		position = 10
+		required_missions = { occ_cadets_of_gascony }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = occ_ring_has_rival_tt
+				any_rival_country = { exists = yes }
+			}
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = occ_ring_war_tt
+					any_rival_country = {
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 20
+							}
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = occ_ring_army_tt
+					NOT = {
+						any_rival_country = {
+							army_strength = {
+								who = ROOT
+								value = 1
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 25
+			}
+			add_mil_power = 50
+			custom_tooltip = " "
+			custom_tooltip = occ_ring_claims_tt
+			hidden_effect = {
+				every_rival_country = {
+					every_owned_province = {
+						limit = {
+							any_neighbor_province = { owned_by = ROOT }
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+			}
+		}
+	}
+
+	occ_iberian_question = {
+		icon = a_question_of_spain
+		position = 12
+		required_missions = { }
+
+		provinces_to_highlight = {
+			OR = {
+				area = aragon_area
+				area = valencia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			OR = {
+				mission_completed = occ_across_the_pyrenees
+				mission_completed = occ_break_the_ring
+			}
+			OR = {
+				AND = {
+					aragon_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					valencia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				220 = { owner = { is_subject_of = ROOT } }
+				custom_trigger_tooltip = {
+					tooltip = occ_iberian_union_tt
+					any_subject_country = {
+						is_subject_of_type = personal_union
+						capital_scope = { region = iberia_region }
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = occ_iberian_war_tt
+					OR = {
+						220 = {
+							owner = {
+								NOT = { tag = ROOT }
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 20
+									}
+								}
+							}
+						}
+						214 = {
+							owner = {
+								NOT = { tag = ROOT }
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 20
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = occ_events.14
+				option_1 = "
+					custom_tooltip = occ_events.14.a_tt
+				"
+				option_2 = "
+					custom_tooltip = occ_events.14.b_tt
+					add_country_modifier = {
+						name = occ_treaty_of_the_pyrenees_modifier
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+
+	occ_arbiter_of_the_west = {
+		icon = balance_of_power
+		position = 14
+		required_missions = { occ_iberian_question }
+
+		trigger = {
+			mission_completed = occ_face_the_lilies
+			OR = {
+				AND = {
+					is_great_power = yes
+					NOT = { great_power_rank = 4 }
+				}
+				is_emperor = yes
+			}
+		}
+
+		effect = {
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 50
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = occ_arbiter_modifier
+				duration = -1
 			}
 		}
 	}
@@ -216,6 +546,14 @@ occ_c2 = {
 
 		provinces_to_highlight = {
 			province_id = 196
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 20 }
+				AND = {
+					NOT = { has_courthouse_building_trigger = yes }
+					NOT = { has_tax_building_trigger = yes }
+				}
+			}
 		}
 
 		trigger = {
@@ -238,6 +576,11 @@ occ_c2 = {
 			add_country_modifier = {
 				name = occ_capitoul_administration_modifier
 				duration = 9125
+			}
+			custom_tooltip = " "
+			custom_tooltip = occ_capitouls_unlock_tt
+			hidden_effect = {
+				set_country_flag = occ_capitouls_unlocked
 			}
 		}
 	}
@@ -303,21 +646,38 @@ occ_c2 = {
 
 		provinces_to_highlight = {
 			province_id = 200
-			NOT = { has_building = university }
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { has_building = university }
+					NOT = { development = 25 }
+				}
+			}
 		}
 
 		trigger = {
 			has_institution = renaissance
 			200 = {
 				owned_by = ROOT
-				has_building = university
+				OR = {
+					has_building = university
+					development = 25
+				}
 			}
 		}
 
 		effect = {
 			add_adm_power = 25
 			200 = {
-				add_base_tax = 1
+				if = {
+					limit = {
+						NOT = { has_building = university }
+					}
+					add_building = university
+				}
+				else = {
+					add_base_tax = 1
+				}
 			}
 			custom_tooltip = " "
 			add_country_modifier = {
@@ -334,13 +694,20 @@ occ_c2 = {
 
 		provinces_to_highlight = {
 			province_id = 201
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { province_has_center_of_trade_of_level = 2 }
+			}
 		}
 
 		trigger = {
 			1298 = {
-				trade_share = {
-					country = ROOT
-					share = 30
+				OR = {
+					trade_share = {
+						country = ROOT
+						share = 30
+					}
+					is_strongest_trade_power = ROOT
 				}
 			}
 			201 = {
@@ -362,6 +729,234 @@ occ_c2 = {
 			add_country_modifier = {
 				name = occ_lions_gulf_merchants_modifier
 				duration = -1
+			}
+		}
+	}
+
+	occ_royal_cloth = {
+		icon = mission_expand_textile_industry
+		position = 8
+		required_missions = { }
+
+		provinces_to_highlight = {
+			OR = {
+				area = languedoc_area
+				area = guyenne_area
+				area = provence_area
+				area = massif_central_area
+				area = pyrenees_area
+			}
+			owned_by = ROOT
+			NOT = { has_manufactory_trigger = yes }
+		}
+
+		trigger = {
+			mission_completed = occ_pastel_country
+			has_institution = manufactories
+			owns = 200
+			num_of_owned_provinces_with = {
+				value = 3
+				OR = {
+					area = languedoc_area
+					area = guyenne_area
+					area = provence_area
+					area = massif_central_area
+					area = pyrenees_area
+				}
+				has_manufactory_trigger = yes
+			}
+		}
+
+		effect = {
+			200 = {
+				if = {
+					limit = {
+						NOT = { has_manufactory_trigger = yes }
+					}
+					add_building = textile
+				}
+				else = {
+					add_base_production = 1
+				}
+				add_province_modifier = {
+					name = occ_languedoc_cloth_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					mission_completed = occ_ports_of_the_levant
+					owns = 201
+				}
+				custom_tooltip = " "
+				201 = { add_base_production = 1 }
+			}
+		}
+	}
+
+	occ_survey_two_seas = {
+		icon = dutch_engineering
+		position = 9
+		required_missions = { occ_royal_cloth }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2753
+				province_id = 198
+				province_id = 4112
+				province_id = 174
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			adm_tech = 20
+			is_subject = no
+			owns = 2753
+			owns = 198
+			owns = 4112
+			owns = 174
+			years_of_income = 2
+		}
+
+		effect = {
+			add_adm_power = 50
+			custom_tooltip = " "
+			if = {
+				limit = {
+					2753 = {
+						NOT = { has_great_project = { type = deux_canal } }
+						NOT = { has_construction = deux_canal }
+						NOT = { has_construction = great_project }
+					}
+				}
+				add_years_of_income = -2
+				custom_tooltip = occ_survey_start_canal_tt
+				# The flag lets deux_canal's build_trigger accept adm tech 20 (common/great_projects/00_great_projects.txt).
+				# add_great_project needs the build cost in the treasury: added and taken back around it, as vanilla flavor_mam.115 does
+				hidden_effect = {
+					set_country_flag = occ_canal_survey_flag
+					add_treasury = 30000
+					2753 = {
+						add_great_project = {
+							type = deux_canal
+							instant = no
+							builder = root
+						}
+					}
+					add_treasury = -30000
+				}
+			}
+			else_if = {
+				limit = {
+					2753 = {
+						OR = {
+							has_construction = deux_canal
+							has_construction = great_project
+						}
+					}
+				}
+				add_years_of_income = 1
+				2753 = { add_construction_progress = 0.25 }
+			}
+			else = {
+				add_years_of_income = 1
+			}
+		}
+	}
+
+	occ_canal_deux_mers = {
+		icon = mission_canal
+		position = 11
+		required_missions = { occ_survey_two_seas }
+
+		provinces_to_highlight = {
+			province_id = 2753
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_great_project = { type = deux_canal } }
+			}
+		}
+
+		trigger = {
+			2753 = {
+				owned_by = ROOT
+				has_great_project = { type = deux_canal }
+			}
+		}
+
+		effect = {
+			196 = {
+				if = {
+					limit = { owned_by = ROOT }
+					add_base_tax = 1
+					add_base_production = 1
+					add_province_modifier = {
+						name = occ_canal_port_modifier
+						duration = -1
+					}
+				}
+			}
+			custom_tooltip = " "
+			2753 = { add_base_production = 1 }
+			174 = {
+				if = {
+					limit = { owned_by = ROOT }
+					add_base_production = 1
+				}
+			}
+		}
+	}
+
+	occ_academy_floral_games = {
+		icon = fu_neoplatonic_academy
+		position = 13
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 196
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			mission_completed = occ_the_floral_games
+			has_institution = enlightenment
+			owns = 196
+			OR = {
+				200 = {
+					owned_by = ROOT
+					has_building = university
+				}
+				innovativeness = 30
+			}
+		}
+
+		effect = {
+			custom_tooltip = occ_academy_laurel_tt
+			hidden_effect = {
+				set_country_flag = occ_academy_founded
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = occ_events.15
+				option_1 = "
+					add_country_modifier = {
+						name = occ_academy_letters_modifier
+						duration = 9125
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = occ_academy_sciences_modifier
+						duration = 9125
+					}
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = occ_academy_medicine_modifier
+						duration = 9125
+					}
+				"
 			}
 		}
 	}
@@ -440,27 +1035,35 @@ occ_c3 = {
 
 		provinces_to_highlight = {
 			province_id = 196
+			NOT = { owned_by = ROOT }
 		}
 
 		trigger = {
-			prestige = 30
-			196 = {
-				owned_by = ROOT
-				development = 20
+			OR = {
+				prestige = 20
+				artist = 1
 			}
+			owns = 196
+			years_of_income = 0.25
 		}
 
 		effect = {
 			occ_change_paratge = { value = 10 }
 			custom_tooltip = " "
+			custom_tooltip = occ_floral_games_return_tt
+			hidden_effect = {
+				set_country_flag = occ_floral_games_flag
+				set_country_flag = occ_floral_games_held
+			}
+			custom_tooltip = " "
 			country_event_with_option_insight = {
 				id = occ_events.2
 				option_1 = "
-					add_years_of_income = -0.1
+					add_years_of_income = -0.25
 					add_prestige_or_monarch_power = { amount = 25 }
 				"
 				option_2 = "
-					add_years_of_income = -0.25
+					add_years_of_income = -0.1
 					occ_change_paratge = { value = 10 }
 					add_prestige_or_monarch_power = { amount = 10 }
 				"
@@ -479,7 +1082,10 @@ occ_c3 = {
 		trigger = {
 			calc_true_if = {
 				all_country = {
-					is_neighbor_of = ROOT
+					OR = {
+						is_neighbor_of = ROOT
+						alliance_with = ROOT
+					}
 					has_opinion = {
 						who = ROOT
 						value = 100
@@ -594,6 +1200,195 @@ occ_c3 = {
 			}
 		}
 	}
+
+	occ_estates_of_languedoc = {
+		icon = balance_the_estates
+		position = 9
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 196
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			OR = {
+				mission_completed = occ_parliament_of_toulouse
+				mission_completed = occ_the_consulates
+			}
+			custom_trigger_tooltip = {
+				tooltip = occ_age_absolutism_tt
+				NOT = { current_age = age_of_discovery }
+				NOT = { current_age = age_of_reformation }
+			}
+			owns = 196
+			if = {
+				limit = { has_estate = estate_nobles }
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 40
+				}
+			}
+			if = {
+				limit = { has_estate = estate_church }
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 40
+				}
+			}
+			if = {
+				limit = { has_estate = estate_burghers }
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 40
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = occ_events.16
+				option_1 = "
+					occ_change_paratge = { value = 10 }
+					add_estate_nobles_loyalty_effect = yes
+					add_estate_church_loyalty_effect = yes
+					add_estate_burghers_loyalty_effect = yes
+					add_country_modifier = {
+						name = occ_pays_detats_modifier
+						duration = 9125
+					}
+				"
+				option_2 = "
+					occ_change_paratge = { value = -10 }
+					add_absolutism = 10
+					add_country_modifier = {
+						name = occ_royal_intendants_modifier
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+
+	occ_crown_or_consulates = {
+		icon = fra_crown_seat_capital
+		position = 10
+		required_missions = { occ_estates_of_languedoc }
+
+		trigger = {
+			OR = {
+				absolutism = 60
+				AND = {
+					has_government_power = {
+						mechanic_type = occ_paratge_mechanic
+						power_type = paratge
+						value = 60
+					}
+					mission_completed = occ_parliament_of_toulouse
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = occ_crown_or_consulates_tt
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = occ_events.17
+				option_1 = "
+					custom_tooltip = occ_crown_route_req_tt
+					add_adm_power = 50
+					custom_tooltip = occ_crown_route_tt
+				"
+				option_2 = "
+					custom_tooltip = occ_consulates_route_req_tt
+					add_estate_burghers_loyalty_effect = yes
+					custom_tooltip = occ_consulates_route_tt
+				"
+			}
+		}
+	}
+
+	occ_declaration_of_paratge = {
+		icon = me_mission_poland_may_constitution
+		position = 14
+		required_missions = { occ_crown_or_consulates occ_academy_floral_games }
+
+		trigger = {
+			OR = {
+				has_institution = enlightenment
+				current_age = age_of_revolutions
+			}
+			stability = 1
+			OR = {
+				has_government_power = {
+					mechanic_type = occ_paratge_mechanic
+					power_type = paratge
+					value = 50
+				}
+				absolutism = 80
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = occ_events.18
+				option_1 = "
+					custom_tooltip = occ_events.18.a_req_tt
+					occ_change_paratge = { value = 15 }
+					add_country_modifier = {
+						name = occ_constitution_modifier
+						duration = -1
+					}
+				"
+				option_2 = "
+					custom_tooltip = occ_throne_of_peter_c_tt
+					occ_change_paratge = { value = 10 }
+					custom_tooltip = occ_events.18.b_tt
+				"
+				option_3 = "
+					custom_tooltip = occ_events.18.c_req_tt
+					add_absolutism = 20
+					occ_change_paratge = { value = -15 }
+					add_country_modifier = {
+						name = occ_restored_order_modifier
+						duration = -1
+					}
+				"
+				option_4 = "
+					add_stability_or_adm_power = yes
+				"
+			}
+		}
+	}
+
+	occ_song_was_true = {
+		icon = fu_golden_arts
+		position = 15
+		required_missions = { occ_declaration_of_paratge }
+
+		trigger = {
+			mission_completed = occ_paratge_triumphant
+			OR = {
+				has_government_power = {
+					mechanic_type = occ_paratge_mechanic
+					power_type = paratge
+					value = 90
+				}
+				in_golden_age = yes
+			}
+			num_accepted_cultures = 3
+			stability = 2
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 100 }
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = occ_song_was_true_modifier
+				duration = -1
+			}
+		}
+	}
 }
 
 #### Mediterranean
@@ -618,7 +1413,13 @@ occ_c4 = {
 				province_id = 2991
 				province_id = 4696
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				AND = {
+					province_id = 201
+					NOT = { has_dock_building_trigger = yes }
+				}
+			}
 		}
 
 		trigger = {
@@ -638,13 +1439,13 @@ occ_c4 = {
 					}
 					add_building = shipyard
 				}
-			}
-			add_country_modifier = {
-				name = occ_marseille_arsenal_modifier
-				duration = 9125
+				add_province_modifier = {
+					name = occ_marseille_arsenal_modifier
+					duration = -1
+				}
 			}
 			custom_tooltip = " "
-			give_claims = { province = 102 }
+			give_claims = { area = liguria_area }
 		}
 	}
 
@@ -669,10 +1470,15 @@ occ_c4 = {
 				}
 				213 = {
 					owner = {
-						alliance_with = ROOT
-						has_opinion = {
-							who = ROOT
-							value = 150
+						OR = {
+							is_subject_of = ROOT
+							AND = {
+								alliance_with = ROOT
+								has_opinion = {
+									who = ROOT
+									value = 150
+								}
+							}
 						}
 					}
 				}
@@ -684,6 +1490,7 @@ occ_c4 = {
 				name = occ_pyrenean_bond_modifier
 				duration = 9125
 			}
+			give_claims = { area = baleares_area }
 			custom_tooltip = " "
 			complex_dynamic_effect = {
 				first_custom_tooltip = occ_across_the_pyrenees_dyn_a
@@ -691,7 +1498,10 @@ occ_c4 = {
 					213 = { owned_by = ROOT }
 				"
 				first_effect = "
-					give_claims = { area = catalonia_area }
+					213 = {
+						add_base_production = 1
+						add_or_upgrade_trade_building = yes
+					}
 				"
 				second_custom_tooltip = occ_across_the_pyrenees_dyn_b
 				second_limit = "
@@ -740,7 +1550,10 @@ occ_c4 = {
 				type = all
 				country_or_non_sovereign_subject_holds = ROOT
 			}
-			num_of_light_ship = 15
+			OR = {
+				num_of_light_ship = 15
+				num_of_galley = 15
+			}
 		}
 
 		effect = {
@@ -780,6 +1593,325 @@ occ_c4 = {
 			}
 		}
 	}
+
+	occ_ports_of_the_levant = {
+		icon = levantine_missions
+		position = 8
+		required_missions = { }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 358
+				province_id = 151
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			mission_completed = occ_marseille_harbour
+			custom_trigger_tooltip = {
+				tooltip = occ_age_reformation_tt
+				NOT = { current_age = age_of_discovery }
+			}
+			owns = 201
+			OR = {
+				358 = {
+					trade_share = {
+						country = ROOT
+						share = 10
+					}
+				}
+				1320 = {
+					trade_share = {
+						country = ROOT
+						share = 10
+					}
+				}
+				377 = {
+					trade_share = {
+						country = ROOT
+						share = 10
+					}
+				}
+				151 = {
+					owner = {
+						NOT = { tag = ROOT }
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 150
+							}
+						}
+					}
+				}
+				358 = {
+					owner = {
+						NOT = { tag = ROOT }
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 150
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = occ_chamber_unlock_tt
+			hidden_effect = {
+				set_country_flag = occ_chamber_unlocked
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = occ_levant_factors_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			complex_dynamic_effect = {
+				first_custom_tooltip = occ_ports_of_the_levant_dyn_a
+				first_limit = "
+					151 = { owner = { NOT = { tag = ROOT } } }
+				"
+				first_effect = "
+					151 = {
+						owner = {
+							add_trust = {
+								who = ROOT
+								value = 20
+								mutual = yes
+							}
+							add_opinion = {
+								who = ROOT
+								modifier = occ_levant_treaty_opinion
+							}
+						}
+					}
+				"
+				second_custom_tooltip = occ_ports_of_the_levant_dyn_b
+				second_limit = "
+					358 = { owner = { NOT = { tag = ROOT } } }
+				"
+				second_effect = "
+					358 = {
+						owner = {
+							add_trust = {
+								who = ROOT
+								value = 20
+								mutual = yes
+							}
+							add_opinion = {
+								who = ROOT
+								modifier = occ_levant_treaty_opinion
+							}
+						}
+					}
+				"
+			}
+		}
+	}
+
+	occ_barbary_corsairs = {
+		icon = mission_combat_barbary_piracy
+		position = 10
+		required_missions = { occ_ports_of_the_levant }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 338
+				province_id = 341
+				province_id = 337
+				province_id = 339
+				province_id = 1882
+				province_id = 354
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			OR = {
+				num_of_light_ship = 20
+				num_of_galley = 20
+			}
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = occ_barbary_ports_tt
+					calc_true_if = {
+						amount = 2
+						338 = { country_or_non_sovereign_subject_holds = ROOT }
+						341 = { country_or_non_sovereign_subject_holds = ROOT }
+						337 = { country_or_non_sovereign_subject_holds = ROOT }
+						339 = { country_or_non_sovereign_subject_holds = ROOT }
+						1882 = { country_or_non_sovereign_subject_holds = ROOT }
+						354 = { country_or_non_sovereign_subject_holds = ROOT }
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = occ_barbary_war_tt
+					OR = {
+						338 = {
+							owner = {
+								NOT = { tag = ROOT }
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 15
+									}
+								}
+							}
+						}
+						341 = {
+							owner = {
+								NOT = { tag = ROOT }
+								ROOT = {
+									has_won_war_against = {
+										who = PREV
+										max_years_since = 15
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_navy_tradition = 25
+			4696 = {
+				if = {
+					limit = { owned_by = ROOT }
+					add_base_manpower = 1
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = occ_barbary_claims_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = barbary_coast_area
+							area = kabylia_area
+							area = tunisia_area
+							area = algiers_area
+							area = tripolitania_area
+						}
+						NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	occ_ocean_sea = {
+		icon = explore_missions_icon
+		position = 11
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 174
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_dock_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			mission_completed = occ_gascony_and_guyenne
+			has_institution = new_world_i
+			174 = {
+				owned_by = ROOT
+				has_dock_building_trigger = yes
+			}
+			OR = {
+				174 = {
+					has_great_project = {
+						type = gme_port_de_moon
+						tier = 2
+					}
+				}
+				1276 = {
+					trade_share = {
+						country = ROOT
+						share = 20
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = occ_gascon_mariners_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			174 = {
+				if = {
+					limit = {
+						NOT = {
+							has_great_project = {
+								type = gme_port_de_moon
+								tier = 3
+							}
+						}
+					}
+					add_great_project_tier = {
+						type = gme_port_de_moon
+						tier = 1
+					}
+				}
+				else = {
+					add_base_production = 1
+				}
+			}
+		}
+	}
+
+	occ_nouvelle_occitanie = {
+		icon = mission_colonial
+		position = 13
+		required_missions = { occ_ocean_sea }
+
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					value = 15
+					is_overseas = yes
+					NOT = { continent = europe }
+				}
+				colony = 1
+				custom_trigger_tooltip = {
+					tooltip = occ_nouvelle_occitanie_trade_tt
+					OR = {
+						1490 = { trade_share = { country = ROOT share = 20 } }
+						1500 = { trade_share = { country = ROOT share = 20 } }
+						1507 = { trade_share = { country = ROOT share = 20 } }
+						1551 = { trade_share = { country = ROOT share = 20 } }
+						1531 = { trade_share = { country = ROOT share = 20 } }
+						1536 = { trade_share = { country = ROOT share = 20 } }
+						1466 = { trade_share = { country = ROOT share = 20 } }
+						1460 = { trade_share = { country = ROOT share = 20 } }
+						1448 = { trade_share = { country = ROOT share = 20 } }
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = occ_nouvelle_occitanie_modifier
+				duration = -1
+			}
+		}
+	}
 }
 
 #### Cathar faith
@@ -794,7 +1926,7 @@ occ_c5 = {
 	}
 
 	occ_perfecti_endure = {
-		icon = me_mission_one_country_one_faith
+		icon = mission_cathar_cross
 		position = 1
 		required_missions = { }
 
@@ -833,6 +1965,15 @@ occ_c5 = {
 			custom_tooltip = " "
 			4694 = {
 				add_base_manpower = 1
+				add_province_modifier = {
+					name = occ_montsegur_modifier
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = occ_montsegur_pilgrimage_unlock_tt
+			hidden_effect = {
+				set_country_flag = occ_montsegur_pilgrimage_unlocked
 			}
 			custom_tooltip = " "
 			add_country_modifier = {
@@ -870,12 +2011,7 @@ occ_c5 = {
 				option_2 = "
 					occ_change_paratge = { value = 5 }
 					add_prestige_or_monarch_power = { amount = 25 }
-					202 = {
-						if = {
-							limit = { owned_by = ROOT }
-							add_base_tax = 1
-						}
-					}
+					occ_avignon_palace_effect = yes
 				"
 				option_3 = "
 					add_years_of_income = 1
@@ -889,12 +2025,32 @@ occ_c5 = {
 		position = 4
 		required_missions = { occ_avignon_question }
 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { religion = cathar }
+		}
+
 		trigger = {
-			religious_unity = 0.95
 			num_of_owned_provinces_with = {
 				value = 10
 				religion = cathar
 				development = 10
+			}
+			OR = {
+				religious_unity = 0.9
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = occ_zeal_below_50_tt
+						NOT = {
+							has_government_power = {
+								mechanic_type = occ_paratge_mechanic
+								power_type = paratge
+								value = -50
+							}
+						}
+					}
+					religious_unity = 0.8
+				}
 			}
 		}
 
@@ -902,31 +2058,7 @@ occ_c5 = {
 			occ_change_paratge = { value = -10 }
 			custom_tooltip = " "
 			custom_tooltip = occ_houses_of_good_men_tt
-			hidden_effect = {
-				random_owned_province = {
-					limit = {
-						religion = cathar
-						development = 15
-						NOT = { has_province_modifier = occ_good_men_house_modifier }
-					}
-					occ_add_good_men_house = yes
-				}
-				random_owned_province = {
-					limit = {
-						religion = cathar
-						development = 15
-						NOT = { has_province_modifier = occ_good_men_house_modifier }
-					}
-					occ_add_good_men_house = yes
-				}
-				random_owned_province = {
-					limit = {
-						religion = cathar
-						NOT = { has_province_modifier = occ_good_men_house_modifier }
-					}
-					occ_add_good_men_house = yes
-				}
-			}
+			country_event = { id = occ_events.9 }
 		}
 	}
 
@@ -951,6 +2083,28 @@ occ_c5 = {
 		}
 
 		effect = {
+			custom_tooltip = occ_italian_mission_zeal_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_government_power = {
+								mechanic_type = occ_paratge_mechanic
+								power_type = paratge
+								value = -50
+							}
+						}
+					}
+					liguria_area = {
+						limit = {
+							owned_by = ROOT
+							NOT = { religion = cathar }
+						}
+						change_religion = cathar
+					}
+				}
+			}
+			custom_tooltip = " "
 			occ_change_paratge = { value = -10 }
 			add_country_modifier = {
 				name = occ_italian_preachers_modifier
@@ -1040,6 +2194,308 @@ occ_c5 = {
 						duration = 9125
 					}
 				"
+			}
+		}
+	}
+
+	occ_brothers_in_heresy = {
+		icon = join_the_reformation
+		position = 9
+		required_missions = { }
+
+		trigger = {
+			mission_completed = occ_houses_of_good_men
+			religion = cathar
+			custom_trigger_tooltip = {
+				tooltip = occ_age_reformation_tt
+				NOT = { current_age = age_of_discovery }
+			}
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = occ_brothers_in_heresy_friend_tt
+					any_country = {
+						exists = yes
+						OR = {
+							religion = protestant
+							religion = reformed
+							religion = hussite
+							religion = waldensian
+							religion = lollard
+							religion = anglican
+							religion = bogomilist
+						}
+						OR = {
+							alliance_with = ROOT
+							is_subject_of = ROOT
+							has_opinion = {
+								who = ROOT
+								value = 150
+							}
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = occ_brothers_in_heresy_alone_tt
+					NOT = {
+						any_country = {
+							exists = yes
+							OR = {
+								religion = protestant
+								religion = reformed
+								religion = hussite
+								religion = waldensian
+								religion = lollard
+								religion = anglican
+								religion = bogomilist
+							}
+						}
+					}
+					num_of_owned_provinces_with = {
+						value = 25
+						religion = cathar
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = occ_events.12
+				option_1 = "
+					custom_tooltip = occ_events.12.a_tt
+					add_country_modifier = {
+						name = occ_brothers_front_modifier
+						duration = 9125
+					}
+				"
+				option_2 = "
+					add_stability_or_adm_power = yes
+					add_church_power = 50
+					occ_change_paratge = { value = -5 }
+				"
+				option_3 = "
+					occ_change_paratge = { value = 5 }
+					custom_tooltip = occ_open_gates_settle_2_tt
+				"
+			}
+		}
+	}
+
+	occ_book_of_two_principles = {
+		icon = mission_luther_theses
+		position = 10
+		required_missions = { }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 196
+				province_id = 4695
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			mission_completed = occ_perfecti_endure
+			religion = cathar
+			has_institution = printing_press
+			church_power = 100
+			OR = {
+				owns = 196
+				owns = 4695
+			}
+		}
+
+		effect = {
+			occ_change_paratge = { value = -5 }
+			if = {
+				limit = { owns = 196 }
+				196 = { add_base_production = 1 }
+			}
+			else = {
+				4695 = { add_base_production = 1 }
+			}
+			custom_tooltip = " "
+			if = {
+				limit = {
+					has_church_aspect = propagation_textes_cathares_aspect
+				}
+				add_country_modifier = {
+					name = occ_printed_dualism_modifier
+					duration = 9125
+				}
+			}
+			else = {
+				add_church_power = 100
+			}
+		}
+	}
+
+	occ_council_of_good_men = {
+		icon = mission_most_holy_synod
+		position = 12
+		required_missions = { occ_book_of_two_principles }
+
+		trigger = {
+			religion = cathar
+			OR = {
+				mission_completed = occ_brothers_in_heresy
+				mission_completed = occ_throne_of_peter
+			}
+			custom_trigger_tooltip = {
+				tooltip = occ_age_absolutism_tt
+				NOT = { current_age = age_of_discovery }
+				NOT = { current_age = age_of_reformation }
+			}
+			OR = {
+				religious_unity = 0.9
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = occ_zeal_below_50_tt
+						NOT = {
+							has_government_power = {
+								mechanic_type = occ_paratge_mechanic
+								power_type = paratge
+								value = -50
+							}
+						}
+					}
+					religious_unity = 0.8
+				}
+			}
+			OR = {
+				mission_completed = occ_houses_of_good_men
+				num_of_owned_provinces_with = {
+					value = 20
+					religion = cathar
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = occ_council_seat_tt
+			hidden_effect = {
+				occ_council_seat_effect = yes
+			}
+			custom_tooltip = " "
+			custom_tooltip = occ_council_privilege_unlock_tt
+			hidden_effect = {
+				set_country_flag = occ_council_unlocked
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = occ_events.13
+				option_1 = "
+					occ_change_paratge = { value = 15 }
+					add_country_modifier = {
+						name = occ_mitigated_dualism_modifier
+						duration = -1
+					}
+				"
+				option_2 = "
+					occ_change_paratge = { value = -15 }
+					add_country_modifier = {
+						name = occ_absolute_dualism_modifier
+						duration = -1
+					}
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = occ_consolament_for_all_modifier
+						duration = -1
+					}
+				"
+				option_4 = "
+					add_country_modifier = {
+						name = occ_church_of_the_poor_modifier
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+
+	occ_last_crusade = {
+		icon = me_mission_crusade_crusader_knights
+		position = 14
+		required_missions = { occ_council_of_good_men }
+
+		trigger = {
+			religion = cathar
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = occ_last_crusade_war_tt
+					any_country = {
+						religion = catholic
+						is_great_power = yes
+						ROOT = {
+							has_won_war_against = {
+								who = PREV
+								max_years_since = 25
+							}
+						}
+					}
+				}
+				AND = {
+					owns = 118
+					118 = { religion = cathar }
+					custom_trigger_tooltip = {
+						tooltip = occ_last_crusade_no_stronger_tt
+						NOT = {
+							any_country = {
+								religion = catholic
+								is_great_power = yes
+								army_strength = {
+									who = ROOT
+									value = 1
+								}
+							}
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = occ_last_crusade_no_gp_tt
+					NOT = {
+						any_country = {
+							religion = catholic
+							is_great_power = yes
+						}
+					}
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = occ_last_crusade_cathar_count_tt
+						calc_true_if = {
+							amount = 150
+							all_province = {
+								continent = europe
+								religion = cathar
+							}
+						}
+					}
+					custom_trigger_tooltip = {
+						tooltip = occ_last_crusade_catholic_count_tt
+						NOT = {
+							calc_true_if = {
+								amount = 300
+								all_province = {
+									continent = europe
+									religion = catholic
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			occ_change_paratge = { value = -10 }
+			add_church_power = 200
+			add_prestige_or_monarch_power = { amount = 50 }
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = occ_church_triumphant_modifier
+				duration = -1
 			}
 		}
 	}
