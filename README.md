@@ -23,13 +23,13 @@ Strategic Resources / Economy
 
 - AI is vastly improved in buildings the latent goods buildings.
 - The strategic resources overview got an uplift and is just easier to read now.
-- The overview shows a factory as being built the day after you start or cancel it.
 - AI now keeps building industrial factories wherever it has the steam engines and money for them.
 - AI is much more effective in upgrading its road systems and does not need to do it step-by-step anymore, oops.
 - Strategic resources internally reworked and should no longer go into negatives and be more consistent in its figures. Factories short on resources stop and restart on their own.
 
 Fixes
 
+- Fixed a crash when a mission gives a named flagship to a country that is not the original tag (e.g. ex-Portugal Florida at Cape of Good Hope).
 - Fixed some events using their description text as the option button.
 - Fixed Evenk Siberian colonization event firing with no empty province left.
 - Massive error.log cleanup of events and decisions that kept spamming the log.
@@ -46,7 +46,6 @@ Fixes
 - Fixed the Egyptian temple funding event and the entrepreneur Muslim school option not adding their development.
 - Fixed the Dream of Ruggero mission never unlocking, since it needed both the Naples and the Sicily union mission.
 - Teutonic Holy Horde capital modifier now also works with any other religion's idea group, not just vanilla Religious Ideas.
-- The Commonwealth can no longer form Zapadoslavia, and Zapadoslavia can no longer form Intermarium.
 - Ducal Prussia (released as a march by the Polish missions) now gets its own mission tree instead of the generic one, the tree was never ported.
 
 Content
@@ -54,7 +53,7 @@ Content
 Generally, a pass over various small countries that never had content. Generally, it's small/medium sized with some additional side flavour. If a country's gameplay feels very off, or doesn't account for some odd case, feel free to report it. For the most part, they have been made to take very dynamic situations in account or have fallbacks.
 
 - Galicia and Volhynia: a shared mission tree with a column for each, events.
-- Occitania: new extensive mission tree, some events, and a government Paratge mechanic on formation.
+- Occitania: new extensive mission tree, events, and a government Paratge mechanic on formation.
 - Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
 - Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa.
 - Burgundy: added the Europa Expanded mission tree as an additional mission choice. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.

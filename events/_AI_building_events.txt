@@ -939,10 +939,12 @@ country_event = {
 	}
 }
 
-# Resource factories (cannon foundry, metalworking, munitions, steam engine line, spectacles)
+# Resource factories (cannon foundry, metalworking, munitions, steam engine line, spectacles, industrial)
 # The engine AI barely builds them: their only modifier is a building slot, the real benefit is the
-# scripted trade good change, which it does not value. Industrial factories are left to the engine,
-# which builds them. At most one of each type per firing; every type has its own one-at-a-time lock.
+# scripted trade good change, which it does not value. At most one of each type per firing; every type
+# has its own one-at-a-time lock. Industrial factories have no lock and get several per firing: the
+# engine built them only in one burst right after a country's first steam engine line (stale supply,
+# then nothing again; 1833 save: France 2 with 124 counting houses and 1M ducats).
 country_event = {
 	id = ai_building_events.12
 	title = ai_building_events.12.t
@@ -985,6 +987,7 @@ country_event = {
             tge_ai_can_queue_cannon_foundry = yes
             tge_ai_can_queue_munition_factory = yes
             tge_ai_can_queue_spectacle_factory = yes
+            tge_ai_can_queue_steam_factory = yes
         }
 	}
 
@@ -1028,6 +1031,33 @@ country_event = {
                 tge_ai_can_queue_spectacle_factory = yes
             }
             tge_ai_queue_factory = { BUILDING = spectacle_factory }
+        }
+        # Industrial factories: several per firing, more for a rich treasury. Each one reserves its
+        # steam engines right away, so the AI never places more than its supply can run.
+        if = {
+            limit = {
+                treasury = 2000
+                tge_ai_can_queue_steam_factory = yes
+            }
+            set_variable = { which = tge_ai_steam_factory_left value = 2 }
+            if = {
+                limit = { treasury = 100000 }
+                set_variable = { which = tge_ai_steam_factory_left value = 10 }
+            }
+            else_if = {
+                limit = { treasury = 20000 }
+                set_variable = { which = tge_ai_steam_factory_left value = 5 }
+            }
+            while = {
+                limit = {
+                    check_variable = { which = tge_ai_steam_factory_left value = 1 }
+                    treasury = 2000
+                    tge_ai_can_queue_steam_factory = yes
+                }
+                tge_ai_queue_factory = { BUILDING = steam_factory }
+                subtract_variable = { which = tge_ai_steam_factory_left value = 1 }
+            }
+            set_variable = { which = tge_ai_steam_factory_left value = 0 }
         }
         # The constructions show up from the next firing on
         every_owned_province = {

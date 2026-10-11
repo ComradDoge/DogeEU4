@@ -54,7 +54,8 @@
 # tge_short_<X> / tge_low_<X> flags read by customizable_localization/TGE_resource_customizable_localization.txt.
 # Callers: on_monthly_pulse (humans), on_yearly_pulse (AI), on_startup (upgrade
 # of old saves), province owner / trade good / production development changes,
-# annexation and client states, factory, shut-down and import buildings, the
+# annexation and client states, factory, shut-down and import buildings
+# (factory construction start/cancel: humans only), the
 # resource decisions and the resources button (common/custom_gui/DST_goods_Info_gui.txt).
 ###############################################################################
 
@@ -187,6 +188,18 @@ tge_request_recalc_owner = {
 	if = {
 		limit = { is_empty = no }
 		owner = { tge_request_recalc = yes }
+	}
+}
+
+# Province scope. Factory construction started or canceled: humans see it as "being built" the next day.
+# The AI is left out; its scripted queue reserves directly and engine-placed factories count at the next recalculation.
+tge_factory_construction_changed = {
+	if = {
+		limit = {
+			is_empty = no
+			owner = { ai = no }
+		}
+		owner = { country_event = { id = New_TradeGood_Events.2 days = 1 } }
 	}
 }
 

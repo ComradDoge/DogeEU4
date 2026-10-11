@@ -293,7 +293,8 @@ tge_ai_mine_site = {
 ###############################################################################
 # AI FACTORY CONSTRUCTION (ai_building_events.12, tge_ai_queue_factory)
 # The engine AI barely builds these factories (their benefit is the scripted
-# trade good change, which it does not value), so an event queues them.
+# trade good change, which it does not value, and industrial factories only in
+# one burst), so an event queues them.
 # These mirror each factory's build_trigger, which add_building_construction skips.
 ###############################################################################
 
@@ -335,6 +336,28 @@ tge_ai_factory_site_steam_engine_manu = {
 tge_ai_factory_site_spectacle_factory = {
 	tge_ai_factory_site = yes
 	development = 15
+}
+# Industrial factory: replaces a workshop or counting house, otherwise needs a free slot.
+# It keeps the trade good, so factory and pooled resource provinces are fine.
+tge_ai_factory_site_steam_factory = {
+	OR = {
+		has_building = counting_house
+		has_building = workshop
+		num_free_building_slots = 1
+	}
+	NOT = { has_building = steam_factory }
+	NOT = { trade_goods = steam_engine }
+	NOT = { trade_goods = gold }	# allow_in_gold_provinces = no
+	base_production = 5
+	meet_basic_province_requirements_trigger = yes
+	no_ongoing_construction_triggers = yes
+	NOT = { has_province_flag = tge_factory_queued }
+	NOT = { has_construction = cannon_foundry }
+	NOT = { has_construction = metalworking_workshop }
+	NOT = { has_construction = munition_factory }
+	NOT = { has_construction = steam_engine_manu }
+	NOT = { has_construction = spectacle_factory }
+	NOT = { has_construction = steam_factory }
 }
 
 # Country scope, per factory: tech, supply, one under construction at a time, and a site
@@ -390,4 +413,19 @@ tge_ai_can_queue_spectacle_factory = {
 	tge_can_supply_spectacle_factory = yes
 	NOT = { any_owned_province = { has_construction = spectacle_factory } }
 	any_owned_province = { tge_ai_factory_site_spectacle_factory = yes }
+}
+# No one-at-a-time lock: ai_building_events.12 queues several per firing, each reserving its steam engines
+tge_ai_can_queue_steam_factory = {
+	OR = {
+		has_country_flag = first_to_build_steam_engine_manu_tech_boost
+		AND = {
+			adm_tech = 24
+			any_owned_province = {
+				trade_goods = steam_engine
+				NOT = { has_building = off_4 }
+			}
+		}
+	}
+	tge_can_supply_steam_factory = yes
+	any_owned_province = { tge_ai_factory_site_steam_factory = yes }
 }
