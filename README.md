@@ -18,6 +18,7 @@ Flavour
 - Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
 - New leader, ship, army and fleet names for many countries that shared or lacked their own list, report if any corruped characters appear.
 - Reforming into Livonia now gives some renaming options: Terra Mariana/Land of Mary if Christian, Livland if Germanic, Zemgale, Semigallia and Latvia.
+- Cult of Reason decision now has the religion icon in its title.
 
 Strategic Resources / Economy
 
@@ -27,26 +28,27 @@ Strategic Resources / Economy
 - AI is much more effective in upgrading its road systems and does not need to do it step-by-step anymore, oops.
 - Strategic resources internally reworked and should no longer go into negatives and be more consistent in its figures. Factories short on resources stop and restart on their own.
 
-Fixes
+Fixes/Tweaks
 
-- Fixed a crash when a mission gives a named flagship to a country that is not the original tag (e.g. ex-Portugal Florida at Cape of Good Hope).
 - Fixed some events using their description text as the option button.
 - Fixed Evenk Siberian colonization event firing with no empty province left.
 - Massive error.log cleanup of events and decisions that kept spamming the log.
 - Rum AI no longer gets stuck previewing its Roman/Seljuk/Caliphate mission branch forever.
 - Fixed newly gained Persian provinces not getting the Timurid Persian Empire province modifier.
+- Fixed a crash when a mission gives a named flagship to a country that is not the original tag.
 - Fixed the Nationalism spread bonus from neighbouring provinces of the same culture never applying.
 - Fixed the Dhimmi temple agenda picking non-state provinces, leaving a broken agenda with no target.
-- Fixed the Dhimmi university agenda having no target when only a small capital qualified (vanilla bug).
 - Rebulican liberalism should be more consistent and appear as expected when age of absolutism starts.
+- Fixed the Dhimmi university agenda having no target when only a small capital qualified (vanilla bug).
 - Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25.
 - Fixed Persian Silk Route outposts and the Caliph's hidden mechanic spamming the error log every month.
 - Sicilies/Two Sicilies internal mission flag shenanigans resulted in confusion. Confusion should be gone.
+- Fixed the Papal Orsini Border Dispute event never picking a disputed province, so its claim was never given.
 - Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, oopsie.
 - Fixed the Egyptian temple funding event and the entrepreneur Muslim school option not adding their development.
-- Fixed the Papal Orsini Border Dispute event never picking a disputed province, so its claim was never given.
 - Fixed the Dream of Ruggero mission never unlocking, since it needed both the Naples and the Sicily union mission.
 - Teutonic Holy Horde capital modifier now also works with any other religion's idea group, not just vanilla Religious Ideas.
+- AI is now more likely to complete missions asking for a fort or a building in one specific province by developing that province instead.
 - Ducal Prussia (released as a march by the Polish missions) now gets its own mission tree instead of the generic one, the tree was never ported.
 
 Content
