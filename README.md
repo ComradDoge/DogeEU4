@@ -44,6 +44,7 @@ Fixes
 - Sicilies/Two Sicilies internal mission flag shenanigans resulted in confusion. Confusion should be gone.
 - Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, oopsie.
 - Fixed the Egyptian temple funding event and the entrepreneur Muslim school option not adding their development.
+- Fixed the Papal Orsini Border Dispute event never picking a disputed province, so its claim was never given.
 - Fixed the Dream of Ruggero mission never unlocking, since it needed both the Naples and the Sicily union mission.
 - Teutonic Holy Horde capital modifier now also works with any other religion's idea group, not just vanilla Religious Ideas.
 - Ducal Prussia (released as a march by the Polish missions) now gets its own mission tree instead of the generic one, the tree was never ported.
