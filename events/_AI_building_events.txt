@@ -941,10 +941,13 @@ country_event = {
 
 # Resource factories (cannon foundry, metalworking, munitions, steam engine line, spectacles, industrial)
 # The engine AI barely builds them: their only modifier is a building slot, the real benefit is the
-# scripted trade good change, which it does not value. At most one of each type per firing; every type
-# has its own one-at-a-time lock. Industrial factories have no lock and get several per firing: the
+# scripted trade good change, which it does not value. At most one resource factory per firing; every
+# type has its own one-at-a-time lock. Industrial factories have no lock and get several per firing: the
 # engine built them only in one burst right after a country's first steam engine line (stale supply,
 # then nothing again; 1833 save: France 2 with 124 counting houses and 1M ducats).
+# Money: the AI spends as fast as it earns (1829 save: median treasury 362, Russia 423 on 987 a month),
+# so a factory only needs its own cost in the treasury. To leave money for everything else it must cost
+# at most half a year of income (monthly_income = cost / 6) and the country must have no loans.
 country_event = {
 	id = ai_building_events.12
 	title = ai_building_events.12.t
@@ -960,21 +963,14 @@ country_event = {
 			factor = 0.5
 			treasury = 5000
 		}
-		modifier = {
-			factor = 0.8
-			NOT = { num_of_loans = 1 }
-		}
-		modifier = {
-			factor = 1.5
-			num_of_loans = 1
-		}
 	}
 
 	trigger = {
         ai = yes
         NOT = { government = native }
-        NOT = { num_of_loans = 2 }
-        treasury = 1200
+        NOT = { num_of_loans = 1 }
+        treasury = 600
+        monthly_income = 100
         OR = {
             AND = {
                 OR = {
@@ -993,9 +989,11 @@ country_event = {
 
     immediate = {
         # Most valuable first: steam engines feed industrial factories, metalworking helps its neighbours
+        # One resource factory per firing; each needs its cost and at most half a year of income
         if = {
             limit = {
-                treasury = 4000
+                treasury = 2000
+                monthly_income = 335
                 OR = {
                     has_institution = enlightenment
                     has_global_flag = first_steam_engine_manu_already_built
@@ -1004,42 +1002,47 @@ country_event = {
             }
             tge_ai_queue_factory = { BUILDING = steam_engine_manu }
         }
-        if = {
+        else_if = {
             limit = {
-                treasury = 2000
+                treasury = 1000
+                monthly_income = 170
                 tge_ai_can_queue_metalworking_workshop = yes
             }
             tge_ai_queue_factory = { BUILDING = metalworking_workshop }
         }
-        if = {
+        else_if = {
             limit = {
-                treasury = 1200
+                treasury = 600
+                monthly_income = 100
                 tge_ai_can_queue_cannon_foundry = yes
             }
             tge_ai_queue_factory = { BUILDING = cannon_foundry }
         }
-        if = {
+        else_if = {
             limit = {
-                treasury = 2000
+                treasury = 1000
+                monthly_income = 170
                 tge_ai_can_queue_munition_factory = yes
             }
             tge_ai_queue_factory = { BUILDING = munition_factory }
         }
-        if = {
+        else_if = {
             limit = {
-                treasury = 1200
+                treasury = 600
+                monthly_income = 100
                 tge_ai_can_queue_spectacle_factory = yes
             }
             tge_ai_queue_factory = { BUILDING = spectacle_factory }
         }
-        # Industrial factories: several per firing, more for a rich treasury. Each one reserves its
-        # steam engines right away, so the AI never places more than its supply can run.
+        # Industrial factories: on top of the resource factory, more for a rich treasury. Each one reserves
+        # its steam engines right away, so the AI never places more than its supply can run.
         if = {
             limit = {
-                treasury = 2000
+                treasury = 1000
+                monthly_income = 170
                 tge_ai_can_queue_steam_factory = yes
             }
-            set_variable = { which = tge_ai_steam_factory_left value = 2 }
+            set_variable = { which = tge_ai_steam_factory_left value = 1 }
             if = {
                 limit = { treasury = 100000 }
                 set_variable = { which = tge_ai_steam_factory_left value = 10 }
@@ -1048,10 +1051,14 @@ country_event = {
                 limit = { treasury = 20000 }
                 set_variable = { which = tge_ai_steam_factory_left value = 5 }
             }
+            else_if = {
+                limit = { treasury = 5000 }
+                set_variable = { which = tge_ai_steam_factory_left value = 2 }
+            }
             while = {
                 limit = {
                     check_variable = { which = tge_ai_steam_factory_left value = 1 }
-                    treasury = 2000
+                    treasury = 1000
                     tge_ai_can_queue_steam_factory = yes
                 }
                 tge_ai_queue_factory = { BUILDING = steam_factory }
