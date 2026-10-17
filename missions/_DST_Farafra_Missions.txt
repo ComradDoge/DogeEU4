@@ -5,9 +5,9 @@
 # faf_the_people_of_the_river fires kemet_events.1: the Scales of Ma'at (kemet_path_maat) or the Return of the
 # Neteru (kemet_path_neteru). faf_the_faith_of_the_valley and faf_the_two_truths branch on that flag; their trigger
 # falls back to "always = no" while no path is chosen. Kemet's tree reads the same flags.
-# Events: events/_DSE_flavour_Farafra.txt (faf_events), events/_DSE_flavour_Kemet.txt (kemet_events)
+# Events: events/_DSE_flavour_Farafra.txt (faf_events), events/_DSE_flavour_Kemet_Faith.txt (kemet_events)
 # Modifiers: common/event_modifiers/DST_Kemet_modifiers.txt, effects: common/scripted_effects/DST_Kemet_scripted_effects.txt
-# Triggers: common/scripted_triggers/DST_Kemet_triggers.txt, Houses decisions: decisions/DST_Kemet_Houses.txt
+# Triggers: common/scripted_triggers/_DST_Kemet_triggers.txt, Houses decisions: decisions/DST_Kemet_Houses.txt
 
 #### Column 1: The Oases
 
@@ -56,27 +56,20 @@ faf_oases = {
 		position = 2
 		required_missions = { faf_the_wells_of_farafreh }
 
+		# Development, not a workshop: workshops need Administrative Technology 6 (1479), which stalled the column and
+		# everything after the Forty Days Road. The reward builds the workshop instead.
 		provinces_to_highlight = {
 			province_id = 2318
 			OR = {
 				NOT = { owned_by = ROOT }
-				NOT = { has_production_building_trigger = yes }
+				NOT = { development = 6 }
 			}
 		}
 
 		trigger = {
 			2318 = {
 				owned_by = ROOT
-				if = {
-					limit = { ROOT = { ai = no } }
-					has_production_building_trigger = yes
-				}
-				else = {
-					OR = {
-						has_production_building_trigger = yes
-						development = 7
-					}
-				}
+				development = 6
 			}
 		}
 
@@ -90,7 +83,8 @@ faf_oases = {
 			}
 			custom_tooltip = " "
 			# Manfalut, the river end of the Forty Days Road (faf_the_forty_days_road).
-			give_claims = { province = 2319 }
+			custom_tooltip = faf_manfalut_core_tt
+			2319 = { add_core = ROOT }
 			add_adm_power = 25
 		}
 	}
@@ -138,6 +132,12 @@ faf_oases = {
 				create_or_add_center_of_trade_level = { level = 1 }
 				add_province_modifier = {
 					name = faf_the_forty_days_road_modifier
+					duration = -1
+				}
+			}
+			2319 = {
+				add_province_modifier = {
+					name = faf_the_river_end_modifier
 					duration = -1
 				}
 			}
@@ -321,7 +321,7 @@ faf_host = {
 
 		trigger = {
 			army_tradition = 20
-			num_of_generals = 1
+			num_of_cavalry = 5
 		}
 
 		effect = {
@@ -435,8 +435,7 @@ faf_valley = {
 
 		effect = {
 			give_claims = { area = said_area }
-			give_claims = { province = 2320 }
-			give_claims = { province = 2321 }
+			give_claims = { area = gulf_of_arabia_area }
 			custom_tooltip = " "
 			359 = {
 				if = {
@@ -467,8 +466,6 @@ faf_valley = {
 
 		effect = {
 			give_claims = { area = bahari_area }
-			give_claims = { province = 365 }
-			give_claims = { province = 2315 }
 			custom_tooltip = " "
 			add_country_modifier = {
 				name = faf_the_white_crown_modifier
@@ -503,9 +500,12 @@ faf_valley = {
 				"
 				option_2 = "
 					capital_scope = {
-						add_province_modifier = {
-							name = faf_the_oasis_throne_modifier
-							duration = -1
+						if = {
+							limit = { area = al_wahat_area }
+							add_province_modifier = {
+								name = faf_the_oasis_throne_modifier
+								duration = -1
+							}
 						}
 					}
 					add_adm_power = 50
@@ -750,13 +750,26 @@ faf_gods = {
 		trigger = {
 			if = {
 				limit = { has_country_flag = kemet_path_maat }
+				# The AI sends missionaries on its own and would convert the provinces this path asks it to keep,
+				# so it counts calm valley provinces of any faith.
 				custom_trigger_tooltip = {
 					tooltip = faf_faith_maat_5_tt
-					num_of_owned_provinces_with = {
-						value = 5
-						region = egypt_region
-						NOT = { religion = ROOT }
-						NOT = { unrest = 1 }
+					if = {
+						limit = { ai = no }
+						num_of_owned_provinces_with = {
+							value = 5
+							region = egypt_region
+							NOT = { religion = ROOT }
+							NOT = { unrest = 1 }
+						}
+					}
+					else = {
+						num_of_owned_provinces_with = {
+							value = 5
+							region = egypt_region
+							NOT = { area = al_wahat_area }
+							NOT = { unrest = 1 }
+						}
 					}
 				}
 				if = {
@@ -806,46 +819,10 @@ faf_gods = {
 		}
 	}
 
-	faf_the_houses_of_the_valley = {
-		icon = mission_aksum_obelisk_construction
-		position = 5
-		required_missions = { faf_the_faith_of_the_valley }
-
-		trigger = {
-			custom_trigger_tooltip = {
-				tooltip = kemet_houses_3_tt
-				kemet_houses_restored_trigger = { amount = 3 }
-			}
-		}
-
-		effect = {
-			custom_tooltip = faf_houses_base_tax_tt
-			hidden_effect = {
-				every_owned_province = {
-					limit = {
-						OR = {
-							has_province_modifier = kemet_house_of_sutekh_modifier
-							has_province_modifier = kemet_house_of_heru_modifier
-							has_province_modifier = kemet_house_of_aset_modifier
-							has_province_modifier = kemet_house_of_wsir_modifier
-							has_province_modifier = kemet_house_of_amun_modifier
-							has_province_modifier = kemet_house_of_ptah_modifier
-							has_province_modifier = kemet_house_of_sobek_modifier
-							has_province_modifier = kemet_house_of_djehuty_modifier
-						}
-					}
-					add_base_tax = 1
-				}
-			}
-			custom_tooltip = " "
-			add_adm_power = 50
-		}
-	}
-
 	faf_the_two_truths = {
 		icon = kemet_new_faith
-		position = 7
-		required_missions = { faf_the_houses_of_the_valley }
+		position = 6
+		required_missions = { faf_the_faith_of_the_valley }
 
 		provinces_to_highlight = {
 			region = egypt_region
@@ -861,15 +838,31 @@ faf_gods = {
 		}
 
 		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = kemet_houses_3_tt
+				kemet_houses_restored_trigger = { amount = 3 }
+			}
 			if = {
 				limit = { has_country_flag = kemet_path_maat }
+				# AI: calm valley provinces of any faith (see faf_the_faith_of_the_valley).
 				custom_trigger_tooltip = {
 					tooltip = faf_faith_maat_8_tt
-					num_of_owned_provinces_with = {
-						value = 8
-						region = egypt_region
-						NOT = { religion = ROOT }
-						NOT = { unrest = 1 }
+					if = {
+						limit = { ai = no }
+						num_of_owned_provinces_with = {
+							value = 8
+							region = egypt_region
+							NOT = { religion = ROOT }
+							NOT = { unrest = 1 }
+						}
+					}
+					else = {
+						num_of_owned_provinces_with = {
+							value = 8
+							region = egypt_region
+							NOT = { area = al_wahat_area }
+							NOT = { unrest = 1 }
+						}
 					}
 				}
 				stability = 2
@@ -900,12 +893,37 @@ faf_gods = {
 					name = kemet_the_order_of_maat_modifier
 					duration = -1
 				}
+				add_estate_burghers_loyalty_effect = yes
 			}
 			else = {
 				add_country_modifier = {
 					name = kemet_the_gods_returned_modifier
 					duration = -1
 				}
+				add_estate_church_loyalty_effect = yes
+			}
+			custom_tooltip = " "
+			custom_tooltip = faf_houses_base_tax_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							has_province_modifier = kemet_house_of_sutekh_modifier
+							has_province_modifier = kemet_house_of_heru_modifier
+							has_province_modifier = kemet_house_of_aset_modifier
+							has_province_modifier = kemet_house_of_wsir_modifier
+							has_province_modifier = kemet_house_of_amun_modifier
+							has_province_modifier = kemet_house_of_ptah_modifier
+							has_province_modifier = kemet_house_of_sobek_modifier
+							has_province_modifier = kemet_house_of_djehuty_modifier
+						}
+					}
+					add_base_tax = 1
+				}
+			}
+			custom_tooltip = faf_houses_quickened_tt
+			hidden_effect = {
+				set_country_flag = kemet_houses_quickened
 			}
 		}
 	}
@@ -1016,7 +1034,8 @@ faf_throne = {
 	faf_the_crowning_at_abydos = {
 		icon = mission_kushite_pharaoh
 		position = 4
-		required_missions = { faf_friends_in_alexandria faf_the_people_of_the_river }
+		# Not tied to Friends in Alexandria: leaving the tribe should not hang on a Coptic republic's goodwill.
+		required_missions = { faf_the_people_of_the_river }
 
 		provinces_to_highlight = {
 			province_id = 4320
@@ -1072,24 +1091,21 @@ faf_throne = {
 		position = 5
 		required_missions = { faf_the_crowning_at_abydos }
 
+		# Courthouses need Administrative Technology 8 (1505), after most Farafras have formed Kemet, so a well
+		# developed capital counts too.
 		provinces_to_highlight = {
 			is_capital_of = ROOT
 			NOT = { has_courthouse_building_trigger = yes }
+			NOT = { development = 15 }
 		}
 
 		trigger = {
 			government = monarchy
 			num_of_cities = 15
 			capital_scope = {
-				if = {
-					limit = { ROOT = { ai = no } }
+				OR = {
 					has_courthouse_building_trigger = yes
-				}
-				else = {
-					OR = {
-						has_courthouse_building_trigger = yes
-						development = 15
-					}
+					development = 15
 				}
 			}
 		}

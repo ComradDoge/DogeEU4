@@ -4,9 +4,9 @@
 # Slots: 1 The Gods, 2 The Two Lands, 3 The South, 4 The Sea, 5 The Horizon.
 # The Faith of the River (kemet_path_maat / kemet_path_neteru) is chosen in Farafra's tree, or here in
 # egp_the_black_land_whole by a Kemet that never chose.
-# Events: events/_DSE_flavour_Kemet.txt (egp_events, kemet_events)
+# Events: events/_DSE_flavour_Kemet.txt (egp_events), events/_DSE_flavour_Kemet_Faith.txt (kemet_events)
 # Modifiers: common/event_modifiers/DST_Kemet_modifiers.txt, effects: common/scripted_effects/DST_Kemet_scripted_effects.txt
-# Triggers: common/scripted_triggers/DST_Kemet_triggers.txt, Houses decisions: decisions/DST_Kemet_Houses.txt
+# Triggers: common/scripted_triggers/_DST_Kemet_triggers.txt, Houses decisions: decisions/DST_Kemet_Houses.txt
 # Monuments (Leviathan): kemet_valley_of_the_kings, kemet_deir_el_medina, kemet_great_library in common/great_projects/DST_monuments.txt.
 # The suez_canal build_trigger (common/great_projects/00_great_projects.txt) accepts egp_the_canal_of_the_pharaohs.
 
@@ -130,10 +130,23 @@ egp_gods = {
 					}
 				}
 			}
-			num_of_owned_provinces_with = {
-				value = 3
-				region = egypt_region
-				has_production_building_trigger = yes
+			if = {
+				limit = { ai = no }
+				num_of_owned_provinces_with = {
+					value = 3
+					region = egypt_region
+					has_production_building_trigger = yes
+				}
+			}
+			else = {
+				num_of_owned_provinces_with = {
+					value = 3
+					region = egypt_region
+					OR = {
+						has_production_building_trigger = yes
+						development = 12
+					}
+				}
 			}
 		}
 
@@ -545,7 +558,7 @@ egp_two_lands = {
 		provinces_to_highlight = {
 			region = egypt_region
 			owned_by = ROOT
-			NOT = { development = 20 }
+			NOT = { development = 15 }
 		}
 
 		trigger = {
@@ -554,7 +567,7 @@ egp_two_lands = {
 				num_of_owned_provinces_with = {
 					value = 10
 					region = egypt_region
-					development = 20
+					development = 15
 				}
 			}
 		}
@@ -609,10 +622,8 @@ egp_south = {
 		}
 
 		effect = {
-			# Rest of the Makurian realm at start (lower Nubia is claimed by the formation), so one war takes it.
+			# Lower Nubia is claimed by the formation; Suakin and Halaib come with the Red Sea coast (egp_the_road_to_queseer).
 			give_claims = { area = dongola_area }
-			give_claims = { province = 1232 }
-			give_claims = { province = 2324 }
 			custom_tooltip = " "
 			1231 = {
 				add_base_tax = 1
@@ -748,7 +759,7 @@ egp_south = {
 				}
 			}
 			custom_tooltip = " "
-			give_claims = { province = 1219 }
+			give_claims = { area = darfur_central_sahara_area }
 		}
 	}
 }
@@ -811,20 +822,21 @@ egp_sea = {
 		position = 2
 		required_missions = { egp_the_pharos }
 
+		# Gates the Red Sea arm (Queseer, Punt, the canal): kept near formation time (Administrative Technology 9, 1518).
 		provinces_to_highlight = {
 			province_id = 358
 			OR = {
 				NOT = { owned_by = ROOT }
-				NOT = { development = 25 }
+				NOT = { development = 20 }
 			}
 		}
 
 		trigger = {
 			358 = {
 				owned_by = ROOT
-				development = 25
+				development = 20
 			}
-			adm_tech = 12
+			adm_tech = 9
 		}
 
 		effect = {
@@ -970,7 +982,7 @@ egp_sea = {
 
 		effect = {
 			give_claims = { area = somaliland_area }
-			give_claims = { province = 1212 }
+			give_claims = { area = ifat_area }
 			custom_tooltip = egp_punt_cb_tt
 			hidden_effect = {
 				set_country_flag = kemet_punt_campaign_flag
@@ -1114,17 +1126,43 @@ egp_horizon = {
 		position = 3
 		required_missions = { egp_the_army_of_kemet }
 
+		# A Farafra-formed Kemet already holds both, so players build the road's stations: a market at Suez and a
+		# developed Sinai. The AI only needs to hold them.
 		provinces_to_highlight = {
 			OR = {
-				province_id = 365
-				province_id = 2315
+				AND = {
+					province_id = 2315
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { has_trade_building_trigger = yes }
+					}
+				}
+				AND = {
+					province_id = 365
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 6 }
+					}
+				}
 			}
-			NOT = { country_or_non_sovereign_subject_holds = ROOT }
 		}
 
 		trigger = {
-			365 = { country_or_non_sovereign_subject_holds = ROOT }
-			2315 = { country_or_non_sovereign_subject_holds = ROOT }
+			if = {
+				limit = { ai = no }
+				2315 = {
+					owned_by = ROOT
+					has_trade_building_trigger = yes
+				}
+				365 = {
+					owned_by = ROOT
+					development = 6
+				}
+			}
+			else = {
+				365 = { country_or_non_sovereign_subject_holds = ROOT }
+				2315 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
 		}
 
 		effect = {
@@ -1154,7 +1192,6 @@ egp_horizon = {
 
 		effect = {
 			give_claims = { area = syria_area }
-			give_claims = { province = 1849 }
 			custom_tooltip = " "
 			country_event_with_option_insight = {
 				id = egp_events.6
