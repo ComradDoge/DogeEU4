@@ -1,0 +1,254 @@
+# Farafra (FAF) and Kemet (EGP): shared effects
+# Missions: missions/_DST_Farafra_Missions.txt, missions/_DST_Kemet_Missions.txt
+# Events: events/_DSE_flavour_Farafra.txt (faf_events), events/_DSE_flavour_Kemet.txt (kemet_events, egp_events)
+# Triggers: common/scripted_triggers/DST_Kemet_triggers.txt
+
+# Restores one of the eight Houses of the Gods (decisions/DST_Kemet_Houses.txt, kemet_events.10 to .17).
+# province = site id, god = flag and modifier suffix. The ancient name the province takes is set below by province id.
+# Run in country scope (ROOT = the restorer).
+kemet_restore_house_effect = {
+	set_country_flag = kemet_house_$god$
+	hidden_effect = {
+		kemet_patron_favour_refresh = yes
+	}
+	$province$ = {
+		if = {
+			limit = { has_province_modifier = kemet_house_under_construction_modifier }
+			remove_province_modifier = kemet_house_under_construction_modifier
+		}
+		# Names are literal: a quoted "$name$" parameter came out as "Ta-iht$" in game.
+		if = {
+			limit = { province_id = 4323 }
+			change_province_name = "Ta-iht"
+			rename_capital = "Ta-iht"
+		}
+		else_if = {
+			limit = { province_id = 4319 }
+			change_province_name = "Behedet"
+			rename_capital = "Behedet"
+		}
+		else_if = {
+			limit = { province_id = 1231 }
+			change_province_name = "Swenett"
+			rename_capital = "Swenett"
+		}
+		else_if = {
+			limit = { province_id = 4320 }
+			change_province_name = "Abdju"
+			rename_capital = "Abdju"
+		}
+		else_if = {
+			limit = { province_id = 360 }
+			change_province_name = "Waset"
+			rename_capital = "Waset"
+		}
+		else_if = {
+			limit = { province_id = 361 }
+			change_province_name = "Men-nefer"
+			rename_capital = "Men-nefer"
+		}
+		else_if = {
+			limit = { province_id = 359 }
+			change_province_name = "Shedet"
+			rename_capital = "Shedet"
+		}
+		else_if = {
+			limit = { province_id = 2317 }
+			change_province_name = "Khemenu"
+			rename_capital = "Khemenu"
+		}
+		add_or_upgrade_tax_building = yes
+		add_province_modifier = {
+			name = kemet_house_of_$god$_modifier
+			duration = -1
+		}
+		if = {
+			limit = {
+				ROOT = { has_country_flag = kemet_path_neteru }
+				NOT = { religion = ROOT }
+			}
+			change_religion = ROOT
+		}
+		else_if = {
+			limit = {
+				ROOT = { has_country_flag = kemet_path_maat }
+				NOT = { religion = ROOT }
+			}
+			add_province_modifier = {
+				name = kemet_shared_shrine_modifier
+				duration = 3650
+			}
+		}
+	}
+}
+
+# Starts the restoration of a house: the site is under construction for three years, then the event fires.
+# The tooltip previews what the restored house will give (same god as kemet_restore_house_effect).
+kemet_start_house_effect = {
+	add_treasury = -300
+	add_adm_power = -50
+	$province$ = {
+		add_province_modifier = {
+			name = kemet_house_under_construction_modifier
+			duration = 1095
+		}
+	}
+	custom_tooltip = kemet_house_three_years_tt
+	tooltip = {
+		kemet_restore_house_effect = { province = $province$ god = $god$ }
+	}
+	hidden_effect = {
+		set_country_flag = kemet_house_building
+		country_event = {
+			id = kemet_events.$event$
+			days = 1095
+		}
+	}
+}
+
+# Farafra's crown: a tribe becomes a monarchy, then the Pharaonic Kingdom reform.
+# Any other government that can't take the reform gets reform progress instead.
+faf_crown_pharaoh_effect = {
+	if = {
+		limit = { government = tribal }
+		change_government = monarchy
+	}
+	if = {
+		limit = {
+			government = monarchy
+			NOT = { has_reform = pharaonic_monarchy }
+		}
+		add_government_reform = pharaonic_monarchy
+	}
+	else_if = {
+		limit = { NOT = { government = monarchy } }
+		add_reform_progress_big_effect = yes
+	}
+	set_country_flag = kemet_crowned_pharaoh
+}
+
+# Patron god favour (common/personal_deities/12_egyptian_deities.txt): the ruler's patron served in his own
+# restored House gives kemet_favour_of_<house>_modifier. Event-driven, no triggered modifier: set when the god is
+# picked, removed when he is dropped, refreshed when a House is restored, a House site changes hands
+# (common/on_actions/DST_on_actions.txt), Sacred Burials changes, or the religion changes. Country scope.
+
+kemet_patron_favour_clear = {
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_amun_modifier }
+		remove_country_modifier = kemet_favour_of_amun_modifier
+	}
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_wsir_modifier }
+		remove_country_modifier = kemet_favour_of_wsir_modifier
+	}
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_aset_modifier }
+		remove_country_modifier = kemet_favour_of_aset_modifier
+	}
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_heru_modifier }
+		remove_country_modifier = kemet_favour_of_heru_modifier
+	}
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_sutekh_modifier }
+		remove_country_modifier = kemet_favour_of_sutekh_modifier
+	}
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_ptah_modifier }
+		remove_country_modifier = kemet_favour_of_ptah_modifier
+	}
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_sobek_modifier }
+		remove_country_modifier = kemet_favour_of_sobek_modifier
+	}
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_djehuty_modifier }
+		remove_country_modifier = kemet_favour_of_djehuty_modifier
+	}
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_anubis_modifier }
+		remove_country_modifier = kemet_favour_of_anubis_modifier
+	}
+}
+
+kemet_patron_favour_remove = {
+	if = {
+		limit = { has_country_modifier = kemet_favour_of_$house$_modifier }
+		remove_country_modifier = kemet_favour_of_$house$_modifier
+	}
+}
+
+# house = House flag suffix, province = the House site
+kemet_patron_favour_set = {
+	kemet_patron_favour_clear = yes
+	if = {
+		limit = {
+			religion = egyptian_religion
+			has_country_flag = kemet_house_$house$
+			owns = $province$
+		}
+		add_country_modifier = {
+			name = kemet_favour_of_$house$_modifier
+			duration = -1
+		}
+	}
+}
+
+# Anubis has no House: Sacred Burials granted and the necropolis of Bahiriya held
+kemet_patron_favour_set_anubis = {
+	kemet_patron_favour_clear = yes
+	if = {
+		limit = {
+			religion = egyptian_religion
+			has_estate_privilege = kemet_sacred_burials_privilege
+			owns = 2318
+		}
+		add_country_modifier = {
+			name = kemet_favour_of_anubis_modifier
+			duration = -1
+		}
+	}
+}
+
+# Re-checks the current patron (non-Kemetic countries just lose any favour)
+kemet_patron_favour_refresh = {
+	if = {
+		limit = { has_personal_deity = egy_ra }
+		kemet_patron_favour_set = { house = amun province = 360 }
+	}
+	else_if = {
+		limit = { has_personal_deity = egy_osiris }
+		kemet_patron_favour_set = { house = wsir province = 4320 }
+	}
+	else_if = {
+		limit = { has_personal_deity = egy_isis }
+		kemet_patron_favour_set = { house = aset province = 1231 }
+	}
+	else_if = {
+		limit = { has_personal_deity = egy_horus }
+		kemet_patron_favour_set = { house = heru province = 4319 }
+	}
+	else_if = {
+		limit = { has_personal_deity = egy_set }
+		kemet_patron_favour_set = { house = sutekh province = 4323 }
+	}
+	else_if = {
+		limit = { has_personal_deity = egy_ptah }
+		kemet_patron_favour_set = { house = ptah province = 361 }
+	}
+	else_if = {
+		limit = { has_personal_deity = egy_sobek }
+		kemet_patron_favour_set = { house = sobek province = 359 }
+	}
+	else_if = {
+		limit = { has_personal_deity = egy_thoth }
+		kemet_patron_favour_set = { house = djehuty province = 2317 }
+	}
+	else_if = {
+		limit = { has_personal_deity = egy_anubis }
+		kemet_patron_favour_set_anubis = yes
+	}
+	else = {
+		kemet_patron_favour_clear = yes
+	}
+}

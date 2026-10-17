@@ -12,13 +12,13 @@ Flavour
 - Shattered: Kurland and one province changed to baltic_german.
 - New government rank and ruler titles for many shattered tags.
 - Forming Tibet or Himalayan empire gives more renaming options.
+- Kemet: custom names for provinces mainly across Egypt, the Levant and Nubia.
 - Various flavour localisation changes to formable decision names and descriptions.
 - Riga and Livonian primary culture changed from prussian to baltic_german, as in vanilla.
 - Cumania: a few new Cuman province names dotted around the balkans and some steppe provinces.
 - Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
 - New leader, ship, army and fleet names for many countries that shared or lacked their own list, report if any corruped characters appear.
 - Reforming into Livonia now gives some renaming options: Terra Mariana/Land of Mary if Christian, Livland if Germanic, Zemgale, Semigallia and Latvia.
-- Cult of Reason decision now has the religion icon in its title.
 
 Strategic Resources / Economy
 
@@ -56,14 +56,16 @@ Content
 
 Generally, a pass over various small countries that never had content. Generally, it's small/medium sized with some additional side flavour. If a country's gameplay feels very off, or doesn't account for some odd case, feel free to report it. For the most part, they have been made to take very dynamic situations in account or have fallbacks.
 
-- Galicia and Volhynia: a shared mission tree with a column for each, events.
+- Kemetism: added its own religious idea group.
+- Galicia and Volhynia: a shared mission tree with a column for each to be more flavourful.
 - Occitania: new extensive mission tree, events, and a government Paratge mechanic on formation.
-- Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
+- Farafra received a mission tree and ancient Egypt (Kemet) mission tree completely reworked as well.
 - Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa.
+- Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
 - Burgundy: added the Europa Expanded mission tree as an additional mission choice. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
-- Livonia: new decision for a Catholic Livonia to refound the Livonian Order (requires Lions of the North DLC), choosing the crusader or Livonian path (with the Livonian government reforms).
 - Toledo: new mission tree and events. Toledo forms Spain through its last mission instead of the decision, without the administrative technology requirement and with an extra permanent bonus.
 - Sudetenland: added a small mission tree, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
+- Livonia: new decision for a Catholic Livonia to refound the Livonian Order (requires Lions of the North DLC due to DLC content), choosing the crusader or Livonian path (with the Livonian government reforms).
 - Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate related to the missions.
 
  <!-- Todo -->

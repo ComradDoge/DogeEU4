@@ -61,8 +61,15 @@ on_religion_change = {
 	religion_idea_changer_sunni_to_x = yes
 	religion_idea_changer_shia_to_x = yes
 	religion_idea_changer_druze_to_x = yes
+	religion_idea_changer_kemet_to_x = yes
 
 	religion_convert_effect_everything = yes
+
+	# Kemetism: patron god favour ends when leaving the faith
+	if = {
+		limit = { NOT = { religion = egyptian_religion } }
+		kemet_patron_favour_clear = yes
+	}
 }
 
 on_new_monarch = {
@@ -94,6 +101,18 @@ on_monarch_death = {
 		country_event = { id = dse_monarchy_system.1 }
 		country_event = { id = dse_monarchy_system.2 }
 		country_event = { id = dse_monarchy_system.3 }
+	}
+
+	# Kemetism: The Last Journey, a day later so the successor holds the throne
+	if = {
+		limit = {
+			religion = egyptian_religion
+			government = monarchy
+		}
+		country_event = {
+			id = kemet_events.37
+			days = 1
+		}
 	}
 }
 
@@ -245,5 +264,27 @@ on_government_change = {
 			is_revolutionary = no
 		}
 		country_event = { id = occ_events.19 }
+	}
+}
+
+# province, FROM = previous owner
+# Kemetism: a patron god's House site changing hands re-checks both sides (DST_Kemet_scripted_effects.txt)
+on_province_owner_change = {
+	if = {
+		limit = {
+			OR = {
+				province_id = 360
+				province_id = 4320
+				province_id = 1231
+				province_id = 4319
+				province_id = 4323
+				province_id = 361
+				province_id = 359
+				province_id = 2317
+				province_id = 2318
+			}
+		}
+		owner = { kemet_patron_favour_refresh = yes }
+		FROM = { kemet_patron_favour_refresh = yes }
 	}
 }

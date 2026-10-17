@@ -1,0 +1,1152 @@
+# Farafra - from the oases to Kemet
+# One tree for Farafra (FAF), the Kemetic oasis tribe of the Western Desert. Forming Kemet
+# (decisions/_DST_FormAncientEgypt.txt) swaps it for the Kemet tree (missions/_DST_Kemet_Missions.txt).
+# Slots: 1 The Oases, 2 The Desert Host, 3 The Valley, 4 The Old Gods, 5 The Throne.
+# faf_the_people_of_the_river fires kemet_events.1: the Scales of Ma'at (kemet_path_maat) or the Return of the
+# Neteru (kemet_path_neteru). faf_the_faith_of_the_valley and faf_the_two_truths branch on that flag; their trigger
+# falls back to "always = no" while no path is chosen. Kemet's tree reads the same flags.
+# Events: events/_DSE_flavour_Farafra.txt (faf_events), events/_DSE_flavour_Kemet.txt (kemet_events)
+# Modifiers: common/event_modifiers/DST_Kemet_modifiers.txt, effects: common/scripted_effects/DST_Kemet_scripted_effects.txt
+# Triggers: common/scripted_triggers/DST_Kemet_triggers.txt, Houses decisions: decisions/DST_Kemet_Houses.txt
+
+#### Column 1: The Oases
+
+faf_oases = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = FAF
+	}
+
+	faf_the_wells_of_farafreh = {
+		icon = mission_pue_irrigation_cannals
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 4323
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 6 }
+			}
+		}
+
+		trigger = {
+			4323 = {
+				owned_by = ROOT
+				development = 6
+			}
+		}
+
+		effect = {
+			4323 = {
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = faf_the_wells_of_farafreh_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+
+	faf_the_palms_of_bahiriya = {
+		icon = me_mission_portugal_sugar_plantation
+		position = 2
+		required_missions = { faf_the_wells_of_farafreh }
+
+		provinces_to_highlight = {
+			province_id = 2318
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			2318 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_production_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_production_building_trigger = yes
+						development = 7
+					}
+				}
+			}
+		}
+
+		effect = {
+			2318 = {
+				if = {
+					limit = { NOT = { trade_goods = dates } }
+					change_trade_goods = dates
+				}
+				add_or_upgrade_production_building = yes
+			}
+			custom_tooltip = " "
+			# Manfalut, the river end of the Forty Days Road (faf_the_forty_days_road).
+			give_claims = { province = 2319 }
+			add_adm_power = 25
+		}
+	}
+
+	faf_the_forty_days_road = {
+		icon = mission_saharan_route
+		position = 3
+		required_missions = { faf_the_palms_of_bahiriya }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 1233
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { has_trade_building_trigger = yes }
+					}
+				}
+				AND = {
+					province_id = 2319
+					NOT = { owned_by = ROOT }
+				}
+			}
+		}
+
+		trigger = {
+			1233 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_trade_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_trade_building_trigger = yes
+						development = 8
+					}
+				}
+			}
+			owns = 2319
+		}
+
+		effect = {
+			1233 = {
+				create_or_add_center_of_trade_level = { level = 1 }
+				add_province_modifier = {
+					name = faf_the_forty_days_road_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+
+	faf_the_caravan_masters = {
+		icon = me_mission_persia_fortified_city_with_caravan
+		position = 5
+		required_missions = { faf_the_forty_days_road }
+
+		provinces_to_highlight = {
+			province_id = 358
+			NOT = {
+				trade_share = {
+					country = ROOT
+					share = 10
+				}
+			}
+			NOT = { is_strongest_trade_power = ROOT }
+		}
+
+		trigger = {
+			if = {
+				limit = { ai = no }
+				num_of_owned_provinces_with = {
+					value = 3
+					has_trade_building_trigger = yes
+				}
+			}
+			else = {
+				num_of_owned_provinces_with = {
+					value = 3
+					OR = {
+						has_trade_building_trigger = yes
+						development = 10
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = faf_alexandria_node_share_10_tt
+				358 = {
+					OR = {
+						trade_share = {
+							country = ROOT
+							share = 10
+						}
+						is_strongest_trade_power = ROOT
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = faf_events.3
+				option_1 = "
+					add_country_modifier = {
+						name = faf_caravan_tolls_modifier
+						duration = 9125
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = faf_caravan_guards_modifier
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+
+	faf_lords_of_the_western_desert = {
+		icon = mission_sw_against_the_desert
+		position = 6
+		required_missions = { faf_the_caravan_masters }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4323
+				province_id = 2318
+				province_id = 1233
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 12 }
+			}
+		}
+
+		trigger = {
+			if = {
+				limit = { ai = no }
+				4323 = {
+					owned_by = ROOT
+					development = 12
+				}
+				2318 = {
+					owned_by = ROOT
+					development = 12
+				}
+				1233 = {
+					owned_by = ROOT
+					development = 12
+				}
+			}
+			else = {
+				4323 = {
+					owned_by = ROOT
+					development = 9
+				}
+				2318 = {
+					owned_by = ROOT
+					development = 9
+				}
+				1233 = {
+					owned_by = ROOT
+					development = 9
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = faf_lords_of_the_western_desert_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+}
+
+#### Column 2: The Desert Host
+
+faf_host = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = FAF
+	}
+
+	faf_the_oasis_levy = {
+		icon = mission_xianbei_desert_warriors
+		position = 1
+		required_missions = { }
+
+		trigger = {
+			army_size_percentage = 1
+		}
+
+		effect = {
+			give_claims = { area = vostani_area }
+			custom_tooltip = " "
+			add_army_tradition_or_mil_power = { amount = 10 }
+		}
+	}
+
+	faf_riders_of_the_dunes = {
+		icon = mission_bedouins
+		position = 2
+		required_missions = { faf_the_oasis_levy }
+
+		trigger = {
+			num_of_cavalry = 3
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = faf_riders_of_the_dunes_modifier
+				duration = 9125
+			}
+		}
+	}
+
+	faf_the_medjay = {
+		icon = mission_avar_mounted_archers
+		position = 4
+		required_missions = { faf_riders_of_the_dunes faf_the_forty_days_road }
+
+		trigger = {
+			army_tradition = 20
+			num_of_generals = 1
+		}
+
+		effect = {
+			custom_tooltip = faf_unlock_medjay_tt
+			hidden_effect = {
+				set_country_flag = kemet_medjay_flag
+			}
+			custom_tooltip = " "
+			create_general_with_pips = {
+				tradition = 20
+				add_fire = 1
+				add_shock = 2
+				add_manuever = 2
+				add_siege = 1
+			}
+		}
+	}
+
+	faf_the_knights_of_the_temple = {
+		icon = mission_knights_templar_charge
+		position = 5
+		required_missions = { faf_the_medjay faf_the_city_of_the_sultans }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4316
+				province_id = 2315
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			4316 = { country_or_non_sovereign_subject_holds = ROOT }
+			2315 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = faf_events.4
+				option_1 = "
+					add_years_of_income = 1.5
+					custom_tooltip = faf_events_4_catholic_opinion_tt
+				"
+				option_2 = "
+					add_prestige_or_monarch_power = { amount = 25 }
+					add_army_tradition_or_mil_power = { amount = 15 }
+				"
+			}
+		}
+	}
+
+	faf_the_libyan_desert = {
+		icon = mission_pacify_the_berbers
+		position = 6
+		required_missions = { faf_the_knights_of_the_temple faf_the_red_crown }
+
+		provinces_to_highlight = {
+			area = cyrenaica_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			cyrenaica_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			356 = {
+				if = {
+					limit = { owned_by = ROOT }
+					add_base_production = 1
+				}
+			}
+			add_country_modifier = {
+				name = faf_the_libyan_frontier_modifier
+				duration = 9125
+			}
+		}
+	}
+}
+
+#### Column 3: The Valley
+
+faf_valley = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = FAF
+	}
+
+	faf_down_to_the_river = {
+		icon = fu_nile_breadbasket
+		position = 2
+		required_missions = { faf_the_oasis_levy }
+
+		provinces_to_highlight = {
+			area = vostani_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			vostani_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			give_claims = { area = said_area }
+			give_claims = { province = 2320 }
+			give_claims = { province = 2321 }
+			custom_tooltip = " "
+			359 = {
+				if = {
+					limit = { owned_by = ROOT }
+					add_base_production = 1
+				}
+			}
+			add_mil_power = 25
+		}
+	}
+
+	faf_the_white_crown = {
+		icon = kemet_upper_egypt
+		position = 3
+		required_missions = { faf_down_to_the_river }
+
+		provinces_to_highlight = {
+			area = said_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			said_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			give_claims = { area = bahari_area }
+			give_claims = { province = 365 }
+			give_claims = { province = 2315 }
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = faf_the_white_crown_modifier
+				duration = 5475
+			}
+			add_prestige_or_monarch_power = { amount = 15 }
+		}
+	}
+
+	faf_the_city_of_the_sultans = {
+		icon = me_mission_arabia_big_arabian_city
+		position = 4
+		required_missions = { faf_the_white_crown }
+
+		provinces_to_highlight = {
+			province_id = 361
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 361
+		}
+
+		effect = {
+			give_claims = { area = delta_area }
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = faf_events.2
+				option_1 = "
+					361 = { move_capital_effect = yes }
+					add_prestige_or_monarch_power = { amount = 25 }
+				"
+				option_2 = "
+					capital_scope = {
+						add_province_modifier = {
+							name = faf_the_oasis_throne_modifier
+							duration = -1
+						}
+					}
+					add_adm_power = 50
+				"
+			}
+		}
+	}
+
+	faf_the_red_crown = {
+		icon = kemet_lower_egypt
+		position = 5
+		required_missions = { faf_the_city_of_the_sultans }
+
+		provinces_to_highlight = {
+			OR = {
+				area = delta_area
+				area = bahari_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			delta_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			bahari_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			give_claims = { area = cyrenaica_area }
+			custom_tooltip = " "
+			358 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+		}
+	}
+
+	faf_the_black_land = {
+		icon = kemet_new_empire
+		position = 7
+		required_missions = { faf_the_red_crown }
+
+		provinces_to_highlight = {
+			region = egypt_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = faf_formation_lands_tt
+				kemet_holds_formation_lands_trigger = yes
+			}
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 50 }
+			custom_tooltip = " "
+			custom_tooltip = faf_form_kemet_tt
+		}
+	}
+}
+
+#### Column 4: The Old Gods (branched from faf_the_people_of_the_river)
+
+faf_gods = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = FAF
+	}
+
+	faf_the_house_of_sutekh = {
+		icon = kemet_faith_darkness
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 4323
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_tax_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			religion = egyptian_religion
+			4323 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_tax_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_tax_building_trigger = yes
+						development = 6
+					}
+				}
+			}
+			if = {
+				limit = { has_estate = estate_church }
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 40
+				}
+			}
+		}
+
+		effect = {
+			kemet_restore_house_effect = {
+				province = 4323
+				god = sutekh
+			}
+			add_estate_church_loyalty_effect = yes
+			custom_tooltip = " "
+			custom_tooltip = kemet_unlock_houses_tt
+			hidden_effect = {
+				set_country_flag = kemet_houses_unlocked
+			}
+		}
+	}
+
+	faf_the_necropolis_of_bahiriya = {
+		icon = me_mission_france_egypt_sarkophag
+		position = 2
+		required_missions = { faf_the_house_of_sutekh }
+
+		provinces_to_highlight = {
+			province_id = 2318
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 7 }
+			}
+		}
+
+		trigger = {
+			religion = egyptian_religion
+			2318 = {
+				owned_by = ROOT
+				development = 7
+			}
+			if = {
+				limit = { has_estate = estate_church }
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = kemet_events.2
+				option_1 = "
+					set_estate_privilege = kemet_sacred_burials_privilege
+					add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+				"
+				option_2 = "
+					add_adm_power = 50
+					custom_tooltip = kemet_events_2_later_tt
+				"
+			}
+		}
+	}
+
+	faf_the_people_of_the_river = {
+		icon = me_mission_arabia_hour_of_prayer
+		position = 3
+		required_missions = { faf_the_necropolis_of_bahiriya faf_down_to_the_river }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 359
+				province_id = 2317
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 359
+			owns = 2317
+			stability = 1
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = kemet_events.1
+				option_1 = "
+					add_country_modifier = {
+						name = kemet_scales_of_maat_modifier
+						duration = 3650
+					}
+					add_estate_burghers_loyalty_effect = yes
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = kemet_return_of_the_neteru_modifier
+						duration = 3650
+					}
+					add_estate_church_loyalty_effect = yes
+					reduce_stability_or_adm_power = yes
+				"
+			}
+		}
+	}
+
+	faf_the_faith_of_the_valley = {
+		icon = mission_egypt_high_priest
+		position = 4
+		required_missions = { faf_the_people_of_the_river }
+
+		provinces_to_highlight = {
+			region = egypt_region
+			owned_by = ROOT
+			if = {
+				limit = { ROOT = { has_country_flag = kemet_path_maat } }
+				NOT = { religion = ROOT }
+				unrest = 1
+			}
+			else = {
+				NOT = { area = al_wahat_area }
+				NOT = { religion = ROOT }
+			}
+		}
+
+		trigger = {
+			if = {
+				limit = { has_country_flag = kemet_path_maat }
+				custom_trigger_tooltip = {
+					tooltip = faf_faith_maat_5_tt
+					num_of_owned_provinces_with = {
+						value = 5
+						region = egypt_region
+						NOT = { religion = ROOT }
+						NOT = { unrest = 1 }
+					}
+				}
+				if = {
+					limit = { has_estate = estate_burghers }
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 50
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = kemet_path_neteru }
+				custom_trigger_tooltip = {
+					tooltip = faf_faith_neteru_4_tt
+					num_of_owned_provinces_with = {
+						value = 4
+						region = egypt_region
+						NOT = { area = al_wahat_area }
+						religion = ROOT
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = kemet_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { has_country_flag = kemet_path_maat }
+				add_country_modifier = {
+					name = faf_the_two_peoples_modifier
+					duration = 9125
+				}
+				add_estate_burghers_loyalty_effect = yes
+			}
+			else = {
+				add_country_modifier = {
+					name = faf_the_lector_priests_modifier
+					duration = 9125
+				}
+				add_estate_church_loyalty_effect = yes
+			}
+		}
+	}
+
+	faf_the_houses_of_the_valley = {
+		icon = mission_aksum_obelisk_construction
+		position = 5
+		required_missions = { faf_the_faith_of_the_valley }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = kemet_houses_3_tt
+				kemet_houses_restored_trigger = { amount = 3 }
+			}
+		}
+
+		effect = {
+			custom_tooltip = faf_houses_base_tax_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							has_province_modifier = kemet_house_of_sutekh_modifier
+							has_province_modifier = kemet_house_of_heru_modifier
+							has_province_modifier = kemet_house_of_aset_modifier
+							has_province_modifier = kemet_house_of_wsir_modifier
+							has_province_modifier = kemet_house_of_amun_modifier
+							has_province_modifier = kemet_house_of_ptah_modifier
+							has_province_modifier = kemet_house_of_sobek_modifier
+							has_province_modifier = kemet_house_of_djehuty_modifier
+						}
+					}
+					add_base_tax = 1
+				}
+			}
+			custom_tooltip = " "
+			add_adm_power = 50
+		}
+	}
+
+	faf_the_two_truths = {
+		icon = kemet_new_faith
+		position = 7
+		required_missions = { faf_the_houses_of_the_valley }
+
+		provinces_to_highlight = {
+			region = egypt_region
+			owned_by = ROOT
+			if = {
+				limit = { ROOT = { has_country_flag = kemet_path_maat } }
+				NOT = { religion = ROOT }
+				unrest = 1
+			}
+			else = {
+				NOT = { religion = ROOT }
+			}
+		}
+
+		trigger = {
+			if = {
+				limit = { has_country_flag = kemet_path_maat }
+				custom_trigger_tooltip = {
+					tooltip = faf_faith_maat_8_tt
+					num_of_owned_provinces_with = {
+						value = 8
+						region = egypt_region
+						NOT = { religion = ROOT }
+						NOT = { unrest = 1 }
+					}
+				}
+				stability = 2
+			}
+			else_if = {
+				limit = { has_country_flag = kemet_path_neteru }
+				custom_trigger_tooltip = {
+					tooltip = faf_faith_neteru_10_tt
+					num_of_owned_provinces_with = {
+						value = 10
+						region = egypt_region
+						religion = ROOT
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = kemet_choice_not_made_tt
+					always = no
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { has_country_flag = kemet_path_maat }
+				add_country_modifier = {
+					name = kemet_the_order_of_maat_modifier
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = kemet_the_gods_returned_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+#### Column 5: The Throne
+
+faf_throne = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = FAF
+	}
+
+	faf_the_council_of_the_oases = {
+		icon = mission_patronize_sufi_scholars
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4323
+				province_id = 2318
+				province_id = 1233
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				unrest = 1
+			}
+		}
+
+		trigger = {
+			stability = 1
+			4323 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+			}
+			2318 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+			}
+			1233 = {
+				owned_by = ROOT
+				NOT = { unrest = 1 }
+			}
+		}
+
+		effect = {
+			define_advisor = {
+				type = treasurer
+				skill = 1
+				cost_multiplier = 0.5
+			}
+			custom_tooltip = " "
+			add_reform_progress_medium_effect = yes
+		}
+	}
+
+	faf_friends_in_alexandria = {
+		icon = me_mission_persia_alexandria_port
+		position = 2
+		required_missions = { faf_the_council_of_the_oases }
+
+		provinces_to_highlight = {
+			province_id = 358
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			owner = {
+				NOT = { alliance_with = ROOT }
+				NOT = {
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+			}
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = faf_friends_in_alexandria_tt
+				OR = {
+					358 = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = { exists = ALX }
+					ALX = { is_subject_of = ROOT }
+					alliance_with = ALX
+					ALX = {
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = faf_alexandrian_factors_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			add_dip_power = 50
+		}
+	}
+
+	faf_the_crowning_at_abydos = {
+		icon = mission_kushite_pharaoh
+		position = 4
+		required_missions = { faf_friends_in_alexandria faf_the_people_of_the_river }
+
+		provinces_to_highlight = {
+			province_id = 4320
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 4320
+			stability = 1
+			num_of_cities = 10
+		}
+
+		effect = {
+			faf_crown_pharaoh_effect = yes
+			custom_tooltip = " "
+			custom_tooltip = faf_abdju_renamed_tt
+			hidden_effect = {
+				4320 = {
+					change_province_name = "Abdju"
+					rename_capital = "Abdju"
+				}
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = faf_events.1
+				option_1 = "
+					add_country_modifier = {
+						name = faf_crowned_in_abdju_modifier
+						duration = 9125
+					}
+					add_estate_church_loyalty_effect = yes
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = faf_crowned_before_the_host_modifier
+						duration = 9125
+					}
+					add_estate_nobles_loyalty_effect = yes
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = faf_crowned_for_the_river_modifier
+						duration = 9125
+					}
+					add_estate_burghers_loyalty_effect = yes
+				"
+			}
+		}
+	}
+
+	faf_the_vizier = {
+		icon = me_mission_persia_muslim_scholar_writing
+		position = 5
+		required_missions = { faf_the_crowning_at_abydos }
+
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			NOT = { has_courthouse_building_trigger = yes }
+		}
+
+		trigger = {
+			government = monarchy
+			num_of_cities = 15
+			capital_scope = {
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_courthouse_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_courthouse_building_trigger = yes
+						development = 15
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = faf_events.5
+				option_1 = "
+					define_advisor = {
+						type = theologian
+						skill = 3
+						cost_multiplier = 0.5
+					}
+					add_country_modifier = {
+						name = faf_vizier_of_djehuty_modifier
+						duration = 9125
+					}
+					add_estate_church_loyalty_effect = yes
+				"
+				option_2 = "
+					define_advisor = {
+						type = commandant
+						skill = 3
+						cost_multiplier = 0.5
+					}
+					add_country_modifier = {
+						name = faf_vizier_of_the_host_modifier
+						duration = 9125
+					}
+					add_estate_nobles_loyalty_effect = yes
+				"
+				option_3 = "
+					define_advisor = {
+						type = treasurer
+						skill = 3
+						cost_multiplier = 0.5
+					}
+					add_country_modifier = {
+						name = faf_vizier_of_the_oases_modifier
+						duration = 9125
+					}
+					add_estate_burghers_loyalty_effect = yes
+				"
+			}
+			custom_tooltip = " "
+			custom_tooltip = faf_the_two_viziers_tt
+			if = {
+				limit = {
+					owns = 360
+					owns = 361
+				}
+				define_advisor = {
+					type = statesman
+					skill = 2
+					cost_multiplier = 0.5
+				}
+			}
+		}
+	}
+}

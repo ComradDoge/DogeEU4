@@ -1,0 +1,227 @@
+# Farafra (FAF) events: from the oases to Kemet
+# All fire from missions/_DST_Farafra_Missions.txt; each option matches the mission's preview.
+# Shared Kemetic events (the Faith of the River, the Houses of the Gods): events/_DSE_flavour_Kemet_Faith.txt
+
+namespace = faf_events
+
+# The Crowning at Abydos (faf_the_crowning_at_abydos)
+country_event = {
+	id = faf_events.1
+	title = faf_events.1.t
+	desc = faf_events.1.d
+	picture = EgyptianStatues_eventPicture
+	goto = faf_abdju
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4320 = { save_event_target_as = faf_abdju }
+		}
+	}
+
+	option = { # Before the priests of Wsir
+		name = faf_events.1.a
+		add_country_modifier = {
+			name = faf_crowned_in_abdju_modifier
+			duration = 9125
+		}
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # Before the host
+		name = faf_events.1.b
+		add_country_modifier = {
+			name = faf_crowned_before_the_host_modifier
+			duration = 9125
+		}
+		add_estate_nobles_loyalty_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Before the people of the river
+		name = faf_events.1.c
+		add_country_modifier = {
+			name = faf_crowned_for_the_river_modifier
+			duration = 9125
+		}
+		add_estate_burghers_loyalty_effect = yes
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 2
+				has_country_flag = kemet_path_maat
+			}
+		}
+	}
+}
+
+# Where Shall the Throne Sit? (faf_the_city_of_the_sultans)
+country_event = {
+	id = faf_events.2
+	title = faf_events.2.t
+	desc = faf_events.2.d
+	picture = Cairo_eventPicture
+	goto = faf_cairo
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			361 = { save_event_target_as = faf_cairo }
+		}
+	}
+
+	option = { # Rule from Cairo
+		name = faf_events.2.a
+		trigger = {
+			owns = 361
+			NOT = { capital = 361 }
+		}
+		361 = { move_capital_effect = yes }
+		add_prestige_or_monarch_power = { amount = 25 }
+		ai_chance = { factor = 70 }
+	}
+	option = { # The throne stays where it is
+		name = faf_events.2.b
+		capital_scope = {
+			if = {
+				limit = { area = al_wahat_area }
+				add_province_modifier = {
+					name = faf_the_oasis_throne_modifier
+					duration = -1
+				}
+			}
+		}
+		add_adm_power = 50
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Caravan Masters (faf_the_caravan_masters)
+country_event = {
+	id = faf_events.3
+	title = faf_events.3.t
+	desc = faf_events.3.d
+	picture = Desert_eventPicture
+	goto = faf_kharga
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			1233 = { save_event_target_as = faf_kharga }
+		}
+	}
+
+	option = { # Tax the caravans
+		name = faf_events.3.a
+		add_country_modifier = {
+			name = faf_caravan_tolls_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # Ride with them
+		name = faf_events.3.b
+		add_country_modifier = {
+			name = faf_caravan_guards_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The Knights of the Temple (faf_the_knights_of_the_temple)
+country_event = {
+	id = faf_events.4
+	title = faf_events.4.t
+	desc = faf_events.4.d
+	picture = SIEGE_eventPicture
+	goto = faf_mansura
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			4316 = { save_event_target_as = faf_mansura }
+		}
+	}
+
+	option = { # Open the treasury of the Temple
+		name = faf_events.4.a
+		add_years_of_income = 1.5
+		custom_tooltip = faf_events_4_catholic_opinion_tt
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = catholic
+					exists = yes
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = faf_seized_the_temple_treasure
+				}
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Let the knights ride out with their arms
+		name = faf_events.4.b
+		add_prestige_or_monarch_power = { amount = 25 }
+		add_army_tradition_or_mil_power = { amount = 15 }
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Vizier (faf_the_vizier)
+country_event = {
+	id = faf_events.5
+	title = faf_events.5.t
+	desc = faf_events.5.d
+	picture = COURT_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # A priest of Djehuty
+		name = faf_events.5.a
+		define_advisor = {
+			type = theologian
+			skill = 3
+			cost_multiplier = 0.5
+		}
+		add_country_modifier = {
+			name = faf_vizier_of_djehuty_modifier
+			duration = 9125
+		}
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 35 }
+	}
+	option = { # A captain of the host
+		name = faf_events.5.b
+		define_advisor = {
+			type = commandant
+			skill = 3
+			cost_multiplier = 0.5
+		}
+		add_country_modifier = {
+			name = faf_vizier_of_the_host_modifier
+			duration = 9125
+		}
+		add_estate_nobles_loyalty_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # A scribe of the oases
+		name = faf_events.5.c
+		define_advisor = {
+			type = treasurer
+			skill = 3
+			cost_multiplier = 0.5
+		}
+		add_country_modifier = {
+			name = faf_vizier_of_the_oases_modifier
+			duration = 9125
+		}
+		add_estate_burghers_loyalty_effect = yes
+		ai_chance = { factor = 35 }
+	}
+}

@@ -1,0 +1,1000 @@
+# Kemetic faith and Egyptian flavour (kemet_events)
+# .1  The People of the River: the Faith of the River (faf_the_people_of_the_river, egp_the_black_land_whole)
+# .2  The Keepers of the Dead: Sacred Burials (faf_the_necropolis_of_bahiriya)
+# .10 to .17  The Houses of the Gods restored (decisions/DST_Kemet_Houses.txt, three years after the decision)
+# .20 to .23  Egypt, any faith (MTTH)
+# .30 to .34  Kemetic countries (MTTH); .37 on_monarch_death
+# Tombs and scribes are left to the generic Kemetism pulse events (events/_DSE_religion_kemetism_events.txt). (common/on_actions/DST_on_actions.txt)
+# Recurring events keep a cooldown with a country flag reset when they fire (had_country_flag = days).
+# Replaces the Antiquity Reborn Egypt events.
+
+namespace = kemet_events
+
+#### The Faith of the River
+
+country_event = {
+	id = kemet_events.1
+	title = kemet_events.1.t
+	desc = kemet_events.1.d
+	picture = NeteristDivinity_EventPicture
+	major = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { kemet_faith_chosen_trigger = yes }
+	}
+
+	option = { # The Scales of Ma'at
+		name = kemet_events.1.a
+		add_country_modifier = {
+			name = kemet_scales_of_maat_modifier
+			duration = 3650
+		}
+		add_estate_burghers_loyalty_effect = yes
+		custom_tooltip = kemet_path_maat_tt
+		hidden_effect = {
+			set_country_flag = kemet_path_maat
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # The Return of the Neteru
+		name = kemet_events.1.b
+		add_country_modifier = {
+			name = kemet_return_of_the_neteru_modifier
+			duration = 3650
+		}
+		add_estate_church_loyalty_effect = yes
+		reduce_stability_or_adm_power = yes
+		custom_tooltip = kemet_path_neteru_tt
+		hidden_effect = {
+			set_country_flag = kemet_path_neteru
+		}
+		ai_chance = { factor = 60 }
+	}
+}
+
+country_event = {
+	id = kemet_events.2
+	title = kemet_events.2.t
+	desc = kemet_events.2.d
+	picture = EgyptianMummy_eventPicture
+	goto = 2318
+
+	is_triggered_only = yes
+
+	option = { # Grant the keepers their rights
+		name = kemet_events.2.a
+		set_estate_privilege = kemet_sacred_burials_privilege
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+		ai_chance = { factor = 70 }
+	}
+	option = { # Not yet
+		name = kemet_events.2.b
+		add_adm_power = 50
+		custom_tooltip = kemet_events_2_later_tt
+		ai_chance = { factor = 30 }
+	}
+}
+
+#### The Houses of the Gods
+# Each fires three years after its decision. If the site was lost meanwhile, only the last option shows.
+
+# The House of Sutekh, Farafreh
+country_event = {
+	id = kemet_events.10
+	title = kemet_events.10.t
+	desc = {
+		trigger = { owns = 4323 }
+		desc = kemet_events.10.d
+	}
+	desc = {
+		trigger = { NOT = { owns = 4323 } }
+		desc = kemet_events.house.lost
+	}
+	picture = EgyptianSetHorus_eventPicture
+	goto = 4323
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { clr_country_flag = kemet_house_building }
+	}
+
+	option = { # The priests keep the offerings
+		name = kemet_events.house.a
+		trigger = { owns = 4323 }
+		kemet_restore_house_effect = { province = 4323 god = sutekh }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # The lord of the desert rides with us
+		name = kemet_events.10.b
+		trigger = { owns = 4323 }
+		kemet_restore_house_effect = { province = 4323 god = sutekh }
+		add_army_tradition_or_mil_power = { amount = 10 }
+		ai_chance = { factor = 50 }
+	}
+	option = { # The works are lost
+		name = kemet_events.house.c
+		trigger = { NOT = { owns = 4323 } }
+		add_adm_power = 25
+	}
+}
+
+# The House of Heru, Isna
+country_event = {
+	id = kemet_events.11
+	title = kemet_events.11.t
+	desc = {
+		trigger = { owns = 4319 }
+		desc = kemet_events.11.d
+	}
+	desc = {
+		trigger = { NOT = { owns = 4319 } }
+		desc = kemet_events.house.lost
+	}
+	picture = EgyptianTemple_eventPicture
+	goto = 4319
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { clr_country_flag = kemet_house_building }
+	}
+
+	option = {
+		name = kemet_events.house.a
+		trigger = { owns = 4319 }
+		kemet_restore_house_effect = { province = 4319 god = heru }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # The falcon over the army
+		name = kemet_events.11.b
+		trigger = { owns = 4319 }
+		kemet_restore_house_effect = { province = 4319 god = heru }
+		add_army_tradition_or_mil_power = { amount = 10 }
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = kemet_events.house.c
+		trigger = { NOT = { owns = 4319 } }
+		add_adm_power = 25
+	}
+}
+
+# The House of Aset, Aswan
+country_event = {
+	id = kemet_events.12
+	title = kemet_events.12.t
+	desc = {
+		trigger = { owns = 1231 }
+		desc = kemet_events.12.d
+	}
+	desc = {
+		trigger = { NOT = { owns = 1231 } }
+		desc = kemet_events.house.lost
+	}
+	picture = EgyptianTemple_eventPicture
+	goto = 1231
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { clr_country_flag = kemet_house_building }
+	}
+
+	option = {
+		name = kemet_events.house.a
+		trigger = { owns = 1231 }
+		kemet_restore_house_effect = { province = 1231 god = aset }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # The mother of kings
+		name = kemet_events.12.b
+		trigger = { owns = 1231 }
+		kemet_restore_house_effect = { province = 1231 god = aset }
+		add_legitimacy_or_mil_power = { amount = 15 republican_tradition = 8 }
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = kemet_events.house.c
+		trigger = { NOT = { owns = 1231 } }
+		add_adm_power = 25
+	}
+}
+
+# The House of Wsir, Girga
+country_event = {
+	id = kemet_events.13
+	title = kemet_events.13.t
+	desc = {
+		trigger = { owns = 4320 }
+		desc = kemet_events.13.d
+	}
+	desc = {
+		trigger = { NOT = { owns = 4320 } }
+		desc = kemet_events.house.lost
+	}
+	picture = EgyptianMummy_eventPicture
+	goto = 4320
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { clr_country_flag = kemet_house_building }
+	}
+
+	option = {
+		name = kemet_events.house.a
+		trigger = { owns = 4320 }
+		kemet_restore_house_effect = { province = 4320 god = wsir }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # Open the road to the pilgrims
+		name = kemet_events.13.b
+		trigger = { owns = 4320 }
+		kemet_restore_house_effect = { province = 4320 god = wsir }
+		add_prestige_or_monarch_power = { amount = 20 }
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = kemet_events.house.c
+		trigger = { NOT = { owns = 4320 } }
+		add_adm_power = 25
+	}
+}
+
+# The House of Amun-Ra, Qus
+country_event = {
+	id = kemet_events.14
+	title = kemet_events.14.t
+	desc = {
+		trigger = { owns = 360 }
+		desc = kemet_events.14.d
+	}
+	desc = {
+		trigger = { NOT = { owns = 360 } }
+		desc = kemet_events.house.lost
+	}
+	picture = EgyptianStatues_eventPicture
+	goto = 360
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { clr_country_flag = kemet_house_building }
+	}
+
+	option = {
+		name = kemet_events.house.a
+		trigger = { owns = 360 }
+		kemet_restore_house_effect = { province = 360 god = amun }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # The god's estates pay their due
+		name = kemet_events.14.b
+		trigger = { owns = 360 }
+		kemet_restore_house_effect = { province = 360 god = amun }
+		add_years_of_income = 0.5
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = kemet_events.house.c
+		trigger = { NOT = { owns = 360 } }
+		add_adm_power = 25
+	}
+}
+
+# The House of Ptah, Cairo
+country_event = {
+	id = kemet_events.15
+	title = kemet_events.15.t
+	desc = {
+		trigger = { owns = 361 }
+		desc = kemet_events.15.d
+	}
+	desc = {
+		trigger = { NOT = { owns = 361 } }
+		desc = kemet_events.house.lost
+	}
+	picture = EgyptianTemple_eventPicture
+	goto = 361
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { clr_country_flag = kemet_house_building }
+	}
+
+	option = {
+		name = kemet_events.house.a
+		trigger = { owns = 361 }
+		kemet_restore_house_effect = { province = 361 god = ptah }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # The workshops of the craftsman god
+		name = kemet_events.15.b
+		trigger = { owns = 361 }
+		kemet_restore_house_effect = { province = 361 god = ptah }
+		361 = { add_base_production = 1 }
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = kemet_events.house.c
+		trigger = { NOT = { owns = 361 } }
+		add_adm_power = 25
+	}
+}
+
+# The House of Sobek, Fayyum
+country_event = {
+	id = kemet_events.16
+	title = kemet_events.16.t
+	desc = {
+		trigger = { owns = 359 }
+		desc = kemet_events.16.d
+	}
+	desc = {
+		trigger = { NOT = { owns = 359 } }
+		desc = kemet_events.house.lost
+	}
+	picture = EgyptianTemple_eventPicture
+	goto = 359
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { clr_country_flag = kemet_house_building }
+	}
+
+	option = {
+		name = kemet_events.house.a
+		trigger = { owns = 359 }
+		kemet_restore_house_effect = { province = 359 god = sobek }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # The lake and its fishermen
+		name = kemet_events.16.b
+		trigger = { owns = 359 }
+		kemet_restore_house_effect = { province = 359 god = sobek }
+		359 = { add_base_manpower = 1 }
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = kemet_events.house.c
+		trigger = { NOT = { owns = 359 } }
+		add_adm_power = 25
+	}
+}
+
+# The House of Djehuty, Minya
+country_event = {
+	id = kemet_events.17
+	title = kemet_events.17.t
+	desc = {
+		trigger = { owns = 2317 }
+		desc = kemet_events.17.d
+	}
+	desc = {
+		trigger = { NOT = { owns = 2317 } }
+		desc = kemet_events.house.lost
+	}
+	picture = EgyptianWriting_eventPicture
+	goto = 2317
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = { clr_country_flag = kemet_house_building }
+	}
+
+	option = {
+		name = kemet_events.house.a
+		trigger = { owns = 2317 }
+		kemet_restore_house_effect = { province = 2317 god = djehuty }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # The scribes of the ibis
+		name = kemet_events.17.b
+		trigger = { owns = 2317 }
+		kemet_restore_house_effect = { province = 2317 god = djehuty }
+		add_innovativeness_or_monarch_power = { amount = 5 }
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = kemet_events.house.c
+		trigger = { NOT = { owns = 2317 } }
+		add_adm_power = 25
+	}
+}
+
+#### Egypt, any faith
+
+# The Inundation
+country_event = {
+	id = kemet_events.20
+	title = kemet_events.20.t
+	desc = kemet_events.20.d
+	picture = FAMINE_eventPicture
+	goto = kemet_flood_province
+
+	trigger = {
+		OR = {
+			NOT = { has_country_flag = kemet_nile_flood_cd }
+			had_country_flag = { flag = kemet_nile_flood_cd days = 3650 }
+		}
+		any_owned_province = {
+			region = egypt_region
+			OR = {
+				trade_goods = grain
+				trade_goods = sugar
+				trade_goods = cotton
+				trade_goods = dates
+				trade_goods = paper
+			}
+			NOT = { has_province_modifier = kemet_rich_flood_modifier }
+			NOT = { has_province_modifier = kemet_flood_damage_modifier }
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 12
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = kemet_nile_flood_cd
+			set_country_flag = kemet_nile_flood_cd
+			random_owned_province = {
+				limit = {
+					region = egypt_region
+					OR = {
+						trade_goods = grain
+						trade_goods = sugar
+						trade_goods = cotton
+						trade_goods = dates
+						trade_goods = paper
+					}
+					NOT = { has_province_modifier = kemet_rich_flood_modifier }
+					NOT = { has_province_modifier = kemet_flood_damage_modifier }
+				}
+				save_event_target_as = kemet_flood_province
+			}
+		}
+	}
+
+	option = { # The surplus goes to the granaries of the state
+		name = kemet_events.20.a
+		add_years_of_income = 0.15
+		ai_chance = { factor = 50 }
+	}
+	option = { # Leave it with the farmers
+		name = kemet_events.20.b
+		event_target:kemet_flood_province = {
+			add_prosperity = 25
+			add_province_modifier = {
+				name = kemet_rich_flood_modifier
+				duration = 1825
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# The High Flood
+country_event = {
+	id = kemet_events.21
+	title = kemet_events.21.t
+	desc = {
+		trigger = { has_country_flag = kemet_nilometers_flag }
+		desc = kemet_events.21.d_nilometers
+	}
+	desc = {
+		trigger = { NOT = { has_country_flag = kemet_nilometers_flag } }
+		desc = kemet_events.21.d
+	}
+	picture = FAMINE_eventPicture
+	goto = kemet_flood_province
+
+	trigger = {
+		OR = {
+			NOT = { has_country_flag = kemet_nile_flood_cd }
+			had_country_flag = { flag = kemet_nile_flood_cd days = 3650 }
+		}
+		any_owned_province = {
+			region = egypt_region
+			OR = {
+				trade_goods = grain
+				trade_goods = sugar
+				trade_goods = cotton
+				trade_goods = dates
+				trade_goods = paper
+			}
+			NOT = { has_province_modifier = kemet_rich_flood_modifier }
+			NOT = { has_province_modifier = kemet_flood_damage_modifier }
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 15
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = kemet_nile_flood_cd
+			set_country_flag = kemet_nile_flood_cd
+			random_owned_province = {
+				limit = {
+					region = egypt_region
+					OR = {
+						trade_goods = grain
+						trade_goods = sugar
+						trade_goods = cotton
+						trade_goods = dates
+						trade_goods = paper
+					}
+					NOT = { has_province_modifier = kemet_rich_flood_modifier }
+					NOT = { has_province_modifier = kemet_flood_damage_modifier }
+				}
+				save_event_target_as = kemet_flood_province
+			}
+		}
+	}
+
+	option = { # Raise the dykes and save what we can
+		name = kemet_events.21.a
+		if = {
+			limit = { has_country_flag = kemet_nilometers_flag }
+			add_years_of_income = -0.1
+		}
+		else = {
+			add_years_of_income = -0.25
+		}
+		event_target:kemet_flood_province = {
+			add_devastation = 5
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # Let the river have its year
+		name = kemet_events.21.b
+		event_target:kemet_flood_province = {
+			add_devastation = 20
+			add_province_modifier = {
+				name = kemet_flood_damage_modifier
+				duration = 730
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# Raiders from the Sand
+country_event = {
+	id = kemet_events.22
+	title = kemet_events.22.t
+	desc = kemet_events.22.d
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	goto = kemet_raided_province
+
+	trigger = {
+		OR = {
+			NOT = { has_country_flag = kemet_raiders_cd }
+			had_country_flag = { flag = kemet_raiders_cd days = 3650 }
+		}
+		any_owned_province = {
+			region = egypt_region
+			NOT = { has_province_modifier = kemet_desert_patrols_modifier }
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 15
+		modifier = {
+			factor = 0.5
+			NOT = { stability = 0 }
+		}
+		modifier = {
+			factor = 0.75
+			war_exhaustion = 4
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = kemet_raiders_cd
+			set_country_flag = kemet_raiders_cd
+			random_owned_province = {
+				limit = {
+					region = egypt_region
+					NOT = { has_province_modifier = kemet_desert_patrols_modifier }
+				}
+				save_event_target_as = kemet_raided_province
+			}
+		}
+	}
+
+	option = { # Send the riders after them
+		name = kemet_events.22.a
+		add_mil_power = -25
+		event_target:kemet_raided_province = {
+			add_province_modifier = {
+				name = kemet_desert_patrols_modifier
+				duration = 1825
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # The Medjay know these men
+		name = kemet_events.22.c
+		trigger = { has_country_flag = kemet_medjay_flag }
+		event_target:kemet_raided_province = {
+			add_province_modifier = {
+				name = kemet_desert_patrols_modifier
+				duration = 1825
+			}
+		}
+		add_army_tradition_or_mil_power = { amount = 5 }
+		ai_chance = { factor = 100 }
+	}
+	option = { # Pay the sheikhs to ride elsewhere
+		name = kemet_events.22.b
+		add_years_of_income = -0.15
+		ai_chance = { factor = 50 }
+	}
+}
+
+# A Tomb in the Sand
+country_event = {
+	id = kemet_events.23
+	title = kemet_events.23.t
+	desc = kemet_events.23.d
+	picture = EgyptianMummy_eventPicture
+	goto = kemet_tomb_province
+
+	trigger = {
+		NOT = { has_country_flag = kemet_tomb_found_cd }
+		any_owned_province = {
+			OR = {
+				region = egypt_region
+				area = lower_nubia_area
+				area = dongola_area
+				area = upper_nubia_area
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 40
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = kemet_tomb_found_cd
+			random_owned_province = {
+				limit = {
+					OR = {
+						region = egypt_region
+						area = lower_nubia_area
+						area = dongola_area
+						area = upper_nubia_area
+					}
+				}
+				save_event_target_as = kemet_tomb_province
+			}
+		}
+	}
+
+	option = { # Seal it again with the old rites
+		name = kemet_events.23.a
+		trigger = { religion = egyptian_religion }
+		add_prestige_or_monarch_power = { amount = 20 }
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 60 }
+	}
+	option = { # Take the gold
+		name = kemet_events.23.b
+		add_years_of_income = 0.15
+		if = {
+			limit = { religion = egyptian_religion }
+			reduce_estate_church_loyalty_effect = yes
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Give it to the scholars
+		name = kemet_events.23.c
+		trigger = { NOT = { religion = egyptian_religion } }
+		add_prestige_or_monarch_power = { amount = 20 }
+		ai_chance = { factor = 60 }
+	}
+}
+
+#### Kemetic countries
+
+# A Child in the Reeds
+country_event = {
+	id = kemet_events.30
+	title = kemet_events.30.t
+	desc = kemet_events.30.d
+	picture = EgyptianSetHorus_eventPicture
+
+	trigger = {
+		religion = egyptian_religion
+		has_personal_deity = egy_horus
+		government = monarchy
+		has_heir = no
+		months_of_ruling = 60
+		NOT = { has_country_flag = kemet_child_in_the_reeds_cd }
+	}
+
+	mean_time_to_happen = {
+		years = 50
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = kemet_child_in_the_reeds_cd
+		}
+	}
+
+	option = { # Raise the child as our heir
+		name = kemet_events.30.a
+		define_heir = {
+			dynasty = ROOT
+			age = 0
+			claim = 40
+			adm = 3
+			dip = 3
+			mil = 3
+			max_random_adm = 5
+			max_random_dip = 5
+			max_random_mil = 5
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = { # The child belongs with its mother
+		name = kemet_events.30.b
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+		add_prestige_or_monarch_power = { amount = 10 }
+		ai_chance = { factor = 40 }
+	}
+}
+
+# The Heb Sed
+country_event = {
+	id = kemet_events.31
+	title = kemet_events.31.t
+	desc = kemet_events.31.d
+	picture = EgyptianStatues_eventPicture
+
+	trigger = {
+		religion = egyptian_religion
+		government = monarchy
+		months_of_ruling = 360
+		NOT = { has_ruler_modifier = kemet_heb_sed_renewed_modifier }
+		NOT = { has_ruler_modifier = kemet_no_heb_sed_modifier }
+	}
+
+	mean_time_to_happen = {
+		years = 2
+	}
+
+	option = { # Run the course before the gods
+		name = kemet_events.31.a
+		add_years_of_income = -0.5
+		add_ruler_modifier = {
+			name = kemet_heb_sed_renewed_modifier
+			duration = 1825
+		}
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 80 }
+	}
+	option = { # The king has nothing to prove
+		name = kemet_events.31.b
+		add_ruler_modifier = {
+			name = kemet_no_heb_sed_modifier
+			duration = 1825
+		}
+		ai_chance = { factor = 20 }
+	}
+}
+
+# The Temple Endowments
+country_event = {
+	id = kemet_events.32
+	title = kemet_events.32.t
+	desc = kemet_events.32.d
+	picture = EgyptianTemple_eventPicture
+
+	trigger = {
+		religion = egyptian_religion
+		has_estate = estate_church
+		custom_trigger_tooltip = {
+			tooltip = kemet_houses_1_tt
+			kemet_houses_restored_trigger = { amount = 1 }
+		}
+		OR = {
+			NOT = { has_country_flag = kemet_endowments_cd }
+			had_country_flag = { flag = kemet_endowments_cd days = 5475 }
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 15
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = kemet_endowments_cd
+			set_country_flag = kemet_endowments_cd
+		}
+	}
+
+	option = { # Gold for the offering tables
+		name = kemet_events.32.a
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = kemet_endowed_temples_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # Fields for the temple estates
+		name = kemet_events.32.b
+		change_estate_land_share = {
+			estate = estate_church
+			share = 5
+		}
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 40 }
+	}
+	option = { # The gods have more gold than we do
+		name = kemet_events.32.c
+		reduce_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 20 }
+	}
+}
+
+# The Duties of a King
+country_event = {
+	id = kemet_events.33
+	title = kemet_events.33.t
+	desc = kemet_events.33.d
+	picture = OraclesEventPicture
+
+	trigger = {
+		religion = egyptian_religion
+		government = monarchy
+		has_estate = estate_church
+		months_of_ruling = 60
+		NOT = { has_ruler_modifier = kemet_the_king_as_priest_modifier }
+		OR = {
+			NOT = { has_country_flag = kemet_high_priest_cd }
+			had_country_flag = { flag = kemet_high_priest_cd days = 7300 }
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 20
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = kemet_high_priest_cd
+			set_country_flag = kemet_high_priest_cd
+		}
+	}
+
+	option = { # The king will make the offerings
+		name = kemet_events.33.a
+		add_ruler_modifier = {
+			name = kemet_the_king_as_priest_modifier
+		}
+		add_adm_power = -50
+		ai_chance = { factor = 30 }
+	}
+	option = { # Raise a new High Priest
+		name = kemet_events.33.b
+		add_country_modifier = {
+			name = kemet_the_high_priest_modifier
+			duration = 3650
+		}
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	option = { # Give the office to a noble house
+		name = kemet_events.33.c
+		trigger = { has_estate = estate_nobles }
+		add_estate_nobles_loyalty_effect = yes
+		reduce_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 20 }
+	}
+}
+
+# A New Apis Bull
+country_event = {
+	id = kemet_events.34
+	title = kemet_events.34.t
+	desc = kemet_events.34.d
+	picture = ApisBull_EventPicture
+	goto = 361
+
+	trigger = {
+		religion = egyptian_religion
+		OR = {
+			has_country_flag = kemet_house_ptah
+			owns = 361
+		}
+		NOT = { has_country_modifier = kemet_the_apis_bull_modifier }
+		OR = {
+			NOT = { has_country_flag = kemet_apis_cd }
+			had_country_flag = { flag = kemet_apis_cd days = 7300 }
+		}
+	}
+
+	mean_time_to_happen = {
+		years = 20
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = kemet_apis_cd
+			set_country_flag = kemet_apis_cd
+		}
+	}
+
+	option = { # Lead him to Men-nefer with honour
+		name = kemet_events.34.a
+		add_years_of_income = -0.25
+		add_country_modifier = {
+			name = kemet_the_apis_bull_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 70 }
+	}
+	option = { # A bull is a bull
+		name = kemet_events.34.b
+		reduce_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Last Journey (on_monarch_death)
+country_event = {
+	id = kemet_events.37
+	title = kemet_events.37.t
+	desc = kemet_events.37.d
+	picture = EgyptianMummy_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		religion = egyptian_religion
+		government = monarchy
+	}
+
+	option = { # The full rites, as the old kings had them
+		name = kemet_events.37.a
+		add_years_of_income = -0.15
+		add_ruler_modifier = {
+			name = kemet_honoured_predecessor_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 70 }
+	}
+	option = { # A simple burial
+		name = kemet_events.37.b
+		add_ruler_modifier = {
+			name = kemet_dishonoured_predecessor_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+}

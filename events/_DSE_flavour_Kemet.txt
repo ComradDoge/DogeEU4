@@ -1,0 +1,249 @@
+# Kemet (EGP) events
+# .1 fires from the formation (decisions/_DST_FormAncientEgypt.txt), the rest from missions/_DST_Kemet_Missions.txt;
+# each option matches the mission's preview.
+# Shared Kemetic events (the Faith of the River, the Houses of the Gods): events/_DSE_flavour_Kemet_Faith.txt
+
+namespace = egp_events
+
+# The Two Lands United (formation of Kemet)
+country_event = {
+	id = egp_events.1
+	title = egp_events.1.t
+	desc = egp_events.1.d
+	picture = EgyptianSetHorus_eventPicture
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # Rule from Men-nefer
+		name = egp_events.1.a
+		trigger = {
+			owns = 361
+			NOT = { capital = 361 }
+		}
+		361 = { move_capital_effect = yes }
+		add_prestige_or_monarch_power = { amount = 25 }
+		ai_chance = { factor = 60 }
+	}
+	option = { # Rule from Waset
+		name = egp_events.1.b
+		trigger = {
+			owns = 360
+			NOT = { capital = 360 }
+		}
+		360 = {
+			move_capital_effect = yes
+			add_base_tax = 1
+		}
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 20 }
+	}
+	option = { # The throne stays where it is
+		name = egp_events.1.c
+		add_stability_or_adm_power = yes
+		ai_chance = { factor = 20 }
+	}
+}
+
+# The Army of Kemet (egp_the_army_of_kemet)
+country_event = {
+	id = egp_events.2
+	title = egp_events.2.t
+	desc = egp_events.2.d
+	picture = MILITARY_CAMP_eventPicture
+
+	is_triggered_only = yes
+
+	option = { # The Medjay archers
+		name = egp_events.2.a
+		add_country_modifier = {
+			name = egp_the_medjay_archers_modifier
+			duration = 9125
+		}
+		custom_tooltip = faf_unlock_medjay_tt
+		hidden_effect = {
+			set_country_flag = kemet_medjay_flag
+		}
+		ai_chance = { factor = 35 }
+	}
+	option = { # The chariotry
+		name = egp_events.2.b
+		add_country_modifier = {
+			name = egp_the_chariotry_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 35 }
+	}
+	option = { # The levies of the south
+		name = egp_events.2.c
+		add_country_modifier = {
+			name = egp_the_nubian_levies_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Festival of Opet (egp_the_festival_of_opet)
+country_event = {
+	id = egp_events.3
+	title = egp_events.3.t
+	desc = egp_events.3.d
+	picture = EgyptianTemple_eventPicture
+	goto = egp_waset
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			360 = { save_event_target_as = egp_waset }
+		}
+	}
+
+	option = { # Walk beside the barque
+		name = egp_events.3.a
+		add_legitimacy_or_mil_power = { amount = 20 republican_tradition = 10 }
+		add_prestige_or_monarch_power = { amount = 25 }
+		ai_chance = { factor = 40 }
+	}
+	option = { # Feed the city
+		name = egp_events.3.b
+		add_years_of_income = -0.5
+		add_country_modifier = {
+			name = egp_the_beautiful_feast_modifier
+			duration = 3650
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = { # Leave the festival to the priests
+		name = egp_events.3.c
+		add_estate_church_loyalty_effect = yes
+		add_adm_power = 75
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Expedition to Punt (egp_the_expedition_to_punt)
+country_event = {
+	id = egp_events.4
+	title = egp_events.4.t
+	desc = egp_events.4.d
+	picture = EXPLORERS_eventPicture
+	goto = 2321
+
+	is_triggered_only = yes
+
+	option = { # The incense trees, for the gods
+		name = egp_events.4.a
+		360 = {
+			if = {
+				limit = {
+					owned_by = ROOT
+					NOT = { trade_goods = incense }
+				}
+				change_trade_goods = incense
+			}
+		}
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Gold, ebony and ivory, for the treasury
+		name = egp_events.4.b
+		add_years_of_income = 1
+		ai_chance = { factor = 40 }
+	}
+	option = { # A pact with the chiefs of Punt
+		name = egp_events.4.c
+		add_country_modifier = {
+			name = egp_the_road_to_punt_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# The Library of Alexandria (egp_the_library_of_alexandria)
+country_event = {
+	id = egp_events.5
+	title = egp_events.5.t
+	desc = egp_events.5.d
+	picture = Alexandria_eventPicture
+	goto = egp_alexandria
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			358 = { save_event_target_as = egp_alexandria }
+		}
+	}
+
+	option = { # The translators
+		name = egp_events.5.a
+		add_country_modifier = {
+			name = egp_the_translators_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # The temple archives
+		name = egp_events.5.b
+		add_country_modifier = {
+			name = egp_the_temple_archives_modifier
+			duration = 9125
+		}
+		add_estate_church_loyalty_effect = yes
+		ai_chance = { factor = 30 }
+	}
+	option = { # Open the doors to every scholar
+		name = egp_events.5.c
+		add_country_modifier = {
+			name = egp_the_open_stacks_modifier
+			duration = 9125
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Retjenu (egp_retjenu)
+country_event = {
+	id = egp_events.6
+	title = egp_events.6.t
+	desc = egp_events.6.d
+	picture = STREET_SPEECH_eventPicture
+	goto = egp_jerusalem
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			379 = { save_event_target_as = egp_jerusalem }
+		}
+	}
+
+	option = { # Guard the pilgrim road
+		name = egp_events.6.a
+		379 = {
+			if = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = egp_the_pilgrim_road_modifier
+					duration = -1
+				}
+			}
+		}
+		add_prestige_or_monarch_power = { amount = 15 }
+		ai_chance = { factor = 60 }
+	}
+	option = { # Every pilgrim pays at the gate
+		name = egp_events.6.b
+		add_years_of_income = 1
+		379 = {
+			add_province_modifier = {
+				name = egp_the_pilgrim_toll_modifier
+				duration = 3650
+			}
+		}
+		ai_chance = { factor = 40 }
+	}
+}

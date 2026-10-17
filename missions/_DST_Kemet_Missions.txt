@@ -1,0 +1,1236 @@
+# Kemet - the Black Land restored
+# Tree for Kemet (EGP), formed by a Kemetic Egyptian country (decisions/_DST_FormAncientEgypt.txt), usually Farafra
+# (missions/_DST_Farafra_Missions.txt). Replaces the old Antiquity Reborn tree.
+# Slots: 1 The Gods, 2 The Two Lands, 3 The South, 4 The Sea, 5 The Horizon.
+# The Faith of the River (kemet_path_maat / kemet_path_neteru) is chosen in Farafra's tree, or here in
+# egp_the_black_land_whole by a Kemet that never chose.
+# Events: events/_DSE_flavour_Kemet.txt (egp_events, kemet_events)
+# Modifiers: common/event_modifiers/DST_Kemet_modifiers.txt, effects: common/scripted_effects/DST_Kemet_scripted_effects.txt
+# Triggers: common/scripted_triggers/DST_Kemet_triggers.txt, Houses decisions: decisions/DST_Kemet_Houses.txt
+# Monuments (Leviathan): kemet_valley_of_the_kings, kemet_deir_el_medina, kemet_great_library in common/great_projects/DST_monuments.txt.
+# The suez_canal build_trigger (common/great_projects/00_great_projects.txt) accepts egp_the_canal_of_the_pharaohs.
+
+#### Column 1: The Gods
+
+egp_gods = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = EGP
+	}
+
+	egp_the_house_of_life = {
+		icon = mission_egypt_high_priest
+		position = 1
+		required_missions = { }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = kemet_houses_4_tt
+				kemet_houses_restored_trigger = { amount = 4 }
+			}
+			if = {
+				limit = { has_estate = estate_church }
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = egp_unlock_house_of_life_tt
+			custom_tooltip = " "
+			add_adm_power = 50
+		}
+	}
+
+	egp_the_valley_of_the_kings = {
+		icon = me_mission_persia_rebuild_royal_tombs
+		position = 3
+		required_missions = { egp_the_house_of_life }
+
+		provinces_to_highlight = {
+			province_id = 360
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			360 = {
+				owned_by = ROOT
+				custom_trigger_tooltip = {
+					tooltip = egp_house_of_amun_tt
+					ROOT = { has_country_flag = kemet_house_amun }
+				}
+			}
+		}
+
+		effect = {
+			360 = {
+				if = {
+					limit = { has_dlc = "Leviathan" }
+					if = {
+						limit = {
+							NOT = {
+								has_great_project = {
+									type = kemet_valley_of_the_kings
+									tier = 0
+								}
+							}
+						}
+						hidden_effect = { set_global_flag = kemet_valley_of_the_kings_flag }
+						add_great_project = {
+							type = kemet_valley_of_the_kings
+							instant = yes
+						}
+					}
+					add_great_project_tier = {
+						type = kemet_valley_of_the_kings
+						tier = 1
+					}
+				}
+				else = {
+					add_province_modifier = {
+						name = egp_the_valley_of_the_kings_modifier
+						duration = -1
+					}
+				}
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 15 }
+		}
+	}
+
+	egp_the_place_of_truth = {
+		icon = me_ere_tomb
+		position = 4
+		required_missions = { egp_the_valley_of_the_kings }
+
+		provinces_to_highlight = {
+			province_id = 360
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			360 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_production_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_production_building_trigger = yes
+						development = 15
+					}
+				}
+			}
+			num_of_owned_provinces_with = {
+				value = 3
+				region = egypt_region
+				has_production_building_trigger = yes
+			}
+		}
+
+		effect = {
+			360 = {
+				if = {
+					limit = { has_dlc = "Leviathan" }
+					if = {
+						limit = {
+							NOT = {
+								has_great_project = {
+									type = kemet_deir_el_medina
+									tier = 0
+								}
+							}
+						}
+						hidden_effect = { set_global_flag = kemet_deir_el_medina_flag }
+						add_great_project = {
+							type = kemet_deir_el_medina
+							instant = yes
+						}
+					}
+					add_great_project_tier = {
+						type = kemet_deir_el_medina
+						tier = 1
+					}
+				}
+				else = {
+					add_province_modifier = {
+						name = egp_the_place_of_truth_modifier
+						duration = -1
+					}
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = egp_unlock_craftsmen_tt
+			hidden_effect = {
+				set_country_flag = kemet_place_of_truth_flag
+			}
+		}
+	}
+
+	egp_the_festival_of_opet = {
+		icon = me_mission_france_egypt_spynx
+		position = 5
+		required_missions = { egp_the_place_of_truth egp_the_granary_of_the_sea }
+
+		provinces_to_highlight = {
+			province_id = 360
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 20 }
+			}
+		}
+
+		trigger = {
+			stability = 2
+			360 = {
+				owned_by = ROOT
+				development = 20
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = egp_events.3
+				option_1 = "
+					add_legitimacy_or_mil_power = { amount = 20 republican_tradition = 10 }
+					add_prestige_or_monarch_power = { amount = 25 }
+				"
+				option_2 = "
+					add_years_of_income = -0.5
+					add_country_modifier = {
+						name = egp_the_beautiful_feast_modifier
+						duration = 3650
+					}
+				"
+				option_3 = "
+					add_estate_church_loyalty_effect = yes
+					add_adm_power = 75
+				"
+			}
+		}
+	}
+
+	egp_the_gods_return = {
+		icon = mission_egypt_pharaoh_ra
+		position = 7
+		required_missions = { egp_the_festival_of_opet }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = kemet_houses_8_tt
+				kemet_houses_restored_trigger = { amount = 8 }
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = egp_the_gods_return_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_estate_church_loyalty_effect = yes
+		}
+	}
+}
+
+#### Column 2: The Two Lands
+
+egp_two_lands = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = EGP
+	}
+
+	egp_the_black_land_whole = {
+		icon = kemet_new_faith
+		position = 1
+		required_missions = { }
+
+		# The Nile valley only (the Black Land proper). Cyrenaica, the oases and the Sinai coast are left to the formation claims.
+		provinces_to_highlight = {
+			OR = {
+				area = delta_area
+				area = bahari_area
+				area = vostani_area
+				area = said_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+
+		trigger = {
+			delta_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			bahari_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			vostani_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			said_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = egp_the_two_lands_united_modifier
+				duration = 9125
+			}
+			if = {
+				limit = {
+					NOT = { kemet_faith_chosen_trigger = yes }
+				}
+				custom_tooltip = " "
+				country_event_with_option_insight = {
+					id = kemet_events.1
+					option_1 = "
+						add_country_modifier = {
+							name = kemet_scales_of_maat_modifier
+							duration = 3650
+						}
+						add_estate_burghers_loyalty_effect = yes
+					"
+					option_2 = "
+						add_country_modifier = {
+							name = kemet_return_of_the_neteru_modifier
+							duration = 3650
+						}
+						add_estate_church_loyalty_effect = yes
+						reduce_stability_or_adm_power = yes
+					"
+				}
+			}
+		}
+	}
+
+	egp_the_nomarchs = {
+		icon = mission_muslim_administrators
+		position = 2
+		required_missions = { egp_the_black_land_whole }
+
+		trigger = {
+			if = {
+				limit = { ai = no }
+				num_of_owned_provinces_with = {
+					value = 4
+					region = egypt_region
+					has_courthouse_building_trigger = yes
+				}
+			}
+			else = {
+				num_of_owned_provinces_with = {
+					value = 4
+					region = egypt_region
+					OR = {
+						has_courthouse_building_trigger = yes
+						development = 15
+					}
+				}
+			}
+			NOT = { average_autonomy_above_min = 10 }
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = egp_the_nomarchs_modifier
+				duration = 9125
+			}
+		}
+	}
+
+	egp_the_granary_of_the_sea = {
+		icon = kemet_granary
+		position = 4
+		required_missions = { egp_the_nomarchs }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2316
+				province_id = 362
+				province_id = 363
+				province_id = 4316
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = egp_delta_granaries_tt
+				2316 = {
+					owned_by = ROOT
+					if = {
+						limit = { ROOT = { ai = no } }
+						has_production_building_trigger = yes
+					}
+					else = {
+						OR = {
+							has_production_building_trigger = yes
+							development = 15
+						}
+					}
+				}
+				362 = {
+					owned_by = ROOT
+					if = {
+						limit = { ROOT = { ai = no } }
+						has_production_building_trigger = yes
+					}
+					else = {
+						OR = {
+							has_production_building_trigger = yes
+							development = 13
+						}
+					}
+				}
+				363 = {
+					owned_by = ROOT
+					if = {
+						limit = { ROOT = { ai = no } }
+						has_production_building_trigger = yes
+					}
+					else = {
+						OR = {
+							has_production_building_trigger = yes
+							development = 13
+						}
+					}
+				}
+				4316 = {
+					owned_by = ROOT
+					if = {
+						limit = { ROOT = { ai = no } }
+						has_production_building_trigger = yes
+					}
+					else = {
+						OR = {
+							has_production_building_trigger = yes
+							development = 15
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_years_of_owned_provinces_production_income = {
+				years = 2
+				trigger = {
+					region = egypt_region
+					OR = {
+						trade_goods = grain
+						trade_goods = sugar
+						trade_goods = cotton
+						trade_goods = dates
+					}
+				}
+				custom_tooltip = egp_granary_income_tt
+			}
+			custom_tooltip = " "
+			custom_tooltip = MAM_upgrade
+			custom_tooltip = egp_granary_already_upgraded_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 2316
+							province_id = 362
+							province_id = 363
+							province_id = 4316
+						}
+					}
+					if = {
+						limit = { has_province_modifier = MAM_upgraded_granary }
+						add_base_production = 1
+					}
+					else = {
+						if = {
+							limit = { has_province_modifier = granary_of_the_mediterranean }
+							remove_province_modifier = granary_of_the_mediterranean
+						}
+						add_permanent_province_modifier = {
+							name = MAM_upgraded_granary
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	egp_the_nilometers = {
+		icon = fu_nile_breadbasket
+		position = 5
+		required_missions = { egp_the_granary_of_the_sea }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 361
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 30 }
+					}
+				}
+				AND = {
+					province_id = 1231
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 12 }
+					}
+				}
+			}
+		}
+
+		trigger = {
+			361 = {
+				owned_by = ROOT
+				development = 30
+			}
+			1231 = {
+				owned_by = ROOT
+				development = 12
+			}
+		}
+
+		effect = {
+			361 = {
+				add_province_modifier = {
+					name = egp_the_nilometer_modifier
+					duration = -1
+				}
+			}
+			1231 = {
+				add_base_production = 2
+			}
+			custom_tooltip = " "
+			custom_tooltip = egp_nilometers_flood_tt
+			hidden_effect = {
+				set_country_flag = kemet_nilometers_flag
+			}
+		}
+	}
+
+	egp_the_wealth_of_kemet = {
+		icon = me_mission_arabia_big_arabian_city
+		position = 6
+		required_missions = { egp_the_nilometers }
+
+		provinces_to_highlight = {
+			region = egypt_region
+			owned_by = ROOT
+			NOT = { development = 20 }
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = egp_wealth_10_tt
+				num_of_owned_provinces_with = {
+					value = 10
+					region = egypt_region
+					development = 20
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = egp_the_wealth_of_kemet_modifier
+				duration = -1
+			}
+		}
+	}
+}
+
+#### Column 3: The South
+
+egp_south = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = EGP
+	}
+
+	egp_the_first_cataract = {
+		icon = mission_se_along_the_river
+		position = 2
+		required_missions = { egp_the_black_land_whole }
+
+		provinces_to_highlight = {
+			province_id = 1231
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_trade_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			1231 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_trade_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_trade_building_trigger = yes
+						development = 12
+					}
+				}
+			}
+		}
+
+		effect = {
+			# Rest of the Makurian realm at start (lower Nubia is claimed by the formation), so one war takes it.
+			give_claims = { area = dongola_area }
+			give_claims = { province = 1232 }
+			give_claims = { province = 2324 }
+			custom_tooltip = " "
+			1231 = {
+				add_base_tax = 1
+			}
+		}
+	}
+
+	egp_wawat = {
+		icon = mission_african_gold
+		position = 3
+		required_missions = { egp_the_first_cataract }
+
+		provinces_to_highlight = {
+			area = lower_nubia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			lower_nubia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			2323 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+						NOT = { trade_goods = gold }
+					}
+					change_trade_goods = gold
+				}
+			}
+			custom_tooltip = " "
+			# Alodia at start (upper Nubia and Sennar).
+			give_claims = { area = upper_nubia_area }
+			give_claims = { area = sennar_area }
+		}
+	}
+
+	egp_the_viceroy_of_kush = {
+		icon = mission_kushite_pharaoh
+		position = 4
+		required_missions = { egp_wawat }
+
+		provinces_to_highlight = {
+			OR = {
+				area = lower_nubia_area
+				area = dongola_area
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				AND = {
+					owned_by = ROOT
+					NOT = { is_core = ROOT }
+				}
+			}
+		}
+
+		trigger = {
+			lower_nubia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			dongola_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			custom_trigger_tooltip = {
+				tooltip = egp_the_viceroy_of_kush_tt
+				NOT = {
+					any_owned_province = {
+						OR = {
+							area = lower_nubia_area
+							area = dongola_area
+						}
+						NOT = { is_core = ROOT }
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = egp_kings_son_of_kush_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			1228 = {
+				if = {
+					limit = { owned_by = ROOT }
+					add_base_manpower = 1
+				}
+			}
+		}
+	}
+
+	egp_meroe = {
+		icon = mission_nubian_pyramids
+		position = 6
+		required_missions = { egp_the_viceroy_of_kush }
+
+		provinces_to_highlight = {
+			area = upper_nubia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			upper_nubia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			2798 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+						NOT = { province_has_center_of_trade_of_level = 3 }
+					}
+					add_center_of_trade_level = 1
+				}
+			}
+			2797 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+						NOT = { trade_goods = iron }
+					}
+					change_trade_goods = iron
+				}
+			}
+			custom_tooltip = " "
+			give_claims = { province = 1219 }
+		}
+	}
+}
+
+#### Column 4: The Sea
+
+egp_sea = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = EGP
+	}
+
+	egp_the_pharos = {
+		icon = me_mission_aragon_lighthouse_of_alexandria
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 358
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_dock_building_trigger = yes }
+			}
+		}
+
+		trigger = {
+			358 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_dock_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_dock_building_trigger = yes
+						development = 18
+					}
+				}
+			}
+			num_of_light_ship = 8
+		}
+
+		effect = {
+			358 = {
+				add_or_upgrade_shipyard_building = yes
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = egp_the_pharos_modifier
+				duration = 9125
+			}
+		}
+	}
+
+	egp_the_library_of_alexandria = {
+		icon = me_mission_man_in_library
+		position = 2
+		required_missions = { egp_the_pharos }
+
+		provinces_to_highlight = {
+			province_id = 358
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { development = 25 }
+			}
+		}
+
+		trigger = {
+			358 = {
+				owned_by = ROOT
+				development = 25
+			}
+			adm_tech = 12
+		}
+
+		effect = {
+			358 = {
+				if = {
+					limit = { has_dlc = "Leviathan" }
+					if = {
+						limit = {
+							NOT = {
+								has_great_project = {
+									type = kemet_great_library
+									tier = 0
+								}
+							}
+						}
+						hidden_effect = { set_global_flag = kemet_great_library_flag }
+						add_great_project = {
+							type = kemet_great_library
+							instant = yes
+						}
+					}
+					add_great_project_tier = {
+						type = kemet_great_library
+						tier = 1
+					}
+				}
+				else = {
+					add_province_modifier = {
+						name = egp_the_great_library_modifier
+						duration = -1
+					}
+				}
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = egp_events.5
+				option_1 = "
+					add_country_modifier = {
+						name = egp_the_translators_modifier
+						duration = 9125
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = egp_the_temple_archives_modifier
+						duration = 9125
+					}
+					add_estate_church_loyalty_effect = yes
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = egp_the_open_stacks_modifier
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+
+	egp_the_road_to_queseer = {
+		icon = me_mission_arabia_dhow_at_port
+		position = 3
+		required_missions = { egp_the_library_of_alexandria }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 2321
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { has_dock_building_trigger = yes }
+					}
+				}
+				AND = {
+					province_id = 360
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { has_trade_building_trigger = yes }
+					}
+				}
+			}
+		}
+
+		trigger = {
+			2321 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_dock_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_dock_building_trigger = yes
+						development = 8
+					}
+				}
+			}
+			360 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_trade_building_trigger = yes
+				}
+				else = {
+					OR = {
+						has_trade_building_trigger = yes
+						development = 15
+					}
+				}
+			}
+		}
+
+		effect = {
+			2321 = {
+				add_base_tax = 1
+				add_base_production = 1
+			}
+			custom_tooltip = " "
+			give_claims = { area = red_sea_coast_area }
+		}
+	}
+
+	egp_the_expedition_to_punt = {
+		icon = me_mission_arabia_dhow_at_sea
+		position = 5
+		required_missions = { egp_the_road_to_queseer egp_the_viceroy_of_kush }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1232
+				province_id = 1230
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			OR = {
+				1232 = { country_or_non_sovereign_subject_holds = ROOT }
+				1230 = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			num_of_light_ship = 10
+		}
+
+		effect = {
+			give_claims = { area = somaliland_area }
+			give_claims = { province = 1212 }
+			custom_tooltip = egp_punt_cb_tt
+			hidden_effect = {
+				set_country_flag = kemet_punt_campaign_flag
+			}
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = egp_events.4
+				option_1 = "
+					custom_tooltip = egp_events_4_incense_tt
+					add_estate_church_loyalty_effect = yes
+				"
+				option_2 = "
+					add_years_of_income = 1
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = egp_the_road_to_punt_modifier
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+
+	# Late on purpose: it lets the Suez Canal skip Administrative Technology 22 (like mam_highway_empire, row 9).
+	egp_the_canal_of_the_pharaohs = {
+		icon = mission_advance_to_the_arabian_sea
+		position = 7
+		required_missions = { egp_the_expedition_to_punt }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 4316
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 20 }
+						NOT = { has_trade_building_trigger = yes }
+					}
+				}
+				AND = {
+					province_id = 2315
+					OR = {
+						NOT = { owned_by = ROOT }
+						NOT = { development = 10 }
+					}
+				}
+			}
+		}
+
+		trigger = {
+			4316 = {
+				owned_by = ROOT
+				development = 20
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_trade_building_trigger = yes
+				}
+			}
+			2315 = {
+				owned_by = ROOT
+				development = 10
+			}
+			owns = 2321
+			adm_tech = 18
+			treasury = 1000
+		}
+
+		effect = {
+			add_treasury = -1000
+			2315 = {
+				add_province_modifier = {
+					name = egp_the_canal_works_modifier
+					duration = -1
+				}
+			}
+			4316 = {
+				add_province_modifier = {
+					name = egp_the_canal_works_modifier
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = egp_unlock_suez_tt
+		}
+	}
+}
+
+#### Column 5: The Horizon
+
+egp_horizon = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = EGP
+	}
+
+	egp_the_army_of_kemet = {
+		icon = mission_egyptian_mamluk_soldier
+		position = 2
+		required_missions = { }
+
+		trigger = {
+			army_size = 30
+			OR = {
+				army_professionalism = 0.2
+				army_tradition = 40
+			}
+		}
+
+		effect = {
+			country_event_with_option_insight = {
+				id = egp_events.2
+				option_1 = "
+					add_country_modifier = {
+						name = egp_the_medjay_archers_modifier
+						duration = 9125
+					}
+					custom_tooltip = faf_unlock_medjay_tt
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = egp_the_chariotry_modifier
+						duration = 9125
+					}
+				"
+				option_3 = "
+					add_country_modifier = {
+						name = egp_the_nubian_levies_modifier
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+
+	egp_the_ways_of_horus = {
+		icon = mission_map_arabia_antique
+		position = 3
+		required_missions = { egp_the_army_of_kemet }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 365
+				province_id = 2315
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			365 = { country_or_non_sovereign_subject_holds = ROOT }
+			2315 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		effect = {
+			give_claims = { area = palestine_area }
+			give_claims = { area = trans_jordan_area }
+			custom_tooltip = " "
+			add_army_tradition_or_mil_power = { amount = 10 }
+		}
+	}
+
+	egp_retjenu = {
+		icon = me_mission_jerusalem
+		position = 4
+		required_missions = { egp_the_ways_of_horus }
+
+		provinces_to_highlight = {
+			area = palestine_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			palestine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			give_claims = { area = syria_area }
+			give_claims = { province = 1849 }
+			custom_tooltip = " "
+			country_event_with_option_insight = {
+				id = egp_events.6
+				option_1 = "
+					379 = {
+						add_province_modifier = {
+							name = egp_the_pilgrim_road_modifier
+							duration = -1
+						}
+					}
+					add_prestige_or_monarch_power = { amount = 15 }
+				"
+				option_2 = "
+					add_years_of_income = 1
+					379 = {
+						add_province_modifier = {
+							name = egp_the_pilgrim_toll_modifier
+							duration = 3650
+						}
+					}
+				"
+			}
+		}
+	}
+
+	egp_kadesh = {
+		icon = mission_sassanid_golden_cataphract
+		position = 6
+		required_missions = { egp_retjenu }
+
+		provinces_to_highlight = {
+			area = syria_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			syria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = egp_the_treaty_of_kadesh_modifier
+				duration = 9125
+			}
+			custom_tooltip = " "
+			give_claims = { area = aleppo_area }
+		}
+	}
+
+	egp_the_new_kingdom = {
+		icon = kemet_new_empire
+		position = 7
+		required_missions = { egp_kadesh }
+
+		trigger = {
+			is_great_power = yes
+			OR = {
+				government_rank = 3
+				total_development = 800
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { NOT = { government_rank = 3 } }
+				set_government_rank = 3
+			}
+			add_country_modifier = {
+				name = egp_the_new_kingdom_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			add_prestige_or_monarch_power = { amount = 50 }
+		}
+	}
+}
