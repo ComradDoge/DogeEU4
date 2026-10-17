@@ -111,3 +111,41 @@ xorme_ai_build_forts_effect = {
 	}
 	else = {}
 }
+
+#OPM KILLER ( Used in xorme_ai_opm_killer.1 )
+#every_neighbor_country never reaches island realms, so small AI islands close to ROOT join its conquest sphere here
+xorme_ai_conq_box_island_minors_effect = {
+	every_country = {
+		limit = {
+			exists = yes
+			ai = yes
+			NOT = { tag = ROOT }
+			NOT = { total_development = $dev$ }
+			NOT = { is_neighbor_of = ROOT }
+			NOT = { is_subject_of = ROOT }
+			[[exclude_allies]
+				NOT = { alliance_with = ROOT }
+			]
+			NOT = { historical_friend_with = ROOT }
+			NOT = { tag = PAP }
+			OR = {
+				capital_scope = { is_island = yes }
+				NOT = { any_neighbor_country = { exists = yes } }
+			}
+			NOT = {
+				border_distance = {
+					who = ROOT
+					distance = 150
+				}
+			}
+		}
+		add_opinion = {
+			who = ROOT
+			modifier = xorme_ai_conq_box
+		}
+		reverse_add_opinion = {
+			who = ROOT
+			modifier = xorme_ai_conq_box
+		}
+	}
+}
