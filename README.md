@@ -54,7 +54,7 @@ Fixes/Tweaks
 
 Content
 
-Generally, a pass over various small countries that never had content. Generally, it's small/medium sized with some additional side flavour. If a country's gameplay feels very off, or doesn't account for some odd case, feel free to report it. For the most part, they have been made to take very dynamic situations in account or have fallbacks.
+Generally, a focus on small countries that never had content. Small/medium sized missions with some additional side flavour to make them have an identity.
 
 - Kemetism: added its own religious idea group.
 - Galicia and Volhynia: a shared mission tree with a column for each to be more flavourful.
