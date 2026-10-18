@@ -120,9 +120,15 @@ country_event = {
 
 	option = { # The crown from Rome
 		name = gv_events.3.a
+		trigger = {
+			# After a confirmed preview (gv_the_crown_of_rus) only the previewed crown is offered
+			NOT = { has_country_flag = gv_preview_halicz }
+		}
 		custom_tooltip = gv_crown_of_rome_tt
 		hidden_effect = {
 			set_country_flag = gv_crown_of_rome
+			clr_country_flag = gv_preview_rome
+			swap_non_generic_missions = yes
 		}
 		add_country_modifier = {
 			name = gv_papal_crown_modifier
@@ -142,9 +148,14 @@ country_event = {
 	}
 	option = { # The crown of Halicz
 		name = gv_events.3.b
+		trigger = {
+			NOT = { has_country_flag = gv_preview_rome }
+		}
 		custom_tooltip = gv_crown_of_halicz_tt
 		hidden_effect = {
 			set_country_flag = gv_crown_of_halicz
+			clr_country_flag = gv_preview_halicz
+			swap_non_generic_missions = yes
 		}
 		add_country_modifier = {
 			name = gv_halicz_crown_modifier
@@ -367,7 +378,7 @@ country_event = {
 	}
 }
 
-# The Union of the Churches (gv_the_church_of_rus, Rome)
+# The Union of the Churches (gv_the_union_of_the_churches)
 country_event = {
 	id = gv_events.10
 	title = gv_events.10.t
@@ -397,7 +408,7 @@ country_event = {
 	}
 }
 
-# The Metropolitan of Halicz (gv_the_church_of_rus, Halicz)
+# The Metropolitan of Halicz (gv_the_metropolis_of_halicz)
 country_event = {
 	id = gv_events.11
 	title = gv_events.11.t
@@ -423,7 +434,7 @@ country_event = {
 	}
 }
 
-# The Chronicle (gv_the_chronicle)
+# The Chronicle (gv_the_chronicle_rome / _halicz, gv_the_chronicle_effect)
 country_event = {
 	id = gv_events.12
 	title = gv_events.12.t
@@ -435,7 +446,20 @@ country_event = {
 
 	option = { # Write of the warrior kings
 		name = gv_events.12.a
-		add_army_tradition_or_mil_power = { amount = 15 }
+		if = {
+			limit = {
+				has_regency = no
+				NOT = { num_of_ruler_traits = { amount = 3 } }
+				NOT = { ruler_has_personality = conqueror_personality }
+				NOT = { ruler_has_personality = great_conqueror_personality }
+				NOT = { ruler_has_personality = mythical_conqueror_personality }
+				NOT = { ruler_has_personality = legendary_conqueror_personality }
+			}
+			add_ruler_personality = conqueror_personality
+		}
+		else = {
+			add_army_tradition_or_mil_power = { amount = 25 }
+		}
 		add_prestige_or_monarch_power = { amount = 10 }
 		ai_chance = { factor = 40 }
 	}
@@ -443,7 +467,11 @@ country_event = {
 		name = gv_events.12.b
 		add_country_modifier = {
 			name = gv_chronicle_of_kings_modifier
-			duration = 3650
+			duration = 9125
+		}
+		change_estate_land_share = {
+			estate = all
+			share = -5
 		}
 		reduce_estate_nobles_loyalty_effect = yes
 		ai_chance = { factor = 30 }
@@ -452,7 +480,7 @@ country_event = {
 		name = gv_events.12.c
 		add_country_modifier = {
 			name = gv_chronicle_of_the_shattering_modifier
-			duration = 3650
+			duration = 9125
 		}
 		ai_chance = { factor = 30 }
 	}
@@ -535,10 +563,14 @@ country_event = {
 		name = gv_events.15.a
 		280 = {
 			move_capital_effect = yes
+			add_province_modifier = {
+				name = gv_kiev_seat_of_grand_princes_modifier
+				duration = -1
+			}
 		}
 		add_country_modifier = {
 			name = gv_court_at_kiev_modifier
-			duration = 3650
+			duration = 9125
 		}
 		ai_chance = { factor = 40 }
 	}

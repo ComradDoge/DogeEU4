@@ -2,9 +2,12 @@
 # One tree for Farafra (FAF), the Kemetic oasis tribe of the Western Desert. Forming Kemet
 # (decisions/_DST_FormAncientEgypt.txt) swaps it for the Kemet tree (missions/_DST_Kemet_Missions.txt).
 # Slots: 1 The Oases, 2 The Desert Host, 3 The Valley, 4 The Old Gods, 5 The Throne.
-# faf_the_people_of_the_river fires kemet_events.1: the Scales of Ma'at (kemet_path_maat) or the Return of the
-# Neteru (kemet_path_neteru). faf_the_faith_of_the_valley and faf_the_two_truths branch on that flag; their trigger
-# falls back to "always = no" while no path is chosen. Kemet's tree reads the same flags.
+# faf_the_people_of_the_river opens a mission preview (key FAF, EE_scripted_effects_mission_rewards.txt): humans
+# flip between the Scales of Ma'at and the Return of the Neteru, and Select fires kemet_events.1 with that path only
+# (kemet_path_maat / kemet_path_neteru). The AI gets the event at once. Each path has its own two faith missions
+# in its own series (faf_gods_maat, faf_gods_neteru), shown once that path is chosen or previewed (kemet_path_*_trigger);
+# "Branching Mission" placeholders (faf_gods_faith_unknown) stand in before. They can't complete during a preview.
+# Kemet's tree reads the real flags.
 # Events: events/_DSE_flavour_Farafra.txt (faf_events), events/_DSE_flavour_Kemet_Faith.txt (kemet_events)
 # Modifiers: common/event_modifiers/DST_Kemet_modifiers.txt, effects: common/scripted_effects/DST_Kemet_scripted_effects.txt
 # Triggers: common/scripted_triggers/_DST_Kemet_triggers.txt, Houses decisions: decisions/_DST_flavour_Kemet_Houses.txt
@@ -707,28 +710,172 @@ faf_gods = {
 		}
 
 		effect = {
-			country_event_with_option_insight = {
-				id = kemet_events.1
-				option_1 = "
+			# Humans preview both paths in the mission view and confirm with Select, which fires kemet_events.1
+			# with the previewed option only. The AI gets kemet_events.1 right away.
+			if = {
+				limit = {
+					NOT = { kemet_faith_chosen_trigger = yes }
+				}
+				custom_tooltip = faf_faith_choice_tt
+				hidden_effect = {
+					enable_branching_mission_review = {
+						key = FAF
+						ai_event_id = kemet_events.1
+					}
+				}
+				custom_tooltip = " "
+				custom_tooltip = faf_faith_option_maat_tt
+				tooltip = {
 					add_country_modifier = {
 						name = kemet_scales_of_maat_modifier
 						duration = 3650
 					}
 					add_estate_burghers_loyalty_effect = yes
-				"
-				option_2 = "
+				}
+				custom_tooltip = faf_faith_option_neteru_tt
+				tooltip = {
 					add_country_modifier = {
 						name = kemet_return_of_the_neteru_modifier
 						duration = 3650
 					}
 					add_estate_church_loyalty_effect = yes
 					reduce_stability_or_adm_power = yes
-				"
+				}
 			}
 		}
 	}
 
-	faf_the_faith_of_the_valley = {
+}
+
+# The faith missions: one series per path (kemet_path_*_trigger, chosen or previewed), faf_gods_faith_unknown before
+faf_gods_maat = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = FAF
+		kemet_path_maat_trigger = yes
+	}
+
+	faf_the_two_peoples = {
+		icon = mission_mal_more_tolerance_to_heathens
+		position = 4
+		required_missions = { faf_the_people_of_the_river }
+
+		provinces_to_highlight = {
+			region = egypt_region
+			owned_by = ROOT
+			NOT = { religion = ROOT }
+			unrest = 1
+		}
+
+		trigger = {
+			not_in_mission_preview_mode = { key = FAF }
+			# The AI sends missionaries on its own and would convert the provinces this path asks it to keep,
+			# so it counts calm valley provinces of any faith.
+			custom_trigger_tooltip = {
+				tooltip = faf_faith_maat_5_tt
+				if = {
+					limit = { ai = no }
+					num_of_owned_provinces_with = {
+						value = 5
+						region = egypt_region
+						NOT = { religion = ROOT }
+						NOT = { unrest = 1 }
+					}
+				}
+				else = {
+					num_of_owned_provinces_with = {
+						value = 5
+						region = egypt_region
+						NOT = { area = al_wahat_area }
+						NOT = { unrest = 1 }
+					}
+				}
+			}
+			if = {
+				limit = { has_estate = estate_burghers }
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 50
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = faf_the_two_peoples_modifier
+				duration = 9125
+			}
+			add_estate_burghers_loyalty_effect = yes
+		}
+	}
+
+	faf_the_order_of_maat = {
+		icon = ven_scales_of_power
+		position = 6
+		required_missions = { faf_the_two_peoples }
+
+		provinces_to_highlight = {
+			region = egypt_region
+			owned_by = ROOT
+			NOT = { religion = ROOT }
+			unrest = 1
+		}
+
+		trigger = {
+			not_in_mission_preview_mode = { key = FAF }
+			custom_trigger_tooltip = {
+				tooltip = kemet_houses_3_tt
+				kemet_houses_restored_trigger = { amount = 3 }
+			}
+			# AI: calm valley provinces of any faith (see faf_the_two_peoples).
+			custom_trigger_tooltip = {
+				tooltip = faf_faith_maat_8_tt
+				if = {
+					limit = { ai = no }
+					num_of_owned_provinces_with = {
+						value = 8
+						region = egypt_region
+						NOT = { religion = ROOT }
+						NOT = { unrest = 1 }
+					}
+				}
+				else = {
+					num_of_owned_provinces_with = {
+						value = 8
+						region = egypt_region
+						NOT = { area = al_wahat_area }
+						NOT = { unrest = 1 }
+					}
+				}
+			}
+			stability = 2
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = kemet_the_order_of_maat_modifier
+				duration = -1
+			}
+			add_estate_burghers_loyalty_effect = yes
+			faf_two_truths_houses_effect = yes
+		}
+	}
+}
+
+faf_gods_neteru = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = FAF
+		kemet_path_neteru_trigger = yes
+	}
+
+	faf_the_lector_priests = {
 		icon = mission_egypt_high_priest
 		position = 4
 		required_missions = { faf_the_people_of_the_river }
@@ -736,195 +883,112 @@ faf_gods = {
 		provinces_to_highlight = {
 			region = egypt_region
 			owned_by = ROOT
-			if = {
-				limit = { ROOT = { has_country_flag = kemet_path_maat } }
-				NOT = { religion = ROOT }
-				unrest = 1
-			}
-			else = {
-				NOT = { area = al_wahat_area }
-				NOT = { religion = ROOT }
-			}
+			NOT = { area = al_wahat_area }
+			NOT = { religion = ROOT }
 		}
 
 		trigger = {
-			if = {
-				limit = { has_country_flag = kemet_path_maat }
-				# The AI sends missionaries on its own and would convert the provinces this path asks it to keep,
-				# so it counts calm valley provinces of any faith.
-				custom_trigger_tooltip = {
-					tooltip = faf_faith_maat_5_tt
-					if = {
-						limit = { ai = no }
-						num_of_owned_provinces_with = {
-							value = 5
-							region = egypt_region
-							NOT = { religion = ROOT }
-							NOT = { unrest = 1 }
-						}
-					}
-					else = {
-						num_of_owned_provinces_with = {
-							value = 5
-							region = egypt_region
-							NOT = { area = al_wahat_area }
-							NOT = { unrest = 1 }
-						}
-					}
-				}
-				if = {
-					limit = { has_estate = estate_burghers }
-					estate_loyalty = {
-						estate = estate_burghers
-						loyalty = 50
-					}
-				}
-			}
-			else_if = {
-				limit = { has_country_flag = kemet_path_neteru }
-				custom_trigger_tooltip = {
-					tooltip = faf_faith_neteru_4_tt
-					num_of_owned_provinces_with = {
-						value = 4
-						region = egypt_region
-						NOT = { area = al_wahat_area }
-						religion = ROOT
-					}
-				}
-			}
-			else = {
-				custom_trigger_tooltip = {
-					tooltip = kemet_choice_not_made_tt
-					always = no
+			not_in_mission_preview_mode = { key = FAF }
+			custom_trigger_tooltip = {
+				tooltip = faf_faith_neteru_4_tt
+				num_of_owned_provinces_with = {
+					value = 4
+					region = egypt_region
+					NOT = { area = al_wahat_area }
+					religion = ROOT
 				}
 			}
 		}
 
 		effect = {
-			if = {
-				limit = { has_country_flag = kemet_path_maat }
-				add_country_modifier = {
-					name = faf_the_two_peoples_modifier
-					duration = 9125
-				}
-				add_estate_burghers_loyalty_effect = yes
+			add_country_modifier = {
+				name = faf_the_lector_priests_modifier
+				duration = 9125
 			}
-			else = {
-				add_country_modifier = {
-					name = faf_the_lector_priests_modifier
-					duration = 9125
-				}
-				add_estate_church_loyalty_effect = yes
-			}
+			add_estate_church_loyalty_effect = yes
 		}
 	}
 
-	faf_the_two_truths = {
+	faf_the_gods_returned = {
 		icon = kemet_new_faith
 		position = 6
-		required_missions = { faf_the_faith_of_the_valley }
+		required_missions = { faf_the_lector_priests }
 
 		provinces_to_highlight = {
 			region = egypt_region
 			owned_by = ROOT
-			if = {
-				limit = { ROOT = { has_country_flag = kemet_path_maat } }
-				NOT = { religion = ROOT }
-				unrest = 1
-			}
-			else = {
-				NOT = { religion = ROOT }
-			}
+			NOT = { religion = ROOT }
 		}
 
 		trigger = {
+			not_in_mission_preview_mode = { key = FAF }
 			custom_trigger_tooltip = {
 				tooltip = kemet_houses_3_tt
 				kemet_houses_restored_trigger = { amount = 3 }
 			}
-			if = {
-				limit = { has_country_flag = kemet_path_maat }
-				# AI: calm valley provinces of any faith (see faf_the_faith_of_the_valley).
-				custom_trigger_tooltip = {
-					tooltip = faf_faith_maat_8_tt
-					if = {
-						limit = { ai = no }
-						num_of_owned_provinces_with = {
-							value = 8
-							region = egypt_region
-							NOT = { religion = ROOT }
-							NOT = { unrest = 1 }
-						}
-					}
-					else = {
-						num_of_owned_provinces_with = {
-							value = 8
-							region = egypt_region
-							NOT = { area = al_wahat_area }
-							NOT = { unrest = 1 }
-						}
-					}
-				}
-				stability = 2
-			}
-			else_if = {
-				limit = { has_country_flag = kemet_path_neteru }
-				custom_trigger_tooltip = {
-					tooltip = faf_faith_neteru_10_tt
-					num_of_owned_provinces_with = {
-						value = 10
-						region = egypt_region
-						religion = ROOT
-					}
-				}
-			}
-			else = {
-				custom_trigger_tooltip = {
-					tooltip = kemet_choice_not_made_tt
-					always = no
+			custom_trigger_tooltip = {
+				tooltip = faf_faith_neteru_10_tt
+				num_of_owned_provinces_with = {
+					value = 10
+					region = egypt_region
+					religion = ROOT
 				}
 			}
 		}
 
 		effect = {
-			if = {
-				limit = { has_country_flag = kemet_path_maat }
-				add_country_modifier = {
-					name = kemet_the_order_of_maat_modifier
-					duration = -1
-				}
-				add_estate_burghers_loyalty_effect = yes
+			add_country_modifier = {
+				name = kemet_the_gods_returned_modifier
+				duration = -1
 			}
-			else = {
-				add_country_modifier = {
-					name = kemet_the_gods_returned_modifier
-					duration = -1
-				}
-				add_estate_church_loyalty_effect = yes
+			add_estate_church_loyalty_effect = yes
+			faf_two_truths_houses_effect = yes
+		}
+	}
+}
+
+faf_gods_faith_unknown = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = FAF
+		NOT = { kemet_path_maat_trigger = yes }
+		NOT = { kemet_path_neteru_trigger = yes }
+	}
+
+	faf_the_faith_of_the_valley_unknown = {
+		icon = mission_unknown_mission
+		position = 4
+		required_missions = { faf_the_people_of_the_river }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = faf_branching_mission_tt
+				always = no
 			}
-			custom_tooltip = " "
-			custom_tooltip = faf_houses_base_tax_tt
-			hidden_effect = {
-				every_owned_province = {
-					limit = {
-						OR = {
-							has_province_modifier = kemet_house_of_sutekh_modifier
-							has_province_modifier = kemet_house_of_heru_modifier
-							has_province_modifier = kemet_house_of_aset_modifier
-							has_province_modifier = kemet_house_of_wsir_modifier
-							has_province_modifier = kemet_house_of_amun_modifier
-							has_province_modifier = kemet_house_of_ptah_modifier
-							has_province_modifier = kemet_house_of_sobek_modifier
-							has_province_modifier = kemet_house_of_djehuty_modifier
-						}
-					}
-					add_base_tax = 1
-				}
+		}
+
+		effect = {
+			custom_tooltip = faf_branching_mission_tt
+		}
+	}
+
+	faf_the_two_truths_unknown = {
+		icon = mission_unknown_mission
+		position = 6
+		required_missions = { faf_the_faith_of_the_valley_unknown }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = faf_branching_mission_tt
+				always = no
 			}
-			custom_tooltip = faf_houses_quickened_tt
-			hidden_effect = {
-				set_country_flag = kemet_houses_quickened
-			}
+		}
+
+		effect = {
+			custom_tooltip = faf_branching_mission_tt
 		}
 	}
 }

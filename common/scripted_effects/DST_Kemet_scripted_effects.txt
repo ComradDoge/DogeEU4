@@ -3,6 +3,47 @@
 # Events: events/_DSE_flavour_Farafra.txt (faf_events), events/_DSE_flavour_Kemet.txt (egp_events), events/_DSE_flavour_Kemet_Faith.txt (kemet_events)
 # Triggers: common/scripted_triggers/_DST_Kemet_triggers.txt
 
+# The houses reward both Two Truths missions share (faf_the_order_of_maat, faf_the_gods_returned): +1 base tax in
+# every province with a restored house, and quicker house restorations (kemet_houses_quickened).
+faf_two_truths_houses_effect = {
+	custom_tooltip = " "
+	custom_tooltip = faf_houses_base_tax_tt
+	hidden_effect = {
+		every_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = kemet_house_of_sutekh_modifier
+					has_province_modifier = kemet_house_of_heru_modifier
+					has_province_modifier = kemet_house_of_aset_modifier
+					has_province_modifier = kemet_house_of_wsir_modifier
+					has_province_modifier = kemet_house_of_amun_modifier
+					has_province_modifier = kemet_house_of_ptah_modifier
+					has_province_modifier = kemet_house_of_sobek_modifier
+					has_province_modifier = kemet_house_of_djehuty_modifier
+				}
+			}
+			add_base_tax = 1
+		}
+	}
+	custom_tooltip = faf_houses_quickened_tt
+	hidden_effect = {
+		set_country_flag = kemet_houses_quickened
+	}
+}
+
+# Drops the Farafra faith preview flags (key FAF) and closes the preview if it is still open. Run by both options
+# of kemet_events.1, and by egp_the_black_land_whole before it fires the event, so a Farafra that formed Kemet
+# mid-preview gets both options.
+kemet_close_faith_preview_effect = {
+	clr_country_flag = kemet_preview_maat
+	clr_country_flag = kemet_preview_neteru
+	if = {
+		limit = { can_preview_mission_of_key = { key = FAF } }
+		select_current_missions = { key = FAF }
+	}
+	swap_non_generic_missions = yes
+}
+
 # Restores one of the eight Houses of the Gods (decisions/_DST_flavour_Kemet_Houses.txt, kemet_events.10 to .17).
 # province = site id, god = flag and modifier suffix. The ancient name the province takes is set below by province id.
 # Run in country scope (ROOT = the restorer).
@@ -83,7 +124,7 @@ kemet_restore_house_effect = {
 }
 
 # Starts the restoration of a house: the site is under construction for three years, then the event fires.
-# kemet_houses_quickened (faf_the_two_truths) halves it to 18 months.
+# kemet_houses_quickened (faf_two_truths_houses_effect) halves it to 18 months.
 # The tooltip previews what the restored house will give (same god as kemet_restore_house_effect).
 kemet_start_house_effect = {
 	add_treasury = -300

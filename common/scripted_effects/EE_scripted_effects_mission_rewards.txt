@@ -4,6 +4,8 @@
 select_current_missions_ADU = {}	#Empty
 select_current_missions_ARA = {}	#Empty
 #select_current_missions_FRA = {}	#Empty
+select_current_missions_GV = {}	#Empty, the crown event fires from EE_select_current_branch
+select_current_missions_FAF = {}	#Empty, the faith event fires from EE_select_current_branch
 
 EE_select_current_branch = {
 	custom_tooltip = BYZ_end_preview
@@ -11,6 +13,20 @@ EE_select_current_branch = {
 	if = {
 		limit = { can_preview_mission_of_key = { key = ADU } }
 		select_current_missions = { key = ADU }
+		hidden_effect = { swap_non_generic_missions = yes }
+	}
+	#GV: the crown event offers only the previewed crown, its options set the real flag
+	if = {
+		limit = { can_preview_mission_of_key = { key = GV } }
+		select_current_missions = { key = GV }
+		country_event = { id = gv_events.3 }
+		hidden_effect = { swap_non_generic_missions = yes }
+	}
+	#FAF: the faith event offers only the previewed path, its options set the real flag
+	if = {
+		limit = { can_preview_mission_of_key = { key = FAF } }
+		select_current_missions = { key = FAF }
+		country_event = { id = kemet_events.1 }
 		hidden_effect = { swap_non_generic_missions = yes }
 	}
 	##ARA
@@ -33,6 +49,18 @@ EE_clear_all_branching_flags = {
 		limit = { can_preview_mission_of_key = { key = ADU } }
 		clr_country_flag = GRA_western_military_flag
 		clr_country_flag = GRA_muslim_military_flag
+	}
+	#GV
+	if = {
+		limit = { can_preview_mission_of_key = { key = GV } }
+		clr_country_flag = gv_preview_rome
+		clr_country_flag = gv_preview_halicz
+	}
+	#FAF
+	if = {
+		limit = { can_preview_mission_of_key = { key = FAF } }
+		clr_country_flag = kemet_preview_maat
+		clr_country_flag = kemet_preview_neteru
 	}
 	##ARA
 	#if = {
@@ -67,6 +95,18 @@ EE_preview_mission_branch_1 = {
 		set_country_flag = GRA_western_military_flag
 		custom_tooltip = GRA_preview_western_military
 	}
+	#GV
+	if = {
+		limit = { can_preview_mission_of_key = { key = GV } }
+		set_country_flag = gv_preview_rome
+		custom_tooltip = gv_preview_rome_tt
+	}
+	#FAF
+	if = {
+		limit = { can_preview_mission_of_key = { key = FAF } }
+		set_country_flag = kemet_preview_maat
+		custom_tooltip = kemet_preview_maat_tt
+	}
 	##ARA
 	#if = {
 	#	limit = { can_preview_mission_of_key = { key = ARA } }
@@ -84,6 +124,18 @@ EE_preview_mission_branch_2 = {
 		limit = { can_preview_mission_of_key = { key = ADU } }
 		set_country_flag = GRA_muslim_military_flag
 		custom_tooltip = GRA_preview_muslim_military
+	}
+	#GV
+	if = {
+		limit = { can_preview_mission_of_key = { key = GV } }
+		set_country_flag = gv_preview_halicz
+		custom_tooltip = gv_preview_halicz_tt
+	}
+	#FAF
+	if = {
+		limit = { can_preview_mission_of_key = { key = FAF } }
+		set_country_flag = kemet_preview_neteru
+		custom_tooltip = kemet_preview_neteru_tt
 	}
 	##ARA
 	#if = {
@@ -106,6 +158,30 @@ EE_preview_mission_branch = {
 	EE_clear_all_branching_flags = yes
 	EE_preview_mission_branch_$branch$ = yes
 	hidden_effect = { swap_non_generic_missions = yes }
+}
+
+# Vanilla's update_mission_previews (on_change_tag_effect) ends every open batch when the country has none of
+# vanilla's branching missions, but only clears vanilla keys. This reopens a mod preview it left without buttons.
+EE_restore_branching_preview_of_key_and_batch = {
+	if = {
+		limit = {
+			can_preview_mission_of_key_and_batch = { key = $key$ batch = $batch$ }
+			NOT = { has_country_flag = has_batch_$batch$_active }
+		}
+		set_country_flag = has_batch_$batch$_active
+		change_variable = {
+			which = can_preview_missions_var
+			value = 1
+		}
+	}
+}
+EE_restore_branching_previews = {
+	EE_restore_branching_preview_of_key_and_batch = { key = GV batch = 1 }
+	EE_restore_branching_preview_of_key_and_batch = { key = GV batch = 2 }
+	EE_restore_branching_preview_of_key_and_batch = { key = GV batch = 3 }
+	EE_restore_branching_preview_of_key_and_batch = { key = FAF batch = 1 }
+	EE_restore_branching_preview_of_key_and_batch = { key = FAF batch = 2 }
+	EE_restore_branching_preview_of_key_and_batch = { key = FAF batch = 3 }
 }
 
 end_an_incident_tree_effect = {

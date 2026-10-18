@@ -6,31 +6,44 @@
 
 <h1>DD/MM/YYYY</h1>
 
+
+Strategic Resources / Economy
+
+- The strategic resources overview got an uplift and is just easier to read now.
+- AI is vastly improved in buildings the latent goods buildings if it has the resources.
+- AI now keeps building industrial factories whenever it has the steam engines and money for them.
+- AI is much more effective in upgrading its road systems and does not need to do it step-by-step anymore, oops.
+- Strategic resources internally reworked and should no longer go into negatives and be more consistent in its figures. Factories short on resources stop and restart on their own.
+
 Flavour
 
 - Riga province culture changed to baltic_german.
-- Shattered: Kurland and one province changed to baltic_german.
 - New government rank and ruler titles for many shattered tags.
 - Forming Tibet or Himalayan empire gives more renaming options.
-- Kemet: custom names for provinces mainly across Egypt, the Levant and Nubia.
 - Various flavour localisation changes to formable decision names and descriptions.
 - Riga and Livonian primary culture changed from prussian to baltic_german, as in vanilla.
-- Cumania: a few new Cuman province names dotted around the balkans and some steppe provinces.
 - Renaming events: added grey historical explanations to the less obvious name options. Neat historical info to learn.
 - New leader, ship, army and fleet names for many countries that shared or lacked their own list, report if any corruped characters appear.
 - Reforming into Livonia now gives some renaming options: Terra Mariana/Land of Mary if Christian, Livland if Germanic, Zemgale, Semigallia and Latvia.
 
-Strategic Resources / Economy
+Content
 
-- AI is vastly improved in buildings the latent goods buildings.
-- The strategic resources overview got an uplift and is just easier to read now.
-- AI now keeps building industrial factories wherever it has the steam engines and money for them.
-- AI is much more effective in upgrading its road systems and does not need to do it step-by-step anymore, oops.
-- Strategic resources internally reworked and should no longer go into negatives and be more consistent in its figures. Factories short on resources stop and restart on their own.
+Generally, a focus on small countries that never had content. Small/medium sized missions with some additional side flavour to make them have an identity.
+
+- Galicia and Volhynia: a shared mission tree with a column for each to be more flavourful.
+- Farafra/Kemet: new mission trees, small/medium focused on egypt and some surrounding area.
+- Occitania: new extensive mission tree, events, and a government Paratge mechanic on formation.
+- Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa.
+- Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
+- Burgundy: added the Europa Expanded mission tree as an option. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
+- Toledo: new mission tree and events. Toledo forms Spain through its last mission instead of the decision, without the administrative technology requirement and with an extra permanent bonus.
+- Sudetenland: added a small mission tree, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
+- Livonia: new decision for a Catholic Livonia to refound the Livonian Order (requires Lions of the North DLC due to DLC content), choosing the crusader or Livonian path (with the Livonian government reforms).
+- Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate related to the missions.
+
 
 Fixes/Tweaks
 
-- Fixed some events using their description text as the option button.
 - Fixed Evenk Siberian colonization event firing with no empty province left.
 - Massive error.log cleanup of events and decisions that kept spamming the log.
 - Rum AI no longer gets stuck previewing its Roman/Seljuk/Caliphate mission branch forever.
@@ -39,7 +52,6 @@ Fixes/Tweaks
 - Fixed the Nationalism spread bonus from neighbouring provinces of the same culture never applying.
 - Fixed the Dhimmi temple agenda picking non-state provinces, leaving a broken agenda with no target.
 - Rebulican liberalism should be more consistent and appear as expected when age of absolutism starts.
-- Fixed the Dhimmi university agenda having no target when only a small capital qualified (vanilla bug).
 - Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25.
 - Fixed Persian Silk Route outposts and the Caliph's hidden mechanic spamming the error log every month.
 - Sicilies/Two Sicilies internal mission flag shenanigans resulted in confusion. Confusion should be gone.
@@ -52,21 +64,6 @@ Fixes/Tweaks
 - AI is now more likely to complete missions asking for a fort or a building in one specific province by developing that province instead.
 - Ducal Prussia (released as a march by the Polish missions) now gets its own mission tree instead of the generic one, the tree was never ported.
 
-Content
-
-Generally, a focus on small countries that never had content. Small/medium sized missions with some additional side flavour to make them have an identity.
-
-- Kemetism: added its own religious idea group.
-- Galicia and Volhynia: a shared mission tree with a column for each to be more flavourful.
-- Occitania: new extensive mission tree, events, and a government Paratge mechanic on formation.
-- Farafra received a mission tree and ancient Egypt (Kemet) mission tree completely reworked as well.
-- Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa.
-- Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
-- Burgundy: added the Europa Expanded mission tree as an additional mission choice. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
-- Toledo: new mission tree and events. Toledo forms Spain through its last mission instead of the decision, without the administrative technology requirement and with an extra permanent bonus.
-- Sudetenland: added a small mission tree, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
-- Livonia: new decision for a Catholic Livonia to refound the Livonian Order (requires Lions of the North DLC due to DLC content), choosing the crusader or Livonian path (with the Livonian government reforms).
-- Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate related to the missions.
 
  <!-- Todo -->
 <br/>
