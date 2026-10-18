@@ -434,6 +434,94 @@ country_event = {
 					save_event_target_as = occ_sirventes_target
 				}
 			}
+			# Situational options: flag the ones whose conditions are met, then show at most 3 of them
+			# (occ_floral_pick_options_effect). Too many at once ran off the event window
+			if = {
+				limit = {
+					has_government_power = {
+						mechanic_type = occ_paratge_mechanic
+						power_type = paratge
+						value = 50
+					}
+					has_saved_event_target = occ_laureate_home
+				}
+				set_country_flag = occ_floral_ok_f
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_government_power = {
+							mechanic_type = occ_paratge_mechanic
+							power_type = paratge
+							value = -50
+						}
+					}
+				}
+				set_country_flag = occ_floral_ok_g
+			}
+			if = {
+				limit = {
+					is_at_war = yes
+					has_saved_event_target = occ_sirventes_target
+				}
+				set_country_flag = occ_floral_ok_h
+			}
+			if = {
+				limit = { has_estate_privilege = dse_estate_burghers_occ_capitoulat }
+				set_country_flag = occ_floral_ok_i
+			}
+			if = {
+				limit = { owns = 213 }
+				set_country_flag = occ_floral_ok_j
+			}
+			if = {
+				limit = {
+					owns = 118
+					religion = cathar
+				}
+				set_country_flag = occ_floral_ok_k
+			}
+			if = {
+				limit = {
+					NOT = { has_regency = yes }
+					dip = 5
+				}
+				set_country_flag = occ_floral_ok_l
+			}
+			if = {
+				limit = {
+					has_consort = yes
+					has_female_consort = yes
+				}
+				set_country_flag = occ_floral_ok_m
+			}
+			if = {
+				limit = {
+					has_institution = renaissance
+					200 = {
+						owned_by = ROOT
+						has_building = university
+					}
+				}
+				set_country_flag = occ_floral_ok_n
+			}
+			if = {
+				limit = { in_golden_age = yes }
+				set_country_flag = occ_floral_ok_o
+			}
+			if = {
+				limit = { is_great_power = yes }
+				set_country_flag = occ_floral_ok_p
+			}
+			if = {
+				limit = { owns = 183 }
+				set_country_flag = occ_floral_ok_q
+			}
+			if = {
+				limit = { is_emperor = yes }
+				set_country_flag = occ_floral_ok_r
+			}
+			occ_floral_pick_options_effect = yes
 		}
 	}
 
@@ -458,18 +546,11 @@ country_event = {
 		ai_chance = { factor = 40 }
 	}
 
-	# Situational options, shown only when their trigger is met
+	# Situational options: immediate picks at most 3 of those whose conditions are met (occ_floral_ok_* / occ_floral_show_* flags)
 
 	option = { # A poet of another faith takes the violet (Paratge 50+, owns a city of another faith)
 		name = occ_events.10.f
-		trigger = {
-			has_government_power = {
-				mechanic_type = occ_paratge_mechanic
-				power_type = paratge
-				value = 50
-			}
-			has_saved_event_target = occ_laureate_home
-		}
+		trigger = { has_country_flag = occ_floral_show_f }
 		occ_change_paratge = { value = 5 }
 		event_target:occ_laureate_home = {
 			add_province_modifier = {
@@ -493,15 +574,7 @@ country_event = {
 	}
 	option = { # The Perfecti call the games a vanity (Zeal below -50)
 		name = occ_events.10.g
-		trigger = {
-			NOT = {
-				has_government_power = {
-					mechanic_type = occ_paratge_mechanic
-					power_type = paratge
-					value = -50
-				}
-			}
-		}
+		trigger = { has_country_flag = occ_floral_show_g }
 		if = {
 			limit = {
 				any_owned_province = {
@@ -522,10 +595,7 @@ country_event = {
 	}
 	option = { # Sirventes against the enemy (at war)
 		name = occ_events.10.h
-		trigger = {
-			is_at_war = yes
-			has_saved_event_target = occ_sirventes_target
-		}
+		trigger = { has_country_flag = occ_floral_show_h }
 		add_country_modifier = {
 			name = occ_sirventes_modifier
 			duration = 730
@@ -537,9 +607,7 @@ country_event = {
 	}
 	option = { # The capitouls pay for the violet (Capitoulat privilege granted)
 		name = occ_events.10.i
-		trigger = {
-			has_estate_privilege = dse_estate_burghers_occ_capitoulat
-		}
+		trigger = { has_country_flag = occ_floral_show_i }
 		add_estate_burghers_loyalty_effect = yes
 		196 = {
 			add_base_production = 1
@@ -548,9 +616,7 @@ country_event = {
 	}
 	option = { # Invite the poets of Barcelona (owns Barcelona)
 		name = occ_events.10.j
-		trigger = {
-			owns = 213
-		}
+		trigger = { has_country_flag = occ_floral_show_j }
 		213 = {
 			if = {
 				limit = {
@@ -569,10 +635,7 @@ country_event = {
 	}
 	option = { # Hold the games in Rome (owns Rome, Cathar)
 		name = occ_events.10.k
-		trigger = {
-			owns = 118
-			religion = cathar
-		}
+		trigger = { has_country_flag = occ_floral_show_k }
 		add_prestige_or_monarch_power = { amount = 25 }
 		118 = {
 			if = {
@@ -592,10 +655,7 @@ country_event = {
 	}
 	option = { # The ruler enters a poem (diplomatic skill 5+)
 		name = occ_events.10.l
-		trigger = {
-			NOT = { has_regency = yes }
-			dip = 5
-		}
+		trigger = { has_country_flag = occ_floral_show_l }
 		if = {
 			limit = {
 				NOT = { ruler_has_personality = patron_of_arts_personality }
@@ -610,10 +670,7 @@ country_event = {
 	}
 	option = { # A court of love (female consort)
 		name = occ_events.10.m
-		trigger = {
-			has_consort = yes
-			has_female_consort = yes
-		}
+		trigger = { has_country_flag = occ_floral_show_m }
 		occ_change_paratge = { value = 5 }
 		if = {
 			limit = {
@@ -630,13 +687,7 @@ country_event = {
 	}
 	option = { # The doctors of Montpellier judge the verse (university in Montpellier, Renaissance)
 		name = occ_events.10.n
-		trigger = {
-			has_institution = renaissance
-			200 = {
-				owned_by = ROOT
-				has_building = university
-			}
-		}
+		trigger = { has_country_flag = occ_floral_show_n }
 		add_innovativeness_or_monarch_power = { amount = 5 }
 		200 = {
 			add_base_tax = 1
@@ -645,9 +696,7 @@ country_event = {
 	}
 	option = { # A golden age of verse (golden age)
 		name = occ_events.10.o
-		trigger = {
-			in_golden_age = yes
-		}
+		trigger = { has_country_flag = occ_floral_show_o }
 		occ_change_paratge = { value = 10 }
 		define_advisor = {
 			type = artist
@@ -658,18 +707,14 @@ country_event = {
 	}
 	option = { # Poets from every court in Europe (great power)
 		name = occ_events.10.p
-		trigger = {
-			is_great_power = yes
-		}
+		trigger = { has_country_flag = occ_floral_show_p }
 		add_power_projection_mission = { amount = 10 }
 		add_prestige_or_monarch_power = { amount = 20 }
 		ai_chance = { factor = 80 }
 	}
 	option = { # The games in Paris, in the langue d'oc (owns Paris)
 		name = occ_events.10.q
-		trigger = {
-			owns = 183
-		}
+		trigger = { has_country_flag = occ_floral_show_q }
 		add_prestige_or_monarch_power = { amount = 25 }
 		183 = {
 			add_province_modifier = {
@@ -681,9 +726,7 @@ country_event = {
 	}
 	option = { # Crown the winner before the imperial court (emperor)
 		name = occ_events.10.r
-		trigger = {
-			is_emperor = yes
-		}
+		trigger = { has_country_flag = occ_floral_show_r }
 		add_imperial_influence = 5
 		custom_tooltip = occ_floral_electors_opinion_tt
 		hidden_effect = {
@@ -727,6 +770,19 @@ country_event = {
 	after = {
 		hidden_effect = {
 			set_country_flag = occ_leys_damors_done
+			clr_country_flag = occ_floral_show_f
+			clr_country_flag = occ_floral_show_g
+			clr_country_flag = occ_floral_show_h
+			clr_country_flag = occ_floral_show_i
+			clr_country_flag = occ_floral_show_j
+			clr_country_flag = occ_floral_show_k
+			clr_country_flag = occ_floral_show_l
+			clr_country_flag = occ_floral_show_m
+			clr_country_flag = occ_floral_show_n
+			clr_country_flag = occ_floral_show_o
+			clr_country_flag = occ_floral_show_p
+			clr_country_flag = occ_floral_show_q
+			clr_country_flag = occ_floral_show_r
 		}
 	}
 }

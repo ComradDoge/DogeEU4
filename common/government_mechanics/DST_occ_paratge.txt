@@ -371,6 +371,11 @@ occ_paratge_mechanic = {
 								who = ROOT
 								modifier = occ_disputation_opinion
 							}
+							add_trust = {
+								who = ROOT
+								value = 10
+								mutual = yes
+							}
 						}
 					}
 					add_government_power = {
@@ -420,8 +425,26 @@ occ_paratge_mechanic = {
 				}
 			}
 			cooldown_years = 10
+			# The AI only pulls the bar back when it costs no mission progress: on the Crown route (which wants the middle),
+			# or from the very end of a side (95+ Paratge stays above 70, -80 or lower stays in Zeal below -50)
 			ai_chance = {
 				factor = 25
+				modifier = {
+					factor = 0
+					NOT = { has_country_flag = occ_crown_route_flag }
+					has_government_power = {
+						mechanic_type = occ_paratge_mechanic
+						power_type = paratge
+						value = -79
+					}
+					NOT = {
+						has_government_power = {
+							mechanic_type = occ_paratge_mechanic
+							power_type = paratge
+							value = 95
+						}
+					}
+				}
 			}
 		}
 	}
