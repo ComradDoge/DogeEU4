@@ -250,3 +250,86 @@ specialsettings_disallow_colonisation_effects = {
         }
     }
 }
+
+
+# Shake the World (Fantasy Content). Region and country tables are generated
+# in DST_shake_the_world_tables.txt.
+
+# Country scope: take culture $value$.
+dst_shake_set_culture = {
+	change_primary_culture = $value$
+	set_ruler_culture = $value$
+	if = {
+		limit = { has_heir = yes }
+		set_heir_culture = $value$
+	}
+	if = {
+		limit = { has_consort = yes }
+		set_consort_culture = $value$
+	}
+}
+
+# Country scope: take religion $value$.
+dst_shake_set_religion = {
+	change_religion = $value$
+	set_ruler_religion = $value$
+	if = {
+		limit = { has_heir = yes }
+		set_heir_religion = $value$
+	}
+	if = {
+		limit = { has_consort = yes }
+		set_consort_religion = $value$
+	}
+}
+
+# Country scope: take culture $culture$ and religion $religion$ (True random).
+dst_shake_set_identity = {
+	dst_shake_set_culture = { value = $culture$ }
+	dst_shake_set_religion = { value = $religion$ }
+}
+
+dst_shake_the_world_effect = {
+	if = {
+		limit = {
+			has_global_flag = dse_meta_fantasy_shake_truerandom_flag
+		}
+		every_country = {
+			dst_shake_true_random_identity_effect = yes
+		}
+		every_province = {
+			limit = { is_empty = yes }
+			dst_shake_true_random_province_effect = yes
+		}
+	}
+	else = {
+		dst_shake_homelands_effect = yes
+	}
+	if = {
+		limit = {
+			has_global_flag = dse_meta_fantasy_shake_lostfaiths_flag
+		}
+		every_country = {
+			random = {
+				chance = 20
+				if = {
+					limit = {
+						has_global_flag = dse_meta_fantasy_shake_truerandom_flag
+					}
+					dst_shake_lost_faith_any_effect = yes
+				}
+				else = {
+					dst_shake_lost_faith_same_group_effect = yes
+				}
+			}
+		}
+	}
+	every_country = {
+		every_owned_province = {
+			change_culture = owner
+			change_religion = owner
+		}
+	}
+	dst_shake_cleanup_effect = yes
+	set_global_flag = dst_shake_the_world_done_flag
+}
