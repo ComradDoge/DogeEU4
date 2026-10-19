@@ -40,6 +40,7 @@ Generally, a focus on small countries that never had content. Small/medium sized
 - Sudetenland: added a small mission tree, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
 - Livonia: new decision for a Catholic Livonia to refound the Livonian Order (requires Lions of the North DLC due to DLC content), choosing the crusader or Livonian path (with the Livonian government reforms).
 - Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate related to the missions.
+- Fantasy Content: new "Shake the World" option. Lands get another culture and religion at the start, region based or true random. Likely to break or certain reforms/missions/formable requirements very difficult to meet. This is a meme.
 
 
 Fixes/Tweaks
@@ -52,6 +53,7 @@ Fixes/Tweaks
 - Fixed the Nationalism spread bonus from neighbouring provinces of the same culture never applying.
 - Fixed the Dhimmi temple agenda picking non-state provinces, leaving a broken agenda with no target.
 - Rebulican liberalism should be more consistent and appear as expected when age of absolutism starts.
+- Fixed the Ansbach Margrave War event declaring war on nobody when no other Franconian country exists.
 - Fixed Professional Army reform giving 2.25 army professionalism per recruited general instead of 1.25.
 - Fixed Persian Silk Route outposts and the Caliph's hidden mechanic spamming the error log every month.
 - Sicilies/Two Sicilies internal mission flag shenanigans resulted in confusion. Confusion should be gone.
