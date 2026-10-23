@@ -1,0 +1,960 @@
+# Mazovia on the vanilla map: the Crown's vassal (MAZ, started 1444.11.9 or later)
+# The shattered starts use the Piast duchies tree instead (missions/_MIS_Piast_Duchies_Missions.txt).
+# Spec: mod/DogeEU4_dev/specs/MAZOVIA_VASSAL_SPEC.md (outside the repo)
+# Triggers: common/scripted_triggers/_DST_Mazovia_triggers.txt, events: events/_DSE_flavour_Mazovia.txt (maz_events)
+# Modifiers: common/event_modifiers/DST_Mazovia_modifiers.txt, privilege: common/estate_privileges/DSE_privileges.txt
+# Slot 2 holds the choice (maz_the_piotrkow_offer, preview key MZV) and its branch series: Fealty, Candidacy, or placeholders.
+
+#### Slot 1: Warszawa and the Vistula
+
+maz_v1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		maz_vassal_tree_trigger = yes
+	}
+
+	maz_warszawa_market = {
+		icon = mission_eastern_european_city
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 257
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { development = 15 }
+					NOT = { has_trade_building_trigger = yes }
+				}
+			}
+		}
+
+		trigger = {
+			257 = {
+				owned_by = ROOT
+				OR = {
+					development = 15
+					has_trade_building_trigger = yes
+				}
+			}
+		}
+
+		effect = {
+			257 = {
+				add_or_upgrade_trade_building = yes
+				add_province_modifier = {
+					name = maz_warszawa_fair_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+
+	maz_grain_to_danzig = {
+		icon = mission_pol_breadbasket_europe
+		position = 3
+		required_missions = { maz_warszawa_market }
+
+		provinces_to_highlight = {
+			trade_goods = grain
+			OR = {
+				area = mazovia_area
+				area = central_poland_area
+				area = kuyavia_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			262 = {
+				trade_share = {
+					country = ROOT
+					share = 15
+				}
+			}
+			num_of_owned_provinces_with = {
+				value = 3
+				trade_goods = grain
+			}
+		}
+
+		effect = {
+			262 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 15
+					key = maz_vistula_barges
+				}
+			}
+			add_mercantilism_or_monarch_power = { amount = 5 }
+		}
+	}
+
+	maz_vistula_staple = {
+		icon = mission_hanseatic_city
+		position = 4
+		required_missions = { maz_grain_to_danzig }
+
+		provinces_to_highlight = {
+			province_id = 257
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { province_has_center_of_trade_of_level = 2 }
+			}
+		}
+
+		trigger = {
+			owns = 257
+			OR = {
+				257 = { province_has_center_of_trade_of_level = 2 }
+				262 = {
+					trade_share = {
+						country = ROOT
+						share = 25
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_years_of_owned_provinces_production_income = {
+				years = 2
+				trigger = {
+					trade_goods = grain
+				}
+				custom_tooltip = maz_vistula_staple_income_tt
+			}
+			custom_tooltip = " "
+			257 = {
+				add_province_modifier = {
+					name = maz_vistula_staple_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+
+	maz_seat_of_sejms = {
+		icon = mission_plc_seats_power
+		position = 6
+		required_missions = { maz_vistula_staple }
+
+		provinces_to_highlight = {
+			province_id = 257
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_manufactory_trigger = yes }
+			}
+		}
+
+		trigger = {
+			capital = 257
+			257 = {
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_manufactory_trigger = yes
+				}
+				else = {
+					OR = {
+						has_manufactory_trigger = yes
+						development = 25
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = maz_seat_of_sejms_modifier
+				duration = -1
+			}
+		}
+	}
+}
+
+#### Slot 2: The Crown (the choice)
+
+maz_v2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		maz_vassal_tree_trigger = yes
+	}
+
+	maz_the_piotrkow_offer = {
+		icon = mission_the_polish_throne
+		position = 1
+		required_missions = { }
+
+		trigger = {
+			OR = {
+				is_subject = no
+				custom_trigger_tooltip = {
+					tooltip = maz_overlord_opinion_100_tt
+					overlord = {
+						has_opinion = {
+							who = ROOT
+							value = 100
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				# Humans preview both branches in the mission view and confirm with Select, which fires maz_events.1
+				# with the previewed option only. The AI gets maz_events.1 right away.
+				custom_tooltip = maz_crown_choice_tt
+				hidden_effect = {
+					enable_branching_mission_review = {
+						key = MZV
+						ai_event_id = maz_events.1
+					}
+				}
+				custom_tooltip = " "
+				custom_tooltip = maz_choice_fealty_tt
+				custom_tooltip = maz_choice_candidacy_tt
+			}
+			else = {
+				custom_tooltip = maz_candidacy_only_tt
+				hidden_effect = {
+					set_country_flag = maz_crown_candidacy
+					swap_non_generic_missions = yes
+				}
+			}
+		}
+	}
+}
+
+#### Slot 2, Fealty: the Crown's loyal vassal
+
+maz_v2_fealty = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		maz_vassal_tree_trigger = yes
+		maz_fealty_trigger = yes
+	}
+
+	maz_oath_at_piotrkow = {
+		icon = mission_noble_council
+		position = 2
+		required_missions = { maz_the_piotrkow_offer }
+
+		trigger = {
+			not_in_mission_preview_mode = { key = MZV }
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = maz_poland_gone_tt
+					NOT = { exists = POL }
+				}
+				AND = {
+					maz_loyal_vassal_trigger = yes
+					custom_trigger_tooltip = {
+						tooltip = maz_poland_trust_60_tt
+						POL = {
+							trust = {
+								who = ROOT
+								value = 60
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			define_advisor = {
+				type = statesman
+				skill = 2
+				culture = polish
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			custom_tooltip = " "
+			if = {
+				limit = {
+					exists = POL
+				}
+				POL = {
+					add_opinion = {
+						who = ROOT
+						modifier = maz_oath_of_fealty
+					}
+				}
+			}
+		}
+	}
+
+	maz_fiefs_of_the_crown = {
+		icon = mission_pol_balance_princely_lands
+		position = 3
+		required_missions = { maz_oath_at_piotrkow }
+
+		trigger = {
+			not_in_mission_preview_mode = { key = MZV }
+			custom_trigger_tooltip = {
+				tooltip = maz_crown_war_service_tt
+				OR = {
+					has_won_war_against = {
+						who = TEU
+						max_years_since = 20
+					}
+					has_won_war_against = {
+						who = LIT
+						max_years_since = 20
+					}
+					AND = {
+						any_country = {
+							war_with = ROOT
+							war_with = POL
+						}
+						army_size_percentage = 1
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event_with_effect_insight = {
+				id = maz_events.2
+				effect = "
+					custom_tooltip = maz_fief_grant_tt
+				"
+			}
+		}
+	}
+
+	maz_senators_of_the_crown = {
+		icon = me_mission_poland_noble
+		position = 5
+		required_missions = { maz_fiefs_of_the_crown }
+
+		trigger = {
+			not_in_mission_preview_mode = { key = MZV }
+			custom_trigger_tooltip = {
+				tooltip = maz_fealty_25_years_tt
+				had_country_flag = {
+					flag = maz_crown_fealty
+					days = 9125
+				}
+			}
+			OR = {
+				maz_loyal_vassal_trigger = yes
+				custom_trigger_tooltip = {
+					tooltip = maz_poland_gone_tt
+					NOT = { exists = POL }
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = maz_crown_senators_modifier
+				duration = -1
+			}
+			custom_tooltip = " "
+			if = {
+				limit = {
+					exists = POL
+				}
+				POL = {
+					add_opinion = {
+						who = ROOT
+						modifier = maz_senators_of_the_crown
+					}
+				}
+			}
+		}
+	}
+}
+
+#### Slot 2, Candidacy: the Mazovian claim to the crown
+
+maz_v2_candidacy = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		maz_vassal_tree_trigger = yes
+		maz_candidacy_trigger = yes
+	}
+
+	maz_a_mazovian_king = {
+		icon = mission_war_for_the_crown
+		position = 2
+		required_missions = { maz_the_piotrkow_offer }
+
+		trigger = {
+			not_in_mission_preview_mode = { key = MZV }
+			custom_trigger_tooltip = {
+				tooltip = maz_candidacy_backing_tt
+				OR = {
+					is_subject = no
+					liberty_desire = 50
+					any_country = {
+						is_supporting_independence_of = ROOT
+						army_strength = {
+							who = POL
+							value = 0.5
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			give_claims = { area = central_poland_area }
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = maz_claimants_host_modifier
+				duration = 3650
+			}
+		}
+	}
+
+	maz_break_with_krakow = {
+		icon = mission_pol_raise_noble_host
+		position = 3
+		required_missions = { maz_a_mazovian_king }
+
+		trigger = {
+			not_in_mission_preview_mode = { key = MZV }
+			is_subject = no
+		}
+
+		effect = {
+			if = {
+				limit = {
+					exists = POL
+				}
+				add_casus_belli = {
+					target = POL
+					type = cb_vassalize_mission
+					months = 300
+				}
+			}
+			custom_tooltip = " "
+			give_claims = { area = kuyavia_area }
+			give_claims = { area = wielkopolska_area }
+		}
+	}
+
+	maz_crown_to_warszawa = {
+		icon = me_mission_shiny_crown
+		position = 5
+		required_missions = { maz_break_with_krakow }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 262
+				province_id = 4526
+			}
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			not_in_mission_preview_mode = { key = MZV }
+			owns = 262
+			owns = 4526
+			custom_trigger_tooltip = {
+				tooltip = maz_poland_gone_or_subject_tt
+				OR = {
+					NOT = { exists = POL }
+					POL = { is_subject_of = ROOT }
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = maz_crown_to_warszawa_cores_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture = polish
+						region = poland_region
+						NOT = { is_core = ROOT }
+					}
+					add_core = ROOT
+				}
+			}
+			custom_tooltip = " "
+			custom_tooltip = maz_form_poland_tt
+			hidden_effect = {
+				set_country_flag = maz_crown_to_warszawa_flag
+			}
+		}
+	}
+}
+
+#### Slot 2, before the choice: placeholders
+
+maz_v2_unknown = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		maz_vassal_tree_trigger = yes
+		NOT = { maz_fealty_trigger = yes }
+		NOT = { maz_candidacy_trigger = yes }
+	}
+
+	maz_crown_path_unknown_1 = {
+		icon = mission_unknown_mission
+		position = 2
+		required_missions = { maz_the_piotrkow_offer }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = maz_branching_mission_tt
+				always = no
+			}
+		}
+
+		effect = {
+			custom_tooltip = maz_branching_mission_tt
+		}
+	}
+
+	maz_crown_path_unknown_2 = {
+		icon = mission_unknown_mission
+		position = 3
+		required_missions = { maz_crown_path_unknown_1 }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = maz_branching_mission_tt
+				always = no
+			}
+		}
+
+		effect = {
+			custom_tooltip = maz_branching_mission_tt
+		}
+	}
+
+	maz_crown_path_unknown_3 = {
+		icon = mission_unknown_mission
+		position = 5
+		required_missions = { maz_crown_path_unknown_2 }
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = maz_branching_mission_tt
+				always = no
+			}
+		}
+
+		effect = {
+			custom_tooltip = maz_branching_mission_tt
+		}
+	}
+}
+
+#### Slot 3: Szlachta and Law
+
+maz_v3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		maz_vassal_tree_trigger = yes
+	}
+
+	maz_villages_of_nobles = {
+		icon = mission_knight
+		position = 2
+		required_missions = { }
+
+		trigger = {
+			num_of_cavalry = 6
+			cavalry_fraction = 0.4
+		}
+
+		effect = {
+			custom_tooltip = maz_mazovian_law_unlock_tt
+			hidden_effect = {
+				set_country_flag = maz_mazovian_law_unlocked
+			}
+			custom_tooltip = " "
+			add_yearly_manpower = 1
+		}
+	}
+
+	maz_mazovian_statutes = {
+		icon = the_law_colleges
+		position = 3
+		required_missions = { maz_villages_of_nobles }
+
+		provinces_to_highlight = {
+			province_id = 257
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { has_building = courthouse }
+			}
+		}
+
+		trigger = {
+			has_estate_privilege = dse_estate_nobles_maz_mazovian_law
+			257 = {
+				owned_by = ROOT
+				if = {
+					limit = { ROOT = { ai = no } }
+					has_building = courthouse
+				}
+				else = {
+					OR = {
+						has_building = courthouse
+						development = 20
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_reform_progress_medium_effect = yes
+			custom_tooltip = " "
+			256 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+					}
+					add_province_modifier = {
+						name = maz_plock_land_court_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+
+	maz_mazovian_banners = {
+		icon = me_mission_crusade_crusader_knight_banner
+		position = 5
+		required_missions = { maz_mazovian_statutes maz_the_orders_border }
+
+		trigger = {
+			OR = {
+				full_idea_group = quality_ideas
+				full_idea_group = offensive_ideas
+			}
+		}
+
+		effect = {
+			custom_tooltip = maz_banners_merc_tt
+			hidden_effect = {
+				set_country_flag = maz_mazovian_banners_unlocked
+			}
+			custom_tooltip = " "
+			create_general = {
+				tradition = 60
+			}
+		}
+	}
+}
+
+#### Slot 4: Frontiers
+
+maz_v4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		maz_vassal_tree_trigger = yes
+	}
+
+	maz_wizna_ramparts = {
+		icon = me_mission_medieval_fort
+		position = 1
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 1938
+			NOT = { owned_by = ROOT }
+		}
+
+		trigger = {
+			owns = 1938
+			army_size_percentage = 1
+		}
+
+		effect = {
+			1938 = {
+				add_province_modifier = {
+					name = maz_wizna_ramparts_modifier
+					duration = -1
+				}
+			}
+			custom_tooltip = " "
+			give_claims = { area = podlasie_area }
+		}
+	}
+
+	maz_drohiczyn = {
+		icon = mission_pol_tend_east
+		position = 2
+		required_missions = { maz_wizna_ramparts }
+
+		provinces_to_highlight = {
+			area = podlasie_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { owned_by = POL }
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = maz_podlasie_held_tt
+				OR = {
+					podlasie_area = {
+						type = all
+						OR = {
+							country_or_non_sovereign_subject_holds = ROOT
+							AND = {
+								owned_by = POL
+								ROOT = { is_subject_of = POL }
+							}
+						}
+					}
+					LIT = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = maz_drohiczyn_manpower_tt
+			hidden_effect = {
+				podlasie_area = {
+					limit = {
+						owned_by = ROOT
+					}
+					add_base_manpower = 1
+				}
+			}
+			custom_tooltip = " "
+			give_claims = { area = east_prussia_area }
+		}
+	}
+
+	maz_the_orders_border = {
+		icon = me_mission_poland_drive_out_teutons
+		position = 4
+		required_missions = { maz_drohiczyn }
+
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2958
+				province_id = 767
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { owned_by = POL }
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = maz_orders_border_tt
+				OR = {
+					NOT = { exists = TEU }
+					army_strength = {
+						who = TEU
+						value = 2
+					}
+					AND = {
+						2958 = {
+							OR = {
+								owned_by = ROOT
+								AND = {
+									owned_by = POL
+									ROOT = { is_subject_of = POL }
+								}
+							}
+						}
+						767 = {
+							OR = {
+								owned_by = ROOT
+								AND = {
+									owned_by = POL
+									ROOT = { is_subject_of = POL }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = maz_the_orders_border_dyn_a
+				first_limit = "
+					OR = {
+						owns = 2958
+						owns = 767
+					}
+				"
+				first_effect = "
+					2958 = {
+						if = {
+							limit = {
+								owned_by = ROOT
+							}
+							maz_masurian_settlers_effect = yes
+						}
+					}
+					767 = {
+						if = {
+							limit = {
+								owned_by = ROOT
+							}
+							maz_masurian_settlers_effect = yes
+						}
+					}
+				"
+				second_custom_tooltip = maz_the_orders_border_dyn_b
+				second_limit = "
+					NOT = { owns = 2958 }
+					NOT = { owns = 767 }
+				"
+				second_effect = "
+					add_country_modifier = {
+						name = maz_border_watch_modifier
+						duration = 9125
+					}
+				"
+			}
+		}
+	}
+}
+
+#### Slot 5: Belz
+
+maz_v5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		maz_vassal_tree_trigger = yes
+	}
+
+	maz_belz_fief = {
+		icon = me_mission_generic_castle
+		position = 2
+		required_missions = { }
+
+		provinces_to_highlight = {
+			province_id = 1940
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+				NOT = { is_state = yes }
+			}
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					ai = yes
+					1940 = { owned_by = POL }
+				}
+				custom_trigger_tooltip = {
+					tooltip = maz_belz_with_the_crown_tt
+					1940 = { owned_by = POL }
+				}
+			}
+			else = {
+				owns_core_province = 1940
+				1940 = {
+					is_state = yes
+				}
+			}
+		}
+
+		effect = {
+			ME_add_accepted_culture_or_dip_power = { culture = ruthenian }
+			custom_tooltip = " "
+			1940 = {
+				if = {
+					limit = {
+						owned_by = ROOT
+					}
+					add_province_modifier = {
+						name = maz_belz_castle_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+
+	maz_chelm_and_belz = {
+		icon = mission_advance_to_the_dnieper
+		position = 4
+		required_missions = { maz_belz_fief }
+
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 1940
+					OR = {
+						NOT = { owned_by = ROOT }
+						local_autonomy = 25
+					}
+				}
+				AND = {
+					province_id = 4538
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = { owned_by = POL }
+				}
+			}
+		}
+
+		trigger = {
+			1940 = {
+				owned_by = ROOT
+				NOT = { local_autonomy = 25 }
+			}
+			4538 = {
+				custom_trigger_tooltip = {
+					tooltip = maz_chelm_held_tt
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						AND = {
+							owned_by = POL
+							ROOT = { is_subject_of = POL }
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			1940 = {
+				add_base_tax = 2
+				add_base_production = 1
+			}
+			custom_tooltip = " "
+			give_claims = { area = red_ruthenia_area }
+		}
+	}
+}

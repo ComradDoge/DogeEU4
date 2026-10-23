@@ -1,0 +1,42 @@
+# Mazovia on the vanilla map (1444.11.9 and later), where it starts as the Crown's vassal
+# Missions: missions/_DST_Mazovia_Missions.txt, events: events/_DSE_flavour_Mazovia.txt
+# The shattered starts use the Piast duchies tree instead (is_piast_duchy_trigger)
+
+maz_vassal_tree_trigger = {
+	tag = MAZ
+	started_in = 1444.11.9
+}
+
+# The branch picked in maz_the_piotrkow_offer (maz_events.1), or previewed while the preview is open
+maz_fealty_trigger = {
+	OR = {
+		has_country_flag = maz_crown_fealty
+		AND = {
+			has_country_flag = maz_preview_fealty
+			can_preview_mission_of_key = { key = MZV }
+		}
+	}
+}
+maz_candidacy_trigger = {
+	OR = {
+		has_country_flag = maz_crown_candidacy
+		AND = {
+			has_country_flag = maz_preview_candidacy
+			can_preview_mission_of_key = { key = MZV }
+		}
+	}
+}
+
+# A loyal vassal of the Crown: Poland's subject with little wish to leave
+maz_loyal_vassal_trigger = {
+	is_subject_of = POL
+	NOT = { liberty_desire = 25 }
+}
+
+# Form Poland (decisions/PolishNation.txt) while Poland still exists: only after maz_crown_to_warszawa,
+# with Poland as our subject. The decision inherits Poland before changing tag.
+maz_inherits_poland_trigger = {
+	has_country_flag = maz_crown_to_warszawa_flag
+	exists = POL
+	POL = { is_subject_of = ROOT }
+}

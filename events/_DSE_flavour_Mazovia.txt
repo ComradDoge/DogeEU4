@@ -1,0 +1,115 @@
+# Mazovia on the vanilla map (MAZ as the Crown's vassal)
+# Missions: missions/_DST_Mazovia_Missions.txt (options mirror the mission previews)
+# Branch flags set by .1: maz_crown_fealty / maz_crown_candidacy
+
+namespace = maz_events
+
+# The Piotrkow Offer (maz_the_piotrkow_offer). Humans reach it through Select Current Mission Branch
+# (EE_select_current_branch) with only the previewed option; the AI gets it straight from the mission.
+country_event = {
+	id = maz_events.1
+	title = maz_events.1.t
+	desc = maz_events.1.d
+	picture = DIPLOMACY_SIGNING_eventPicture
+	goto = capital
+	major = yes
+
+	is_triggered_only = yes
+
+	option = { # Kneel to the Jagiellon
+		name = maz_events.1.a
+		trigger = {
+			NOT = { has_country_flag = maz_preview_candidacy }
+		}
+		custom_tooltip = maz_crown_fealty_tt
+		hidden_effect = {
+			set_country_flag = maz_crown_fealty
+			clr_country_flag = maz_preview_fealty
+			swap_non_generic_missions = yes
+		}
+		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
+		add_liberty_desire = -10
+		ai_chance = {
+			factor = 60
+			modifier = {
+				factor = 0.25
+				liberty_desire = 50
+			}
+		}
+	}
+	option = { # Take the lords at their word
+		name = maz_events.1.b
+		trigger = {
+			NOT = { has_country_flag = maz_preview_fealty }
+		}
+		custom_tooltip = maz_crown_candidacy_tt
+		hidden_effect = {
+			set_country_flag = maz_crown_candidacy
+			clr_country_flag = maz_preview_candidacy
+			swap_non_generic_missions = yes
+		}
+		add_prestige_or_monarch_power = { amount = 15 }
+		add_liberty_desire = 15
+		if = {
+			limit = {
+				exists = POL
+			}
+			POL = {
+				add_opinion = {
+					who = ROOT
+					modifier = maz_rival_for_the_crown
+				}
+			}
+		}
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				liberty_desire = 50
+			}
+		}
+	}
+}
+
+# Fiefs of the Crown (maz_fiefs_of_the_crown): the Crown rewards the war service of its vassal
+country_event = {
+	id = maz_events.2
+	title = maz_events.2.t
+	desc = maz_events.2.d
+	picture = COURT_eventPicture
+	goto = capital
+
+	is_triggered_only = yes
+
+	option = { # The land of Leczyca
+		name = maz_events.2.a
+		trigger = {
+			is_subject_of = POL
+			POL = { ai = yes }
+			1939 = { owned_by = POL }
+		}
+		1939 = {
+			cede_province = ROOT
+			add_core = ROOT
+		}
+		ai_chance = { factor = 50 }
+	}
+	option = { # The land of Dobrzyn
+		name = maz_events.2.b
+		trigger = {
+			is_subject_of = POL
+			POL = { ai = yes }
+			4524 = { owned_by = POL }
+		}
+		4524 = {
+			cede_province = ROOT
+			add_core = ROOT
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = { # A purse from the treasury
+		name = maz_events.2.c
+		add_years_of_income = 1
+		ai_chance = { factor = 10 }
+	}
+}

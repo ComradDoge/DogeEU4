@@ -13,11 +13,12 @@ country_decisions = {
 			NOT = { exists = PLC }
 			NOT = { tag = POL }
 			OR = {
+				NOT = { exists = POL }
+				maz_inherits_poland_trigger = yes
+			}
+			OR = {
 				ai = no
-				AND = {
-					NOT = { exists = POL }
-					num_of_cities = 6
-				}
+				num_of_cities = 6
 			}
 			NOT = { tag = HLR }
 			NOT = { tag = PAP }
@@ -52,7 +53,13 @@ country_decisions = {
 			}
 		}
 		allow = {
-			NOT = { exists = POL }
+			OR = {
+				NOT = { exists = POL }
+				custom_trigger_tooltip = {
+					tooltip = maz_inherits_poland_tt
+					maz_inherits_poland_trigger = yes
+				}
+			}
 			is_at_war = no
 			dst_specialsetting_is_free_or_tributary_trigger = yes
 			is_nomad = no			
@@ -76,6 +83,12 @@ country_decisions = {
 		effect = {
 			# General
             custom_tooltip = tooltip_line_seperate_general
+			if = { # Mazovia's Candidacy route (maz_crown_to_warszawa): Poland is our subject, take it in first
+				limit = {
+					maz_inherits_poland_trigger = yes
+				}
+				inherit = POL
+			}
 			change_tag = POL
 			on_change_tag_effect = yes
 			if = { # AI never gets the mission tree choice after startup, default it to the Paradox tree
