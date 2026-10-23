@@ -230,3 +230,83 @@ country_event = {
         add_yearly_sailors = 0.25
     }
 }
+
+# The Einherjar, from on_carolean_raised (DST_on_actions.txt), once per country.
+# Option letters skip d, which this file uses for descriptions.
+country_event = {
+	id = dse_norse_religious_events.11
+	title = dse_norse_religious_events.11.t
+	desc = dse_norse_religious_events.11.d
+	picture = CAROLEANS_eventPicture
+	goto = dse_norse_einherjar_muster
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					any_owned_province = { has_province_flag = dse_norse_einherjar_muster_flag }
+				}
+				random_owned_province = {
+					limit = { has_province_flag = dse_norse_einherjar_muster_flag }
+					save_event_target_as = dse_norse_einherjar_muster
+				}
+			}
+			else = {
+				capital_scope = { save_event_target_as = dse_norse_einherjar_muster }
+			}
+			every_owned_province = {
+				limit = { has_province_flag = dse_norse_einherjar_muster_flag }
+				clr_province_flag = dse_norse_einherjar_muster_flag
+			}
+		}
+	}
+
+	option = {		# Raise a rune stone on the muster field
+		name = dse_norse_religious_events.11.a
+		ai_chance = { factor = 2 }
+		event_target:dse_norse_einherjar_muster = {
+			add_province_modifier = {
+				name = dse_norse_einherjar_rune_stone_modifier
+				duration = -1
+			}
+		}
+	}
+	option = {		# Feast them as heroes
+		name = dse_norse_religious_events.11.b
+		ai_chance = { factor = 1 }
+		add_army_tradition = 10
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+	option = {		# Odin
+		name = dse_norse_religious_events.11.c
+		trigger = { has_personal_deity = odin }
+		highlight = yes
+		ai_chance = { factor = 3 }
+		add_country_modifier = {
+			name = dse_norse_einherjar_odin_modifier
+			duration = -1
+		}
+	}
+	option = {		# Tor
+		name = dse_norse_religious_events.11.e
+		trigger = { has_personal_deity = tor }
+		highlight = yes
+		ai_chance = { factor = 3 }
+		add_country_modifier = {
+			name = dse_norse_einherjar_tor_modifier
+			duration = -1
+		}
+	}
+	option = {		# Tyr
+		name = dse_norse_religious_events.11.f
+		trigger = { has_personal_deity = tyr }
+		highlight = yes
+		ai_chance = { factor = 3 }
+		add_country_modifier = {
+			name = dse_norse_einherjar_tyr_modifier
+			duration = -1
+		}
+	}
+}

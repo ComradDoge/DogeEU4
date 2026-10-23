@@ -35,6 +35,7 @@ Generally, a focus on small countries that never had content. Small/medium sized
 - Occitania: new extensive mission tree, events, and a government Paratge mechanic on formation.
 - Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa.
 - Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
+- Norse faith Scandinavians get the Leidang military reform, which unlocks Caroleans without the Swedish missions.
 - Burgundy: added the Europa Expanded mission tree as an option. Made primarily for the Vanilla bookmark, but Shattered should be viable after the start.
 - Toledo: new mission tree and events. Toledo forms Spain through its last mission instead of the decision, without the administrative technology requirement and with an extra permanent bonus.
 - Sudetenland: added a small mission tree, ending in a choice to form Bohemia or remain Sudetenland (with a choice of crusader theocracy, noble or peasant republic, or monarchy), both with new name options.
@@ -42,9 +43,9 @@ Generally, a focus on small countries that never had content. Small/medium sized
 - Polish duchies (Wielkopolska, Mazovia, Kujawy, Malopolska, Krakow): a shared mission tree with its own column for each duchy. On the shattered start, forming Poland requires the Seniorate related to the missions.
 - Fantasy Content: new "Shake the World" option. Lands get another culture and religion at the start, region based or true random. Likely to break or certain reforms/missions/formable requirements very difficult to meet. This is a meme.
 
-
 Fixes/Tweaks
 
+- Norse and Geats culture provinces can now recruit Caroleans.
 - Fixed Evenk Siberian colonization event firing with no empty province left.
 - Massive error.log cleanup of events and decisions that kept spamming the log.
 - Rum AI no longer gets stuck previewing its Roman/Seljuk/Caliphate mission branch forever.
