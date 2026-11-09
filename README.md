@@ -33,6 +33,7 @@ Generally, a focus on small countries that never had content. Small/medium sized
 - Galicia and Volhynia: a shared mission tree with a column for each to be more flavourful.
 - Farafra/Kemet: new mission trees, small/medium focused on egypt and some surrounding area.
 - Occitania: new extensive mission tree, events, and a government Paratge mechanic on formation.
+- Mazovia (Vanilla bookmark): small mission tree as the Crown's vassal with a neat unique mechanic.
 - Andalusi taifas (Sevilla, Algeciras, Alentejo): a shared mission tree with two columns for each taifa.
 - Cumania: new mission tree integrated with the starting event. Go horse or become settled+religion pick.
 - Norse faith Scandinavians get the Leidang military reform, which unlocks Caroleans without the Swedish missions.
@@ -62,6 +63,7 @@ Fixes/Tweaks
 - Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, oopsie.
 - Fixed the Egyptian temple funding event and the entrepreneur Muslim school option not adding their development.
 - Fixed the Dream of Ruggero mission never unlocking, since it needed both the Naples and the Sicily union mission.
+- Fixed the Danish minors (Jutland, Zealand, Skåne) mission tree showing no mission names or descriptions.
 - Inca roads, Ardabil and other EE missions now show their hidden area base development requirement in the tooltip.
 - Teutonic Holy Horde capital modifier now also works with any other religion's idea group, not just vanilla Religious Ideas.
 - AI is now more likely to complete missions asking for a fort or a building in one specific province by developing that province instead.

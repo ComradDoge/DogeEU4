@@ -22,13 +22,36 @@ country_event = {
 			NOT = { has_country_flag = maz_preview_candidacy }
 		}
 		custom_tooltip = maz_crown_fealty_tt
+		custom_tooltip = maz_crown_no_annex_tt
 		hidden_effect = {
 			set_country_flag = maz_crown_fealty
 			clr_country_flag = maz_preview_fealty
+			change_variable = { # creates the blood counter at 0 so its tooltips have a value (an unset variable logs "Unknown text property")
+				which = maz_crown_blood
+				value = 0
+			}
 			swap_non_generic_missions = yes
 		}
+		# Humans only (like the annexation block): the AI stays an ordinary vassal that leaves the fighting to Poland
+		if = {
+			limit = {
+				ai = no
+				is_subject_of = POL
+			}
+			custom_tooltip = maz_sworn_duchy_tt
+			hidden_effect = {
+				POL = {
+					create_subject = {
+						subject_type = maz_sworn_duchy
+						subject = ROOT
+						keep_liberty_desire = yes
+						message = no
+					}
+				}
+			}
+		}
 		add_legitimacy_or_mil_power = { amount = 10 republican_tradition = 5 }
-		add_liberty_desire = -10
+		add_liberty_desire = -25
 		ai_chance = {
 			factor = 60
 			modifier = {
@@ -71,45 +94,155 @@ country_event = {
 	}
 }
 
-# Fiefs of the Crown (maz_fiefs_of_the_crown): the Crown rewards the war service of its vassal
+# Blood for the Crown, battle settlement (maz_add_crown_blood_effect schedules it the day after a battle):
+# our share of the side's losses = pending x our regiments / allied regiments in the battle province (maz_crown_blood_battle_share_effect)
 country_event = {
-	id = maz_events.2
-	title = maz_events.2.t
-	desc = maz_events.2.d
-	picture = COURT_eventPicture
-	goto = capital
+	id = maz_events.98
+	title = maz_events.98.t
+	desc = maz_events.98.d
+	picture = BATTLE_eventPicture
+	hidden = yes
 
 	is_triggered_only = yes
 
-	option = { # The land of Leczyca
-		name = maz_events.2.a
-		trigger = {
-			is_subject_of = POL
-			POL = { ai = yes }
-			1939 = { owned_by = POL }
+	immediate = {
+		log = "MAZ crown blood: side lost [Root.maz_pending_blood.GetValue], our regiments [Root.maz_battle_own.GetValue] of [Root.maz_battle_side.GetValue] on our side"
+		# Blood only counts from battles with at least 4 Mazovian regiments (no blood from token stacks)
+		if = {
+			limit = {
+				check_variable = {
+					which = maz_battle_own
+					value = 4
+				}
+			}
+			multiply_variable = {
+				which = maz_pending_blood
+				which = maz_battle_own
+			}
+			divide_variable = {
+				which = maz_pending_blood
+				which = maz_battle_side
+			}
 		}
-		1939 = {
-			cede_province = ROOT
-			add_core = ROOT
+		else = {
+			set_variable = {
+				which = maz_pending_blood
+				value = 0
+			}
 		}
-		ai_chance = { factor = 50 }
+		change_variable = {
+			which = maz_crown_blood
+			which = maz_pending_blood
+		}
+		log = "MAZ crown blood: [Root.GetName] adds [Root.maz_pending_blood.GetValue], total now [Root.maz_crown_blood.GetValue]"
+		set_variable = {
+			which = maz_pending_blood
+			value = 0
+		}
+		set_variable = {
+			which = maz_battle_own
+			value = 0
+		}
+		set_variable = {
+			which = maz_battle_side
+			value = 0
+		}
+		clr_country_flag = maz_blood_settling
+		if = {
+			limit = { has_country_flag = maz_fiefs_unlocked }
+			maz_fief_prices_refresh_effect = yes
+		}
 	}
-	option = { # The land of Dobrzyn
-		name = maz_events.2.b
-		trigger = {
-			is_subject_of = POL
-			POL = { ai = yes }
-			4524 = { owned_by = POL }
-		}
-		4524 = {
-			cede_province = ROOT
-			add_core = ROOT
-		}
-		ai_chance = { factor = 40 }
+
+	option = {
+		name = maz_events.98.a
 	}
-	option = { # A purse from the treasury
-		name = maz_events.2.c
-		add_years_of_income = 1
-		ai_chance = { factor = 10 }
+}
+
+# DEV: blood for the Crown (Fiefs of the Crown testing). Console: event maz_events.99
+# Every option except the last one re-opens the event, so the total can be adjusted in steps
+country_event = {
+	id = maz_events.99
+	title = maz_events.99.t
+	desc = maz_events.99.d
+	picture = COURT_eventPicture
+
+	is_triggered_only = yes
+
+	# Probe: does army_size count men (drops after a battle, with decimals) or only regiments? If men, a before/after
+	# snapshot can measure Mazovia's own losses exactly
+	immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = maz_dev_army_size
+				value = trigger_value:army_size
+			}
+		}
+	}
+
+	option = { # +1000
+		name = maz_events.99.a
+		change_variable = {
+			which = maz_crown_blood
+			value = 1000
+		}
+		maz_dev_blood_after_change_effect = yes
+	}
+	option = { # +10000
+		name = maz_events.99.b
+		change_variable = {
+			which = maz_crown_blood
+			value = 10000
+		}
+		maz_dev_blood_after_change_effect = yes
+	}
+	option = { # -1000, not below 0
+		name = maz_events.99.c
+		if = {
+			limit = {
+				check_variable = {
+					which = maz_crown_blood
+					value = 1000
+				}
+			}
+			subtract_variable = {
+				which = maz_crown_blood
+				value = 1000
+			}
+		}
+		else = {
+			set_variable = {
+				which = maz_crown_blood
+				value = 0
+			}
+		}
+		maz_dev_blood_after_change_effect = yes
+	}
+	option = { # reset to 0
+		name = maz_events.99.g
+		set_variable = {
+			which = maz_crown_blood
+			value = 0
+		}
+		maz_dev_blood_after_change_effect = yes
+	}
+	option = { # Fealty (drops Candidacy and the preview, swaps the slot 2 series) + fiefs unlocked, 5-year wait cleared
+		name = maz_events.99.e
+		clr_country_flag = maz_crown_candidacy
+		clr_country_flag = maz_preview_fealty
+		clr_country_flag = maz_preview_candidacy
+		set_country_flag = maz_crown_fealty
+		swap_non_generic_missions = yes
+		change_variable = { # creates the blood counter at 0 so its tooltips have a value (an unset variable logs "Unknown text property")
+			which = maz_crown_blood
+			value = 0
+		}
+		clr_country_flag = maz_fealty_broken
+		set_country_flag = maz_fiefs_unlocked
+		clr_country_flag = maz_fief_cooldown
+		maz_dev_blood_after_change_effect = yes
+	}
+	option = { # done
+		name = maz_events.99.f
 	}
 }

@@ -13,3 +13,1011 @@ maz_masurian_settlers_effect = {
 		duration = -1
 	}
 }
+
+#### Fiefs of the Crown: blood spilled for the Crown buys fiefs (maz_fiefs_of_the_crown unlocks them with maz_fiefs_unlocked).
+#### Humans claim with the province buttons in common/custom_gui/DST_Mazovia_fiefs_gui.txt; the AI claims in maz_fief_monthly_effect.
+#### Claiming a fief spends its price from maz_crown_blood, then the next fief waits 5 years (maz_fief_cooldown) or for a new king.
+
+# Blood counts only Mazovia's own losses. The battle on_actions give the whole side's losses (land_units_killed is ROOT's side,
+# names swapped by the engine), so a battle is settled in three steps:
+# 1. maz_add_crown_blood_effect (country on_actions) adds the side's losses to maz_pending_blood and schedules maz_events.98 for the next day
+# 2. maz_crown_blood_battle_share_effect (on_battle_won_province) counts our regiments and all allied regiments in the battle province
+# 3. maz_events.98 adds pending x our regiments / allied regiments (us included) to maz_crown_blood, only if we had at least 4 regiments there
+# The next-day settlement makes the order of the two on_actions irrelevant.
+# No loc commands (square brackets) in scripted effects, not even in log strings: brackets are the parameter syntax and crash the load
+# with a stack overflow. The logs with values are in maz_events.98
+
+# on_battle_won_country / on_battle_lost_country (common/on_actions/DST_Mazovia_on_actions.txt). ROOT = a country in the battle, FROM = its enemy
+maz_add_crown_blood_effect = {
+	if = {
+		limit = {
+			has_country_flag = maz_crown_fealty
+			NOT = { has_country_flag = maz_fealty_broken }
+			is_subject_of = POL
+			POL = { war_with = FROM }
+		}
+		change_variable = {
+			which = maz_pending_blood
+			which = land_units_killed
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = maz_blood_settling }
+			}
+			set_country_flag = maz_blood_settling
+			country_event = {
+				id = maz_events.98
+				days = 1
+			}
+		}
+	}
+}
+
+# on_battle_won_province, ROOT = the battle province: our regiments and every allied regiment here, added to MAZ's
+# maz_battle_own / maz_battle_side. An ally has regiments here, is not at war with us and is at war with one of our enemies
+# (us included), so neutral armies passing through on military access are left out. Runs for every battle in the world,
+# so the limit comes first
+maz_crown_blood_battle_share_effect = {
+	if = {
+		limit = {
+			MAZ = {
+				has_country_flag = maz_crown_fealty
+				NOT = { has_country_flag = maz_fealty_broken }
+				is_subject_of = POL
+			}
+			num_of_units_in_province = {
+				who = MAZ
+				amount = 1
+			}
+		}
+		save_event_target_as = maz_battle_location
+		set_variable = {
+			which = maz_battle_own
+			value = 0
+		}
+		set_variable = {
+			which = maz_battle_side
+			value = 0
+		}
+		maz_count_regiments_effect = {
+			who = MAZ
+			var = maz_battle_own
+		}
+		every_country = {
+			limit = {
+				event_target:maz_battle_location = {
+					num_of_units_in_province = {
+						who = PREV
+						amount = 1
+					}
+				}
+				NOT = { war_with = MAZ }
+				any_country = {
+					war_with = MAZ
+					war_with = PREV
+				}
+			}
+			event_target:maz_battle_location = {
+				maz_count_regiments_effect = {
+					who = PREV
+					var = maz_battle_side
+				}
+			}
+		}
+		MAZ = {
+			change_variable = {
+				which = maz_battle_own
+				which = PREV
+			}
+			change_variable = {
+				which = maz_battle_side
+				which = PREV
+			}
+		}
+	}
+}
+
+# Province scope: add the regiments of $who$ in this province to the province variable $var$.
+# Exact up to 30, then in steps of 5 up to 100 and of 10 up to 200
+maz_count_regiments_effect = {
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 1
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 2
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 3
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 4
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 5
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 6
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 7
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 8
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 9
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 10
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 11
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 12
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 13
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 14
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 15
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 16
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 17
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 18
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 19
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 20
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 21
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 22
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 23
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 24
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 25
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 26
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 27
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 28
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 29
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 30
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 35
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 40
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 45
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 50
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 55
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 60
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 65
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 70
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 75
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 80
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 85
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 90
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 95
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 100
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 110
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 120
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 130
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 140
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 150
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 160
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 170
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 180
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 190
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			num_of_units_in_province = {
+				who = $who$
+				amount = 200
+			}
+		}
+		change_variable = {
+			which = $var$
+			value = 10
+		}
+	}
+}
+
+# on_monarch_death, ROOT = the country whose ruler died: a new king grants fiefs at once, so the 5-year wait ends
+maz_crown_new_king_effect = {
+	if = {
+		limit = {
+			any_subject_country = {
+				has_country_flag = maz_fief_cooldown
+			}
+		}
+		every_subject_country = {
+			limit = {
+				has_country_flag = maz_fief_cooldown
+			}
+			clr_country_flag = maz_fief_cooldown
+		}
+	}
+}
+
+# on_monthly_pulse, any country: keep Mazovia's fief prices current (development, borders and ownership change), and let an AI
+# Mazovia claim once the wait is over
+maz_fief_monthly_effect = {
+	if = {
+		limit = {
+			has_country_flag = maz_fiefs_unlocked
+		}
+		maz_fief_prices_refresh_effect = yes
+		if = {
+			limit = {
+				ai = yes
+				is_subject_of = POL
+				is_at_war = no
+				NOT = { has_country_flag = maz_fealty_broken }
+				OR = {
+					NOT = { has_country_flag = maz_fief_cooldown }
+					had_country_flag = {
+						flag = maz_fief_cooldown
+						days = 1825
+					}
+				}
+			}
+			maz_fief_ai_claim_effect = yes
+		}
+	}
+}
+
+# Province scope, a fief candidate ($who$ = Mazovia): price it and mark whether our blood covers it.
+# Cost = development x 500, x1.5 mountains, x1.25 hills/highlands/forest/woods/marsh/jungle, x2 if it does not border us,
+# x0.75 while Poland's opinion of us is at least 150, x0.25 if it is our core, else x0.75 if we claim it.
+# Our blood total is copied onto the province for the comparison and the tooltip
+maz_fief_cost_effect = {
+	export_to_variable = {
+		which = maz_fief_cost
+		value = development
+	}
+	multiply_variable = {
+		which = maz_fief_cost
+		value = 500
+	}
+	if = {
+		limit = {
+			has_terrain = mountain
+		}
+		multiply_variable = {
+			which = maz_fief_cost
+			value = 1.5
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_terrain = hills
+				has_terrain = highlands
+				has_terrain = forest
+				has_terrain = woods
+				has_terrain = marsh
+				has_terrain = jungle
+			}
+		}
+		multiply_variable = {
+			which = maz_fief_cost
+			value = 1.25
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				any_neighbor_province = {
+					owned_by = $who$
+				}
+			}
+		}
+		multiply_variable = {
+			which = maz_fief_cost
+			value = 2
+		}
+	}
+	if = {
+		limit = {
+			POL = {
+				has_opinion = {
+					who = $who$
+					value = 150
+				}
+			}
+		}
+		multiply_variable = {
+			which = maz_fief_cost
+			value = 0.75
+		}
+	}
+	if = {
+		limit = {
+			is_core = $who$
+		}
+		multiply_variable = {
+			which = maz_fief_cost
+			value = 0.25
+		}
+	}
+	else_if = {
+		limit = {
+			is_claim = $who$
+		}
+		multiply_variable = {
+			which = maz_fief_cost
+			value = 0.75
+		}
+	}
+	set_variable = {
+		which = maz_crown_blood
+		which = $who$
+	}
+	set_province_flag = maz_fief_priced
+	if = {
+		limit = {
+			check_variable = {
+				which = maz_crown_blood
+				which = maz_fief_cost
+			}
+		}
+		set_province_flag = maz_fief_affordable
+	}
+	else = {
+		clr_province_flag = maz_fief_affordable
+	}
+}
+
+# Country scope (Mazovia): price every fief candidate of Poland and Poland's other subjects
+maz_fief_prices_refresh_effect = {
+	POL = {
+		every_owned_province = {
+			limit = {
+				maz_fief_eligible_trigger = { who = ROOT }
+			}
+			maz_fief_cost_effect = { who = ROOT }
+		}
+		every_subject_country = {
+			limit = {
+				NOT = { tag = ROOT }
+			}
+			every_owned_province = {
+				limit = {
+					maz_fief_eligible_trigger = { who = ROOT }
+				}
+				maz_fief_cost_effect = { who = ROOT }
+			}
+		}
+	}
+}
+
+# Country scope (Mazovia): a fief was granted; start the 5-year wait and re-price the rest with what blood is left
+maz_fief_granted_effect = {
+	clr_country_flag = maz_fief_cooldown
+	set_country_flag = maz_fief_cooldown
+	maz_fief_prices_refresh_effect = yes
+}
+
+# Province scope, a priced fief ($who$ = Mazovia): pay its price (fresh copy of our blood onto the province, subtract the price there,
+# copy the rest back), then cede and core it
+maz_fief_grant_province_effect = {
+	set_variable = {
+		which = maz_crown_blood
+		which = $who$
+	}
+	subtract_variable = {
+		which = maz_crown_blood
+		which = maz_fief_cost
+	}
+	$who$ = {
+		set_variable = {
+			which = maz_crown_blood
+			which = PREV
+		}
+	}
+	cede_province = $who$
+	add_core = $who$
+	$who$ = {
+		maz_fief_granted_effect = yes
+	}
+}
+
+# Country scope (AI Mazovia, at peace), prices fresh from maz_fief_monthly_effect: take a random fief our blood covers, bordering ones
+# first, from an owner at peace (the same rules as the claim button)
+maz_fief_ai_claim_effect = {
+	if = {
+		limit = {
+			any_province = {
+				has_province_flag = maz_fief_affordable
+				maz_fief_eligible_trigger = { who = ROOT }
+				owner = { is_at_war = no }
+				any_neighbor_province = { owned_by = ROOT }
+			}
+		}
+		random_province = {
+			limit = {
+				has_province_flag = maz_fief_affordable
+				maz_fief_eligible_trigger = { who = ROOT }
+				owner = { is_at_war = no }
+				any_neighbor_province = { owned_by = ROOT }
+			}
+			maz_fief_grant_province_effect = { who = ROOT }
+		}
+	}
+	else_if = {
+		limit = {
+			any_province = {
+				has_province_flag = maz_fief_affordable
+				maz_fief_eligible_trigger = { who = ROOT }
+				owner = { is_at_war = no }
+			}
+		}
+		random_province = {
+			limit = {
+				has_province_flag = maz_fief_affordable
+				maz_fief_eligible_trigger = { who = ROOT }
+				owner = { is_at_war = no }
+			}
+			maz_fief_grant_province_effect = { who = ROOT }
+		}
+	}
+}
+
+# DEV (maz_events.99): re-price after the blood total changed and re-open the dev event (the event shows the total)
+maz_dev_blood_after_change_effect = {
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = maz_fiefs_unlocked }
+			maz_fief_prices_refresh_effect = yes
+		}
+		country_event = { id = maz_events.99 }
+	}
+}

@@ -1,0 +1,139 @@
+# Mazovia on the vanilla map: Fiefs of the Crown province buttons (interface/provinceview.gui, pattern: DST_druid_groves_gui.txt)
+# ROOT = the province, FROM = the viewing country. Effects and prices: common/scripted_effects/DST_Mazovia_scripted_effects.txt
+# All three sit in the same spot and never show on the same province
+
+# Claim a province of the Crown or its subjects as a fief, once maz_fiefs_of_the_crown is done. Prices are refreshed monthly
+# and whenever our blood changes (maz_fief_prices_refresh_effect)
+custom_button = {
+	name = maz_fief_claim_gui_name
+	tooltip = maz_fief_claim_gui_tt
+	potential = {
+		FROM = { has_country_flag = maz_fiefs_unlocked }
+		has_province_flag = maz_fief_priced
+		maz_fief_eligible_trigger = { who = FROM }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = maz_fief_still_sworn_tt
+			FROM = {
+				is_subject_of = POL
+				NOT = { has_country_flag = maz_fealty_broken }
+			}
+		}
+		# No claims in wartime: no land taken from under a siege or an occupation
+		custom_trigger_tooltip = {
+			tooltip = maz_fief_we_at_peace_tt
+			FROM = { is_at_war = no }
+		}
+		custom_trigger_tooltip = {
+			tooltip = maz_fief_owner_at_peace_tt
+			owner = { is_at_war = no }
+		}
+		# TESTING: the 5-year wait is off for humans (the AI keeps it in maz_fief_monthly_effect). Restore for release
+		# custom_trigger_tooltip = {
+		# 	tooltip = maz_fief_wait_tt
+		# 	FROM = {
+		# 		OR = {
+		# 			NOT = { has_country_flag = maz_fief_cooldown }
+		# 			had_country_flag = {
+		# 				flag = maz_fief_cooldown
+		# 				days = 1825
+		# 			}
+		# 		}
+		# 	}
+		# }
+		custom_trigger_tooltip = {
+			tooltip = maz_fief_affordable_tt
+			has_province_flag = maz_fief_affordable
+		}
+	}
+	effect = {
+		custom_tooltip = maz_fief_claim_spend_tt
+		tooltip = {
+			cede_province = FROM
+			add_core = FROM
+		}
+		hidden_effect = {
+			maz_fief_grant_province_effect = { who = FROM }
+		}
+	}
+}
+
+# Offer conquered land to the Crown for 250 blood per development: always less than claiming it back costs
+custom_button = {
+	name = maz_fief_offer_gui_name
+	tooltip = maz_fief_offer_gui_tt
+	potential = {
+		owned_by = FROM
+		FROM = {
+			has_country_flag = maz_crown_fealty
+			NOT = { has_country_flag = maz_fealty_broken }
+			is_subject_of = POL
+		}
+		NOT = { is_core = FROM }
+	}
+	trigger = {
+		controlled_by = FROM
+		is_capital = no
+	}
+	effect = {
+		cede_province = POL
+		add_core = POL
+		custom_tooltip = maz_fief_offer_gain_tt
+		# 250 per development, worked out on the province and added to our blood through a same-named province variable
+		hidden_effect = {
+			export_to_variable = {
+				which = maz_crown_blood
+				value = development
+			}
+			multiply_variable = {
+				which = maz_crown_blood
+				value = 250
+			}
+			FROM = {
+				change_variable = {
+					which = maz_crown_blood
+					which = PREV
+				}
+				if = {
+					limit = { has_country_flag = maz_fiefs_unlocked }
+					maz_fief_prices_refresh_effect = yes
+				}
+			}
+		}
+	}
+}
+
+# A province of the Crown or its subjects that can never be claimed, with the reasons (always disabled)
+custom_button = {
+	name = maz_fief_excluded_gui_name
+	tooltip = maz_fief_excluded_gui_tt
+	potential = {
+		FROM = { has_country_flag = maz_fiefs_unlocked }
+		NOT = { owned_by = FROM }
+		owner = {
+			OR = {
+				tag = POL
+				is_subject_of = POL
+			}
+		}
+		NOT = { maz_fief_eligible_trigger = { who = FROM } }
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = maz_fief_not_capital_tt
+			is_capital = no
+		}
+		custom_trigger_tooltip = {
+			tooltip = maz_fief_not_coronation_tt
+			NOT = { province_id = 262 }
+			NOT = { province_id = 4526 }
+		}
+		custom_trigger_tooltip = {
+			tooltip = maz_fief_not_colony_tt
+			is_city = yes
+		}
+	}
+	effect = {
+	}
+}

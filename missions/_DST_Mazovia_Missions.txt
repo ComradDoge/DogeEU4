@@ -59,20 +59,35 @@ maz_v1 = {
 		required_missions = { maz_warszawa_market }
 
 		provinces_to_highlight = {
-			trade_goods = grain
 			OR = {
-				area = mazovia_area
-				area = central_poland_area
-				area = kuyavia_area
+				AND = {
+					trade_goods = grain
+					OR = {
+						area = mazovia_area
+						area = central_poland_area
+						area = kuyavia_area
+					}
+					NOT = { owned_by = ROOT }
+				}
+				AND = {
+					province_id = 4525
+					NOT = { base_production = 8 }
+				}
 			}
-			NOT = { owned_by = ROOT }
 		}
 
+		# Rawa's mills and granaries are the fallback when the Krakow trade is out of reach
 		trigger = {
-			262 = {
-				trade_share = {
-					country = ROOT
-					share = 15
+			OR = {
+				262 = {
+					trade_share = {
+						country = ROOT
+						share = 15
+					}
+				}
+				4525 = {
+					owned_by = ROOT
+					base_production = 8
 				}
 			}
 			num_of_owned_provinces_with = {
@@ -263,26 +278,31 @@ maz_v2_fealty = {
 				AND = {
 					maz_loyal_vassal_trigger = yes
 					custom_trigger_tooltip = {
-						tooltip = maz_poland_trust_60_tt
+						tooltip = maz_poland_opinion_150_tt
 						POL = {
-							trust = {
+							has_opinion = {
 								who = ROOT
-								value = 60
+								value = 150
 							}
 						}
 					}
 				}
 			}
+			if = {
+				limit = { has_estate = estate_nobles }
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 50
+				}
+			}
 		}
 
 		effect = {
-			define_advisor = {
-				type = statesman
-				skill = 2
-				culture = polish
-				religion = ROOT
-				cost_multiplier = 0.5
+			add_country_modifier = {
+				name = maz_sworn_at_piotrkow_modifier
+				duration = -1
 			}
+			custom_tooltip = maz_sworn_at_piotrkow_tt
 			custom_tooltip = " "
 			if = {
 				limit = {
@@ -299,40 +319,27 @@ maz_v2_fealty = {
 	}
 
 	maz_fiefs_of_the_crown = {
-		icon = mission_pol_balance_princely_lands
+		icon = mission_pol_deal_mazovia
 		position = 3
 		required_missions = { maz_oath_at_piotrkow }
 
+		# Blood spilled in the Crown's wars (maz_crown_blood, maz_add_crown_blood_effect) unlocks the fief claims (province buttons)
 		trigger = {
 			not_in_mission_preview_mode = { key = MZV }
 			custom_trigger_tooltip = {
-				tooltip = maz_crown_war_service_tt
-				OR = {
-					has_won_war_against = {
-						who = TEU
-						max_years_since = 20
-					}
-					has_won_war_against = {
-						who = LIT
-						max_years_since = 20
-					}
-					AND = {
-						any_country = {
-							war_with = ROOT
-							war_with = POL
-						}
-						army_size_percentage = 1
-					}
+				tooltip = maz_crown_blood_10000_tt
+				check_variable = {
+					which = maz_crown_blood
+					value = 10000
 				}
 			}
 		}
 
 		effect = {
-			country_event_with_effect_insight = {
-				id = maz_events.2
-				effect = "
-					custom_tooltip = maz_fief_grant_tt
-				"
+			custom_tooltip = maz_fiefs_unlock_tt
+			hidden_effect = {
+				set_country_flag = maz_fiefs_unlocked
+				maz_fief_prices_refresh_effect = yes
 			}
 		}
 	}
@@ -365,6 +372,7 @@ maz_v2_fealty = {
 				name = maz_crown_senators_modifier
 				duration = -1
 			}
+			custom_tooltip = maz_sworn_at_piotrkow_tt
 			custom_tooltip = " "
 			if = {
 				limit = {
@@ -421,13 +429,23 @@ maz_v2_candidacy = {
 			custom_tooltip = " "
 			add_country_modifier = {
 				name = maz_claimants_host_modifier
-				duration = 3650
+				duration = 9125
+			}
+			custom_tooltip = " "
+			custom_tooltip = maz_piotrkow_retinues_tt
+			hidden_effect = {
+				capital_scope = {
+					cavalry = ROOT
+					cavalry = ROOT
+					cavalry = ROOT
+					cavalry = ROOT
+				}
 			}
 		}
 	}
 
 	maz_break_with_krakow = {
-		icon = mission_pol_raise_noble_host
+		icon = mission_plc_golden_liberty
 		position = 3
 		required_missions = { maz_a_mazovian_king }
 
@@ -450,6 +468,11 @@ maz_v2_candidacy = {
 			custom_tooltip = " "
 			give_claims = { area = kuyavia_area }
 			give_claims = { area = wielkopolska_area }
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = maz_claimants_court_modifier
+				duration = 9125
+			}
 		}
 	}
 
@@ -490,6 +513,11 @@ maz_v2_candidacy = {
 					}
 					add_core = ROOT
 				}
+			}
+			custom_tooltip = " "
+			add_country_modifier = {
+				name = maz_crown_to_warszawa_modifier
+				duration = -1
 			}
 			custom_tooltip = " "
 			custom_tooltip = maz_form_poland_tt
@@ -577,7 +605,7 @@ maz_v3 = {
 	}
 
 	maz_villages_of_nobles = {
-		icon = mission_knight
+		icon = mission_pol_raise_noble_host
 		position = 2
 		required_missions = { }
 
@@ -597,7 +625,7 @@ maz_v3 = {
 	}
 
 	maz_mazovian_statutes = {
-		icon = the_law_colleges
+		icon = mission_plc_governance_act
 		position = 3
 		required_missions = { maz_villages_of_nobles }
 
@@ -644,7 +672,7 @@ maz_v3 = {
 	}
 
 	maz_mazovian_banners = {
-		icon = me_mission_crusade_crusader_knight_banner
+		icon = mission_plc_proclaim_polish_hegemony
 		position = 5
 		required_missions = { maz_mazovian_statutes maz_the_orders_border }
 
@@ -803,16 +831,25 @@ maz_v4 = {
 			}
 		}
 
+		# Both outcomes are always shown, whatever we own now
 		effect = {
-			complex_dynamic_effect = {
-				first_custom_tooltip = maz_the_orders_border_dyn_a
-				first_limit = "
-					OR = {
-						owns = 2958
-						owns = 767
+			custom_tooltip = maz_the_orders_border_owned_tt
+			custom_tooltip = " "
+			custom_tooltip = maz_the_orders_border_neither_tt
+			tooltip = {
+				add_country_modifier = {
+					name = maz_border_watch_modifier
+					duration = 9125
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						OR = {
+							owns = 2958
+							owns = 767
+						}
 					}
-				"
-				first_effect = "
 					2958 = {
 						if = {
 							limit = {
@@ -829,18 +866,13 @@ maz_v4 = {
 							maz_masurian_settlers_effect = yes
 						}
 					}
-				"
-				second_custom_tooltip = maz_the_orders_border_dyn_b
-				second_limit = "
-					NOT = { owns = 2958 }
-					NOT = { owns = 767 }
-				"
-				second_effect = "
+				}
+				else = {
 					add_country_modifier = {
 						name = maz_border_watch_modifier
 						duration = 9125
 					}
-				"
+				}
 			}
 		}
 	}
@@ -868,6 +900,8 @@ maz_v5 = {
 				NOT = { owned_by = ROOT }
 				NOT = { is_core = ROOT }
 				NOT = { is_state = yes }
+				NOT = { development = 10 }
+				NOT = { has_tax_building_trigger = yes }
 			}
 		}
 
@@ -886,6 +920,11 @@ maz_v5 = {
 				owns_core_province = 1940
 				1940 = {
 					is_state = yes
+					development = 10
+					if = {
+						limit = { ROOT = { ai = no } }
+						has_tax_building_trigger = yes
+					}
 				}
 			}
 		}
@@ -924,25 +963,28 @@ maz_v5 = {
 				AND = {
 					province_id = 4538
 					NOT = { country_or_non_sovereign_subject_holds = ROOT }
-					NOT = { owned_by = POL }
 				}
 			}
 		}
 
+		# Chelm is the Crown's at the start: a loyal vassal may instead build Belz up (or claim Chelm as a fief, DST_Mazovia_fiefs_gui.txt)
 		trigger = {
 			1940 = {
 				owned_by = ROOT
 				NOT = { local_autonomy = 25 }
 			}
-			4538 = {
-				custom_trigger_tooltip = {
-					tooltip = maz_chelm_held_tt
-					OR = {
-						country_or_non_sovereign_subject_holds = ROOT
-						AND = {
-							owned_by = POL
-							ROOT = { is_subject_of = POL }
-						}
+			OR = {
+				4538 = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = maz_chelm_with_the_crown_tt
+						4538 = { owned_by = POL }
+						maz_loyal_vassal_trigger = yes
+					}
+					1940 = {
+						development = 15
 					}
 				}
 			}

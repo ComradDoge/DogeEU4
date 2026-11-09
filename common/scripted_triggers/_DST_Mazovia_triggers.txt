@@ -27,10 +27,15 @@ maz_candidacy_trigger = {
 	}
 }
 
-# A loyal vassal of the Crown: Poland's subject with little wish to leave
+# A loyal vassal of the Crown: Poland's subject with little wish to leave, that never declared war on it
+# (maz_fealty_broken: declarewar effect in common/diplomatic_actions/00_diplomatic_actions.txt)
 maz_loyal_vassal_trigger = {
 	is_subject_of = POL
 	NOT = { liberty_desire = 25 }
+	custom_trigger_tooltip = {
+		tooltip = maz_kept_the_oath_tt
+		NOT = { has_country_flag = maz_fealty_broken }
+	}
 }
 
 # Form Poland (decisions/PolishNation.txt) while Poland still exists: only after maz_crown_to_warszawa,
@@ -39,4 +44,20 @@ maz_inherits_poland_trigger = {
 	has_country_flag = maz_crown_to_warszawa_flag
 	exists = POL
 	POL = { is_subject_of = ROOT }
+}
+
+# Province scope: a province Mazovia ($who$) may claim as a fief of the Crown. Held by Poland or another of Poland's subjects,
+# not its owner's capital, not Krakow or Gniezno (the coronation towns)
+maz_fief_eligible_trigger = {
+	is_city = yes
+	NOT = { owned_by = $who$ }
+	owner = {
+		OR = {
+			tag = POL
+			is_subject_of = POL
+		}
+	}
+	is_capital = no
+	NOT = { province_id = 262 }
+	NOT = { province_id = 4526 }
 }

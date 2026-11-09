@@ -300,6 +300,16 @@ declarewar = {
 				country_event = { id = ME_Peasant_Republics_Events.1 }
 			}
 		}
+		# Mazovia, vanilla map: declaring war on the overlord breaks the oath of Fealty for good
+		if = {
+			limit = {
+				has_country_flag = maz_crown_fealty
+				FROM = { overlord_of = ROOT }
+			}
+			set_country_flag = maz_fealty_broken
+			remove_country_modifier = maz_sworn_at_piotrkow_modifier
+			remove_country_modifier = maz_crown_senators_modifier
+		}
 	}
 }
 
@@ -584,6 +594,19 @@ annexationaction = {
 	#		}
 	#	}
 	#}
+	condition = { # Mazovia, vanilla map: a human vassal that chose Fealty (maz_events.1) and never declared war on its overlord. An AI Mazovia can still be annexed
+		tooltip = maz_crown_no_annex_condition_tt
+		potential = {
+			FROM = {
+				ai = no
+				has_country_flag = maz_crown_fealty
+				NOT = { has_country_flag = maz_fealty_broken }
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
 	condition = {
 		tooltip = CANNOT_ANNEX
 		potential = {
