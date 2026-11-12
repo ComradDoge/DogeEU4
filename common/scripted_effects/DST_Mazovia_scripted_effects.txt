@@ -16,7 +16,7 @@ maz_masurian_settlers_effect = {
 
 #### Fiefs of the Crown: blood spilled for the Crown buys fiefs (maz_fiefs_of_the_crown unlocks them with maz_fiefs_unlocked).
 #### Humans claim with the province buttons in common/custom_gui/DST_Mazovia_fiefs_gui.txt; the AI claims in maz_fief_monthly_effect.
-#### Claiming a fief spends its price from maz_crown_blood, then the next fief waits 5 years (maz_fief_cooldown) or for a new king.
+#### Claiming a fief spends its price from maz_crown_blood. No wait between fiefs: the price is the only limit (user, 2026-11-12).
 
 # Blood counts only Mazovia's own losses. The battle on_actions give the whole side's losses (land_units_killed is ROOT's side,
 # names swapped by the engine), so a battle is settled in three steps:
@@ -770,25 +770,8 @@ maz_count_regiments_effect = {
 	}
 }
 
-# on_monarch_death, ROOT = the country whose ruler died: a new king grants fiefs at once, so the 5-year wait ends
-maz_crown_new_king_effect = {
-	if = {
-		limit = {
-			any_subject_country = {
-				has_country_flag = maz_fief_cooldown
-			}
-		}
-		every_subject_country = {
-			limit = {
-				has_country_flag = maz_fief_cooldown
-			}
-			clr_country_flag = maz_fief_cooldown
-		}
-	}
-}
-
 # on_monthly_pulse, any country: keep Mazovia's fief prices current (development, borders and ownership change), and let an AI
-# Mazovia claim once the wait is over
+# Mazovia claim a fief its blood pays for
 maz_fief_monthly_effect = {
 	if = {
 		limit = {
@@ -801,13 +784,6 @@ maz_fief_monthly_effect = {
 				is_subject_of = POL
 				is_at_war = no
 				NOT = { has_country_flag = maz_fealty_broken }
-				OR = {
-					NOT = { has_country_flag = maz_fief_cooldown }
-					had_country_flag = {
-						flag = maz_fief_cooldown
-						days = 1825
-					}
-				}
 			}
 			maz_fief_ai_claim_effect = yes
 		}
@@ -939,10 +915,8 @@ maz_fief_prices_refresh_effect = {
 	}
 }
 
-# Country scope (Mazovia): a fief was granted; start the 5-year wait and re-price the rest with what blood is left
+# Country scope (Mazovia): a fief was granted; re-price the rest with what blood is left
 maz_fief_granted_effect = {
-	clr_country_flag = maz_fief_cooldown
-	set_country_flag = maz_fief_cooldown
 	maz_fief_prices_refresh_effect = yes
 }
 
@@ -1008,6 +982,117 @@ maz_fief_ai_claim_effect = {
 			}
 			maz_fief_grant_province_effect = { who = ROOT }
 		}
+	}
+}
+
+#### Forged muster rolls: Mazovia options in events/ArmyProfessionalism.txt (.4 .5 .9 .11) add blood that was never spilled.
+# maz_forged_blood keeps what was forged since the last check, maz_forged_rolls how often (hidden). Each forgery may send
+# the Crown Treasurer's clerk (maz_events.10): 10%, 20% from 3 forged rolls, 35% from 6, one clerk at a time.
+
+# Country scope (Mazovia): $blood$ = blood gained (500, 1000 or 1500, each has a maz_forge_blood_<N>_tt), $rolls$ = forged rolls added
+maz_forge_rolls_effect = {
+	custom_tooltip = maz_forge_blood_$blood$_tt
+	custom_tooltip = maz_forge_risk_tt
+	hidden_effect = {
+		change_variable = {
+			which = maz_crown_blood
+			value = $blood$
+		}
+		change_variable = {
+			which = maz_forged_blood
+			value = $blood$
+		}
+		change_variable = {
+			which = maz_forged_rolls
+			value = $rolls$
+		}
+		if = {
+			limit = { has_country_flag = maz_fiefs_unlocked }
+			maz_fief_prices_refresh_effect = yes
+		}
+		# A clerk that never arrived (the event's trigger failed) does not block the next one
+		if = {
+			limit = {
+				had_country_flag = {
+					flag = maz_clerk_coming
+					days = 730
+				}
+			}
+			clr_country_flag = maz_clerk_coming
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = maz_clerk_coming }
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = maz_forged_rolls
+						value = 6
+					}
+				}
+				random = {
+					chance = 35
+					maz_send_clerk_effect = yes
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = maz_forged_rolls
+						value = 3
+					}
+				}
+				random = {
+					chance = 20
+					maz_send_clerk_effect = yes
+				}
+			}
+			else = {
+				random = {
+					chance = 10
+					maz_send_clerk_effect = yes
+				}
+			}
+		}
+	}
+}
+
+# Country scope (Mazovia): the Crown Treasurer's clerk arrives in 6 to 18 months
+maz_send_clerk_effect = {
+	set_country_flag = maz_clerk_coming
+	country_event = {
+		id = maz_events.10
+		days = 180
+		random = 360
+	}
+}
+
+# Country scope (Mazovia): blood that really was spilled for the Crown, outside a battle (maz_events.12 b). Not forged,
+# so no clerk. $blood$ = 500 (maz_true_blood_500_tt)
+maz_add_true_blood_effect = {
+	custom_tooltip = maz_true_blood_$blood$_tt
+	hidden_effect = {
+		change_variable = {
+			which = maz_crown_blood
+			value = $blood$
+		}
+		if = {
+			limit = { has_country_flag = maz_fiefs_unlocked }
+			maz_fief_prices_refresh_effect = yes
+		}
+	}
+}
+
+# Country scope (Mazovia), after the clerk: the forged count starts over
+maz_forged_rolls_reset_effect = {
+	set_variable = {
+		which = maz_forged_blood
+		value = 0
+	}
+	set_variable = {
+		which = maz_forged_rolls
+		value = 0
 	}
 }
 

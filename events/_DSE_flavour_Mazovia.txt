@@ -94,6 +94,315 @@ country_event = {
 	}
 }
 
+# The Crown Treasurer's clerk checks our muster rolls. Sent by maz_send_clerk_effect after a forged roll
+# (Mazovia options in events/ArmyProfessionalism.txt, common/scripted_effects/DST_Mazovia_scripted_effects.txt)
+country_event = {
+	id = maz_events.10
+	title = maz_events.10.t
+	desc = maz_events.10.d
+	picture = ADVISOR_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		maz_can_forge_rolls_trigger = yes
+		check_variable = {
+			which = maz_forged_rolls
+			value = 1
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = maz_clerk_coming
+		}
+	}
+
+	option = { # Pay him to lose the ledger: the forged count stays, so the next clerk is as likely
+		name = maz_events.10.a
+		add_years_of_income = -0.5
+		custom_tooltip = maz_clerk_bribe_tt
+		ai_chance = {
+			factor = 50
+		}
+	}
+	option = { # Hang a quartermaster: the forged blood is struck off, not below 0
+		name = maz_events.10.b
+		custom_tooltip = maz_clerk_hang_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						which = maz_crown_blood
+						which = maz_forged_blood
+					}
+				}
+				subtract_variable = {
+					which = maz_crown_blood
+					which = maz_forged_blood
+				}
+			}
+			else = {
+				set_variable = {
+					which = maz_crown_blood
+					value = 0
+				}
+			}
+			maz_forged_rolls_reset_effect = yes
+			if = {
+				limit = { has_country_flag = maz_fiefs_unlocked }
+				maz_fief_prices_refresh_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 40
+		}
+	}
+	option = { # Swear to it on our oath: the blood stays, Poland trusts us less
+		name = maz_events.10.c
+		trigger = {
+			POL = {
+				has_opinion = {
+					who = ROOT
+					value = 100
+				}
+			}
+		}
+		POL = {
+			add_opinion = {
+				who = ROOT
+				modifier = maz_false_muster_rolls
+			}
+		}
+		custom_tooltip = maz_clerk_sworn_tt
+		hidden_effect = {
+			maz_forged_rolls_reset_effect = yes
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+#### 5-year pulse events about blood for the Crown (on_five_year_pulse_4 in common/on_actions/DST_Mazovia_on_actions.txt).
+# A sworn Mazovia only, each at most once every 30 years (maz_pulse_event_ready_trigger). Options that pad the blood go through
+# maz_forge_rolls_effect, so they count as forged rolls and may bring the clerk (maz_events.10).
+
+# Widows at Krakow: men entered as fallen are alive at home, and their wives claim the dead men's wages. Needs a forged roll
+country_event = {
+	id = maz_events.11
+	title = maz_events.11.t
+	desc = maz_events.11.d
+	picture = MARCHING_PEASANTS_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		maz_pulse_event_ready_trigger = { flag = maz_widows_at_krakow }
+		check_variable = {
+			which = maz_forged_rolls
+			value = 1
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = maz_widows_at_krakow
+			set_country_flag = maz_widows_at_krakow
+		}
+	}
+
+	option = { # Pay them ourselves: costs money, adds no risk
+		name = maz_events.11.a
+		add_years_of_income = -0.5
+		custom_tooltip = maz_widows_paid_tt
+		ai_chance = {
+			factor = 50
+		}
+	}
+	option = { # Let Krakow pay: more forged blood
+		name = maz_events.11.b
+		maz_forge_rolls_effect = { blood = 500 rolls = 1 }
+		ai_chance = {
+			factor = 20
+		}
+	}
+	option = { # Strike the husbands from the rolls: lose blood, not below 0, the forged count starts over
+		name = maz_events.11.c
+		custom_tooltip = maz_widows_struck_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						which = maz_crown_blood
+						value = 1000
+					}
+				}
+				subtract_variable = {
+					which = maz_crown_blood
+					value = 1000
+				}
+			}
+			else = {
+				set_variable = {
+					which = maz_crown_blood
+					value = 0
+				}
+			}
+			maz_forged_rolls_reset_effect = yes
+			if = {
+				limit = { has_country_flag = maz_fiefs_unlocked }
+				maz_fief_prices_refresh_effect = yes
+			}
+		}
+		ai_chance = {
+			factor = 30
+		}
+	}
+}
+
+# Fallen at Grunwald: the petty nobles claim ancestors who fell in 1410
+country_event = {
+	id = maz_events.12
+	title = maz_events.12.t
+	desc = maz_events.12.d
+	picture = NOBLE_ESTATE_DEMANDS_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		maz_pulse_event_ready_trigger = { flag = maz_fallen_at_grunwald }
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = maz_fallen_at_grunwald
+			set_country_flag = maz_fallen_at_grunwald
+		}
+	}
+
+	option = { # Enter them all: forged blood, the nobles are pleased
+		name = maz_events.12.a
+		maz_forge_rolls_effect = { blood = 1500 rolls = 2 }
+		add_estate_nobles_loyalty_effect = yes
+		ai_chance = {
+			factor = 20
+		}
+	}
+	option = { # Only the parish books: real blood, no clerk, the nobles are offended
+		name = maz_events.12.b
+		maz_add_true_blood_effect = { blood = 500 }
+		reduce_estate_nobles_loyalty_effect = yes
+		ai_chance = {
+			factor = 40
+		}
+	}
+	option = { # Sell letters of service: money, no blood
+		name = maz_events.12.c
+		add_years_of_income = 0.5
+		ai_chance = {
+			factor = 40
+		}
+	}
+}
+
+# Chronicler of Krakow: Jan Dlugosz (canon of Krakow, wrote his Annals from about 1455 until his death in 1480) asks how Mazovia
+# served the Crown. Outside those years an unnamed canon asks
+country_event = {
+	id = maz_events.13
+	title = maz_events.13.t
+	desc = {
+		trigger = {
+			is_year = 1455
+			NOT = { is_year = 1481 }
+		}
+		desc = maz_events.13.d_dlugosz
+	}
+	desc = {
+		trigger = {
+			OR = {
+				NOT = { is_year = 1455 }
+				is_year = 1481
+			}
+		}
+		desc = maz_events.13.d
+	}
+	picture = BIG_BOOK_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		maz_pulse_event_ready_trigger = { flag = maz_chronicler_of_krakow }
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = maz_chronicler_of_krakow
+			set_country_flag = maz_chronicler_of_krakow
+		}
+	}
+
+	option = { # Honest accounts: Poland's opinion
+		name = maz_events.13.a
+		POL = {
+			add_opinion = {
+				who = ROOT
+				modifier = maz_honest_chronicle
+			}
+		}
+		ai_chance = {
+			factor = 70
+		}
+	}
+	option = { # Pay him to write us larger: prestige and forged blood
+		name = maz_events.13.b
+		add_years_of_income = -0.25
+		add_prestige_or_monarch_power = { amount = 15 }
+		maz_forge_rolls_effect = { blood = 1000 rolls = 1 }
+		ai_chance = {
+			factor = 30
+		}
+	}
+}
+
+# Ice on the Vistula: a winter drill on the river ice ends in drowning. Both options lose the men
+country_event = {
+	id = maz_events.14
+	title = maz_events.14.t
+	desc = maz_events.14.d
+	picture = LAND_MILITARY_eventPicture
+
+	is_triggered_only = yes
+
+	trigger = {
+		maz_pulse_event_ready_trigger = { flag = maz_ice_on_the_vistula }
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = maz_ice_on_the_vistula
+			set_country_flag = maz_ice_on_the_vistula
+		}
+	}
+
+	option = { # Report them as fallen for the Crown: forged blood
+		name = maz_events.14.a
+		add_yearly_manpower = -0.25
+		maz_forge_rolls_effect = { blood = 500 rolls = 1 }
+		ai_chance = {
+			factor = 30
+		}
+	}
+	option = { # Bury them with honours and drill on land: army tradition
+		name = maz_events.14.b
+		add_yearly_manpower = -0.25
+		add_army_tradition_or_mil_power = { amount = 10 }
+		ai_chance = {
+			factor = 70
+		}
+	}
+}
+
 # Blood for the Crown, battle settlement (maz_add_crown_blood_effect schedules it the day after a battle):
 # our share of the side's losses = pending x our regiments / allied regiments in the battle province (maz_crown_blood_battle_share_effect)
 country_event = {
@@ -226,7 +535,7 @@ country_event = {
 		}
 		maz_dev_blood_after_change_effect = yes
 	}
-	option = { # Fealty (drops Candidacy and the preview, swaps the slot 2 series) + fiefs unlocked, 5-year wait cleared
+	option = { # Fealty (drops Candidacy and the preview, swaps the slot 2 series) + fiefs unlocked
 		name = maz_events.99.e
 		clr_country_flag = maz_crown_candidacy
 		clr_country_flag = maz_preview_fealty
@@ -239,7 +548,6 @@ country_event = {
 		}
 		clr_country_flag = maz_fealty_broken
 		set_country_flag = maz_fiefs_unlocked
-		clr_country_flag = maz_fief_cooldown
 		maz_dev_blood_after_change_effect = yes
 	}
 	option = { # done

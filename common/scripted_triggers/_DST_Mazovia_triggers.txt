@@ -38,6 +38,27 @@ maz_loyal_vassal_trigger = {
 	}
 }
 
+# A sworn Mazovia that can pad its blood for the Crown with forged muster rolls (maz_forge_rolls_effect).
+# Gates the Mazovia options in events/ArmyProfessionalism.txt (.4 .5 .9 .11) and the clerk, maz_events.10
+maz_can_forge_rolls_trigger = {
+	has_country_flag = maz_crown_fealty
+	NOT = { has_country_flag = maz_fealty_broken }
+	is_subject_of = POL
+}
+
+# The 5-year pulse events about blood for the Crown (maz_events.11 to .14, common/on_actions/DST_Mazovia_on_actions.txt):
+# each fires at most once every 30 years. $flag$ is set again in the event's immediate
+maz_pulse_event_ready_trigger = {
+	maz_can_forge_rolls_trigger = yes
+	OR = {
+		NOT = { has_country_flag = $flag$ }
+		had_country_flag = {
+			flag = $flag$
+			days = 10950
+		}
+	}
+}
+
 # Form Poland (decisions/PolishNation.txt) while Poland still exists: only after maz_crown_to_warszawa,
 # with Poland as our subject. The decision inherits Poland before changing tag.
 maz_inherits_poland_trigger = {
