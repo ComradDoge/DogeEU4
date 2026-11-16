@@ -944,8 +944,48 @@ maz_fief_granted_effect = {
 	maz_fief_prices_refresh_effect = yes
 }
 
+# Province scope, a fief being granted ($who$ = Mazovia), before the cession: homage to the Crown (our overlord). Like royal estates
+# coming back to the king, the Crown takes land share back from its nobles, more for a richer fief (1% under 10 development,
+# 2% from 10, 3% from 20, 4% from 30), and thinks better of us. The claim button shows it through tooltip = { }
+maz_fief_homage_effect = {
+	if = {
+		limit = { development = 30 }
+		$who$ = { overlord = { maz_crown_land_back_effect = { share = -4 } } }
+	}
+	else_if = {
+		limit = { development = 20 }
+		$who$ = { overlord = { maz_crown_land_back_effect = { share = -3 } } }
+	}
+	else_if = {
+		limit = { development = 10 }
+		$who$ = { overlord = { maz_crown_land_back_effect = { share = -2 } } }
+	}
+	else = {
+		$who$ = { overlord = { maz_crown_land_back_effect = { share = -1 } } }
+	}
+	$who$ = {
+		overlord = {
+			add_opinion = {
+				who = PREV
+				modifier = maz_fief_homage
+			}
+		}
+	}
+}
+
+# Country scope (the Crown): land share back from the nobles ($share$ is negative), for maz_fief_homage_effect
+maz_crown_land_back_effect = {
+	if = {
+		limit = { has_estate = estate_nobles }
+		change_estate_land_share = {
+			estate = estate_nobles
+			share = $share$
+		}
+	}
+}
+
 # Province scope, a priced fief ($who$ = Mazovia): pay its price (fresh copy of our blood onto the province, subtract the price there,
-# copy the rest back), then cede and core it
+# copy the rest back), pay homage to the Crown, then cede and core it
 maz_fief_grant_province_effect = {
 	set_variable = {
 		which = maz_crown_blood
@@ -961,6 +1001,7 @@ maz_fief_grant_province_effect = {
 			which = PREV
 		}
 	}
+	maz_fief_homage_effect = { who = $who$ }
 	cede_province = $who$
 	add_core = $who$
 	$who$ = {
