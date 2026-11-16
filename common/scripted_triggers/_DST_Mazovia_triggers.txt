@@ -27,10 +27,122 @@ maz_candidacy_trigger = {
 	}
 }
 
+# The Crown: Poland, or the Commonwealth it becomes. A sworn Mazovia stays a subject when Poland forms PLC
+# (decisions/TheCommonwealth.txt accepts it through maz_crown_settled_trigger), so the Fealty mechanics follow the new tag
+maz_crown_subject_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = maz_crown_subject_tt
+		OR = {
+			is_subject_of = POL
+			is_subject_of = PLC
+		}
+	}
+}
+
+# Province scope: held by the Crown that Mazovia ($who$) serves
+maz_held_by_crown_trigger = {
+	owner = {
+		OR = {
+			tag = POL
+			tag = PLC
+		}
+		$who$ = { is_subject_of = PREV }
+	}
+}
+
+# Mazovia scope: a human Mazovia sworn to $crown$ that never broke the oath. Poland can't annex it (annexationaction in
+# common/diplomatic_actions/00_diplomatic_actions.txt has the same conditions), so Poland's trees and the Commonwealth take it in place of an annexed Mazovia
+maz_sworn_to_trigger = {
+	ai = no
+	has_country_flag = maz_crown_fealty
+	NOT = { has_country_flag = maz_fealty_broken }
+	is_subject_of = $crown$
+}
+
+# The Crown's side ($crown$: ROOT, or POL for Lithuania's Commonwealth decision): Mazovia is gone or is the Crown's sworn duchy.
+# Replaces MAZ = { exists = no } in Poland's missions and decisions/TheCommonwealth.txt, so a sworn player Mazovia never blocks them
+maz_crown_settled_trigger = {
+	OR = {
+		NOT = { exists = MAZ }
+		custom_trigger_tooltip = {
+			tooltip = maz_crown_settled_sworn_tt
+			MAZ = { maz_sworn_to_trigger = { crown = $crown$ } }
+		}
+	}
+}
+
+# Country scope (Poland or the Commonwealth): our sworn Mazovia holds Warszawa, so we will never own it.
+# Poland's Warszawa missions (missions/_ME_Poland_Missions.txt) then look at our capital instead
+maz_crown_warszawa_sworn_trigger = {
+	257 = { owned_by = MAZ }
+	MAZ = { maz_sworn_to_trigger = { crown = ROOT } }
+}
+
+# Country scope (Poland or the Commonwealth): Warszawa is our core, or our sworn Mazovia holds it
+maz_crown_holds_warszawa_trigger = {
+	OR = {
+		owns_core_province = 257
+		custom_trigger_tooltip = {
+			tooltip = maz_crown_warszawa_sworn_tt
+			maz_crown_warszawa_sworn_trigger = yes
+		}
+	}
+}
+
+# Fiefs: a sworn Mazovia can be given almost any Crown province (maz_fief_eligible_trigger) and can't be annexed back.
+# Where a Polish or Lithuanian mission or the Commonwealth needs a province built up or developed, these accept it in our sworn Mazovia's hands.
+# The Mazovian branch only shows in the tooltip when it applies. Plain land checks use country_or_non_sovereign_subject_holds instead.
+
+# Mazovia scope: a human Mazovia sworn to the Crown (Poland or the Commonwealth) that is $crown$ or $crown$'s overlord.
+# The second case is Lithuania as the Crown's junior partner, whose land Mazovia may take as fiefs
+maz_sworn_for_trigger = {
+	ai = no
+	has_country_flag = maz_crown_fealty
+	NOT = { has_country_flag = maz_fealty_broken }
+	overlord = {
+		OR = {
+			tag = POL
+			tag = PLC
+		}
+		OR = {
+			tag = $crown$
+			$crown$ = { is_subject_of = PREV }
+		}
+	}
+}
+
+# Province scope: owned by $crown$, or by the sworn Mazovia of $crown$ or of its overlord (maz_sworn_for_trigger)
+maz_owned_or_sworn_trigger = {
+	if = {
+		limit = {
+			owned_by = MAZ
+			MAZ = { maz_sworn_for_trigger = { crown = $crown$ } }
+		}
+		owned_by = MAZ
+	}
+	else = {
+		owned_by = $crown$
+	}
+}
+
+# Country scope ($crown$: ROOT, or POL for Lithuania's Commonwealth decision): owns_core_province = $province$, or a sworn Mazovia as above holds it
+maz_owns_core_or_sworn_trigger = {
+	if = {
+		limit = {
+			$province$ = { owned_by = MAZ }
+			MAZ = { maz_sworn_for_trigger = { crown = $crown$ } }
+		}
+		$province$ = { owned_by = MAZ }
+	}
+	else = {
+		owns_core_province = $province$
+	}
+}
+
 # A loyal vassal of the Crown: Poland's subject with little wish to leave, that never declared war on it
 # (maz_fealty_broken: declarewar effect in common/diplomatic_actions/00_diplomatic_actions.txt)
 maz_loyal_vassal_trigger = {
-	is_subject_of = POL
+	maz_crown_subject_trigger = yes
 	NOT = { liberty_desire = 25 }
 	custom_trigger_tooltip = {
 		tooltip = maz_kept_the_oath_tt
@@ -43,7 +155,7 @@ maz_loyal_vassal_trigger = {
 maz_can_forge_rolls_trigger = {
 	has_country_flag = maz_crown_fealty
 	NOT = { has_country_flag = maz_fealty_broken }
-	is_subject_of = POL
+	maz_crown_subject_trigger = yes
 }
 
 # The 5-year pulse events about blood for the Crown (maz_events.11 to .14, common/on_actions/DST_Mazovia_on_actions.txt):
@@ -68,7 +180,7 @@ maz_inherits_poland_trigger = {
 }
 
 # Province scope: a province Mazovia ($who$) may claim as a fief of the Crown. Held by Poland or another of Poland's subjects,
-# not its owner's capital, not Krakow or Gniezno (the coronation towns)
+# not in the area of its owner's capital, not Krakow or Gniezno (the coronation towns)
 maz_fief_eligible_trigger = {
 	is_city = yes
 	NOT = { owned_by = $who$ }
@@ -76,9 +188,11 @@ maz_fief_eligible_trigger = {
 		OR = {
 			tag = POL
 			is_subject_of = POL
+			tag = PLC
+			is_subject_of = PLC
 		}
 	}
-	is_capital = no
+	is_in_capital_area = no
 	NOT = { province_id = 262 }
 	NOT = { province_id = 4526 }
 }

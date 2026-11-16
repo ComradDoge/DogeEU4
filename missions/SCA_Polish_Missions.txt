@@ -3372,24 +3372,59 @@ poland_sca_slot_4_b = {
 			}
 		}
 		trigger = {
-			mazovia_area = { 
-				type = all 
-				owned_by = ROOT 
+			if = { # Doge: our sworn Mazovia keeps its land (_DST_Mazovia_triggers.txt), so its provinces count and the capital stands in for Warszawa
+				limit = { maz_crown_warszawa_sworn_trigger = yes }
+				mazovia_area = {
+					type = all
+					OR = {
+						owned_by = ROOT
+						owned_by = MAZ
+					}
+				}
+				1940 = {
+					OR = {
+						owned_by = ROOT
+						owned_by = MAZ
+					}
+				}
+				capital_scope = {
+					num_of_times_improved = 6
+				}
 			}
-			1940 = { owned_by = ROOT }
-			257 = { 
-				is_capital_of = ROOT 
-				num_of_times_improved = 6
+			else = {
+				mazovia_area = {
+					type = all
+					owned_by = ROOT
+				}
+				1940 = { owned_by = ROOT }
+				257 = {
+					is_capital_of = ROOT
+					num_of_times_improved = 6
+				}
 			}
 		}
 		effect = {
-			257 = {
-				add_base_tax = 1 
-				add_base_production = 1 
-				add_base_manpower = 1 
-				add_province_modifier = {
-					name = pol_polish_seat_of_power_modifier
-					duration = 5475 
+			if = {
+				limit = { maz_crown_warszawa_sworn_trigger = yes }
+				capital_scope = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+					add_province_modifier = {
+						name = pol_polish_seat_of_power_modifier
+						duration = 5475
+					}
+				}
+			}
+			else = {
+				257 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+					add_province_modifier = {
+						name = pol_polish_seat_of_power_modifier
+						duration = 5475
+					}
 				}
 			}
 		}

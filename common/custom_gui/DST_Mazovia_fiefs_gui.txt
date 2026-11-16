@@ -16,7 +16,7 @@ custom_button = {
 		custom_trigger_tooltip = {
 			tooltip = maz_fief_still_sworn_tt
 			FROM = {
-				is_subject_of = POL
+				maz_crown_subject_trigger = yes
 				NOT = { has_country_flag = maz_fealty_broken }
 			}
 		}
@@ -55,7 +55,7 @@ custom_button = {
 		FROM = {
 			has_country_flag = maz_crown_fealty
 			NOT = { has_country_flag = maz_fealty_broken }
-			is_subject_of = POL
+			maz_crown_subject_trigger = yes
 		}
 		NOT = { is_core = FROM }
 	}
@@ -64,8 +64,17 @@ custom_button = {
 		is_capital = no
 	}
 	effect = {
-		cede_province = POL
-		add_core = POL
+		if = { # the Crown: Poland, or the Commonwealth it became
+			limit = {
+				FROM = { is_subject_of = PLC }
+			}
+			cede_province = PLC
+			add_core = PLC
+		}
+		else = {
+			cede_province = POL
+			add_core = POL
+		}
 		custom_tooltip = maz_fief_offer_gain_tt
 		# 250 per development, worked out on the province and added to our blood through a same-named province variable
 		hidden_effect = {
@@ -102,6 +111,8 @@ custom_button = {
 			OR = {
 				tag = POL
 				is_subject_of = POL
+				tag = PLC
+				is_subject_of = PLC
 			}
 		}
 		NOT = { maz_fief_eligible_trigger = { who = FROM } }
@@ -109,7 +120,7 @@ custom_button = {
 	trigger = {
 		custom_trigger_tooltip = {
 			tooltip = maz_fief_not_capital_tt
-			is_capital = no
+			is_in_capital_area = no
 		}
 		custom_trigger_tooltip = {
 			tooltip = maz_fief_not_coronation_tt

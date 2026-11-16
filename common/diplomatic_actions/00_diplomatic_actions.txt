@@ -566,6 +566,7 @@ annexationaction = {
 					is_subject_of_type = core_eyalet
 					is_subject_of_type = appanage
 					vassal_of = ROOT
+					is_subject_of_type = maz_sworn_duchy # Mazovia's Fealty subject type (copied from vassal) doesn't count as vassal_of
 				}
 			}
 		}
@@ -594,13 +595,18 @@ annexationaction = {
 	#		}
 	#	}
 	#}
-	condition = { # Mazovia, vanilla map: a human vassal that chose Fealty (maz_events.1) and never declared war on its overlord. An AI Mazovia can still be annexed
+	condition = { # Mazovia, vanilla map: a human vassal that chose Fealty (maz_events.1) and never declared war on its overlord. An AI Mazovia can still be annexed,
+		# and so can one that passed to an overlord other than the Crown (e.g. Lithuania inheriting Poland), which would otherwise block that overlord's trees for good
 		tooltip = maz_crown_no_annex_condition_tt
 		potential = {
 			FROM = {
 				ai = no
 				has_country_flag = maz_crown_fealty
 				NOT = { has_country_flag = maz_fealty_broken }
+				OR = { # the Crown: Poland, or the Commonwealth it became
+					is_subject_of = POL
+					is_subject_of = PLC
+				}
 			}
 		}
 		allow = {

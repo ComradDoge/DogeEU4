@@ -33,8 +33,8 @@ maz_add_crown_blood_effect = {
 		limit = {
 			has_country_flag = maz_crown_fealty
 			NOT = { has_country_flag = maz_fealty_broken }
-			is_subject_of = POL
-			POL = { war_with = FROM }
+			maz_crown_subject_trigger = yes
+			overlord = { war_with = FROM }
 		}
 		change_variable = {
 			which = maz_pending_blood
@@ -63,7 +63,7 @@ maz_crown_blood_battle_share_effect = {
 			MAZ = {
 				has_country_flag = maz_crown_fealty
 				NOT = { has_country_flag = maz_fealty_broken }
-				is_subject_of = POL
+				maz_crown_subject_trigger = yes
 			}
 			num_of_units_in_province = {
 				who = MAZ
@@ -771,7 +771,7 @@ maz_count_regiments_effect = {
 }
 
 # on_monthly_pulse, any country: keep Mazovia's fief prices current (development, borders and ownership change), and let an AI
-# Mazovia claim a fief its blood pays for
+# Mazovia claim a fief its blood pays for, at most one every 2 years (maz_fief_ai_cooldown, set in maz_fief_ai_claim_effect)
 maz_fief_monthly_effect = {
 	if = {
 		limit = {
@@ -780,10 +780,20 @@ maz_fief_monthly_effect = {
 		maz_fief_prices_refresh_effect = yes
 		if = {
 			limit = {
+				had_country_flag = {
+					flag = maz_fief_ai_cooldown
+					days = 730
+				}
+			}
+			clr_country_flag = maz_fief_ai_cooldown
+		}
+		if = {
+			limit = {
 				ai = yes
-				is_subject_of = POL
+				maz_crown_subject_trigger = yes
 				is_at_war = no
 				NOT = { has_country_flag = maz_fealty_broken }
+				NOT = { has_country_flag = maz_fief_ai_cooldown }
 			}
 			maz_fief_ai_claim_effect = yes
 		}
@@ -843,10 +853,18 @@ maz_fief_cost_effect = {
 	}
 	if = {
 		limit = {
-			POL = {
-				has_opinion = {
-					who = $who$
-					value = 150
+			OR = {
+				POL = {
+					has_opinion = {
+						who = $who$
+						value = 150
+					}
+				}
+				PLC = {
+					has_opinion = {
+						who = $who$
+						value = 150
+					}
 				}
 			}
 		}
@@ -892,9 +910,15 @@ maz_fief_cost_effect = {
 	}
 }
 
-# Country scope (Mazovia): price every fief candidate of Poland and Poland's other subjects
+# Country scope (Mazovia): price every fief candidate of the Crown (Poland, or the Commonwealth it becomes) and its other subjects
 maz_fief_prices_refresh_effect = {
-	POL = {
+	every_country = {
+		limit = {
+			OR = {
+				tag = POL
+				tag = PLC
+			}
+		}
 		every_owned_province = {
 			limit = {
 				maz_fief_eligible_trigger = { who = ROOT }
@@ -965,6 +989,7 @@ maz_fief_ai_claim_effect = {
 			}
 			maz_fief_grant_province_effect = { who = ROOT }
 		}
+		set_country_flag = maz_fief_ai_cooldown
 	}
 	else_if = {
 		limit = {
@@ -982,6 +1007,7 @@ maz_fief_ai_claim_effect = {
 			}
 			maz_fief_grant_province_effect = { who = ROOT }
 		}
+		set_country_flag = maz_fief_ai_cooldown
 	}
 }
 

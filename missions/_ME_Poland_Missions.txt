@@ -116,13 +116,13 @@ POL_Missions_1 = {
 		provinces_to_highlight = {
 			province_id = 4538
 			OR = {
-				NOT = { owned_by = ROOT } 
+				NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 				NOT = { num_of_buildings_in_province = 3 }
 			}
 		}
 		trigger = {
 			4538 = {
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 				num_of_buildings_in_province = 3
 			}
 		}
@@ -451,17 +451,37 @@ POL_Missions_1 = {
 				army_tradition = 60
 			}
 			has_mil_advisor_3 = yes
-			257 = {
-				owned_by = ROOT
-				has_forcelimit_building_trigger = yes
-				has_manpower_building_trigger = yes
+			if = { # Doge: our sworn Mazovia keeps Warszawa (_DST_Mazovia_triggers.txt), so the capital stands in for it
+				limit = { maz_crown_warszawa_sworn_trigger = yes }
+				capital_scope = {
+					has_forcelimit_building_trigger = yes
+					has_manpower_building_trigger = yes
+				}
+			}
+			else = {
+				257 = {
+					owned_by = ROOT
+					has_forcelimit_building_trigger = yes
+					has_manpower_building_trigger = yes
+				}
 			}
 		}
 		effect = {
-			257 = {
-				add_province_modifier = {
-					name = POL_corps_of_cadets
-					duration = -1
+			if = {
+				limit = { maz_crown_warszawa_sworn_trigger = yes }
+				capital_scope = {
+					add_province_modifier = {
+						name = POL_corps_of_cadets
+						duration = -1
+					}
+				}
+			}
+			else = {
+				257 = {
+					add_province_modifier = {
+						name = POL_corps_of_cadets
+						duration = -1
+					}
 				}
 			}
 			country_event = { id = ME_Poland_Events.28 }
@@ -607,7 +627,7 @@ POL_Missions_1 = {
 					province_id = 4545
 					OR = {
 						NOT = { has_production_building_trigger = yes }
-						NOT = { owned_by = ROOT }
+						NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 						NOT = { has_manufactory_trigger = yes }
 					}
 				}
@@ -642,7 +662,7 @@ POL_Missions_1 = {
 			}
 			4545 = {
 				has_production_building_trigger = yes
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 				has_manufactory_trigger = yes
 			}
 		}
@@ -788,7 +808,7 @@ POL_Missions_2 = {
 		provinces_to_highlight = {
 			province_id = 281
 			OR = {
-				NOT = { owned_by = ROOT }
+				NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 				AND = {
 					NOT = { base_manpower = 5 }
 					NOT = { has_manpower_building_trigger = yes }
@@ -797,7 +817,7 @@ POL_Missions_2 = {
 		}
 		trigger = {
 			281 = {
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 				OR = {
 					base_manpower = 5
 					has_manpower_building_trigger = yes
@@ -822,7 +842,7 @@ POL_Missions_2 = {
 		provinces_to_highlight = {
 			province_id = 43
 			OR = {
-				NOT = { owned_by = ROOT }
+				NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 				NOT = { province_has_center_of_trade_of_level = 2 }
 				NOT = { has_trade_building_trigger = yes }
 			}
@@ -838,7 +858,7 @@ POL_Missions_2 = {
 				}
 			}
 			43  = {
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 				province_has_center_of_trade_of_level = 2
 				has_trade_building_trigger = yes
 			}
@@ -1042,7 +1062,7 @@ POL_Missions_2 = {
 				}
 				AND = {
 					NOT = { exists = SWE }
-					owns = 1
+					1 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
 				}
 			}
 		}
@@ -1093,18 +1113,39 @@ POL_Missions_2 = {
 			}
 		}
 		trigger = {
-			257 = {
-				owned_by = ROOT
-				development = 40
-				higher_development_than = 295
-				higher_development_than = 266
+			if = { # Doge: our sworn Mazovia keeps Warszawa (_DST_Mazovia_triggers.txt), so the capital stands in for it
+				limit = { maz_crown_warszawa_sworn_trigger = yes }
+				capital_scope = {
+					development = 40
+					higher_development_than = 295
+					higher_development_than = 266
+				}
+			}
+			else = {
+				257 = {
+					owned_by = ROOT
+					development = 40
+					higher_development_than = 295
+					higher_development_than = 266
+				}
 			}
 		}
 		effect = {
-			257 = {
-				add_province_modifier = {
-					name = POL_splendor_of_the_capital
-					duration = 10950
+			if = {
+				limit = { maz_crown_warszawa_sworn_trigger = yes }
+				capital_scope = {
+					add_province_modifier = {
+						name = POL_splendor_of_the_capital
+						duration = 10950
+					}
+				}
+			}
+			else = {
+				257 = {
+					add_province_modifier = {
+						name = POL_splendor_of_the_capital
+						duration = 10950
+					}
 				}
 			}
 		}
@@ -1119,9 +1160,17 @@ POL_Missions_2 = {
 			NOT = { has_building = university }
 		}
 		trigger = {
-			257 = {
-				owned_by = ROOT
-				has_building = university
+			if = { # Doge: our sworn Mazovia keeps Warszawa (_DST_Mazovia_triggers.txt), so the capital stands in for it
+				limit = { maz_crown_warszawa_sworn_trigger = yes }
+				capital_scope = {
+					has_building = university
+				}
+			}
+			else = {
+				257 = {
+					owned_by = ROOT
+					has_building = university
+				}
 			}
 			if = {
 				limit = {
@@ -1157,10 +1206,21 @@ POL_Missions_2 = {
 			}
 		}
 		effect = {
-			257 = {
-				add_province_modifier = {
-					name = POL_zaluski_library
-					duration = -1
+			if = { # Doge: our sworn Mazovia keeps Warszawa (_DST_Mazovia_triggers.txt), so the capital stands in for it
+				limit = { maz_crown_warszawa_sworn_trigger = yes }
+				capital_scope = {
+					add_province_modifier = {
+						name = POL_zaluski_library
+						duration = -1
+					}
+				}
+			}
+			else = {
+				257 = {
+					add_province_modifier = {
+						name = POL_zaluski_library
+						duration = -1
+					}
 				}
 			}
 		}
@@ -1175,7 +1235,7 @@ POL_Missions_2 = {
 				AND = {
 					province_id = 269
 					OR = {
-						NOT = { owned_by = ROOT }
+						NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 						NOT = { num_of_times_improved = 10 }
 					}
 				}
@@ -1187,7 +1247,7 @@ POL_Missions_2 = {
 					NOT = {
 						area_for_scope_province = {
 							num_of_times_improved = 10
-							owned_by = ROOT
+							maz_owned_or_sworn_trigger = { crown = ROOT }
 						}
 					}
 				}
@@ -1195,16 +1255,16 @@ POL_Missions_2 = {
 		}
 		trigger = {
 			269 = {
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 				num_of_times_improved = 5
 			}
 			podolia_volhynia_area = {
 				num_of_times_improved = 10
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 			}
 			sandomierz_area = {
 				num_of_times_improved = 10
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 			}
 		}
 		effect = {
@@ -1597,13 +1657,13 @@ POL_Missions_3_2 = {
 						province_id = 272
 						province_id = 280
 					}
-					NOT = { owned_by = ROOT }
+					NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 				}
 			}
 		}
 		trigger = {
-			owns = 272
-			owns = 280
+			272 = { maz_owned_or_sworn_trigger = { crown = ROOT } } # Doge: or our sworn Mazovia
+			280 = { maz_owned_or_sworn_trigger = { crown = ROOT } } # Doge: or our sworn Mazovia
 			NOT = { exists = LIT }
 		}
 		effect = {
@@ -1672,13 +1732,13 @@ POL_Missions_3_2 = {
 		provinces_to_highlight = {
 			province_id = 272
 			OR = {
-				NOT = { owned_by = ROOT }
+				NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 				NOT = { development = 30 }
 			}
 		}
 		trigger = {
 			272 = {
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 				development = 30
 			}
 			if = {
@@ -2214,6 +2274,10 @@ POL_Missions_4_2 = {
 					}
 					MAZ = { is_subject_of = ROOT }
 				}
+				custom_trigger_tooltip = { # Doge: a sworn player Mazovia can't be annexed (_DST_Mazovia_triggers.txt), rewarded as by opinion
+					tooltip = maz_crown_settled_sworn_tt
+					MAZ = { maz_sworn_to_trigger = { crown = ROOT } }
+				}
 			}
 		}
 		effect = {
@@ -2242,11 +2306,16 @@ POL_Missions_4_2 = {
 			hidden_effect = {
 				if = {
 					limit = {
-						reverse_has_opinion = {
-							who = MAZ
-							value = 190
+						OR = {
+							AND = {
+								reverse_has_opinion = {
+									who = MAZ
+									value = 190
+								}
+								MAZ = { is_subject_of = ROOT }
+							}
+							MAZ = { maz_sworn_to_trigger = { crown = ROOT } }
 						}
-						MAZ = { is_subject_of = ROOT }
 					}
 					if = {
 						limit = {
@@ -2285,11 +2354,22 @@ POL_Missions_4_2 = {
 			}
 		}
 		trigger = {
-			owns = 257
-			NOT = { exists = MAZ }
+			OR = {
+				AND = {
+					owns = 257
+					NOT = { exists = MAZ }
+				}
+				custom_trigger_tooltip = { # Doge: a sworn player Mazovia can't be annexed (_DST_Mazovia_triggers.txt)
+					tooltip = maz_crown_settled_sworn_tt
+					MAZ = { maz_sworn_to_trigger = { crown = ROOT } }
+				}
+			}
 		}
 		effect = {
-			country_event = { id = flavor_pol.3473 }
+			if = {
+				limit = { owns = 257 }
+				country_event = { id = flavor_pol.3473 }
+			}
 			add_country_modifier = {
 				name = "polish_ambition"
 				duration = 5475
@@ -2474,7 +2554,7 @@ POL_Missions_4_2 = {
 			custom_trigger_tooltip = {
 				tooltip = POL_occupied_ankara
 				OR = {
-					owns = 326
+					326 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
 					controls = 326
 					has_global_flag = POL_occupied_ankara_flag
 				}
@@ -2584,14 +2664,14 @@ POL_Missions_4_2 = {
 			province_id = 43
 			OR = {
 				NOT = { province_has_center_of_trade_of_level = 2 }
-				NOT = { owned_by = ROOT }
+				NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 				NOT = { has_trade_building_trigger = yes }
 				NOT = { has_shipyard_building_trigger = yes }
 			}
 		}
 		trigger = {
 			43 = {
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 				if = {
 					limit = {
 						has_dlc = "Dharma"
@@ -3174,7 +3254,7 @@ POL_Missions_5_Jagiellon = {
 				}
 			}
 			else = {
-				owns = 153
+				153 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
 			}
 			if = {
 				limit = {
@@ -3193,7 +3273,7 @@ POL_Missions_5_Jagiellon = {
 				}
 			}
 			else = {
-				owns = 266
+				266 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
 			}
 		}
 		effect = {
@@ -3233,7 +3313,7 @@ POL_Missions_5_Piast = {
 						province_id = 43
 						province_id = 2997
 					}
-					NOT = { owned_by = ROOT }
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
 				}
 				AND = {
 					OR = {
@@ -3245,8 +3325,8 @@ POL_Missions_5_Piast = {
 			}
 		}
 		trigger = {
-			43 = { owned_by = ROOT }
-			2997 = { owned_by = ROOT }
+			43 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
+			2997 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
 				OR = {
 					area = neumark_area
@@ -3397,7 +3477,7 @@ POL_Missions_5_2 = {
 			custom_trigger_tooltip = {
 				tooltip = POL_occupied_moscow
 				OR = {
-					owns = 295
+					295 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
 					controls = 295
 					has_global_flag = POL_occupied_moscow_flag
 				}
@@ -3522,7 +3602,7 @@ POL_Missions_5_2 = {
 							exists = MOS
 							exists = RUS
 						}
-						owns = 295
+						295 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
 					}
 				}
 			}
@@ -3534,7 +3614,7 @@ POL_Missions_5_2 = {
 							exists = MOS
 							exists = RUS
 						}
-						owns = 295
+						295 = { country_or_non_sovereign_subject_holds = ROOT } # Doge: or a subject holds it
 					}
 				}
 			}
@@ -3621,7 +3701,7 @@ POL_Missions_5_2 = {
 					province_id = 280
 					OR = {
 						NOT = { has_tax_building_trigger = yes }
-						NOT = { owned_by = ROOT }
+						NOT = { maz_owned_or_sworn_trigger = { crown = ROOT } }
 					}
 				}
 			}
@@ -3629,7 +3709,7 @@ POL_Missions_5_2 = {
 		}
 		trigger = {
 			280 = {
-				owned_by = ROOT
+				maz_owned_or_sworn_trigger = { crown = ROOT } # Doge: or our sworn Mazovia (_DST_Mazovia_triggers.txt)
 				has_tax_building_trigger = yes
 			}
 			
