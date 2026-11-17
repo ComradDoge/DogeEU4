@@ -94,6 +94,25 @@ country_event = {
 	}
 }
 
+# The Mazovian Election (mission maz_the_mazovian_election): the Sejm elects the Mazovian duke king of the Crown.
+# Everything happens in maz_election_effect (common/scripted_effects/DST_Mazovia_scripted_effects.txt)
+country_event = {
+	id = maz_events.20
+	title = maz_events.20.t
+	desc = maz_events.20.d
+	picture = ELECTION_REPUBLICAN_eventPicture
+	goto = capital
+
+	major = yes
+	is_triggered_only = yes
+
+	option = { # The crown comes to Warszawa
+		name = maz_events.20.a
+		custom_tooltip = maz_election_tt
+		maz_election_effect = yes
+	}
+}
+
 # The Crown Treasurer's clerk checks our muster rolls. Sent by maz_send_clerk_effect after a forged roll
 # (Mazovia options in events/ArmyProfessionalism.txt, common/scripted_effects/DST_Mazovia_scripted_effects.txt)
 country_event = {
@@ -149,10 +168,7 @@ country_event = {
 				}
 			}
 			maz_forged_rolls_reset_effect = yes
-			if = {
-				limit = { has_country_flag = maz_fiefs_unlocked }
-				maz_fief_prices_refresh_effect = yes
-			}
+			country_event = { id = maz_events.97 } # re-price the fiefs (hidden event: not run for tooltips)
 		}
 		ai_chance = {
 			factor = 40
@@ -250,10 +266,7 @@ country_event = {
 				}
 			}
 			maz_forged_rolls_reset_effect = yes
-			if = {
-				limit = { has_country_flag = maz_fiefs_unlocked }
-				maz_fief_prices_refresh_effect = yes
-			}
+			country_event = { id = maz_events.97 } # re-price the fiefs (hidden event: not run for tooltips)
 		}
 		ai_chance = {
 			factor = 30
@@ -403,6 +416,30 @@ country_event = {
 	}
 }
 
+# Re-price the fiefs after a claim or an offer of land. A hidden event, not the effect itself: the province buttons
+# (common/custom_gui/DST_Mazovia_fiefs_gui.txt) are re-evaluated for their tooltips, and a re-pricing inside them ran
+# has_terrain without a province scope on every redraw (384,000 error.log lines in one session, 2026-11-16)
+country_event = {
+	id = maz_events.97
+	title = maz_events.97.t
+	desc = maz_events.97.d
+	picture = COURT_eventPicture
+	hidden = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { has_country_flag = maz_fiefs_unlocked }
+			maz_fief_prices_refresh_effect = { who = ROOT }
+		}
+	}
+
+	option = {
+		name = maz_events.97.a
+	}
+}
+
 # Blood for the Crown, battle settlement (maz_add_crown_blood_effect schedules it the day after a battle):
 # our share of the side's losses = pending x our regiments / allied regiments in the battle province (maz_crown_blood_battle_share_effect)
 country_event = {
@@ -459,7 +496,7 @@ country_event = {
 		clr_country_flag = maz_blood_settling
 		if = {
 			limit = { has_country_flag = maz_fiefs_unlocked }
-			maz_fief_prices_refresh_effect = yes
+			maz_fief_prices_refresh_effect = { who = ROOT }
 		}
 	}
 
@@ -549,6 +586,21 @@ country_event = {
 		clr_country_flag = maz_fealty_broken
 		set_country_flag = maz_fiefs_unlocked
 		maz_dev_blood_after_change_effect = yes
+	}
+	option = { # Coronation test: Fealty, 120000 blood and a fresh coronation window. No Election: no inheritance, no tag change
+		name = maz_events.99.h
+		maz_coronation_reset_effect = yes
+		clr_country_flag = maz_crown_candidacy
+		clr_country_flag = maz_preview_fealty
+		clr_country_flag = maz_preview_candidacy
+		set_country_flag = maz_crown_fealty
+		swap_non_generic_missions = yes
+		clr_country_flag = maz_fealty_broken
+		set_variable = {
+			which = maz_crown_blood
+			value = 120000
+		}
+		maz_coronation_open_effect = yes
 	}
 	option = { # done
 		name = maz_events.99.f

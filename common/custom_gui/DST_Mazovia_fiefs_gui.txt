@@ -8,7 +8,10 @@ custom_button = {
 	name = maz_fief_claim_gui_name
 	tooltip = maz_fief_claim_gui_tt
 	potential = {
-		FROM = { has_country_flag = maz_fiefs_unlocked }
+		FROM = {
+			has_country_flag = maz_fiefs_unlocked
+			NOT = { OR = { tag = POL tag = PLC } } # an elected Mazovia, or one that formed Poland, is the Crown itself
+		}
 		has_province_flag = maz_fief_priced
 		maz_fief_eligible_trigger = { who = FROM }
 	}
@@ -97,7 +100,7 @@ custom_button = {
 				}
 				if = {
 					limit = { has_country_flag = maz_fiefs_unlocked }
-					maz_fief_prices_refresh_effect = yes
+					country_event = { id = maz_events.97 } # re-pricing in a hidden event: not run for this button's tooltip
 				}
 			}
 		}
@@ -109,7 +112,10 @@ custom_button = {
 	name = maz_fief_excluded_gui_name
 	tooltip = maz_fief_excluded_gui_tt
 	potential = {
-		FROM = { has_country_flag = maz_fiefs_unlocked }
+		FROM = {
+			has_country_flag = maz_fiefs_unlocked
+			NOT = { OR = { tag = POL tag = PLC } } # an elected Mazovia, or one that formed Poland, is the Crown itself
+		}
 		NOT = { owned_by = FROM }
 		owner = {
 			OR = {
@@ -124,7 +130,7 @@ custom_button = {
 	trigger = {
 		custom_trigger_tooltip = {
 			tooltip = maz_fief_not_capital_tt
-			is_in_capital_area = no
+			NOT = { maz_in_owner_capital_area_trigger = yes }
 		}
 		custom_trigger_tooltip = {
 			tooltip = maz_fief_not_coronation_tt

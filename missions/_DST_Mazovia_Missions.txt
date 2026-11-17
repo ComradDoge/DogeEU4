@@ -346,7 +346,7 @@ maz_v2_fealty = {
 			custom_tooltip = maz_fiefs_unlock_tt
 			hidden_effect = {
 				set_country_flag = maz_fiefs_unlocked
-				maz_fief_prices_refresh_effect = yes
+				country_event = { id = maz_events.97 } # price the fiefs (hidden event: not run for the reward tooltip)
 			}
 		}
 	}
@@ -366,7 +366,27 @@ maz_v2_fealty = {
 				}
 			}
 			OR = {
-				maz_loyal_vassal_trigger = yes
+				# Still the Crown's sworn vassal, and either content enough (liberty desire below 50, not the usual 25: fiefs grow
+				# Mazovia and its liberty desire with it) or high in the Crown's favour (user, 2026-11-16)
+				AND = {
+					maz_crown_subject_trigger = yes
+					custom_trigger_tooltip = {
+						tooltip = maz_kept_the_oath_tt
+						NOT = { has_country_flag = maz_fealty_broken }
+					}
+					OR = {
+						NOT = { liberty_desire = 50 }
+						custom_trigger_tooltip = {
+							tooltip = maz_senators_opinion_tt
+							overlord = {
+								has_opinion = {
+									who = ROOT
+									value = 190
+								}
+							}
+						}
+					}
+				}
 				AND = { # Poland gone by someone else's hand: an oath-breaker who destroyed it earns nothing here
 					custom_trigger_tooltip = {
 						tooltip = maz_poland_gone_tt
@@ -397,6 +417,26 @@ maz_v2_fealty = {
 						modifier = maz_senators_of_the_crown
 					}
 				}
+			}
+		}
+	}
+
+	# The loyal ending: a Mazovia that has outgrown the Crown is elected its king (maz_events.20, maz_election_effect),
+	# then spends its blood at the coronation (the tier menu, shop maz_coronation)
+	maz_the_mazovian_election = {
+		icon = king_of_poland
+		position = 6
+		required_missions = { maz_senators_of_the_crown }
+
+		trigger = {
+			not_in_mission_preview_mode = { key = MZV }
+			maz_election_ready_trigger = yes
+		}
+
+		effect = {
+			custom_tooltip = maz_election_reward_tt
+			hidden_effect = {
+				country_event = { id = maz_events.20 }
 			}
 		}
 	}

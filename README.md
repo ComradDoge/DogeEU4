@@ -63,7 +63,6 @@ Fixes/Tweaks
 - Excommunication penalties are now removed by the EE Austria/Castile/Burgundy missions that promise it, oopsie.
 - Fixed the Egyptian temple funding event and the entrepreneur Muslim school option not adding their development.
 - Fixed the Dream of Ruggero mission never unlocking, since it needed both the Naples and the Sicily union mission.
-- Fixed the Danish minors (Jutland, Zealand, Skåne) mission tree showing no mission names or descriptions.
 - Inca roads, Ardabil and other EE missions now show their hidden area base development requirement in the tooltip.
 - Teutonic Holy Horde capital modifier now also works with any other religion's idea group, not just vanilla Religious Ideas.
 - AI is now more likely to complete missions asking for a fort or a building in one specific province by developing that province instead.

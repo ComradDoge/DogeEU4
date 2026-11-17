@@ -773,11 +773,20 @@ maz_count_regiments_effect = {
 # on_monthly_pulse, any country: keep Mazovia's fief prices current (development, borders and ownership change), and let an AI
 # Mazovia claim a fief its blood pays for, at most one every 2 years (maz_fief_ai_cooldown, set in maz_fief_ai_claim_effect)
 maz_fief_monthly_effect = {
+	# The Mazovian Election (maz_election_ready_trigger) asks for half the Crown's development. Checked for every sworn
+	# Mazovia, fiefs unlocked or not, so the election tooltip is right from the oath on
+	if = {
+		limit = {
+			maz_can_forge_rolls_trigger = yes
+		}
+		maz_half_the_crown_effect = yes
+	}
 	if = {
 		limit = {
 			has_country_flag = maz_fiefs_unlocked
+			NOT = { has_country_flag = maz_elected_king } # the elected king is the Crown: nothing left to price or claim
 		}
-		maz_fief_prices_refresh_effect = yes
+		maz_fief_prices_refresh_effect = { who = ROOT }
 		if = {
 			limit = {
 				had_country_flag = {
@@ -910,7 +919,9 @@ maz_fief_cost_effect = {
 	}
 }
 
-# Country scope (Mazovia): price every fief candidate of the Crown (Poland, or the Commonwealth it becomes) and its other subjects
+# Any scope: price every fief candidate of the Crown (Poland, or the Commonwealth it becomes) and its other subjects for
+# Mazovia ($who$). Mazovia is passed, not taken from ROOT: from a province button ROOT is the province, and the old
+# ROOT-based refresh then skipped every subject of the Crown and showed them a stale blood total (Hungary, 2026-11-16)
 maz_fief_prices_refresh_effect = {
 	every_country = {
 		limit = {
@@ -921,27 +932,22 @@ maz_fief_prices_refresh_effect = {
 		}
 		every_owned_province = {
 			limit = {
-				maz_fief_eligible_trigger = { who = ROOT }
+				maz_fief_eligible_trigger = { who = $who$ }
 			}
-			maz_fief_cost_effect = { who = ROOT }
+			maz_fief_cost_effect = { who = $who$ }
 		}
 		every_subject_country = {
 			limit = {
-				NOT = { tag = ROOT }
+				NOT = { tag = $who$ }
 			}
 			every_owned_province = {
 				limit = {
-					maz_fief_eligible_trigger = { who = ROOT }
+					maz_fief_eligible_trigger = { who = $who$ }
 				}
-				maz_fief_cost_effect = { who = ROOT }
+				maz_fief_cost_effect = { who = $who$ }
 			}
 		}
 	}
-}
-
-# Country scope (Mazovia): a fief was granted; re-price the rest with what blood is left
-maz_fief_granted_effect = {
-	maz_fief_prices_refresh_effect = yes
 }
 
 # Province scope, a fief being granted ($who$ = Mazovia), before the cession: homage to the Crown (our overlord). Like royal estates
@@ -1004,8 +1010,8 @@ maz_fief_grant_province_effect = {
 	maz_fief_homage_effect = { who = $who$ }
 	cede_province = $who$
 	add_core = $who$
-	$who$ = {
-		maz_fief_granted_effect = yes
+	$who$ = { # re-price the rest with what blood is left, in a hidden event (maz_events.97: not run for button tooltips)
+		country_event = { id = maz_events.97 }
 	}
 }
 
@@ -1073,10 +1079,7 @@ maz_forge_rolls_effect = {
 			which = maz_forged_rolls
 			value = $rolls$
 		}
-		if = {
-			limit = { has_country_flag = maz_fiefs_unlocked }
-			maz_fief_prices_refresh_effect = yes
-		}
+		country_event = { id = maz_events.97 } # re-price the fiefs (hidden event: not run for tooltips)
 		# A clerk that never arrived (the event's trigger failed) does not block the next one
 		if = {
 			limit = {
@@ -1144,10 +1147,7 @@ maz_add_true_blood_effect = {
 			which = maz_crown_blood
 			value = $blood$
 		}
-		if = {
-			limit = { has_country_flag = maz_fiefs_unlocked }
-			maz_fief_prices_refresh_effect = yes
-		}
+		country_event = { id = maz_events.97 } # re-price the fiefs (hidden event: not run for tooltips)
 	}
 }
 
@@ -1166,10 +1166,614 @@ maz_forged_rolls_reset_effect = {
 # DEV (maz_events.99): re-price after the blood total changed and re-open the dev event (the event shows the total)
 maz_dev_blood_after_change_effect = {
 	hidden_effect = {
-		if = {
-			limit = { has_country_flag = maz_fiefs_unlocked }
-			maz_fief_prices_refresh_effect = yes
-		}
+		country_event = { id = maz_events.97 } # re-price the fiefs (hidden event: not run for tooltips)
 		country_event = { id = maz_events.99 }
 	}
+}
+
+#### The coronation: Mazovia's shop in the shared tier menu (common/scripted_effects/DST_tier_menu_effects.txt explains
+#### the state and what a shop supplies), shop maz_coronation. Opened by the Mazovian Election (maz_election_effect) and by the
+#### dev event maz_events.99. One line per group, each in three tiers (2500, 5000, 12500 blood; a tier replaces the one before
+#### and costs the tiers under it too). Choosing is free; Confirm pays and grants.
+#### Modifiers maz_coronation_g<group>_l<line>_t<tier>: common/event_modifiers/DST_Mazovia_modifiers.txt
+
+# Country scope: open the coronation. A human gets the window, the AI chooses and confirms at once
+maz_coronation_open_effect = {
+	dst_tier_menu_open_effect = { shop = maz_coronation }
+}
+
+# Country scope: add the price of line $line$ of group $group$ at tier $tier$ to dst_tier_menu_cost. Every line costs the same:
+# tier I 2500, tier II 7500 (2500 + 5000), tier III 20000 (2500 + 5000 + 12500)
+# All three arguments must appear in the body: the engine refuses a call whose arguments are never used, and the price
+# then stays 0. So the pick is checked (it is always the group's pick when the window recounts) and the tier goes through
+# a variable
+maz_coronation_add_price_effect = {
+	if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group$group$_line
+				value = $line$
+			}
+		}
+		set_variable = {
+			which = maz_coronation_priced_tier
+			value = $tier$
+		}
+		if = {
+			limit = {
+				is_variable_equal = {
+					which = maz_coronation_priced_tier
+					value = 1
+				}
+			}
+			maz_coronation_price_t1_effect = yes
+		}
+		else_if = {
+			limit = {
+				is_variable_equal = {
+					which = maz_coronation_priced_tier
+					value = 2
+				}
+			}
+			maz_coronation_price_t2_effect = yes
+		}
+		else = {
+			maz_coronation_price_t3_effect = yes
+		}
+	}
+}
+
+maz_coronation_price_t1_effect = {
+	change_variable = {
+		which = dst_tier_menu_cost
+		value = 2500
+	}
+}
+
+maz_coronation_price_t2_effect = {
+	change_variable = {
+		which = dst_tier_menu_cost
+		value = 7500
+	}
+}
+
+maz_coronation_price_t3_effect = {
+	change_variable = {
+		which = dst_tier_menu_cost
+		value = 20000
+	}
+}
+
+# Country scope: grant line $line$ of group $group$ at tier $tier$ (Confirm; the tooltip lists it)
+maz_coronation_grant_effect = {
+	add_country_modifier = {
+		name = maz_coronation_g$group$_l$line$_t$tier$
+		duration = -1
+	}
+}
+
+# Country scope: the Confirm button, after the chosen lines are granted. The price (dst_tier_menu_cost) is paid, and blood left
+# over is paid out as 1 ducat per 20 blood, at most 2000 ducats, in chunks (100, 10, 1 ducats) with a counter so each loop
+# ends; then the blood for the Crown is closed
+maz_coronation_finish_effect = {
+	custom_tooltip = maz_coronation_pay_tt
+	custom_tooltip = maz_coronation_finish_tt
+	hidden_effect = {
+		subtract_variable = {
+			which = maz_crown_blood
+			which = dst_tier_menu_cost
+		}
+		set_variable = {
+			which = maz_coronation_paid
+			value = 0
+		}
+		set_variable = {
+			which = maz_coronation_count
+			value = 0
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = maz_crown_blood
+					value = 2000
+				}
+				NOT = {
+					check_variable = {
+						which = maz_coronation_paid
+						value = 2000
+					}
+				}
+				NOT = {
+					check_variable = {
+						which = maz_coronation_count
+						value = 20
+					}
+				}
+			}
+			subtract_variable = {
+				which = maz_crown_blood
+				value = 2000
+			}
+			add_treasury = 100
+			change_variable = {
+				which = maz_coronation_paid
+				value = 100
+			}
+			change_variable = {
+				which = maz_coronation_count
+				value = 1
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = maz_crown_blood
+					value = 200
+				}
+				NOT = {
+					check_variable = {
+						which = maz_coronation_paid
+						value = 2000
+					}
+				}
+				NOT = {
+					check_variable = {
+						which = maz_coronation_count
+						value = 30
+					}
+				}
+			}
+			subtract_variable = {
+				which = maz_crown_blood
+				value = 200
+			}
+			add_treasury = 10
+			change_variable = {
+				which = maz_coronation_paid
+				value = 10
+			}
+			change_variable = {
+				which = maz_coronation_count
+				value = 1
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = maz_crown_blood
+					value = 20
+				}
+				NOT = {
+					check_variable = {
+						which = maz_coronation_paid
+						value = 2000
+					}
+				}
+				NOT = {
+					check_variable = {
+						which = maz_coronation_count
+						value = 40
+					}
+				}
+			}
+			subtract_variable = {
+				which = maz_crown_blood
+				value = 20
+			}
+			add_treasury = 1
+			change_variable = {
+				which = maz_coronation_paid
+				value = 1
+			}
+			change_variable = {
+				which = maz_coronation_count
+				value = 1
+			}
+		}
+		set_variable = {
+			which = maz_crown_blood
+			value = 0
+		}
+		set_variable = {
+			which = maz_pending_blood
+			value = 0
+		}
+		set_variable = {
+			which = maz_forged_blood
+			value = 0
+		}
+		set_variable = {
+			which = maz_forged_rolls
+			value = 0
+		}
+		set_country_flag = maz_crowned
+	}
+}
+
+# Country scope (AI): raise one group a tier, or nothing. One line per group (the Noble Levy, Royal Chancery, Royal Mint,
+# Envoys of the Sejm), tier I in every group before any tier II, the army first. dst_tier_menu_ai_raise_effect takes back a
+# tier the blood cannot cover and marks the group full
+maz_coronation_ai_pick_effect = {
+	if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group1_tier
+				value = 0
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g1
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 1 line = 2 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group2_tier
+				value = 0
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g2
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 2 line = 2 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group3_tier
+				value = 0
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g3
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 3 line = 3 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group4_tier
+				value = 0
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g4
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 4 line = 1 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group1_tier
+				value = 1
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g1
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 1 line = 2 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group2_tier
+				value = 1
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g2
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 2 line = 2 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group3_tier
+				value = 1
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g3
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 3 line = 3 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group4_tier
+				value = 1
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g4
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 4 line = 1 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group1_tier
+				value = 2
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g1
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 1 line = 2 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group2_tier
+				value = 2
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g2
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 2 line = 2 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group3_tier
+				value = 2
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g3
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 3 line = 3 }
+	}
+	else_if = {
+		limit = {
+			is_variable_equal = {
+				which = dst_tier_menu_group4_tier
+				value = 2
+			}
+			NOT = {
+				has_country_flag = dst_tier_menu_ai_full_g4
+			}
+		}
+		dst_tier_menu_ai_raise_effect = { group = 4 line = 1 }
+	}
+}
+
+# Country scope: undo a coronation, bought or half done, so the dev event can run it again
+maz_coronation_reset_effect = {
+	hidden_effect = {
+		remove_country_modifier = maz_coronation_g1_l1_t1
+		remove_country_modifier = maz_coronation_g1_l1_t2
+		remove_country_modifier = maz_coronation_g1_l1_t3
+		remove_country_modifier = maz_coronation_g1_l2_t1
+		remove_country_modifier = maz_coronation_g1_l2_t2
+		remove_country_modifier = maz_coronation_g1_l2_t3
+		remove_country_modifier = maz_coronation_g1_l3_t1
+		remove_country_modifier = maz_coronation_g1_l3_t2
+		remove_country_modifier = maz_coronation_g1_l3_t3
+		remove_country_modifier = maz_coronation_g2_l1_t1
+		remove_country_modifier = maz_coronation_g2_l1_t2
+		remove_country_modifier = maz_coronation_g2_l1_t3
+		remove_country_modifier = maz_coronation_g2_l2_t1
+		remove_country_modifier = maz_coronation_g2_l2_t2
+		remove_country_modifier = maz_coronation_g2_l2_t3
+		remove_country_modifier = maz_coronation_g2_l3_t1
+		remove_country_modifier = maz_coronation_g2_l3_t2
+		remove_country_modifier = maz_coronation_g2_l3_t3
+		remove_country_modifier = maz_coronation_g3_l1_t1
+		remove_country_modifier = maz_coronation_g3_l1_t2
+		remove_country_modifier = maz_coronation_g3_l1_t3
+		remove_country_modifier = maz_coronation_g3_l2_t1
+		remove_country_modifier = maz_coronation_g3_l2_t2
+		remove_country_modifier = maz_coronation_g3_l2_t3
+		remove_country_modifier = maz_coronation_g3_l3_t1
+		remove_country_modifier = maz_coronation_g3_l3_t2
+		remove_country_modifier = maz_coronation_g3_l3_t3
+		remove_country_modifier = maz_coronation_g4_l1_t1
+		remove_country_modifier = maz_coronation_g4_l1_t2
+		remove_country_modifier = maz_coronation_g4_l1_t3
+		remove_country_modifier = maz_coronation_g4_l2_t1
+		remove_country_modifier = maz_coronation_g4_l2_t2
+		remove_country_modifier = maz_coronation_g4_l2_t3
+		remove_country_modifier = maz_coronation_g4_l3_t1
+		remove_country_modifier = maz_coronation_g4_l3_t2
+		remove_country_modifier = maz_coronation_g4_l3_t3
+		clr_country_flag = maz_crowned
+		dst_tier_menu_reset_effect = yes
+	}
+}
+
+#### The Mazovian Election (mission maz_the_mazovian_election, event maz_events.20): a loyal Mazovia that has outgrown the Crown
+#### is elected its king. Poland (or the Commonwealth) is taken in, Lithuania stays in union, and the coronation opens
+
+# Country scope (a sworn Mazovia, monthly): flag maz_half_the_crown while our development is at least half our overlord's.
+# A trigger cannot compare two countries' development, so both totals are exported and compared as variables
+maz_half_the_crown_effect = {
+	export_to_variable = {
+		which = maz_dev_self
+		value = total_development
+	}
+	overlord = {
+		export_to_variable = {
+			which = maz_dev_crown_half
+			value = total_development
+		}
+		multiply_variable = {
+			which = maz_dev_crown_half
+			value = 0.5
+		}
+		PREV = {
+			set_variable = {
+				which = maz_dev_crown_half
+				which = PREV
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = maz_dev_self
+				which = maz_dev_crown_half
+			}
+		}
+		set_country_flag = maz_half_the_crown
+	}
+	else = {
+		clr_country_flag = maz_half_the_crown
+	}
+}
+
+# Country scope (a sworn Mazovia, ROOT): the election itself. In order: note the Crown's other subjects, leave the Crown,
+# take it in, put Lithuania and the other noted subjects back under us, take the Crown's tag, open the coronation.
+# Vanilla only ever takes in a subject, never an overlord, so we are made independent first.
+# Lithuania always stays in union under the elected king, whatever the engine does with the Crown's subjects
+maz_election_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				is_subject_of = PLC
+			}
+			set_country_flag = maz_election_crown_plc
+		}
+		overlord = {
+			every_subject_country = {
+				limit = {
+					NOT = { tag = ROOT }
+				}
+				if = {
+					limit = {
+						is_subject_of_type = personal_union
+					}
+					set_country_flag = maz_election_sub_union
+				}
+				else_if = {
+					limit = {
+						is_subject_of_type = march
+					}
+					set_country_flag = maz_election_sub_march
+				}
+				else_if = {
+					limit = {
+						is_subject_of_type = tributary_state
+					}
+					set_country_flag = maz_election_sub_tributary
+				}
+				else_if = {
+					limit = {
+						is_subject_of_type = vassal
+					}
+					set_country_flag = maz_election_sub_vassal
+				}
+			}
+		}
+		grant_independence = yes
+		if = {
+			limit = {
+				has_country_flag = maz_election_crown_plc
+			}
+			inherit = PLC
+		}
+		else = {
+			inherit = POL
+		}
+		if = {
+			limit = {
+				exists = LIT
+				LIT = {
+					has_country_flag = maz_election_sub_union
+					is_subject = no
+				}
+			}
+			create_union = LIT
+		}
+		every_country = {
+			limit = {
+				has_country_flag = maz_election_sub_union
+				is_subject = no
+				NOT = { tag = LIT }
+			}
+			ROOT = {
+				create_subject = {
+					subject_type = personal_union
+					subject = PREV
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				has_country_flag = maz_election_sub_march
+				is_subject = no
+			}
+			ROOT = {
+				create_subject = {
+					subject_type = march
+					subject = PREV
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				has_country_flag = maz_election_sub_tributary
+				is_subject = no
+			}
+			ROOT = {
+				create_subject = {
+					subject_type = tributary_state
+					subject = PREV
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				has_country_flag = maz_election_sub_vassal
+				is_subject = no
+			}
+			ROOT = {
+				create_subject = {
+					subject_type = vassal
+					subject = PREV
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_country_flag = maz_election_sub_union
+					has_country_flag = maz_election_sub_march
+					has_country_flag = maz_election_sub_tributary
+					has_country_flag = maz_election_sub_vassal
+				}
+			}
+			clr_country_flag = maz_election_sub_union
+			clr_country_flag = maz_election_sub_march
+			clr_country_flag = maz_election_sub_tributary
+			clr_country_flag = maz_election_sub_vassal
+		}
+		if = { # the Crown was the Commonwealth: take its tag, with what any tag change needs
+			limit = {
+				has_country_flag = maz_election_crown_plc
+			}
+			change_tag = PLC
+			on_change_tag_effect = yes
+			if = { # the AI never gets the mission tree choice after startup (as in Form Poland)
+				limit = {
+					ai = yes
+					NOT = { has_country_flag = use_paradox_missions }
+					NOT = { has_country_flag = use_missions_expanded_missions_instead_of_paradox }
+				}
+				set_country_flag = use_paradox_missions
+			}
+			swap_non_generic_missions = yes
+		}
+		else = { # the Crown was Poland: everything Form Poland does (common/scripted_effects/DST_form_poland_effects.txt)
+			change_tag = POL
+			dst_form_poland_effect = yes
+		}
+		clr_country_flag = maz_election_crown_plc
+		clr_country_flag = maz_half_the_crown
+		remove_country_modifier = maz_sworn_at_piotrkow_modifier # a subject's bonus. Senators of the Crown stays
+		set_country_flag = maz_elected_king
+	}
+	maz_coronation_open_effect = yes
 }

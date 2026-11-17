@@ -179,6 +179,16 @@ maz_inherits_poland_trigger = {
 	POL = { is_subject_of = ROOT }
 }
 
+# Province scope: in the same map area as its owner's capital. Not is_in_capital_area, which is the capital's whole
+# landmass (the AI uses it for overseas wars): it made nearly every mainland province of the Crown unclaimable
+# (Sandomierz, user 2026-11-16). Pattern from vanilla buildings (courthouse, area_for_scope_province)
+maz_in_owner_capital_area_trigger = {
+	area_for_scope_province = {
+		is_capital = yes
+		owned_by = PREV
+	}
+}
+
 # Province scope: a province Mazovia ($who$) may claim as a fief of the Crown. Held by Poland or another of Poland's subjects,
 # not in the area of its owner's capital, not Krakow or Gniezno (the coronation towns)
 maz_fief_eligible_trigger = {
@@ -192,7 +202,89 @@ maz_fief_eligible_trigger = {
 			is_subject_of = PLC
 		}
 	}
-	is_in_capital_area = no
+	NOT = { maz_in_owner_capital_area_trigger = yes }
 	NOT = { province_id = 262 }
 	NOT = { province_id = 4526 }
+}
+
+#### The coronation: Mazovia's shop in the shared tier menu (common/scripted_effects/DST_tier_menu_effects.txt),
+#### shop maz_coronation. Effects: common/scripted_effects/DST_Mazovia_scripted_effects.txt
+
+# Country scope: all 4 x 3 lines exist
+maz_coronation_line_exists_trigger = {
+	OR = { # always true. Both arguments must appear in the body: the engine refuses a call whose arguments are never used
+		is_variable_equal = {
+			which = dst_tier_menu_group$group$_line
+			value = $line$
+		}
+		always = yes
+	}
+}
+
+# Country scope: our blood covers the price of everything chosen (dst_tier_menu_cost)
+maz_coronation_can_afford_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = maz_coronation_afford_tt
+		check_variable = {
+			which = maz_crown_blood
+			which = dst_tier_menu_cost
+		}
+	}
+}
+
+# Country scope: too little blood for even one privilege at its first degree (2500, maz_coronation_price_t1_effect),
+# so the coronation may be confirmed with nothing chosen
+maz_coronation_nothing_affordable_trigger = {
+	NOT = {
+		check_variable = {
+			which = maz_crown_blood
+			value = 2500
+		}
+	}
+}
+
+# Country scope: the Mazovian Election (mission maz_the_mazovian_election) can be held. Oath kept and still the Crown's subject
+# (not maz_loyal_vassal_trigger: a Mazovia half the Crown's size has high liberty desire by design), an AI Crown (an AI Mazovia
+# never takes over a player's Poland), the Crown at peace, its opinion of us 150, its succession in doubt, and our development
+# at least half of its own (maz_half_the_crown, set monthly by maz_half_the_crown_effect)
+maz_election_ready_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = maz_election_sworn_tt
+		maz_can_forge_rolls_trigger = yes
+	}
+	if = { # no overlord scope to read once we are free
+		limit = {
+			is_subject = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = maz_election_crown_ai_tt
+			overlord = { ai = yes }
+		}
+		custom_trigger_tooltip = {
+			tooltip = maz_election_crown_peace_tt
+			overlord = { is_at_war = no }
+		}
+		custom_trigger_tooltip = {
+			tooltip = maz_election_opinion_tt
+			overlord = {
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = maz_election_crisis_tt
+			overlord = {
+				OR = {
+					has_regency = yes
+					has_heir = no
+				}
+			}
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = maz_election_half_tt
+		has_country_flag = maz_half_the_crown
+	}
 }
