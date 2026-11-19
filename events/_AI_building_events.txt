@@ -940,14 +940,7 @@ country_event = {
 }
 
 # Resource factories (cannon foundry, metalworking, munitions, steam engine line, spectacles, industrial)
-# The engine AI barely builds them: their only modifier is a building slot, the real benefit is the
-# scripted trade good change, which it does not value. At most one resource factory per firing; every
-# type has its own one-at-a-time lock. Industrial factories have no lock and get several per firing: the
-# engine built them only in one burst right after a country's first steam engine line (stale supply,
-# then nothing again; 1833 save: France 2 with 124 counting houses and 1M ducats).
-# Money: the AI spends as fast as it earns (1829 save: median treasury 362, Russia 423 on 987 a month),
-# so a factory only needs its own cost in the treasury. To leave money for everything else it must cost
-# at most half a year of income (monthly_income = cost / 6) and the country must have no loans.
+
 country_event = {
 	id = ai_building_events.12
 	title = ai_building_events.12.t
@@ -970,7 +963,7 @@ country_event = {
         NOT = { government = native }
         NOT = { num_of_loans = 1 }
         treasury = 600
-        monthly_income = 100
+        monthly_income = 50
         OR = {
             AND = {
                 OR = {
@@ -989,11 +982,11 @@ country_event = {
 
     immediate = {
         # Most valuable first: steam engines feed industrial factories, metalworking helps its neighbours
-        # One resource factory per firing; each needs its cost and at most half a year of income
+        # One resource factory per firing; each needs its cost and at most a year of income
         if = {
             limit = {
                 treasury = 2000
-                monthly_income = 335
+                monthly_income = 170
                 OR = {
                     has_institution = enlightenment
                     has_global_flag = first_steam_engine_manu_already_built
@@ -1005,7 +998,7 @@ country_event = {
         else_if = {
             limit = {
                 treasury = 1000
-                monthly_income = 170
+                monthly_income = 85
                 tge_ai_can_queue_metalworking_workshop = yes
             }
             tge_ai_queue_factory = { BUILDING = metalworking_workshop }
@@ -1013,7 +1006,7 @@ country_event = {
         else_if = {
             limit = {
                 treasury = 600
-                monthly_income = 100
+                monthly_income = 50
                 tge_ai_can_queue_cannon_foundry = yes
             }
             tge_ai_queue_factory = { BUILDING = cannon_foundry }
@@ -1021,7 +1014,7 @@ country_event = {
         else_if = {
             limit = {
                 treasury = 1000
-                monthly_income = 170
+                monthly_income = 85
                 tge_ai_can_queue_munition_factory = yes
             }
             tge_ai_queue_factory = { BUILDING = munition_factory }
@@ -1029,7 +1022,7 @@ country_event = {
         else_if = {
             limit = {
                 treasury = 600
-                monthly_income = 100
+                monthly_income = 50
                 tge_ai_can_queue_spectacle_factory = yes
             }
             tge_ai_queue_factory = { BUILDING = spectacle_factory }
@@ -1039,7 +1032,7 @@ country_event = {
         if = {
             limit = {
                 treasury = 1000
-                monthly_income = 170
+                monthly_income = 85
                 tge_ai_can_queue_steam_factory = yes
             }
             set_variable = { which = tge_ai_steam_factory_left value = 1 }
